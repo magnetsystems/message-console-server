@@ -1,0 +1,316 @@
+<div id="login-container" class="page">
+    <form action="/login" method="post" name="login">
+        <div class="page-view valign">
+
+            <div class="row-fluid">
+                <div class="col50">
+                    <h4>Sign In</h4>
+                    <p class="subheading">
+                        You must Sign In to access the Developer Factory.
+                    </p>
+                    <div class="modal_errors" style="display:none">
+                        <div class="alert alert-error">
+                            <strong></strong> <span></span>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="text" class="span8" name="username" id="username" placeholder="Email Address*">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="password" class="span8" name="password" id="password" placeholder="Password*">
+                        </div>
+                    </div>
+                    <button type="submit" id="btn-login" class="btn btn-primary">Sign in<i class="icon-lock icon-white"></i></button>
+                    <div class="login-footer">
+                        <a href="#" class="preauth-btns" did="start-reset-password">Forgot Password?</a>
+                    </div>
+                </div>
+                <div class="col50 second">
+                    <h4>Don't have an account?</h4>
+                    <p class="subheading">
+                        Request an invitation to start developing now!
+                    </p>
+                    <div class="dev-teaser clearfix">
+                        <div>
+                            <img src="/images/sign_in_img.png" style="width:100%" />
+                        </div>
+                        <ul>
+                            <li>Quickly build apps</li>
+                            <li>iOS&trade; and Android &trade; platforms</li>
+                            <li>Use your own web services</li>
+                            <li>User pre-defined 3rd party web services</li>
+                            <li>Deploy your project to the cloud</li>
+                        </ul>
+                    </div>
+                    <div class="login-footer clearfix">
+                        <a href="http://www.magnet.com/factory/"><button type="button" class="btn btn-primary">Request Invitation</button></a>
+                        <a href="http://www.magnet.com/factory/" class="textlink">More Information >></a>
+                    </div>
+                    <p class="smallnote">
+                        Note: By pressing the "Request Invitation" button above, you will be taken to <a href="http://www.magnet.com">www.magnet.com</a> to request an invitation to the Magnet Developer Factory.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+<div id="invitation-container" class="page" style="display:none">
+    <div class="page-view valign">
+		<h4>Request for Invitation</h4>
+		<p class="subheading">
+			To get invited, fill out the fields below. An administrator will review your application and contact you through email.
+		</p>
+        <div class="form-horizontal">
+          <div class="modal_errors" style="display:none">
+              <div class="alert alert-error">
+                <strong></strong> <span></span>
+              </div>
+          </div>
+          <div class="row-fluid">
+            <div class="span6">
+                <input type="text" class="span12" name="firstName" placeholder="First Name*">
+            </div>
+            <div class="span6">
+                <input type="text" class="span12" name="lastName" placeholder="Last Name*">
+            </div>
+          </div>
+          <div class="row-fluid">
+            <div class="span12">
+                <input type="text" class="span12" name="email" placeholder="Email Address*">
+            </div>
+          </div>
+          <div class="row-fluid">
+            <div class="span12">
+                <input type="text" class="span12" name="companyName" placeholder="Company Name*">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="btn-request-invitation" class="btn btn-primary">Send Request</button>
+            <a href="#" class="preauth-btns" did="login"><button type="button" class="btn">Return to Login</button></a>
+        </div>
+        <div class="loading modal-footer" style="display:none">
+            Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
+        </div>
+    </div>
+</div>
+<div id="confirm-introduce-container" class="page" style="display:none">
+    <div class="page-view valign">
+        <h4>Confirm Invitation</h4>
+        <p class="subheading">
+            To confirm your invitation, fill out the fields below. An administrator will review your application and contact you through email.
+        </p>
+        <div class="form-horizontal">
+            <div class="modal_errors" style="display:none">
+                <div class="alert alert-error">
+                    <strong></strong> <span></span>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span6">
+                    <input type="text" class="span12" name="firstName" placeholder="First Name*">
+                </div>
+                <div class="span6">
+                    <input type="text" class="span12" name="lastName" placeholder="Last Name*">
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <input type="text" class="span12" name="email" placeholder="Email Address*">
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span12">
+                    <input type="text" class="span12" name="companyName" placeholder="Company Name*">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="btn-confirm-invitation" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="loading modal-footer" style="display:none">
+            Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
+        </div>
+    </div>
+</div>
+<div id="confirm-registration-container" class="page" style="display:none">
+    <div class="page-view valign">
+		<h4>Complete Your Registration</h4>
+		<p class="subheading">
+			Fill out the form below to complete your registration.
+		</p>
+        <div class="form-horizontal">
+          <div class="modal_errors" style="display:none">
+              <div class="alert alert-error">
+                <strong></strong> <span></span>
+              </div>
+          </div>
+          <div class="optional row-fluid">
+            <div class="span6">
+                <input type="text" class="span12" name="firstName" placeholder="First Name*">
+            </div>
+            <div class="span6">
+                <input type="text" class="span12" name="lastName" placeholder="Last Name*">
+            </div>
+          </div>
+          <span id="confirm-registration-email"></span>
+          <div class="optional row-fluid">
+            <div class="span12">
+                <input type="text" class="span12" name="companyName" placeholder="Company Name*">
+            </div>
+          </div>
+          <div class="row-fluid">
+            <div class="span12">
+                <select class="span12" name="title" placeholder="Role at your company">
+                    <option value="">Role at your company</option>
+                    <option value="server-developer">Server Developer</option>
+                    <option value="client-developer">Client Developer</option>
+                    <option value="it-admin">IT Admin</option>
+                    <option value="management">Management</option>
+                </select>
+            </div>
+          </div>
+          <div class="row-fluid">
+            <div class="span6">
+                <input type="password" class="span12" name="password" placeholder="Password*">
+            </div>
+            <div class="span6">
+                <input type="password" class="span12" name="password2" placeholder="Re-type Password*">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="btn-complete-registration" class="btn btn-primary">Register</button>
+        </div>
+        <div class="loading modal-footer" style="display:none">
+            Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
+        </div>
+    </div>
+</div>
+
+<div id="start-reset-password-container" class="page" style="display:none">
+    <div class="page-view valign">
+		<h4>Request for Password Reset</h4>
+        <p class="subheading">
+            To request a reset of your password, enter your email address in the field below. You will receive an email with instructions to reset your password.
+		</p>
+        <div class="form-horizontal">
+          <div class="modal_errors" style="display:none">
+              <div class="alert alert-error">
+                <strong></strong> <span></span>
+              </div>
+          </div>
+          <div class="row-fluid">
+            <div class="span12">
+                <input type="text" class="span12" name="userName" placeholder="Email Address*">
+            </div>
+          </div>
+          <div class="row-fluid">
+            <div class="span6">
+                <div id="captcha-pwd"></div>
+            </div>
+            <div class="span6">
+                <input type="text" class="span12" name="captcha" placeholder="Type the letters you see on the left">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="btn-start-reset-password" class="btn btn-primary">Send Email</button>
+            <a href="#" class="preauth-btns" did="login"><button type="button" class="btn">Return to Login</button></a>
+        </div>
+        <div class="loading modal-footer" style="display:none">
+            Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
+        </div>
+    </div>
+</div>
+
+<div id="reset-password-container" class="page" style="display:none">
+    <div class="page-view valign">
+		<h4>Reset Password</h4>
+        <p class="subheading">
+            To reset your password, enter your new password in the fields below and click <b>Save Changes</b>.
+		</p>
+        <div class="form-horizontal">
+          <div class="modal_errors" style="display:none">
+              <div class="alert alert-error">
+                <strong></strong> <span></span>
+              </div>
+          </div>
+          <div class="row-fluid">
+            <div class="span6">
+                <input type="password" class="span12" name="password" placeholder="Password*">
+            </div>
+            <div class="span6">
+                <input type="password" class="span12" name="password2" placeholder="Re-type Password*">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="btn-reset-password" class="btn btn-primary">Save Changes</button>
+            <a href="#" class="preauth-btns" did="login"><button type="button" class="btn">Return to Login</button></a>
+        </div>
+        <div class="loading modal-footer" style="display:none">
+            Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
+        </div>
+    </div>
+</div>
+
+<div id="registration-success-container" class="page" style="display:none">
+    <div class="page-view valign">
+		<h4>Registration Verification Successful</h4>
+        <p class="subheading">
+            Congratulations! You are ready to begin developing your own mobile apps.
+		</p>
+        <div class="form-horizontal">
+            <div class="form-horizontal">
+              <div class="row-fluid">
+                <div class="span2"></div>
+                <div class="span4">
+                    <img src="../images/icon_newproject.png" />
+                </div>
+                <div class="span4">
+                    <img src="../images/icon_docs.png" />
+                </div>
+                <div class="span2"></div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="/dev/#/project-wizard/new" class="btn btn-primary">Start a New Project</a>
+            <a href="/docs/" class="btn btn-primary">Read Documentation</a>
+        </div>
+    </div>
+</div>
+
+<div id="logout-container" class="modal hide fade">
+	<div class="modal-header">
+		<button data-dismiss="modal" class="close">x</button>
+		<h3>Logged Out</h3>
+        <p class="subheading">
+            You have been logged out of the Developer Factory.
+        </p>
+	</div>
+    <div class="modal-footer">
+        <a href="#" data-dismiss="modal" class="btn btn-primary">Ok</a>
+    </div>
+</div>
+<div id="confirm-tos-dialog" class="modal-confirm modal hide fade">
+    <div class="modal-header">
+        <button data-dismiss="modal" class="close">x</button>
+        <h3>Terms of Service</h3>
+        <p class="subheading">You must agree to the Terms of Service to continue.</p>
+    </div>
+    <div class="modal-body">
+        <iframe src="../resources/tos.html">
+
+        </iframe>
+    </div>
+    <div class="modal-footer">
+        <button id="agree-to-tos" class="submit btn-primary btn">I Agree</button>
+        <button data-dismiss="modal" class="cancel btn">Cancel</button>
+    </div>
+</div>

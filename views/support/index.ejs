@@ -1,0 +1,119 @@
+    <div class="row-fluid">
+        <div class="clearfix support-page page-view">
+            <h4>Support</h4>
+
+            <p class="subhead">Have a question? Need advice? Want to file a bug? Maybe you have an idea for a way we can collaborate.
+                We welcome your inquiries and suggestions.</p>
+
+            <div class="row-fluid">
+
+                <div class="span6">
+
+                    <h4>Frequently Asked Questions</h4>
+
+                    <ul>
+                        <li><a href="#faq-invitations">Account and Invitations</a></li>
+                        <li><a href="#faq-projectwizard">Using the Project Wizard</a></li>
+                        <li><a href="#faq-ide">IDE support</a></li>
+                        <li><a href="#faq-customization">Customization</a></li>
+                        <li><a href="#faq-deployment">Deployment</a></li>
+                    </ul>
+
+                    <h5 id="faq-invitations">Account and Invitations</h5>
+
+                    <b>Q. Can I change the email address that I use as my login id?</b>
+                    <p class="ans">A. Not yet.  If you want to use another email account, you may send yourself an invitation request to that other address.</p>
+
+                    <b>Q. What happens after I invite a friend?</b>
+                    <p class="ans">A. After you enter their email address, they will receive an email to confirm the invitation request.  After they provide their information, their request will be submitted to the Developer Factory administrator to approve access.</p>
+
+                    <h5 id="faq-projectwizard">Using the Project Wizard</h5>
+
+                    <b>Q. Is there any limit to the number of simultaneous projects I can have?</b>
+                    <p class="ans">A. No, you may create as many projects as the storage on your local disk can support. However, there are restrictions on the number of deployments. See below.</p>
+
+                    <b>Q. How many sandbox instances may I deploy using the wizard?</b>
+                    <p class="ans">A. The wizard only supports deployment of one sandbox instance at a time. When you have multiple projects, the cloud icon on the My Projects file is displayed next to the currently running instance.</p>
+
+                    <b>Q. What happens once I deploy a project in a sandbox?</b>
+                    <p class="ans">A. We create a VM instance on Amazon where we deploy the Server binary file.</p>
+
+                    <b>Q. How can I rename an existing project?</b>
+                    <p class="ans">A. To rename a project, click on the pencil icon next to the project name in the Project Wizard.</p>
+
+                    <b>Q. Can I deploy a project to the sandbox that connects to web services behind my company's firewall?</b>
+                    <p class="ans">A. No. We currently don't provide the ability to configure VPN access from the sandbox into your corporate network.</p>
+
+                    <b>Q. Can I share my projects with other users in my company?</b>
+                    <p class="ans">A. Not yet. Currently your account is an individual account. However, we will soon be adding that capability to the Developer Factory.</p>
+
+                    <h5 id="faq-ide">IDE Support</h5>
+
+                    <b>Q. Does the generated sample project support Eclipse, IntelliJ, Xcode or other?</b>
+                    <p class="ans">A. In the Android environment there is no built-in support for any particular Integrated Development Environment. However, the code is structured such that it can be used with any of them. On iOS, the project files are specifically designed to work with Xcode.</p>
+
+                    <h5 id="faq-customization">Customization</h5>
+
+                    <b>Q. What happens if I make a change to the Server after I download it? How do I regenerate the client SDKs to support the new version?</b>
+                    <p class="ans">A. You are free to add / remove / customize controller implementations and interfaces within the Server.  There is a utility packaged in the Server project file that will generate a zip file that you can upload back into the Developer Factory, which will then result in the creation of iOS and Android SDKs.  </p>
+
+                    <h5 id="faq-deployment">Deployment</h5>
+
+                    <b>Q. How do I go about deploying my apps and server instance?</b>
+                    <p class="ans">A. The details of deployment are discussed Mobile App Server Administrator Guide which can be downloaded from the <a href="/docs/">Documentation page</a>.</p>
+
+                </div>
+
+                <div id="contact-form" class="span6">
+                    <div class="well form-horizontal">
+                        <h4>Contact Us</h4>
+                        <p>
+                            For support related inquiries, please complete the form below, and a Magnet representative will follow up with you shortly. For any other inquires, visit the <a href="http://www.magnet.com/contact/">Magnet website</a>.
+                        </p>
+                        <div class="modal_errors" style="display:none">
+                            <div class="alert alert-error">
+                                <strong></strong> <span></span>
+                            </div>
+                        </div>
+                        <div class="hidden row-fluid">
+                            <div class="span12">
+                                <input id="name-field" type="text" class="span12" disabled="disabled" name="name" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="hidden row-fluid">
+                            <div class="span12">
+                                <input id="email-field" type="text" class="span12" disabled="disabled" name="emailAddress" placeholder="Email Address">
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <select class="span12" name="reason" placeholder="reason for contacting us">
+                                    <option value="">Select a reason for contacting us</option>
+                                    <option value="general-question">General Questions</option>
+                                    <option value="registration-issues">Registration Issues</option>
+                                    <option value="project-issues">Project Issues</option>
+                                    <option value="document-related-issues">Document Related Issues</option>
+                                    <option value="deactivate-account">Deactivate Account</option>
+                                    <option value="feature-request">Feature Request</option>
+                                    <option value="report-a-defect">Report a Defect</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <textarea name="content" class="span12" placeholder="Description"></textarea>
+                            </div>
+                        </div>
+                        <div class="row-fluid">
+                            <div class="span12">
+                                <button id="send-contact" type="button" class="btn btn-primary">Send Contact Request</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>

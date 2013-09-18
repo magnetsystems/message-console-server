@@ -1,0 +1,178 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <title>Developer Factory : {{=title}}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" />
+    <link rel="stylesheet" href="/stylesheets/dev.css" />
+    <link href="http://fonts.googleapis.com/css?family=Titillium+Web:200,300,400" rel="stylesheet" type="text/css">
+</head>
+<body class="{{ if(typeof bodyType != 'undefined'){ }} {{=bodyType}} {{ } }}">
+<div id="site-header">
+    <div class="logo_container">
+        <a href="/">
+            <img src="/images/heading.png" alt="Developer Factory" /><h4>Developer Factory</h4>
+        </a>
+    </div>
+    {{ if(typeof hideMenu == 'undefined'){ }}
+    <ul class="title_container">
+        <li>
+            <a href="/dev/">Projects</a>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="/resources/">Resources</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li id="menu-samples" role="presentation"><a role="menuitem" tabindex="-1" href="/resources/samples/">Samples</a></li>
+
+                <li id="menu-mam" role="presentation"><a role="menuitem" tabindex="-1" href="/resources/mobile-app-manager/">Mobile App Manager</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="/docs/">Documentation</a>
+        </li>
+        <li>
+            <a href="/support/">Support</a>
+        </li>
+    </ul>
+    <div class="control-buttons hidden">
+        <a href="#" id="invite-others"><i class="icon-plus icon-white"></i><i class="icon-user icon-white"></i></a>
+        <a href="#" id="user-panel-toggle"><i class="icon-chevron-down icon-white"></i><span id="username-placeholder"></span></a>
+    </div>
+    {{ } }}
+</div>
+
+{{ if(typeof hideMenu == 'undefined'){ }}
+<div id="user-panel" style="display:none">
+    <div class="col">
+        <span class="user-username"></span><br />
+        <span class="user-company"></span>
+    </div>
+    <div class="col2">
+        <a href="/dev/#/profile-editor">Edit Profile</a>
+    </div>
+    <div class="btns">
+        <a href="#" class="btn-logout btn btn-primary">Log Out</a>
+    </div>
+</div>
+<div class="title_container_mobile hidden">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="btn-group">
+              <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                Navigation Menu
+                <span class="caret"></span>
+              </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                  <li><a tabindex="-1" href="/intro/">Introduction</a></li>
+                  <li><a tabindex="-1" href="/dev/">My Projects</a></li>
+                  <li><a tabindex="-1" href="/docs/">Documentation</a></li>
+                  <li class="disabled"><a tabindex="-1" href="#">Support</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{{ } }}
+
+<div id="dev-container" class="page">
+    {{-body}}
+    <div class="footer">
+        <a href="/resources/tos.html">Terms of Service</a> | <a href="/resources/privacy-policy/">Privacy Policy</a>
+        <br />
+        &copy; 2013 Magnet Systems, Inc. All rights reserved.
+    </div>
+</div>
+
+
+
+<!-- dialogs start -->
+<div id="error-alert" class="modal-form-errors modal hide fade">
+	<div class="modal-header">
+		<button data-dismiss="modal" class="close">x</button>
+		<h3></h3>
+	</div>
+	<div class="modal-body">
+		<p class="subheading">
+		</p>
+		<ul>
+		</ul>
+	</div>
+	<div class="modal-footer">
+		<button data-dismiss="modal" class="btn btn-primary">OK</button>
+	</div>
+</div>
+<div id="general-alert" class="modal-alert modal hide fade">
+	<div class="modal-header">
+		<button data-dismiss="modal" class="close">x</button>
+		<h3></h3>
+	</div>
+	<div class="modal-body">
+		<p>
+		</p>
+	</div>
+	<div class="modal-footer">
+		<button data-dismiss="modal" id="ok" class="btn btn-primary">OK</button>
+	</div>
+</div>
+<div id="confirm-alert" class="modal-confirm modal hide fade">
+	<div class="modal-header">
+		<button data-dismiss="modal" class="close">x</button>
+		<h3></h3>
+	</div>
+	<div class="modal-body">
+		<p>
+		</p>
+	</div>
+	<div class="modal-footer">
+        <button class="submit btn-primary btn">Continue</button>
+		<button data-dismiss="modal" class="cancel btn">Cancel</button>
+	</div>
+</div>
+
+<div id="invite-other-modal" class="modal-alert modal hide fade">
+    <div class="modal-header">
+        <button data-dismiss="modal" class="close">x</button>
+        <h3>Invite Others</h3>
+        <p class="subheading">
+            Enter the email address of the individual you would like to invite to the Developer Factory.
+        </p>
+    </div>
+    <div class="modal-body">
+        <div class="modal_errors" style="display:none">
+            <div class="alert alert-error">
+                <strong></strong> <span></span>
+            </div>
+        </div>
+        <div class="modal_success" style="display:none">
+            <div class="alert alert-success">
+                <span>Your invitation has been sent successfully.</span>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <input class="span12" type="text" name="email" placeholder="Enter Email Address"><br />
+            <b>Message to include</b><br />
+            <textarea class="span12" name="inviteMessage" placeholder="Message to include">I found this great new tool to quickly create mobile apps for me.</textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn-primary btn">Send Invitation</button>
+        <button data-dismiss="modal" class="cancel btn">Close</button>
+    </div>
+    <div class="loading modal-footer" style="display:none">
+        Loading.. Please Wait.. <img src="/images/ajax-loader-sm.gif" />
+    </div>
+</div>
+<!-- dialogs end -->
+
+<script type="text/javascript" src="/js/libs/jquery.js"></script>
+<script type="text/javascript" src="/js/libs/bootstrap.js"></script>
+<script type="text/javascript" src="/js/scripts.js"></script>
+
+</body>
+</html>
