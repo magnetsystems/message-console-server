@@ -5,9 +5,9 @@ var express = require('express')
 , http = require('http')
 , connect = require('express/node_modules/connect')
 , io = require('socket.io').listen(app)
-, fs = require('fs')
-, Sequelize = require('sequelize')
-, db = new Sequelize('developercenter', 'root');
+, fs = require('fs');
+
+require('./lib/orm').setup('./lib/models', 'developercenter', 'root');
 
 var secret = 'ThisSecretShouldBeChanged';
 var cookieParser = express.cookieParser(secret);
@@ -74,12 +74,6 @@ GLOBAL.app = app;
 GLOBAL.http = http;
 GLOBAL.fs = fs;
 GLOBAL.io = io;
-GLOBAL.Sequelize = Sequelize;
-GLOBAL.db = db;
-
-// Setup Schema
-
-var Schemas = require('./lib/Schemas');
 
 // Routes
 
