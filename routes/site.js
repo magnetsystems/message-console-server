@@ -11,7 +11,7 @@ module.exports = function(app){
 
     function checkAuthority(types){
         return function(req, res, next){
-            if(types.indexOf(req.session.user.userType) != -1){
+            if(req.session.user && types.indexOf(req.session.user.userType) != -1){
                 next();
             }else{
                 res.redirect('/login');

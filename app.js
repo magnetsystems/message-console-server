@@ -7,10 +7,9 @@ var express = require('express')
 , io = require('socket.io').listen(app)
 , store
 , fs = require('fs')
-, mongoose = require('mongoose')
-, db = mongoose.createConnection('mongodb://localhost:27017/MagnetDeveloperFactory')
+, Sequelize = require('sequelize')
+, db = new Sequelize('developercenter', 'root')
 , SessionSockets = require('session.socket.io');
-
 
 var secret = 'ThisSecretShouldBeChanged';
 var cookieParser = express.cookieParser(secret);
@@ -79,20 +78,45 @@ GLOBAL.http = http;
 GLOBAL.fs = fs;
 GLOBAL.io = io;
 GLOBAL.sessionSockets = sessionSockets;
+GLOBAL.Sequelize = Sequelize;
 GLOBAL.db = db;
-GLOBAL.mongoose = mongoose;
 
-// connect to MongoDB database
+// Setup Schema
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function(){
-    console.log('MongoDB: connected successfully on port: ' + 27017);
-    var Core = require('./lib/Core');
-});
+var Schemas = require('./lib/Schemas');
 
-// Routes 
+// Routes
 
 require('./routes')(app);
+
+
+
+function main() {
+    fs.readdir("./node_modules", function (err, dirs) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        dirs.forEach(function(dir){
+            if (dir.indexOf(".") !== 0) {
+                var packageJsonFile = "./node_modules/" + dir + "/package.json";
+                if (fs.existsSync(packageJsonFile)) {
+                    fs.readFile(packageJsonFile, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            var json = JSON.parse(data);
+                            console.log('"'+json.name+'": "' + json.version + '",');
+                        }
+                    });
+                }
+            }
+        });
+
+    });
+}
+main();
 
 // Listener
 
