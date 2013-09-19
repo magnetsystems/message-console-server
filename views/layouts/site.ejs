@@ -40,9 +40,9 @@
             <a href="/support/">Support</a>
         </li>
     </ul>
-    <div class="control-buttons hidden">
+    <div class="control-buttons">
         <a href="#" id="invite-others"><i class="icon-plus icon-white"></i><i class="icon-user icon-white"></i></a>
-        <a href="#" id="user-panel-toggle"><i class="icon-chevron-down icon-white"></i><span id="username-placeholder"></span></a>
+        <a href="#" id="user-panel-toggle"><i class="icon-chevron-down icon-white"></i><span id="username-placeholder">{{= userEmail }}</span></a>
     </div>
     {{ } }}
 </div>
@@ -50,14 +50,14 @@
 {{ if(typeof hideMenu == 'undefined'){ }}
 <div id="user-panel" style="display:none">
     <div class="col">
-        <span class="user-username"></span><br />
-        <span class="user-company"></span>
+        <span class="user-username">{{= userEmail }}</span><br />
+        <span class="user-company">{{= userCompany }}</span>
     </div>
     <div class="col2">
-        <a href="/dev/#/profile-editor">Edit Profile</a>
+        <a href="/profile/">Edit Profile</a>
     </div>
     <div class="btns">
-        <a href="#" class="btn-logout btn btn-primary">Log Out</a>
+        <a href="/logout" class="btn btn-primary">Log Out</a>
     </div>
 </div>
 <div class="title_container_mobile hidden">

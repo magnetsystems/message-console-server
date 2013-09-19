@@ -24,7 +24,6 @@ $(document).ready(function(){
     $(window).resize(function(){
         adjustUI();
     });
-    $('input').val('');
     // user authentication
     var cookies = new Cookie();
     var formauth = new FormLogin(cookies);
@@ -39,6 +38,7 @@ $(document).ready(function(){
     var resetpwd = new ResetPassword(cookies, {
         token : getQuerystring('t')
     });
+    var edit = new EditUserProfile(cookies);
     var register = new CompleteRegistration(cookies, {
         token : getQuerystring('t'),
         type  : getQuerystring('s'),
@@ -83,7 +83,7 @@ $(document).ready(function(){
             menu.css('display', 'none');
         });
     var docFormatter = new DocFormatter();
-    initPlaceholders();
+    //initPlaceholders();
 });
 
 function adjustUI(){
@@ -143,9 +143,11 @@ function doAuth(cookies){
         });
         getBeacon();
         if(!checkLogin(cookies)){
+            /*
             getProfile(cookies, function(){
                 setProfile(cookies);
             });
+            */
         }else{
             setProfile(cookies);
         }
@@ -173,7 +175,6 @@ function setProfile(cookies){
     $('#name-field').val(profile[1]);
     $('#email-field').val(profile[0]);
     $('.control-buttons').removeClass('hidden');
-    $('.auth-group').addClass('hidden');
 }
 
 // get profile
@@ -721,6 +722,58 @@ ResetPassword.prototype.call = function(){
         me.validator.showError('Password Reset Failure', msg);
     });
 }
+
+
+
+// edit user profile
+function EditUserProfile(cookies){
+    var me = this;
+    me.domId = 'user-profile-container';
+    me.validator = new Validator(me.domId);
+    me.cookies = cookies;
+    $('#profile-save').click(function(){
+        me.save();
+    });
+}
+EditUserProfile.prototype.save = function(){
+    var me = this, data = {}, errorModal = $('#error-alert');
+    $('#'+me.domId+' input').each(function(){
+        if($(this).attr('name') != 'userName'){
+            data[$(this).attr('name')] = $(this).val();
+        }
+    });
+    if(me.hasPassword(data) && data.newpassword != data.newpassword2){
+        errorModal.modal('show');
+        errorModal.find('.modal-header h3').html('Password Doesn\'t Match');
+        errorModal.find(' .modal-body p').html('The re-typed password doesn\'t match the original.');
+        return false;
+    }
+    me.call(data);
+}
+EditUserProfile.prototype.hasPassword = function(data){
+    return ($.trim(data.oldpassword).length != 0) && ($.trim(data.newpassword).length != 0);
+}
+
+EditUserProfile.prototype.call = function(data){
+    var me = this, generalModal = $('#general-alert'), errorModal = $('#error-alert');
+    $.ajax({
+        type        : 'PUT',
+        url         : '/rest/user',
+        dataType    : 'html',
+        data        : data
+    }).done(function(){
+        generalModal.modal('show');
+        generalModal.find('.modal-header h3').html('Profile Updated Successfully');
+        generalModal.find(' .modal-body p').html('Your profile has been updated successfully.');
+        $('#'+me.domId).find('input[type="password"]').val('');
+    }).fail(function(xhr){
+        var message = 'There was a generic error. Please try again later.';
+        message = xhr.responseText == 'old-pass-not-match' ? 'The old password you entered was not correct.' : message;
+        generalModal.modal('show');
+        generalModal.find('.modal-header h3').html('Error Updating Profile');
+        generalModal.find(' .modal-body p').html(message);
+    });
+};
 
 // contact object to handle contact form request process
 function ContactForm(){

@@ -5,7 +5,7 @@ var CountryList = require('../lib/config/CountryList')
 
 module.exports = function(app){
 
-    /* USER AUTHENTICATION */
+    /* AUTHENTICATION */
 
     // user log in and store to session and cookie
     app.post('/login', function(req, res){
@@ -14,8 +14,16 @@ module.exports = function(app){
             if(!user){
                 res.send(e, 403);
             }else{
-                req.session.user = user;
-                console.log('Tracking: user "' + user.username + '" logged in');
+                req.session.user = {
+                    firstName : user.firstName,
+                    lastName  : user.lastName,
+                    company   : user.company,
+                    userName  : user.userName,
+                    email     : user.email,
+                    country   : user.country,
+                    userType  : user.userType
+                };
+                console.log('Tracking: user "' + user.email + '" logged in');
                 res.redirect('/');
             }
         });
@@ -33,7 +41,7 @@ module.exports = function(app){
         }
     });
 
-    /* USER REGISTRATION */
+    /* REGISTRATION */
 
     // register a new user
     app.post('/rest/createAdmin', function(req, res){
@@ -49,7 +57,7 @@ module.exports = function(app){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send('ok', 200);
+                res.send('ok', 201);
             }
         });
     });
@@ -84,11 +92,90 @@ module.exports = function(app){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send('ok', 200);
+                res.send('ok', 201);
             }
         });
     });
 
+    /* USER */
+
+    app.get('/rest/user', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+        UserManager.read(req.session.user, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.put('/rest/user', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+        UserManager.update(req.session.user, {
+            firstName : req.body.firstName,
+            lastName  : req.body.lastName,
+            company   : req.body.company,
+            oldpass   : req.body.oldpassword,
+            newpass   : req.body.newpassword
+        }, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                req.session.user = user;
+                res.send('ok', 200);
+            }
+        });
+    });
+/*
+    socket.on('user:create', function(data, fn){
+        //console.log(data);
+    });
+    socket.on('user:read', function(data, fn){
+        if(session.user == null || data._id == ''){
+            fn({s:'no-session'});
+        }else{
+            UserManager.getById(data._id, '_id name username email country', function(e, user){
+                if(user){
+                    fn(null, user);
+                }else{
+                    fn({s:e});
+                }
+            })
+        }
+    });
+    socket.on('user:update', function(data, fn){
+        if(session.user == null || data._id == ''){
+            fn({s:'no-session'});
+        }else{
+            UserManager.update(session.user, {
+                name     : data.name,
+                username : data.username,
+                email    : data.email,
+                country  : data.country,
+                oldpass  : data.oldpass,
+                newpass  : data.newpass
+            }, function(e, user){
+                if(user){
+                    // update session and cookie data
+                    session.user = user;
+                    fn(null, {s:'ok'});
+                }else{
+                    fn({s:e});
+                }
+            });
+        }
+    });
+    socket.on('user:delete', function(data, fn){
+        UserManager.delete(session.user._id, function(e){
+            if(e){
+                fn({s:e});
+            }else{
+                session.destroy(function(e){
+                    fn(null, {s:'ok'});
+                });
+            }
+        });
+    });
+*/
     /* PASSWORD RESET */
 
     // send password reset email

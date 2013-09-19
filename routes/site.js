@@ -9,9 +9,9 @@ module.exports = function(app){
     app.get('/', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('index', {
             locals : {
-                title    : 'Home',
-                userId   : req.session.user._id,
-                username : req.session.user.username
+                title       : 'Home',
+                userEmail   : req.session.user.email,
+                userCompany : req.session.user.company
             },
             layout : 'layouts/site'
         });
@@ -20,9 +20,9 @@ module.exports = function(app){
     app.get('/dev', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('dev/index', {
             locals : {
-                title    : 'Developers',
-                userId   : req.session.user._id,
-                username : req.session.user.username
+                title       : 'Developers',
+                userEmail   : req.session.user.email,
+                userCompany : req.session.user.company
             },
             layout : false
         });
@@ -31,9 +31,9 @@ module.exports = function(app){
     app.get('/support', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('support/index', {
             locals : {
-                title    : 'Support',
-                userId   : req.session.user._id,
-                username : req.session.user.username
+                title       : 'Support',
+                userEmail   : req.session.user.email,
+                userCompany : req.session.user.company
             },
             layout : 'layouts/site'
         });
@@ -42,9 +42,9 @@ module.exports = function(app){
     app.get('/docs', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('docs/index', {
             locals : {
-                title    : 'Documentation',
-                userId   : req.session.user._id,
-                username : req.session.user.username
+                title       : 'Documentation',
+                userEmail   : req.session.user.email,
+                userCompany : req.session.user.company
             },
             layout : 'layouts/site'
         });
@@ -53,9 +53,9 @@ module.exports = function(app){
     app.get('/resources', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('resources/index', {
             locals : {
-                title    : 'Resources',
-                userId   : req.session.user._id,
-                username : req.session.user.username
+                title       : 'Resources',
+                userEmail   : req.session.user.email,
+                userCompany : req.session.user.company
             },
             layout : 'layouts/site'
         });
@@ -64,9 +64,9 @@ module.exports = function(app){
     app.get('/resources/mobile-app-manager', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('resources/mobile-app-manager', {
             locals : {
-                title    : 'Resources : Mobile App Manager',
-                userId   : req.session.user._id,
-                username : req.session.user.username
+                title       : 'Resources : Mobile App Manager',
+                userEmail   : req.session.user.email,
+                userCompany : req.session.user.company
             },
             layout : 'layouts/site'
         });
@@ -75,9 +75,23 @@ module.exports = function(app){
     app.get('/resources/samples', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('resources/samples', {
             locals : {
-                title    : 'Resources : Samples',
-                userId   : req.session.user._id,
-                username : req.session.user.username
+                title       : 'Resources : Samples',
+                userEmail   : req.session.user.email,
+                userCompany : req.session.user.company
+            },
+            layout : 'layouts/site'
+        });
+    });
+
+    app.get('/profile', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+        res.render('profile/index', {
+            locals : {
+                title         : 'My Profile',
+                userEmail     : req.session.user.email,
+                userFirstName : req.session.user.firstName,
+                userLastName  : req.session.user.lastName,
+                userPhone     : req.session.user.phone,
+                userCompany   : req.session.user.company
             },
             layout : 'layouts/site'
         });
@@ -86,9 +100,9 @@ module.exports = function(app){
     app.get('/admin', UserManager.checkAuthority(['admin']), function(req, res){
         res.render('admin/index', {
             locals : {
-                title    : 'Administration',
-                userId   : req.session.user._id,
-                username : req.session.user.username
+                title       : 'Administration',
+                userEmail   : req.session.user.email,
+                userCompany : req.session.user.company
             },
             layout : false
         });
@@ -153,7 +167,9 @@ module.exports = function(app){
             locals : { 
                 title    : 'Login',
                 bodyType : 'dev',
-                hideMenu : true
+                hideMenu : true,
+                userEmail : '',
+                userCompany : ''
             }, 
             layout : 'layouts/site'
         });
@@ -165,7 +181,9 @@ module.exports = function(app){
             locals : { 
                 title : 'Page Not Found',
                 bodyType : 'dev',
-                hideMenu : req.session.user ? true : null
+                hideMenu : req.session.user ? true : null,
+                userEmail : req.session.user.email ? true : null,
+                userCompany : req.session.user.company ? true : null
             }, 
             layout : 'layouts/site'
         });

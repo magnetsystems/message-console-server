@@ -136,7 +136,6 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             // stop any active polling threads
             timer.stop();
             if((!user || user == null)){
-                me.unsetUserPanel();
                 me.getProfile(function(){
                     me.cookies.create(
                         'magnet_auth', me.profile.attributes.name+'|'+me.profile.attributes.firstName+' '+me.profile.attributes.lastName+'|'+me.profile.attributes.companyName, 1);
