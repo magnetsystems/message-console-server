@@ -38,12 +38,13 @@ module.exports = function(app){
     // register a new user
     app.post('/rest/createAdmin', function(req, res){
         UserManager.create({
-            userName    : req.param('email'),
-            email       : req.param('email'),
-            firstName   : req.param('firstName'),
-            lastName    : req.param('lastName'),
-            companyName : req.param('companyName'),
-            userType    : 'admin'
+            userName  : req.body.email,
+            email     : req.body.email,
+            firstName : req.body.firstName,
+            lastName  : req.body.lastName,
+            company   : req.body.company,
+            password  : req.body.password,
+            userType  : 'admin'
         }, function(e){
             if(e){
                 res.send(e, 400);
@@ -55,11 +56,12 @@ module.exports = function(app){
 
     /*
      {
-     userName    : 'manager1',
-     email       : 'edward.yang@magnet.com',
-     firstName   : 'Edward',
-     lastName    : 'Yang',
-     companyName : 'Magnet'
+     "userName"    : "manager1",
+     "email"       : "edward.yang@magnet.com",
+     "firstName"   : "Edward",
+     "lastName"    : "Yang",
+     "company"     : "Magnet",
+     "password"    : "magnet"
      }
      */
 

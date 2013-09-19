@@ -1,6 +1,4 @@
-var CountryList = require('../lib/config/CountryList')
-, AccountManager = require('../lib/AccountManager')
-, UserManager = require('../lib/UserManager')
+var UserManager = require('../lib/UserManager')
 , EmailService = require('../lib/EmailService')
 , Transport = require('../lib/Transport');
 
