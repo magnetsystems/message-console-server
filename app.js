@@ -7,7 +7,7 @@ var express = require('express')
 , io = require('socket.io').listen(app)
 , fs = require('fs');
 
-require('./lib/orm').setup('./lib/models', 'developercenter', 'root');
+require('./lib/orm').setup('./lib/models', true, 'developercenter', 'root');
 
 var secret = 'ThisSecretShouldBeChanged';
 var cookieParser = express.cookieParser(secret);
