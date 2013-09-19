@@ -5,16 +5,13 @@ var express = require('express')
 , http = require('http')
 , connect = require('express/node_modules/connect')
 , io = require('socket.io').listen(app)
-, store
 , fs = require('fs')
 , Sequelize = require('sequelize')
-, db = new Sequelize('developercenter', 'root')
-, SessionSockets = require('session.socket.io');
+, db = new Sequelize('developercenter', 'root');
 
 var secret = 'ThisSecretShouldBeChanged';
 var cookieParser = express.cookieParser(secret);
 var sessionStore = new connect.middleware.session.MemoryStore();
-var sessionSockets = new SessionSockets(io, sessionStore, cookieParser);
 
 app.on('uncaughtException', function(error){
     console.log('Uncaught Error: ');
@@ -77,7 +74,6 @@ GLOBAL.app = app;
 GLOBAL.http = http;
 GLOBAL.fs = fs;
 GLOBAL.io = io;
-GLOBAL.sessionSockets = sessionSockets;
 GLOBAL.Sequelize = Sequelize;
 GLOBAL.db = db;
 
@@ -88,35 +84,6 @@ var Schemas = require('./lib/Schemas');
 // Routes
 
 require('./routes')(app);
-
-
-
-function main() {
-    fs.readdir("./node_modules", function (err, dirs) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        dirs.forEach(function(dir){
-            if (dir.indexOf(".") !== 0) {
-                var packageJsonFile = "./node_modules/" + dir + "/package.json";
-                if (fs.existsSync(packageJsonFile)) {
-                    fs.readFile(packageJsonFile, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        else {
-                            var json = JSON.parse(data);
-                            console.log('"'+json.name+'": "' + json.version + '",');
-                        }
-                    });
-                }
-            }
-        });
-
-    });
-}
-main();
 
 // Listener
 
