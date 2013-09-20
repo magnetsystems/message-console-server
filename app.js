@@ -74,6 +74,9 @@ GLOBAL.app = app;
 GLOBAL.http = http;
 GLOBAL.fs = fs;
 GLOBAL.io = io;
+GLOBAL.tmplVars = {
+    resourceUrl : 'localhost:3000/resources'
+};
 
 // Routes
 

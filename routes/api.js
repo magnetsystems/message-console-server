@@ -1,7 +1,8 @@
 var CountryList = require('../lib/config/CountryList')
     , AccountManager = require('../lib/AccountManager')
     , UserManager = require('../lib/UserManager')
-    , EmailService = require('../lib/EmailService');
+    , EmailService = require('../lib/EmailService')
+    , sanitize = require('validator').sanitize;
 
 module.exports = function(app){
 
@@ -12,7 +13,7 @@ module.exports = function(app){
         AccountManager.manualLogin(req.param('username'), req.param('password'), function(e, user){
             // if login returns a user object, store to session
             if(!user){
-                res.send(e, 403);
+                res.redirect('/login?status=invalid');
             }else{
                 req.session.user = {
                     firstName : user.firstName,
@@ -125,57 +126,33 @@ module.exports = function(app){
             }
         });
     });
-/*
-    socket.on('user:create', function(data, fn){
-        //console.log(data);
-    });
-    socket.on('user:read', function(data, fn){
-        if(session.user == null || data._id == ''){
-            fn({s:'no-session'});
-        }else{
-            UserManager.getById(data._id, '_id name username email country', function(e, user){
-                if(user){
-                    fn(null, user);
-                }else{
-                    fn({s:e});
+
+    /* GENERAL */
+
+    app.post('/rest/contactUs', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+        // build email body and send out email
+        EmailService.sendEmail({
+            to      : EmailService.EmailSettings.supportEmail,
+            subject : 'Magnet Developer Factory Support',
+            html    : EmailService.renderTemplate({
+                main : 'support-email',
+                vars : {
+                    customerName  : req.session.user.firstName +' '+ req.session.user.lastName,
+                    customerEmail : req.session.user.email,
+                    reason        : sanitize(req.body.reason).xss(),
+                    message       : sanitize(req.body.message).xss()
                 }
-            })
-        }
-    });
-    socket.on('user:update', function(data, fn){
-        if(session.user == null || data._id == ''){
-            fn({s:'no-session'});
-        }else{
-            UserManager.update(session.user, {
-                name     : data.name,
-                username : data.username,
-                email    : data.email,
-                country  : data.country,
-                oldpass  : data.oldpass,
-                newpass  : data.newpass
-            }, function(e, user){
-                if(user){
-                    // update session and cookie data
-                    session.user = user;
-                    fn(null, {s:'ok'});
-                }else{
-                    fn({s:e});
-                }
-            });
-        }
-    });
-    socket.on('user:delete', function(data, fn){
-        UserManager.delete(session.user._id, function(e){
-            if(e){
-                fn({s:e});
-            }else{
-                session.destroy(function(e){
-                    fn(null, {s:'ok'});
-                });
+            }),
+            success : function(){
+                console.log('Tracking: user "' + req.session.user.email + '" sent an email from the Contact Us form');
+                res.send('ok', 200);
+            },
+            error : function(e){
+                res.send(e, 400);
             }
         });
     });
-*/
+
     /* PASSWORD RESET */
 
     // send password reset email

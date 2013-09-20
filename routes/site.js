@@ -31,9 +31,10 @@ module.exports = function(app){
     app.get('/support', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('support/index', {
             locals : {
-                title       : 'Support',
-                userEmail   : req.session.user.email,
-                userCompany : req.session.user.company
+                title        : 'Support',
+                userEmail    : req.session.user.email,
+                userCompany  : req.session.user.company,
+                userFullName : req.session.firstName +' '+ req.session.lastName
             },
             layout : 'layouts/site'
         });

@@ -83,7 +83,7 @@ $(document).ready(function(){
             menu.css('display', 'none');
         });
     var docFormatter = new DocFormatter();
-    //initPlaceholders();
+    initPlaceholders();
 });
 
 function adjustUI(){
@@ -131,7 +131,7 @@ function checkLogin(cookies){
 }
 
 function doAuth(cookies){
-    if(window.location.pathname.indexOf('/login/') == -1){
+    if(window.location.pathname.indexOf('/login') == -1){
         // session timeout notification is disabled
         var sessionMgr = new SessionManager(cookies);
         $(document).ajaxComplete(function(e, xhr){
@@ -234,6 +234,11 @@ function FormLogin(cookies){
                     alert.modal('show');
                     alert.find('.modal-header h3').html('Registration Failed');
                     alert.find('.modal-body p').html('Registration has failed. Please contact Magnet support for assistance.');
+                    break;
+                case 'invalid':
+                    var alert = $('#login-container .modal_errors').show();
+                    alert.find('strong').html('Incorrect Email Address and/or Password');
+                    alert.find('span').html('Please check your input and try again.');
                     break;
                 case 'duplicate':
                     var alert = $('#general-alert');
@@ -796,29 +801,24 @@ ContactForm.prototype.contact = function(){
     $('#contact-form input, #contact-form select, #contact-form textarea').each(function(){
         me.info[$(this).attr('name')] = $(this).val();
     });
+    delete me.info.name;
+    delete me.info.emailAddress;
     if(me.validator.validateContactForm()){
         me.call();
     }
 }
 ContactForm.prototype.call = function(){
     var me = this;
+    $('#send-contact').hide();
     $.ajax({  
         type        : 'POST',  
-        url         : '/rest/submitSupport',  
+        url         : '/rest/contactUs',
         dataType    : 'html',
-        contentType : 'application/x-www-form-urlencoded',
         data        : me.info
     }).done(function(result, status, xhr){
         $('#contact-form .well').html('<h4>Contact Us</h4><p class="subheading">Thank you for submitting your contact request. A Magnet representative will follow up with you shortly.</p>');
-    }).fail(function(xhr, status, thrownError){
-        var msg = 'A server error occurred sending out the contact request. Please try again later.';
-        if(xhr.status == 500){
-            var res = tryParseJSON(xhr.responseText);
-            if(res && res.message){
-                msg = res.message;
-            }
-        }
-        me.validator.showError('Contact Request Failure', msg);
+    }).fail(function(){
+        me.validator.showError('Contact Request Failure', 'A server error occurred sending out the contact request. Please try again later.');
     });
 }
 

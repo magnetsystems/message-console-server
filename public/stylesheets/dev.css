@@ -173,7 +173,7 @@ body.dev .modal-footer .btn, #login-container .btn{width:190px;padding:6px 40px 
 #username{margin-top:38px}
 #password{margin-bottom:15px}
 
-#login-container .modal_errors{position:absolute;top:47px;left:0;width:50%}
+#login-container .modal_errors{position:absolute;top:60px;left:0;width:50%}
 #login-container .alert{width:80%;margin:0 auto}
 
 #login-container a{color:#C30000}
