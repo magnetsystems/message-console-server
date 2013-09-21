@@ -9,6 +9,7 @@
         "mysql": "2.0.0-alpha7",
         "sequelize": "2.0.0-beta.0",
         "socket.io": "0.9.6",
+        "aws-sdk": "1.6.0",
         "underscore": "1.5.2",
         "validator": "1.5.1"
     }
