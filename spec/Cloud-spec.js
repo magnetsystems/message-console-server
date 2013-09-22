@@ -6,6 +6,28 @@ var iam = new AWS.IAM({apiVersion: '2010-05-08'});
 
 //jasmine.getEnv().defaultTimeoutInterval = 1500;
 
+var uploader = new Object();
+uploader.userName = "NodeJsUploadTest@magnet.com";
+//removeUser(uploader.userName, function(){
+//    console.log("Deleted user");
+//    Cloud.allocateCloudAccount(uploader.userName, function(err, data) {
+//        if (!err) {
+//            uploader.AccessKeyId = data.accessKeyId;
+//            uploader.SecretAccessKey = data.secretAccessKey;
+//        } else {
+//            console.error("Error creating keys = " + err);
+//        }
+//    })
+//});
+Cloud.allocateCloudAccount(uploader.userName, function(err, data) {
+    if (!err) {
+        uploader.AccessKeyId = data.accessKeyId;
+        uploader.SecretAccessKey = data.secretAccessKey;
+    } else {
+        console.error("Error creating keys = " + err);
+    }
+})
+
 function deleteCloudUser(userName, done) {
     iam.deleteUser({UserName: userName}, function (err, data) {
         if (!err) {
@@ -96,7 +118,7 @@ describe("Cloud allocateCloudAccount", function() {
     });
 });
 
-describe("Cloud allocateCloudAccount", function() {
+describe("Cloud allocateCloudAccount without existing user", function() {
     var userName = "NodeJsTests_" + new Date().getTime() + "@magnet.com";
 
     afterEach(function(done) {
@@ -114,48 +136,45 @@ describe("Cloud allocateCloudAccount", function() {
     });
 });
 
-xdescribe("Cloud allocateCloudAccount", function() {
-    describe("S3 tests", function() {
-        var userName = "NodeJsTests_" + new Date().getTime() + "@magnet.com";
-        var s3;
-        var accessKeyId;
-        var secretAccessKey;
+describe("Cloud allocateCloudAccount generated keys", function() {
+    var s3 = new AWS.S3({apiVersion: '2006-03-01', secretAccessKey: uploader.SecretAccessKey, accessKeyId: uploader.AccessKeyId});
+    var fileName = 'test.txt';
+    var key = uploader.userName + '/' + fileName;
+    var bucketName = 'magnet-audit-test';
+    var body = 'Dummy text file to test CRUD on S3 for given LoginCredentials.';
 
-        beforeEach(function (done) {
-            Cloud.allocateCloudAccount(userName, function(err, data) {
-                if (!err) {
-                    accessKeyId = data.AccessKeyId;
-                    secretAccessKey = data.SecretAccessKey;
-                    console.log("data = " + JSON.stringify(data));
-                    s3 = new AWS.S3({apiVersion: '2006-03-01', secretAccessKey: secretAccessKey, accessKeyId: accessKeyId});
-                } else {
-                    console.error("Error creating keys = " + err);
-                }
-                done();
+    // The user has to be created at the global scope instead of beforeEach
+    // because it takes a few seconds to minutes for the newly created User to become active in S3.
+
+    it("should allow uploading to own directory in Bucket", function(done) {
+        this.after(function() {
+            s3.deleteObject({Bucket: bucketName, Key: key}, function (err, data) {
             });
         });
 
-        afterEach(function(done) {
-            removeUser(userName, done);
-        });
-
-        it("should create appropriate policy", function(done) {
-            s3.putObject({Body: 'HolaMundo!', Bucket: 'magnet-audit-test', Key: 'HolaMundo'}, function(err, data) {
-                if (!err) {
-                    console.log("Successfully uploaded data to myBucket/myKey");
-                    s3.listObjects({Bucket: 'magnet-audit-test'}, function(err, data) {
-                        if (!err) {
-                            console.log(JSON.stringify(data));
-                        } else {
-                            console.error("Could not list objects = " + err);
-                        }
-                    });
-                } else {
-                    console.error("Could not upload = " + err);
-                }
+        s3.putObject({Body: body, Bucket: bucketName, Key: key}, function(err, data) {
+            console.log("Successfully uploaded %s to %s", key, bucketName);
+            expect(err).toBeNull();
+            s3.getObject({Bucket: bucketName, Key: key}, function (err, data) {
+                expect(err).toBeNull();
+                expect(data.Body.toString()).toEqual(body);
                 done();
             });
-
         });
-    });
+    }, 20000);
+
+    // FIXME: This test should fail
+    xit("shouldn't allow uploading to other User's directory in Bucket", function(done) {
+        this.after(function() {
+            removeUser(uploader.userName, function(){});
+        });
+        var newKey = 'otherUsersDirectory' + '/' + fileName;
+        s3.putObject({Body: body, Bucket: bucketName, Key: newKey}, function(err, data) {
+            if (!err) {
+                console.log("Successfully uploaded %s to %s", newKey, bucketName);
+            }
+            expect(err).not.toBeNull();
+            done();
+        });
+    }, 20000);
 });
