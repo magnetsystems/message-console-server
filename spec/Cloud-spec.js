@@ -6,11 +6,18 @@ var iam = new AWS.IAM({apiVersion: '2010-05-08'});
 
 //jasmine.getEnv().defaultTimeoutInterval = 1500;
 
-var uploader = new Object();
-uploader.userName = "NodeJsUploadTest@magnet.com";
-//removeUser(uploader.userName, function(){
+var beforeAll = function(fn) {
+    it('[beforeAll]', fn, 100000);
+}
+
+var afterAll = function(fn) {
+    it('[afterAll]', fn, 100000)
+}
+
+var uploader = { UserName: "NodeJsUploadTest@magnet.com", AccessKeyId: "AKIAIM6LNU6WAMS5ENIQ", SecretAccessKey: "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"};
+//removeUser(uploader.UserName, function(){
 //    console.log("Deleted user");
-//    Cloud.allocateCloudAccount(uploader.userName, function(err, data) {
+//    Cloud.allocateCloudAccount(uploader.UserName, function(err, data) {
 //        if (!err) {
 //            uploader.AccessKeyId = data.accessKeyId;
 //            uploader.SecretAccessKey = data.secretAccessKey;
@@ -19,14 +26,18 @@ uploader.userName = "NodeJsUploadTest@magnet.com";
 //        }
 //    })
 //});
-Cloud.allocateCloudAccount(uploader.userName, function(err, data) {
-    if (!err) {
-        uploader.AccessKeyId = data.accessKeyId;
-        uploader.SecretAccessKey = data.secretAccessKey;
-    } else {
-        console.error("Error creating keys = " + err);
-    }
-})
+//Cloud.allocateCloudAccount(uploader.UserName, function(err, data) {
+//    if (!err) {
+//        console.log("WE ARE HERE");
+//        console.log(JSON.stringify(data));
+//        console.log("data.accessKeyId = " + data.AccessKeyId);
+//        uploader.AccessKeyId = data.accessKeyId;
+//        uploader.SecretAccessKey = data.SecretAccessKey;
+//        console.log(JSON.stringify(uploader));
+//    } else {
+//        console.error("Error creating keys = " + err);
+//    }
+//});
 
 function deleteCloudUser(userName, done) {
     iam.deleteUser({UserName: userName}, function (err, data) {
@@ -137,23 +148,37 @@ describe("Cloud allocateCloudAccount without existing user", function() {
 });
 
 describe("Cloud allocateCloudAccount generated keys", function() {
-    var s3 = new AWS.S3({apiVersion: '2006-03-01', secretAccessKey: uploader.SecretAccessKey, accessKeyId: uploader.AccessKeyId});
+    var s3 = new AWS.S3({apiVersion: '2006-03-01'});
     var fileName = 'test.txt';
-    var key = uploader.userName + '/' + fileName;
+    var key = uploader.UserName + '/' + fileName;
+    var otherKey = 'pshahtest' + '/' + fileName;
     var bucketName = 'magnet-audit-test';
-    var body = 'Dummy text file to test CRUD on S3 for given LoginCredentials.';
+    var otherBucketName = 'pshahtest';
+    var body = "Dummy text file to test CRUD on S3 for given LoginCredentials.";
+    var bodyBuffer = new Buffer(body, "utf-8");
+
+    beforeAll(function(done) {
+        s3.putObject({Body: bodyBuffer, Bucket: bucketName, Key: otherKey}, function(err, data) {
+            expect(err).toBeNull();
+            s3.putObject({Body: bodyBuffer, Bucket: otherBucketName, Key: key}, function(err, data) {
+                expect(err).toBeNull();
+                s3.config.credentials.accessKeyId = uploader.AccessKeyId;
+                s3.config.credentials.secretAccessKey = uploader.SecretAccessKey;
+                done();
+            });
+        });
+    });
 
     // The user has to be created at the global scope instead of beforeEach
     // because it takes a few seconds to minutes for the newly created User to become active in S3.
 
-    it("should allow uploading to own directory in Bucket", function(done) {
+    it("should be able to write to own folder in the same bucket", function(done) {
         this.after(function() {
             s3.deleteObject({Bucket: bucketName, Key: key}, function (err, data) {
             });
         });
 
-        s3.putObject({Body: body, Bucket: bucketName, Key: key}, function(err, data) {
-            console.log("Successfully uploaded %s to %s", key, bucketName);
+        s3.putObject({Body: bodyBuffer, Bucket: bucketName, Key: key}, function(err, data) {
             expect(err).toBeNull();
             s3.getObject({Bucket: bucketName, Key: key}, function (err, data) {
                 expect(err).toBeNull();
@@ -163,18 +188,61 @@ describe("Cloud allocateCloudAccount generated keys", function() {
         });
     }, 20000);
 
-    // FIXME: This test should fail
-    xit("shouldn't allow uploading to other User's directory in Bucket", function(done) {
-        this.after(function() {
-            removeUser(uploader.userName, function(){});
-        });
-        var newKey = 'otherUsersDirectory' + '/' + fileName;
-        s3.putObject({Body: body, Bucket: bucketName, Key: newKey}, function(err, data) {
-            if (!err) {
-                console.log("Successfully uploaded %s to %s", newKey, bucketName);
-            }
+    it("should not be able to write to a different folder in the same bucket", function(done) {
+        var newKey = 'randomFolderKey' + '/' + fileName;
+
+        s3.putObject({Body: bodyBuffer, Bucket: bucketName, Key: newKey}, function(err, data) {
             expect(err).not.toBeNull();
             done();
         });
     }, 20000);
+
+    it("should not be able to write to a different bucket", function(done) {
+        s3.putObject({Body: bodyBuffer, Bucket: otherBucketName, Key: key}, function(err, data) {
+            expect(err).not.toBeNull();
+            done();
+        });
+    }, 20000);
+
+    it("should not be able to get an object from a foreign folder", function(done) {
+        s3.getObject({Bucket: bucketName, Key: otherKey}, function(err, data) {
+            expect(err).not.toBeNull();
+            done();
+        });
+    }, 20000);
+
+    it("should not be able to get an object from a foreign bucket", function(done) {
+        s3.getObject({Bucket: otherBucketName, Key: key}, function(err, data) {
+            expect(err).not.toBeNull();
+            done();
+        });
+    }, 20000);
+
+    it("should not be able to delete an object from a foreign folder", function(done) {
+        s3.deleteObject({Bucket: bucketName, Key: otherKey}, function(err, data) {
+            expect(err).not.toBeNull();
+            done();
+        });
+    }, 20000);
+
+    it("should not be able to delete an object from a foreign bucket", function(done) {
+        s3.deleteObject({Bucket: otherBucketName, Key: key}, function(err, data) {
+            expect(err).not.toBeNull();
+            done();
+        });
+    }, 20000);
+
+    afterAll(function(done) {
+        AWS.config.loadFromPath('./lib/config/aws-config.json');
+        iam = new AWS.IAM({apiVersion: '2010-05-08'});
+        var s3 = new AWS.S3({apiVersion: '2006-03-01'});
+        s3.deleteObject({Bucket: bucketName, Key: otherKey}, function(err, data) {
+            expect(err).toBeNull();
+            s3.deleteObject({Bucket: otherBucketName, Key: key}, function(err, data) {
+                expect(err).toBeNull();
+//                removeUser(uploader.UserName, done);
+                done();
+            });
+        });
+    });
 });
