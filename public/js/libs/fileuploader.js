@@ -1,4 +1,4 @@
-/* Fine Uploader 3.0.  Andrew Valums and Ray Nicholus. Github project at http://ow.ly/eMrME 
+/* Fine Uploader 3.0.  Andrew Valums and Ray Nicholus. Github project at http://ow.ly/eMrME
 - modified to allow specifying http method
 - modified to return xhr onComplete
 */

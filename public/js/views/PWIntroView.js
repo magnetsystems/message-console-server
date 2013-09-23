@@ -7,6 +7,7 @@ define(['jquery', 'backbone', 'models/UserModel', 'models/ProjectModel'], functi
                 me.project = params.project;
                 me.settings = params.settings;
                 $('#pw-intro-fields').show();
+                $('#pw-intro-fields').find('input, textarea').val('');
                 $('#project-name-editor').html('Create Project').show();
                 setTimeout(function(){
                     me.$el.find('input[name="name"]').focus();
@@ -27,27 +28,20 @@ define(['jquery', 'backbone', 'models/UserModel', 'models/ProjectModel'], functi
         },
         // create project entity on the server
         create: function(data){
-            var me = this, date = new Date();
-            var proj = new UserModel();
-            proj.save({
-                createdTime : utils.toISO8601(date),
+            var me = this;
+            me.project.set(me.initialData);
+            me.project.save({
                 name        : utils.cleanJavaKeywords(data.name),
                 version     : data.version,
                 description : data.description
             }, {
-                data : {
-                    relationship : {
-                        name     : 'projects',
-                        magnetId : '@me'
-                    }
-                },
                 success: function(){
                     $('#pw-intro-fields').hide().find('input, textarea').val('');
-                    me.project.set(proj.attributes);
-                    me.createSettings(proj.attributes.magnetId);
+                    me.options.eventPubSub.trigger('PWNextTransition', 'intro');
+                    //me.createSettings(me.project.attributes.magnetId);
                 },
                 error: function(){
-                    me.createFailure('error creating project entity.')
+                    me.createFailure('error creating project.')
                 }
             });
         },

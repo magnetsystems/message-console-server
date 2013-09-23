@@ -120,25 +120,9 @@ function syncOverride(mc, eventPubSub){
                 break;
             case 'create':
                 mc.create(url, uModel, function(data, status, xhr){
-                    var magnetId = xhr['Location'].slice(xhr['Location'].lastIndexOf('/')+1);
-                    var id = xhr['Location'].slice(xhr['Location'].lastIndexOf(':')+1);
-                    // need to obtain server administered set of model data
-                    if(relationship == ''){
-                        mc.get(url, magnetId, '', {}, function(obj){
-                            model.set(obj);
-                            if(typeof options.success === typeof Function){
-                                options.success(model, status, xhr);
-                            }
-                        }, function(xhr, ajaxOptions, thrownError){
-                            if(typeof options.error === typeof Function){
-                                options.error(xhr, ajaxOptions, thrownError);
-                            }
-                        }, entity);
-                    }else{
-                        model.set({magnetId:magnetId, id:id});
-                        if(typeof options.success === typeof Function){
-                            options.success(model, status, xhr);
-                        }
+                    model.set({magnetId:data, id:data});
+                    if(typeof options.success === typeof Function){
+                        options.success(model, status, xhr);
                     }
                 }, function(xhr, ajaxOptions, thrownError){
                     if(typeof options.error === typeof Function){

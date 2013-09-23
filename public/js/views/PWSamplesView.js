@@ -1,4 +1,4 @@
-define(['jquery', 'backbone'], function($, Backbone){
+define(['jquery', 'backbone', 'models/ProjectModel'], function($, Backbone, ProjectModel){
     var View = Backbone.View.extend({
         el: '#pw-samples',
         initialize: function(){
@@ -13,20 +13,28 @@ define(['jquery', 'backbone'], function($, Backbone){
         },
         // store project details form data into data object
         storeDetails: function(isPrevious){
-            var me = this;
+            var me = this, btnGroup = $('.button-group[did="samples"]');
             var properties = utils.collect(me.$el);
-            var projectSetting = me.project.get('projectSetting');
-            me.options.mc.query('projects/'+me.project.attributes.magnetId+'/setProjectConfig', 'POST', properties.api, function(){
-                $.extend(projectSetting, properties.config);
-                if(!isPrevious){
-                    me.options.eventPubSub.trigger('PWNextTransition', 'samples');
+            btnGroup.addClass('hidden');
+            var proj = new ProjectModel();
+            proj.set({
+                magnetId : me.project.attributes.magnetId,
+                id       : me.project.attributes.id
+            });
+            proj.save(properties.config, {
+                success: function(){
+                    me.project.set(properties.config);
+                    if(!isPrevious){
+                        me.options.eventPubSub.trigger('PWNextTransition', 'samples');
+                    }
+                },
+                error: function(){
+                    Alerts.Error.display({
+                        title   : 'Error Setting Properties',
+                        content : 'There was an error setting the project properties. Please contact Magnet support.'
+                    });
+                    btnGroup.removeClass('hidden');
                 }
-            }, null, null, function(){
-                Alerts.Error.display({
-                    title   : 'Error Setting Properties',
-                    content : 'There was an error setting the project properties. Please contact Magnet support.'
-                });
-                $('.button-group[did="samples"]').removeClass('hidden');
             });
         },
         // render sample services configuration

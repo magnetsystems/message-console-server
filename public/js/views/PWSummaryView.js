@@ -7,6 +7,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                 me.project = params.project;
                 me.render();
                 me.displayProjectEdit();
+                $('#download-config-file').attr('href', '/rest/projects/'+me.project.attributes.magnetId+'/getConfig');
             });
         },
         events: {

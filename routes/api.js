@@ -1,8 +1,12 @@
 var CountryList = require('../lib/config/CountryList')
-    , AccountManager = require('../lib/AccountManager')
-    , UserManager = require('../lib/UserManager')
-    , EmailService = require('../lib/EmailService')
-    , sanitize = require('validator').sanitize;
+, AccountManager = require('../lib/AccountManager')
+, UserManager = require('../lib/UserManager')
+, ProjectManager = require('../lib/ProjectManager')
+, EmailService = require('../lib/EmailService')
+, magnetId = require('node-uuid')
+, path = require('path')
+, fs = require('fs')
+, sanitize = require('validator').sanitize;
 
 module.exports = function(app){
 
@@ -22,7 +26,8 @@ module.exports = function(app){
                     userName  : user.userName,
                     email     : user.email,
                     country   : user.country,
-                    userType  : user.userType
+                    userType  : user.userType,
+                    magnetId  : user.magnetId
                 };
                 console.log('Tracking: user "' + user.email + '" logged in');
                 res.redirect('/');
@@ -53,7 +58,8 @@ module.exports = function(app){
             lastName  : req.body.lastName,
             company   : req.body.company,
             password  : req.body.password,
-            userType  : 'admin'
+            userType  : 'admin',
+            magnetId  : magnetId.v1()
         }, function(e){
             if(e){
                 res.send(e, 400);
@@ -100,7 +106,7 @@ module.exports = function(app){
 
     /* USER */
 
-    app.get('/rest/user', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+    app.get('/rest/profile', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         UserManager.read(req.session.user, function(e, user){
             if(e){
                 res.send(e, 400);
@@ -110,7 +116,7 @@ module.exports = function(app){
         });
     });
 
-    app.put('/rest/user', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+    app.put('/rest/profile', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         UserManager.update(req.session.user, {
             firstName : req.body.firstName,
             lastName  : req.body.lastName,
@@ -127,9 +133,75 @@ module.exports = function(app){
         });
     });
 
+    app.get('/rest/projects/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        ProjectManager.read(req, function(e, project){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(project, 200);
+            }
+        });
+    });
+
+    app.post('/rest/projects', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        ProjectManager.create(req, function(e, magnetId){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(magnetId, 200);
+            }
+        });
+    });
+
+    app.put('/rest/projects/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        ProjectManager.update(req, function(e, project){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('ok', 200);
+            }
+        });
+    });
+
+    app.get('/rest/projects/:magnetId/getConfig', function(req, res){
+        ProjectManager.getConfig(req, function(e, filePath){
+            if(e){
+                res.send(e, 400);
+            }else{
+                var filename = filePath.slice(filePath.lastIndexOf('/')+1);
+                fs.readFile(filePath, function(e, content){
+                    if(e){
+                        res.writeHead(400);
+                        res.end();
+                    }else{
+                        res.contentType('zip');
+                        res.setHeader('Content-disposition', 'attachment; filename='+filename);
+                        res.end(content, 'utf-8');
+                    }
+                });
+            }
+        });
+    });
+
+    app.post('/rest/projects/:magnetId/uploadAPNSCertificate', function(req, res){
+        ProjectManager.storeProjectFile(req, function(){
+            if(e){
+                res.send(e, 400);
+            }else{
+                 res.writeHead(200, {
+                    'Content-Type' : 'application/json'
+                 });
+                 res.end(JSON.stringify({
+                    success : true
+                 }));
+                 res.end();
+            }
+        });
+    });
+
     /* GENERAL */
 
-    app.post('/rest/contactUs', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+    app.post('/rest/contactUs', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         // build email body and send out email
         EmailService.sendEmail({
             to      : EmailService.EmailSettings.supportEmail,

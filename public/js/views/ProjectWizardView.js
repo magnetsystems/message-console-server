@@ -444,12 +444,12 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
             var fieldDescription = editor.find('textarea[name="description"]');
             var fieldVersion = editor.find('input[name="version"]');
             me.updateProjectDetails({
-                name        : fieldName.val(),
+                name        : utils.cleanJavaKeywords(fieldName.val()),
                 description : fieldDescription.val(),
                 version     : fieldVersion.val()
             }, function(proj){
                 me.project.set({
-                    name        : utils.cleanJavaKeywords(proj.name),
+                    name        : proj.name,
                     description : proj.description,
                     version     : proj.version
                 });

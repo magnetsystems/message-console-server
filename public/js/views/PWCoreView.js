@@ -95,18 +95,25 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ContentModel', 'vie
         save: function(properties, isPrevious){
             var me = this, btnGroup = $('.button-group[did="core"]');
             btnGroup.addClass('hidden');
-            var projectSetting = me.project.get('projectSetting');
-            me.options.mc.query('projects/'+me.project.attributes.magnetId+'/setProjectConfig', 'POST', properties.api, function(){
-                $.extend(projectSetting, properties.config);
-                if(!isPrevious){
-                    me.options.eventPubSub.trigger('PWNextTransition', 'core');
+            var proj = new ProjectModel();
+            proj.set({
+                magnetId : me.project.attributes.magnetId,
+                id       : me.project.attributes.id
+            });
+            proj.save(properties.config, {
+                success: function(){
+                    me.project.set(properties.config);
+                    if(!isPrevious){
+                        me.options.eventPubSub.trigger('PWNextTransition', 'core');
+                    }
+                },
+                error: function(){
+                    Alerts.Error.display({
+                        title   : 'Error Setting Properties',
+                        content : 'There was an error setting the project properties. Please contact Magnet support.'
+                    });
+                    btnGroup.removeClass('hidden');
                 }
-            }, null, null, function(){
-                Alerts.Error.display({
-                    title   : 'Error Setting Properties',
-                    content : 'There was an error setting the project properties. Please contact Magnet support.'
-                });
-                btnGroup.removeClass('hidden');
             });
         },
         displayProjectEdit: function(){
@@ -131,7 +138,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ContentModel', 'vie
             var uploader = new UploadView({
                 el          : '#pw-apns-cert-file',
                 context     : 'APNSCertFile',
-                method      : 'PUT',
+                method      : 'POST',
                 validation  : {},
                 eventPubSub : this.options.eventPubSub
             });
@@ -146,30 +153,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ContentModel', 'vie
             }
             var btn = $('#pw-apns-cert-file-btn');
             me.options.eventPubSub.trigger('btnLoading', btn);
-            var model = new ProjectModel();
-            model.save({
-                name        : file.text(),
-                description : 'server.config.ApnsAccount.certFile'
-            }, {
-                data : {
-                    relationship : {
-                        name     : 'configFiles',
-                        magnetId : this.project.attributes.magnetId
-                    }
-                },
-                success: function(model){
-                    me.options.eventPubSub.trigger('uploadAPNSCertFile', '/rest/contents/'+model.attributes.magnetId+'/data', {
-                        model : model
-                    });
-                },
-                error: function(){
-                    me.options.eventPubSub.trigger('btnComplete', btn);
-                    Alerts.Error.display({
-                        title   : 'Error Uploading Certificate',
-                        content : 'There was an error uploading the certificate.'
-                    });
-                }
-            });
+            me.options.eventPubSub.trigger('uploadAPNSCertFile', '/rest/projects/'+me.project.attributes.magnetId+'/uploadAPNSCertificate');
         },
         // remove apns certificate
         removeCert: function(e){

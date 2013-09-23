@@ -1,4 +1,4 @@
-define(['jquery', 'backbone'], function($, Backbone){
+define(['jquery', 'backbone', 'models/ProjectModel'], function($, Backbone, ProjectModel){
     var View = Backbone.View.extend({
         el: '#pw-thirdparty',
         initialize: function(){
@@ -30,19 +30,27 @@ define(['jquery', 'backbone'], function($, Backbone){
         },
         save: function(properties, isPrevious){
             var me = this, btnGroup = $('.button-group[did="thirdparty"]');
+            var properties = utils.collect(me.$el);
             btnGroup.addClass('hidden');
-            var projectSetting = me.project.get('projectSetting');
-            me.options.mc.query('projects/'+me.project.attributes.magnetId+'/setProjectConfig', 'POST', properties.api, function(){
-                $.extend(projectSetting, properties.config);
-                if(!isPrevious){
-                    me.options.eventPubSub.trigger('PWNextTransition', 'thirdparty');
+            var proj = new ProjectModel();
+            proj.set({
+                magnetId : me.project.attributes.magnetId,
+                id       : me.project.attributes.id
+            });
+            proj.save(properties.config, {
+                success: function(){
+                    me.project.set(properties.config);
+                    if(!isPrevious){
+                        me.options.eventPubSub.trigger('PWNextTransition', 'thirdparty');
+                    }
+                },
+                error: function(){
+                    Alerts.Error.display({
+                        title   : 'Error Setting Properties',
+                        content : 'There was an error setting the project properties. Please contact Magnet support.'
+                    });
+                    btnGroup.removeClass('hidden');
                 }
-            }, null, null, function(){
-                Alerts.Error.display({
-                    title   : 'Error Setting Properties',
-                    content : 'There was an error setting the project properties. Please contact Magnet support.'
-                });
-                btnGroup.removeClass('hidden');
             });
         },
         // render third party service configuration

@@ -4,7 +4,6 @@ var express = require('express')
 , app = express.createServer()
 , http = require('http')
 , connect = require('express/node_modules/connect')
-, io = require('socket.io').listen(app)
 , fs = require('fs');
 
 require('./lib/orm').setup('./lib/models', true, 'developercenter', 'root');
@@ -14,8 +13,8 @@ var cookieParser = express.cookieParser(secret);
 var sessionStore = new connect.middleware.session.MemoryStore();
 
 app.on('uncaughtException', function(error){
-    console.log('Uncaught Error: ');
-    console.log(error.stack);
+    console.error('Uncaught Error: ');
+    console.error(error.stack);
 });
 
 // Configuration
@@ -45,6 +44,20 @@ app.configure(function(){
     */
 
     app.use(express.bodyParser());
+
+    /*
+    var bodyParser = express.bodyParser();
+    app.use(function(req, res, next){
+        console.error(req.headers['content-type']);
+        if(req.headers['content-type'] && req.headers['content-type'].indexOf('multipart/form-data') != -1){
+            console.log('is octet');
+            return next();
+        }
+        bodyParser(req, res, next);
+    });
+    */
+
+
     app.use(cookieParser);
     app.use(express.session({
         store  : sessionStore,
@@ -73,7 +86,6 @@ app.configure('production', function(){
 GLOBAL.app = app;
 GLOBAL.http = http;
 GLOBAL.fs = fs;
-GLOBAL.io = io;
 GLOBAL.tmplVars = {
     resourceUrl : 'localhost:3000/resources'
 };

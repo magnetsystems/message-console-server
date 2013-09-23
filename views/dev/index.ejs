@@ -233,7 +233,10 @@
                 <div did="summary" class=" hidden button-group">
                     <a href="#/" class="main-btn btn">Back to Projects List</a>
                     <a href="#/" class="go-back main-btn btn">Previous Step</a>
+                    <a id="download-config-file" href="#" type="button" class="main-btn btn btn-primary pull-right">Download Config File</a>
+                    <!--
                     <button id="finish-wizard-btn" type="button" class="main-btn btn btn-primary pull-right">Finish and Generate Assets</button>
+                    -->
                 </div>
             </div>
         </div>
@@ -551,22 +554,22 @@
             Encryption Services
             <i class="icon icon-chevron-down"></i>
             <div class="preview-status">
-                <% if(project.attributes.projectSetting['encryptionEnabled'] == true){ %>ON<% }else{ %>OFF<% } %>
+                <% if(project.attributes['encryptionEnabled'] == true){ %>ON<% }else{ %>OFF<% } %>
             </div>
         </a>
     </div>
     <div id="core-encryption" class="accordion-body collapse" style="height:0">
         <div class="accordion-inner">
             <div class="clearfix">
-                <div did="ON" class="<% if(project.attributes.projectSetting['encryptionEnabled'] !== true){ %>hidden<% } %>">
+                <div did="ON" class="<% if(project.attributes['encryptionEnabled'] !== true){ %>hidden<% } %>">
                     You currently have enabled Android encryption services for cached data.
                 </div>
-                <div did="OFF" class="<% if(project.attributes.projectSetting['encryptionEnabled'] == true){ %>hidden<% } %>">
+                <div did="OFF" class="<% if(project.attributes['encryptionEnabled'] == true){ %>hidden<% } %>">
                     You currently have not enabled Android encryption services for cached data.
                 </div>
                 <div did="encryptionEnabled" class="btn-group">
-                    <button did="true" class="btn <% if(project.attributes.projectSetting['encryptionEnabled'] == true){ %>btn-primary<% } %>">ON</button>
-                    <button did="false" class="btn <% if(project.attributes.projectSetting['encryptionEnabled'] !== true){ %>btn-primary<% } %>">OFF</button>
+                    <button did="true" class="btn <% if(project.attributes['encryptionEnabled'] == true){ %>btn-primary<% } %>">ON</button>
+                    <button did="false" class="btn <% if(project.attributes['encryptionEnabled'] !== true){ %>btn-primary<% } %>">OFF</button>
                 </div>
             </div>
             <div class="clearfix">
@@ -595,21 +598,21 @@
             Location Data Collection
             <i class="icon icon-chevron-down"></i>
             <div class="preview-status">
-                <% if(project.attributes.projectSetting['useGeoLocation'] == true){ %>ON<% }else{ %>OFF<% } %>
+                <% if(project.attributes['useGeoLocation'] == true){ %>ON<% }else{ %>OFF<% } %>
             </div>
         </a>
     </div>
     <div id="core-datacollection" class="accordion-body collapse" style="height:0">
         <div class="accordion-inner">
-            <div did="ON" class="<% if(project.attributes.projectSetting['useGeoLocation'] !== true){ %>hidden<% } %>">
+            <div did="ON" class="<% if(project.attributes['useGeoLocation'] !== true){ %>hidden<% } %>">
                 Location data will be collected.
             </div>
-            <div did="OFF" class="<% if(project.attributes.projectSetting['useGeoLocation'] == true){ %>hidden<% } %>">
+            <div did="OFF" class="<% if(project.attributes['useGeoLocation'] == true){ %>hidden<% } %>">
                 You will NOT collect location data.
             </div>
             <div did="useGeoLocation" class="btn-group">
-                <button did="true" class="btn <% if(project.attributes.projectSetting['useGeoLocation'] == true){ %>btn-primary<% } %>">ON</button>
-                <button did="false" class="btn <% if(project.attributes.projectSetting['useGeoLocation'] !== true){ %>btn-primary<% } %>">OFF</button>
+                <button did="true" class="btn <% if(project.attributes['useGeoLocation'] == true){ %>btn-primary<% } %>">ON</button>
+                <button did="false" class="btn <% if(project.attributes['useGeoLocation'] !== true){ %>btn-primary<% } %>">OFF</button>
             </div>
         </div>
     </div>
@@ -620,8 +623,8 @@
             User Authentication
             <i class="icon icon-chevron-down"></i>
             <div class="preview-status">
-                <% if(project.attributes.projectSetting['userAuth']){ %>
-                <%- project.attributes.projectSetting['userAuth']
+                <% if(project.attributes['userAuth']){ %>
+                <%- project.attributes['userAuth']
                 .replace('defaultUser', 'Default User')
                 .replace('DB', 'Database')
                 .replace('AD', 'Active Directory')
@@ -637,7 +640,7 @@
             <table class="radio-collection">
                 <tr did="default">
                     <td class="first">
-                        <input type="radio" did="default" name="userAuth" value="defaultUser" <% if(project.attributes.projectSetting['userAuth'] == 'defaultUser'){ %>checked="checked"<% } %> /> Default User
+                        <input type="radio" did="default" name="userAuth" value="defaultUser" <% if(project.attributes['userAuth'] == 'defaultUser'){ %>checked="checked"<% } %> /> Default User
                     </td>
                     <td>
                         Please choose this option to enable default user and login to work in Magnet's sandbox database.
@@ -645,26 +648,26 @@
                 </tr>
                 <tr>
                     <td class="first">
-                        <input type="radio" did="database" name="userAuth" value="DB" <% if(project.attributes.projectSetting['userAuth'] == 'DB'){ %>checked="checked"<% } %> /> MySQL
+                        <input type="radio" did="database" name="userAuth" value="DB" <% if(project.attributes['userAuth'] == 'DB'){ %>checked="checked"<% } %> /> MySQL
                     </td>
                     <td>
                         Your project will use your own MySQL database for user authentication.
-                        <div did="database" class="well radio-toggle <% if(project.attributes.projectSetting['userAuth'] != 'DB'){ %>hidden<% } %>">
+                        <div did="database" class="well radio-toggle <% if(project.attributes['userAuth'] != 'DB'){ %>hidden<% } %>">
                             <div class="row-fluid">
-                                <input class="span5" type="text" name="jdbcHost" value="<%- project.attributes.projectSetting['jdbcHost'] %>" placeholder="Host">
-                                <input class="span3" type="text" name="jdbcPort" value="<%- project.attributes.projectSetting['jdbcPort'] %>" placeholder="Port">
-                                <input class="span4" type="text" name="jdbcName" value="<%- project.attributes.projectSetting['jdbcName'] %>" placeholder="Database Name">
+                                <input class="span5" type="text" name="jdbcHost" value="<%- project.attributes['jdbcHost'] %>" placeholder="Host">
+                                <input class="span3" type="text" name="jdbcPort" value="<%- project.attributes['jdbcPort'] %>" placeholder="Port">
+                                <input class="span4" type="text" name="jdbcName" value="<%- project.attributes['jdbcName'] %>" placeholder="Database Name">
                             </div>
                             <div class="row-fluid">
-                                <input class="span6" type="text" name="jdbcUser" value="<%- project.attributes.projectSetting['jdbcUser'] %>" placeholder="Username">
-                                <input class="span6" type="text" name="jdbcPassword" value="<%- project.attributes.projectSetting['jdbcPassword'] %>" placeholder="Password">
+                                <input class="span6" type="text" name="jdbcUser" value="<%- project.attributes['jdbcUser'] %>" placeholder="Username">
+                                <input class="span6" type="text" name="jdbcPassword" value="<%- project.attributes['jdbcPassword'] %>" placeholder="Password">
                             </div>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td class="first">
-                        <input type="radio" did="ldap" name="userAuth" value="LDAP" <% if(project.attributes.projectSetting['userAuth'] == 'LDAP'){ %>checked="checked"<% } %> /> LDAP
+                        <input type="radio" did="ldap" name="userAuth" value="LDAP" <% if(project.attributes['userAuth'] == 'LDAP'){ %>checked="checked"<% } %> /> LDAP
                     </td>
                     <td>
                         Your project will use your own LDAP for user authentication.
@@ -675,7 +678,7 @@
                 </tr>
                 <tr>
                     <td class="first">
-                        <input type="radio" did="ad" name="userAuth" value="AD" <% if(project.attributes.projectSetting['userAuth'] == 'AD'){ %>checked="checked"<% } %> /> Active Directory
+                        <input type="radio" did="ad" name="userAuth" value="AD" <% if(project.attributes['userAuth'] == 'AD'){ %>checked="checked"<% } %> /> Active Directory
                     </td>
                     <td>
                         Your project will use your own Active Directory for user authentication.
@@ -694,23 +697,23 @@
             Google Android Notification Service
             <i class="icon icon-chevron-down"></i>
             <div class="preview-status">
-                <% if(project.attributes.projectSetting['gcmEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
+                <% if(project.attributes['gcmEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
             </div>
         </a>
     </div>
     <div id="core-android" class="accordion-body collapse" style="height:0">
         <div class="accordion-inner">
             <div id="core-GCM" did="gcmEnabled" class="btn-group">
-                <button did="true" class="btn <% if(project.attributes.projectSetting['gcmEnabled'] == true){ %>btn-primary<% } %>">Include</button>
-                <button did="false" class="btn <% if(project.attributes.projectSetting['gcmEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
+                <button did="true" class="btn <% if(project.attributes['gcmEnabled'] == true){ %>btn-primary<% } %>">Include</button>
+                <button did="false" class="btn <% if(project.attributes['gcmEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
             </div>
-            <div did="ON" class="<% if(project.attributes.projectSetting['gcmEnabled'] !== true){ %>hidden<% } %>">
+            <div did="ON" class="<% if(project.attributes['gcmEnabled'] !== true){ %>hidden<% } %>">
                 Your project will include this notification service.
             </div>
-            <div did="OFF" class="<% if(project.attributes.projectSetting['gcmEnabled'] == true){ %>hidden<% } %>">
+            <div did="OFF" class="<% if(project.attributes['gcmEnabled'] == true){ %>hidden<% } %>">
                 You will NOT include this notification service.
             </div>
-            <div id="core-GCM-fields" class="optional-parameters <% if(project.attributes.projectSetting['gcmEnabled'] !== true){ %>disabled<% } %>">
+            <div id="core-GCM-fields" class="optional-parameters <% if(project.attributes['gcmEnabled'] !== true){ %>disabled<% } %>">
                 <div class="title">
                     Parameters
                 </div>
@@ -719,8 +722,8 @@
                         <dt>GCM Information</dt>
                         <dd>
                             <div class="controls controls-row">
-                                <input class="span5" type="text" name="gcmApiKey" value="<%- project.attributes.projectSetting['gcmApiKey'] %>" placeholder="Server API Key">
-                                <input class="span5" type="text" name="gcmSenderId" value="<%- project.attributes.projectSetting['gcmSenderId'] %>" placeholder="Client Sender ID">
+                                <input class="span5" type="text" name="gcmApiKey" value="<%- project.attributes['gcmApiKey'] %>" placeholder="Server API Key">
+                                <input class="span5" type="text" name="gcmSenderId" value="<%- project.attributes['gcmSenderId'] %>" placeholder="Client Sender ID">
                             </div>
                         </dd>
                     </dl>
@@ -731,7 +734,7 @@
                         <b>Note:</b> In the <a href="https://code.google.com/apis/console/" target="_blank">Google API Console</a>, the Sender ID is referred to as the "Project Number"
                     </p>
                 </div>
-                <% if(project.attributes.projectSetting['gcmEnabled'] !== true){ %>
+                <% if(project.attributes['gcmEnabled'] !== true){ %>
                 <div class="overlay"></div>
                 <% } %>
             </div>
@@ -744,23 +747,23 @@
             Apple iOS Notification Service
             <i class="icon icon-chevron-down"></i>
             <div class="preview-status">
-                <% if(project.attributes.projectSetting['apnsEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
+                <% if(project.attributes['apnsEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
             </div>
         </a>
     </div>
     <div id="core-ios" class="accordion-body collapse" style="height:0">
         <div class="accordion-inner">
             <div id="core-APNS" did="apnsEnabled" class="btn-group">
-                <button did="true" class="btn <% if(project.attributes.projectSetting['apnsEnabled'] == true){ %>btn-primary<% } %>">Include</button>
-                <button did="false" class="btn <% if(project.attributes.projectSetting['apnsEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
+                <button did="true" class="btn <% if(project.attributes['apnsEnabled'] == true){ %>btn-primary<% } %>">Include</button>
+                <button did="false" class="btn <% if(project.attributes['apnsEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
             </div>
-            <div did="ON" class="<% if(project.attributes.projectSetting['apnsEnabled'] !== true){ %>hidden<% } %>">
+            <div did="ON" class="<% if(project.attributes['apnsEnabled'] !== true){ %>hidden<% } %>">
                 Your project will include this notification service.
             </div>
-            <div did="OFF" class="<% if(project.attributes.projectSetting['apnsEnabled'] == true){ %>hidden<% } %>">
+            <div did="OFF" class="<% if(project.attributes['apnsEnabled'] == true){ %>hidden<% } %>">
                 You will NOT include this notification service.
             </div>
-            <div id="core-APNS-fields" class="optional-parameters <% if(project.attributes.projectSetting['apnsEnabled'] !== true){ %>disabled<% } %>">
+            <div id="core-APNS-fields" class="optional-parameters <% if(project.attributes['apnsEnabled'] !== true){ %>disabled<% } %>">
                 <div class="title">
                     Parameters
                 </div>
@@ -791,11 +794,11 @@
                             <div class="row-fluid">
                                 <div class="span6">
                                     <div id="core-APNS-type" did="apnsHost" class="btn-group btn-group-only">
-                                        <button did="gateway.sandbox.push.apple.com" class="btn <% if(project.attributes.projectSetting['apnsHost'] !== 'gateway.push.apple.com'){ %>btn-primary<% } %>">Sandbox</button>
-                                        <button did="gateway.push.apple.com" class="btn <% if(project.attributes.projectSetting['apnsHost'] === 'gateway.push.apple.com'){ %>btn-primary<% } %>">Production</button>
+                                        <button did="gateway.sandbox.push.apple.com" class="btn <% if(project.attributes['apnsHost'] !== 'gateway.push.apple.com'){ %>btn-primary<% } %>">Sandbox</button>
+                                        <button did="gateway.push.apple.com" class="btn <% if(project.attributes['apnsHost'] === 'gateway.push.apple.com'){ %>btn-primary<% } %>">Production</button>
                                     </div>
                                 </div>
-                                <input class="span5" type="text" placeholder="Certificate Password" value="<%- project.attributes.projectSetting['apnsPassword'] %>" name="apnsPassword"/>
+                                <input class="span5" type="text" placeholder="Certificate Password" value="<%- project.attributes['apnsPassword'] %>" name="apnsPassword"/>
                             </div>
                         </dd>
                     </dl>
@@ -803,7 +806,7 @@
                         <a href="http://developer.apple.com/library/ios/#documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Chapters/ApplePushService.html" target="_blank">How to acquire iOS APNS access</a>
                     </p>
                 </div>
-                <% if(project.attributes.projectSetting['apnsEnabled'] !== true){ %>
+                <% if(project.attributes['apnsEnabled'] !== true){ %>
                 <div class="overlay"></div>
                 <% } %>
             </div>
@@ -816,23 +819,23 @@
             Email Notification Service
             <i class="icon icon-chevron-down"></i>
             <div class="preview-status">
-                <% if(project.attributes.projectSetting['emailEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
+                <% if(project.attributes['emailEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
             </div>
         </a>
     </div>
     <div id="core-email" class="accordion-body collapse" style="height:0">
         <div class="accordion-inner">
             <div id="core-emailservice" did="emailEnabled" class="btn-group">
-                <button did="true" class="btn <% if(project.attributes.projectSetting['emailEnabled'] == true){ %>btn-primary<% } %>">Include</button>
-                <button did="false" class="btn <% if(project.attributes.projectSetting['emailEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
+                <button did="true" class="btn <% if(project.attributes['emailEnabled'] == true){ %>btn-primary<% } %>">Include</button>
+                <button did="false" class="btn <% if(project.attributes['emailEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
             </div>
-            <div did="ON" class="<% if(project.attributes.projectSetting['emailEnabled'] !== true){ %>hidden<% } %>">
+            <div did="ON" class="<% if(project.attributes['emailEnabled'] !== true){ %>hidden<% } %>">
                 Your project will include this notification service.
             </div>
-            <div did="OFF" class="<% if(project.attributes.projectSetting['emailEnabled'] == true){ %>hidden<% } %>">
+            <div did="OFF" class="<% if(project.attributes['emailEnabled'] == true){ %>hidden<% } %>">
                 You will NOT include this notification service.
             </div>
-            <div id="core-email-fields" class="optional-parameters <% if(project.attributes.projectSetting['emailEnabled'] !== true){ %>disabled<% } %>">
+            <div id="core-email-fields" class="optional-parameters <% if(project.attributes['emailEnabled'] !== true){ %>disabled<% } %>">
                 <div class="title">
                     Parameters
                 </div>
@@ -841,12 +844,12 @@
                         <dt>Server Information</dt>
                         <dd>
                             <div class="controls controls-row">
-                                <input class="span4" type="text" name="smtpHostName" value="<%- project.attributes.projectSetting['smtpHostName'] %>" placeholder="Host">
-                                <input class="span5" type="text" name="smtpPort" value="<%- project.attributes.projectSetting['smtpPort'] %>" placeholder="Port">
+                                <input class="span4" type="text" name="smtpHostName" value="<%- project.attributes['smtpHostName'] %>" placeholder="Host">
+                                <input class="span5" type="text" name="smtpPort" value="<%- project.attributes['smtpPort'] %>" placeholder="Port">
                             </div>
                             <div class="controls controls-row">
-                                <input class="span4" type="text" name="smtpUsername" value="<%- project.attributes.projectSetting['smtpUsername'] %>" placeholder="User ID">
-                                <input class="span5" type="text" name="smtpPassword" value="<%- project.attributes.projectSetting['smtpPassword'] %>" placeholder="Password">
+                                <input class="span4" type="text" name="smtpUsername" value="<%- project.attributes['smtpUsername'] %>" placeholder="User ID">
+                                <input class="span5" type="text" name="smtpPassword" value="<%- project.attributes['smtpPassword'] %>" placeholder="Password">
                             </div>
                         </dd>
                     </dl>
@@ -854,13 +857,13 @@
                         <dt>Sender Information</dt>
                         <dd>
                             <div class="controls controls-row">
-                                <input class="span4" type="text" name="smtpSenderName" value="<%- project.attributes.projectSetting['smtpSenderName'] %>" placeholder="Name">
-                                <input class="span5" type="text" name="smtpSenderEmail" value="<%- project.attributes.projectSetting['smtpSenderEmail'] %>" placeholder="Email">
+                                <input class="span4" type="text" name="smtpSenderName" value="<%- project.attributes['smtpSenderName'] %>" placeholder="Name">
+                                <input class="span5" type="text" name="smtpSenderEmail" value="<%- project.attributes['smtpSenderEmail'] %>" placeholder="Email">
                             </div>
                         </dd>
                     </dl>
                 </div>
-                <% if(project.attributes.projectSetting['emailEnabled'] !== true){ %>
+                <% if(project.attributes['emailEnabled'] !== true){ %>
                 <div class="overlay"></div>
                 <% } %>
             </div>
@@ -877,7 +880,7 @@
                     Hello World Controller
                     <i class="icon icon-chevron-down"></i>
                     <div class="preview-status">
-                        <% if(project.attributes.projectSetting['helloWorldControllerEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
+                        <% if(project.attributes['helloWorldControllerEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
                     </div>
                 </a>
             </div>
@@ -885,8 +888,8 @@
                 <div class="accordion-inner">
                     <p class="accordion-caption">This module demonstrates how to interact with a controller over REST from a mobile client. It can be used as a starting template for writing your own controller.</p>
                     <div did="helloWorldControllerEnabled" class="btn-group">
-                        <button did="true" class="btn <% if(project.attributes.projectSetting['helloWorldControllerEnabled'] == true){ %>btn-primary<% } %>">Include</button>
-                        <button did="false" class="btn <% if(project.attributes.projectSetting['helloWorldControllerEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
+                        <button did="true" class="btn <% if(project.attributes['helloWorldControllerEnabled'] == true){ %>btn-primary<% } %>">Include</button>
+                        <button did="false" class="btn <% if(project.attributes['helloWorldControllerEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
                     </div>
                 </div>
             </div>
@@ -897,7 +900,7 @@
                     Sample Entity Controller
                     <i class="icon icon-chevron-down"></i>
                     <div class="preview-status">
-                        <% if(project.attributes.projectSetting['sampleEntityEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
+                        <% if(project.attributes['sampleEntityEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
                     </div>
                 </a>
             </div>
@@ -905,8 +908,8 @@
                 <div class="accordion-inner">
                     <p class="accordion-caption">This module demonstrates how to interact with an entity over REST from a mobile client. It can be used as a starting template for writing your own entity.</p>
                     <div did="sampleEntityEnabled" class="btn-group">
-                        <button did="true" class="btn <% if(project.attributes.projectSetting['sampleEntityEnabled'] == true){ %>btn-primary<% } %>">Include</button>
-                        <button did="false" class="btn <% if(project.attributes.projectSetting['sampleEntityEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
+                        <button did="true" class="btn <% if(project.attributes['sampleEntityEnabled'] == true){ %>btn-primary<% } %>">Include</button>
+                        <button did="false" class="btn <% if(project.attributes['sampleEntityEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
                     </div>
                 </div>
             </div>
@@ -924,23 +927,23 @@
                     Salesforce
                     <i class="icon icon-chevron-down"></i>
                     <div class="preview-status">
-                        <% if(project.attributes.projectSetting['salesforceEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
+                        <% if(project.attributes['salesforceEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
                     </div>
                 </a>
             </div>
             <div id="thirdparty-salesforce" class="accordion-body collapse" style="height:0">
                 <div class="accordion-inner">
                     <div did="salesforceEnabled" class="btn-group">
-                        <button did="true" class="btn <% if(project.attributes.projectSetting['salesforceEnabled'] == true){ %>btn-primary<% } %>">Include</button>
-                        <button did="false" class="btn <% if(project.attributes.projectSetting['salesforceEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
+                        <button did="true" class="btn <% if(project.attributes['salesforceEnabled'] == true){ %>btn-primary<% } %>">Include</button>
+                        <button did="false" class="btn <% if(project.attributes['salesforceEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
                     </div>
-                    <div did="ON" class="<% if(project.attributes.projectSetting['salesforceEnabled'] !== true){ %>hidden<% } %>">
+                    <div did="ON" class="<% if(project.attributes['salesforceEnabled'] !== true){ %>hidden<% } %>">
                         Your project is including this 3rd-party service.
                     </div>
-                    <div did="OFF" class="<% if(project.attributes.projectSetting['salesforceEnabled'] == true){ %>hidden<% } %>">
+                    <div did="OFF" class="<% if(project.attributes['salesforceEnabled'] == true){ %>hidden<% } %>">
                         Your project currently does NOT include this 3rd-party service.
                     </div>
-                    <div id="thirdparty-salesforce-fields" class="optional-parameters <% if(project.attributes.projectSetting['salesforceEnabled'] !== true){ %>disabled<% } %>">
+                    <div id="thirdparty-salesforce-fields" class="optional-parameters <% if(project.attributes['salesforceEnabled'] !== true){ %>disabled<% } %>">
                         <div class="title">
                             Parameters
                         </div>
@@ -949,11 +952,11 @@
                                 <dt>Remote Access Keys</dt>
                                 <dd>
                                     <div class="controls controls-row">
-                                        <input class="span5" type="text" name="sfdcClientId" value="<%- project.attributes.projectSetting['sfdcClientId'] %>" placeholder="Consumer Key">
-                                        <input class="span5" type="text" name="sfdcClientSecret" value="<%- project.attributes.projectSetting['sfdcClientSecret'] %>" placeholder="Consumer Secret">
+                                        <input class="span5" type="text" name="sfdcClientId" value="<%- project.attributes['sfdcClientId'] %>" placeholder="Consumer Key">
+                                        <input class="span5" type="text" name="sfdcClientSecret" value="<%- project.attributes['sfdcClientSecret'] %>" placeholder="Consumer Secret">
                                     </div>
                                     <div class="controls controls-row">
-                                        <input class="span10" type="text" name="sfdcClientEndpointAddress" value="<%- project.attributes.projectSetting['sfdcClientEndpointAddress'] %>" placeholder="Callback URL">
+                                        <input class="span10" type="text" name="sfdcClientEndpointAddress" value="<%- project.attributes['sfdcClientEndpointAddress'] %>" placeholder="Callback URL">
                                     </div>
                                 </dd>
                             </dl>
@@ -964,7 +967,7 @@
                                 <a href="http://wiki.developerforce.com/page/Connected_Apps" target="_blank">How to register your connected app and obtain remote access keys</a>
                             </p>
                         </div>
-                        <% if(project.attributes.projectSetting['salesforceEnabled'] !== true){ %>
+                        <% if(project.attributes['salesforceEnabled'] !== true){ %>
                         <div class="overlay"></div>
                         <% } %>
                     </div>
@@ -977,23 +980,23 @@
                     LinkedIn
                     <i class="icon icon-chevron-down"></i>
                     <div class="preview-status">
-                        <% if(project.attributes.projectSetting['linkedinEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
+                        <% if(project.attributes['linkedinEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
                     </div>
                 </a>
             </div>
             <div id="thirdparty-linkedin" class="accordion-body collapse" style="height:0">
                 <div class="accordion-inner">
                     <div did="linkedinEnabled" class="btn-group">
-                        <button did="true" class="btn <% if(project.attributes.projectSetting['linkedinEnabled'] == true){ %>btn-primary<% } %>">Include</button>
-                        <button did="false" class="btn <% if(project.attributes.projectSetting['linkedinEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
+                        <button did="true" class="btn <% if(project.attributes['linkedinEnabled'] == true){ %>btn-primary<% } %>">Include</button>
+                        <button did="false" class="btn <% if(project.attributes['linkedinEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
                     </div>
-                    <div did="ON" class="<% if(project.attributes.projectSetting['linkedinEnabled'] !== true){ %>hidden<% } %>">
+                    <div did="ON" class="<% if(project.attributes['linkedinEnabled'] !== true){ %>hidden<% } %>">
                         Your project is including this 3rd-party service.
                     </div>
-                    <div did="OFF" class="<% if(project.attributes.projectSetting['linkedinEnabled'] == true){ %>hidden<% } %>">
+                    <div did="OFF" class="<% if(project.attributes['linkedinEnabled'] == true){ %>hidden<% } %>">
                         Your project currently does NOT include this 3rd-party service.
                     </div>
-                    <div id="thirdparty-linkedin-fields" class="optional-parameters <% if(project.attributes.projectSetting['linkedinEnabled'] !== true){ %>disabled<% } %>">
+                    <div id="thirdparty-linkedin-fields" class="optional-parameters <% if(project.attributes['linkedinEnabled'] !== true){ %>disabled<% } %>">
                         <div class="title">
                             Parameters
                         </div>
@@ -1002,8 +1005,8 @@
                                 <dt>OAuth Keys</dt>
                                 <dd>
                                     <div class="controls controls-row">
-                                        <input class="span5" type="text" name="liClientId" value="<%- project.attributes.projectSetting['liClientId'] %>" placeholder="API Key">
-                                        <input class="span5" type="text" name="liClientSecret" value="<%- project.attributes.projectSetting['liClientSecret'] %>" placeholder="Secret Key">
+                                        <input class="span5" type="text" name="liClientId" value="<%- project.attributes['liClientId'] %>" placeholder="API Key">
+                                        <input class="span5" type="text" name="liClientSecret" value="<%- project.attributes['liClientSecret'] %>" placeholder="Secret Key">
                                     </div>
                                 </dd>
                             </dl>
@@ -1014,7 +1017,7 @@
                                 <a href=" http://developer.linkedin.com/documents/quick-start-guide" target="_blank">How to register your app and obtain OAuth keys</a>
                             </p>
                         </div>
-                        <% if(project.attributes.projectSetting['linkedinEnabled'] !== true){ %>
+                        <% if(project.attributes['linkedinEnabled'] !== true){ %>
                         <div class="overlay"></div>
                         <% } %>
                     </div>
@@ -1027,23 +1030,23 @@
                     Facebook
                     <i class="icon icon-chevron-down"></i>
                     <div class="preview-status">
-                        <% if(project.attributes.projectSetting['facebookEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
+                        <% if(project.attributes['facebookEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
                     </div>
                 </a>
             </div>
             <div id="thirdparty-facebook" class="accordion-body collapse" style="height:0">
                 <div class="accordion-inner">
                     <div did="facebookEnabled" class="btn-group">
-                        <button did="true" class="btn <% if(project.attributes.projectSetting['facebookEnabled'] == true){ %>btn-primary<% } %>">Include</button>
-                        <button did="false" class="btn <% if(project.attributes.projectSetting['facebookEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
+                        <button did="true" class="btn <% if(project.attributes['facebookEnabled'] == true){ %>btn-primary<% } %>">Include</button>
+                        <button did="false" class="btn <% if(project.attributes['facebookEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
                     </div>
-                    <div did="ON" class="<% if(project.attributes.projectSetting['facebookEnabled'] !== true){ %>hidden<% } %>">
+                    <div did="ON" class="<% if(project.attributes['facebookEnabled'] !== true){ %>hidden<% } %>">
                         Your project is including this third party service.
                     </div>
-                    <div did="OFF" class="<% if(project.attributes.projectSetting['facebookEnabled'] == true){ %>hidden<% } %>">
+                    <div did="OFF" class="<% if(project.attributes['facebookEnabled'] == true){ %>hidden<% } %>">
                         Your project currently does NOT include this third party service.
                     </div>
-                    <div id="thirdparty-facebook-fields" class="optional-parameters <% if(project.attributes.projectSetting['facebookEnabled'] !== true){ %>disabled<% } %>">
+                    <div id="thirdparty-facebook-fields" class="optional-parameters <% if(project.attributes['facebookEnabled'] !== true){ %>disabled<% } %>">
                         <div class="title">
                             Parameters
                         </div>
@@ -1052,8 +1055,8 @@
                                 <dt>Credentials</dt>
                                 <dd>
                                     <div class="controls controls-row">
-                                        <input class="span5" type="text" name="fbClientId" value="<%- project.attributes.projectSetting['fbClientId'] %>" placeholder="App ID/API Key">
-                                        <input class="span5" type="text" name="fbClientSecret" value="<%- project.attributes.projectSetting['fbClientSecret'] %>" placeholder="App Secret">
+                                        <input class="span5" type="text" name="fbClientId" value="<%- project.attributes['fbClientId'] %>" placeholder="App ID/API Key">
+                                        <input class="span5" type="text" name="fbClientSecret" value="<%- project.attributes['fbClientSecret'] %>" placeholder="App Secret">
                                     </div>
                                 </dd>
                             </dl>
@@ -1064,7 +1067,7 @@
                                 <a href="https://developers.facebook.com/apps" target="_blank">Facebook Developers website to register your app and obtain authentication keys</a>
                             </p>
                         </div>
-                        <% if(project.attributes.projectSetting['facebookEnabled'] !== true){ %>
+                        <% if(project.attributes['facebookEnabled'] !== true){ %>
                         <div class="overlay"></div>
                         <% } %>
                     </div>
@@ -1079,33 +1082,33 @@
         to add or change configuration by clicking on the corresponding item.
     </p>
     <div id="summary-components">
-        <% if(project.attributes.projectSetting['salesforceEnabled'] == true){ %>
+        <% if(project.attributes['salesforceEnabled'] == true){ %>
         <div class="row-fluid">
             <div action="thirdparty" view="salesforce" class="thirdparty summary-component">Salesforce</div>
             <div class="summary-text">
-                <%= utils.hasAllOptionalProperties(project.attributes.projectSetting, 'sfdcClient', 3) ?
+                <%= utils.hasAllOptionalProperties(project.attributes, 'sfdcClient', 3) ?
                 'Parameters completed.' :
                 'Parameters NOT completed. <a href="#" data-toggle="tooltip" title="Not all the Parameters were filled out. This means you can set these properties in a local server project but cannot use this service in the sandbox."><i class="icon-question-sign"></i></a>'
                 %>
             </div>
         </div>
         <% } %>
-        <% if(project.attributes.projectSetting['linkedinEnabled'] == true){ %>
+        <% if(project.attributes['linkedinEnabled'] == true){ %>
         <div class="row-fluid">
             <div action="thirdparty" view="linkedin" class="thirdparty summary-component">LinkedIn</div>
             <div class="summary-text">
-                <%= utils.hasAllOptionalProperties(project.attributes.projectSetting, 'liClient', 2) ?
+                <%= utils.hasAllOptionalProperties(project.attributes, 'liClient', 2) ?
                 'Parameters completed.' :
                 'Parameters NOT completed. <a href="#" data-toggle="tooltip" title="Not all the Parameters were filled out. This means you can set these properties in a local server project but cannot use this service in the sandbox."><i class="icon-question-sign"></i></a>'
                 %>
             </div>
         </div>
         <% } %>
-        <% if(project.attributes.projectSetting['facebookEnabled'] == true){ %>
+        <% if(project.attributes['facebookEnabled'] == true){ %>
         <div class="row-fluid">
             <div action="thirdparty" view="facebook" class="thirdparty summary-component">Facebook</div>
             <div class="summary-text">
-                <%= utils.hasAllOptionalProperties(project.attributes.projectSetting, 'fbClient', 2) ?
+                <%= utils.hasAllOptionalProperties(project.attributes, 'fbClient', 2) ?
                 'Parameters completed.' :
                 'Parameters NOT completed. <a href="#" data-toggle="tooltip" title="Not all the Parameters were filled out. This means you can set these properties in a local server project but cannot use this service in the sandbox."><i class="icon-question-sign"></i></a>'
                 %>
@@ -1118,23 +1121,23 @@
             <div class="summary-text"><%- project.attributes.webservices.length > 0 ? project.attributes.webservices.length + (project.attributes.webservices.length == 1 ? ' service' : ' services') + ' added' : 'NONE' %></div>
         </div>
         <% } %>
-        <% if(project.attributes.projectSetting['helloWorldControllerEnabled'] == true){ %>
+        <% if(project.attributes['helloWorldControllerEnabled'] == true){ %>
         <div class="row-fluid">
             <div action="samples" view="samplecontroller" class="samples summary-component">Hello World Controller</div>
         </div>
         <% } %>
-        <% if(project.attributes.projectSetting['sampleEntityEnabled'] == true){ %>
+        <% if(project.attributes['sampleEntityEnabled'] == true){ %>
         <div class="row-fluid">
             <div action="samples" view="sampleentity" class="samples summary-component">Sample Entity Controller</div>
         </div>
         <% } %>
-        <% if(project.attributes.projectSetting['encryptionEnabled'] == true){ %>
+        <% if(project.attributes['encryptionEnabled'] == true){ %>
         <div class="row-fluid">
             <div action="core" view="encryption" class="core summary-component">Encryption Services</div>
             <div class="summary-text">This service is turned ON.</div>
         </div>
         <% } %>
-        <% if(project.attributes.projectSetting['useGeoLocation'] == true){ %>
+        <% if(project.attributes['useGeoLocation'] == true){ %>
         <div class="row-fluid">
             <div action="core" view="locationdata" class="core summary-component">Location Data Collection</div>
             <div class="summary-text">This service is turned ON.</div>
@@ -1142,39 +1145,39 @@
         <% } %>
         <div class="row-fluid">
             <div action="core" view="userauth" class="core summary-component">User Authentication</div>
-            <div class="summary-text"><%- project.attributes.projectSetting['userAuth']
+            <div class="summary-text"><%- project.attributes['userAuth']
                 .replace('defaultUser', 'Default User')
                 .replace('DB', 'MySQL')
                 .replace('AD', 'Active Directory')
                 %></div>
         </div>
-        <% if(project.attributes.projectSetting['gcmEnabled'] == true){ %>
+        <% if(project.attributes['gcmEnabled'] == true){ %>
         <div class="row-fluid">
             <div action="core" view="gcm" class="core summary-component">GCM</div>
             <div class="summary-text">
-                <%= utils.hasAllOptionalProperties(project.attributes.projectSetting, 'gcm', 3) ?
+                <%= utils.hasAllOptionalProperties(project.attributes, 'gcm', 3) ?
                 'Parameters completed.' :
                 'Parameters NOT completed. <a href="#" data-toggle="tooltip" title="Not all the Parameters were filled out. This means you can set these properties in a local server project but cannot use this service in the sandbox."><i class="icon-question-sign"></i></a>'
                 %>
             </div>
         </div>
         <% } %>
-        <% if(project.attributes.projectSetting['apnsEnabled'] == true){ %>
+        <% if(project.attributes['apnsEnabled'] == true){ %>
         <div class="row-fluid">
             <div action="core" view="apns" class="core summary-component">APNS</div>
             <div class="summary-text">
-                <%= utils.hasAllOptionalProperties(project.attributes.projectSetting, 'apns', 3) ?
+                <%= utils.hasAllOptionalProperties(project.attributes, 'apns', 3) ?
                 'Parameters completed.' :
                 'Parameters NOT completed. <a href="#" data-toggle="tooltip" title="Not all the Parameters were filled out. This means you can set these properties in a local server project but cannot use this service in the sandbox."><i class="icon-question-sign"></i></a>'
                 %>
             </div>
         </div>
         <% } %>
-        <% if(project.attributes.projectSetting['emailEnabled'] == true){ %>
+        <% if(project.attributes['emailEnabled'] == true){ %>
         <div class="row-fluid">
             <div action="core" view="email" class="core summary-component">Email</div>
             <div class="summary-text">
-                <%= utils.hasAllOptionalProperties(project.attributes.projectSetting, 'smtp', 6) ?
+                <%= utils.hasAllOptionalProperties(project.attributes, 'smtp', 6) ?
                 'Parameters completed.' :
                 'Parameters NOT completed. <a href="#" data-toggle="tooltip" title="Not all the Parameters were filled out. This means you can set these properties in a local server project but cannot use this service in the sandbox."><i class="icon-question-sign"></i></a>'
                 %>

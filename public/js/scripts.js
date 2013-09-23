@@ -763,7 +763,7 @@ EditUserProfile.prototype.call = function(data){
     var me = this, generalModal = $('#general-alert'), errorModal = $('#error-alert');
     $.ajax({
         type        : 'PUT',
-        url         : '/rest/user',
+        url         : '/rest/profile',
         dataType    : 'html',
         data        : data
     }).done(function(){
@@ -809,7 +809,6 @@ ContactForm.prototype.contact = function(){
 }
 ContactForm.prototype.call = function(){
     var me = this;
-    $('#send-contact').hide();
     $.ajax({  
         type        : 'POST',  
         url         : '/rest/contactUs',
