@@ -1,8 +1,9 @@
 var Cloud = require("../lib/Cloud");
 var AWS = require('aws-sdk');
+var CloudConfig = require("../lib/config/CloudConfig");
 
 AWS.config.loadFromPath('./lib/config/aws-config.json');
-var iam = new AWS.IAM({apiVersion: '2010-05-08'});
+var iam = new AWS.IAM({apiVersion: CloudConfig.AWS.IAMApiVersion});
 
 //jasmine.getEnv().defaultTimeoutInterval = 1500;
 
@@ -14,25 +15,24 @@ var afterAll = function(fn) {
     it('[afterAll]', fn, 100000)
 }
 
-var uploader = { UserName: "NodeJsUploadTest@magnet.com", AccessKeyId: "AKIAIM6LNU6WAMS5ENIQ", SecretAccessKey: "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"};
-//removeUser(uploader.UserName, function(){
+//removeUser(CloudConfig.Uploader.UserName, function(){
 //    console.log("Deleted user");
-//    Cloud.allocateCloudAccount(uploader.UserName, function(err, data) {
+//    Cloud.allocateCloudAccount(CloudConfig.Uploader.UserName, function(err, data) {
 //        if (!err) {
-//            uploader.AccessKeyId = data.accessKeyId;
-//            uploader.SecretAccessKey = data.secretAccessKey;
+//            CloudConfig.Uploader.AccessKeyId = data.accessKeyId;
+//            CloudConfig.Uploader.SecretAccessKey = data.secretAccessKey;
 //        } else {
 //            console.error("Error creating keys = " + err);
 //        }
 //    })
 //});
-//Cloud.allocateCloudAccount(uploader.UserName, function(err, data) {
+//Cloud.allocateCloudAccount(CloudConfig.Uploader.UserName, function(err, data) {
 //    if (!err) {
 //        console.log("WE ARE HERE");
 //        console.log(JSON.stringify(data));
 //        console.log("data.accessKeyId = " + data.AccessKeyId);
-//        uploader.AccessKeyId = data.accessKeyId;
-//        uploader.SecretAccessKey = data.SecretAccessKey;
+//        CloudConfig.Uploader.AccessKeyId = data.accessKeyId;
+//        CloudConfig.Uploader.SecretAccessKey = data.SecretAccessKey;
 //        console.log(JSON.stringify(uploader));
 //    } else {
 //        console.error("Error creating keys = " + err);
@@ -52,7 +52,7 @@ function deleteCloudUser(userName, done) {
 function removeUser(userName, done) {
     // Cleanup: Delete policy, keys and then User
     // We assume that our User would have a max of 1 access key
-    iam.deleteUserPolicy({UserName: userName, PolicyName: 'User-Sandbox-Access-Policy'}, function (err, data) {
+    iam.deleteUserPolicy({UserName: userName, PolicyName: CloudConfig.PolicyName}, function (err, data) {
         if (!err) {
             iam.listAccessKeys({UserName: userName}, function(err, data) {
                 if (!err) {
@@ -90,7 +90,6 @@ describe("Cloud allocateCloudAccount", function() {
 
         beforeEach(function(done) {
             console.log("beforeEach");
-            // TODO: Policy name is hardcoded!
             iam.createUser({UserName: userName}, function(err, data) {
                 if (!err) {
                     console.log("Created user = " + userName);
@@ -148,12 +147,12 @@ describe("Cloud allocateCloudAccount without existing user", function() {
 });
 
 describe("Cloud allocateCloudAccount generated keys", function() {
-    var s3 = new AWS.S3({apiVersion: '2006-03-01'});
+    var s3 = new AWS.S3({apiVersion: CloudConfig.AWS.S3ApiVersion});
     var fileName = 'test.txt';
-    var key = uploader.UserName + '/' + fileName;
+    var key = CloudConfig.Uploader.UserName + '/' + fileName;
     var otherKey = 'pshahtest' + '/' + fileName;
-    var bucketName = 'magnet-audit-test';
-    var otherBucketName = 'pshahtest';
+    var bucketName = CloudConfig.AWS.BucketName;
+    var otherBucketName = CloudConfig.AWS.SomeOtherBucketName;
     var body = "Dummy text file to test CRUD on S3 for given LoginCredentials.";
     var bodyBuffer = new Buffer(body, "utf-8");
 
@@ -162,8 +161,8 @@ describe("Cloud allocateCloudAccount generated keys", function() {
             expect(err).toBeNull();
             s3.putObject({Body: bodyBuffer, Bucket: otherBucketName, Key: key}, function(err, data) {
                 expect(err).toBeNull();
-                s3.config.credentials.accessKeyId = uploader.AccessKeyId;
-                s3.config.credentials.secretAccessKey = uploader.SecretAccessKey;
+                s3.config.credentials.accessKeyId = CloudConfig.Uploader.AccessKeyId;
+                s3.config.credentials.secretAccessKey = CloudConfig.Uploader.SecretAccessKey;
                 done();
             });
         });
@@ -234,13 +233,13 @@ describe("Cloud allocateCloudAccount generated keys", function() {
 
     afterAll(function(done) {
         AWS.config.loadFromPath('./lib/config/aws-config.json');
-        iam = new AWS.IAM({apiVersion: '2010-05-08'});
-        var s3 = new AWS.S3({apiVersion: '2006-03-01'});
+        iam = new AWS.IAM({apiVersion: CloudConfig.AWS.IAMApiVersion});
+        var s3 = new AWS.S3({apiVersion: CloudConfig.AWS.S3ApiVersion});
         s3.deleteObject({Bucket: bucketName, Key: otherKey}, function(err, data) {
             expect(err).toBeNull();
             s3.deleteObject({Bucket: otherBucketName, Key: key}, function(err, data) {
                 expect(err).toBeNull();
-//                removeUser(uploader.UserName, done);
+//                removeUser(CloudConfig.Uploader.UserName, done);
                 done();
             });
         });
