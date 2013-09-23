@@ -1,17 +1,18 @@
 {
-    "name": "application-name"
-  , "version": "0.0.1"
-  , "private": true
-  , "dependencies": {
-        "ejs": "0.7.1",
-        "express": "2.5.8",
-        "emailjs": "0.3.2",
-        "mysql": "2.0.0-alpha7",
-        "sequelize": "2.0.0-beta.0",
-        "node-uuid": "1.4.1",
-        "adm-zip": "0.4.3",
-        "aws-sdk": "1.6.0",
-        "underscore": "1.5.2",
-        "validator": "1.5.1"
-    }
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "ejs": "0.7.1",
+    "express": "3.4.0",
+    "emailjs": "0.3.2",
+    "mysql": "2.0.0-alpha7",
+    "sequelize": "2.0.0-beta.0",
+    "node-uuid": "1.4.1",
+    "adm-zip": "0.4.3",
+    "aws-sdk": "1.6.0",
+    "underscore": "1.5.2",
+    "validator": "1.5.1",
+    "ejs-locals": "~1.0.2"
+  }
 }

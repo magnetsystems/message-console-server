@@ -12,8 +12,7 @@ module.exports = function(app){
                 title       : 'Home',
                 userEmail   : req.session.user.email,
                 userCompany : req.session.user.company
-            },
-            layout : 'layouts/site'
+            }
         });
     });
 
@@ -24,7 +23,7 @@ module.exports = function(app){
                 userEmail   : req.session.user.email,
                 userCompany : req.session.user.company
             },
-            layout : false
+            _layoutFile : false
         });
     });
 
@@ -35,8 +34,7 @@ module.exports = function(app){
                 userEmail    : req.session.user.email,
                 userCompany  : req.session.user.company,
                 userFullName : req.session.firstName +' '+ req.session.lastName
-            },
-            layout : 'layouts/site'
+            }
         });
     });
 
@@ -46,8 +44,7 @@ module.exports = function(app){
                 title       : 'Documentation',
                 userEmail   : req.session.user.email,
                 userCompany : req.session.user.company
-            },
-            layout : 'layouts/site'
+            }
         });
     });
 
@@ -57,8 +54,7 @@ module.exports = function(app){
                 title       : 'Resources',
                 userEmail   : req.session.user.email,
                 userCompany : req.session.user.company
-            },
-            layout : 'layouts/site'
+            }
         });
     });
 
@@ -68,8 +64,7 @@ module.exports = function(app){
                 title       : 'Resources : Mobile App Manager',
                 userEmail   : req.session.user.email,
                 userCompany : req.session.user.company
-            },
-            layout : 'layouts/site'
+            }
         });
     });
 
@@ -79,8 +74,7 @@ module.exports = function(app){
                 title       : 'Resources : Samples',
                 userEmail   : req.session.user.email,
                 userCompany : req.session.user.company
-            },
-            layout : 'layouts/site'
+            }
         });
     });
 
@@ -93,8 +87,7 @@ module.exports = function(app){
                 userLastName  : req.session.user.lastName,
                 userPhone     : req.session.user.phone,
                 userCompany   : req.session.user.company
-            },
-            layout : 'layouts/site'
+            }
         });
     });
 
@@ -105,7 +98,7 @@ module.exports = function(app){
                 userEmail   : req.session.user.email,
                 userCompany : req.session.user.company
             },
-            layout : false
+            _layoutFile : false
         });
     });
 
@@ -128,8 +121,7 @@ module.exports = function(app){
                                 title      : 'User List',
                                 properties : '', //Schemas.getProperties('User'),
                                 users      : users
-                            },
-                            layout : 'layouts/site'
+                            }
                         });
                     }
                 });
@@ -171,8 +163,7 @@ module.exports = function(app){
                 hideMenu : true,
                 userEmail : '',
                 userCompany : ''
-            }, 
-            layout : 'layouts/site'
+            }
         });
     }
     
@@ -185,8 +176,7 @@ module.exports = function(app){
                 hideMenu : req.session.user ? true : null,
                 userEmail : req.session.user.email ? true : null,
                 userCompany : req.session.user.company ? true : null
-            }, 
-            layout : 'layouts/site'
+            }
         });
     }
     

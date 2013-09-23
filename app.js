@@ -1,8 +1,10 @@
 /* Module dependencies */
 
 var express = require('express')
-, app = express.createServer()
 , http = require('http')
+, app = express()
+, engine = require('ejs-locals')
+, server = http.createServer(app)
 , connect = require('express/node_modules/connect')
 , fs = require('fs');
 
@@ -19,29 +21,24 @@ app.on('uncaughtException', function(error){
 
 // Configuration
 
+// use ejs-locals for all ejs templates:
+app.engine('ejs', engine);
+
 app.configure(function(){
 
+    app.set('port', 3000);
+
     app.set('views', __dirname + '/views');
-    //app.set('view engine', 'jade');
-    //app.set('view engine', 'html');
 
+    app.locals({
+        _layoutFile : '/layouts/site'
+    });
+
+    app.locals.open = '{{';
+    app.locals.close = '}}';
+
+    //app.set('template_engine', 'ejs');
     app.set('view engine', 'ejs');
-    app.set("view options", {
-        layout : true,
-        open   : '{{',
-        close  : '}}'
-    });
-
-    // app.set('view options', { doctype : 'html', pretty : true });
-    
-    /* make a custom html template
-    app.register('.html', {
-        compile: function(str, options){
-            return function(locals){
-                return str;
-        }}
-    });
-    */
 
     app.use(express.bodyParser());
 
@@ -57,13 +54,12 @@ app.configure(function(){
     });
     */
 
-
     app.use(cookieParser);
     app.use(express.session({
         store  : sessionStore,
         secret : secret // secure session
     }));
-    
+
     app.use(express.methodOverride());
 
     // prioritize router before public directory
@@ -71,9 +67,9 @@ app.configure(function(){
 });
 
 app.configure('development', function(){
-    app.use(express.errorHandler({ 
-        dumpExceptions : true, 
-        showStack      : true 
+    app.use(express.errorHandler({
+        dumpExceptions : true,
+        showStack      : true
     }));
 });
 
@@ -96,6 +92,12 @@ require('./routes')(app);
 
 // Listener
 
-app.listen(3000, 'localhost', function() {
-    console.info("Express: server listening on port %d in %s mode", app.address().port, app.settings.env);
+/*
+server.listen(3000, 'localhost', function(){
+    console.info("Express: server listening on port %d in %s mode", server.address().port, app.settings.env);
+});
+*/
+
+http.createServer(app).listen(app.get('port'), function(){
+    console.info("Express: server listening on port %d in %s mode", app.get('port'), app.settings.env);
 });
