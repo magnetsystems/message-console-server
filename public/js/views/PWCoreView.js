@@ -74,7 +74,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ContentModel', 'vie
         },
         confirmCert: function(properties, callback){
             var me = this;
-            if(!me.project.attributes.apnsCertName || me.project.attributes.apnsCertName.length == 0){
+            if(me.project.attributes.apnsEnabled && (!me.project.attributes.apnsCertName || me.project.attributes.apnsCertName.length == 0)){
                 Alerts.Confirm.display({
                     title   : 'APNS Certficate Not Uploaded',
                     content : 'Since the APNS feature was enabled, an APNS certificate should be uploaded. You can continue without uploading a certificate, but the project will not be able to deploy to your sandbox in the cloud.'
