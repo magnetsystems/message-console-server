@@ -251,58 +251,6 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ServiceModel', 'vie
                 }
             });
         }
-        /* good for demo. impossible for production :)
-        // iterate through wsdl files and upload
-        retrieveFiles: function(){
-            if(window.File && window.FileReader && window.FileList && window.Blob){
-                var files = document.getElementById('pw-wsdl-file-fileapi').files;
-                for(var i=files.length;i--;){
-                    this.readFile(files[i]);
-                }
-                Alerts.General.display({
-                    title   : files.length+' Files Uploaded Successfully', 
-                    content : files.length+' files have been uploaded successfully.'
-                });
-            }else{
-                Alerts.Error.display({
-                    title   : 'Incompatible Browser', 
-                    content : 'The File APIs are not supported in this browser.'
-                });
-            }
-        },
-        // read contents of wsdl file into a string
-        readFile: function(file){
-            var me = this;
-            var reader = new FileReader();
-            reader.onload = (function(file){
-                return function(evt){
-                    me.store(evt, file);
-                };
-            }(file));
-            reader.readAsBinaryString(file);
-        },
-        // parse wsdl xml and store into project
-        store: function(evt, file){
-            var xml = utils.getValidXML(evt.target.result);
-            if(xml){
-                var services = [];
-                $(xml).find('service').each(function(){
-                    services.push({
-                        name     : $(this).attr('name'),
-                        selected : false
-                    });
-                });
-                this.addWSDLFile(file.name, {
-                    services : services,
-                    size     : file.size,
-                    xml      : evt.target.result,
-                    filename : file.name,
-                    type     : file.type
-                });
-                
-            }
-        }
-        */
     });
     return View;
 });

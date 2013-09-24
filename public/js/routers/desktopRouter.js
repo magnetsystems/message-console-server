@@ -35,18 +35,18 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             this.initSendSupport();
         },
         routes: {
-            ''          : 'projectWizard',
-            '*notFound' : 'projectWizard'
+            ''                   : 'projectWizard',
+            'project-wizard/:id' : 'projectWizard',
+            '*notFound'          : 'projectWizard'
         },
         projectWizard: function(id){
             var me = this;
             me.auth(function(){
                 me.eventPubSub.trigger('resetPages', 'project-wizard');
-                me.eventPubSub.trigger('initProjectWizard', {id:'new'});
+                me.eventPubSub.trigger('initProjectWizard', {id:id});
             });
         },
         auth: function(callback){
-            var me = this;
             // stop any active polling threads
             timer.stop();
             callback();

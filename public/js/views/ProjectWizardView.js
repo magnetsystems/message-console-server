@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel', 'views/PWIntroView', 'views/PWCoreView', 'views/PWSamplesView', 'views/PWEnterpriseView', 'views/PWThirdPartyView', 'views/PWSummaryView'], function($, Backbone, ProjectModel, ProjectSettingModel, PWIntroView, PWCoreView, PWSamplesView, PWEnterpriseView, PWThirdPartyView, PWSummaryView){
+define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel', 'views/PWIntroView', 'views/PWCoreView', 'views/PWSamplesView', 'views/PWEnterpriseView', 'views/PWSummaryView'], function($, Backbone, ProjectModel, ProjectSettingModel, PWIntroView, PWCoreView, PWSamplesView, PWEnterpriseView, PWSummaryView){
     var View = Backbone.View.extend({
         el: '#project-wizard',
         initialize: function(){
@@ -10,7 +10,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
                     currentStep : params.id != 'new' ? 'summary' : 'intro'
                 });
                 // fetch project entity and start wizard
-                if(params.id == 'new'){
+                if(!params.id || params.id == 'new'){
                     me.showButton('intro');
                     me.project = new ProjectModel();
                     me.settings = new ProjectSettingModel();
@@ -22,15 +22,14 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
                     me.reset();
                 }else{
                     me.project = new ProjectModel({
-                        magnetId : params.id
+                        magnetId : params.id,
+                        id       : params.id
                     });
+                    console.log('asdfasd');
                     me.project.fetch({
-                        data: {
-                            pageSize : 1000,
-                            relations : ['projectSetting', 'webservices', 'configFiles']
-                        },
                         success: function(){
-                            me.switchView(5);
+                            console.log('asdfads');
+                            me.switchView(4);
                         }, 
                         error: function(){
                             console.log('error retrieving project');
@@ -45,7 +44,6 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
                 {action : 'core', view : 'PWCoreView'},
                 {action : 'samples', view : 'PWSamplesView'},
                 {action : 'enterprise', view : 'PWEnterpriseView'},
-                {action : 'thirdparty', view : 'PWThirdPartyView'},
                 {action : 'summary', view : 'PWSummaryView'}
             ];
             // initiate the wizard step views
@@ -63,10 +61,6 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
                 eventPubSub : me.options.eventPubSub
             });
             var ev = new PWEnterpriseView({
-                mc          : me.options.mc,
-                eventPubSub : me.options.eventPubSub
-            });
-            var tv = new PWThirdPartyView({
                 mc          : me.options.mc,
                 eventPubSub : me.options.eventPubSub
             });
@@ -185,12 +179,8 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
             this.options.eventPubSub.trigger(this.steps[this.currentIndex].action+'Complete', true);
             var i = this.currentIndex-1;
             if(i >= 0){
-                if(!utils.isCanvasSupported()){
-                    this.fallbackImg.attr('src', '../images/wizard/server-'+i+'.png');
-                    this.switchView(i);
-                }else{
-                    this.doStepTransition(i, true);
-                }
+                this.fallbackImg.attr('src', '../images/wizard/server-'+i+'.png');
+                this.switchView(i);
             }
         },
         // go to the next step in the wizard
@@ -210,54 +200,15 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
         },
         // bind transition action to wizard diagram click
         goToStep: function(action, view){
-            var me = this;
             var i = this.getIndex(action);
-            if(!utils.isCanvasSupported()){
-                me.fallbackImg.attr('src', '../images/wizard/server-'+i+'.png');
-                me.switchView(i, view);
-                return false;
-            }
-            me.wiz.goToStep(action, function(){
-                me.switchView(i, view);
-            });
+            this.fallbackImg.attr('src', '../images/wizard/server-'+i+'.png');
+            this.switchView(i, view);
         },
         // start transition or complete wizard
         startNext: function(action){
-            var me = this;
             var i = this.getIndex(action)+1;
-            if(!utils.isCanvasSupported()){
-                me.fallbackImg.attr('src', '../images/wizard/server-'+i+'.png');
-                me.switchView(i);
-                return false;
-            }
-            if(action == 'intro'){
-                var tween = new Kinetic.Tween({
-                    node     : me.wiz.metadata.intro.sprite,
-                    x        : 0,
-                    y        : 80,
-                    duration : .7,
-                    onFinish : function(){
-                        var txtTween = new Kinetic.Tween({
-                            node    : me.wiz.textLayer,
-                            opacity : 1
-                        });
-                        txtTween.play();
-                        for(var id in me.wiz.metadata){
-                            var tween = new Kinetic.Tween({
-                                node    : me.wiz.metadata[id].sprite,
-                                opacity : 1
-                            });
-                            tween.play();
-                        }
-                        me.doStepTransition(i);
-                    }
-                });
-                tween.play();
-            }else if(!me.steps[i]){
-                console.log('error');
-            }else{
-                me.doStepTransition(i);
-            }
+            this.fallbackImg.attr('src', '../images/wizard/server-'+i+'.png');
+            this.switchView(i);
         },
         // finish the wizard and take user to project assets screen
         finishWizard: function(){
@@ -273,7 +224,6 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
                     Backbone.history.navigate('#/project-assets/'+me.project.attributes.magnetId);
                 });
             });
-
         },
         // get index of step within wizard step array
         getIndex: function(action){
@@ -284,19 +234,10 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
             }
             return false;
         },
-        // transition to a step
-        doStepTransition: function(i, isReverse){
-            var me = this;
-            if(!me.uiLock){
-                me.uiLock = true;
-                me.wiz[isReverse ? 'goBack' : 'goNext'](function(){
-                    me.switchView(i);
-                });
-            }
-        },
         // perform ui slide transition when a step is triggered
         switchView: function(i, view){
             this.reset(i);
+            console.log(this.steps[i].view);
             this.options.eventPubSub.trigger('init'+this.steps[i].view, {
                 project : this.project,
                 view    : view
@@ -313,112 +254,13 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
         // init HTML5 diagram. if canvas isnt supported, display different images when transitioning to a step
         initDiagram : function(params, callback){
             var me = this;
-            if(!utils.isCanvasSupported()){
-                $('#wizard-diagram-canvas').html('<img style="width:100%" />');
-                me.fallbackImg = $('#wizard-diagram-canvas img');
-                if(params.editMode){
-                    me.fallbackImg.attr('src', '../images/wizard/server-5.png');
-                }else{
-                    me.fallbackImg.attr('src', '../images/wizard/server-0.png');
-                }
-                return false;
-            }
-            // only create new wizard diagram object if it doesnt exist. this greatly improves performance
-            if(me.wiz){
-                if(params.editMode){
-                    // set up wizard diagram for project edit
-                    me.wiz.config(params);
-                    me.wiz.metadata.intro.sprite.setPosition(0, 80);
-                    me.wiz.metadata.intro.sprite.setAnimation('enabled');
-                    me.wiz.metadata.summary.title.setOpacity(.6);
-                    for(var sid in me.wiz.metadata){
-                        me.wiz.metadata[sid].enabled = true;
-                        if(me.wiz.metadata[sid].textParams){
-                            me.wiz.metadata[sid].sprite.setOpacity(1);
-                            me.wiz.metadata[sid].sprite.setAnimation(me.wiz.startStep == sid ? 'active' : me.wiz.default);
-                            me.wiz.metadata[sid].title.setFill('#000');
-                        }
-                        if(me.wiz.metadata[sid].borderParams){
-                            me.wiz.metadata[sid].border.setOpacity(me.wiz.startStep == sid ? 1 : 0);
-                        }
-                    }
-                    me.wiz.textLayer.setOpacity(1);
-                    me.wiz.stage.draw();
-                }else{
-                    // set up wizard diagram for new project
-                    me.wiz.config(params);
-                    me.wiz.metadata.intro.sprite.setPosition(80, 60);
-                    me.wiz.metadata.intro.sprite.setAnimation('enabled');
-                    me.wiz.metadata.summary.title.setOpacity(0);
-                    for(var sid in me.wiz.metadata){
-                        me.wiz.metadata[sid].enabled = false;
-                        if(me.wiz.metadata[sid].textParams){
-                            me.wiz.metadata[sid].sprite.setOpacity(0);
-                            me.wiz.metadata[sid].sprite.setAnimation(me.wiz.startStep == sid ? 'active' : me.wiz.default);
-                            me.wiz.metadata[sid].title.setFill('#888');
-                        }
-                        if(me.wiz.metadata[sid].borderParams){
-                            me.wiz.metadata[sid].border.setOpacity(me.wiz.startStep == sid ? 1 : 0);
-                        }
-                    }
-                    me.wiz.textLayer.setOpacity(0);
-                    me.wiz.stage.draw();
-                }
-                me.resize();
+            $('#wizard-diagram-canvas').html('<img style="width:100%" />');
+            me.fallbackImg = $('#wizard-diagram-canvas img');
+            if(params.editMode){
+                me.fallbackImg.attr('src', '../images/wizard/server-5.png');
             }else{
-                // create new instance of wizard diagram
-                me.wiz = new WizardDiagram(params, function(){
-                    me.wiz.metadata.intro.sprite = new Kinetic.Sprite({
-                        x          : params.editMode ? 0 : 80,
-                        y          : params.editMode ? 80 : 60,
-                        image      : me.wiz.metadata.intro.image,
-                        animation  : 'enabled',
-                        animations : me.wiz.metadata.intro.animations,
-                        frameRate  : 0,
-                        index      : 0,
-                        opacity    : 1
-                    });
-                    me.wiz.init();
-                    me.wiz.metadata.intro.sprite.moveDown();
-                    me.wiz.metadata.intro.sprite.moveDown();
-                    me.wiz.metadata.intro.sprite.moveDown();
-                    me.wiz.metadata.intro.sprite.moveDown();
-                    me.wiz.metadata.intro.sprite.moveDown();
-                    if(!me.boundEvents){
-                        me.bind();
-                    }
-                    me.wiz.onClick = function(action){
-                        var i = me.getIndex(action);
-                        me.switchView(i);
-                    };
-                }, function(){
-                    console.log('done with wizard');
-                });
+                me.fallbackImg.attr('src', '../images/wizard/server-0.png');
             }
-        },
-        // bind a resize event to global window object which resizes the wizard diagram (using a delay since resize of canvas element is expensive)
-        bind : function(){
-            var me = this;
-            me.boundEvents = true;
-            $(window).resize(function(){
-                clearTimeout(me.resizeAction);
-                me.resizeAction = setTimeout(function(){
-                    me.resize();
-                }, 300);
-            });
-        },
-        // proportionally resize wizard diagram based on browser resolution (has min and max constraints)
-        resize : function(){
-            var cWidth = this.$el.find('#wizard-container').width() + 10;
-            var ratio = cWidth / 450;
-            var cHeight = Math.ceil(510 * ratio);
-            this.wiz.stage.setWidth(cWidth > 455 ? 455 : cWidth);
-            this.wiz.stage.setHeight(cHeight > 516 ? 516 : cHeight);
-            this.wiz.stage.setScale(ratio > 1.01111 ? 1.01111 : ratio);
-            if(this.wiz.currentStep == 'summary' || this.wiz.editMode){
-                this.wiz.metadata.summary.title.setOpacity(.6);
-            }
-            this.wiz.stage.draw();
         },
         // edit project name in place
         editProjectName: function(){
