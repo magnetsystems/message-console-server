@@ -52,18 +52,18 @@ module.exports = function(app){
     // register a new user
     app.post('/rest/startRegistration', function(req, res){
         UserManager.create({
-            authority      : req.param('authority'),
+//            authority      : req.param('authority'),
             userName       : req.param('email'),
             email          : req.param('email'),
-            phoneNumber    : req.param('phoneNumber'),
+//            phoneNumber    : req.param('phoneNumber'),
             firstName      : req.param('firstName'),
             lastName       : req.param('lastName'),
-            companyName    : req.param('companyName'),
-            title          : req.param('title'),
-            password       : req.param('password'),
-            invitor        : req.param('invitor'),
-            allowMarketing : req.param('marketing'),
-            inviteMessage  : req.param('inviteMessage')
+//            companyName    : req.param('companyName'),
+//            title          : req.param('title'),
+            password       : req.param('password')
+//            invitor        : req.param('invitor'),
+//            allowMarketing : req.param('marketing'),
+//            inviteMessage  : req.param('inviteMessage')
         }, function(e){
             if(e){
                 res.send(e, 400);
@@ -260,6 +260,28 @@ module.exports = function(app){
                 res.send(e, 403);
             }
         })
+    });
+
+    app.post('/rest/getCredentials', function(req, res){
+        AccountManager.manualLogin(req.param('username'), req.param('password'), function(e, user){
+            // if login returns a user object, store to session
+            if (!user) {
+                res.json(
+                    errors: [
+                        { message : "Could not authenticate you" }
+                    ]
+                    );
+            } else {
+                res.json({
+                    userName: "pritesh.shah@magnet.com",
+                    aws: {
+                        bucketName: "7a5f16af-be4f-4df0-8787-51fc6b5ad930",
+                        accessKeyId: 'AKIAIM6LNU6WAMS5ENIQ',
+                        secretAccessKey: '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'
+                    }
+                });
+            }
+        });
     });
 
 };
