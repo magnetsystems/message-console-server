@@ -115,7 +115,7 @@ function adjustUI(){
 }
 
 function switchView(view){
-    $('.page').hide();
+    $('.page[id!="dev-container"]').hide();
     $('#'+view+'-container').css('opacity', 1).css('height', 'auto').show();
     $('.valign').vAlign();
 }

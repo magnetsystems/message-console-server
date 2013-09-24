@@ -50,37 +50,6 @@ module.exports = function(app){
     /* REGISTRATION */
 
     // register a new user
-    app.post('/rest/createAdmin', function(req, res){
-        UserManager.create({
-            userName  : req.body.email,
-            email     : req.body.email,
-            firstName : req.body.firstName,
-            lastName  : req.body.lastName,
-            company   : req.body.company,
-            password  : req.body.password,
-            userType  : 'admin',
-            magnetId  : magnetId.v1()
-        }, function(e){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send('ok', 201);
-            }
-        });
-    });
-
-    /*
-     {
-     "userName"    : "manager1",
-     "email"       : "edward.yang@magnet.com",
-     "firstName"   : "Edward",
-     "lastName"    : "Yang",
-     "company"     : "Magnet",
-     "password"    : "magnet"
-     }
-     */
-
-    // register a new user
     app.post('/rest/startRegistration', function(req, res){
         UserManager.create({
             authority      : req.param('authority'),
