@@ -266,11 +266,7 @@ module.exports = function(app){
         AccountManager.manualLogin(req.param('username'), req.param('password'), function(e, user){
             // if login returns a user object, store to session
             if (!user) {
-                res.json(
-                    errors: [
-                        { message : "Could not authenticate you" }
-                    ]
-                    );
+                res.send(e, 401);
             } else {
                 res.json({
                     userName: "pritesh.shah@magnet.com",
