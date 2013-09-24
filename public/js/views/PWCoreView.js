@@ -19,24 +19,17 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ContentModel', 'vie
             });
             // upon successful upload of apns certificate, display alert and append to wsdl file array
             me.options.eventPubSub.bind('uploadAPNSCertFileComplete', function(params){
-                if(params.xhr.status == 200 || params.xhr.status == 201 || params.xhr.status == 'unknown'){
-                    var configFiles = me.project.get('configFiles');
-                    if(!configFiles){
-                        me.project.set({
-                            configFiles : [
-                                params.params.model.attributes
-                            ]
-                        });
-                    }else{
-                        configFiles.push(params.params.model.attributes);
-                    }
+                if(params.res.success){
+                    me.project.set({
+                        apnsCertName : params.filename
+                    });
                     var apnsList = $('#pw-apns-list');
                     if(apnsList.length){
-                        apnsList.append('<li did="'+params.params.model.attributes.magnetId+'">\
-                        <strong>'+params.params.model.attributes.name+'</strong><i class="icon-remove-sign"></i></li>');
+                        apnsList.append('<li did="'+params.filename+'">\
+                        <strong>'+params.filename+'</strong><i class="icon-remove-sign"></i></li>');
                     }else{
-                        $('#pw-apns-cert-file').html('<ul id="pw-apns-list"><li did="'+params.params.model.attributes.magnetId+'">\
-                        <strong>'+params.params.model.attributes.name+'</strong><i class="icon-remove-sign"></i></li></ul>');
+                        $('#pw-apns-cert-file').html('<ul id="pw-apns-list"><li did="'+params.filename+'">\
+                        <strong>'+params.filename+'</strong><i class="icon-remove-sign"></i></li></ul>');
                     }
                 }else{
                     Alerts.Error.display({
@@ -81,7 +74,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ContentModel', 'vie
         },
         confirmCert: function(properties, callback){
             var me = this;
-            if(properties.config.apnsEnabled === true && (!me.project.attributes.configFiles || me.project.attributes.configFiles.length == 0)){
+            if(!me.project.attributes.apnsCertName || me.project.attributes.apnsCertName.length == 0){
                 Alerts.Confirm.display({
                     title   : 'APNS Certficate Not Uploaded',
                     content : 'Since the APNS feature was enabled, an APNS certificate should be uploaded. You can continue without uploading a certificate, but the project will not be able to deploy to your sandbox in the cloud.'
@@ -128,7 +121,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ContentModel', 'vie
             if(view){
                 this.options.eventPubSub.trigger('PWToggleAccordion', view);
             }
-            if(!this.project.attributes.configFiles){
+            if(!this.project.attributes.apnsCertName || this.project.attributes.apnsCertName.length == 0){
                 this.initCertUpload();
             }
             return this;
@@ -159,25 +152,20 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ContentModel', 'vie
         removeCert: function(e){
             var me = this;
             var item = $(e.currentTarget).closest('li');
-            var magnetId = item.attr('did');
-            var content = new ContentModel({
-                magnetId : magnetId,
-                id       : magnetId.slice(magnetId.lastIndexOf(':')+1)
-            });
-            content.destroy({
-                success: function(){
-                    utils.removeByProp(me.project.get('configFiles'), 'magnetId', magnetId);
-                    item.remove();
-                    if(me.project.attributes.configFiles.length == 0){
-                        me.initCertUpload();
-                    }
-                },
-                error: function(){
-                    Alerts.Error.display({
-                        title   : 'Error Deleting Certificate',
-                        content : 'There was an error deleting the certificate.'
-                    });
-                }
+            $.ajax({
+                url  : '/rest/projects/'+me.project.attributes.magnetId+'/removeAPNSCertificate',
+                type : 'POST'
+            }).done(function(){
+                me.project.set({
+                    apnsCertName : null
+                });
+                item.remove();
+                me.initCertUpload();
+            }).fail(function(){
+                Alerts.Error.display({
+                    title   : 'Error Deleting Certificate',
+                    content : 'There was an error deleting the certificate.'
+                });
             });
         }
     });

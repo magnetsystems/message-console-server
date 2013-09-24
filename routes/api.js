@@ -184,17 +184,25 @@ module.exports = function(app){
     });
 
     app.post('/rest/projects/:magnetId/uploadAPNSCertificate', function(req, res){
-        ProjectManager.storeProjectFile(req, function(){
+        ProjectManager.storeProjectFile(req, function(e){
             if(e){
                 res.send(e, 400);
             }else{
-                 res.writeHead(200, {
-                    'Content-Type' : 'application/json'
-                 });
-                 res.end(JSON.stringify({
+                res.send(JSON.stringify({
                     success : true
-                 }));
-                 res.end();
+                }), {
+                    'Content-Type': 'text/plain'
+                }, 200);
+            }
+        });
+    });
+
+    app.post('/rest/projects/:magnetId/removeAPNSCertificate', function(req, res){
+        ProjectManager.removeAPNSCertificate(req, function(e){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('ok', 200);
             }
         });
     });

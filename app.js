@@ -42,18 +42,6 @@ app.configure(function(){
 
     app.use(express.bodyParser());
 
-    /*
-    var bodyParser = express.bodyParser();
-    app.use(function(req, res, next){
-        console.error(req.headers['content-type']);
-        if(req.headers['content-type'] && req.headers['content-type'].indexOf('multipart/form-data') != -1){
-            console.log('is octet');
-            return next();
-        }
-        bodyParser(req, res, next);
-    });
-    */
-
     app.use(cookieParser);
     app.use(express.session({
         store  : sessionStore,
@@ -92,12 +80,6 @@ require('./routes')(app);
 
 // Listener
 
-/*
-server.listen(3000, 'localhost', function(){
-    console.info("Express: server listening on port %d in %s mode", server.address().port, app.settings.env);
-});
-*/
-
-http.createServer(app).listen(app.get('port'), function(){
+server.listen(app.get('port'), function(){
     console.info("Express: server listening on port %d in %s mode", app.get('port'), app.settings.env);
 });

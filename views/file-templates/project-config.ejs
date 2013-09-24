@@ -12,15 +12,15 @@ project._package=PACKAGE
 project.type="logic"
 project.appVersion="{{-settings.version}}"
 client.enabled=true
-project.useGeoLocation={{-settings.useGeoLocation}}
-include(SalesforceControllerDefaults)
+project.useGeoLocation={{-settings.useGeoLocation}}{{ if(settings.salesforceEnabled){ }}
+include(SalesforceControllerDefaults){{ } }}
 server.config.SFDCOAuthConfig.redirectUri=""
-server.config.SforceSoapPort.__name="SoapPort-sforce.cproperties"
-include(FacebookControllerDefaults)
-server.config.FBOAuthConfig.redirectUri=""
-include(LinkedInControllerDefaults)
-server.config.LNKDINOAuthConfig.redirectUri=""
-include(HelloWorldControllerDefaults)
+server.config.SforceSoapPort.__name="SoapPort-sforce.cproperties"{{ if(settings.facebookEnabled){ }}
+include(FacebookControllerDefaults){{ } }}
+server.config.FBOAuthConfig.redirectUri=""{{ if(settings.linkedinEnabled){ }}
+include(LinkedInControllerDefaults){{ } }}
+server.config.LNKDINOAuthConfig.redirectUri=""{{ if(settings.helloWorldControllerEnabled){ }}
+include(HelloWorldControllerDefaults){{ } }}
 controllers.helloworld.groupId=GROUP_ID
 controllers.helloworld.version=VERSION
 server.config.GcmAccount.enabled={{-settings.gcmEnabled}}
@@ -50,7 +50,9 @@ project.linkedinEnabled={{-settings.linkedinEnabled}}
 project.jdbcHost="{{-settings.jdbcHost}}"
 project.jdbcName="{{-settings.jdbcName}}"
 project.jdbcUser="{{-settings.jdbcUser}}"
-project.jdbcPassword="{{-settings.jdbcPassword}}"
+project.jdbcPassword="{{-settings.jdbcPassword}}"{{ if(settings.apnsCertName){ }}
+server.config.ApnsAccount.certFile="{{-settings.apnsCertName}}"{{ } }}{{ if(settings.apnsCertName){ }}
+server.config.__fileMap=["{{-settings.apnsCertName}}" : "{{-settings.apnsCertName}}"]{{ } }}
 server.config.SmtpAccount.Host="{{-settings.apnsHost}}"
 server.config.SmtpAccount.Port={{-settings.smtpPort}}
 server.config.SmtpAccount.Username="{{-settings.smtpUsername}}"

@@ -772,17 +772,14 @@
                         <dt>Upload Certificate</dt>
                         <dd>
                             <div id="pw-apns-cert-file">
-                                <% if(!project.attributes.configFiles || project.attributes.configFiles.length == 0){ %>
-                                <% }else{ %>
+                                <% if(project.attributes['apnsCertName']){ %>
                                 <ul id="pw-apns-list">
-                                    <% _.each(project.attributes.configFiles, function(configFile, id){ %>
-                                    <li did="<%- configFile.magnetId %>">
+                                    <li>
                                         <strong>
-                                            <%- configFile.name %>
+                                            <%- project.attributes.apnsCertName %>
                                         </strong>
                                         <i class="icon-remove-sign"></i>
                                     </li>
-                                    <% }); %>
                                 </ul>
                                 <% } %>
                             </div>

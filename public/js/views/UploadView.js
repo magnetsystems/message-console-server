@@ -13,6 +13,7 @@ define(['jquery', 'backbone', 'backbone', 'fileuploader'], function($, Backbone)
             var uploader = new qq.FineUploader({
                 multiple                    : false,
                 maxConnections              : 1,
+                forceMultipart              : true,
                 disableCancelForFormUploads : true,
                 autoUpload                  : false,
                 element                     : document.getElementById(me.options.el.replace('#', '')),
@@ -23,17 +24,14 @@ define(['jquery', 'backbone', 'backbone', 'fileuploader'], function($, Backbone)
                 request: {
                     endpoint      : '',
                     method        : me.options.method,
-                    inputName     : 'filename',
-                    customHeaders : {
-                        "Accept" : accepts
-                    }
+                    inputName     : 'filename'
                 },
                 dragAndDrop: {
                     disableDefaultDropzone : true
                 },
                 validation: me.options.validation,
                 callbacks: {
-                    onComplete: function(id, filename, res, xhr){
+                    onComplete: function(id, filename, res){
                         setTimeout(function(){
                             me.$el.find('.qq-upload-list li').hide('3000', function(){
                                 $(this).remove();
@@ -43,8 +41,7 @@ define(['jquery', 'backbone', 'backbone', 'fileuploader'], function($, Backbone)
                             id       : id, 
                             filename : filename, 
                             params   : me.params,
-                            res      : res, 
-                            xhr      : xhr
+                            res      : res
                         });
                     }
                 }
