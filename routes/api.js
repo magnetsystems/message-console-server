@@ -132,7 +132,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/projects/:magnetId/getConfig', function(req, res){
+    app.get('/rest/projects/:magnetId/getConfig', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         ProjectManager.getConfig(req, function(e, filePath){
             if(e){
                 res.send(e, 400);
@@ -152,7 +152,7 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/projects/:magnetId/uploadAPNSCertificate', function(req, res){
+    app.post('/rest/projects/:magnetId/uploadAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         ProjectManager.storeProjectFile(req, function(e){
             if(e){
                 res.send(e, 400);
@@ -166,7 +166,7 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/projects/:magnetId/removeAPNSCertificate', function(req, res){
+    app.post('/rest/projects/:magnetId/removeAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         ProjectManager.removeAPNSCertificate(req, function(e){
             if(e){
                 res.send(e, 400);
