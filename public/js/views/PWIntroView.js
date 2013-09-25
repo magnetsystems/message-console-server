@@ -9,9 +9,6 @@ define(['jquery', 'backbone', 'models/UserModel', 'models/ProjectModel'], functi
                 $('#pw-intro-fields').show();
                 $('#pw-intro-fields').find('input, textarea').val('');
                 $('#project-name-editor').html('Create Project').show();
-                setTimeout(function(){
-                    me.$el.find('input[name="name"]').focus();
-                }, 500);
             });
             me.options.eventPubSub.bind('introComplete', function(){
                 me.storeDetails();

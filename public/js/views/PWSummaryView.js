@@ -7,7 +7,6 @@ define(['jquery', 'backbone'], function($, Backbone){
                 me.project = params.project;
                 me.render();
                 me.displayProjectEdit();
-                console.log('got here');
                 $('#download-config-file').attr('href', '/rest/projects/'+me.project.attributes.magnetId+'/getConfig');
             });
         },
@@ -18,7 +17,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             return false;
         },
         render: function(){
-            var template = _.template($('#PWSummaryView').html(), {
+            var template = _.template($('#PWStartDevelopingView').html(), {
                 project : this.project
             });
             $('#pw-summary-form').html(template);
