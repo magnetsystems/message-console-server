@@ -1,5 +1,4 @@
 var UserManager = require("../lib/UserManager");
-var User = require("../lib/models/User");
 // TODO: Database details are hardcoded!
 require('../lib/orm').setup('./lib/models', true, 'developercenter', 'root');
 
