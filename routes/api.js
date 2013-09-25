@@ -280,4 +280,28 @@ module.exports = function(app){
         });
     });
 
+    // This API is used by http://www.magnet.com/factory/
+    /*
+     {
+     "firstName" : "Pritesh",
+     "lastName" : "Shah",
+     "email" : "pritesh.shah@magnet.com",
+     "companyName" : "Magnet Systems, Inc."
+     }
+     */
+    app.post('/rest/registration/guest', function(req, res) {
+        UserManager.registerGuest({
+            firstName : req.body.firstName,
+            lastName : req.body.lastName,
+            email : req.body.email,
+            companyName : req.body.companyName
+        }, function(registrationStatus) {
+            if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL) {
+                res.send(registrationStatus, 201);
+            } else {
+                res.send(registrationStatus, 400);
+            }
+        });
+    });
+
 };
