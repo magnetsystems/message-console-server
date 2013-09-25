@@ -263,17 +263,25 @@ module.exports = function(app){
     });
 
     app.post('/rest/getCredentials', function(req, res){
-        AccountManager.manualLogin(req.param('username'), req.param('password'), function(e, user){
+        AccountManager.manualLogin(req.param('email'), req.param('password'), function(e, user){
             // if login returns a user object, store to session
             if (!user) {
                 res.send(e, 401);
             } else {
-                res.json({
-                    userName: "pritesh.shah@magnet.com",
-                    aws: {
-                        bucketName: "7a5f16af-be4f-4df0-8787-51fc6b5ad930",
-                        accessKeyId: 'AKIAIM6LNU6WAMS5ENIQ',
-                        secretAccessKey: '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'
+                var aws = {};
+                user.getCloudAccounts().success(function(cloudAccounts) {
+                    var aws = cloudAccounts[0];
+                    if (cloudAccounts.length) {
+                        res.json({
+                            email: user.email,
+                            aws: {
+                                bucketName: aws.bucketName,
+                                accessKeyId: aws.accessKeyId,
+                                secretAccessKey: aws.secretAccessKey
+                            }
+                        });
+                    } else {
+                        res.send('missing-cloud-keys', 500);
                     }
                 });
             }
