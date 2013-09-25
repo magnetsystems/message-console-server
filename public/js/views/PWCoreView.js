@@ -4,10 +4,6 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ContentModel', 'vie
         initialize: function(){
             var me = this;
             me.options.eventPubSub.bind('initPWCoreView', function(params){
-                me.options.router.navigate('/project-wizard/'+params.project.attributes.magnetId, {
-                    trigger : false,
-                    replace : true
-                });
                 me.project = params.project.set({
                     projectSetting : params.project.attributes.projectSetting || []
                 });
@@ -39,6 +35,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ContentModel', 'vie
                 }
                 me.options.eventPubSub.trigger('btnComplete', $('#pw-apns-cert-file-btn'));
             });
+            me.isFirst = true;
         },
         events: {
             'click #pw-apns-cert-file-btn' : 'uploadCertificate',
@@ -123,6 +120,10 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ContentModel', 'vie
             }
             if(!this.project.attributes.apnsCertName || this.project.attributes.apnsCertName.length == 0){
                 this.initCertUpload();
+            }
+            if(this.isFirst){
+                $('#project-details-container input[name="name"]').focus();
+                this.isFirst = false;
             }
             return this;
         },

@@ -4,33 +4,30 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
         initialize: function(){
             var me = this;
             me.options.eventPubSub.bind('initProjectWizard', function(params){
-                // initialize HTML5 canvas
-                me.initDiagram({
-                    editMode    : params.id != 'new',
-                    currentStep : params.id != 'new' ? 'summary' : 'intro'
-                });
+                $('#grayed-out-wizard').height($('#project-wizard .page-view').height());
+                $('#project-details-container input').val('');
+                me.fallbackImg = $('#wizard-diagram-canvas img');
+                me.stepTitle = $('#wizard-step-title');
+                me.stepTitlePart1 = $('#wizard-step-title .first');
+                me.stepTitlePart2 = $('#wizard-step-title .second');
                 // fetch project entity and start wizard
-                if(!params.id || params.id == 'new'){
-                    me.showButton('intro');
+                if(!params.id){
+                    me.reset(1);
                     me.project = new ProjectModel();
                     me.settings = new ProjectSettingModel();
-                    me.options.eventPubSub.trigger('initPWIntroView', {
+                    me.options.eventPubSub.trigger('initPWCoreView', {
                         project  : me.project,
                         settings : me.settings
                     });
-                    // reset the state of the project wizard
-                    me.reset();
                 }else{
                     me.project = new ProjectModel({
                         magnetId : params.id,
                         id       : params.id
                     });
-                    console.log('asdfasd');
                     me.project.fetch({
                         success: function(){
-                            console.log('asdfads');
                             me.switchView(4);
-                        }, 
+                        },
                         error: function(){
                             console.log('error retrieving project');
                             Backbone.history.navigate('#/project-assets');
@@ -40,11 +37,11 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
             });
             // a collection of steps and associated views to be initiated
             me.steps = [
-                {action : 'intro', view : 'PWIntroView'},
-                {action : 'core', view : 'PWCoreView'},
-                {action : 'samples', view : 'PWSamplesView'},
-                {action : 'enterprise', view : 'PWEnterpriseView'},
-                {action : 'summary', view : 'PWSummaryView'}
+                {action : 'intro', view : 'PWIntroView', title : ['1', 'Configure Your App']},
+                {action : 'core', view : 'PWCoreView', title : ['1', 'Configure Your App']},
+                {action : 'samples', view : 'PWSamplesView', title : ['2', 'Choose Sample APIs']},
+                {action : 'enterprise', view : 'PWEnterpriseView', title : ['3', 'Add Outside APIs']},
+                {action : 'summary', view : 'PWSummaryView', title : ['4', 'Start Developing']}
             ];
             // initiate the wizard step views
             var iv = new PWIntroView({
@@ -95,6 +92,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
             'click input[type="radio"]' : 'toggleRadio',
             'click #finish-wizard-btn' : 'finishWizard',
             'click #project-name-editor i' : 'editProjectName',
+            'click #save-project-details-btn' : 'create',
             'click #save-project-details-edits-btn' : 'saveProjectDetailEdits',
             'click #cancel-project-details-edits-btn' : 'resetEdit'
         },
@@ -179,7 +177,10 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
             this.options.eventPubSub.trigger(this.steps[this.currentIndex].action+'Complete', true);
             var i = this.currentIndex-1;
             if(i >= 0){
-                this.fallbackImg.attr('src', '../images/wizard/server-'+i+'.png');
+                this.fallbackImg.attr('src', '../images/wizard/wizgraphic-'+i+'.png');
+                this.stepTitle.removeClass().addClass('step'+i);
+                this.stepTitlePart1.html(this.steps[i].title[0]);
+                this.stepTitlePart2.html(this.steps[i].title[1]);
                 this.switchView(i);
             }
         },
@@ -201,13 +202,19 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
         // bind transition action to wizard diagram click
         goToStep: function(action, view){
             var i = this.getIndex(action);
-            this.fallbackImg.attr('src', '../images/wizard/server-'+i+'.png');
+            this.fallbackImg.attr('src', '../images/wizard/wizgraphic-'+i+'.png');
+            this.stepTitle.removeClass().addClass('step'+i);
+            this.stepTitlePart1.html(this.steps[i].title[0]);
+            this.stepTitlePart2.html(this.steps[i].title[1]);
             this.switchView(i, view);
         },
         // start transition or complete wizard
         startNext: function(action){
             var i = this.getIndex(action)+1;
-            this.fallbackImg.attr('src', '../images/wizard/server-'+i+'.png');
+            this.fallbackImg.attr('src', '../images/wizard/wizgraphic-'+i+'.png');
+            this.stepTitle.removeClass().addClass('step'+i);
+            this.stepTitlePart1.html(this.steps[i].title[0]);
+            this.stepTitlePart2.html(this.steps[i].title[1]);
             this.switchView(i);
         },
         // finish the wizard and take user to project assets screen
@@ -237,7 +244,6 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
         // perform ui slide transition when a step is triggered
         switchView: function(i, view){
             this.reset(i);
-            console.log(this.steps[i].view);
             this.options.eventPubSub.trigger('init'+this.steps[i].view, {
                 project : this.project,
                 view    : view
@@ -250,17 +256,6 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
             this.hideButtons();
             this.showButton(this.steps[this.currentIndex].action);
             $('.wizard_content').addClass('hidden').eq(this.currentIndex).removeClass('hidden');
-        },
-        // init HTML5 diagram. if canvas isnt supported, display different images when transitioning to a step
-        initDiagram : function(params, callback){
-            var me = this;
-            $('#wizard-diagram-canvas').html('<img style="width:100%" />');
-            me.fallbackImg = $('#wizard-diagram-canvas img');
-            if(params.editMode){
-                me.fallbackImg.attr('src', '../images/wizard/server-5.png');
-            }else{
-                me.fallbackImg.attr('src', '../images/wizard/server-0.png');
-            }
         },
         // edit project name in place
         editProjectName: function(){
@@ -277,6 +272,79 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
             editor.unbind('mouseleave').mouseleave(function(){
                 me.resetEdit();
             });
+        },
+        // create project entity on the server
+        create: function(data){
+            var me = this;
+            var obj = utils.collect($('#project-details-container'));
+            if(me.isValid(obj.config)){
+                me.project.set(me.initialData);
+                me.project.save({
+                    name        : utils.cleanJavaKeywords(obj.config.name),
+                    version     : obj.config.version,
+                    description : obj.config.description
+                }, {
+                    success: function(){
+                        $('#grayed-out-wizard, #save-project-details-btn').remove();
+                        $('#project-details-container input').attr('disabled', 'disabled').addClass('disabled');
+                        $('.popover').addClass('hidden');
+                    },
+                    error: function(){
+                        Alerts.Error.display({
+                            title   : 'Invalid Project Name',
+                            content : 'The project name you specified has already been used. Please use another project name and try again.'
+                        });
+                    }
+                });
+            }
+        },
+        // validate input from data object
+        isValid: function(obj){
+            if($.trim(obj.name) == ''){
+                Alerts.Error.display({
+                    title   : 'Required Field Left Blank',
+                    content : '"Project Name" must be filled out before continuing.'
+                });
+                return false;
+            }else if($.trim(obj.name).length > 40){
+                Alerts.Error.display({
+                    title   : 'Project Name Length Error',
+                    content : 'The project name cannot exceed 40 characters. Please shorten your project name and try again.'
+                });
+                return false;
+            }else if(/^[^a-zA-Z]/.test($.trim(obj.name)) || /[^a-zA-Z0-9-_ ]/.test($.trim(obj.name))){
+                Alerts.Error.display({
+                    title   : 'Invalid Project Name',
+                    content : '"Project Name" can only contain letters, numbers, spaces, and underscores, and must begin with a letter.'
+                });
+                return false;
+            }else if($.trim(obj.description) == ''){
+                Alerts.Error.display({
+                    title   : 'Required Field Left Blank',
+                    content : '"Project Description" must be filled out before continuing.'
+                });
+                return false;
+            }else if($.trim(obj.version) == ''){
+                Alerts.Error.display({
+                    title   : 'Required Field Left Blank',
+                    content : '"Version" must be filled out before continuing.'
+                });
+                return false;
+            }
+            return true;
+        },
+        initialData: {
+            encryptionEnabled           : false,
+            useGeoLocation              : false,
+            userAuth                    : "defaultUser",
+            gcmEnabled                  : false,
+            apnsEnabled                 : false,
+            apnsHost                    : "gateway.sandbox.push.apple.com",
+            emailEnabled                : false,
+            helloWorldControllerEnabled : true,
+            salesforceEnabled           : false,
+            facebookEnabled             : false,
+            linkedinEnabled             : false
         },
         // save edited project details
         saveProjectDetailEdits: function(){

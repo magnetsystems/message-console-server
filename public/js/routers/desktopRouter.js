@@ -35,9 +35,17 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             this.initSendSupport();
         },
         routes: {
-            ''                   : 'projectWizard',
+            ''                   : 'getStarted',
+            'project-wizard'     : 'projectWizard',
             'project-wizard/:id' : 'projectWizard',
-            '*notFound'          : 'projectWizard'
+            '*notFound'          : 'getStarted'
+        },
+        getStarted: function(){
+            var me = this;
+            me.auth(function(){
+                me.eventPubSub.trigger('resetPages', 'get-started');
+                me.eventPubSub.trigger('initGetStarted');
+            });
         },
         projectWizard: function(id){
             var me = this;

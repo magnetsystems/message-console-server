@@ -403,7 +403,8 @@ input.disabled{background:#eee !important}
 
 /********************************** project assets **********************************/
 
-#project-assets .page-view, #sandbox .page-view{margin:0 auto 25px auto;width:92%;padding:0 25px 0 25px}
+#project-assets .page-view, #sandbox .page-view, #get-started .page-view{margin:0 auto 25px auto;width:92%;padding:0 25px 0 25px}
+#get-started .page-view{padding-bottom:20px}
 
 #sandbox-status-container{margin:0 auto 47px;width:700px;text-align:center;font-size:14px;color:#999}
 #sandbox-status-container strong{margin-left:10px}
@@ -488,7 +489,7 @@ input.disabled{background:#eee !important}
 /* project wizard */
 
 .kineticjs-content{z-index:10;float:right;max-width:100%}
-#project-wizard .page-view{margin:0 auto 25px auto;width:92%;padding:0 25px 0 0}
+#project-wizard .page-view{margin:0 auto 25px auto;width:92%;padding:0 20px}
 #project-name-editor{text-align:center;z-index:20;position:absolute;top:0;left:0;width:34%}
 #project-name-editor-2 input, #project-name-editor-2 textarea{width:94%}
 #project-name-editor-2{overflow:hidden;background:#eee;boxshadow:2px 2px 2px #ccc;z-index:20;position:absolute;top:0;left:4px;width:27%;border:solid 1px #bbb;border-radius:6px;padding:8px;margin-top:6px}
@@ -513,7 +514,7 @@ input.disabled{background:#eee !important}
 
 #project-name-editor{margin-top:15px;font-size:18px;text-align:center}
 #wizard-container{float:left !important;width:34%}
-#wizard-content-container{float:left !important;width:66%;margin-left:0}
+#wizard-content-container{margin-top:12px;float:left !important;width:66%;margin-left:0}
 /* #wizard-content-container{float:left !important;width:65.9574%} */
 
 #pw-intro-fields{margin-top:25px}
@@ -602,6 +603,34 @@ a.main-btn{margin-left:20px}
 #pw-apns-list{margin:0;padding:0}
 #pw-apns-list li{border-radius:12px;padding:10px;background:#fff;margin:5px;list-style-type:none}
 #pw-apns-list li i{cursor:pointer}
+
+/* new wizard */
+#wizard-container{position:relative}
+#wizard-step-title{margin-top:9px}
+#wizard-step-title span{display:inline-block; vertical-align:middle;font-size:18px}
+#wizard-step-title.step1{color:#00b333}
+#wizard-step-title.step2{color:#8c00b3}
+#wizard-step-title.step3{color:#c9ae36}
+#wizard-step-title.step4{color:#00a6ff}
+#wizard-step-title span.first{margin-right:10px;font-size:35px}
+#wizard-diagram-canvas{position:absolute;top:0;left:0;z-index:100;width:100%;text-align:center}
+#wizard-diagram-canvas p{text-align:left;margin-top:10px}
+#wizard-diagram-canvas img{width:52%;margin-top:40px}
+#project-details-container{padding:15px}
+#project-details-container button{float:right}
+#grayed-out-wizard{opacity:.7;background:#fff;border-radius:0 0 12px 12px;left:0;margin-top:60px;padding-bottom:13px;position:absolute;top:0;width:100%;z-index:110}
+
+#pw-samples .accordion-toggle{padding:3px 15px}
+#pw-samples .accordion-toggle img{margin-right:12px;width:50px}
+#pw-samples .accordion-toggle i{margin-top:16px}
+#pw-samples .preview-status{margin-top:14px}
+
+#pw-summary{overflow:visible}
+.start-developing-section{position:relative;text-align:center;padding:14px 0 20px;border-bottom:solid 1px #bbb;margin:0 auto 23px;width:90%}
+.start-developing-section h5{font-size:19px;margin-bottom:0}
+.start-developing-section p{margin-top:1px}
+.start-developing-section a.btn{margin:11px 0}
+.start-developing-section .divider{position:absolute;bottom:-16px;left:0;width:100%;text-align:center}
 
 /* <IE8 */
 .lt-ie8 .span6.span2nd{padding:0}
