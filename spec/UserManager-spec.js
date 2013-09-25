@@ -60,6 +60,7 @@ describe("UserManager registerGuest", function() {
     it("should succeed if the input is valid", function(done) {
         UserManager.registerGuest(user, function(registrationStatus, user) {
             expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL);
+            expect(user.userType).toEqual('guest');
             user.destroy().success(function() {
                 done();
             });
@@ -79,10 +80,10 @@ describe("UserManager registerGuest", function() {
 
     it("should not save extra attributes", function(done) {
         user.password = "MySecurePassword";
-        UserManager.registerGuest(user, function(registrationStatus, u) {
-            u.reload().success(function() {
-                expect(u.password).toBeNull();
-                u.destroy().success(function() {
+        UserManager.registerGuest(user, function(registrationStatus, user) {
+            user.reload().success(function() {
+                expect(user.password).toBeNull();
+                user.destroy().success(function() {
                     done();
                 });
             })
