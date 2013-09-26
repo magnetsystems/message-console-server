@@ -169,15 +169,19 @@ module.exports = function(app){
     
     // render 404
     function do404(req, res){
-        res.render('error/404', { 
-            locals : { 
-                title : 'Page Not Found',
-                bodyType : 'dev',
-                hideMenu : req.session.user ? true : null,
-                userEmail : req.session.user.email ? true : null,
-                userCompany : req.session.user.company ? true : null
-            }
-        });
+        if(req.session.user){
+            res.render('error/404', {
+                locals : {
+                    title : 'Page Not Found',
+                    bodyType : 'dev',
+                    hideMenu : req.session.user ? true : null,
+                    userEmail : req.session.user.email ? true : null,
+                    userCompany : req.session.user.company ? true : null
+                }
+            });
+        }else{
+            res.redirect('/login');
+        }
     }
     
     // handle unknown requests

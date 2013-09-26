@@ -5,14 +5,11 @@ define(["jquery", "backbone", "models/ProjectModel"], function($, Backbone, Proj
         parse: function(res){
             this.paging = res.paging;
             for(var i=res.data.length;i--;){
-                if(res.data[i].lastModifiedTime){
-                    res.data[i].formatTime = utils.ISO8601ToDT(res.data[i].lastModifiedTime);
+                if(res.data[i].updatedAt){
+                    res.data[i].updatedAt = utils.ISO8601ToDT(res.data[i].updatedAt);
                 }
-                if(res.data[i].latestAssetGeneratedTime){
-                    res.data[i].formattedLatestAssetGeneratedTime = utils.ISO8601ToDT(res.data[i].latestAssetGeneratedTime);
-                }
-                if(res.data[i].createdTime){
-                    res.data[i].formatCreatedTime = utils.ISO8601ToDT(res.data[i].createdTime);
+                if(res.data[i].createdAt){
+                    res.data[i].createdAt = utils.ISO8601ToDT(res.data[i].createdAt);
                 }
             }
             return res.data;

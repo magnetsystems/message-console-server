@@ -126,8 +126,10 @@ define(['jquery', 'backbone'], function($, Backbone){
                     if(typeof item.attr('data-id') != 'undefined'){
                         me.$el.find('tbody tr').removeClass('info');
                         item.addClass('info');
-                        var model = me.options.col.get(item.attr('data-id').slice(item.attr('data-id').lastIndexOf(':')+1));
-                        me.options.eventPubSub.trigger("displayInfoView", model);
+                        var model = me.options.col.where({
+                            magnetId : item.attr('data-id')
+                        });
+                        me.options.eventPubSub.trigger("displayInfoView", model[0]);
                     }
                 });
             }

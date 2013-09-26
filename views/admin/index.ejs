@@ -43,8 +43,6 @@
               <li id="mgmt-users-tab" class="active"><a href="#/users">Users</a></li>
               <li id="mgmt-invites-tab"><a href="#/invites">Pending</a></li>
               <li id="mgmt-requests-tab"><a href="#/requests">Requests</a></li>
-              <li id="mgmt-history-tab"><a href="#/history">Log Event Records</a></li>
-              <!--<li id="mgmt-settings-tab"><a href="#/settings">Settings</a></li>-->
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="mgmt-users">
@@ -69,17 +67,6 @@
                 <h3>Users Requesting for Invitation</h3>
                 <div id="mgmt-requests-list"></div>
               </div>
-                <div class="tab-pane" id="mgmt-history">
-                    <h3>Log Event Records</h3>
-                    <div id="mgmt-history-list"></div>
-                </div>
-              <div class="tab-pane" id="mgmt-settings">
-                <h3>Settings</h3>
-                <div>
-                    <dl class="dl-horizontal"></dl>
-                    <button class="btn" type="button" id="save-settings">Save Settings</button>
-                </div>
-              </div>
             </div>
         </div>
         <div class="span1"></div>
@@ -103,17 +90,17 @@
 </div>
 <div id="download-container" class="hidden"></div>
 <!-- views start -->
-<script id="SettingsView" type="text/template">
-                      <dt>Maximum Invitations</dt>
-                      <dd><input name="maxInvitations" type="text" value="<%- settings.maxInvitations %>"></dd>
-</script>
 <script id="AdminUserDetailsView" type="text/template">
-            <h3>User: <%- model.name %></h3>
+            <h3>User: <%- model.profileName %></h3>
                 <div class="buttons-section">
                     <button did="delete-user" type="button" class="btn">Delete User</button>
-<% if(model.accounts){ %>
-                    <button did="deactivate-account" type="button" class="btn btn-primary" <% if(!model.accounts[0].magnetActive){ %>style="display:none"<% } %>>Deactivate Account</button>
-                    <button did="activate-account" type="button" class="btn btn-primary" <% if(model.accounts[0].magnetActive){ %>style="display:none"<% } %>>Activate Account</button>
+<% if(model.userType == 'guest' && 1 == 2){ %>
+                    <button did="deactivate-account" type="button" class="btn btn-primary">Deactivate Account</button>
+                    <button did="activate-account" type="button" class="btn btn-primary">Activate Account</button>
+<% } %>
+<% if(model.userType == 'guest'){ %>
+                    <button did="approve-user" type="button" class="btn btn-primary">Approve User</button>
+                    <button did="deny-user" type="button" class="btn btn-primary">Deny User</button>
 <% } %>
                 </div>
                 <div class="loading buttons-section" style="display:none">
@@ -127,70 +114,37 @@
                         <tbody>
                             <tr>
                                 <td width="5px">Name</td>
-                                <td width="5px"><%- model.name %></td>
+                                <td width="5px"><%- model.profileName %></td>
                             </tr>
                             <tr>
                                 <td width="5px">Email Address</td>
-                                <td width="5px"><%- model.primaryEmailAddress %></td>
+                                <td width="5px"><%- model.email %></td>
+                            </tr>
+                            <tr>
+                                <td width="5px">Company</td>
+                                <td width="5px"><%- model.company %></td>
+                            </tr>
+                            <tr>
+                                <td width="5px">Date Accepted EULA</td>
+                                <td width="5px"><%- model.dateAcceptedEULA %></td>
+                            </tr>
+                            <tr>
+                                <td width="5px">Type of User</td>
+                                <td width="5px"><%- model.userType %></td>
+                            </tr>
+                            <tr>
+                                <td width="5px">Created On</td>
+                                <td width="5px"><%- model.createdAt %></td>
+                            </tr>
+                            <tr>
+                                <td width="5px">Last Updated</td>
+                                <td width="5px"><%- model.updatedAt %></td>
                             </tr>
                             <tr>
                                 <td width="5px">Magnet Id</td>
                                 <td width="5px"><%- model.magnetId %></td>
                             </tr>
-                            <tr>
-                                <td>Security Groups</td>
-                                <td>
-<% if(model.securityGroups){ %>
-<% _.each(model.securityGroups, function(securitygroup, i){ %>
-                                Name: <b><%- securitygroup.name %></b><br />
-                                Description: <%- securitygroup.description %><br />
-                                Distinguished Name: <%- securitygroup.distinguishedName %>
-                                <% if(model.securityGroups.length > (i+1)){ %><hr /><% } %>
-<% }); %>
-<% } %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Accounts</td>
-                                <td>
-<% if(model.accounts){ %>
-<% _.each(model.accounts, function(account, i){ %>
-                                Name: <b><%- account.name %></b><br />
-                                Authority: <%- account.authority %><br />
-                                State: <b><span id="account-activation-state"><%- account.magnetActive ? 'Activated' : 'Deactivated' %></span></b><br />
-                                <% if(model.accounts.length > (i+1)){ %><hr /><% } %>
-<% }); %>
-<% } %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Magnet Logic Projects</td>
-                                <td>
-<% if(model.olsprojects){ %>
-<% _.each(model.olsprojects, function(olsproject, i){ %>
-                                Name: <b><%- olsproject.name %></b><br />
-                                Description: <b><%- olsproject.description %></b><br />
-                                Package Name: <b><%- olsproject.packageName %></b><br />
-                                Group Id: <%- olsproject.groupId %><br />
-                                Artifact Id: <%- olsproject.artifactId %><br />
-                                Created On: <%- olsproject.createdTime %><br />
-                                Status: <%- olsproject.assetStatus %><br />
-                                Version: <%- olsproject.version %>
-                                <% if(model.olsprojects.length > (i+1)){ %><hr /><% } %>
-<% }); %>
-<% } %>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Profile</td>
-                                <td>
-<% if(model.profile){ %>
-                                First Name: <b><%- model.profile.firstName %></b><br />
-                                Last Name: <b><%- model.profile.lastName %></b><br />
-                                Name: <b><%- model.profile.name %></b>
-<% } %>
-                                </td>
-                            </tr>
+                            <tr id="project-list-container"></tr>
                         </tbody>
                     </table>
                 </div>
@@ -201,274 +155,40 @@
                 </div>
             </div>
 </script>
-<script id="AdminContactDetailsView" type="text/template">
-            <h3>User: <%- model.userInfo.name %></h3>
-            <div class="buttons">
-                <div class="buttons-section">
-                    <button did="delete-contact" type="button" class="btn">Delete User</button>
-<% if(page == 'requests'){ %>
-                    <button did="approve-contact" type="button" class="btn btn-primary">Approve User</button>
-                    <button did="deny-contact" type="button" class="btn btn-primary">Deny User</button>
-<% } %>
-                </div>
-                <div class="loading buttons-section" style="display:none">
-                    Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
-                </div>
-
-            </div>
-            <hr />
-            <div class="row-fluid">
-                <div class="span12">
-                    <h4>User Information</h4>
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr>
-                                <td width="5px">Name</td>
-                                <td width="5px"><%- model.userInfo.firstName %> <%- model.userInfo.lastName %></td>
-                            </tr>
-                            <tr>
-                                <td width="5px">Email Address</td>
-                                <td width="5px"><%- model.userInfo.name %></td>
-                            </tr>
-                            <tr>
-                                <td width="5px">Company Name</td>
-                                <td width="5px"><%- model.userInfo.companyName %></td>
-                            </tr>
-                            <tr>
-                                <td width="5px">Created On</td>
-                                <td width="5px"><%- model.formattedCreationDate %></td>
-                            </tr>
-                            <tr>
-                                <td width="5px">Registration Task Id</td>
-                                <td width="5px"><%- model.magnetId %></td>
-                            </tr>
-                            <tr>
-                                <td width="5px">Source of Registration</td>
-                                <td width="5px"><%- model.registrationType %></td>
-                            </tr>
-<% if(model.invitedBy){ %>
-                            <tr>
-                                <td width="5px">Invited By</td>
-                                <td width="5px">
-                                    <b>Name</b>: <%- model.invitedBy.firstName %> <%- model.invitedBy.lastName %><br />
-                                    <b>Email Address</b>: <%- model.invitedBy.eMails[0] %>
-                                </td>
-                            </tr>
-<% } %>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span12">
-                    <a href="#/<%- page %>" class="main-btn btn">Back to Administration Page</a>
-                </div>
-            </div>
-</script>
-<script id="AdminLogDetailsView" type="text/template">
-    <h3>Log: <%- model.magnetId %></h3>
-    <div class="buttons-section"></div>
-    <div class="loading buttons-section" style="display:none">
-        Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
-    </div>
-    <hr />
-    <div class="row-fluid">
-        <div id="log-details-container" class="span12">
-
-            <a id="log-event-link"></a><h4>Log Details</h4>
+<script id="ProjectListView" type="text/template">
+    <% if(col){ %>
+        <td><h4>Projects</h4></td>
+        <td>
+            <% _.each(col, function(project, i){ %>
             <table class="table table-bordered table-striped table-hover">
-                <% _.each(model, function(attr, key){ %>
-                <% if(key != 'actor' && key != 'object' && key != 'context' && key != 'settings'){ %>
                 <tr>
-                    <td width="20%"><%- key %></td>
-                    <% if(key.toLowerCase().indexOf('time') != -1){ %>
-                    <td><%- utils.ISO8601ToDT(attr) %></td>
-                    <% }else if(key == 'attachment'){ %>
-                    <td><a class="btn btn-primary" href="/rest/log-event-records/<%- model.magnetId %>/attachment"><i class="icon-file icon-white"></i> Download Server Log</a></td>
-                    <% }else{ %>
-                    <td><%- attr %></td>
-                    <% } %>
+                    <td>Name</td>
+                    <td><%- project.attributes.name %></td>
                 </tr>
-                <% } %>
-                <% }); %>
+                <tr>
+                    <td>Description</td>
+                    <td><%- project.attributes.description %></td>
+                </tr>
+                <tr>
+                    <td>Version</td>
+                    <td><%- project.attributes.version %></td>
+                </tr>
+                <tr>
+                    <td>Created On</td>
+                    <td><%- project.attributes.createdAt %></td>
+                </tr>
+                <tr>
+                    <td>Last Updated</td>
+                    <td><%- project.attributes.updatedAt %></td>
+                </tr>
+                <tr>
+                    <td>Configuration</td>
+                    <td><a class="btn" href="/rest/projects/<%- project.attributes.magnetId %>/getConfig">Download Configuration File</a></td>
+                </tr>
             </table>
-
-            <a id="log-actor-link"></a><h4>Actor</h4>
-            <% if(model.actor){ %>
-            <table class="table table-bordered table-striped table-hover">
-                <% _.each(model.actor, function(attr, key){ %>
-                <tr>
-                    <td width="20%"><%- key %></td>
-                    <% if(key.toLowerCase().indexOf('time') != -1 || key == 'lastStatusCheck'){ %>
-                    <td><%- utils.ISO8601ToDT(attr) %></td>
-                    <% }else{ %>
-                    <td><%- attr %></td>
-                    <% } %>
-                </tr>
-                <% }); %>
-            </table>
-            <% }else{ %>
-            <p>No Actor Available.</p>
-            <% } %>
-
-            <a id="log-context-link"></a><h4>Context</h4>
-            <% if(model.context){ %>
-            <table class="table table-bordered table-striped table-hover">
-                <% _.each(model.context, function(attr, key){ %>
-                <tr>
-                    <td width="20%"><%- key %></td>
-                    <% if(key.toLowerCase().indexOf('time') != -1 || key == 'lastStatusCheck'){ %>
-                    <td><%- utils.ISO8601ToDT(attr) %></td>
-                    <% }else{ %>
-                    <td><%- attr %></td>
-                    <% } %>
-                </tr>
-                <% }); %>
-            </table>
-            <% }else{ %>
-            <p>No Context Available.</p>
-            <% } %>
-
-            <a id="log-object-link"></a><h4>Object</h4>
-            <% if(model.object){ %>
-            <table class="table table-bordered table-striped table-hover">
-                <% _.each(model.object, function(attr, key){ %>
-                <tr>
-                    <td width="20%"><%- key %></td>
-                    <% if(key.toLowerCase().indexOf('time') != -1 || key == 'lastStatusCheck'){ %>
-                    <td><%- utils.ISO8601ToDT(attr) %></td>
-                    <% }else{ %>
-                    <td><%- attr %></td>
-                    <% } %>
-                </tr>
-                <% }); %>
-            </table>
-            <% }else{ %>
-            <p>No Object Available.</p>
-            <% } %>
-
-            <hr />
-
-            <a id="log-project-details-link"></a><h4>Project</h4>
-            <div id="log-project-details-container"></div>
-
-            <a id="log-project-settings-link"></a><h4>Project Settings</h4>
-            <div id="log-project-settings-container"></div>
-
-            <a id="log-project-assets-link"></a><h4>Project Assets</h4>
-            <div id="log-project-assets-container"></div>
-
-        </div>
-    </div>
-    <div class="row-fluid">
-        <div class="span12">
-            <a href="#/users" class="main-btn btn">Back to Administration Page</a>
-        </div>
-    </div>
-</script>
-<script id="AdminLogProjectDetailsView" type="text/template">
-    <table class="table table-bordered table-striped table-hover">
-        <% _.each(model, function(attr, key){ %>
-            <tr>
-                <td width="20%"><%- key %></td>
-                <% if(key.toLowerCase().indexOf('time') != -1 || key == 'lastStatusCheck'){ %>
-                <td><%- utils.ISO8601ToDT(attr) %></td>
-                <% }else{ %>
-                <td><%- attr %></td>
-                <% } %>
-            </tr>
-        <% }); %>
-    </table>
-</script>
-<script id="AdminLogProjectAssetsView" type="text/template">
-    <table class="table">
-        <% _.each(col, function(model, id){ %>
-        <tr>
-            <td width="20%"><b><%- model.description %></b></td>
-            <td>
-                <table class="table table-bordered table-striped table-hover">
-                <% _.each(model, function(attr, key){ %>
-                    <tr>
-                        <td width="20%"><%- key %></td>
-                        <% if(key.toLowerCase().indexOf('date') != -1){ %>
-                            <td><%- utils.ISO8601ToDT(attr) %></td>
-                        <% }else{ %>
-                            <td><%- attr %></td>
-                        <% } %>
-                    </tr>
-                <% }); %>
-                    <tr>
-                        <td colspan="2"><a class="btn btn-primary" href="<%- model['magnet-uri'].replace('magnet:', '/rest')+'/data' %>" target="_blank">Download <%- model.description %></a></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <% }); %>
-    </table>
-</script>
-<script id="AdminContactDetailsView" type="text/template">
-    <h3>User: <%- model.userInfo.name %></h3>
-    <div class="buttons">
-        <div class="buttons-section">
-            <button did="delete-contact" type="button" class="btn">Delete User</button>
-            <% if(page == 'requests'){ %>
-            <button did="approve-contact" type="button" class="btn btn-primary">Approve User</button>
-            <button did="deny-contact" type="button" class="btn btn-primary">Deny User</button>
-            <% } %>
-        </div>
-        <div class="loading buttons-section" style="display:none">
-            Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
-        </div>
-
-    </div>
-    <hr />
-    <div class="row-fluid">
-        <div class="span12">
-            <h4>User Information</h4>
-            <table class="table table-striped">
-                <tbody>
-                <tr>
-                    <td width="5px">Name</td>
-                    <td width="5px"><%- model.userInfo.firstName %> <%- model.userInfo.lastName %></td>
-                </tr>
-                <tr>
-                    <td width="5px">Email Address</td>
-                    <td width="5px"><%- model.userInfo.name %></td>
-                </tr>
-                <tr>
-                    <td width="5px">Company Name</td>
-                    <td width="5px"><%- model.userInfo.companyName %></td>
-                </tr>
-                <tr>
-                    <td width="5px">Created On</td>
-                    <td width="5px"><%- model.formattedCreationDate %></td>
-                </tr>
-                <tr>
-                    <td width="5px">Registration Task Id</td>
-                    <td width="5px"><%- model.magnetId %></td>
-                </tr>
-                <tr>
-                    <td width="5px">Source of Registration</td>
-                    <td width="5px"><%- model.registrationType %></td>
-                </tr>
-                <% if(model.invitedBy){ %>
-                <tr>
-                    <td width="5px">Invited By</td>
-                    <td width="5px">
-                        <b>Name</b>: <%- model.invitedBy.firstName %> <%- model.invitedBy.lastName %><br />
-                        <b>Email Address</b>: <%- model.invitedBy.eMails[0] %>
-                    </td>
-                </tr>
-                <% } %>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row-fluid">
-        <div class="span12">
-            <a href="#/<%- page %>" class="main-btn btn">Back to Administration Page</a>
-        </div>
-    </div>
+            <% }); %>
+        </td>
+    <% } %>
 </script>
 <script id="tableTmplView" type="text/template">
 <% if(!disableControls){ %>

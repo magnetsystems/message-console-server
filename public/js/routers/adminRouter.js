@@ -34,7 +34,6 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             // override default backbone model sync method to be compatible with REST APIs
             syncOverride(this.mc, this.eventPubSub);
             Backbone.history.start();
-            this.initGetProfile();
             this.initGetIdentity();
         },
         routes: {
@@ -64,33 +63,9 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             });
         },
         auth: function(callback){
-            var me = this;
-            var user = me.cookies.get('magnet_auth');
             // stop any active polling threads
             timer.stop();
-            if((!user || user == null)){
-                me.unsetUserPanel();
-                me.getProfile(function(){
-                    me.cookies.create(
-                        'magnet_auth', me.profile.attributes.name+'|'+me.profile.attributes.firstName+' '+me.profile.attributes.lastName+'|'+me.profile.attributes.companyName, 1);
-                    me.setUserPanel(
-                        me.profile.attributes.name,
-                        me.profile.attributes.firstName+' '+me.profile.attributes.lastName,
-                        me.profile.attributes.companyName == 'undefined' ? '' : me.profile.attributes.companyName
-                    );
-                    callback();
-                });
-            }else{
-                var profile = user.split('|');
-                me.setUserPanel(profile[0], profile[1], profile[2] == 'undefined' ? '' : profile[2]);
-                if(!me.profile || me.profile.isNew()){
-                    me.getProfile(function(){
-                        callback();
-                    });
-                }else{
-                    callback();
-                }
-            }
+            callback();
         },
         unsetUserPanel: function(){
             $('.control-buttons').addClass('hidden');
@@ -151,14 +126,6 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
                 error: function(){
                     console.log('error retrieving user');
                 }
-            });
-        },
-        initGetProfile: function(){
-            var me = this;
-            me.eventPubSub.bind('getUserProfile', function(callback){
-                me.getProfile(function(){
-                    callback(me.profile);
-                });
             });
         },
         initGetIdentity: function(){

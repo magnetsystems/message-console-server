@@ -31,65 +31,42 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/Registr
             'users' : {
                 col      : UserCollection,
                 headers  : {
-                    primaryEmailAddress : 'Email Address',
-                    profileName         : 'Name',
-                    accountMagnetActive : 'State'
+                    email     : 'Email Address',
+                    firstName : 'First Name',
+                    lastName  : 'Last Name',
+                    userType  : 'Type of User'
                 },
-                searchBy : 'name',
-                data : {
-                    relations : ['profile', 'accounts']
-                }
+                searchBy : 'name'
             },
             'invites' : {
-                col      : RegistrationTaskCollection,
+                col      : UserCollection,
                 headers  : {
-                    fullName         : 'Name',
-                    email            : 'Email Address',
-                    companyName      : 'Company',
-                    registrationType : 'Source'
+                    email     : 'Email Address',
+                    firstName : 'First Name',
+                    lastName  : 'Last Name',
+                    userType  : 'Type of User'
                 },
+                searchBy : 'name',
                 data     : {
                     search : {
-                        'state' : 'confirm_pending'
-                    },
-                    relations : ['userInfo']
-                },
-                disableControls : true
+                        'userType' : 'approved'
+                    }
+                }
             },
             'requests' : {
-                col      : RegistrationTaskCollection,
+                col      : UserCollection,
                 headers  : {
-                    fullName         : 'Name',
-                    email            : 'Email Address',
-                    companyName      : 'Company',
-                    registrationType : 'Source'
+                    email     : 'Email Address',
+                    firstName : 'First Name',
+                    lastName  : 'Last Name',
+                    userType  : 'Type of User'
                 },
+                searchBy : 'name',
                 data     : {
                     search : {
-                        'state' : 'invit_req_pending'
-                    },
-                    relations : ['userInfo']
-                },
-                disableControls : true
-            },
-            'history' : {
-                col      : HistoryCollection,
-                headers  : {
-                    timestamp    : 'Time Stamp',
-                    message      : 'Event',
-                    severity     : 'Severity',
-                    eventType    : 'Type',
-                    eventSubType : 'Sub Type',
-                    attachment   : 'Attachment'
-                },
-                sortDefault : {
-                    'property' : 'timestamp',
-                    'order'    : 'desc'
-                },
-                data     : {
-                    relations : ['*']
-                },
-                disableInfo : true
+                        'userType' : 'guest'
+                    }
+                }
             }
         },
         events: {

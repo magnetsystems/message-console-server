@@ -643,6 +643,7 @@ a.main-btn{margin-left:20px}
 #admin .tab-content{background:#fff;border:solid 1px #ddd;margin-bottom:25px;border-radius:10px}
 #admin h3{text-indent:5px}
 #admin .tab-content > .active{padding:0 20px}
+#admin-details .table tbody td{cursor:default}
 
 /*
  * Original version: 1.0 ? 2010 Andrew Valums ( andrew(at)valums.com )

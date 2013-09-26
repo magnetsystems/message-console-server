@@ -2,10 +2,12 @@ var CountryList = require('../lib/config/CountryList')
 , AccountManager = require('../lib/AccountManager')
 , UserManager = require('../lib/UserManager')
 , ProjectManager = require('../lib/ProjectManager')
+, Queries = require('../lib/Queries')
 , EmailService = require('../lib/EmailService')
 , magnetId = require('node-uuid')
 , path = require('path')
 , fs = require('fs')
+, _ = require('underscore')
 , sanitize = require('validator').sanitize;
 
 module.exports = function(app){
@@ -71,6 +73,29 @@ module.exports = function(app){
                 res.send('ok', 201);
             }
         });
+    });
+
+    /* catch database models */
+    var dbModels = ['users', 'projects'];
+    app.get('/rest/:model', function(req, res, next){
+        if(req.session.user && req.session.user.userType == 'admin' && _.contains(dbModels, req.params.model)){
+            Queries.findAll(req, function(col){
+                res.send(col, 200);
+            });
+        }else{
+            next();
+        }
+    });
+
+    var dbModels = ['users', 'projects'];
+    app.get('/rest/:model/:id', function(req, res, next){
+        if(req.session.user && req.session.user.userType == 'admin' && _.contains(dbModels, req.params.model)){
+            Queries.find(req, function(model){
+                res.send(model, 200);
+            });
+        }else{
+            next();
+        }
     });
 
     /* USER */

@@ -17,7 +17,7 @@ function syncOverride(mc, eventPubSub){
                 }
             }
             $.each(model.attributes, function(key, val){ 
-                if($.trim(val) != '' && key != 'magnetId' && key != 'image'&& key != 'id' && key != 'dataUrl' && key != 'contentUrls' && key != 'formatTime' && key != 'formatCreatedTime' && key != 'formattedLatestAssetGeneratedTime' && $.inArray(key, relations) == -1){
+                if($.trim(val) != '' && key != 'profileName' & key != 'magnetId' && key != 'image'&& key != 'id' && key != 'dataUrl' && key != 'contentUrls' && key != 'formatTime' && key != 'formatCreatedTime' && key != 'formattedLatestAssetGeneratedTime' && $.inArray(key, relations) == -1){
                     uModel[key] = val;
                 }
             });
@@ -140,7 +140,7 @@ function ModelConnector(httpreq){
 }
 ModelConnector.prototype.get = function(path, id, qs, params, callback, failback, entity){
     var me = this;
-    var selectAll = '&_magnet_select=*';
+    var selectAll = '';
     if(params){
         if(params.uriOnly || params.selects){
             selectAll = '';
@@ -170,7 +170,7 @@ ModelConnector.prototype.get = function(path, id, qs, params, callback, failback
         if(typeof callback === typeof Function){
             if(!me.chkSession(data, xhr)) return false;
             var result = {};
-            if(data.page){
+            if(data instanceof Array){
                 var models = [];
                 // create pagination object
                 var paging = {};
@@ -179,10 +179,7 @@ ModelConnector.prototype.get = function(path, id, qs, params, callback, failback
                 paging.totalSize = data.totalSize;
                 paging.nextPageUrl = data.nextPageUrl ? data.nextPageUrl : (me.queries[entity] ? me.queries[entity].url : undefined);
                 // adding magnetId to be used as a primary key for each model. usually the primary key is the 'id' property in a model, but in our case the unique id used in our url paths are actually magnetIds. This allows us to work with entities as backbone models with more ease.
-                $.each(data.page, function(i, obj){ 
-                    uri = obj['magnet-uri'] || obj['memberUri'] || obj.uri;
-                    obj.magnetId = uri.slice(uri.lastIndexOf('/')+1);
-                    obj.id = obj.magnetId.slice(obj.magnetId.lastIndexOf(':')+1);
+                $.each(data, function(i, obj){
                     me.appendIds(obj, params);
                     models.push(obj);
                 });
@@ -194,13 +191,6 @@ ModelConnector.prototype.get = function(path, id, qs, params, callback, failback
                 }
                 result = {data:models, paging:paging, params:params || undefined};
             }else{
-                if(!data['magnet-uri']){
-                    return data;
-                }
-                data.magnetId = data['magnet-uri'].slice(data['magnet-uri'].lastIndexOf('/')+1);
-                if(!data.id){
-                    data.id = data['magnet-uri'].slice(data['magnet-uri'].lastIndexOf(':')+1);
-                }
                 me.appendIds(data, params);
                 result = data;
             }
