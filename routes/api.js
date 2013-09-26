@@ -349,7 +349,15 @@ module.exports = function(app){
     });
 
     app.put('/rest/users/:magnetId/completeRegistration', function(req, res) {
-        console.log(req);
+        UserManager.becomeDeveloper({
+            magnetId: req.param('magnetId')
+        }, function(approvalStatus) {
+            if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL) {
+                res.send(approvalStatus, 200);
+            } else {
+                res.send(approvalStatus, 400);
+            }
+        });
     });
 
 };

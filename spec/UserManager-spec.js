@@ -1,4 +1,5 @@
-var UserManager = require("../lib/UserManager");
+var UserManager = require("../lib/UserManager")
+, hash = require('../lib/modules/hash');
 // TODO: Database details are hardcoded!
 require('../lib/orm').setup('./lib/models', true, 'developercenter', 'root');
 
@@ -127,6 +128,62 @@ describe("UserManager approveUser", function() {
                 expect(user.userType).toEqual('approved');
                 user.destroy().success(function() {
                     done();
+                });
+            });
+        });
+    });
+});
+
+describe("UserManager becomeDeveloper", function() {
+    var user;
+    var password = 'test';
+    var firstName = 'John';
+
+    describe("should fail", function() {
+
+        beforeEach(function() {
+            user = {
+                magnetId: "d2cf1210-25ae-11e3-a8c7-c743ef283553"
+            };
+        });
+
+        it("if the magnetId does not exist", function(done) {
+            UserManager.becomeDeveloper(user, function(status) {
+                expect(status).toEqual(UserManager.BecomeDeveloperStatusEnum.USER_DOES_NOT_EXIST);
+                done();
+            });
+        });
+    });
+
+    beforeEach(function() {
+        user = {
+            firstName: firstName,
+            lastName: "Appleseed",
+            email: "john.appleseed@apple.com",
+            companyName: "Apple Inc.",
+            password: password,
+            roleWithinCompany: 'Software Engineer',
+            country: 'No Country For Old Men'
+        };
+    });
+
+    it("should succeed if the input is valid", function(done) {
+        UserManager.registerGuest(user, function(registrationStatus, u) {
+            UserManager.approveUser({magnetId: user.magnetId}, function(approvalStatus, u) {
+                user.firstName = "Jane"; // should not be allowed
+                UserManager.becomeDeveloper(user, function(status, u) {
+                    expect(status).toEqual(UserManager.BecomeDeveloperStatusEnum.SUCCESSFUL);
+                    expect(u).not.toBeNull();
+                    expect(u.userType).toEqual('developer');
+                    expect(u.country).toEqual(user.country);
+                    expect(u.roleWithinCompany).toEqual(user.roleWithinCompany);
+                    expect(u.password).toEqual(hash.md5(password));
+                    u.reload().success(function() {
+                        expect(u.firstName).toEqual(firstName);
+                        u.destroy().success(function() {
+                            done();
+                        });
+                    })
                 });
             });
         });
