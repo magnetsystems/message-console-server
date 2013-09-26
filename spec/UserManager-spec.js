@@ -90,3 +90,45 @@ describe("UserManager registerGuest", function() {
         });
     });
 });
+
+describe("UserManager approveUser", function() {
+    var user;
+
+    describe("should fail approval", function() {
+
+        beforeEach(function() {
+            user = {
+                magnetId: "d2cf1210-25ae-11e3-a8c7-c743ef283553"
+            };
+        });
+
+        it("if the magnetId does not exist", function(done) {
+            UserManager.approveUser(user, function(approvalStatus) {
+                expect(approvalStatus).toEqual(UserManager.ApproveUserStatusEnum.USER_DOES_NOT_EXIST);
+                done();
+            });
+        });
+    });
+
+    beforeEach(function() {
+        user = {
+            firstName: "John",
+            lastName: "Appleseed",
+            email: "john.appleseed@apple.com",
+            companyName: "Apple Inc."
+        };
+    });
+
+    it("should succeed if the input is valid", function(done) {
+        UserManager.registerGuest(user, function(registrationStatus, u) {
+            UserManager.approveUser({magnetId: user.magnetId}, function(approvalStatus, user) {
+                expect(user).not.toBeNull();
+                expect(approvalStatus).toEqual(UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL);
+                expect(user.userType).toEqual('approved');
+                user.destroy().success(function() {
+                    done();
+                });
+            });
+        });
+    });
+});
