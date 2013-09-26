@@ -58,19 +58,6 @@
     </div>
 </div>
 </div>
-<div id="project-manager" class="page hidden">
-    <div class="row-fluid">
-        <div class="span1"></div>
-        <div class="span10 page-view">
-            <span id="pm-content">
-                <div id="pm-projects" class="fullpos v-pane"></div>
-                <div id="pm-log" class="fullpos v-pane hidden"></div>
-                <div id="pm-users" class="fullpos v-pane hidden"></div>
-            </span>
-        </div>
-        <div class="span1"></div>
-    </div>
-</div>
 <div id="project-wizard" class="page hidden">
     <div class="row-fluid">
         <div class="page-view">
@@ -226,48 +213,138 @@
         </div>
     </div>
 </div>
-<div id="project-assets" class="page hidden">
-    <div class="row-fluid">
-        <div class="page-view">
-            <div id="pa-container"></div>
-            <div class="row-fluid">
-                <div class="span12">
-                    <a href="#/" class="main-btn btn">Back to Projects List</a>
-                    <button id="generate-assets" class="main-btn btn btn-primary">Generate Assets</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="sandbox" class="page hidden">
-    <div class="row-fluid">
-        <div class="page-view">
-            <div id="sandbox-container"></div>
-            <div class="row-fluid">
-                <div class="span12">
-                    <a href="#/" class="main-btn btn">View Projects List</a>
-                    <a id="sandbox-links-assets" href="#" style="display:none" class="main-btn btn">View Project Assets</a>
-                    <a id="sandbox-links-wizard" href="#" style="display:none" class="main-btn btn">Edit Project</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div id="get-started" class="page hidden">
     <div class="row-fluid">
         <div class="page-view">
             <div class="row-fluid">
-                <h4>Get Started</h4>
-                <a href="#/project-wizard" class="btn">Start Wizard</a>
+                <h4 class="page-h4">Get Started</h4>
+                <ul class="nav nav-tabs">
+                    <li id="gs-projectguide-tab" class="active"><a href="#gs-projectguide">Project Guide</a></li>
+                    <li id="gs-ios-tab"><a href="#gs-ios">iOS Developer</a></li>
+                    <li id="gs-server-tab"><a href="#gs-server">Server Developer</a></li>
+                    <li id="gs-android-tab"><a href="#gs-android">Android Developer</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="gs-projectguide">
+                        <h4>Project Guide</h4>
+                        <div id="guide-container">
+                            <div class="guide-row odd">
+                                <img src="../images/getstarted/gtstrtd_mbprj_1.png" />
+                                <div class="guide-content">
+                                    <div class="row-fluid">
+                                        <div class="span7">
+                                            <div class="guide-step">1</div>
+                                            <div>
+                                                <b>Get Mobile Project</b>
+                                                <p>Get started with a project template for your mobile app.</p>
+                                            </div>
+                                        </div>
+                                        <div class="span5">
+                                            <a class="btn dbl">Get Android Project</a><br />
+                                            <a class="btn dbl">Get Xcode Project</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="guide-row">
+                                <img src="../images/getstarted/gtstrtd_mbprj_2.png" />
+                                <div class="guide-content">
+                                    <div class="row-fluid">
+                                        <div class="span7">
+                                            <div class="guide-step">2</div>
+                                            <div>
+                                                <b>Use Quickstart Wizard</b>
+                                                <p>Choose from a list of sample services and provide your own APIs.</p>
+                                            </div>
+                                        </div>
+                                        <div class="span5">
+                                            <a class="btn" href="/dev/#/project-wizard">Quickstart Wizard</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="guide-row odd">
+                                <img src="../images/getstarted/gtstrtd_mbprj_3.png" />
+                                <div class="guide-content">
+                                    <div class="row-fluid">
+                                        <div class="span7">
+                                            <div class="guide-step">3</div>
+                                            <div>
+                                                <b>Run Magnet App Builder Tool</b>
+                                                <p>Use the tool to create server and client project files.</p>
+                                            </div>
+                                        </div>
+                                        <div class="span5">
+                                            <a class="btn">Download App Builder</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="guide-row">
+                                <img src="../images/getstarted/gtstrtd_mbprj_4.png" />
+                                <div class="guide-content">
+                                    <div class="row-fluid">
+                                        <div class="span7">
+                                            <div class="guide-step">4</div>
+                                            <div>
+                                                <b>Share Project Files</b>
+                                                <p>Distribute server and client project files among team members.</p>
+                                            </div>
+                                        </div>
+                                        <div class="span5">
+                                            <a class="btn">Go to Documentation</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="guide-row odd">
+                                <img src="../images/getstarted/gtstrtd_mbprj_5.png" />
+                                <div class="guide-content">
+                                    <div class="row-fluid">
+                                        <div class="span7">
+                                            <div class="guide-step">5</div>
+                                            <div>
+                                                <b>Build Your App</b>
+                                                <p>Use the project files to develop your mobile app.</p>
+                                            </div>
+                                        </div>
+                                        <div class="span5">
+                                            <a class="btn">Go to Documentation</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="guide-row">
+                                <img src="../images/getstarted/gtstrtd_mbprj_6.png" />
+                                <div class="guide-content">
+                                    <div class="row-fluid">
+                                        <div class="span7">
+                                            <div class="guide-step">6</div>
+                                            <div>
+                                                <b>Deploy to Cloud</b>
+                                                <p>Deploy server to the cloud to support your mobile app.</p>
+                                            </div>
+                                        </div>
+                                        <div class="span5">
+                                            <a class="btn">Go to Documentation</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="gs-ios">
+                        <h3>iOS Developer</h3>
+                    </div>
+                    <div class="tab-pane" id="gs-server">
+                        <h3>Server Developer</h3>
+                    </div>
+                    <div class="tab-pane" id="gs-android">
+                        <h3>Android Developer</h3>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-<div id="profile-editor" class="page hidden">
-    <div class="row-fluid">
-        <div class="span1"></div>
-        <div class="span10 page-view"></div>
-        <div class="span1"></div>
     </div>
 </div>
 
@@ -281,265 +358,6 @@
 </div>
 <div id="download-container" class="hidden"></div>
 <!-- views start -->
-<script id="PMWorkspaceListView" type="text/template">
-    <ul class="nav nav-tabs"<% if(workspaces.models.length > 5){ %> style="margin-right:78px"<% }%>>
-    <% _.each(workspaces.models, function(workspace, sid){ %>
-    <% if(sid < 4){ %>
-    <li did="<%- workspace.attributes.magnetId %>" class="<% if(workspace.attributes.magnetId == magnetId){ %>active<% } %> wide<%- len %>"><a href="#"><%- workspace.attributes.name %></a></li>
-    <% } %>
-    <% }); %>
-    </ul>
-    <% if(workspaces.models.length > 5){ %>
-    <div class="nav-tabs-right">
-        <div class="dropdown">
-            <a class="dropdown-toggle" id="more-workspaces" role="button" data-toggle="dropdown" href="#">More<b class="icon-chevron-down"></b></a>
-            <ul id="menu1" class="dropdown-menu pull-right" role="menu" aria-labelledby="more-workspaces">
-                <% _.each(workspaces.models, function(workspace, sid){ %>
-                <% if(sid > 4){ %>
-                <li did="<%- workspace.attributes.magnetId %>" role="presentation" class="<% if(workspace.attributes.magnetId == magnetId){ %>active<% } %>"><a role="menuitem" tabindex="-1" href="#"><%- workspace.attributes.name %></a></li>
-                <% } %>
-                <% }); %>
-            </ul>
-        </div>
-    </div>
-    <% } %>
-</script>
-<script id="PMprojectsView" type="text/template">
-    <div class="btn-list">
-        <button id="pm-create-project" class="btn">Create Project</button>
-        <!--
-        <div class="btn-group pull-right">
-          <button did="projects" class="v-pane-trigger btn btn-primary">Projects</button>
-          <button did="log" class="v-pane-trigger btn">Log</button>
-          <button did="users" class="v-pane-trigger btn">Users</button>
-        </div>
-        -->
-        <% if(deployedApplicationStatus){ %>
-            <div class="btn-group pull-right">
-                <a href="#/sandbox" class="btn btn-primary">Manage Sandbox</a>
-            </div>
-            <div id="project-list-sandbox-status" class="pull-right">
-                <% if(deployedApplicationStatus == 'complete'){ %>
-                <strong>Sandbox Status: <span style="color:green">RUNNING</span></strong>
-                <% }else if(deployedApplicationStatus == 'started'){ %>
-                <strong>Sandbox Status: <span style="color:#D6AE00">DEPLOYING</span></strong>
-                <% }else if(deployedApplicationStatus == 'failed'){ %>
-                <strong>Sandbox Status: <span style="color:red">FAILED</span></strong>
-                <% } %>
-            </div>
-        <% } %>
-    </div>
-    <div class="fullpos">
-        <div id="project-list-head" class="row-fluid">
-            <div class="span3"><h5>Last Updated On</h5></div>
-            <div class="span3"><h5>Project Name</h5></div>
-            <div class="span6"><h5>Project Description</h5></div>
-        </div>
-        <div id="project-list" class="fullpos">
-            <% if(projects.models.length > 0){ %>
-            <% _.each(projects.models, function(model, id){ %>
-            <div did="<%- model.attributes.magnetId %>" class="row-container">
-                <div class="manager-row row-fluid">
-                    <div class="span3"><%- model.attributes.formatTime %></div>
-                    <div class="span3"><%- model.attributes.name %> <% if(activeInstance){ %>
-                        <% if((model.attributes['project-versions'] && model.attributes['project-versions'].length > 0 && model.attributes['project-versions'][0].magnetId.indexOf(activeInstance) != -1) || model.attributes.magnetId.indexOf(activeInstance) != -1){ %>
-                        <img src="../images/icon_cloud.png" /><% } } %></div>
-                    <div class="span6"><%- model.attributes.description %></div>
-                </div>
-                <div class="info-row-wrapper">
-                    <div class="info-row-separator"></div>
-                    <div class="info-row-container">
-                        <div class="info-row row-fluid">
-                            <div class="info-row-title">
-                                Project Version
-                            </div>
-                            <div class="info-row-content">
-                                <%- model.attributes.version %>
-                            </div>
-                        </div>
-                        <div class="info-row row-fluid">
-                            <div class="info-row-title">
-                                Project Status
-                            </div>
-                            <div class="info-row-content">
-                                <%- model.attributes.assetStatus || 'NOT GENERATED' %>
-                            </div>
-                        </div>
-                        <div class="info-row row-fluid">
-                            <div class="span12">
-                                <button class="pm-edit btn">Edit Project</button>
-                                <button class="pm-delete btn">Delete Project</button>
-                                <!--<button class="pm-clone btn">Duplicate</button>-->
-                                <% if(!model.attributes['project-versions'] || model.attributes['project-versions'].length == 0){ %>
-                                <button class="pm-uploadjar btn">Upload Server Binary</button>
-                                <% } %>
-                                <a href="#/project-assets/<%- model.attributes.magnetId %>" class="pm-assets btn">Display Assets</a>
-                            </div>
-                        </div>
-                        <% if(model.attributes['project-versions'] && model.attributes['project-versions'].length > 0){ %>
-                        <div did="<%- model.attributes['project-versions'][0].magnetId %>" class="well">
-                            <strong>A server binary has been uploaded to this project:</strong>
-                            <div class="info-row row-fluid">
-                                <div class="info-row-title">
-                                    Filename
-                                </div>
-                                <div class="info-row-content">
-                                    <%- model.attributes['project-versions'][0].description.split('~')[0] %>
-                                </div>
-                            </div>
-                            <div class="info-row row-fluid">
-                                <div class="info-row-title">
-                                    Description
-                                </div>
-                                <div class="info-row-content">
-                                    <%- model.attributes['project-versions'][0].description.split('~')[1] %>
-                                </div>
-                            </div>
-                            <div class="info-row row-fluid">
-                                <div class="info-row-title">
-                                    Created On
-                                </div>
-                                <div class="info-row-content">
-                                    <% if(model.attributes['project-versions'][0].createdTime){ %>
-                                    <%- utils.ISO8601ToDT(model.attributes['project-versions'][0].createdTime) %>
-                                    <% }else{ %>
-                                    <%- utils.ISO8601ToDT(false, true) %>
-                                    <% } %>
-                                </div>
-                            </div>
-                            <div class="info-row row-fluid">
-                                <div class="info-row-title">
-                                    Status
-                                </div>
-                                <div class="info-row-content">
-                                    <%- model.attributes['project-versions'][0].assetStatus || 'NOT GENERATED' %>
-                                    <% if(activeInstance && model.attributes['project-versions'][0].magnetId.indexOf(activeInstance) != -1){ %>
-                                    <img src="../images/icon_cloud.png" />
-                                    <% } %>
-                                </div>
-                            </div>
-                            <div class="info-row row-fluid">
-                                <div class="span12">
-                                    <button class="pm-serverjar-delete btn">Delete Server Binary</button>
-                                    <button class="pm-serverjar-generate btn">Generate Assets</button>
-                                    <button class="pm-serverjar-assets btn">Display Assets</button>
-                                </div>
-                            </div>
-                        </div>
-                        <% } %>
-                        <% if(model.attributes.webservices){ %>
-                        <div class="info-row row-fluid">
-                            <div class="info-row-title">
-                                WSDL URLs
-                            </div>
-                            <div class="info-urls info-row-content">
-                                <ul class="info-row-newline">
-                                    <% _.each(model.attributes.webservices, function(webservice, i){ %>
-                                    <% if(webservice.wsdlUrl){ %>
-                                    <li><%- webservice.wsdlUrl %></li>
-                                    <% } %>
-                                    <% }); %>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="info-row row-fluid">
-                            <div class="info-row-title">
-                                Uploaded WSDLs
-                            </div>
-                            <div class="info-urls info-row-content">
-                                <ul class="info-row-newline">
-                                    <% _.each(model.attributes.webservices, function(webservice, i){ %>
-                                    <% if(webservice.wsdlFile){ %>
-                                    <li><%- webservice.name %></li>
-                                    <% } %>
-                                    <% }); %>
-                                </ul>
-                            </div>
-                        </div>
-                        <% } %>
-                        <% if(model.attributes.serverRuntime){ %>
-                        <div class="info-row row-fluid">
-                            <div class="info-row-title">
-                                Sandbox URL
-                            </div>
-                            <div class="info-row-content">
-                                <ul class="info-row-newline">
-                                    <li><%- model.attributes.serverRuntime.serverUrl %></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <% } %>
-
-                    </div>
-                </div>
-            </div>
-            <% }); %>
-            <% }else{ %>
-            <p>No projects have been created yet.</p>
-            <% } %>
-        </div>
-    </div>
-</script>
-<script id="PMlogView" type="text/template">
-    <div class="btn-list">
-        <div class="btn-group pull-right">
-            <button did="projects" class="v-pane-trigger btn">Projects</button>
-            <button did="log" class="v-pane-trigger btn btn-primary">Log</button>
-            <button did="users" class="v-pane-trigger btn">Users</button>
-        </div>
-    </div>
-    <div class="fullpos">
-        <div id="pm-log-list" class="fullpos"></div>
-    </div>
-</script>
-<script id="PMusersView" type="text/template">
-    <div class="btn-list">
-        <button id="pm-add-user" class="btn">Add User</button>
-        <div class="btn-group pull-right">
-            <button did="projects" class="v-pane-trigger btn">Projects</button>
-            <button did="log" class="v-pane-trigger btn">Log</button>
-            <button did="users" class="v-pane-trigger btn btn-primary">Users</button>
-        </div>
-    </div>
-    <div class="fullpos">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email Address</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr id="pm-add-user-row" class="hidden">
-                <td></td>
-                <td><input id="pm-add-user-email" type="text" placeholder="Email Address" /></td>
-                <td></td>
-                <td>
-                    <div class="buttons-section">
-                        <button id="pm-invite-user-btn" class="btn"><i class="icon-envelope"></i></button>
-                        <button class="pm-remove-add-user btn"><i class="icon-remove-sign"></i></button>
-                    </div>
-                    <div class="loading buttons-section" style="display:none">
-                        Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
-                    </div>
-                </td>
-            </tr>
-            <% if(projects.models.length > 0){ %>
-            <% _.each(projects.models, function(model, id){ %>
-            <tr did="<%- model.attributes.magnetId %>">
-                <td><% if(model.attributes.memberUser){ %><%- model.attributes.firstName %> <%- model.attributes.lastName %><% } %></td>
-                <td><%- model.attributes.email %></td>
-                <td><%- model.attributes.status %></td>
-                <td><% if(model.attributes.status == 'ACCEPTED'){ %><button class="pm-delete-member btn"><i class="icon-trash"></i></button><% } %></td>
-            </tr>
-            <% }); %>
-            <% } %>
-            </tbody>
-        </table>
-    </div>
-</script>
 <script id="PWCoreView" type="text/template">
 <div did="core" class="accordion" id="core-accordion">
 <div did="encryption" class="accordion-group">
@@ -1295,462 +1113,6 @@
     <% } %>
 </script>
 
-<script id="ProjectAssetsView" type="text/template">
-    <% if(isVersion){ %>
-    <h3>Assets for server binary version "<%- project.attributes.name %>" of project "<%- project.attributes.project.name %>"</h3>
-    <% }else{ %>
-    <h3>Assets for project "<%- project.attributes.name %>"</h3>
-    <% } %>
-    <p class="asset-subheading"><b>Description</b>: <%- project.attributes.description %></p>
-    <% if(project.attributes.assetStatus && project.attributes.assetStatus == 'GENERATED'){ %>
-    <span><b>Assets Generated From</b>: <%- isVersion ? 'uploaded server binary' : 'project' %></span>
-    <% } %>
-
-    <% if(!project.attributes.assetStatus){ %>
-    <p class="pa-subheading" style="margin-top:16px">
-        You have not generated any assets yet. To generate assets, click on the Generate Assets button below.
-    </p>
-    <% } %>
-    <% if(project.attributes.assetStatus == 'GENERATING'){ %>
-    <div id="pa-content-container">
-        <h3 class="asset-generation-state">Generating...</h3>
-        <img src="../images/assets/generating.png" />
-        <div class="generate-caption">
-            <img src="../images/assets/progress-loading.gif" />
-            <!--
-            <div id="asset-progress">
-                <div class="percentage"><%- project.attributes.contents.length == 0 ? '0' : Math.round((project.attributes.contents.length / 4) * 100) %>%</div>
-                <div class="progress progress-striped active">
-                    <div class="bar" style="width: <%- project.attributes.contents.length == 0 ? '0' : Math.round((project.attributes.contents.length / 4) * 100) %>%;"></div>
-                </div>
-            </div>
-            -->
-            <p>
-                Generating all assets. This will take several minutes. If you choose to stay <br />
-                on this page, the page will update automatically when all the assets have been generated.
-            </p>
-        </div>
-    </div>
-    <% } %>
-    <% if(isGenerated || (isVersion && project.attributes.assetStatus != 'GENERATING')){ %>
-    <div id="sandbox-status-container"></div>
-    <div id="pa-content-container" class="<%- isVersion ? 'isversion' : '' %> <%- (isVersion && !isGenerated) ? 'notgenerated' : '' %>">
-        <div class="row-fluid">
-            <div class="left span4">
-                <% if(isGenerated){ %>
-                <div class="clearfix">
-                    <div class="pull-right">
-                        <% if(project.attributes.contentUrls.ios){ %>
-                        <a class="pa-docs pull-right" target="_blank" href="/docs/ios_client/"></a>
-                        <a did="ios" class="pa-download pull-right" href="#"></a>
-                        <% } %>
-                    </div>
-                    <div class="text pull-right">
-                        <b>Native iOS Project</b><br />
-                        Objective-C client library<br />
-                        Sample App
-                    </div>
-                </div>
-                <% } %>
-            </div>
-            <div class="middle span4">
-                <div id="deploy-sandbox-container">
-                    <a id="pa-deploy-sandbox" class="pa-deploy" style="display:none" href="#">
-                        Deploy Server to Cloud Sandbox
-                    </a>
-                    <!--
-                    <div id="init-deploy-loader" style="display:none">
-                        <b>Step 1 of 3</b><br />
-                        Provisioning sandbox to the cloud. Do not<br />
-                        leave this page until this step completes.<br />
-                        <img src="../images/assets/progress-loading.gif" />
-                    </div>
-                    <div id="deploy-sandbox-loader" style="display:none">
-                        <b>Step 2 of 3</b><br />
-                        Uploading server to sandbox. This step may<br />
-                        take a few minutes. It is safe to leave this<br />
-                        page and deployment will continue.<br />
-                        <img src="../images/assets/progress-loading.gif" />
-                    </div>
-                    -->
-                    <div id="checking-sandbox-loader" style="display:none">
-                        <b>Checking your sandbox status, please wait..</b><br />
-                        <img src="../images/assets/progress-loading.gif" />
-                    </div>
-                    <div id="starting-sandbox-loader" style="display:none">
-                        <b>Your project is being deployed to the cloud.</b><br />
-                        <img src="../images/assets/progress-loading.gif" /><br /><br />
-                        Manage your cloud instance by<br />clicking on the button below.<br />
-                        <a class="btn btn-primary" href="#/sandbox">Manage Sandbox</a><br />
-                    </div>
-                </div>
-                <% if(!isVersion){ %>
-                <div class="sandbox-download">
-                    <div>
-                        <div class="col50">
-                            Server Source
-                            <% if(project.attributes.contentUrls.server){ %>
-                            <a did="server" class="pa-download" href="#"></a>
-                            <% } %>
-                        </div>
-                        <div class="col50">
-                            Server Binary
-                            <% if(project.attributes.contentUrls.sandbox){ %>
-                            <a did="sandbox" class="pa-download" href="#"></a>
-                            <% } %>
-                        </div>
-                    </div>
-                </div>
-                <!--
-                <a did="sandbox" class="pa-download pa-dlall" href="#">
-                    Download All Assets
-                </a>
-                -->
-                <% } %>
-            </div>
-            <div class="right span4">
-                <% if(isGenerated){ %>
-                <div class="clearfix">
-                    <div class="pull-left">
-                        <% if(project.attributes.contentUrls.android){ %>
-                        <a class="pa-docs pull-left" target="_blank" href="/docs/android_client/"></a>
-                        <a did="android" class="pa-download pull-left" href="#"></a>
-                        <% } %>
-                    </div>
-                    <div class="text pull-left">
-                        <b>Native Android Project</b><br />
-                        Android client library<br />
-                        Sample App
-                    </div>
-                </div>
-                <% } %>
-                <% if(!isVersion){ %>
-                <div class="javadocs clear-fix">
-                    <div class="pull-left">
-                        <a class="pa-docs pull-left" target="_blank" href="/docs/server_javadocs/"></a>
-                    </div>
-                    <div class="text pull-left">
-                        View Server Javadocs
-                    </div>
-                </div>
-                <% } %>
-            </div>
-        </div>
-        <% if(isGenerated){ %>
-        <div class="bgk">
-            <img src="../images/assets/bg_main.png" />
-        </div>
-        <% } %>
-        <% if(project.attributes.assetStatus == 'FAILED' && isVersion){ %>
-            <h3 class="asset-generation-state failed">Asset Generation Failed</h3>
-            <br />
-            <div class="generate-caption">
-                <p class="pa-subheading">
-                    There was an error generating assets for the server binary. Make sure the server binary you downloaded came<br />
-                    from <b>./aws-server/target/<%- project.attributes.project.name.replace(' ', '_') %>-server-aws-<%- project.attributes.project.version %>-deploy.zip</b> of your maven project.<br />
-                    For specific details, view the server log below or <a href="/support/">contact Magnet support</a> for assistance. <button class="sendSupport btn" info="error generating assets">Notify Support</button>
-                </p>
-                <div id="asset-generation-failure-log"></div>
-                <div id="asset-generation-failure-attachment"></div>
-            </div>
-        <% }else if(project.attributes.assetStatus == 'FAILED'){ %>
-            <h3 class="asset-generation-state failed">Asset Generation Failed</h3>
-            <img src="../images/assets/generating.png" />
-            <div class="generate-caption">
-                <p class="pa-subheading">
-                    There was an error generating the assets. Please <a href="/support/">contact Magnet support</a> for assistance. <button class="sendSupport btn" info="error generating assets">Notify Support</button>
-                </p>
-                <div id="asset-generation-failure-log"></div>
-                <div id="asset-generation-failure-attachment"></div>
-            </div>
-        <% } %>
-    </div>
-    <% } %>
-</script>
-
-<script id="MainSandboxView" type="text/template">
-    <h3>Magnet Sandbox</h3>
-    <div id="sandbox-content-container">
-        <div class="row-fluid">
-            <div class="span12">
-                <div id="sandbox-details-container" class="span6">
-                    <h4>Sandbox Information</h4>
-                    <div id="sandbox-details"></div>
-                    <% if(isVersion){ %>
-                    <h4>Server Binary Details</h4>
-                    <table class="table table-bordered table-striped">
-                        <tr>
-                            <td width="50%">Server Binary Name</td>
-                            <td><%- project.attributes.name %></td>
-                        </tr>
-                        <tr>
-                            <td>Server Binary Description</td>
-                            <td><%- project.attributes.description %></td>
-                        </tr>
-                        <tr>
-                            <td>View the assets generated from this server binary</td>
-                            <td width="50%">
-                                <a href="#/project-version-assets/<%- project.attributes.magnetId %>" class="btn btn-primary">View Server Binary Assets</a>
-                            </td>
-                        </tr>
-                    </table>
-                    <% }else{ %>
-                    <h4>Project Details</h4>
-                    <table class="table table-bordered table-striped">
-                        <tr>
-                            <td width="50%">Project Name</td>
-                            <td><%- project.attributes.name %></td>
-                        </tr>
-                        <tr>
-                            <td>Project Description</td>
-                            <td><%- project.attributes.description %></td>
-                        </tr>
-                        <tr>
-                            <td>Version</td>
-                            <td><%- project.attributes.version %></td>
-                        </tr>
-                        <tr>
-                            <td>Assets Last Generated</td>
-                            <td><%- utils.ISO8601ToDT(project.attributes.latestAssetGeneratedTime) %></td>
-                        </tr>
-                        <tr>
-                            <td>View the generated project assets for this project</td>
-                            <td width="50%">
-                                <a href="#/project-assets/<%- project.attributes.magnetId %>" class="btn btn-primary">View Project Assets</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Edit your project in the Project Wizard<br />
-                                <div class="small-note"><b>NOTE:</b> If you make changes, you must re-generate the assets and deploy again before the changes will reflect on the cloud.</div>
-                            </td>
-                            <td width="50%">
-                                <a href="#/project-wizard/<%- project.attributes.magnetId %>" class="btn btn-primary">Edit Project</a>
-                            </td>
-                        </tr>
-                    </table>
-                    <% } %>
-                </div>
-                <div id="sandbox-terminal-container" class="span6">
-                    <h4>Debugging Console</h4>
-                    <div id="sandbox-terminal-controls" style="display:none">
-                        <button id="sandbox-terminal-refresh" class="btn"><i class="icon-refresh"></i></button>
-                        <div id="sandbox-terminal-numlines" class="btn-group">
-                            <button did="10" class="btn active">10</button>
-                            <button did="50" class="btn">50</button>
-                            <button did="100" class="btn">100</button>
-                            <button did="500" class="btn">500</button>
-                        </div>
-                        <!--
-                        <div id="sandbox-terminal-autorefresh" class="btn-group">
-                            <button did="on" class="btn active"><i class="icon-refresh"></i></button>
-                            <button did="off" class="btn">Off</button>
-                        </div>
-                        -->
-                    </div>
-                    <div id="sandbox-terminal" class="well"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</script>
-
-<script id="SandboxDetailsView" type="text/template">
-    <table class="table table-bordered table-striped">
-    <% if(cloudCompute.attributes.deployedApplicationStatus === 'complete'){ %>
-        <tr>
-            <td width="50%">Deployment Status</td>
-            <td>
-                <strong class="cloud-state" style="color:green">RUNNING</strong>
-            </td>
-        </tr>
-        <tr>
-            <td>Sandbox URL</td>
-            <td>
-                <a target="_blank" href="<%- project.attributes.sandboxUrl %>"><%- project.attributes.sandboxUrl %></a>
-            </td>
-        </tr>
-        <% if(project.attributes.sandboxUser){ %>
-        <tr>
-            <td>Sandbox Username</td>
-            <td>
-                <b>
-                    <%- project.attributes.sandboxUser %>
-                </b>
-            </td>
-        </tr>
-        <% } %>
-        <% if(project.attributes.sandboxPassword){ %>
-        <tr>
-            <td>Sandbox Password</td>
-            <td>
-                <b><%- project.attributes.sandboxPassword %>
-                </b>
-            </td>
-        </tr>
-        <% } %>
-        <tr>
-            <td>Time of Deployment</td>
-            <td><%- cloudCompute.attributes.launchTime ? utils.ISO8601ToDT(cloudCompute.attributes.launchTime) : '' %></td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td><%- cloudCompute.attributes.deployedApplicationName %></td>
-        </tr>
-        <tr>
-            <td>Base Image Name</td>
-            <td><%- cloudCompute.attributes.baseImageName %></td>
-        </tr>
-    <% }else if(cloudCompute.attributes.deployedApplicationStatus === 'started'){ %>
-        <tr>
-            <td width="50%">Deployment Status</td>
-            <td>
-                <strong class="cloud-state" style="color:#D6AE00">DEPLOYING - Step <%- deployStage %> of 3</strong><br />
-                <% if(deployStage == 1){ %>
-                    Provisioning sandbox to the cloud. Do not
-                    leave this page until this step completes.
-                <% } %>
-                <% if(deployStage == 2){ %>
-                    Uploading server to sandbox. This step may
-                    take a few minutes. It is safe to leave this
-                    page and deployment will continue.
-                <% } %>
-                <% if(deployStage == 3){ %>
-                    Launching server in sandbox. This step may take a few minutes.
-                <% } %>
-                <br />
-                <img src="../images/assets/progress-loading.gif" />
-            </td>
-        </tr>
-    <% }else if(cloudCompute.attributes.deployedApplicationStatus === 'failed'){ %>
-        <tr>
-            <td width="50%">Deployment Status</td>
-            <td>
-                <strong class="cloud-state" style="color:red">FAILED</strong>
-                <p>This project failed during deployment. However, you can still run the server locally using the generated server binary.</p>
-                <p>Please view the debugging console on the right for server output or <a href="/support/">contact Magnet support</a> for assistance.</p>
-                <button class="sendSupport btn" info="error deploying to cloud">Send Error Report</button>
-            </td>
-        </tr>
-    <% } %>
-    </table>
-    <h4>Sandbox Administration</h4>
-    <table class="table table-bordered table-striped">
-        <tr>
-            <td>Re-Deploy your project to the cloud.</td>
-            <td width="50%">
-                <button id="deploy-sandbox" class="btn btn-primary <% if(cloudCompute.attributes.deployedApplicationStatus === 'started'){ %>disabled<% } %>">Re-Deploy to Cloud</button>
-            </td>
-        </tr>
-    </table>
-</script>
-
-<script id="SandboxTerminalView" type="text/template">
-    <%= message %>
-</script>
-
-<script id="SandboxView" type="text/template">
-    <h4>Sandbox Details</h4>
-    <% if(status === 'invalid'){ %>
-    <p>This project cannot be deployed because
-        <% if(validations){ %>
-        the feature<%- validations.ary.length == 1 ? '' : 's' %> <b><%- validations.text %></b> <%- validations.ary.length == 1 ? 'was' : 'were' %> included with missing or invalid parameters
-        <% }else{ %>
-        of features which were included with missing or invalid parameters
-        <% }  %>
-        during the project wizard. However, you can still run the server locally using the generated server binary.</p>
-    <% }else if(status == 'failed'){ %>
-    <p>This project failed during deployment. However, you can still run the server locally using <br />
-        the generated server binary. For more information, click on the button below.</p>
-        <a class="btn btn-primary" href="#/sandbox">Manage Sandbox</a><br />
-    <% }else{ %>
-    <% if(isActiveInstance === true){ %>
-    <a class="btn btn-primary" href="#/sandbox">Manage Sandbox</a><br />
-    <strong>Instance URL:</strong> <span><a target="_blank" href="<%- project.sandboxUrl %>"><%- project.sandboxUrl %></a></span><br />
-    <strong>Status:</strong>
-    <% if(status === 'running'){ %>
-    <span id="sandbox-status" style="color:green">RUNNING</span>
-    <% }else{ %>
-    <span id="sandbox-status" style="color:red">NOT RUNNING</span>
-    <% } %>
-    <strong>Username:</strong>
-    <% if(project.sandboxUser){ %>
-    <span style="color:green"><%- project.sandboxUser %></span>
-    <% } %>
-    <strong>Password:</strong>
-    <% if(project.sandboxPassword){ %>
-    <span style="color:green"><%- project.sandboxPassword %></span>
-    <% } %>
-    <% } %>
-    <% } %>
-</script>
-
-
-<script id="ProfileEditorView" type="text/template">
-    <h3>My Profile</h3>
-    <p>You may edit your user profile details and/or change your password below.</p>
-    <p><span class="req">*</span> Fields marked with an asterisk are required</p>
-    <hr />
-    <div class="form-horizontal">
-        <div class="control-group">
-            <label class="control-label">First Name<span class="req">*</span></label>
-            <div class="controls">
-                <input type="text" class="span12" name="firstName" value="<%- model.attributes.firstName %>" placeholder="First Name">
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">Last Name<span class="req">*</span></label>
-            <div class="controls">
-                <input type="text" class="span12" name="lastName" value="<%- model.attributes.lastName %>" placeholder="Last Name">
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">Email Address</label>
-            <div class="controls">
-                <input type="text" class="span12" name="userName" disabled="disabled" value="<%- model.attributes.eMails[0] %>" placeholder="Email Address">
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">Company Name<span class="req">*</span></label>
-            <div class="controls">
-                <input type="text" class="span12" name="companyName" value="<%- model.attributes.companyName %>" placeholder="Company Name">
-            </div>
-        </div>
-        <!--
-        <div class="control-group">
-          <label class="control-label">Phone Number<span class="req">*</span></label>
-          <div class="controls">
-              <input type="text" class="span12" name="contactInfo" value="<%- model.attributes.contactInfo %>" placeholder="Phone Number">
-          </div>
-        </div>
-        -->
-        <div class="password-inputs">
-            <div class="control-group">
-                <label class="control-label">Current Password</label>
-                <div class="controls">
-                    <input type="password" class="span12" name="currentPassword" placeholder="Current Password">
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">New Password</label>
-                <div class="controls">
-                    <input type="password" class="span12" name="newPassword" placeholder="New Password">
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">Re-type Password</label>
-                <div class="controls">
-                    <input type="password" class="span12" name="newPassword2" placeholder="Re-type Password">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row-fluid">
-        <div class="span12">
-            <button type="button" id="profile-save" class="btn btn-primary">Save Changes</button>
-        </div>
-    </div>
-</script>
 <script id="tableTmplView" type="text/template">
     <% if(!disableControls){ %>
     <% if(!hideSearch){ %>

@@ -1,4 +1,4 @@
-define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','views/AlertErrorView','views/GlobalView','views/ProjectWizardView'], function($, Backbone, AlertGeneralView, AlertConfirmView, AlertErrorView, GlobalView, ProjectWizardView){
+define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','views/AlertErrorView','views/GlobalView','views/ProjectWizardView', 'views/GetStarted'], function($, Backbone, AlertGeneralView, AlertConfirmView, AlertErrorView, GlobalView, ProjectWizardView, GetStarted){
     // bind alerts
     Alerts.General = new AlertGeneralView();
     Alerts.Confirm = new AlertConfirmView();
@@ -28,6 +28,7 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             // init site views
             var userInvitation = new FriendInvitation();
             var gv = new GlobalView({eventPubSub:this.eventPubSub});
+            var gs = new GetStarted({eventPubSub:this.eventPubSub});
             var pwv = new ProjectWizardView({mc:this.mc, router:this, eventPubSub:this.eventPubSub});
             // override default backbone model sync method to be compatible with Magnet REST APIs
             syncOverride(this.mc, this.eventPubSub);

@@ -3,22 +3,23 @@ define(['jquery', 'backbone'], function($, Backbone){
         el: '#get-started',
         initialize: function(){
             var me = this;
-            me.options.eventPubSub.bind('iniGetStarted', function(){
-                me.render();
-            });
-            me.options.eventPubSub.bind('coreComplete', function(isPrevious){
-                me.storeDetails(isPrevious);
+            me.options.eventPubSub.bind('initGetStarted', function(){
+
             });
         },
         events: {
-            'click #pw-apns-cert-file-btn' : 'uploadCertificate',
-            'click #pw-apns-list li i' : 'removeCert'
+            'click .nav-tabs li a' : 'toggleTab'
         },
-        render: function(){
-            var template = _.template($('#GetStartedView').html());
-            this.$el.find('#mgmt-settings dl').html(template);
-            return this;
-        },
+        toggleTab: function(e){
+            e.preventDefault();
+            var link = $(e.currentTarget);
+            var li = link.closest('li');
+            var list = li.closest('.nav-tabs');
+            list.find('li').removeClass('active');
+            this.$el.find('.tab-pane').removeClass('active');
+            this.$el.find(link.attr('href')).addClass('active');
+            li.addClass('active');
+        }
     });
     return View;
 });
