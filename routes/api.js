@@ -336,7 +336,7 @@ module.exports = function(app){
         });
     });
 
-    app.put('/rest/users/:magnetId/approve', /*UserManager.checkAuthority(['admin'], true), */function(req, res) {
+    app.put('/rest/users/:magnetId/approve', UserManager.checkAuthority(['admin'], true), function(req, res) {
         UserManager.approveUser({
             magnetId: req.param('magnetId')
         }, function(approvalStatus) {
