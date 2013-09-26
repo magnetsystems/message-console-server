@@ -5,14 +5,11 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ServiceModel', 'vie
             var me = this;
             me.options.eventPubSub.bind('initPWEnterpriseView', function(params){
                 me.project = params.project;
-                // create properties if they dont yet exist
-                me.project.set({
-                    contents    : me.project.attributes.contents || [],
-                    webservices : me.project.attributes.webservices || []
-                });
+                me.urls = me.project.get('wsdlUrls') || [];
                 me.updateStatus();
                 me.render(params.view);
             });
+            /*
             // create web component for wsdl upload
             var uploader = new UploadView({
                 el          : '#pw-wsdl-file',
@@ -22,6 +19,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ServiceModel', 'vie
                 eventPubSub : me.options.eventPubSub
             });
             $('<button id="pw-wsdl-addfile-btn" class="btn btn-primary" type="button" txt="Upload">Upload</button>').insertAfter('#pw-enterprise .qq-upload-button');
+
             // upon successful upload of a wsdl, display alert and append to wsdl file array
             me.options.eventPubSub.bind('uploadWSDLFileComplete', function(params){
                 if(params.xhr.status == 200 || params.xhr.status == 201 || params.xhr.status == 'unknown'){
@@ -34,8 +32,9 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ServiceModel', 'vie
                 }
                 me.options.eventPubSub.trigger('btnComplete', $('#pw-wsdl-addfile-btn'));
             });
+            */
             me.options.eventPubSub.bind('enterpriseComplete', function(isPrevious){
-                me.storeDetails(isPrevious);
+                me.storeDetails();
                 if(!isPrevious){
                     me.options.eventPubSub.trigger('PWNextTransition', 'enterprise');
                 }
@@ -47,15 +46,15 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ServiceModel', 'vie
             'click #pw-wsdl-addfile-btn' : 'addWSDLFile'
         },
         // render wsdl list
-        render: function(view, model){
+        render: function(view, url){
             this.startIndex = $('#pw-wsdl-list li').length;
             var list = $('#pw-wsdl-list');
-            if(model){
+            if(url){
                 var single = _.template($('#PWWSDLListView').html(), {
-                    webservices : [model.attributes]
+                    urls : [url]
                 });
                 list.prepend(single);
-                var item = list.find('li[did="'+model.attributes.magnetId+'"]');
+                var item = list.find('li[did="'+url+'"]');
                 item.before('<li>');
                 item.prev()
                     .width(item.width())
@@ -70,7 +69,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ServiceModel', 'vie
                     });
             }else{
                 var multiple = _.template($('#PWWSDLListView').html(), {
-                    webservices : this.project.attributes.webservices
+                    urls : this.urls
                 });
                 list.html(multiple);
             }
@@ -82,20 +81,28 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ServiceModel', 'vie
         // store project details form data into data object
         storeDetails: function(){
             var me = this;
+            var urls = [];
             $('#pw-wsdl-list li').each(function(){
-                var tableRow = $(this).find('input[type="radio"]:checked').closest('tr');
-                var magnetId = tableRow.closest('li').attr('did');
-                var properties = {
-                    pathPrefix : $.trim($(this).find('input[name="pathPrefix"]').val())
-                };
-                if(tableRow.length){
-                    $.extend(properties, utils.collect(tableRow).config);
+                urls.push($(this).attr('did'));
+            });
+            var proj = new ProjectModel();
+            proj.set({
+                magnetId : me.project.attributes.magnetId,
+                id       : me.project.attributes.id,
+                wsdlUrls : urls
+            });
+            proj.save({
+                success: function(){
+                    me.project.set({
+                        wsdlUrls : urls
+                    });
+                },
+                error: function(){
+                    Alerts.Error.display({
+                        title   : 'Error Storing Urls',
+                        content : 'There was an error storing the WSDL/WADL urls. Please double check whether the url is valid. If the url is valid, this WSDL/WADL may be incompatible.'
+                    });
                 }
-                me.options.mc.query('webservices/'+magnetId, 'PUT', properties, function(){
-                    me.setById(me.project.get('webservices'), magnetId, properties);
-                }, null, null, function(){
-                    console.log('error');
-                });
             });
         },
         // set an item from the webservice collection with the given magnet id
@@ -107,7 +114,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ServiceModel', 'vie
             }
         },
         updateStatus: function(){
-            $('#pw-enterprise-status').html(this.project.attributes.webservices.length > 0 ? this.project.attributes.webservices.length + ' Services' : 'NONE');
+            $('#pw-enterprise-status').html(this.urls.length > 0 ? this.urls.length + ' Services' : 'NONE');
         },
         // validate url and create webservice entity related to the current project
         addWSDLUrl: function(){
@@ -115,31 +122,39 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ServiceModel', 'vie
             var dom = me.$el.find('input[name="wsdl-url"]');
             var wsdlUrl = $.trim(dom.val());
             if(wsdlUrl.length > 0){
+                me.urls.push(wsdlUrl);
+                dom.val('');
+                me.render(false, wsdlUrl);
+                /*
                 $('.pw-wsdl-url-processing').removeClass('hidden').html('<li><span class="qq-upload-spinner"></span><span class="pw-wsdl-url-caption">'+wsdlUrl+'</span></li>').show();
-                var service = new ProjectModel({
-                    magnetId : me.project.attributes.magnetId
+                me.options.mc.query('projects/'+me.project.attributes.magnetId+'/addWSDL', 'POST', dom.val(), function(){
+                    $('.pw-wsdl-url-processing').hide('fast');
+                    var urls = me.project.get('wsdlUrls');
+                    if(urls instanceof Array){
+                        urls.push(dom.val());
+                    }else{
+                        me.project.set({
+                           wsdlUrls : [dom.val()]
+                        });
+                    }
+                }, null, null, function(){
+                    $('.pw-wsdl-url-processing').hide('fast');
+                    Alerts.Error.display({
+                        title   : 'Error Storing Url',
+                        content : 'There was an error storing the WSDL/WADL url. Please double check whether the url is valid. If the url is valid, this WSDL/WADL may be incompatible.'
+                    });
                 });
-                service.save({
-                    url : wsdlUrl
-                }, {
-                    data: {
-                        relationship : {
-                            name   : 'webservices', 
-                            magnetId : me.project.attributes.magnetId
-                        }
-                    },
-                    success: function(model){
-                        me.fetchService(model);
+                me.project.save(properties.config, {
+                    success: function(){
+                        me.project.get('webservices').push(model.attributes);
+                        me.render(false, model);
+                        me.updateStatus();
                     },
                     error: function(){
-                        Alerts.Error.display({
-                            title   : 'Error Storing Url',
-                            content : 'There was an error storing the WSDL/WADL url. Please double check whether the url is valid. If the url is valid, this WSDL/WADL may be incompatible.'
-                        });
-                        $('.pw-wsdl-url-processing').hide('fast');
                     }
-                });        
+                });
                 dom.val('');
+                */
             }else{
                 Alerts.Error.display({
                     title   : 'Invalid WSDL/WADL Url',
@@ -148,20 +163,10 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ServiceModel', 'vie
             }
         },
         // fetch service from server and render wsdl list
-        fetchService: function(model){
+        fetchService: function(urlList){
             var me = this;
-            $('.pw-wsdl-url-processing').hide('fast');
-            model.urlRoot = 'webservices';
-            model.fetch({
-                success: function(){
-                    me.project.get('webservices').push(model.attributes);
-                    me.render(false, model);
-                    me.updateStatus();
-                }, 
-                error: function(){
-                    console.log('error fetching webservice.');
-                }
-            });
+            me.render(false, urlList);
+            me.updateStatus();
         },
         // create new webservice entity and initiate upload event
         addWSDLFile: function(){
@@ -230,26 +235,10 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ServiceModel', 'vie
         removeWSDL: function(e){
             var me = this;
             var item = $(e.currentTarget).closest('li');
-            var magnetId = item.attr('did');
-            var service = new ServiceModel({
-                magnetId : magnetId,
-                id     : magnetId.slice(magnetId.lastIndexOf(':')+1)
+            item.hide('fast', function(){
+                $(this).remove();
             });
-            service.destroy({
-                success: function(){
-                    utils.removeByProp(me.project.get('webservices'), 'magnetId', magnetId);
-                    item.hide('fast', function(){
-                        $(this).remove();
-                    });
-                    me.updateStatus();
-                },
-                error: function(){
-                    Alerts.Error.display({
-                        title   : 'Error Deleting File',
-                        content : 'There was an error deleting the file.'
-                    });
-                }
-            });
+            me.updateStatus();
         }
     });
     return View;

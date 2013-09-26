@@ -158,6 +158,16 @@
                                     <div id="enterprise-wsdls" class="accordion-body collapse" style="height:0">
                                         <div class="accordion-inner">
                                             <div class="row-fluid">
+                                                <div class="span12">
+                                                    <h4 class="section-title">Add APIs from a URL</h4>
+                                                    <p> You can also add these files to be used by the Magnet App Builer Tool locally.</p>
+                                                    <div class="input-append">
+                                                        <input class="span8" name="wsdl-url" type="text" placeholder="Enter URL path to a public WSDL/WADL.">
+                                                        <button id="pw-wsdl-addurl-btn" class="btn" type="button">Add API URL</button>
+                                                    </div>
+                                                    <ul class="pw-wsdl-url-processing hidden"></ul>
+                                                </div>
+                                                <!--
                                                 <div class="span6">
                                                     <h4 class="section-title">Add From URL</h4>
                                                     <p>Input URL path to a public WSDL/WADL.</p>
@@ -172,6 +182,7 @@
                                                     <p>Select a WSDL/WADL from your computer.</p>
                                                     <div id="pw-wsdl-file"></div>
                                                 </div>
+                                                -->
                                             </div>
                                             <div class="row-fluid">
                                                 <div class="span12">
@@ -220,9 +231,9 @@
                 <h4 class="page-h4">Get Started</h4>
                 <ul class="nav nav-tabs">
                     <li id="gs-projectguide-tab" class="active"><a href="#gs-projectguide">Project Guide</a></li>
+                    <li id="gs-android-tab"><a href="#gs-android">Android Developer</a></li>
                     <li id="gs-ios-tab"><a href="#gs-ios">iOS Developer</a></li>
                     <li id="gs-server-tab"><a href="#gs-server">Server Developer</a></li>
-                    <li id="gs-android-tab"><a href="#gs-android">Android Developer</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="gs-projectguide">
@@ -275,7 +286,7 @@
                                             </div>
                                         </div>
                                         <div class="span5">
-                                            <a class="btn">Download App Builder</a>
+                                            <a class="btn" href="/resources/files/mdt.zip">Download App Builder</a>
                                         </div>
                                     </div>
                                 </div>
@@ -321,8 +332,8 @@
                                         <div class="span7">
                                             <div class="guide-step">6</div>
                                             <div>
-                                                <b>Deploy to Cloud</b>
-                                                <p>Deploy server to the cloud to support your mobile app.</p>
+                                                <b>Deploy Your App</b>
+                                                <p>Deploy to the cloud or your local development environment to support your mobile app.</p>
                                             </div>
                                         </div>
                                         <div class="span5">
@@ -885,17 +896,19 @@
 </script>
 <script id="PWStartDevelopingView" type="text/template">
     <div class="start-developing-section">
-        <h5>Download your project configuration file</h5>
+        <h5>Download your Magnet App Project Profile</h5>
         <p>You need this to generate your cloud APIs, iOS client files, and Android client files</p>
         <a id="download-config-file" href="#" type="button" class="btn btn-primary">Download Magnet App Project Profile</a>
         <div class="divider"><img src="../images/wizard/arrow_divider.png"></div>
     </div>
+    <!--
     <div class="start-developing-section">
         <h5>Import the project configuration file into the Magnet Developer Tool</h5>
         <p>This is the tool that will allow you to add different services to your app and deploy it to the cloud.</p>
         <a href="/resources/files/mdt.zip"><img src="../images/wizard/mdt.png" /></a>
         <div class="divider"><img src="../images/wizard/arrow_divider.png"></div>
     </div>
+    -->
 </script>
 <script id="PWSummaryView" type="text/template">
     <p>
@@ -1008,106 +1021,13 @@
     </div>
 </script>
 <script id="PWWSDLListView" type="text/template">
-    <% if(!webservices || webservices.length == 0){ %>
-    <% }else{ %>
-    <% _.each(webservices, function(webservice, id){ %>
-    <li did="<%- webservice.magnetId %>">
+    <% if(urls && urls.length > 0){ %>
+    <% _.each(urls, function(url, id){ %>
+    <li did="<%- url %>">
         <strong>
-            <% if(webservice.type){ %>
-            <%- webservice.type %>
-            <% }else{ %>
-            WSDL
-            <% } %>
+            <%- url %>
         </strong>
-        <% if(webservice.url){ %>
-        <% if(webservice.url.length > 22){ %>
-        <%- webservice.url.substr(0, 22) %>...
-        <% }else{ %>
-        <%- webservice.url %>
-        <% } %>
-        <% }else{ %>
-        <%- webservice.name %>
-        <% } %>
-        <% if(webservice.policies){ %>
-        <span class="greentxt">Using WS Policy</span>
-        <% }else{ %>
-        <span style="color:#cc0000;margin-left:17px">No WS Policy detected. Select a setting below:</span>
-        <% } %>
         <i class="icon-remove-sign"></i>
-        <% if(!webservice.policies){ %>
-        <div class="ws-policy">
-            <table class="radio-collection">
-                <tr did="default">
-                    <td class="first">
-                        <input type="radio" did="BasicAuth" name="authMethod-<%- webservice.id %>" value="BasicAuth" <% if(webservice.authMethod == 'BasicAuth'){ %>checked="checked"<% } %> /> Basic Auth
-                    </td>
-                    <td>
-                        Choose this option to enable default user and login to work in Magnet's sandbox database.
-                        <div did="BasicAuth" class="well radio-toggle <% if(webservice.authMethod != 'BasicAuth'){ %>hidden<% } %>">
-                            <input type="text" name="serviceAccountUserName" <% if(webservice.authMethod == 'BasicAuth'){ %>value="<%- webservice.serviceAccountUserName %>"<% } %> placeholder="ID">
-                            <input type="text" name="serviceAccountPassword" <% if(webservice.authMethod == 'BasicAuth'){ %>value="<%- webservice.serviceAccountPassword %>"<% } %> placeholder="Password">
-                            <div did="useTimestamp" class="btn-group">
-                                <button did="true" class="btn <% if(webservice.useTimestamp === true || webservice.useTimestamp == true){ %>btn-primary<% } %>">Timestamp ON</button>
-                                <button did="false" class="btn <% if(webservice.useTimestamp !== true && webservice.useTimestamp != 'true'){ %>btn-primary<% } %>">Timestamp OFF</button>
-                            </div>
-                            <p>You may leave Username and Password blank if you want to specify them later.</p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="first">
-                        <input type="radio" did="UsernameToken" name="authMethod-<%- webservice.id %>" value="UsernameToken" <% if(webservice.authMethod == 'UsernameToken'){ %>checked="checked"<% } %> /> UsernameToken
-                    </td>
-                    <td>
-                        Your project will use your own Database for user authentication.
-                        <div did="UsernameToken" class="well radio-toggle <% if(webservice.authMethod != 'UsernameToken'){ %>hidden<% } %>">
-                            <input type="text" name="serviceAccountUserName" <% if(webservice.authMethod == 'UsernameToken'){ %>value="<%- webservice.serviceAccountUserName %>"<% } %> placeholder="ID">
-                            <input type="text" name="serviceAccountPassword" <% if(webservice.authMethod == 'UsernameToken'){ %>value="<%- webservice.serviceAccountPassword %>"<% } %> placeholder="Password">
-                            <div did="passwordType" class="btn-group">
-                                <button did="TEXT" class="btn <% if(webservice.passwordType === 'TEXT'){ %>btn-primary<% } %>">cleartext</button>
-                                <button did="DIGEST" class="btn <% if(webservice.passwordType !== 'TEXT'){ %>btn-primary<% } %>">digest</button>
-                            </div>
-                            <div did="useTimestamp" class="btn-group">
-                                <button did="true" class="btn <% if(webservice.useTimestamp === true || webservice.useTimestamp == true){ %>btn-primary<% } %>">Timestamp ON</button>
-                                <button did="false" class="btn <% if(webservice.useTimestamp !== true && webservice.useTimestamp != 'true'){ %>btn-primary<% } %>">Timestamp OFF</button>
-                            </div>
-                            <p>You may leave ID and Password blank if you want to specify them later.</p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="first">
-                        <input type="radio" did="none" name="authMethod-<%- webservice.id %>" value="none" <% if(webservice.authMethod != 'UsernameToken' && webservice.authMethod != 'BasicAuth'){ %>checked="checked"<% } %> /> None
-                    </td>
-                    <td>
-                        This service does not require security information.
-                    </td>
-                </tr>
-                <tr>
-                    <td class="first">
-                        <input type="radio" did="specifyLater" name="authMethod-<%- webservice.id %>" value="specifyLater" <% if(webservice.authMethod == 'specifyLater'){ %>checked="checked"<% } %> /> Specify later
-                    </td>
-                    <td>
-                        Your project will use your own Active Directory for user authentication.
-                        <div did="specifyLater" class="well radio-toggle <% if(webservice.authMethod != 'specifyLater'){ %>hidden<% } %>">
-                            <b>Note:</b> If your web service requires authentication, then you must
-                            configure security settings or your app may not communicate property
-                            with this web service.
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <hr />
-        <div class="row-fluid">
-            <div class="span5">
-                <input type="text" class="span12" name="pathPrefix" placeholder="Path Prefix" value="<%- webservice.pathPrefix %>" />
-            </div>
-            <div class="span7">
-                <div>Optionally set a prefix for all of the APIs exposed by this web service to prevent conflicts.</div>
-            </div>
-        </div>
-        <% } %>
     </li>
     <% }); %>
     <% } %>
