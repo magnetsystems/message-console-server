@@ -87,7 +87,6 @@ module.exports = function(app){
         }
     });
 
-    var dbModels = ['users', 'projects'];
     app.get('/rest/:model/:id', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(dbModels, req.params.model)){
             Queries.find(req, function(model){
