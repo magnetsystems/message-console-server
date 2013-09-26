@@ -3,6 +3,61 @@ var UserManager = require("../lib/UserManager")
 // TODO: Database details are hardcoded!
 require('../lib/orm').setup('./lib/models', true, 'developercenter', 'root');
 
+// TODO: Code below is duplicate
+
+var Cloud = require("../lib/Cloud");
+var AWS = require('aws-sdk');
+var CloudConfig = require("../lib/config/CloudConfig");
+
+AWS.config.loadFromPath('./lib/config/aws-config.json');
+var iam = new AWS.IAM({apiVersion: CloudConfig.AWS.IAMApiVersion});
+
+
+function deleteCloudUser(userName, done) {
+    iam.deleteUser({UserName: userName}, function (err, data) {
+        if (!err) {
+        } else {
+            console.error("Could not delete user = " + err);
+        }
+        done();
+    });
+}
+
+function removeUser(userName, done) {
+    // Cleanup: Delete policy, keys and then User
+    // We assume that our User would have a max of 1 access key
+    iam.deleteUserPolicy({UserName: userName, PolicyName: CloudConfig.PolicyName}, function (err, data) {
+        if (!err) {
+            iam.listAccessKeys({UserName: userName}, function(err, data) {
+                if (!err) {
+                    if (data.AccessKeyMetadata.length) {
+                        data.AccessKeyMetadata.forEach(function(accessKey) {
+                            console.log("Got access key = " + accessKey.AccessKeyId);
+                            iam.deleteAccessKey({UserName: userName, AccessKeyId: accessKey.AccessKeyId}, function(err, data) {
+                                if (!err) {
+                                    console.log("Deleted access key = " + accessKey.AccessKeyId);
+                                    // We assume that our User would have a max of 1 access key
+                                    deleteCloudUser(userName, done);
+                                } else {
+                                    console.error("Error deleting access key = " + accessKey.AccessKeyId);
+                                    done();
+                                }
+                            });
+                        });
+                    } else {
+                        deleteCloudUser(userName, done);
+                    }
+                } else {
+                    console.error("Error getting access keys = " + err);
+                }
+            });
+        } else {
+            console.error("Could not delete user policy = " + err);
+            done();
+        }
+    });
+}
+
 describe("UserManager registerGuest", function() {
     var user;
 
@@ -168,8 +223,8 @@ describe("UserManager becomeDeveloper", function() {
     });
 
     it("should succeed if the input is valid", function(done) {
-        UserManager.registerGuest(user, function(registrationStatus, u) {
-            UserManager.approveUser({magnetId: u.magnetId}, function(approvalStatus, u) {
+        UserManager.registerGuest(user, function(registrationStatus, registeredUser) {
+            UserManager.approveUser({magnetId: registeredUser.magnetId}, function(approvalStatus, u) {
                 user.firstName = "Jane"; // should not be allowed
                 UserManager.becomeDeveloper(user, function(status, u) {
                     expect(status).toEqual(UserManager.BecomeDeveloperStatusEnum.SUCCESSFUL);
@@ -180,10 +235,24 @@ describe("UserManager becomeDeveloper", function() {
                     expect(u.password).toEqual(hash.md5(password));
                     u.reload().success(function() {
                         expect(u.firstName).toEqual(firstName);
-                        u.destroy().success(function() {
-                            done();
+                        // Clean up
+                        u.getCloudAccounts().success(function(cloudAccounts) {
+                            expect(cloudAccounts.length).toEqual(1);
+                            var cloudAccount = cloudAccounts[0];
+                            expect(cloudAccount).not.toBeNull();
+                            expect(cloudAccount.magnetId).not.toBeNull();
+                            expect(cloudAccount.bucketName).not.toBeNull();
+                            expect(cloudAccount.accessKeyId).not.toBeNull();
+                            expect(cloudAccount.secretAccessKey).not.toBeNull();
+
+                            removeUser(cloudAccount.magnetId, function(){});
+                            cloudAccount.destroy().success(function() {
+                                u.destroy().success(function() {
+                                    done();
+                                });
+                            });
                         });
-                    })
+                    });
                 });
             });
         });
