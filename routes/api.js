@@ -52,7 +52,7 @@ module.exports = function(app){
     /* REGISTRATION */
 
     // register a new user
-    app.post('/rest/startRegistration', function(req, res){
+    app.post('/rest/startRegistrationOld', function(req, res){
         UserManager.create({
 //            authority      : req.param('authority'),
             userName       : req.param('email'),
@@ -322,7 +322,7 @@ module.exports = function(app){
      "companyName" : "Magnet Systems, Inc."
      }
      */
-    app.post('/rest/registration/guest', function(req, res) {
+    app.post('/rest/users/startRegistration', function(req, res) {
         UserManager.registerGuest({
             firstName : req.body.firstName,
             lastName : req.body.lastName,
@@ -335,6 +335,22 @@ module.exports = function(app){
                 res.send(registrationStatus, 400);
             }
         });
+    });
+
+    app.put('/rest/users/:magnetId/approve', /*UserManager.checkAuthority(['admin'], true), */function(req, res) {
+        UserManager.approveUser({
+            magnetId: req.param('magnetId')
+        }, function(approvalStatus) {
+            if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL) {
+                res.send(approvalStatus, 200);
+            } else {
+                res.send(approvalStatus, 400);
+            }
+        });
+    });
+
+    app.put('/rest/users/:magnetId/completeRegistration', function(req, res) {
+        console.log(req);
     });
 
 };
