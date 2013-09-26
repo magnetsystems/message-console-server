@@ -235,7 +235,9 @@ define(['jquery', 'backbone'], function($, Backbone){
             var str = $.trim(me.$el.find('input').val());
             if(str != ''){
                 if(typeof property !== typeof undefined){
-                    me.query.search[property] = str;
+                    var obj = {};
+                    obj[property] = str;
+                    me.query.search = [obj];
                 }else{
                     Alerts.Error.display({title:'Select "Search By" Property', content:"Select a property to search for before the search."});
                     return false;
@@ -258,7 +260,10 @@ define(['jquery', 'backbone'], function($, Backbone){
         // fetch collection of models and create a table of data using filter parameters
         fetch: function(append){
             var me = this;
-            var data = $.extend({}, me.options.data, me.query); 
+            var data = $.extend({}, me.options.data, me.query);
+            if(me.options.data && me.options.data.search){
+                data.search = me.options.data.search.concat(me.query.search || []);
+            }
             // if we aren't appending to the collection of models, reset the collection to remove old results
             if(!append){
                 me.options.col.reset();

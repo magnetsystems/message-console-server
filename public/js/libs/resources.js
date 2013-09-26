@@ -59,9 +59,11 @@ function syncOverride(mc, eventPubSub){
                 qsStr += '&_magnet_page_size='+options.data.pageSize;
             }
             // build magnet search querystring
-            if(!$.isEmptyObject(options.data.search)){
-                $.each(options.data.search, function(key, val){
-                    qsStr += '&'+key+'=%25'+val+'%25';
+            if(options.data.search){
+                $.each(options.data.search, function(i, obj){
+                    $.each(obj, function(key, val){
+                        qsStr += '&'+key+'=%25'+val+'%25';
+                    });
                 });
             }
             // return specified entity properties only

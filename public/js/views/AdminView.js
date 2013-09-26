@@ -48,9 +48,9 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/Registr
                 },
                 searchBy : 'name',
                 data     : {
-                    search : {
+                    search : [{
                         'userType' : 'approved'
-                    }
+                    }]
                 }
             },
             'requests' : {
@@ -63,9 +63,9 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/Registr
                 },
                 searchBy : 'name',
                 data     : {
-                    search : {
+                    search : [{
                         'userType' : 'guest'
-                    }
+                    }]
                 }
             }
         },
