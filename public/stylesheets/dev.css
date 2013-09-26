@@ -110,29 +110,9 @@ h1{margin-top:40px}
 #dev-container p.subhead{margin:26px 0 25px}
 #dev-container p.ans{margin:0 0 25px}
 #intro-video{margin-bottom:25px}
-.carousel{border-radius:8px;background:#fff;box-shadow:0 7px 8px #666}
 #dev-container h4{margin-top:20px}
 #dev-container h5{font-size:16px}
-#dev-container h4, .carousel h4, .modal h3{font-size:24px;color:#c30000;margin-bottom:16px}
-.carousel .carousel-inner{border-radius:8px}
-.carousel li{list-style-type:none}
-.carousel img{width:50%;max-width:613px;float:left}
-.carousel .item{width:100%;height:100%}
-.carousel .item p{margin:5px 0}
-.carousel-caption{height:100%;width:43%;position:relative;float:left;background:none;margin-left:2px;padding:0}
-.carousel-caption p{color:#000}
-.carousel-control.left{left:-55px}
-.carousel-control.right{right:-55px}
-.carousel-control.left.mob{top:auto;bottom:10px;left:10px}
-.carousel-control.right.mob{top:auto;bottom:10px;right:10px}
-.thumbnail .caption{min-height:200px}
-.carousel-control-container{position:absolute;bottom:0;left:0}
-.carousel-control-container .controls{}
-.carousel-control-container a{background-color:#222;border:3px solid #FFF;border-radius:23px;color:#FFF;font-size:60px;font-weight:100;height:40px;left:15px;line-height:30px;opacity:0.5;text-align:center;width:40px}
-
-.carousel-caption{display:table}
-.carousel-caption div{display:table-cell;vertical-align:middle;padding:10px}
-
+#dev-container h4, .modal h3{font-size:24px;color:#c30000;margin-bottom:16px}
 /* other */
 
 .variable-100{width:100%}
@@ -338,120 +318,34 @@ iframe .WordSection1{width:506px}
 
 .footer{text-align:center;font-size:11px;color:#555;clear:both}
 
-/********************************** project manager **********************************/
+/********************************** get started **********************************/
 
-#project-manager > .row-fluid, #project-manager .page-view{height:100%}
-#project-manager .page-view{overflow:hidden}
-#project-manager .tab-ui{z-index:50;position:relative;width:100%}
-#project-manager .tab-ui .nav-tabs-right{width:79px;position:absolute;top:0;right:0;background:#ccc;box-shadow:0 2px 2px #AAA}
-#project-manager .tab-ui .nav-tabs-right a{color:#333;display:block;padding:8px 12px 9px}
-#project-manager .tab-ui .nav-tabs-right a:hover{text-decoration:none;background:#eee}
-#project-manager .tab-ui .icon-chevron-down{margin:4px 0 0 4px}
-#project-manager .nav{margin-right:0}
-#project-manager .nav-tabs{border-bottom:0}
-#project-manager .nav-tabs li{background:#ccc;width:20%;box-shadow:0 2px 2px #AAA}
-
-
-#project-manager .nav-tabs li.wide20{width:20%}
-#project-manager .nav-tabs li.wide25{width:25%}
-#project-manager .nav-tabs li.wide33{width:33%}
-#project-manager .nav-tabs li.wide50{width:50%}
-#project-manager .nav-tabs li.wide100{width:100%}
-
-#project-manager .nav-tabs li.active{background:none;border:none;box-shadow:none}
-#project-manager .nav-tabs li.active a{color:#000;border:none;background:#F7F7F7}
-#project-manager .nav-tabs li a{color:#333;outline:none;border-radius:0;text-align:center}
-#project-manager .btn-list{position:relative;top:17px;right:auto}
-#project-manager .btn-list .btn-group > .btn + .btn{margin-left:0}
-#project-manager .btn-list button:focus{outline:none}
-#project-manager .btn-list button::-moz-focus-inner{border:0}
-#project-manager .v-pane{padding:0 25px}
-.v-pane > .fullpos{margin:60px 26px 0 26px;overflow-x:hidden}
-#pm-users tr input[id="pm-add-user-email"]{margin-bottom:0}
-#pm-users tr input.simple{border:solid 1px #F7F7F7;box-shadow:none;margin-bottom:0;background:none;color:#333;cursor:text;display:inline}
-
-#project-manager.end{margin-bottom:25px}
-#project-manager.end .page-view{border-radius:0 0 12px 12px}
-
-#pm-log .table-container{margin-bottom:40px;overflow-y:auto;top:138px}
-#pm-log .pagination{bottom:0;margin:0;position:absolute}
-#upload-server-jar-input{margin-bottom:10px}
-
-
-#project-list{margin-top:42px;overflow-y:auto;margin-bottom:0}
-#project-list-sandbox-status{padding:5px 16px}
-input.disabled{background:#eee !important}
-.btn.disabled, .btn[disabled]{background-color:#bbb !important;outline:0}
-.affix{z-index:1000;position:fixed;top:0;width:100%;background:#fff;border-bottom:solid 1px #ccc}
-#project-list-head{margin-bottom:-1px;background-color:#eee;font-weight:bold;min-height:43px}
-#project-list-head h5{font-weight:bold;padding:0 8px}
-.manager-row{border-top:solid 1px #cdcdcd;cursor:pointer;padding:10px 0;text-indent:8px}
-.manager-row:hover{cursor:pointer;background-color:#efefef#head !important}
-.manager-row.active{cursor:pointer;background-color:#e8f0f4 !important}
-.info-row-wrapper{display:none;background:url(../images/row_bgk.png) no-repeat 0 0 #dbe7ed;padding:0 0 7px;-moz-box-shadow:0 6px 6px 1px #ccc inset;-webkit-box-shadow:0 6px 6px 1px #ccc inset;box-shadow:0 6px 6px 1px #ccc inset}
-.info-row-separator{background:url(../images/row_active_shadow.png) repeat-x 0 0;height:8px;width:100%}
-.info-row-container{width:90%;margin:0 auto}
-.info-row{padding:7px 0}
-.info-row ul{margin:0;padding:0}
-.info-row li{list-style-type:none;margin-right:30px}
-.info-row .span3 img{vertical-align:baseline}
-.info-row .btn{min-width:140px;margin-right:6px}
-.info-row-sameline li{float:left}
-.info-row-title{width:150px;float:left;font-weight:bold;text-align:left}
-.info-row-content{float:left}
-.info-row-content i{cursor:pointer;margin:4.4px 2px 0}
+#get-started .page-h4{color:#C30000;font-size:24px;margin-bottom:16px}
+#get-started .page-view{margin:0 auto 25px auto;width:92%;padding:0 25px 0 25px;min-height:600px;padding-bottom:20px}
+#get-started .row-fluid{overflow:hidden}
+#get-started .nav-tabs{position:absolute;top:76px;left:25px;width:200px;border:none}
+#get-started .nav-tabs li a{outline:none;padding:0;margin:0;width:200px;height:127px;border:none;border-radius:0;text-align:center;font-size:18px;line-height:205px}
+#gs-projectguide-tab a{background:url(../images/getstarted/gtstrtd_nav_1.png) no-repeat 0 0}
+#gs-ios-tab a{background:url(../images/getstarted/gtstrtd_nav_2.png) no-repeat 0 0}
+#gs-server-tab a{background:url(../images/getstarted/gtstrtd_nav_3.png) no-repeat 0 0}
+#gs-android-tab a{background:url(../images/getstarted/gtstrtd_nav_4.png) no-repeat 0 0}
+#gs-projectguide-tab.active a{background:url(../images/getstarted/gtstrtd_nav_1_sel.png) no-repeat 0 0}
+#gs-ios-tab.active a{background:url(../images/getstarted/gtstrtd_nav_2_sel.png) no-repeat 0 0}
+#gs-server-tab.active a{background:url(../images/getstarted/gtstrtd_nav_3_sel.png) no-repeat 0 0}
+#gs-android-tab.active a{background:url(../images/getstarted/gtstrtd_nav_4_sel.png) no-repeat 0 0}
+#get-started .tab-content{margin-left:200px;overflow:visible}
+.guide-row{position:relative;height:117px}
+.guide-row.odd{background:#eee}
+.guide-row img{position:absolute;top:0;left:0}
+.guide-content{padding-top:25px}
+.guide-content .row-fluid{margin-left:120px}
+.guide-content .span7{margin-top:7px}
+.guide-step{float:left;font-size:42px;color:#bbb;margin:10px 20px 0 31px;height:70px}
+.guide-content span5{position:absolute;top:0;right:0}
+.guide-content .btn{margin-top:16px;width:42%}
+.guide-content .btn.dbl{margin-top:0;margin-bottom:4px}
 
 /********************************** project assets **********************************/
-
-#project-assets .page-view, #sandbox .page-view, #get-started .page-view{margin:0 auto 25px auto;width:92%;padding:0 25px 0 25px}
-#get-started .page-view{padding-bottom:20px}
-
-#sandbox-status-container{margin:0 auto 47px;width:700px;text-align:center;font-size:14px;color:#999}
-#sandbox-status-container strong{margin-left:10px}
-#sandbox-status-container h4{color:#000}
-#sandbox-status-container .btn{margin-bottom:5px !important}
-
-#pa-container{position:relative;min-height:100px}
-.asset-subheading{margin:-12px 0 0 0}
-#pa-container h3{margin-top:18px}
-.asset-generation-state{font-size:25px;color:#7EB2CB;text-align:center;font-weight:bold}
-.asset-generation-state.failed{color:#B70E0E}
-#asset-generation-failure-log{text-align:left;width:70%;margin:0 auto;border-radius:none;overflow-y:scroll;height:140px;padding:4px;box-shadow:none;background:#444;color:#fff}
-#asset-generation-failure-log::selection{background:#999}
-#asset-generation-failure-log::-moz-selection{background:#999}
-#asset-generation-failure-attachment .btn{margin:5px 0}
-#pw-service-refresh{position:absolute;top:37px;right:30px;padding:8px 14px}
-#asset-progress{width:30%;margin:0 auto;position:relative}
-#asset-progress .percentage{position:absolute;top:0;left:0;width:100%;text-align:center;font-weight:bold}
-#asset-progress .progress{border:solid 1px #888}
-#project-assets a.btn-primary{margin-bottom:25px}
-#project-assets h4, #sandbox h4{font-weight:bold}
-#project-assets table .alert-info{margin-bottom:0;float:right;min-width:80px;position:relative}
-#project-assets table .alert-info img{position:absolute;top:2px;right:5px}
-.pa-subheading{text-align:center;font-size:17px;color:#999;margin:30px 0}
-#pa-content-container{margin:20px auto 0;max-width:1156px;height:446px;padding:6px;position:relative}
-#pa-content-container .row-fluid{z-index:2;position:absolute;top:0;left:0}
-
-#pa-content-container .span4.left{width:35%;float:left;text-align:right;margin:80px 0 0 0}
-#pa-content-container .span4.middle{width:30%;float:left;text-align:center;margin: -22px 0 0;;position:relative}
-#pa-content-container .span4.right{width:35%;float:left;text-align:left;margin:80px 0 0 0}
-#pa-content-container .bgk{position:absolute;top:0;left:0;z-index:1}
-#pa-content-container .bgk img{margin-top:30px;width:100%;z-index:1}
-#pa-content-container .clearfix{margin:44px 0 -30px 0}
-#pa-content-container .text{margin-top:12px}
-#pa-content-container .sandbox-download{text-align:center;width:240px;margin:231px auto 0}
-#pa-content-container .sandbox-download .pa-download{margin:0 auto}
-#pa-content-container .javadocs{padding-top:168px}
-
-#pa-content-container .pull-left img{margin:8px 8px 0 0}
-#pa-content-container .pull-right img{margin:8px 0 0 8px}
-.notgenerated{height:200px !important}
-.isversion.notgenerated{height:351px !important;padding-top:70px !important}
-
-#deploy-sandbox-container{height:105px}
-
-#init-deploy-loader, #deploy-sandbox-loader, #starting-sandbox-loader, #checking-sandbox-loader{text-align:center;font-size:13px;color:#555}
-#init-deploy-loader b, #deploy-sandbox-loader b, #starting-sandbox-loader b, #checking-sandbox-loader b{font-size:15px}
 
 .pa-download{display:block;width:63px;height:51px;background:url('../images/assets/btn_download.png') no-repeat 0 0}
 .pa-download:hover{text-decoration:none;background:url('../images/assets/btn_download_ovr.png') no-repeat 0 0}
@@ -463,26 +357,6 @@ input.disabled{background:#eee !important}
 .pa-deploy:hover{text-decoration:none;background:url('../images/assets/btn_deploy_ovr.png') no-repeat 0 10px}
 .pa-dlall{line-height:203px;margin:0 auto;display:block;width:210px;height:173px;background:url('../images/assets/btn_dlall.png') no-repeat 0 0}
 .pa-dlall:hover{text-decoration:none;background:url('../images/assets/btn_dlall_ovr.png') no-repeat 0 0}
-
-#pa-content-container .generate-caption{text-align:center;margin-top:-20px}
-#pa-content-container .generate-caption p{margin:0 0 10px 0;font-size:17px;line-height:22px}
-
-/********************************** sandbox **********************************/
-
-.cloud-state{font-size:18px}
-
-#sandbox-terminal-container{position:relative}
-#sandbox-terminal-container .btn-group button{height:30px}
-#sandbox-terminal-refresh{position:absolute;top:0;right:192px;padding:3px 9px}
-#sandbox-terminal-autorefresh{position:absolute;top:0;right:190px}
-#sandbox-terminal-autorefresh .icon-refresh{margin-bottom:0}
-#sandbox-terminal-numlines{position:absolute;top:0;right:0}
-#sandbox-terminal{border-radius:none;overflow-y:scroll;height:350px;padding:20px;box-shadow:none;background:#444;color:#fff}
-#sandbox-terminal::selection{background:#999}
-#sandbox-terminal::-moz-selection{background:#999}
-.sandbox-terminal-loading{opacity:.8;font-size:20px;left:0;position:absolute;text-align:center;top:220px;width:100%}
-
-#sandbox-details-container table td{cursor:default}
 
 /********************************** project wizard **********************************/
 
@@ -515,7 +389,6 @@ input.disabled{background:#eee !important}
 #project-name-editor{margin-top:15px;font-size:18px;text-align:center}
 #wizard-container{float:left !important;width:34%}
 #wizard-content-container{margin-top:12px;float:left !important;width:66%;margin-left:0}
-/* #wizard-content-container{float:left !important;width:65.9574%} */
 
 #pw-intro-fields{margin-top:25px}
 #pw-intro-fields .media-heading{margin-bottom:20px}
