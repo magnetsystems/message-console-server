@@ -53,12 +53,12 @@ server.config.SmtpAccount.Username="{{-settings.smtpUsername}}"
 server.config.SmtpAccount.Password="{{-settings.smtpPassword}}"
 server.config.SmtpAccount.SenderName="{{-settings.smtpSenderName}}"
 server.config.SmtpAccount.SenderEmail="{{-settings.smtpSenderEmail}}"{{ } }}
-project.userAuth="{{-settings.userAuth}}"
+project.userAuth="{{-settings.userAuth}}"{{ if(settings.userAuth == 'DB'){ }}
 project.jdbcPort={{-settings.jdbcPort}}
 project.jdbcHost="{{-settings.jdbcHost}}"
 project.jdbcName="{{-settings.jdbcName}}"
 project.jdbcUser="{{-settings.jdbcUser}}"
-project.jdbcPassword="{{-settings.jdbcPassword}}"
+project.jdbcPassword="{{-settings.jdbcPassword}}"{{ } }}
 project.auditBucket="magnet-awstest-bucket"
 project.customerId="user:jdbc:83f54c3a-847c-4cd7-93a5-7651c10b0ec2"
 project.licenseKey="MCwCFFGGNH0M7XEtK81MyBp0LszqqIUXAhRCSmDVQkp_zO604Oc0vT2UCvxbiA"
