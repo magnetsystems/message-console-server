@@ -94,13 +94,8 @@
             <h3>User: <%- model.profileName %></h3>
                 <div class="buttons-section">
                     <button did="delete-user" type="button" class="btn">Delete User</button>
-<% if(model.userType == 'guest' && 1 == 2){ %>
-                    <button did="deactivate-account" type="button" class="btn btn-primary">Deactivate Account</button>
-                    <button did="activate-account" type="button" class="btn btn-primary">Activate Account</button>
-<% } %>
 <% if(model.userType == 'guest'){ %>
                     <button did="approve-user" type="button" class="btn btn-primary">Approve User</button>
-                    <button did="deny-user" type="button" class="btn btn-primary">Deny User</button>
 <% } %>
                 </div>
                 <div class="loading buttons-section" style="display:none">

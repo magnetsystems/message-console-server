@@ -100,21 +100,8 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
             var me = this;
             var state = $(e.currentTarget).attr('did') == 'approve-contact' ? 'true' : 'false';
             var text = state == 'true' ? 'Approved' : 'Denied';
-            var approvalTask = false;
             me.showLoading($(e.currentTarget));
-            for(var i=me.entity.attributes.tasks.length;i--;){
-                if(me.entity.attributes.tasks[i].magnetId.indexOf('approval-task') != -1){
-                    approvalTask = me.entity.attributes.tasks[i];
-                }
-            }
-            if(!approvalTask){
-                Alerts.Error.display({
-                    title   : 'Error Sending Request',
-                    content : 'There was a problem sending the request to the server.'
-                });
-                return false;
-            }
-            me.options.mc.query('approval-tasks/'+approvalTask.magnetId+'/doApproval?approved='+state, 'POST', null, function(){
+            me.options.mc.query('users/'+me.entity.attributes.magnetId+'/approve', 'PUT', null, function(){
                 me.hideLoading($(e.currentTarget));
                 me.$el.find('.btn.btn-primary').hide();
                 Alerts.General.display({
