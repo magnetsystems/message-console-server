@@ -224,8 +224,9 @@ describe("UserManager becomeDeveloper", function() {
 
     it("should succeed if the input is valid", function(done) {
         UserManager.registerGuest(user, function(registrationStatus, registeredUser) {
-            UserManager.approveUser({magnetId: registeredUser.magnetId}, function(approvalStatus, u) {
+            UserManager.approveUser({magnetId: registeredUser.magnetId}, function(approvalStatus, approvedUser) {
                 user.firstName = "Jane"; // should not be allowed
+                user.magnetId = approvedUser.magnetId;
                 UserManager.becomeDeveloper(user, function(status, u) {
                     expect(status).toEqual(UserManager.BecomeDeveloperStatusEnum.SUCCESSFUL);
                     expect(u).not.toBeNull();
