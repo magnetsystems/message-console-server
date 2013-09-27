@@ -491,7 +491,7 @@ function CompleteRegistration(cookies, params){
     me.domId = 'confirm-registration-container';
     me.validator = new Validator(me.domId);
     me.cookies = cookies;
-    if(me.params.token == false || me.params.id == false){
+    if(me.params.token == false){
         me.validator.showError('Invalid Registration', 'Invalid registration information. Have you already been approved? Please contact Magnet support for assistance');
         $('#'+me.domId+' .row-fluid, #'+me.domId+' .modal-footer').hide();
     }else{
@@ -524,14 +524,13 @@ CompleteRegistration.prototype.register = function(){
     $('#'+me.domId+' input[name!="email"], #'+me.domId+' select').each(function(){
         me.info[$(this).attr('name')] = $(this).val();
     });
-    if(me.params.token == false || me.params.id == false){
+    if(me.params.token == false){
         me.validator.showError('Invalid Registration', 'Invalid registration information. Have you already been approved? Please contact Magnet support for assistance');
         $('#'+me.domId+' .row-fluid, #'+me.domId+' .modal-footer').hide();
     }else if(me.info['password'] != me.info['password2']){
         me.validator.showError('Password Doesn\'t Match', 'The re-typed password doesn\'t match the original.');
     }else if(me.validator.validateRegistration()){
         delete me.info['password2'];
-        me.info.token = me.params.token;
         $('#confirm-tos-dialog').modal('show');
         $('#agree-to-tos').click(function(){
             $('#confirm-tos-dialog').modal('hide');
@@ -546,7 +545,7 @@ CompleteRegistration.prototype.call = function(){
     startLoading(me.domId);
     $.ajax({  
         type        : 'POST', 
-        url         : '/rest/confirmRegistration',
+        url         : '/rest/users/'+me.params.token+'/completeRegistration',
         dataType    : 'html',
         contentType : 'application/x-www-form-urlencoded',
         data        : me.info
@@ -577,7 +576,7 @@ CompleteRegistration.prototype.call = function(){
 CompleteRegistration.prototype.getEmail = function(token, callback){
     $.ajax({
         type        : 'GET',
-        url         : '/rest/registrationTask?token='+token,
+        url         : '/rest/users/'+token,
         dataType    : 'json'
     }).done(function(data){
         if(data.state == 'failed'){
@@ -585,13 +584,7 @@ CompleteRegistration.prototype.getEmail = function(token, callback){
         }else if(data.state == 'finish'){
             window.location.href = '/login/?status=duplicate';
         }else{
-            $.ajax({
-                type     : 'GET',
-                url      : '/rest/registrationUserInfo?token='+token,
-                dataType : 'json'
-            }).done(function(data){
-                callback(data['eMails'][0]);
-            });
+            callback(data.email);
         }
     }).fail(function(){
         location.href = '/login/?status=failed';

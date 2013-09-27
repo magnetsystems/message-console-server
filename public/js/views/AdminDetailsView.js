@@ -98,12 +98,13 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
         // approve or deny the invitation request
         approveUser: function(e){
             var me = this;
-            var state = $(e.currentTarget).attr('did') == 'approve-contact' ? 'true' : 'false';
+            var state = $(e.currentTarget).attr('did') == 'approve-user' ? 'true' : 'false';
             var text = state == 'true' ? 'Approved' : 'Denied';
             me.showLoading($(e.currentTarget));
             me.options.mc.query('users/'+me.entity.attributes.magnetId+'/approve', 'PUT', null, function(){
                 me.hideLoading($(e.currentTarget));
                 me.$el.find('.btn.btn-primary').hide();
+                $('#user-type-container').html('approved');
                 Alerts.General.display({
                     title   : 'User '+text+' Successfully', 
                     content : 'The user has been '+text.toLowerCase()+' successfully.'

@@ -348,14 +348,14 @@ module.exports = function(app){
         });
     });
 
-    app.put('/rest/users/:magnetId/completeRegistration', function(req, res) {
+    app.post('/rest/users/:magnetId/completeRegistration', function(req, res) {
         UserManager.becomeDeveloper({
             magnetId: req.param('magnetId'),
             password : req.body.password,
             roleWithinCompany : req.body.roleWithinCompany,
             country : req.body.country
         }, function(approvalStatus) {
-            if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL) {
+            if(approvalStatus == UserManager.BecomeDeveloperStatusEnum.SUCCESSFUL) {
                 res.send(approvalStatus, 200);
             } else {
                 res.send(approvalStatus, 400);
