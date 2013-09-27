@@ -321,7 +321,7 @@ module.exports = function(app){
      "companyName" : "Magnet Systems, Inc."
      }
      */
-    app.post('/rest/users/startRegistration', function(req, res) {
+    app.post('/rest/startRegistration', function(req, res) {
         UserManager.registerGuest({
             firstName : req.body.firstName,
             lastName : req.body.lastName,
@@ -350,7 +350,10 @@ module.exports = function(app){
 
     app.put('/rest/users/:magnetId/completeRegistration', function(req, res) {
         UserManager.becomeDeveloper({
-            magnetId: req.param('magnetId')
+            magnetId: req.param('magnetId'),
+            password : req.body.password,
+            roleWithinCompany : req.body.roleWithinCompany,
+            country : req.body.country
         }, function(approvalStatus) {
             if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL) {
                 res.send(approvalStatus, 200);
