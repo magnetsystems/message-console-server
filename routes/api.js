@@ -299,7 +299,7 @@ module.exports = function(app){
                         res.json({
                             email: user.email,
                             aws: {
-                                bucketName: aws.bucketName,
+                                folderName: aws.bucketName,
                                 accessKeyId: aws.accessKeyId,
                                 secretAccessKey: aws.secretAccessKey
                             }
