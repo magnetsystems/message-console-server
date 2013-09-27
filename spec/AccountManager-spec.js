@@ -150,27 +150,5 @@ describe("AccountManager manualLogin", function() {
             });
         });
     });
-
-    xit("test email", function(done) {
-        EmailService.sendEmail({
-            to      : EmailService.EmailSettings.supportEmail,
-            subject : 'Magnet Developer Factory Support',
-            html    : EmailService.renderTemplate({
-                main : 'approval-email',
-                vars : {
-                    firstName  : "Pritesh",
-                    lastName: "Shah",
-                    email: "pritesh.shah@magnet.com",
-                    resourceUrl: EmailService.EmailSettings.resourceUrl
-                }
-            }),
-            success : function(){
-                done();
-            },
-            error : function(e){
-                done();
-            }
-        });
-    });
 });
 

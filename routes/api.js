@@ -350,7 +350,10 @@ module.exports = function(app){
 
     app.put('/rest/users/:magnetId/completeRegistration', function(req, res) {
         UserManager.becomeDeveloper({
-            magnetId: req.param('magnetId')
+            magnetId: req.param('magnetId'),
+            password : req.body.password,
+            roleWithinCompany : req.body.roleWithinCompany,
+            country : req.body.country
         }, function(approvalStatus) {
             if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL) {
                 res.send(approvalStatus, 200);
