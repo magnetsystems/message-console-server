@@ -1,0 +1,14 @@
+SELECT * FROM `Users` WHERE email='john.appleseed@apple.com' AND (userType='developer' OR userType='admin') AND password='098f6bcd4621d373cade4e832627b4f6' LIMIT 1;
+
+SELECT * FROM `Users` WHERE `Users`.`email`='john.appleseed@apple.com' LIMIT 1;
+
+
+SELECT * FROM `Users` WHERE `Users`.`magnetId`='66914a60-2733-11e3-a9b3-43db3f4f0232' AND `Users`.`userType`='guest' LIMIT 1;
+
+SELECT * FROM `CloudAccounts` WHERE `UserId` = 12;
+
+
+SELECT * FROM `Users` WHERE `Users`.`email` IS NULL LIMIT 1;
+
+
+
