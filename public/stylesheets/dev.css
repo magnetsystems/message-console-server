@@ -323,6 +323,8 @@ iframe .WordSection1{width:506px}
 #get-started .page-h4{color:#C30000;font-size:24px;margin-bottom:16px}
 #get-started .page-view{margin:0 auto 25px auto;width:92%;padding:0 25px 0 25px;min-height:600px;padding-bottom:20px}
 #get-started .row-fluid{overflow:hidden}
+#get-started .tab-content{background:url('../images/getstarted/divider.png') no-repeat scroll 0 82px transparent}
+#get-started .tab-pane{margin-left:20px}
 #get-started .nav-tabs{position:absolute;top:76px;left:25px;width:200px;border:none}
 #get-started .nav-tabs li a{outline:none;padding:0;margin:0;width:200px;height:127px;border:none;border-radius:0;text-align:center;font-size:18px;line-height:205px}
 #gs-projectguide-tab a{background:url(../images/getstarted/gtstrtd_nav_1.png) no-repeat 0 0}
@@ -335,7 +337,7 @@ iframe .WordSection1{width:506px}
 #gs-android-tab.active a{background:url(../images/getstarted/gtstrtd_nav_4_sel.png) no-repeat 0 0}
 #get-started .tab-content{margin-left:200px;overflow:visible}
 .guide-row{position:relative;height:117px}
-.guide-row.odd{background:#eee}
+.guide-row.odd{background:url(../images/gtstrtd_bg_grad.png) repeat-y 0 0}
 .guide-row img{position:absolute;top:0;left:0}
 .guide-content{padding-top:25px}
 .guide-content .row-fluid{margin-left:120px}
@@ -491,7 +493,7 @@ a.main-btn{margin-left:20px}
 #wizard-diagram-canvas img{width:52%;margin-top:40px}
 #project-details-container{padding:15px}
 #project-details-container button{float:right}
-#grayed-out-wizard{opacity:.7;background:#fff;border-radius:0 0 12px 12px;left:0;margin-top:60px;padding-bottom:13px;position:absolute;top:0;width:100%;z-index:110}
+#grayed-out-wizard{opacity:1;background:#fff;border-radius:0 0 12px 12px;left:0;margin-top:60px;padding-bottom:13px;position:absolute;top:0;width:100%;z-index:110}
 
 #pw-samples .accordion-toggle{padding:3px 15px}
 #pw-samples .accordion-toggle img{margin-right:12px;width:50px}
