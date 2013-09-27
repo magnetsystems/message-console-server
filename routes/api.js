@@ -321,7 +321,7 @@ module.exports = function(app){
      "companyName" : "Magnet Systems, Inc."
      }
      */
-    app.post('/rest/users/startRegistration', function(req, res) {
+    app.post('/rest/startRegistration', function(req, res) {
         UserManager.registerGuest({
             firstName : req.body.firstName,
             lastName : req.body.lastName,
