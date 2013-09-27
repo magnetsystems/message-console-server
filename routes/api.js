@@ -100,7 +100,7 @@ module.exports = function(app){
     /* USER */
 
     app.get('/rest/profile', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        UserManager.read(req.session.user, function(e, user){
+        UserManager.read(req, function(e, user){
             if(e){
                 res.send(e, 400);
             }else{
@@ -356,6 +356,27 @@ module.exports = function(app){
                 res.send(approvalStatus, 200);
             } else {
                 res.send(approvalStatus, 400);
+            }
+        });
+    });
+
+    app.get('/rest/users/:magnetId', function(req, res){
+        console.error('asdfasdf');
+        UserManager.read(req, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.delete('/rest/users/:magnetId', UserManager.checkAuthority(['admin'], true), function(req, res){
+        UserManager.delete(req.params.magnetId, function(e){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('ok', 200);
             }
         });
     });
