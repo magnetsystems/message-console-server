@@ -1315,11 +1315,11 @@
     </div>
 </script>
 <script id="PWWSDLListView" type="text/template">
-    <% if(urls && urls.length > 0){ %>
-    <% _.each(urls, function(url, id){ %>
-    <li did="<%- url %>">
+    <% if(col && col.length > 0){ %>
+    <% _.each(col, function(models, id){ %>
+    <li did="<%- models.attributes.magnetId %>">
         <strong>
-            <%- url %>
+            <%- models.attributes.url %>
         </strong>
         <i class="icon-remove-sign"></i>
     </li>

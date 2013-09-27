@@ -200,6 +200,36 @@ module.exports = function(app){
         });
     });
 
+    app.get('/rest/projects/:magnetId/wsdls', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        ProjectManager.getWSDLs(req, function(e, wsdl){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(wsdl, 200);
+            }
+        });
+    });
+
+    app.post('/rest/projects/:magnetId/addWSDLUrl', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        ProjectManager.addWSDLUrl(req, function(e, wsdl){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(wsdl, 200);
+            }
+        });
+    });
+
+    app.delete('/rest/wsdls/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        ProjectManager.removeWSDLUrl(req, function(e){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('ok', 200);
+            }
+        });
+    });
+
     /* GENERAL */
 
     app.post('/rest/contactUs', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){

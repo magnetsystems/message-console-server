@@ -1,6 +1,6 @@
 define(["jquery", "backbone"], function($, Backbone){
     var View = Backbone.Model.extend({
-        urlRoot: 'webservices'
+        urlRoot: 'wsdls'
     });
     return View;
 });
