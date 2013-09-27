@@ -22,14 +22,14 @@ module.exports = function(app){
                 res.redirect('/login?status=invalid');
             }else{
                 req.session.user = {
-                    firstName : user.firstName,
-                    lastName  : user.lastName,
-                    company   : user.company,
-                    userName  : user.userName,
-                    email     : user.email,
-                    country   : user.country,
-                    userType  : user.userType,
-                    magnetId  : user.magnetId
+                    firstName   : user.firstName,
+                    lastName    : user.lastName,
+                    companyName : user.companyName,
+                    userName    : user.userName,
+                    email       : user.email,
+                    country     : user.country,
+                    userType    : user.userType,
+                    magnetId    : user.magnetId
                 };
                 console.log('Tracking: user "' + user.email + '" logged in');
                 res.redirect('/');
@@ -111,11 +111,11 @@ module.exports = function(app){
 
     app.put('/rest/profile', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         UserManager.update(req.session.user, {
-            firstName : req.body.firstName,
-            lastName  : req.body.lastName,
-            company   : req.body.company,
-            oldpass   : req.body.oldpassword,
-            newpass   : req.body.newpassword
+            firstName   : req.body.firstName,
+            lastName    : req.body.lastName,
+            companyName : req.body.companyName,
+            oldpass     : req.body.oldpassword,
+            newpass     : req.body.newpassword
         }, function(e, user){
             if(e){
                 res.send(e, 400);
