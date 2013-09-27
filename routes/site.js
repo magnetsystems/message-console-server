@@ -1,4 +1,5 @@
 var UserManager = require('../lib/UserManager')
+, Countries = require('../lib/config/CountryList')
 , EmailService = require('../lib/EmailService')
 , Transport = require('../lib/Transport');
 
@@ -11,7 +12,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Home',
                 userEmail   : req.session.user.email,
-                userCompany : req.session.user.company
+                userCompany : req.session.user.companyName
             }
         });
     });
@@ -21,7 +22,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Developers',
                 userEmail   : req.session.user.email,
-                userCompany : req.session.user.company
+                userCompany : req.session.user.companyName
             },
             _layoutFile : false
         });
@@ -32,7 +33,7 @@ module.exports = function(app){
             locals : {
                 title        : 'Support',
                 userEmail    : req.session.user.email,
-                userCompany  : req.session.user.company,
+                userCompany  : req.session.user.companyName,
                 userFullName : req.session.firstName +' '+ req.session.lastName
             }
         });
@@ -43,7 +44,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Documentation',
                 userEmail   : req.session.user.email,
-                userCompany : req.session.user.company
+                userCompany : req.session.user.companyName
             }
         });
     });
@@ -53,7 +54,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Resources',
                 userEmail   : req.session.user.email,
-                userCompany : req.session.user.company
+                userCompany : req.session.user.companyName
             }
         });
     });
@@ -63,7 +64,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Resources : Mobile App Manager',
                 userEmail   : req.session.user.email,
-                userCompany : req.session.user.company
+                userCompany : req.session.user.companyName
             }
         });
     });
@@ -73,7 +74,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Resources : Samples',
                 userEmail   : req.session.user.email,
-                userCompany : req.session.user.company
+                userCompany : req.session.user.companyName
             }
         });
     });
@@ -86,7 +87,7 @@ module.exports = function(app){
                 userFirstName : req.session.user.firstName,
                 userLastName  : req.session.user.lastName,
                 userPhone     : req.session.user.phone,
-                userCompany   : req.session.user.company
+                userCompany   : req.session.user.companyName
             }
         });
     });
@@ -96,7 +97,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Administration',
                 userEmail   : req.session.user.email,
-                userCompany : req.session.user.company
+                userCompany : req.session.user.companyName
             },
             _layoutFile : false
         });
@@ -162,7 +163,8 @@ module.exports = function(app){
                 bodyType : 'dev',
                 hideMenu : true,
                 userEmail : '',
-                userCompany : ''
+                userCompany : '',
+                countries : Countries
             }
         });
     }
@@ -176,7 +178,7 @@ module.exports = function(app){
                     bodyType : 'dev',
                     hideMenu : req.session.user ? true : null,
                     userEmail : req.session.user.email ? true : null,
-                    userCompany : req.session.user.company ? true : null
+                    userCompany : req.session.user.companyName ? true : null
                 }
             });
         }else{

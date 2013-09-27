@@ -22,14 +22,14 @@ module.exports = function(app){
                 res.redirect('/login?status=invalid');
             }else{
                 req.session.user = {
-                    firstName : user.firstName,
-                    lastName  : user.lastName,
-                    company   : user.company,
-                    userName  : user.userName,
-                    email     : user.email,
-                    country   : user.country,
-                    userType  : user.userType,
-                    magnetId  : user.magnetId
+                    firstName   : user.firstName,
+                    lastName    : user.lastName,
+                    companyName : user.companyName,
+                    userName    : user.userName,
+                    email       : user.email,
+                    country     : user.country,
+                    userType    : user.userType,
+                    magnetId    : user.magnetId
                 };
                 console.log('Tracking: user "' + user.email + '" logged in');
                 res.redirect('/');
@@ -100,7 +100,7 @@ module.exports = function(app){
     /* USER */
 
     app.get('/rest/profile', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        UserManager.read(req.session.user, function(e, user){
+        UserManager.read(req, function(e, user){
             if(e){
                 res.send(e, 400);
             }else{
@@ -111,11 +111,11 @@ module.exports = function(app){
 
     app.put('/rest/profile', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         UserManager.update(req.session.user, {
-            firstName : req.body.firstName,
-            lastName  : req.body.lastName,
-            company   : req.body.company,
-            oldpass   : req.body.oldpassword,
-            newpass   : req.body.newpassword
+            firstName   : req.body.firstName,
+            lastName    : req.body.lastName,
+            companyName : req.body.companyName,
+            oldpass     : req.body.oldpassword,
+            newpass     : req.body.newpassword
         }, function(e, user){
             if(e){
                 res.send(e, 400);
@@ -348,17 +348,38 @@ module.exports = function(app){
         });
     });
 
-    app.put('/rest/users/:magnetId/completeRegistration', function(req, res) {
+    app.post('/rest/users/:magnetId/completeRegistration', function(req, res) {
         UserManager.becomeDeveloper({
             magnetId: req.param('magnetId'),
             password : req.body.password,
             roleWithinCompany : req.body.roleWithinCompany,
             country : req.body.country
         }, function(approvalStatus) {
-            if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL) {
+            if(approvalStatus == UserManager.BecomeDeveloperStatusEnum.SUCCESSFUL) {
                 res.send(approvalStatus, 200);
             } else {
                 res.send(approvalStatus, 400);
+            }
+        });
+    });
+
+    app.get('/rest/users/:magnetId', function(req, res){
+        console.error('asdfasdf');
+        UserManager.read(req, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.delete('/rest/users/:magnetId', UserManager.checkAuthority(['admin'], true), function(req, res){
+        UserManager.delete(req.params.magnetId, function(e){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('ok', 200);
             }
         });
     });
