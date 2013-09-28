@@ -1,13 +1,11 @@
-define(['jquery', 'backbone', 'models/ProjectModel', 'models/ContentModel', 'views/UploadView'], function($, Backbone, ProjectModel, ContentModel, UploadView){
+define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], function($, Backbone, ProjectModel, UploadView){
     var View = Backbone.View.extend({
         el: '#pw-core',
         initialize: function(){
             var me = this;
             me.options.eventPubSub.bind('initPWCoreView', function(params){
-                me.project = params.project.set({
-                    projectSetting : params.project.attributes.projectSetting || []
-                });
-                me.displayProjectEdit();
+                me.project = params.project;
+                me.isFirst = true;
                 me.render(params.view);
             });
             me.options.eventPubSub.bind('coreComplete', function(isPrevious){
@@ -105,9 +103,6 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ContentModel', 'vie
                     btnGroup.removeClass('hidden');
                 }
             });
-        },
-        displayProjectEdit: function(){
-            $('#project-name-editor').html(this.project.attributes.name+' <i class="icon-edit"></i>');
         },
         // render core configuration
         render: function(view){

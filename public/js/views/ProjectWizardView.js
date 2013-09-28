@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel', 'views/PWIntroView', 'views/PWCoreView', 'views/PWSamplesView', 'views/PWEnterpriseView', 'views/PWSummaryView'], function($, Backbone, ProjectModel, ProjectSettingModel, PWIntroView, PWCoreView, PWSamplesView, PWEnterpriseView, PWSummaryView){
+define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views/PWCoreView', 'views/PWSamplesView', 'views/PWEnterpriseView', 'views/PWSummaryView'], function($, Backbone, ProjectModel, PWIntroView, PWCoreView, PWSamplesView, PWEnterpriseView, PWSummaryView){
     var View = Backbone.View.extend({
         el: '#project-wizard',
         initialize: function(){
@@ -14,10 +14,8 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
                 if(!params.id){
                     me.reset(1);
                     me.project = new ProjectModel();
-                    me.settings = new ProjectSettingModel();
                     me.options.eventPubSub.trigger('initPWCoreView', {
-                        project  : me.project,
-                        settings : me.settings
+                        project  : me.project
                     });
                 }else{
                     me.project = new ProjectModel({
@@ -274,7 +272,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'models/ProjectSettingModel
             });
         },
         // create project entity on the server
-        create: function(data){
+        create: function(){
             var me = this;
             var obj = utils.collect($('#project-details-container'));
             if(me.isValid(obj.config)){

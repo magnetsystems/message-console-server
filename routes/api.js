@@ -22,6 +22,7 @@ module.exports = function(app){
                 res.redirect('/login?status=invalid');
             }else{
                 req.session.user = {
+                    id          : user.id,
                     firstName   : user.firstName,
                     lastName    : user.lastName,
                     companyName : user.companyName,
@@ -32,7 +33,7 @@ module.exports = function(app){
                     magnetId    : user.magnetId
                 };
                 console.log('Tracking: user "' + user.email + '" logged in');
-                res.redirect('/');
+                res.redirect('/'+(user.userType == 'admin' ? 'admin' : ''));
             }
         });
     });
@@ -394,7 +395,6 @@ module.exports = function(app){
     });
 
     app.get('/rest/users/:magnetId', function(req, res){
-        console.error('asdfasdf');
         UserManager.read(req, function(e, user){
             if(e){
                 res.send(e, 400);

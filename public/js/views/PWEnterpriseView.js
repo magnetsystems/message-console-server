@@ -84,7 +84,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'collections/ProjectCollect
             }
         },
         updateStatus: function(){
-            $('#pw-enterprise-status').html(this.wsdls.length > 0 ? this.wsdls.length + ' Services' : 'NONE');
+            $('#pw-enterprise-status').html(this.wsdls.models.length > 0 ? this.wsdls.models.length + ' Services' : 'NONE');
         },
         retrieveWSDLs: function(){
             var me = this;

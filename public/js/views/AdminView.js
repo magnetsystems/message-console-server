@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'collections/UserCollection', 'collections/RegistrationTaskCollection', 'collections/HistoryCollection'], function($, Backbone, UserCollection, RegistrationTaskCollection, HistoryCollection){
+define(['jquery', 'backbone', 'collections/UserCollection'], function($, Backbone, UserCollection){
     var View = Backbone.View.extend({
         el: "#admin",
         initialize: function(){
