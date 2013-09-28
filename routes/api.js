@@ -32,8 +32,8 @@ module.exports = function(app){
                     userType    : user.userType,
                     magnetId    : user.magnetId
                 };
-                console.log('Tracking: user "' + user.email + '" logged in');
-                res.redirect('/'+(user.userType == 'admin' ? 'admin' : ''));
+                console.log('Tracking: user "' + user.email + '" logged in', req.session.entryPoint);
+                res.redirect(req.session.entryPoint || '/');
             }
         });
     });
