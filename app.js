@@ -10,6 +10,14 @@ var express = require('express')
 
 require('./lib/orm').setup('./lib/models', true, 'developercenter', 'root');
 
+// TODO: Take out before hitting production
+// Authentication module.
+var auth = require('http-auth');
+var basic = auth.basic({
+    realm: "Authenticated Area.",
+    file: "./data/users.htpasswd" // manager1@magnetapi.com/test
+});
+
 var secret = 'ThisSecretShouldBeChanged';
 var cookieParser = express.cookieParser(secret);
 var sessionStore = new connect.middleware.session.MemoryStore();
@@ -63,6 +71,8 @@ app.configure('development', function(){
 
 app.configure('production', function(){
     app.use(express.errorHandler());
+    // TODO: Take out before hitting production
+    app.use(auth.connect(basic));
 });
 
 // Global variables
