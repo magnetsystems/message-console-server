@@ -5,7 +5,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], functi
             var me = this;
             me.options.eventPubSub.bind('initPWCoreView', function(params){
                 me.project = params.project;
-                me.isFirst = true;
+                me.isFirst = params.isFirst;
                 me.render(params.view);
             });
             me.options.eventPubSub.bind('coreComplete', function(isPrevious){

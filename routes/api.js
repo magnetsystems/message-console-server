@@ -101,7 +101,7 @@ module.exports = function(app){
     /* USER */
 
     app.get('/rest/profile', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        UserManager.read(req, function(e, user){
+        UserManager.read(req.session.user.magnetId, false, function(e, user){
             if(e){
                 res.send(e, 400);
             }else{
@@ -138,7 +138,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/projects', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.create(req, function(e, magnetId){
+        ProjectManager.create(req.session.user.magnetId, req.body, function(e, magnetId){
             if(e){
                 res.send(e, 400);
             }else{
@@ -148,7 +148,7 @@ module.exports = function(app){
     });
 
     app.put('/rest/projects/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.update(req, function(e, project){
+        ProjectManager.update(req.params.magnetId, req.session.user.id, req.body, function(e, project){
             if(e){
                 res.send(e, 400);
             }else{
@@ -158,7 +158,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/projects/:magnetId/getConfig', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.getConfig(req, function(e, filePath){
+        ProjectManager.getConfig(req.params.magnetId, function(e, filePath){
             if(e){
                 res.send(e, 400);
             }else{
@@ -178,7 +178,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/projects/:magnetId/uploadAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.storeProjectFile(req, function(e){
+        ProjectManager.storeProjectFile(req.params.magnetId, req, function(e){
             if(e){
                 res.send(e, 400);
             }else{
@@ -192,7 +192,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/projects/:magnetId/removeAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.removeAPNSCertificate(req, function(e){
+        ProjectManager.removeAPNSCertificate(req.params.magnetId, function(e){
             if(e){
                 res.send(e, 400);
             }else{
@@ -202,11 +202,11 @@ module.exports = function(app){
     });
 
     app.get('/rest/projects/:magnetId/wsdls', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.getWSDLs(req, function(e, wsdl){
+        ProjectManager.getWSDLs(req.params.magnetId, function(e, wsdls){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(wsdl, 200);
+                res.send(wsdls, 200);
             }
         });
     });
@@ -222,7 +222,7 @@ module.exports = function(app){
     });
 
     app.delete('/rest/wsdls/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.removeWSDLUrl(req, function(e){
+        ProjectManager.removeWSDLUrl(req.params.magnetId, function(e){
             if(e){
                 res.send(e, 400);
             }else{
@@ -395,7 +395,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/users/:magnetId', function(req, res){
-        UserManager.read(req, function(e, user){
+        UserManager.read(req.params.magnetId, (typeof req.session.user == 'undefined'), function(e, user){
             if(e){
                 res.send(e, 400);
             }else{

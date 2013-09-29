@@ -15,7 +15,8 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
                     me.reset(1);
                     me.project = new ProjectModel();
                     me.options.eventPubSub.trigger('initPWCoreView', {
-                        project  : me.project
+                        project  : me.project,
+                        isFirst  : true
                     });
                 }else{
                     me.project = new ProjectModel({
