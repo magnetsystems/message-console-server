@@ -23,7 +23,7 @@ describe("AccountManager manualLogin", function() {
         user = {
             firstName: "John",
             lastName: "Appleseed",
-            email: "john.appleseed@apple.com",
+            email: "john.appleseed@magnetapi.com",
             companyName: "Apple Inc.",
             password: password,
             roleWithinCompany: 'Software Engineer',

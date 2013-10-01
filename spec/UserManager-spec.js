@@ -13,7 +13,7 @@ describe("UserManager registerGuest", function() {
         user = {
             firstName: "John",
             lastName: "Appleseed",
-            email: "john.appleseed@apple.com",
+            email: "john.appleseed@magnetapi.com",
             companyName: "Apple Inc."
         };
     });
@@ -155,7 +155,7 @@ describe("UserManager approveUser", function() {
         user = {
             firstName: "John",
             lastName: "Appleseed",
-            email: "john.appleseed@apple.com",
+            email: "john.appleseed@magnetapi.com",
             companyName: "Apple Inc."
         };
     });
@@ -199,7 +199,7 @@ describe("UserManager becomeDeveloper", function() {
         user = {
             firstName: firstName,
             lastName: "Appleseed",
-            email: "john.appleseed@apple.com",
+            email: "john.appleseed@magnetapi.com",
             companyName: "Apple Inc.",
             password: password,
             roleWithinCompany: 'Software Engineer',
@@ -235,6 +235,115 @@ describe("UserManager becomeDeveloper", function() {
                             cloudAccount.destroy().success(function() {
                                 u.destroy().success(function() {
                                     done();
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+});
+
+describe("UserManager sendForgotPasswordEmail", function() {
+    var user;
+    var password = 'test';
+    var firstName = 'John';
+
+    beforeEach(function() {
+        user = {
+            firstName: firstName,
+            lastName: "Appleseed",
+            email: "john.appleseed@magnetapi.com",
+            companyName: "Apple Inc.",
+            password: password,
+            roleWithinCompany: 'Software Engineer',
+            country: 'No Country For Old Men'
+        };
+    });
+
+    it("should succeed if the input is valid", function(done) {
+        UserManager.registerGuest(user, false, function(registrationStatus, registeredUser) {
+            UserManager.approveUser({magnetId: registeredUser.magnetId}, false, function(approvalStatus, approvedUser) {
+//                user.firstName = "Jane"; // should not be allowed
+                user.magnetId = registeredUser.magnetId;
+                UserManager.becomeDeveloper(user, function(status, u) {
+                    UserManager.sendForgotPasswordEmail({email: u.email}, function(sendForgotPassword) {
+                        u.reload().success(function() {
+                            expect(u.passwordResetToken).not.toBeNull();
+                            expect(sendForgotPassword).toEqual(UserManager.SendForgotPasswordEmailEnum.EMAIL_SUCCESSFUL);
+                            // Clean up
+                            u.getCloudAccounts().success(function(cloudAccounts) {
+                                var cloudAccount = cloudAccounts[0];
+                                CloudHelper.removeUser(cloudAccount.magnetId, function(){});
+                                cloudAccount.destroy().success(function() {
+                                    u.destroy().success(function() {
+                                        done();
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+
+    it("should fail if the user is not a developer", function(done) {
+        UserManager.registerGuest(user, false, function(registrationStatus, user) {
+            UserManager.sendForgotPasswordEmail({email: user.email}, function(sendForgotPassword) {
+                expect(sendForgotPassword).toEqual(UserManager.SendForgotPasswordEmailEnum.USER_DOES_NOT_EXIST);
+                user.reload().success(function() {
+                    expect(user.password).toBeNull();
+                    user.destroy().success(function() {
+                        done();
+                    });
+                })
+            });
+        });
+    });
+});
+
+describe("UserManager resetPassword", function() {
+    var user;
+    var password = 'test';
+    var firstName = 'John';
+
+    beforeEach(function() {
+        user = {
+            firstName: firstName,
+            lastName: "Appleseed",
+            email: "john.appleseed@magnetapi.com",
+            companyName: "Apple Inc.",
+            password: password,
+            roleWithinCompany: 'Software Engineer',
+            country: 'No Country For Old Men'
+        };
+    });
+
+    it("should succeed if the input is valid", function(done) {
+        UserManager.registerGuest(user, false, function(registrationStatus, registeredUser) {
+            UserManager.approveUser({magnetId: registeredUser.magnetId}, false, function(approvalStatus, approvedUser) {
+//                user.firstName = "Jane"; // should not be allowed
+                user.magnetId = registeredUser.magnetId;
+                UserManager.becomeDeveloper(user, function(status, u) {
+                    UserManager.sendForgotPasswordEmail({email: u.email}, function(sendForgotPassword) {
+                        u.reload().success(function() {
+
+                            UserManager.resetPassword({password: 'newPassword', passwordResetToken: u.passwordResetToken}, function(status) {
+                                u.reload().success(function() {
+                                    expect(u.password).toEqual(hash.md5('newPassword'));
+                                    expect(u.passwordResetToken).toBeNull();
+                                    // Clean up
+                                    u.getCloudAccounts().success(function(cloudAccounts) {
+                                        var cloudAccount = cloudAccounts[0];
+                                        CloudHelper.removeUser(cloudAccount.magnetId, function(){});
+                                        cloudAccount.destroy().success(function() {
+                                            u.destroy().success(function() {
+                                                done();
+                                            });
+                                        });
+                                    });
                                 });
                             });
                         });
