@@ -349,7 +349,7 @@ module.exports = function(app){
             lastName : req.body.lastName,
             email : req.body.email,
             companyName : req.body.companyName
-        }, function(registrationStatus) {
+        }, false, function(registrationStatus) {
             if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL) {
                 res.send(registrationStatus, 201);
             } else {
@@ -424,7 +424,7 @@ module.exports = function(app){
             companyName : req.body.companyName,
             inviterId: req.session.user.id,
             invitedEmail: req.body.email
-        }, function(registrationStatus, user) {
+        }, isInvitedByAdmin, function(registrationStatus, user) {
             if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL) {
                 UserManager.approveUser({
                     magnetId: user.magnetId
@@ -438,7 +438,7 @@ module.exports = function(app){
             } else {
                 res.send(registrationStatus, 400);
             }
-        }, isInvitedByAdmin);
+        });
     });
 
     // This API is used for User to User invites
