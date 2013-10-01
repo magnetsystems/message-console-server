@@ -53,7 +53,7 @@ describe("AccountManager manualLogin", function() {
 
         it("if the password didn't match", function(done) {
             UserManager.registerGuest(user, false, function(registrationStatus, u) {
-                UserManager.approveUser({magnetId: u.magnetId}, function(approvalStatus, approvedUser) {
+                UserManager.approveUser({magnetId: u.magnetId}, false, function(approvalStatus, approvedUser) {
                     AccountManager.manualLogin(user.email, user.password + 'foo', function(e, u){
                         expect(e).toEqual('invalid-login');
                         approvedUser.destroy().success(function() {
@@ -68,7 +68,7 @@ describe("AccountManager manualLogin", function() {
 
     it("should succeed if the credentials are valid", function(done) {
         UserManager.registerGuest(user, false, function(registrationStatus, u) {
-            UserManager.approveUser({magnetId: u.magnetId}, function(approvalStatus, approvedUser) {
+            UserManager.approveUser({magnetId: u.magnetId}, false, function(approvalStatus, approvedUser) {
                 UserManager.becomeDeveloper(user, function(status, u) {
                     AccountManager.manualLogin(user.email, password, function(e, u){
                         expect(e).toBeNull();

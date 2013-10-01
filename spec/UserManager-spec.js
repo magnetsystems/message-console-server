@@ -144,7 +144,7 @@ describe("UserManager approveUser", function() {
         });
 
         it("if the magnetId does not exist", function(done) {
-            UserManager.approveUser(user, function(approvalStatus) {
+            UserManager.approveUser(user, false, function(approvalStatus) {
                 expect(approvalStatus).toEqual(UserManager.ApproveUserStatusEnum.USER_DOES_NOT_EXIST);
                 done();
             });
@@ -162,7 +162,7 @@ describe("UserManager approveUser", function() {
 
     it("should succeed if the input is valid", function(done) {
         UserManager.registerGuest(user, false, function(registrationStatus, u) {
-            UserManager.approveUser({magnetId: user.magnetId}, function(approvalStatus, user) {
+            UserManager.approveUser({magnetId: user.magnetId}, false, function(approvalStatus, user) {
                 expect(user).not.toBeNull();
                 expect(approvalStatus).toEqual(UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL);
                 expect(user.userType).toEqual('approved');
@@ -209,7 +209,7 @@ describe("UserManager becomeDeveloper", function() {
 
     it("should succeed if the input is valid", function(done) {
         UserManager.registerGuest(user, false, function(registrationStatus, registeredUser) {
-            UserManager.approveUser({magnetId: registeredUser.magnetId}, function(approvalStatus, approvedUser) {
+            UserManager.approveUser({magnetId: registeredUser.magnetId}, false, function(approvalStatus, approvedUser) {
 //                user.firstName = "Jane"; // should not be allowed
                 user.magnetId = registeredUser.magnetId;
                 UserManager.becomeDeveloper(user, function(status, u) {
