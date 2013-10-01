@@ -372,10 +372,13 @@ module.exports = function(app){
 
     app.post('/rest/users/:magnetId/completeRegistration', function(req, res) {
         UserManager.becomeDeveloper({
-            magnetId: req.param('magnetId'),
+            magnetId : req.param('magnetId'),
             password : req.body.password,
+            firstName : req.body.firstName,
+            lastName : req.body.lastName,
             roleWithinCompany : req.body.roleWithinCompany,
-            country : req.body.country
+            country : req.body.country,
+            companyName : req.body.companyName
         }, function(approvalStatus) {
             if(approvalStatus == UserManager.BecomeDeveloperStatusEnum.SUCCESSFUL) {
                 res.send(approvalStatus, 200);
@@ -459,7 +462,7 @@ module.exports = function(app){
             email : req.body.email,
             companyName : req.body.companyName,
             inviterId: req.session.user.id
-        }, req.session.user.firstName, req.session.user.lastName, req.body.introduceMsg, function(registrationStatus) {
+        }, req.session.user.firstName, req.session.user.lastName, req.body.inviteMessage, function(registrationStatus) {
             if(registrationStatus == UserManager.InviteUserStatusEnum.INVITATION_SUCCESSFUL) {
                 res.send(registrationStatus, 201);
             } else {

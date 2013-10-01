@@ -519,6 +519,7 @@ a.main-btn{margin-left:20px}
 #admin h3{text-indent:5px}
 #admin .tab-content > .active{padding:0 20px}
 #admin-details .table tbody td{cursor:default}
+#invite-user-container{margin:25px 0}
 
 /*
  * Original version: 1.0 ? 2010 Andrew Valums ( andrew(at)valums.com )

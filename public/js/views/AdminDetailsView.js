@@ -44,7 +44,7 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
             me.projects.fetch({
                 data: {
                     search : [{
-                        owner : me.entity.attributes.magnetId
+                        magnetId : me.entity.attributes.magnetId
                     }]
                 },
                 success: function(){

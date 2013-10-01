@@ -18,8 +18,6 @@ define(['jquery', 'backbone', 'collections/UserCollection'], function($, Backbon
                         disableInfo     : me.pages[page].disableInfo,
                         disableControls : me.pages[page].disableControls
                     });
-                }else{
-                    me.renderSettings();
                 }
                 me.options.eventPubSub.off('displayInfoView').bind('displayInfoView', function(model){
                     Backbone.history.navigate('#/'+page+'/'+model.attributes.magnetId);
@@ -67,21 +65,25 @@ define(['jquery', 'backbone', 'collections/UserCollection'], function($, Backbon
                         'userType' : 'guest'
                     }]
                 }
+            },
+            'invitations' : {
+                col      : UserCollection,
+                headers  : {
+                    invitedEmail : 'Email Address',
+                    userType     : 'Type of User'
+                },
+                searchBy : 'invitedEmail',
+                data     : {
+                    search : [{
+                        'userType' : 'invited'
+                    }]
+                }
             }
         },
         events: {
             'click #send-invitation': 'sendInvitation',
             'click #mgmt-history-list tbody td': 'showInfoPopup',
             'click .attachment-link' : 'showLog'
-        },
-        renderSettings: function(){
-            var template = _.template($('#SettingsView').html(), {
-                settings : {
-                    maxInvitations : 5
-                }
-            });
-            this.$el.find('#mgmt-settings dl').html(template);
-            return this;
         },
         // handle events for switching between tabs
         loadTab: function(id){
@@ -100,9 +102,8 @@ define(['jquery', 'backbone', 'collections/UserCollection'], function($, Backbon
             parent.find('.buttons-section').hide();
             parent.find('.buttons-section.loading').show();
             me.options.eventPubSub.trigger('getUserIdentity', function(user){
-                me.options.mc.query('startRegistration', 'POST', {
-                    email   : input.val(),
-                    invitor : user.attributes['magnet-uri']
+                me.options.mc.query('adminInviteUser', 'POST', {
+                    email   : input.val()
                 }, function(){
                     parent.find('.buttons-section').show();
                     parent.find('.buttons-section.loading').hide();

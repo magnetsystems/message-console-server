@@ -361,9 +361,6 @@ ConfirmInvitation.prototype.request = function(){
         $('#'+me.domId+' .row-fluid, #'+me.domId+' .modal-footer').hide();
     }else{
         if(me.validator.validateConfirmInvitation()){
-            me.info.authority = 'magnet';
-            me.info.token = me.params.token;
-            me.info.userName = me.info.email;
             me.call();
         }
     }
@@ -374,7 +371,7 @@ ConfirmInvitation.prototype.call = function(){
     startLoading(me.domId);
     $.ajax({
         type        : 'POST',
-        url         : '/rest/confirmIntroduce',
+        url         : '/rest/startRegistration',
         dataType    : 'html',
         contentType : 'application/x-www-form-urlencoded',
         data        : me.info
@@ -432,9 +429,7 @@ FriendInvitation.prototype.invite = function(){
         me.info[$(this).attr('name')] = $(this).val();
     });
     if(me.validator.validateUserInvitation()){
-        me.getUid(function(){
-            me.call();
-        });
+        me.call();
     }
 }
 FriendInvitation.prototype.call = function(){
@@ -443,7 +438,7 @@ FriendInvitation.prototype.call = function(){
     startLoading(me.domId);
     $.ajax({
         type        : 'POST',
-        url         : '/rest/startRegistration',
+        url         : '/rest/userInviteUser',
         dataType    : 'html',
         contentType : 'application/x-www-form-urlencoded',
         data        : me.info
@@ -468,19 +463,6 @@ FriendInvitation.prototype.call = function(){
             }
         }
         me.validator.showError('User Invitation Failure', msg);
-    });
-}
-FriendInvitation.prototype.getUid = function(callback){
-    var me = this;
-    $.ajax({
-        type     : 'GET',
-        url      : '/rest/users/@me?_magnet_select=id',
-        dataType : 'json'
-    }).done(function(data, status, xhr){
-        me.info.invitor = data['magnet-uri'];
-        if(typeof callback === typeof Function){
-            callback();
-        }
     });
 }
 

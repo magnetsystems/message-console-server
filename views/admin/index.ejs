@@ -43,6 +43,8 @@
               <li id="mgmt-users-tab" class="active"><a href="#/users">Users</a></li>
               <li id="mgmt-invites-tab"><a href="#/invites">Pending</a></li>
               <li id="mgmt-requests-tab"><a href="#/requests">Requests</a></li>
+                <li id="mgmt-invitations-tab"><a href="#/invitations">User Invitations</a></li>
+                <li id="mgmt-actions-tab"><a href="#/actions">User Management</a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="mgmt-users">
@@ -50,16 +52,6 @@
                 <div id="mgmt-users-list"></div>
               </div>
               <div class="tab-pane" id="mgmt-invites">
-                <h3>Invite a User</h3>
-                <div>
-                    <div class="input-append buttons-section">
-                      <input class="span5" id="invited-user-email" type="text" placeholder="Email Address">
-                      <button class="btn" type="button" id="send-invitation">Send Invitation</button>
-                    </div>
-                    <div class="loading buttons-section" style="display:none">
-                        Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
-                    </div>
-                </div>
                 <h3>Users Pending Registration</h3>
                 <div id="mgmt-invites-list"></div>
               </div>
@@ -67,6 +59,23 @@
                 <h3>Users Requesting for Invitation</h3>
                 <div id="mgmt-requests-list"></div>
               </div>
+                <div class="tab-pane" id="mgmt-invitations">
+                    <h3>Users Invited by Other Users</h3>
+                    <div id="mgmt-invitations-list"></div>
+                </div>
+                <div class="tab-pane" id="mgmt-actions">
+                    <h3>User Management</h3>
+                    <div id="invite-user-container">
+                        <h4>Invite a User</h4>
+                        <div class="input-append buttons-section">
+                            <input class="span5" id="invited-user-email" type="text" placeholder="Email Address">
+                            <button class="btn" type="button" id="send-invitation">Send Invitation</button>
+                        </div>
+                        <div class="loading buttons-section" style="display:none">
+                            Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="span1"></div>
@@ -127,6 +136,18 @@
                                 <td width="5px">Type of User</td>
                                 <td id="user-type-container" width="5px"><%- model.userType %></td>
                             </tr>
+                            <% if(model.invitedEmail){ %>
+                            <tr>
+                                <td width="5px">Invited Email</td>
+                                <td width="5px"><%- model.invitedEmail %></td>
+                            </tr>
+                            <% } %>
+                            <% if(model.inviterId){ %>
+                            <tr>
+                                <td width="5px">Invited By User</td>
+                                <td width="5px"><%- model.inviterId %> (UserId)</td>
+                            </tr>
+                            <% } %>
                             <tr>
                                 <td width="5px">Created On</td>
                                 <td width="5px"><%- model.createdAt %></td>
