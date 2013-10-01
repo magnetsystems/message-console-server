@@ -73,7 +73,8 @@ describe("UserManager registerGuest", function() {
     describe("should fail registration", function() {
 
         it("if the firstName is missing", function(done) {
-            delete user.firstName;
+//            delete user.firstName;
+            user.firstName = '';
             UserManager.registerGuest(user, function(registrationStatus) {
                 expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
                 done();
@@ -81,7 +82,8 @@ describe("UserManager registerGuest", function() {
         });
 
         it("if the lastName is missing", function(done) {
-            delete user.lastName;
+//            delete user.lastName;
+            user.lastName = '';
             UserManager.registerGuest(user, function(registrationStatus) {
                 expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
                 done();
@@ -89,7 +91,8 @@ describe("UserManager registerGuest", function() {
         });
 
         it("if the email is missing", function(done) {
-            delete user.email;
+//            delete user.email;
+            user.email = '';
             UserManager.registerGuest(user, function(registrationStatus) {
                 expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
                 done();
@@ -105,9 +108,43 @@ describe("UserManager registerGuest", function() {
         });
 
         it("if the companyName is missing", function(done) {
-            delete user.companyName;
+//            delete user.companyName;
+            user.companyName = '';
             UserManager.registerGuest(user, function(registrationStatus) {
                 expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
+                done();
+            });
+        });
+    });
+
+    it("should succeed if firstName is null", function(done) {
+        delete user.firstName;
+        UserManager.registerGuest(user, function(registrationStatus, user) {
+            expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL);
+            expect(user.userType).toEqual('guest');
+            user.destroy().success(function() {
+                done();
+            });
+        });
+    });
+
+    it("should succeed if lastName is null", function(done) {
+        delete user.lastName;
+        UserManager.registerGuest(user, function(registrationStatus, user) {
+            expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL);
+            expect(user.userType).toEqual('guest');
+            user.destroy().success(function() {
+                done();
+            });
+        });
+    });
+
+    it("should succeed if companyName is null", function(done) {
+        delete user.companyName;
+        UserManager.registerGuest(user, function(registrationStatus, user) {
+            expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL);
+            expect(user.userType).toEqual('guest');
+            user.destroy().success(function() {
                 done();
             });
         });
@@ -225,8 +262,8 @@ describe("UserManager becomeDeveloper", function() {
     it("should succeed if the input is valid", function(done) {
         UserManager.registerGuest(user, function(registrationStatus, registeredUser) {
             UserManager.approveUser({magnetId: registeredUser.magnetId}, function(approvalStatus, approvedUser) {
-                user.firstName = "Jane"; // should not be allowed
-                user.magnetId = approvedUser.magnetId;
+//                user.firstName = "Jane"; // should not be allowed
+                user.magnetId = registeredUser.magnetId;
                 UserManager.becomeDeveloper(user, function(status, u) {
                     expect(status).toEqual(UserManager.BecomeDeveloperStatusEnum.SUCCESSFUL);
                     expect(u).not.toBeNull();

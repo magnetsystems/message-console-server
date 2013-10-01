@@ -21,17 +21,8 @@ module.exports = function(app){
             if(!user){
                 res.redirect('/login?status=invalid');
             }else{
-                req.session.user = {
-                    id          : user.id,
-                    firstName   : user.firstName,
-                    lastName    : user.lastName,
-                    companyName : user.companyName,
-                    userName    : user.userName,
-                    email       : user.email,
-                    country     : user.country,
-                    userType    : user.userType,
-                    magnetId    : user.magnetId
-                };
+                delete user.password;
+                req.session.user = user;
                 console.log('Tracking: user "' + user.email + '" logged in', req.session.entryPoint);
                 res.redirect(req.session.entryPoint || '/');
             }
@@ -414,4 +405,66 @@ module.exports = function(app){
         });
     });
 
+    // This API is used for Admin to User invites
+    /*
+     {
+     "email" : "pritesh.shah@magnet.com"
+     }
+     */
+    app.post('/rest/adminInviteUser', UserManager.checkAuthority(['admin'], true), function(req, res) {
+        var isInvitedByAdmin = true;
+        req.body.firstName = req.body.firstName || null;
+        req.body.lastName = req.body.lastName || null;
+        req.body.companyName = req.body.companyName || null;
+
+        UserManager.registerGuest({
+            firstName : req.body.firstName,
+            lastName : req.body.lastName,
+            email : req.body.email,
+            companyName : req.body.companyName,
+            inviterId: req.session.user.id,
+            invitedEmail: req.body.email
+        }, function(registrationStatus, user) {
+            if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL) {
+                UserManager.approveUser({
+                    magnetId: user.magnetId
+                }, function(approvalStatus) {
+                    if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL) {
+                        res.send(approvalStatus, 201);
+                    } else {
+                        res.send(approvalStatus, 400);
+                    }
+                }, isInvitedByAdmin);
+            } else {
+                res.send(registrationStatus, 400);
+            }
+        }, isInvitedByAdmin);
+    });
+
+    // This API is used for User to User invites
+    /*
+     {
+     "email" : "pritesh.shah@magnet.com",
+     "introduceMsg" : "I found this great new tool to quickly create mobile apps for me."
+     }
+     */
+    app.post('/rest/userInviteUser', UserManager.checkAuthority(['developer'], true), function(req, res) {
+        req.body.firstName = req.body.firstName || null;
+        req.body.lastName = req.body.lastName || null;
+        req.body.companyName = req.body.companyName || null;
+
+        UserManager.inviteUser({
+            firstName : req.body.firstName,
+            lastName : req.body.lastName,
+            email : req.body.email,
+            companyName : req.body.companyName,
+            inviterId: req.session.user.id
+        }, req.session.user.firstName, req.session.user.lastName, req.body.introduceMsg, function(registrationStatus) {
+            if(registrationStatus == UserManager.InviteUserStatusEnum.INVITATION_SUCCESSFUL) {
+                res.send(registrationStatus, 201);
+            } else {
+                res.send(registrationStatus, 400);
+            }
+        });
+    });
 };
