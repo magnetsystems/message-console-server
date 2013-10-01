@@ -316,8 +316,8 @@ module.exports = function(app){
             } else {
                 var aws = {};
                 user.getCloudAccounts().success(function(cloudAccounts) {
-                    var aws = cloudAccounts[0];
                     if (cloudAccounts.length) {
+                        var aws = cloudAccounts[0];
                         res.json({
                             email: user.email,
                             aws: {
