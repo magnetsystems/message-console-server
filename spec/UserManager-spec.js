@@ -223,7 +223,7 @@ describe("UserManager approveUser", function() {
                 });
             });
         });
-    });
+    }, 30000);
 });
 
 describe("UserManager becomeDeveloper", function() {
@@ -294,5 +294,5 @@ describe("UserManager becomeDeveloper", function() {
                 });
             });
         });
-    });
+    }, 30000);
 });
