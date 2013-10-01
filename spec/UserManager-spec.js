@@ -23,7 +23,7 @@ describe("UserManager registerGuest", function() {
         it("if the firstName is missing", function(done) {
 //            delete user.firstName;
             user.firstName = '';
-            UserManager.registerGuest(user, function(registrationStatus) {
+            UserManager.registerGuest(user, false, function(registrationStatus) {
                 expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
                 done();
             });
@@ -32,7 +32,7 @@ describe("UserManager registerGuest", function() {
         it("if the lastName is missing", function(done) {
 //            delete user.lastName;
             user.lastName = '';
-            UserManager.registerGuest(user, function(registrationStatus) {
+            UserManager.registerGuest(user, false, function(registrationStatus) {
                 expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
                 done();
             });
@@ -41,7 +41,7 @@ describe("UserManager registerGuest", function() {
         it("if the email is missing", function(done) {
 //            delete user.email;
             user.email = '';
-            UserManager.registerGuest(user, function(registrationStatus) {
+            UserManager.registerGuest(user, false, function(registrationStatus) {
                 expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
                 done();
             });
@@ -49,7 +49,7 @@ describe("UserManager registerGuest", function() {
 
         it("if the email is invalid", function(done) {
             user.email = "foo@magnet";
-            UserManager.registerGuest(user, function(registrationStatus) {
+            UserManager.registerGuest(user, false, function(registrationStatus) {
                 expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
                 done();
             });
@@ -58,7 +58,7 @@ describe("UserManager registerGuest", function() {
         it("if the companyName is missing", function(done) {
 //            delete user.companyName;
             user.companyName = '';
-            UserManager.registerGuest(user, function(registrationStatus) {
+            UserManager.registerGuest(user, false, function(registrationStatus) {
                 expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
                 done();
             });
@@ -67,7 +67,7 @@ describe("UserManager registerGuest", function() {
 
     it("should succeed if firstName is null", function(done) {
         delete user.firstName;
-        UserManager.registerGuest(user, function(registrationStatus, user) {
+        UserManager.registerGuest(user, false, function(registrationStatus, user) {
             expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL);
             expect(user.userType).toEqual('guest');
             user.destroy().success(function() {
@@ -78,7 +78,7 @@ describe("UserManager registerGuest", function() {
 
     it("should succeed if lastName is null", function(done) {
         delete user.lastName;
-        UserManager.registerGuest(user, function(registrationStatus, user) {
+        UserManager.registerGuest(user, false, function(registrationStatus, user) {
             expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL);
             expect(user.userType).toEqual('guest');
             user.destroy().success(function() {
@@ -89,7 +89,7 @@ describe("UserManager registerGuest", function() {
 
     it("should succeed if companyName is null", function(done) {
         delete user.companyName;
-        UserManager.registerGuest(user, function(registrationStatus, user) {
+        UserManager.registerGuest(user, false, function(registrationStatus, user) {
             expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL);
             expect(user.userType).toEqual('guest');
             user.destroy().success(function() {
@@ -99,7 +99,7 @@ describe("UserManager registerGuest", function() {
     });
 
     it("should succeed if the input is valid", function(done) {
-        UserManager.registerGuest(user, function(registrationStatus, user) {
+        UserManager.registerGuest(user, false, function(registrationStatus, user) {
             expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL);
             expect(user.userType).toEqual('guest');
             user.destroy().success(function() {
@@ -109,8 +109,8 @@ describe("UserManager registerGuest", function() {
     });
 
     it("should notify if the user is already registered", function(done) {
-        UserManager.registerGuest(user, function(registrationStatus, user) {
-            UserManager.registerGuest(user, function(registrationStatus, user) {
+        UserManager.registerGuest(user, false, function(registrationStatus, user) {
+            UserManager.registerGuest(user, false, function(registrationStatus, user) {
                 expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.USER_ALREADY_EXISTS);
                 user.destroy().success(function() {
                     done();
@@ -121,7 +121,7 @@ describe("UserManager registerGuest", function() {
 
     it("should not save extra attributes", function(done) {
         user.password = "MySecurePassword";
-        UserManager.registerGuest(user, function(registrationStatus, user) {
+        UserManager.registerGuest(user, false, function(registrationStatus, user) {
             user.reload().success(function() {
                 expect(user.password).toBeNull();
                 user.destroy().success(function() {
@@ -144,7 +144,7 @@ describe("UserManager approveUser", function() {
         });
 
         it("if the magnetId does not exist", function(done) {
-            UserManager.approveUser(user, function(approvalStatus) {
+            UserManager.approveUser(user, false, function(approvalStatus) {
                 expect(approvalStatus).toEqual(UserManager.ApproveUserStatusEnum.USER_DOES_NOT_EXIST);
                 done();
             });
@@ -161,8 +161,8 @@ describe("UserManager approveUser", function() {
     });
 
     it("should succeed if the input is valid", function(done) {
-        UserManager.registerGuest(user, function(registrationStatus, u) {
-            UserManager.approveUser({magnetId: user.magnetId}, function(approvalStatus, user) {
+        UserManager.registerGuest(user, false, function(registrationStatus, u) {
+            UserManager.approveUser({magnetId: user.magnetId}, false, function(approvalStatus, user) {
                 expect(user).not.toBeNull();
                 expect(approvalStatus).toEqual(UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL);
                 expect(user.userType).toEqual('approved');
@@ -208,8 +208,8 @@ describe("UserManager becomeDeveloper", function() {
     });
 
     it("should succeed if the input is valid", function(done) {
-        UserManager.registerGuest(user, function(registrationStatus, registeredUser) {
-            UserManager.approveUser({magnetId: registeredUser.magnetId}, function(approvalStatus, approvedUser) {
+        UserManager.registerGuest(user, false, function(registrationStatus, registeredUser) {
+            UserManager.approveUser({magnetId: registeredUser.magnetId}, false, function(approvalStatus, approvedUser) {
 //                user.firstName = "Jane"; // should not be allowed
                 user.magnetId = registeredUser.magnetId;
                 UserManager.becomeDeveloper(user, function(status, u) {

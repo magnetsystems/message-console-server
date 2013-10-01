@@ -349,7 +349,7 @@ module.exports = function(app){
             lastName : req.body.lastName,
             email : req.body.email,
             companyName : req.body.companyName
-        }, function(registrationStatus) {
+        }, false, function(registrationStatus) {
             if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL) {
                 res.send(registrationStatus, 201);
             } else {
@@ -361,7 +361,7 @@ module.exports = function(app){
     app.put('/rest/users/:magnetId/approve', UserManager.checkAuthority(['admin'], true), function(req, res) {
         UserManager.approveUser({
             magnetId: req.param('magnetId')
-        }, function(approvalStatus) {
+        }, false, function(approvalStatus) {
             if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL) {
                 res.send(approvalStatus, 200);
             } else {
@@ -427,21 +427,21 @@ module.exports = function(app){
             companyName : req.body.companyName,
             inviterId: req.session.user.id,
             invitedEmail: req.body.email
-        }, function(registrationStatus, user) {
+        }, isInvitedByAdmin, function(registrationStatus, user) {
             if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL) {
                 UserManager.approveUser({
                     magnetId: user.magnetId
-                }, function(approvalStatus) {
+                }, isInvitedByAdmin, function(approvalStatus) {
                     if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL) {
                         res.send(approvalStatus, 201);
                     } else {
                         res.send(approvalStatus, 400);
                     }
-                }, isInvitedByAdmin);
+                });
             } else {
                 res.send(registrationStatus, 400);
             }
-        }, isInvitedByAdmin);
+        });
     });
 
     // This API is used for User to User invites
