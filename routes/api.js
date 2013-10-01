@@ -470,4 +470,44 @@ module.exports = function(app){
             }
         });
     });
+
+    // This API is used for forgot password email
+    /*
+     {
+     "email" : "pritesh.shah@magnet.com"
+     }
+     */
+    app.post('/rest/forgotPassword', function(req, res) {
+
+        UserManager.sendForgotPasswordEmail({
+            email : req.body.email
+        }, function(status) {
+            if(status == UserManager.SendForgotPasswordEmailEnum.EMAIL_SUCCESSFUL) {
+                res.send(status, 200);
+            } else {
+                res.send(status, 400);
+            }
+        });
+    });
+
+    // This API is used for resetting a forgotten password
+    /*
+     {
+     "password" : "test",
+     "passwordResetToken" : "b00184d0-2adf-11e3-bdae-e739654ae233"
+     }
+     */
+    app.post('/rest/resetPassword', function(req, res) {
+
+        UserManager.resetPassword({
+            password : req.body.password,
+            passwordResetToken: req.body.passwordResetToken
+        }, function(status) {
+            if(status == UserManager.ResetPasswordEnum.RESET_SUCCESSFUL) {
+                res.send(status, 200);
+            } else {
+                res.send(status, 400);
+            }
+        });
+    });
 };
