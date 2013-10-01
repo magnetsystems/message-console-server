@@ -1,6 +1,7 @@
 var Cloud = require("../lib/Cloud");
 var AWS = require('aws-sdk');
 var CloudConfig = require("../lib/config/CloudConfig");
+var CloudHelper = require('./CloudHelper')
 
 AWS.config.loadFromPath('./lib/config/aws-config.json');
 var iam = new AWS.IAM({apiVersion: CloudConfig.AWS.IAMApiVersion});
@@ -39,51 +40,6 @@ var afterAll = function(fn) {
 //    }
 //});
 
-function deleteCloudUser(userName, done) {
-    iam.deleteUser({UserName: userName}, function (err, data) {
-        if (!err) {
-        } else {
-            console.error("Could not delete user = " + err);
-        }
-        done();
-    });
-}
-
-function removeUser(userName, done) {
-    // Cleanup: Delete policy, keys and then User
-    // We assume that our User would have a max of 1 access key
-    iam.deleteUserPolicy({UserName: userName, PolicyName: CloudConfig.PolicyName}, function (err, data) {
-        if (!err) {
-            iam.listAccessKeys({UserName: userName}, function(err, data) {
-                if (!err) {
-                    if (data.AccessKeyMetadata.length) {
-                        data.AccessKeyMetadata.forEach(function(accessKey) {
-                            console.log("Got access key = " + accessKey.AccessKeyId);
-                            iam.deleteAccessKey({UserName: userName, AccessKeyId: accessKey.AccessKeyId}, function(err, data) {
-                                if (!err) {
-                                    console.log("Deleted access key = " + accessKey.AccessKeyId);
-                                    // We assume that our User would have a max of 1 access key
-                                    deleteCloudUser(userName, done);
-                                } else {
-                                    console.error("Error deleting access key = " + accessKey.AccessKeyId);
-                                    done();
-                                }
-                            });
-                        });
-                    } else {
-                        deleteCloudUser(userName, done);
-                    }
-                } else {
-                    console.error("Error getting access keys = " + err);
-                }
-            });
-        } else {
-            console.error("Could not delete user policy = " + err);
-            done();
-        }
-    });
-}
-
 describe("Cloud allocateCloudAccount", function() {
     describe("with existing user", function() {
         var userName = "NodeJsTests_" + new Date().getTime() + "@magnet.com";
@@ -101,7 +57,7 @@ describe("Cloud allocateCloudAccount", function() {
         });
 
         afterEach(function(done) {
-            removeUser(userName, done);
+            CloudHelper.removeUser(userName, done);
         });
 
         it("should create required keys if the User did not have keys", function(done) {
@@ -132,7 +88,7 @@ describe("Cloud allocateCloudAccount without existing user", function() {
     var userName = "NodeJsTests_" + new Date().getTime() + "@magnet.com";
 
     afterEach(function(done) {
-        removeUser(userName, done);
+        CloudHelper.removeUser(userName, done);
     });
 
     it("should create required keys if the User didn't exist", function(done) {
@@ -239,7 +195,7 @@ describe("Cloud allocateCloudAccount generated keys", function() {
             expect(err).toBeNull();
             s3.deleteObject({Bucket: otherBucketName, Key: key}, function(err, data) {
                 expect(err).toBeNull();
-//                removeUser(CloudConfig.Uploader.UserName, done);
+//                CloudHelper.removeUser(CloudConfig.Uploader.UserName, done);
                 done();
             });
         });
