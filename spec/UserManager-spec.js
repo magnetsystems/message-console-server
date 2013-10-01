@@ -12,6 +12,7 @@ var CloudConfig = require("../lib/config/CloudConfig");
 AWS.config.loadFromPath('./lib/config/aws-config.json');
 var iam = new AWS.IAM({apiVersion: CloudConfig.AWS.IAMApiVersion});
 
+jasmine.getEnv().defaultTimeoutInterval = 30000;
 
 function deleteCloudUser(userName, done) {
     iam.deleteUser({UserName: userName}, function (err, data) {
@@ -223,7 +224,7 @@ describe("UserManager approveUser", function() {
                 });
             });
         });
-    }, 30000);
+    });
 });
 
 describe("UserManager becomeDeveloper", function() {
@@ -294,5 +295,5 @@ describe("UserManager becomeDeveloper", function() {
                 });
             });
         });
-    }, 30000);
+    });
 });

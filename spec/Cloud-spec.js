@@ -5,14 +5,14 @@ var CloudConfig = require("../lib/config/CloudConfig");
 AWS.config.loadFromPath('./lib/config/aws-config.json');
 var iam = new AWS.IAM({apiVersion: CloudConfig.AWS.IAMApiVersion});
 
-//jasmine.getEnv().defaultTimeoutInterval = 1500;
+jasmine.getEnv().defaultTimeoutInterval = 30000;
 
 var beforeAll = function(fn) {
-    it('[beforeAll]', fn, 100000);
+    it('[beforeAll]', fn);
 }
 
 var afterAll = function(fn) {
-    it('[afterAll]', fn, 100000)
+    it('[afterAll]', fn)
 }
 
 //removeUser(CloudConfig.Uploader.UserName, function(){
@@ -185,7 +185,7 @@ describe("Cloud allocateCloudAccount generated keys", function() {
                 done();
             });
         });
-    }, 20000);
+    });
 
     it("should not be able to write to a different folder in the same bucket", function(done) {
         var newKey = 'randomFolderKey' + '/' + fileName;
@@ -194,42 +194,42 @@ describe("Cloud allocateCloudAccount generated keys", function() {
             expect(err).not.toBeNull();
             done();
         });
-    }, 20000);
+    });
 
     it("should not be able to write to a different bucket", function(done) {
         s3.putObject({Body: bodyBuffer, Bucket: otherBucketName, Key: key}, function(err, data) {
             expect(err).not.toBeNull();
             done();
         });
-    }, 20000);
+    });
 
     it("should not be able to get an object from a foreign folder", function(done) {
         s3.getObject({Bucket: bucketName, Key: otherKey}, function(err, data) {
             expect(err).not.toBeNull();
             done();
         });
-    }, 20000);
+    });
 
     it("should not be able to get an object from a foreign bucket", function(done) {
         s3.getObject({Bucket: otherBucketName, Key: key}, function(err, data) {
             expect(err).not.toBeNull();
             done();
         });
-    }, 20000);
+    });
 
     it("should not be able to delete an object from a foreign folder", function(done) {
         s3.deleteObject({Bucket: bucketName, Key: otherKey}, function(err, data) {
             expect(err).not.toBeNull();
             done();
         });
-    }, 20000);
+    });
 
     it("should not be able to delete an object from a foreign bucket", function(done) {
         s3.deleteObject({Bucket: otherBucketName, Key: key}, function(err, data) {
             expect(err).not.toBeNull();
             done();
         });
-    }, 20000);
+    });
 
     afterAll(function(done) {
         AWS.config.loadFromPath('./lib/config/aws-config.json');

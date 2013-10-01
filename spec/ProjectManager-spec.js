@@ -6,8 +6,10 @@ var ProjectManager = require('../lib/ProjectManager')
 // TODO: Database details are hardcoded!
 require('../lib/orm').setup('./lib/models', true, 'developercentertest', 'root');
 
+jasmine.getEnv().defaultTimeoutInterval = 30000;
+
 var beforeAll = function(fn){
-    it('[beforeAll]', fn, 100000);
+    it('[beforeAll]', fn);
 }
 
 var testProject, testUser, _user, _project, testWSDL, _wsdl;
