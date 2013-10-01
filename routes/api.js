@@ -212,7 +212,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/projects/:magnetId/addWSDLUrl', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.addWSDLUrl(req, function(e, wsdl){
+        ProjectManager.addWSDLUrl(req.params.magnetId, req.session.user.id, req.body.url, function(e, wsdl){
             if(e){
                 res.send(e, 400);
             }else{

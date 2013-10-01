@@ -197,8 +197,8 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'collections/ProjectCollect
                 error: function(){
                     me.options.eventPubSub.trigger('btnComplete', $('#pw-wsdl-addfile-btn'));
                     Alerts.Error.display({
-                        title   : 'Error Storing File',
-                        content : 'There was an error storing the file.'
+                        title   : 'Invalid WSDL URL',
+                        content : 'The URL you provided is not a valid URL.'
                     });
                 }
             });  
