@@ -407,6 +407,10 @@ td.first{min-width:130px;vertical-align:top;padding:3px 0}
 .small-note{background:#EEE;border:1px solid #DDD;border-radius:4px;color:#444;font-size:11px;margin:5px 0;padding:5px}
 
 #core-encryption .clearfix{position:relative;margin-bottom:21px}
+#core-dbconfig strong{display:block;padding:7px 0;text-align:left}
+#core-dbconfig .well .accordion-inner{background:none;padding:6px 0}
+#core-dbconfig .well .accordion-inner .btn-group{right:0}
+#core-dbconfig .well .accordion-inner .well{background:#eee;margin-top:16px}
 #core-encryption .clearfix .btn-group{margin-top:-5px}
 #pw-core #core-APNS-fields .btn-group{position:relative;top:0;right:0}
 
@@ -432,7 +436,7 @@ td.first{min-width:130px;vertical-align:top;padding:3px 0}
 .wizard_content i{margin-top:3px}
 .wizard_content .accordion-toggle i{margin-left:9px;background-position:-313px -119px}
 .wizard_content .accordion-toggle.active i{background-position:-288px -120px}
-.wizard_content .accordion-heading a{outline:none;font-weight:bold;padding-top:12px;padding-bottom:12px;font-size:1em;border-radius:0 16px 16px 0;background:#eee;color:#000;text-decoration:none}
+.wizard_content .accordion-heading a{outline:none;font-weight:bold;padding-top:12px;padding-bottom:12px;font-size:1.15em;border-radius:0 16px 16px 0;background:#eee;color:#000;text-decoration:none}
 .wizard_content .accordion-toggle.active{border-radius:0 16px 0 0}
 .wizard_content .accordion-group{border:none;margin-bottom:5px}
 .wizard_content .accordion-caption{width:65%}

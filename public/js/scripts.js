@@ -42,7 +42,8 @@ $(document).ready(function(){
     var register = new CompleteRegistration(cookies, {
         token : getQuerystring('t'),
         type  : getQuerystring('s'),
-        id    : getQuerystring('id')
+        id    : getQuerystring('id'),
+        view  : getQuerystring('a')
     });
     var contact = new ContactForm();
     var userInvitation = new FriendInvitation();
@@ -473,31 +474,33 @@ function CompleteRegistration(cookies, params){
     me.domId = 'confirm-registration-container';
     me.validator = new Validator(me.domId);
     me.cookies = cookies;
-    if(me.params.token == false){
-        me.validator.showError('Invalid Registration', 'Invalid registration information. Have you already been approved? Please contact Magnet support for assistance');
-        $('#'+me.domId+' .row-fluid, #'+me.domId+' .modal-footer').hide();
-    }else{
-        if(me.params.type && me.params.type == 'u'){
-            $('#'+me.domId+' .optional').remove();
-            me.getEmail(me.params.token, function(email){
-                $('#confirm-registration-email').html('<div class="row-fluid"><div class="span12"><input type="text" class="span12" name="email" value="'+email+'" disabled="disabled"></div></div>');
-            });
+    if(me.params.view == 'confirm-registration'){
+        if(me.params.token == false){
+            me.validator.showError('Invalid Registration', 'Invalid registration information. Have you already been approved? Please contact Magnet support for assistance');
+            $('#'+me.domId+' .row-fluid, #'+me.domId+' .modal-footer').hide();
         }else{
-            me.getEmail(me.params.token, function(email){
-                $('#confirm-registration-email').html('<div class="row-fluid"><div class="span12"><input type="text" class="span12" name="email" value="'+email+'" disabled="disabled"></div></div>');
-            });
-            $('#'+me.domId+' input[name="firstName"]').focus();
-        }
-        $('#btn-complete-registration').click(function(){
-            me.register();
-        });
-        /*
-        $('#'+me.domId+' input').keypress(function(e){
-            if(e.keyCode == 13){
-                me.register();
+            if(me.params.type && me.params.type == 'u'){
+                $('#'+me.domId+' .optional').remove();
+                me.getEmail(me.params.token, function(email){
+                    $('#confirm-registration-email').html('<div class="row-fluid"><div class="span12"><input type="text" class="span12" name="email" value="'+email+'" disabled="disabled"></div></div>');
+                });
+            }else{
+                me.getEmail(me.params.token, function(email){
+                    $('#confirm-registration-email').html('<div class="row-fluid"><div class="span12"><input type="text" class="span12" name="email" value="'+email+'" disabled="disabled"></div></div>');
+                });
+                $('#'+me.domId+' input[name="firstName"]').focus();
             }
-        });
-        */
+            $('#btn-complete-registration').click(function(){
+                me.register();
+            });
+            /*
+             $('#'+me.domId+' input').keypress(function(e){
+             if(e.keyCode == 13){
+             me.register();
+             }
+             });
+             */
+        }
     }
 }
 CompleteRegistration.prototype.register = function(){
@@ -602,7 +605,6 @@ StartResetPassword.prototype.reset = function(){
         me.captcha.gen();
     }else if(me.validator.validateStartResetPassword()){
         delete me.info['captcha'];
-        me.info.authority = 'magnet';
         me.call();
     }
 }
@@ -612,7 +614,7 @@ StartResetPassword.prototype.call = function(){
     startLoading(me.domId);
     $.ajax({  
         type        : 'POST', 
-        url         : '/rest/startResetPassword',  
+        url         : '/rest/forgotPassword',
         dataType    : 'html',
         contentType : 'application/x-www-form-urlencoded',
         data        : me.info
@@ -668,7 +670,7 @@ ResetPassword.prototype.reset = function(){
         me.validator.showError('Password Doesn\'t Match', 'The re-typed password doesn\'t match the original.');
     }else if(me.validator.validateResetPassword()){
         delete me.info['password2'];
-        me.info.token = me.params.token;
+        me.info.passwordResetToken = me.params.token;
         me.call();
     }
 }
@@ -678,7 +680,7 @@ ResetPassword.prototype.call = function(){
     startLoading(me.domId);
     $.ajax({  
         type        : 'POST', 
-        url         : '/rest/resetPassword',  
+        url         : '/rest/resetPassword',
         dataType    : 'html',
         contentType : 'application/x-www-form-urlencoded',
         data        : me.info
@@ -919,7 +921,7 @@ Validator.prototype.validateStartResetPassword = function(){
         }
     });
     var emailRxp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
-	if(!emailRxp.test($('#start-reset-password-container input[name="userName"]').val())){
+	if(!emailRxp.test($('#start-reset-password-container input[name="email"]').val())){
         me.showError('Invalid Email Address', 'The format of the email address you provided is invalid.');
         valid = false;
     }

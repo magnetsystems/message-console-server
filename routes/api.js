@@ -451,7 +451,7 @@ module.exports = function(app){
      "introduceMsg" : "I found this great new tool to quickly create mobile apps for me."
      }
      */
-    app.post('/rest/userInviteUser', UserManager.checkAuthority(['developer'], true), function(req, res) {
+    app.post('/rest/userInviteUser', UserManager.checkAuthority(['developer', 'admin'], true), function(req, res) {
         req.body.firstName = req.body.firstName || null;
         req.body.lastName = req.body.lastName || null;
         req.body.companyName = req.body.companyName || null;

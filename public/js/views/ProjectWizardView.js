@@ -14,10 +14,6 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
                 if(!params.id){
                     me.reset(1);
                     me.project = new ProjectModel();
-                    me.options.eventPubSub.trigger('initPWCoreView', {
-                        project  : me.project,
-                        isFirst  : true
-                    });
                 }else{
                     me.project = new ProjectModel({
                         magnetId : params.id,
@@ -285,6 +281,10 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
                 }, {
                     success: function(){
                         $('#grayed-out-wizard, #save-project-details-btn').remove();
+                        me.options.eventPubSub.trigger('initPWCoreView', {
+                            project  : me.project,
+                            isFirst  : true
+                        });
                         $('#project-details-container input').attr('disabled', 'disabled').addClass('disabled');
                         $('.popover').addClass('hidden');
                     },
@@ -336,6 +336,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
             encryptionEnabled           : false,
             useGeoLocation              : false,
             userAuth                    : "defaultUser",
+            jdbcAppEnabled              : true,
             gcmEnabled                  : false,
             apnsEnabled                 : false,
             apnsHost                    : "gateway.sandbox.push.apple.com",

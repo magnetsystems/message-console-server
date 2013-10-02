@@ -1245,7 +1245,7 @@ utils = {
         dom.find('input[type="text"], input[type="password"], textarea').each(function(){
             var val = $(this).val();
             //if($.trim(val).length > 0){
-                if($(this).attr('name').indexOf('Port') != -1 && $.trim(val).length == 0){
+                if($(this).attr('name') && $(this).attr('name').indexOf('Port') != -1 && $.trim(val).length == 0){
                     val = 0;
                 }
                 obj[$(this).attr('name')] = val;
@@ -1346,7 +1346,7 @@ utils = {
 };
 
 
-validator = {
+var validator = {
     minMap: {
         facebookEnabled: {
             expected : true,
@@ -1384,11 +1384,11 @@ validator = {
             contains : 'gcm',
             min      : 3
         },
-        userAuth : {
-            expected : 'DB',
-            text     : 'MySQL',
-            contains : 'jdbc',
-            min      : 5
+        jdbcAppEnabled : {
+            expected : true,
+            text     : 'MySQL App DB',
+            contains : 'jdbcApp',
+            min      : 4
         }
     },
     isInvalid: function(properties, additions){

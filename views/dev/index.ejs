@@ -734,6 +734,63 @@
         </div>
     </div>
 </div>
+<div did="dbconfig" class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#core-accordion" href="#core-dbconfig">
+            Database Configuration
+            <i class="icon icon-chevron-down"></i>
+        </a>
+    </div>
+    <div id="core-dbconfig" class="accordion-body collapse" style="height:0">
+        <div class="accordion-inner">
+            <strong>MySQL Configuration</strong>
+            <div class="well">
+                <div class="controls controls-row">
+                    <input class="span8" type="text" name="jdbcHost" value="<%- project.attributes['jdbcHost'] || 'localhost' %>" placeholder="Host (Defaults to 'localhost')">
+                    <input class="span4" type="text" name="jdbcPort" value="<%- project.attributes['jdbcPort'] || '3306' %>" placeholder="Port (Defaults to '3306')">
+                </div>
+                <a href="#" target="_blank">How to find out what host and port MySQL resides.</a>
+            </div>
+            <strong>System Database</strong>
+            <div class="well">
+                <p>Your app requires a MySQL database for system related persistence on your server. <br />
+                    Configure the MySQL information below or use the defaults.
+                </p>
+                <div class="controls controls-row">
+                    <input class="span4" type="text" name="jdbcSystemUsername" value="<%- project.attributes['jdbcSystemUsername'] %>" placeholder="Username">
+                    <input class="span4" type="text" name="jdbcSystemPassword" value="<%- project.attributes['jdbcSystemPassword'] %>" placeholder="Password">
+                    <input class="span4 disabled" type="text" disabled="disabled" value="sysDBName" placeholder="Database Name">
+                </div>
+            </div>
+            <strong>App Database</strong>
+            <div class="well">
+                <div class="accordion-inner">
+                    <div did="ON" class="<% if(project.attributes['jdbcAppEnabled'] !== true){ %>hidden<% } %>">
+                        <p>
+                            Your app will use a MySQL database for app related persistence on your server. <br />
+                            Configure the MySQL database information below or use the defaults.
+                        </p>
+                        <div class="controls controls-row">
+                            <input class="span4" type="text" name="jdbcAppUsername" value="<%- project.attributes['jdbcAppUsername'] %>" placeholder="Username">
+                            <input class="span4" type="text" name="jdbcAppPassword" value="<%- project.attributes['jdbcAppPassword'] %>" placeholder="Password">
+                            <input class="span4" type="text" name="jdbcAppDBName" value="<%- project.attributes['jdbcAppDBName'] %>" placeholder="Database Name">
+                        </div>
+                    </div>
+                    <div did="OFF" class="<% if(project.attributes['jdbcAppEnabled'] == true){ %>hidden<% } %>">
+                        Your app will not use MySQL for app related persistence.
+                        <div class="well">
+                            <b>Note:</b> You will not be able to use server entities or any sample APIs if the App Database is not enabled.
+                        </div>
+                    </div>
+                    <div did="jdbcAppEnabled" class="btn-group">
+                        <button did="true" class="btn <% if(project.attributes['jdbcAppEnabled'] == true){ %>btn-primary<% } %>">ON</button>
+                        <button did="false" class="btn <% if(project.attributes['jdbcAppEnabled'] !== true){ %>btn-primary<% } %>">OFF</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div did="userauth" class="accordion-group">
     <div class="accordion-heading">
         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#core-accordion" href="#core-userauth">
@@ -748,7 +805,6 @@
                 %><% }else{ %>
                 Default User
                 <% } %>
-
             </div>
         </a>
     </div>
@@ -768,18 +824,7 @@
                         <input type="radio" did="database" name="userAuth" value="DB" <% if(project.attributes['userAuth'] == 'DB'){ %>checked="checked"<% } %> /> MySQL
                     </td>
                     <td>
-                        Your project will use your own MySQL database for user authentication.
-                        <div did="database" class="well radio-toggle <% if(project.attributes['userAuth'] != 'DB'){ %>hidden<% } %>">
-                            <div class="row-fluid">
-                                <input class="span5" type="text" name="jdbcHost" value="<%- project.attributes['jdbcHost'] %>" placeholder="Host">
-                                <input class="span3" type="text" name="jdbcPort" value="<%- project.attributes['jdbcPort'] %>" placeholder="Port">
-                                <input class="span4" type="text" name="jdbcName" value="<%- project.attributes['jdbcName'] %>" placeholder="Database Name">
-                            </div>
-                            <div class="row-fluid">
-                                <input class="span6" type="text" name="jdbcUser" value="<%- project.attributes['jdbcUser'] %>" placeholder="Username">
-                                <input class="span6" type="text" name="jdbcPassword" value="<%- project.attributes['jdbcPassword'] %>" placeholder="Password">
-                            </div>
-                        </div>
+                        Your project will use your system MySQL database for user authentication.
                     </td>
                 </tr>
                 <tr>

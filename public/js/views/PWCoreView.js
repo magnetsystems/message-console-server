@@ -43,11 +43,13 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], functi
         storeDetails: function(isPrevious){
             var me = this;
             var properties = utils.collect(me.$el);
-            if(properties['userAuth'] == 'DB'){
-                if(!properties['jdbcPort'] || properties['jdbcPort'] == 0){
-                    properties['jdbcPort'] = 3306;
-                }
-            }
+            properties.config.jdbcHost = properties.config.jdbcHost || 'localhost';
+            properties.config.jdbcPort = properties.config.jdbcPort || 3306;
+            properties.config.jdbcSystemUsername = properties.config.jdbcSystemUsername || 'appDBUser';
+            properties.config.jdbcSystemPassword = properties.config.jdbcSystemPassword || 'appDBPassword';
+            properties.config.jdbcAppDBName = properties.config.jdbcAppDBName || 'appDBName';
+            properties.config.jdbcAppUsername = properties.config.jdbcAppUsername || 'sysDBUser';
+            properties.config.jdbcAppPassword = properties.config.jdbcAppPassword || 'sysDBPassword';
             $('.button-group[did="core"]').removeClass('hidden');
             var validation = validator.isInvalid(properties.config);
             if(validation){
@@ -57,13 +59,17 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], functi
                 }, function(){
                     setTimeout(function(){
                         me.confirmCert(properties, function(){
-                            me.save(properties, isPrevious);
+                            me.confirmDisableAppDB(properties, function(){
+                                me.save(properties, isPrevious);
+                            });
                         });
                     }, 800);
                 });
             }else{
                 me.confirmCert(properties, function(){
-                    me.save(properties, isPrevious);
+                    me.confirmDisableAppDB(properties, function(){
+                        me.save(properties, isPrevious);
+                    });
                 });
             }
         },
@@ -72,7 +78,20 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], functi
             if(me.project.attributes.apnsEnabled && (!me.project.attributes.apnsCertName || me.project.attributes.apnsCertName.length == 0)){
                 Alerts.Confirm.display({
                     title   : 'APNS Certficate Not Uploaded',
-                    content : 'Since the APNS feature was enabled, an APNS certificate should be uploaded. You can continue without uploading a certificate, but the project will not be able to deploy to your sandbox in the cloud.'
+                    content : 'Since the APNS feature was enabled, an APNS certificate should be uploaded. You can continue without uploading a certificate, but the certificate must be manually placed in the project later.'
+                }, function(){
+                    callback();
+                });
+            }else{
+                callback();
+            }
+        },
+        confirmDisableAppDB: function(properties, callback){
+            var me = this;
+            if(!properties.config.jdbcAppEnabled || properties.config.jdbcAppEnabled === false){
+                Alerts.Confirm.display({
+                    title   : 'Are You Sure?',
+                    content : 'The App Database was disabled. You can continue, but will not be able to use server entities or any sample APIs requiring persistence.'
                 }, function(){
                     callback();
                 });
