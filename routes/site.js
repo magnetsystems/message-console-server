@@ -1,7 +1,5 @@
 var UserManager = require('../lib/UserManager')
-, Countries = require('../lib/config/CountryList')
-, EmailService = require('../lib/EmailService')
-, Transport = require('../lib/Transport');
+, Countries = require('../lib/config/CountryList');
 
 module.exports = function(app){
 

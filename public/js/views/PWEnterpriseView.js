@@ -211,6 +211,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'collections/ProjectCollect
             var wsdl = me.wsdls.where({
                 magnetId : magnetId
             })[0];
+            wsdl.urlRoot = 'wsdls';
             wsdl.destroy({
                 success: function(){
                     item.hide('fast', function(){
