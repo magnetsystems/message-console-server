@@ -743,11 +743,12 @@
     </div>
     <div id="core-dbconfig" class="accordion-body collapse" style="height:0">
         <div class="accordion-inner">
+            <p><b style="font-style:italic">Note: The fields below are optional. If you leave the fields blank, they will be populated with defaults settings automatically.</b></p>
             <strong>MySQL Configuration</strong>
             <div class="well">
                 <div class="controls controls-row">
-                    <input class="span8" type="text" name="jdbcHost" value="<%- project.attributes['jdbcHost'] || 'localhost' %>" placeholder="Host (Defaults to 'localhost')">
-                    <input class="span4" type="text" name="jdbcPort" value="<%- project.attributes['jdbcPort'] || '3306' %>" placeholder="Port (Defaults to '3306')">
+                    <input class="span8" type="text" name="jdbcHost" value="<%- project.attributes['jdbcHost'] %>" placeholder="Host">
+                    <input class="span4" type="text" name="jdbcPort" value="<%- project.attributes['jdbcPort'] %>" placeholder="Port">
                 </div>
                 <a href="#" target="_blank">How to find out what host and port MySQL resides.</a>
             </div>

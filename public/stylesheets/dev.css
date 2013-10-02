@@ -484,7 +484,7 @@ a.main-btn{margin-left:20px}
 #pw-apns-list li i{cursor:pointer}
 
 /* new wizard */
-#wizard-container{position:relative}
+#wizard-container{position:relative;text-align:right}
 #wizard-step-title{margin-top:9px}
 #wizard-step-title span{display:inline-block; vertical-align:middle;font-size:18px}
 #wizard-step-title.step1{color:#00b333}
@@ -494,7 +494,7 @@ a.main-btn{margin-left:20px}
 #wizard-step-title span.first{margin-right:10px;font-size:35px}
 #wizard-diagram-canvas{position:absolute;top:0;left:0;z-index:100;width:100%;text-align:center}
 #wizard-diagram-canvas p{text-align:left;margin-top:10px}
-#wizard-diagram-canvas img{width:52%;margin-top:40px}
+#wizard-diagram-canvas img{width:52%;max-width:225px;margin-top:40px}
 #project-details-container{padding:15px}
 #project-details-container button{float:right}
 #grayed-out-wizard{opacity:1;background:#fff;border-radius:0 0 12px 12px;left:0;margin-top:60px;padding-bottom:13px;position:absolute;top:0;width:100%;z-index:110}

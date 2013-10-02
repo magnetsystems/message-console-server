@@ -1,10 +1,11 @@
 var Cloud = require("../lib/Cloud");
 var AWS = require('aws-sdk');
-var CloudConfig = require("../lib/config/CloudConfig");
-var CloudHelper = require('./CloudHelper')
+var CloudHelper = require('./CloudHelper');
+var ENV_CONFIG = require('../lib/config/env_config');
 
-AWS.config.loadFromPath('./lib/config/aws-config.json');
-var iam = new AWS.IAM({apiVersion: CloudConfig.AWS.IAMApiVersion});
+AWS.config.update(ENV_CONFIG.AWS);
+
+var iam = new AWS.IAM({apiVersion: ENV_CONFIG.Cloud.AWS.IAMApiVersion});
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;
 
@@ -16,24 +17,24 @@ var afterAll = function(fn) {
     it('[afterAll]', fn)
 }
 
-//removeUser(CloudConfig.Uploader.UserName, function(){
+//removeUser(ENV_CONFIG.Cloud.Uploader.UserName, function(){
 //    console.log("Deleted user");
-//    Cloud.allocateCloudAccount(CloudConfig.Uploader.UserName, function(err, data) {
+//    Cloud.allocateCloudAccount(ENV_CONFIG.Cloud.Uploader.UserName, function(err, data) {
 //        if (!err) {
-//            CloudConfig.Uploader.AccessKeyId = data.accessKeyId;
-//            CloudConfig.Uploader.SecretAccessKey = data.secretAccessKey;
+//            ENV_CONFIG.Cloud.Uploader.AccessKeyId = data.accessKeyId;
+//            ENV_CONFIG.Cloud.Uploader.SecretAccessKey = data.secretAccessKey;
 //        } else {
 //            console.error("Error creating keys = " + err);
 //        }
 //    })
 //});
-//Cloud.allocateCloudAccount(CloudConfig.Uploader.UserName, function(err, data) {
+//Cloud.allocateCloudAccount(ENV_CONFIG.Cloud.Uploader.UserName, function(err, data) {
 //    if (!err) {
 //        console.log("WE ARE HERE");
 //        console.log(JSON.stringify(data));
 //        console.log("data.accessKeyId = " + data.AccessKeyId);
-//        CloudConfig.Uploader.AccessKeyId = data.accessKeyId;
-//        CloudConfig.Uploader.SecretAccessKey = data.SecretAccessKey;
+//        ENV_CONFIG.Cloud.Uploader.AccessKeyId = data.accessKeyId;
+//        ENV_CONFIG.Cloud.Uploader.SecretAccessKey = data.SecretAccessKey;
 //        console.log(JSON.stringify(uploader));
 //    } else {
 //        console.error("Error creating keys = " + err);
@@ -103,12 +104,12 @@ describe("Cloud allocateCloudAccount without existing user", function() {
 });
 
 describe("Cloud allocateCloudAccount generated keys", function() {
-    var s3 = new AWS.S3({apiVersion: CloudConfig.AWS.S3ApiVersion});
+    var s3 = new AWS.S3({apiVersion: ENV_CONFIG.Cloud.AWS.S3ApiVersion});
     var fileName = 'test.txt';
-    var key = CloudConfig.Uploader.UserName + '/' + fileName;
+    var key = ENV_CONFIG.Cloud.Uploader.UserName + '/' + fileName;
     var otherKey = 'pshahtest' + '/' + fileName;
-    var bucketName = CloudConfig.AWS.BucketName;
-    var otherBucketName = CloudConfig.AWS.SomeOtherBucketName;
+    var bucketName = ENV_CONFIG.Cloud.AWS.BucketName;
+    var otherBucketName = ENV_CONFIG.Cloud.AWS.SomeOtherBucketName;
     var body = "Dummy text file to test CRUD on S3 for given LoginCredentials.";
     var bodyBuffer = new Buffer(body, "utf-8");
 
@@ -117,8 +118,8 @@ describe("Cloud allocateCloudAccount generated keys", function() {
             expect(err).toBeNull();
             s3.putObject({Body: bodyBuffer, Bucket: otherBucketName, Key: key}, function(err, data) {
                 expect(err).toBeNull();
-                s3.config.credentials.accessKeyId = CloudConfig.Uploader.AccessKeyId;
-                s3.config.credentials.secretAccessKey = CloudConfig.Uploader.SecretAccessKey;
+                s3.config.credentials.accessKeyId = ENV_CONFIG.Cloud.Uploader.AccessKeyId;
+                s3.config.credentials.secretAccessKey = ENV_CONFIG.Cloud.Uploader.SecretAccessKey;
                 done();
             });
         });
@@ -188,14 +189,14 @@ describe("Cloud allocateCloudAccount generated keys", function() {
     });
 
     afterAll(function(done) {
-        AWS.config.loadFromPath('./lib/config/aws-config.json');
-        iam = new AWS.IAM({apiVersion: CloudConfig.AWS.IAMApiVersion});
-        var s3 = new AWS.S3({apiVersion: CloudConfig.AWS.S3ApiVersion});
+        AWS.config.update(ENV_CONFIG.AWS);
+        iam = new AWS.IAM({apiVersion: ENV_CONFIG.Cloud.AWS.IAMApiVersion});
+        var s3 = new AWS.S3({apiVersion: ENV_CONFIG.Cloud.AWS.S3ApiVersion});
         s3.deleteObject({Bucket: bucketName, Key: otherKey}, function(err, data) {
             expect(err).toBeNull();
             s3.deleteObject({Bucket: otherBucketName, Key: key}, function(err, data) {
                 expect(err).toBeNull();
-//                CloudHelper.removeUser(CloudConfig.Uploader.UserName, done);
+//                CloudHelper.removeUser(ENV_CONFIG.Cloud.Uploader.UserName, done);
                 done();
             });
         });

@@ -6,17 +6,18 @@
  * To change this template use File | Settings | File Templates.
  */
 var AWS = require('aws-sdk');
-var CloudConfig = require("../lib/config/CloudConfig");
+var ENV_CONFIG = require('../lib/config/env_config');
 
-AWS.config.loadFromPath('./lib/config/aws-config.json');
-var iam = new AWS.IAM({apiVersion: CloudConfig.AWS.IAMApiVersion});
+AWS.config.update(ENV_CONFIG.AWS);
+
+var iam = new AWS.IAM({apiVersion: ENV_CONFIG.Cloud.AWS.IAMApiVersion});
 
 var CloudHelper = function(){};
 
 CloudHelper.prototype.removeUser = function(userName, done) {
     // Cleanup: Delete policy, keys and then User
     // We assume that our User would have a max of 1 access key
-    iam.deleteUserPolicy({UserName: userName, PolicyName: CloudConfig.PolicyName}, function (err, data) {
+    iam.deleteUserPolicy({UserName: userName, PolicyName: ENV_CONFIG.Cloud.PolicyName}, function (err, data) {
         if (!err) {
             iam.listAccessKeys({UserName: userName}, function(err, data) {
                 if (!err) {
