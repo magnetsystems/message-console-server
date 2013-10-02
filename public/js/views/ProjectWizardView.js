@@ -128,33 +128,52 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
                 });
             }
         },
+        confirmAPNS: function(attrName, callback){
+            var me = this;
+            if(me.project.attributes.jdbcAppEnabled === false && (attrName == 'helloWorldControllerDBEnabled' || attrName == 'sampleEntityEnabled')){
+                Alerts.Confirm.display({
+                    title   : 'This Sample Requires an App Database',
+                    content : 'Since you disabled the App Database in the first step of the project wizard, this sample cannot be enabled. Would you like to enable the App Database?'
+                }, function(){
+                    me.project.save({
+                        jdbcAppEnabled : true
+                    });
+                    callback();
+                });
+            }else{
+                callback();
+            }
+        },
         // toggle and set state of 2-setting switch buttons
         toggleSwitch: function(e){
+            var me = this;
             var curr = $(e.currentTarget);
             var buttonGroup = curr.closest('.btn-group');
-            if(!buttonGroup.hasClass('disabled') && !buttonGroup.closest('.optional-parameters').hasClass('disabled')){
-                buttonGroup.find('button').removeClass('btn-primary');
-                curr.addClass('btn-primary');
-                if(!buttonGroup.hasClass('btn-group-only')){
-                    var group = curr.closest('.accordion-group');
-                    var state = 'OFF';
-                    switch(curr.html()){
-                        case 'OFF': group.find('.preview-status').html('OFF'); state = 'OFF'; break;
-                        case 'ON': group.find('.preview-status').html('ON'); state = 'ON'; break;
-                        case 'Don\'t Include': group.find('.preview-status').html('Not Included'); state = 'OFF'; break;
-                        case 'Include': group.find('.preview-status').html('Included'); state = 'ON'; break;
-                    }
-                    if(state == 'OFF'){
-                        group.find('div[did="OFF"]').removeClass('hidden');
-                        group.find('div[did="ON"]').addClass('hidden');
-                        group.find('.optional-parameters').addClass('disabled').append('<div class="overlay"></div>');
-                    }else{
-                        group.find('div[did="ON"]').removeClass('hidden');
-                        group.find('div[did="OFF"]').addClass('hidden');
-                        group.find('.optional-parameters').removeClass('disabled').find('.overlay').remove();
+            me.confirmAPNS(buttonGroup.attr('did'), function(){
+                if(!buttonGroup.hasClass('disabled') && !buttonGroup.closest('.optional-parameters').hasClass('disabled')){
+                    buttonGroup.find('button').removeClass('btn-primary');
+                    curr.addClass('btn-primary');
+                    if(!buttonGroup.hasClass('btn-group-only')){
+                        var group = curr.closest('.accordion-group');
+                        var state = 'OFF';
+                        switch(curr.html()){
+                            case 'OFF': group.find('.preview-status').html('OFF'); state = 'OFF'; break;
+                            case 'ON': group.find('.preview-status').html('ON'); state = 'ON'; break;
+                            case 'Don\'t Include': group.find('.preview-status').html('Not Included'); state = 'OFF'; break;
+                            case 'Include': group.find('.preview-status').html('Included'); state = 'ON'; break;
+                        }
+                        if(state == 'OFF'){
+                            group.find('div[did="OFF"]').removeClass('hidden');
+                            group.find('div[did="ON"]').addClass('hidden');
+                            group.find('.optional-parameters').addClass('disabled').append('<div class="overlay"></div>');
+                        }else{
+                            group.find('div[did="ON"]').removeClass('hidden');
+                            group.find('div[did="OFF"]').addClass('hidden');
+                            group.find('.optional-parameters').removeClass('disabled').find('.overlay').remove();
+                        }
                     }
                 }
-            }
+            });
         },
         // toggle display of views associated with a radio collection
         toggleRadio: function(e){
@@ -333,18 +352,19 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
             return true;
         },
         initialData: {
-            encryptionEnabled           : false,
-            useGeoLocation              : false,
-            userAuth                    : "defaultUser",
-            jdbcAppEnabled              : true,
-            gcmEnabled                  : false,
-            apnsEnabled                 : false,
-            apnsHost                    : "gateway.sandbox.push.apple.com",
-            emailEnabled                : false,
-            helloWorldControllerEnabled : true,
-            salesforceEnabled           : false,
-            facebookEnabled             : false,
-            linkedinEnabled             : false
+            encryptionEnabled             : false,
+            useGeoLocation                : false,
+            userAuth                      : "MYSQL",
+            jdbcAppEnabled                : true,
+            gcmEnabled                    : false,
+            apnsEnabled                   : false,
+            apnsHost                      : "gateway.sandbox.push.apple.com",
+            emailEnabled                  : false,
+            helloWorldControllerEnabled   : true,
+            helloWorldControllerDBEnabled : false,
+            salesforceEnabled             : false,
+            facebookEnabled               : false,
+            linkedinEnabled               : false
         },
         // save edited project details
         saveProjectDetailEdits: function(){

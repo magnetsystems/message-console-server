@@ -800,7 +800,7 @@
                 <% if(project.attributes['userAuth']){ %>
                 <%- project.attributes['userAuth']
                 .replace('defaultUser', 'Default User')
-                .replace('DB', 'Database')
+                .replace('DB', 'MySQL')
                 .replace('AD', 'Active Directory')
                 %><% }else{ %>
                 Default User
@@ -811,6 +811,7 @@
     <div id="core-userauth" class="accordion-body collapse" style="height:0">
         <div class="accordion-inner">
             <table class="radio-collection">
+                <!--
                 <tr did="default">
                     <td class="first">
                         <input type="radio" did="default" name="userAuth" value="defaultUser" <% if(!project.attributes['userAuth'] || project.attributes['userAuth'] == 'defaultUser'){ %>checked="checked"<% } %> /> Default User
@@ -819,9 +820,10 @@
                         Please choose this option to enable default user and login to work in Magnet's sandbox database.
                     </td>
                 </tr>
+                -->
                 <tr>
-                    <td class="first">
-                        <input type="radio" did="database" name="userAuth" value="DB" <% if(project.attributes['userAuth'] == 'DB'){ %>checked="checked"<% } %> /> MySQL
+                    <td class="default">
+                        <input type="radio" did="database" name="userAuth" value="MYSQL" <% if(!project.attributes['userAuth'] || project.attributes['userAuth'] == 'MYSQL'){ %>checked="checked"<% } %> /> MySQL
                     </td>
                     <td>
                         Your project will use your system MySQL database for user authentication.
@@ -1053,6 +1055,26 @@
                 </div>
             </div>
         </div>
+        <div did="samplecontrollerdb" class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#samples-accordion" href="#samples-samplecontrollerdb">
+                    <img src="../images/wizard/cntrlr-helloworld.png" /> Hello World Controller with Persistence
+                    <i class="icon icon-chevron-down"></i>
+                    <div class="preview-status">
+                        <% if(project.attributes['helloWorldControllerDBEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
+                    </div>
+                </a>
+            </div>
+            <div id="samples-samplecontrollerdb" class="accordion-body collapse" style="height:0">
+                <div class="accordion-inner">
+                    <p class="accordion-caption">This module demonstrates how to interact with a controller over REST from a mobile client. It can be used as a starting template for writing your own controller.</p>
+                    <div did="helloWorldControllerDBEnabled" class="btn-group">
+                        <button did="true" class="btn <% if(project.attributes['helloWorldControllerDBEnabled'] == true){ %>btn-primary<% } %>">Include</button>
+                        <button did="false" class="btn <% if(project.attributes['helloWorldControllerDBEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div did="sampleentity" class="accordion-group">
             <div class="accordion-heading">
                 <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#samples-accordion" href="#samples-sampleentity">
@@ -1073,7 +1095,6 @@
                 </div>
             </div>
         </div>
-
         <div did="salesforce" class="accordion-group">
             <div class="accordion-heading">
                 <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#thirdparty-accordion" href="#thirdparty-salesforce">
@@ -1514,40 +1535,6 @@
     <div class="modal-footer">
         <button class="btn-primary btn">Send Invitation</button>
         <button data-dismiss="modal" class="cancel btn">Close</button>
-    </div>
-    <div class="loading modal-footer" style="display:none">
-        Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
-    </div>
-</div>
-<div id="upload-server-jar" class="modal-alert modal hide fade">
-    <div class="modal-header">
-        <button data-dismiss="modal" class="close">x</button>
-        <h3>Upload Server Binary (.zip)</h3>
-        <p class="subheading">
-            After you compile the maven project, the server binaries are located at:<br />
-            <b>./aws-server/target/<span id="server-binary-name"></span>-server-aws-<span id="server-binary-version"></span>-deploy.zip</b><br />
-            Select the server binary and upload it for deployment to the cloud.
-        </p>
-    </div>
-    <div class="modal-body">
-        <div class="modal_errors" style="display:none">
-            <div class="alert alert-error">
-                <strong></strong> <span></span>
-            </div>
-        </div>
-        <div class="modal_success" style="display:none">
-            <div class="alert alert-success">
-                <span>Your server has been uploaded successfully.</span>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div id="upload-server-jar-input"></div>
-            <input class="span12" type="text" name="description" placeholder="Enter description for your server binary" />
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button id="upload-server-jar-btn" class="btn-primary btn">Upload</button>
-        <button data-dismiss="modal" class="cancel btn">Cancel</button>
     </div>
     <div class="loading modal-footer" style="display:none">
         Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />

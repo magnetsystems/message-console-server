@@ -34,8 +34,12 @@ server.config.LNKDINOAuthConfig.clientId="{{-settings.liClientId}}"
 server.config.LNKDINOAuthConfig.redirectUri=""{{ } }}{{ if(settings.helloWorldControllerEnabled){ }}
 include(HelloWorldControllerDefaults)
 project.helloWorldControllerEnabled={{-settings.helloWorldControllerEnabled}}
-controllers.helloworld.groupId=GROUP_ID
-controllers.helloworld.version=VERSION{{ } }}{{ if(settings.gcmEnabled){ }}
+controllers.helloworlddb.groupId=GROUP_ID
+controllers.helloworlddb.version=VERSION{{ } }}{{ if(settings.helloWorldControllerDBEnabled){ }}
+include(HelloWorldControllerDBDefaults)
+project.helloWorldControllerDBEnabled={{-settings.helloWorldControllerDBEnabled}}
+controllers.helloworlddb.groupId=GROUP_ID
+controllers.helloworlddb.version=VERSION{{ } }}{{ if(settings.gcmEnabled){ }}
 project.gcmEnabled={{-settings.gcmEnabled}}
 server.config.GcmAccount.apiKey="{{-settings.gcmApiKey}}"
 client.gcmSenderId="{{-settings.gcmSenderId}}"

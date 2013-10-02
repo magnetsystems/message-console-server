@@ -16,6 +16,7 @@
     "ejs-locals": "~1.0.2",
     "enum": "0.2.5",
     "jasmine-node": "1.11.0",
-    "http-auth": "2.0.4"
+    "http-auth": "2.0.4",
+    "xml2js": "0.2.8"
   }
 }
