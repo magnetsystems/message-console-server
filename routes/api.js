@@ -236,6 +236,7 @@ module.exports = function(app){
                             key: user.magnetId,
                             signedKey: user.signedLicenseKey,
                             aws: {
+                                bucketName: ENV_CONFIG.Cloud.AWS.BucketName,
                                 folderName: aws.bucketName,
                                 accessKeyId: aws.accessKeyId,
                                 secretAccessKey: aws.secretAccessKey
