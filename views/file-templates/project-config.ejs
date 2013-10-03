@@ -35,11 +35,8 @@ server.config.LNKDINOAuthConfig.redirectUri=""{{ } }}{{ if(settings.helloWorldCo
 include(HelloWorldControllerDefaults)
 project.helloWorldControllerEnabled={{=settings.helloWorldControllerEnabled}}
 controllers.helloworld.groupId=GROUP_ID
-controllers.helloworld.version=VERSION{{ } }}{{ if(1 == 2 && settings.helloWorldControllerDBEnabled){ }}
-include(HelloWorldControllerDBDefaults)
-project.helloWorldControllerDBEnabled={{=settings.helloWorldControllerDBEnabled}}
-controllers.helloworlddb.groupId=GROUP_ID
-controllers.helloworlddb.version=VERSION{{ } }}{{ if(settings.gcmEnabled){ }}
+controllers.helloworld.version=VERSION{{ } }}{{ if(settings.helloWorldControllerDBEnabled){ }}
+include(HelloWorldEntityControllerDefaults){{ } }}{{ if(settings.gcmEnabled){ }}
 project.gcmEnabled={{=settings.gcmEnabled}}
 server.config.GcmAccount.apiKey="{{=settings.gcmApiKey}}"
 client.gcmSenderId="{{=settings.gcmSenderId}}"

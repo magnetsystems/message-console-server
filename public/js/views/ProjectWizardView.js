@@ -72,9 +72,12 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
                 }
             });
             me.accordionLocked = false;
-            $('.popup-info').focus(function(){
-                $(this).popover('show');
-            }).blur(function(){
+            $('.popup-info').mouseover(function(){
+                var obj = $(this);
+                setTimeout(function(){
+                    obj.popover('show');
+                }, 100);
+            }).mouseleave(function(){
                 $(this).popover('hide');
             });
         },

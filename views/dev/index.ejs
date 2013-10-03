@@ -64,7 +64,7 @@
             <div class="tab_container">
                 <div id="project-details-container">
                     <button id="save-project-details-btn" class="span2 btn btn-primary">Start Wizard</button>
-                    <input type="text" name="name" maxlength="40" class="span3 popup-info" placeholder="Project Name" data-trigger="focus" title="Project Name can only contain letters, numbers, spaces, and underscores with a maximum of 40 characters" />
+                    <input type="text" name="name" maxlength="40" class="span3 popup-info" placeholder="Project Name"  title="Project Name can only contain letters, numbers, spaces, and underscores with a maximum of 40 characters" />
                     <input type="text" class="span5" name="description" placeholder="Project Description" />
                     <input type="text" class="span2" name="version" placeholder="Project Version" />
                 </div>
@@ -599,8 +599,14 @@
             <strong>MySQL Configuration</strong>
             <div class="well">
                 <div class="controls controls-row">
-                    <input class="span8" type="text" name="jdbcHost" value="<%- project.attributes['jdbcHost'] %>" placeholder="Host">
-                    <input class="span4" type="text" name="jdbcPort" value="<%- project.attributes['jdbcPort'] %>" placeholder="Port">
+                    <div class="input-group span8">
+                        <label>Host:</label>
+                        <input class="span12" type="text" name="jdbcHost" placeholder="Host" value="<%- project.attributes['jdbcHost'] || 'localhost' %>">
+                    </div>
+                    <div class="input-group span4">
+                        <label>Port:</label>
+                        <input class="span12" type="text" name="jdbcPort" placeholder="Port" value="<%- project.attributes['jdbcPort'] || '3306' %>">
+                    </div>
                 </div>
                 <a href="#" target="_blank">How to find out what host and port MySQL resides.</a>
             </div>
@@ -610,9 +616,18 @@
                     Configure the MySQL information below or use the defaults.
                 </p>
                 <div class="controls controls-row">
-                    <input class="span4" type="text" name="jdbcSystemUsername" value="<%- project.attributes['jdbcSystemUsername'] %>" placeholder="Username">
-                    <input class="span4" type="text" name="jdbcSystemPassword" value="<%- project.attributes['jdbcSystemPassword'] %>" placeholder="Password">
-                    <input class="span4 disabled" type="text" disabled="disabled" value="sysDBName" placeholder="Database Name">
+                    <div class="input-group span4">
+                        <label>Username:</label>
+                        <input class="span12" type="text" name="jdbcSystemUsername" placeholder="Username" value="<%- project.attributes['jdbcSystemUsername'] || 'sysDBUser' %>">
+                    </div>
+                    <div class="input-group span4">
+                        <label>Password:</label>
+                        <input class="span12" type="text" name="jdbcSystemUsername" placeholder="Password" value="<%- project.attributes['jdbcSystemUsername'] || 'sysDBPassword' %>">
+                    </div>
+                    <div class="input-group span4">
+                        <label>Database Name:</label>
+                        <input class="span12 disabled" type="text" disabled="disabled" placeholder="Database Name" value="sysDBName">
+                    </div>
                 </div>
             </div>
             <strong>App Database</strong>
@@ -624,9 +639,18 @@
                             Configure the MySQL database information below or use the defaults.
                         </p>
                         <div class="controls controls-row">
-                            <input class="span4" type="text" name="jdbcAppUsername" value="<%- project.attributes['jdbcAppUsername'] %>" placeholder="Username">
-                            <input class="span4" type="text" name="jdbcAppPassword" value="<%- project.attributes['jdbcAppPassword'] %>" placeholder="Password">
-                            <input class="span4" type="text" name="jdbcAppDBName" value="<%- project.attributes['jdbcAppDBName'] %>" placeholder="Database Name">
+                            <div class="input-group span4">
+                                <label>Username:</label>
+                                <input class="span12" type="text" name="jdbcAppUsername" placeholder="Username" value="<%- project.attributes['jdbcAppUsername'] || 'appDBUser' %>">
+                            </div>
+                            <div class="input-group span4">
+                                <label>Password:</label>
+                                <input class="span12" type="text" name="jdbcAppPassword" placeholder="Password" value="<%- project.attributes['jdbcAppPassword'] || 'appDBPassword' %>">
+                            </div>
+                            <div class="input-group span4">
+                                <label>Database Name:</label>
+                                <input class="span12" type="text" name="jdbcAppDBName" placeholder="Database Name" value="<%- project.attributes['jdbcAppDBName'] || 'appDBName' %>">
+                            </div>
                         </div>
                     </div>
                     <div did="OFF" class="<% if(project.attributes['jdbcAppEnabled'] == true){ %>hidden<% } %>">
