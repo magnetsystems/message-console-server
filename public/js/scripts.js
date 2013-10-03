@@ -153,7 +153,7 @@ function doAuth(cookies){
             setProfile(cookies);
         }
     }else{
-        document.cookie = 'jsessionid=;domain=.'+window.location.hostname+';path=/';
+        document.cookie = 'connect.sid=;domain=.'+window.location.hostname+';path=/';
         cookies.remove('magnet_auth');
     }
 }
@@ -211,7 +211,7 @@ Logout.prototype.call = function(){
         dataType    : 'html',
         contentType : 'application/x-www-form-urlencoded'
     }).done(function(result, status, xhr){
-        document.cookie = 'jsessionid=;domain=.'+window.location.hostname+';path=/';
+        document.cookie = 'connect.sid=;domain=.'+window.location.hostname+';path=/';
         me.cookies.remove('magnet_auth');
         window.location.href = '/login/';
     });
@@ -1079,7 +1079,7 @@ SessionManager.prototype.confirm = function(time){
         $('.modal').modal('hide');
         me.cookies.remove('session_timestamp');
         me.cookies.remove('magnet_auth');
-        document.cookie = 'jsessionid=;domain=.'+window.location.hostname+';path=/';
+        document.cookie = 'connect.sid=;domain=.'+window.location.hostname+';path=/';
         window.location.replace('/login/');
     }else{
         me.alert.display({

@@ -178,7 +178,7 @@
                 <div class="span12">
                     <select class="span12" name="country" placeholder="Country">
                         {{ for(var i=0;i<countries.length;++i){ }}
-                        <option value="{{-countries[i].short}}">{{-countries[i].name}}</option>
+                        <option value="{{=countries[i].short}}">{{=countries[i].name}}</option>
                         {{ } }}
                     </select>
                 </div>

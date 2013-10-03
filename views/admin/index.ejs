@@ -101,7 +101,6 @@
 <!-- views start -->
 <script id="AdminUserDetailsView" type="text/template">
             <h3>User: <%- model.profileName %></h3>
-            <div class="buttons">
                 <div class="buttons-section">
                     <button did="delete-user" type="button" class="btn">Delete User</button>
 <% if(model.userType == 'guest'){ %>
@@ -111,7 +110,6 @@
                 <div class="loading buttons-section" style="display:none">
                     Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
                 </div>
-            </div>
             <hr />
             <div class="row-fluid">
                 <div class="span12">
@@ -241,8 +239,8 @@
 <% _.each(headers, function(header, key){ %>
                                             <th <% if(key != 'profileName' && key != 'accountMagnetActive'){ %>p="<%- key %>"<% } %>><%- header %><span class=""></span></th>
                                             <% }); %>
-<% if(!disableInfo){ %>  
-                                            <th class="listview-details">Details</th> 
+<% if(!disableInfo){ %>
+                                            <th class="listview-details">Details</th>
 <% } %>
                                         </tr>
                                       </thead>
@@ -254,22 +252,22 @@
 <% _.each(collection, function(model, key){ %>
                                         <tr data-id="<%- model.attributes.magnetId %>">
 <% _.each(headers, function(header, key){ %>
-                                          <td><% if(model.attributes[key]){ %><% if(model.attributes[key].length > 0){ %><%= model.attributes[key] %><% } %><% } %></td>
+                                          <td><% if(model.attributes[key]){ %><% if(model.attributes[key].length > 0){ %><%- model.attributes[key] %><% } %><% } %></td>
 <% }); %>
-<% if(!disableInfo){ %>  
-                                          <td><button class="btn">Details</button></td> 
+<% if(!disableInfo){ %>
+                                          <td><button class="btn">Details</button></td>
 <% } %>
                                         </tr>
 <% }); %>
 </script>
 <script id="paginationDetailView" type="text/template">
-<% if(paging.totalSize > 10){ %>  
+<% if(paging.totalSize > 10){ %>
     <ul>
         <li <% if(paging.startIndex == 0){ %>class="disabled"<% } %>><a href="#" page="<%-paging.previous%>">Prev</a></li>
 <% for(i=0;i<paging.totalSize;i+=10){ %>
         <li <% if(paging.startIndex == i){ %>class="disabled"<% } %> ><a href="#" page="<%-i/10%>"><%-(i/10)+1%></a></li>
-<% } %>  
-        <li <% if(!paging.next || paging.startIndex == 90 || (paging.startIndex+paging.pageSize) == paging.totalSize){ %>class="disabled"<% } %>><a href="#" page="<%-paging.next%>">Next</a></li>  
+<% } %>
+        <li <% if(!paging.next || paging.startIndex == 90 || (paging.startIndex+paging.pageSize) == paging.totalSize){ %>class="disabled"<% } %>><a href="#" page="<%-paging.next%>">Next</a></li>
     </ul>
     <% if(paging.startIndex == 90 && paging.totalSize == 100){ %>
        <br >The maximum number of results returned has been reached. Please refine your result with search or sort.

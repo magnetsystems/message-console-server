@@ -5,8 +5,8 @@
  * Time: 10:16 PM
  * To change this template use File | Settings | File Templates.
  */
+ENV_CONFIG = require('../lib/config/config_'+process.env.NODE_ENV);
 var AWS = require('aws-sdk');
-var ENV_CONFIG = require('../lib/config/env_config');
 
 AWS.config.update(ENV_CONFIG.AWS);
 

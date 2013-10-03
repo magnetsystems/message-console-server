@@ -3,8 +3,9 @@ var express = require('express')
 , app = express()
 , server = http.createServer(app)
 , connect = require('express/node_modules/connect')
-, fs = require('fs')
-, ENV_CONFIG = require('./lib/config/env_config');
+, fs = require('fs');
+
+global.ENV_CONFIG = require('./lib/config/config_'+app.settings.env);
 
 require('./lib/orm').setup('./lib/models',
     ENV_CONFIG.Database.doSync,

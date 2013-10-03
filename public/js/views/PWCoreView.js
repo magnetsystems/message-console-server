@@ -5,7 +5,6 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], functi
             var me = this;
             me.options.eventPubSub.bind('initPWCoreView', function(params){
                 me.project = params.project;
-                me.isFirst = params.isFirst;
                 me.render(params.view);
             });
             me.options.eventPubSub.bind('coreComplete', function(isPrevious){
@@ -33,7 +32,6 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], functi
                 }
                 me.options.eventPubSub.trigger('btnComplete', $('#pw-apns-cert-file-btn'));
             });
-            me.isFirst = true;
         },
         events: {
             'click #pw-apns-cert-file-btn' : 'uploadCertificate',
@@ -134,10 +132,6 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], functi
             }
             if(!this.project.attributes.apnsCertName || this.project.attributes.apnsCertName.length == 0){
                 this.initCertUpload();
-            }
-            if(this.isFirst){
-                $('#project-details-container input[name="name"]').focus();
-                this.isFirst = false;
             }
             return this;
         },

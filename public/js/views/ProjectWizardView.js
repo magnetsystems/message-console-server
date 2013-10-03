@@ -6,6 +6,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
             me.options.eventPubSub.bind('initProjectWizard', function(params){
                 $('#grayed-out-wizard').height($('#project-wizard .page-view').height());
                 $('#project-details-container input').val('');
+                $('#project-details-container input[name="name"]').focus();
                 me.fallbackImg = $('#wizard-diagram-canvas img');
                 me.stepTitle = $('#wizard-step-title');
                 me.stepTitlePart1 = $('#wizard-step-title .first');
@@ -301,8 +302,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
                     success: function(){
                         $('#grayed-out-wizard, #save-project-details-btn').remove();
                         me.options.eventPubSub.trigger('initPWCoreView', {
-                            project  : me.project,
-                            isFirst  : true
+                            project : me.project
                         });
                         $('#project-details-container input').attr('disabled', 'disabled').addClass('disabled');
                         $('.popover').addClass('hidden');
