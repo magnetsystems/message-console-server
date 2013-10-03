@@ -233,6 +233,8 @@ module.exports = function(app){
                         var aws = cloudAccounts[0];
                         res.json({
                             email: user.email,
+                            key: user.magnetId,
+                            signedKey: user.signedLicenseKey,
                             aws: {
                                 folderName: aws.bucketName,
                                 accessKeyId: aws.accessKeyId,
