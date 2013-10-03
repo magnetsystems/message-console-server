@@ -239,7 +239,6 @@ module.exports = function(app){
                             },
                             aws: {
                                 auditBucket: ENV_CONFIG.Cloud.AWS.BucketName,
-                                folderName: aws.bucketName,
                                 accessKey: aws.accessKeyId,
                                 secretKey: aws.secretAccessKey
                             }
