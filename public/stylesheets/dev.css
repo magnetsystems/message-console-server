@@ -324,7 +324,7 @@ iframe .WordSection1{width:506px}
 #get-started .page-view{margin:0 auto 25px auto;width:92%;padding:0 25px 0 25px;min-height:600px;padding-bottom:20px}
 #get-started .row-fluid{overflow:hidden}
 #get-started .tab-content{background:url('../images/getstarted/divider.png') no-repeat scroll 0 82px transparent}
-#get-started .tab-pane{margin-left:20px}
+#get-started .tab-pane{min-height:560px;margin-left:20px}
 #get-started .nav-tabs{position:absolute;top:76px;left:25px;width:200px;border:none}
 #get-started .nav-tabs li a{outline:none;padding:0;margin:0;width:200px;height:127px;border:none;border-radius:0;text-align:center;font-size:18px;line-height:205px}
 #gs-projectguide-tab a{background:url(../images/getstarted/gtstrtd_nav_1.png) no-repeat 0 0}
@@ -392,12 +392,6 @@ iframe .WordSection1{width:506px}
 #wizard-container{float:left !important;width:34%}
 #wizard-content-container{margin-top:12px;float:left !important;width:66%;margin-left:0}
 
-#pw-intro-fields{margin-top:25px}
-#pw-intro-fields .media-heading{margin-bottom:20px}
-#pw-intro-fields input{margin-bottom:12px}
-#pw-intro p{margin:30px 0 20px 0}
-#pw-intro{font-size:16px}
-#pw-intro .media{margin:0 0 30px 30px}
 .col50{float:left;width:50%}
 .col50.second{background:url('../images/signin_divider.png') repeat-y 0 0}
 
@@ -494,10 +488,22 @@ a.main-btn{margin-left:20px}
 #wizard-step-title span.first{margin-right:10px;font-size:35px}
 #wizard-diagram-canvas{position:absolute;top:0;left:0;z-index:100;width:100%;text-align:center}
 #wizard-diagram-canvas p{text-align:left;margin-top:10px}
-#wizard-diagram-canvas img{width:52%;max-width:225px;margin-top:40px}
 #project-details-container{padding:15px}
+#project-wizard .tab_container > .row-fluid{padding-bottom:20px}
 #project-details-container button{float:right}
-#grayed-out-wizard{opacity:1;background:#fff;border-radius:0 0 12px 12px;left:0;margin-top:60px;padding-bottom:13px;position:absolute;top:0;width:100%;z-index:110}
+#pw-intro{padding-bottom:40px}
+#pw-intro .row-fluid{width:98%}
+#wizard-intro-left{margin-top:13px;text-align:center;background:url('../images/signin_divider.png') no-repeat right top}
+#wizard-intro-left img, #wizard-diagram-canvas img{width:52%;max-width:225px;margin-top:40px}
+#wizard-intro-left img{margin-top:0}
+#pw-intro .preview-title{margin:15px 0;font-size:16px;font-weight:bold}
+#pw-intro img{float:left;margin-right:20px}
+#pw-intro .section img{margin-left:15px;height:78px}
+#pw-intro .divider img{margin-left:49px;height:30px}
+#pw-intro .section{background:url('../images/gtstrtd_bg_grad.png') repeat-y 0 0;padding:10px 0 0}
+#pw-intro .divider{padding:2px 0}
+#pw-intro b{line-height:64px}
+#pw-intro .divider div{float:left;font-size:14px;margin:5px 16px 0 34px}
 
 #pw-samples .accordion-toggle{padding:3px 15px}
 #pw-samples .accordion-toggle img{margin-right:12px;width:50px}

@@ -61,7 +61,6 @@
 <div id="project-wizard" class="page hidden">
     <div class="row-fluid">
         <div class="page-view">
-            <div id="grayed-out-wizard"></div>
             <div class="tab_container">
                 <div id="project-details-container">
                     <button id="save-project-details-btn" class="span2 btn btn-primary">Start Wizard</button>
@@ -71,70 +70,44 @@
                 </div>
                 <div class="row-fluid">
                     <div id="wizard-container" class="span4">
-                        <img src="../images/wizard/bg_subhdr.png" />
-                        <div id="wizard-diagram-canvas">
+                        <img id="wizard-image-bgk" style="display:none" src="../images/wizard/bg_subhdr.png" />
+                        <div id="wizard-diagram-canvas" style="display:none">
                             <div id="wizard-step-title" class="step1">
                                 <span class="first">1</span>
                                 <span class="second">Configure Your App</span>
                             </div>
                             <img src="../images/wizard/wizgraphic-1.png" />
                         </div>
+                        <div id="wizard-intro-left">
+                            <p>Welcome to the</p>
+                            <p><h4>Magnet Quick Start Wizard</h4></p>
+                            <img src="../images/wizard-start/wizgraphic-start.png" />
+                        </div>
                     </div>
                     <div id="wizard-content-container" class="span8">
-                        <div id="pw-intro" did="intro" class="wizard_content hidden">
-                            <div class="row-fluid">
-                                <div class="span6">
-                                    <div id="pw-intro-fields">
-                                        <h4 class="media-heading">Project Details</h4>
-                                        <input type="text" name="name" placeholder="Enter Project Name *" maxlength="40" class="span10 popup-info" data-placement="top" data-trigger="focus" title="Project Name can only contain letters, numbers, spaces, and underscores with a maximum of 40 characters" />
-                                        <input type="text" name="version" placeholder="Enter Version *" class="span10" />
-                                        <textarea type="text" name="description" placeholder="Enter Project Description *" class="span10"></textarea>
-                                    </div>
-                                </div>
-                                <div class="span6">
-                                    <p>After completion of the wizard, you will get:</p>
-                                    <div class="media">
-                                        <a class="pull-left" href="#">
-                                            <!--<img class="media-object" src="a.png">-->
-                                        </a>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">Server</h4>
-                                            <ul>
-                                                <li>Magnet services</li>
-                                                <li>Your own web services</li>
-                                                <li>3rd-party services</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <a class="pull-left" href="#">
-                                            <!--<img class="media-object" src="a.png">-->
-                                        </a>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">Client</h4>
-                                            <div class="media">
-                                                <a class="pull-left" href="#">
-                                                    <img class="media-object" src="../images/assets/icon_android.png">
-                                                </a>
-                                                <div class="media-body">
-                                                    <ul>
-                                                        <li>Native project</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="media">
-                                                <a class="pull-left" href="#">
-                                                    <img class="media-object" src="../images/assets/icon_ios.png">
-                                                </a>
-                                                <div class="media-body">
-                                                    <ul>
-                                                        <li>Native project</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div id="pw-intro" did="intro" class="wizard_content">
+                            <div class="preview-title">
+                                At the end of this wizard, you will get a
+                            </div>
+                            <div class="section clearfix">
+                                <img src="../images/wizard-start/wizstart_mappicon.png" />
+                                <b>Magnet App Project Profile</b>
+                            </div>
+                            <div class="divider clearfix">
+                                <img src="../images/wizard-start/wizstart_arrowdn.png" />
+                                <div>which you will import into and run in the</div>
+                            </div>
+                            <div class="section clearfix">
+                                <img src="../images/wizard-start/wizstart_mabicon.png" />
+                                <b>Magnet App Builder</b>
+                            </div>
+                            <div class="divider clearfix">
+                                <img src="../images/wizard-start/wizstart_arrowdn.png" />
+                                <div>where you can generate your</div>
+                            </div>
+                            <div class="section clearfix">
+                                <img src="../images/wizard-start/wizstart_clients.png" />
+                                <b>Mobile and Server Assets</b>
                             </div>
                         </div>
                         <div id="pw-core" did="core" class="wizard_content hidden">
@@ -201,7 +174,6 @@
                     </div>
                 </div>
                 <div did="intro" class="clearfix hidden button-group">
-                    <a type="button" class="go-next main-btn btn pull-right">Next Step</a>
                 </div>
                 <div did="core" class="clearfix hidden button-group">
                     <a type="button" class="go-next main-btn btn pull-right"><b>Next:</b> Step 2 - Choose Sample APIs</a>
@@ -346,99 +318,49 @@
                     </div>
                     <div class="tab-pane" id="gs-ios">
                         <h4>iOS Developer</h4>
+                        <p>The topics below will help the iOS Developer get started.</p>
                         <div class="guide-container">
                             <div class="guide-row odd">
-                                <img src="../images/getstarted/gtstrtd_mbprj_1.png" />
+                                <img width="134" height="117" />
                                 <div class="guide-content">
                                     <div class="row-fluid">
-                                        <div class="span7">
+                                        <div class="span9">
+                                            <div class="guide-step">1</div>
                                             <div>
-                                                <b>Start Xcode Project</b>
-                                                <p>Get started with a project template for your mobile app.</p>
+                                                <b>Start iOS Project</b>
+                                                <p>
+                                                    <b>Option 1</b> Download the <a href="/resources/files/iOS-JumpStartApp.zip">Jumpstart App</a><br />
+                                                    <b>Option 2</b> Start your own app project and add the Magnet Mobile Framework yourself.
+                                                </p>
                                             </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a href="/resources/files/iOS-JumpStartApp.zip" class="btn">Get Xcode Project for iOS</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="guide-row">
-                                <img src="../images/getstarted/gtstrtd_act_wizard.png" />
+                                <img width="134" height="117" />
                                 <div class="guide-content">
                                     <div class="row-fluid">
-                                        <div class="span7">
+                                        <div class="span9">
+                                            <div class="guide-step">2</div>
                                             <div>
-                                                <b>Use Quickstart Wizard</b>
-                                                <p>Choose from a list of sample services and provide your own APIs.</p>
+                                                <b>Include Project Libraries</b>
+                                                <p>Here is how to include your project libraries into your IDE using Command Line.</p>
                                             </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn" href="/dev/#/project-wizard">Quickstart Wizard</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="guide-row odd">
-                                <img src="../images/getstarted/gtstrtd_act_xcode.png" />
+                                <img width="134" height="117" />
                                 <div class="guide-content">
                                     <div class="row-fluid">
-                                        <div class="span7">
-                                            <div>
-                                                <b>How to Import Project Assets</b>
-                                                <p>Import project assets for use in your app.</p>
-                                            </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn" href="/resources/files/mdt.zip">Download App Builder Tool</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="guide-row">
-                                <img src="../images/getstarted/gtstrtd_act_crtprjassets.png" />
-                                <div class="guide-content">
-                                    <div class="row-fluid">
-                                        <div class="span7">
-                                            <div>
-                                                <b>How to Create Project Assets</b>
-                                                <p>Create project assets for your app.</p>
-                                            </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn">Go to Documentation</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="guide-row odd">
-                                <img src="../images/getstarted/gtstrtd_act_getProj.png" />
-                                <div class="guide-content">
-                                    <div class="row-fluid">
-                                        <div class="span7">
+                                        <div class="span9">
+                                            <div class="guide-step">3</div>
                                             <div>
                                                 <b>Build Your App</b>
-                                                <p>Use the project files to develop your mobile app.</p>
+                                                <p>Check the Hello World implementation on how to call a controller.</p>
                                             </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn">Go to Documentation</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="guide-row">
-                                <img src="../images/getstarted/gtstrtd_mbprj_doc.png" />
-                                <div class="guide-content">
-                                    <div class="row-fluid">
-                                        <div class="span7">
-                                            <div>
-                                                <b>View Documentation</b>
-                                                <p>Some text about documentation.</p>
-                                            </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn">Go to Documentation</a>
                                         </div>
                                     </div>
                                 </div>
@@ -447,99 +369,79 @@
                     </div>
                     <div class="tab-pane" id="gs-server">
                         <h4>Server Developer</h4>
+                        <p>The topics below will help the Server Developer get started.</p>
                         <div class="guide-container">
                             <div class="guide-row odd">
-                                <img src="../images/getstarted/gtstrtd_mbprj_3.png" />
+                                <img width="134" height="117" />
                                 <div class="guide-content">
                                     <div class="row-fluid">
-                                        <div class="span7">
+                                        <div class="span9">
+                                            <div class="guide-step">1</div>
                                             <div>
-                                                <b>Run the Magnet App Builder Tool</b>
-                                                <p>Use the tool to create mobile and server project files.</p>
+                                                <b>Use the Quick Start Wizard</b>
+                                                <p>
+                                                    Choose from a list of sample services, provide your own APIs, and receive a Magnet
+                                                    App Project Profile (.mapp) that can be used to generate your mobile app project files.
+                                                </p>
                                             </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn">Download App Builder Tool</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="guide-row">
-                                <img src="../images/getstarted/gtstrtd_act_wizard.png" />
+                                <img width="134" height="117" />
                                 <div class="guide-content">
                                     <div class="row-fluid">
-                                        <div class="span7">
+                                        <div class="span9">
+                                            <div class="guide-step">2</div>
                                             <div>
-                                                <b>Use Quickstart Wizard</b>
-                                                <p>Choose from a list of sample services and provide your own APIs.</p>
+                                                <b>Install and Run the Magnet App Builder Tool</b>
+                                                <p>Using your Magnet App Project Profile (.mapp), the Magnet App Builder Tool creates the mobile
+                                                and server project files to be used for development.</p>
                                             </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn" href="/dev/#/project-wizard">Quickstart Wizard</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="guide-row odd">
-                                <img src="../images/getstarted/gtstrtd_act_develop.png" />
+                                <img width="134" height="117" />
                                 <div class="guide-content">
                                     <div class="row-fluid">
-                                        <div class="span7">
+                                        <div class="span9">
+                                            <div class="guide-step">3</div>
                                             <div>
-                                                <b>How to Develop</b>
-                                                <p>Create a project, inmport Magnet App Project Profile, and iterate.</p>
+                                                <b>Build your Magnet Mobile App Server Runtime</b>
+                                                <p>Using the project files created by the Magnet App Builder Tool, develop your Magnet Mobile App
+                                                Server Runtime.</p>
                                             </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn">Go to Documentation</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="guide-row">
-                                <img src="../images/getstarted/gtstrtd_act_genassets.png" />
+                            <div class="guide-row ">
+                                <img width="134" height="117" />
                                 <div class="guide-content">
                                     <div class="row-fluid">
-                                        <div class="span7">
+                                        <div class="span9">
+                                            <div class="guide-step">4</div>
                                             <div>
-                                                <b>Generate Assets</b>
-                                                <p>Generate assets needed for mobile and server development.</p>
+                                                <b>Run your Magnet Mobile App Server Runtime</b>
+                                                <p>Deploy your Magnet Mobile App Server Runtime to your local environment or to the cloud.</p>
                                             </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn">Go to Documentation</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="guide-row odd">
-                                <img src="../images/getstarted/gtstrtd_act_buildsrvr.png" />
+                                <img width="134" height="117" />
                                 <div class="guide-content">
                                     <div class="row-fluid">
-                                        <div class="span7">
+                                        <div class="span9">
+                                            <div class="guide-step">5</div>
                                             <div>
-                                                <b>Build and Run Server</b>
-                                                <p>Build and run server.</p>
+                                                <b>Extend your Magnet Mobile App Server Runtime</b>
+                                                <p>Check the existing controllers and learn how to add your own custom controllers.</p>
                                             </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn">Go to Documentation</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="guide-row">
-                                <img src="../images/getstarted/gtstrtd_mbprj_doc.png" />
-                                <div class="guide-content">
-                                    <div class="row-fluid">
-                                        <div class="span7">
-                                            <div>
-                                                <b>View Documentation</b>
-                                                <p>Some text about documentation.</p>
-                                            </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn">Go to Documentation</a>
                                         </div>
                                     </div>
                                 </div>
@@ -548,19 +450,21 @@
                     </div>
                     <div class="tab-pane" id="gs-android">
                         <h4>Android Developer</h4>
+                        <p>The topics below will help the Android Developer get started.</p>
                         <div class="guide-container">
                             <div class="guide-row odd">
-                                <img src="../images/getstarted/gtstrtd_act_crtprjassets.png" />
+                                <img width="134" height="117" />
                                 <div class="guide-content">
                                     <div class="row-fluid">
-                                        <div class="span7">
+                                        <div class="span9">
+                                            <div class="guide-step">1</div>
                                             <div>
-                                                <b>Start Eclipse Project</b>
-                                                <p>Get started with a project template for your mobile app.</p>
+                                                <b>Start Android Project</b>
+                                                <p>
+                                                    <b>Option 1</b> Download the <a href="#">Jumpstart App</a><br />
+                                                    <b>Option 2</b> Start your own app project and include the Magnet Mobile Server Library.
+                                                </p>
                                             </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn">Get Android Project</a>
                                         </div>
                                     </div>
                                 </div>
@@ -569,78 +473,26 @@
                                 <img width="134" height="117" />
                                 <div class="guide-content">
                                     <div class="row-fluid">
-                                        <div class="span7">
+                                        <div class="span9">
+                                            <div class="guide-step">2</div>
                                             <div>
-                                                <b>Service Registry Tool</b>
-                                                <p>Service registry tool text.</p>
+                                                <b>Include Mobile Project Library</b>
+                                                <p>Include your Mobile Project Library into your app project using Command Line.</p>
                                             </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn" href="/dev/#/project-wizard">Download Registry Tool</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="guide-row odd">
-                                <img src="../images/getstarted/gtstrtd_act_wizard.png" />
-                                <div class="guide-content">
-                                    <div class="row-fluid">
-                                        <div class="span7">
-                                            <div>
-                                                <b>Use Quickstart Wizard</b>
-                                                <p>Choose from a list of sample services and provide your own APIs.</p>
-                                            </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn" href="/dev/#/project-wizard">Quickstart Wizard</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="guide-row">
                                 <img width="134" height="117" />
                                 <div class="guide-content">
                                     <div class="row-fluid">
-                                        <div class="span7">
-                                            <div>
-                                                <b>How to Import Project Assets</b>
-                                                <p>Import project assets for use in your app.</p>
-                                            </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn">Go to Documentation</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="guide-row odd">
-                                <img src="../images/getstarted/gtstrtd_act_crtprjassets.png" />
-                                <div class="guide-content">
-                                    <div class="row-fluid">
-                                        <div class="span7">
-                                            <div>
-                                                <b>How to Create Project Assets</b>
-                                                <p>Create project assets for your app.</p>
-                                            </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn">Go to Documentation</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="guide-row">
-                                <img src="../images/getstarted/gtstrtd_act_getProj.png" />
-                                <div class="guide-content">
-                                    <div class="row-fluid">
-                                        <div class="span7">
+                                        <div class="span9">
+                                            <div class="guide-step">3</div>
                                             <div>
                                                 <b>Build Your App</b>
-                                                <p>Use the project files to develop your mobile app.</p>
+                                                <p>Check the Jumpstart app and learn how to call an existing controller or add your own controllers.</p>
                                             </div>
-                                        </div>
-                                        <div class="span5">
-                                            <a class="btn">Go to Documentation</a>
                                         </div>
                                     </div>
                                 </div>
@@ -743,7 +595,7 @@
     </div>
     <div id="core-dbconfig" class="accordion-body collapse" style="height:0">
         <div class="accordion-inner">
-            <p><b style="font-style:italic">Note: The fields below are optional. If you leave the fields blank, they will be populated with defaults settings automatically.</b></p>
+            <p><b style="color:#888;font-style:italic">Note: The fields below are optional. If you leave the fields blank, they will be populated with defaults settings automatically.</b></p>
             <strong>MySQL Configuration</strong>
             <div class="well">
                 <div class="controls controls-row">

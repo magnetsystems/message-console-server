@@ -4,7 +4,6 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
         initialize: function(){
             var me = this;
             me.options.eventPubSub.bind('initProjectWizard', function(params){
-                $('#grayed-out-wizard').height($('#project-wizard .page-view').height());
                 $('#project-details-container input').val('');
                 $('#project-details-container input[name="name"]').focus();
                 me.fallbackImg = $('#wizard-diagram-canvas img');
@@ -13,7 +12,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
                 me.stepTitlePart2 = $('#wizard-step-title .second');
                 // fetch project entity and start wizard
                 if(!params.id){
-                    me.reset(1);
+                    me.reset(0);
                     me.project = new ProjectModel();
                 }else{
                     me.project = new ProjectModel({
@@ -33,7 +32,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
             });
             // a collection of steps and associated views to be initiated
             me.steps = [
-                {action : 'intro', view : 'PWIntroView', title : ['1', 'Configure Your App']},
+                {action : 'intro', view : 'PWIntroView', title : ['0', 'Configure Your App']},
                 {action : 'core', view : 'PWCoreView', title : ['1', 'Configure Your App']},
                 {action : 'samples', view : 'PWSamplesView', title : ['2', 'Choose Sample APIs']},
                 {action : 'enterprise', view : 'PWEnterpriseView', title : ['3', 'Add Outside APIs']},
@@ -300,12 +299,12 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
                     description : obj.config.description
                 }, {
                     success: function(){
-                        $('#grayed-out-wizard, #save-project-details-btn').remove();
-                        me.options.eventPubSub.trigger('initPWCoreView', {
-                            project : me.project
-                        });
-                        $('#project-details-container input').attr('disabled', 'disabled').addClass('disabled');
+                        $('#save-project-details-btn').remove();
+                        $('#wizard-image-bgk, #wizard-diagram-canvas').show();
+                        $('#wizard-intro-left').hide('fast');
                         $('.popover').addClass('hidden');
+                        $('#project-details-container input').attr('disabled', 'disabled').addClass('disabled');
+                        me.startNext('intro');
                     },
                     error: function(){
                         Alerts.Error.display({
