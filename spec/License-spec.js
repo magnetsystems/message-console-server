@@ -1,0 +1,93 @@
+/**
+ * Created with JetBrains WebStorm.
+ * User: pshah
+ * Date: 10/2/13
+ * Time: 9:16 PM
+ * To change this template use File | Settings | File Templates.
+ */
+
+var License = require("../lib/License")
+, ENV_CONFIG = require('../lib/config/env_config')
+
+jasmine.getEnv().defaultTimeoutInterval = 30000;
+
+// Helper function
+function reverse(s) {
+    return s.split('').reverse().join('');
+}
+
+describe("sign", function() {
+    var privateKey;
+    var data = 'b00184d0-2adf-11e3-bdae-e739654ae233';
+
+    beforeEach(function() {
+        privateKey = ENV_CONFIG.License.PrivateKey;
+    });
+
+
+    it("should return null if the private key is missing", function(done) {
+        ENV_CONFIG.License.PrivateKey = './keydoesnotexist.pem';
+        License.sign(data, function(signature) {
+            expect(signature).toBeNull();
+            ENV_CONFIG.License.PrivateKey = privateKey;
+            done();
+        });
+    });
+
+    it("should return a valid signature given valid data", function(done) {
+        License.sign(data, function(signature) {
+            expect(signature).not.toBeNull();
+            done();
+        });
+    });
+});
+
+describe("verify", function() {
+
+    var data = 'b00184d0-2adf-11e3-bdae-e739654ae233';
+    var signature;
+    var privateKey;
+    beforeEach(function(done) {
+
+        License.sign(data, function(s) {
+            signature = s;
+            privateKey = ENV_CONFIG.License.PrivateKey;
+            done();
+        });
+    });
+
+    it("should return null if the private key is missing", function(done) {
+        ENV_CONFIG.License.PrivateKey = './keydoesnotexist.pem';
+        License.verify(data, signature, function(isVerified) {
+            expect(isVerified).toBeNull();
+            ENV_CONFIG.License.PrivateKey = privateKey;
+            done();
+        });
+    });
+
+    it("should return false for invalid data & valid signature", function(done) {
+        License.verify(reverse(data), signature, function(isVerified) {
+            expect(isVerified).toBeFalsy();
+            done();
+        });
+    });
+
+    it("should return false for valid data & invalid signature", function(done) {
+        License.verify(data, reverse(signature), function(isVerified) {
+            expect(isVerified).toBeFalsy();
+            done();
+        });
+    });
+
+    it("should return true for valid data & valid signature", function(done) {
+        License.verify(data, signature, function(isVerified) {
+            console.log("=======================");
+            console.log("Put this in MagnetCustomer-license.cproperties for manual testing ...\n");
+            console.log("key=" + data);
+            console.log("signedKey=" + signature);
+            console.log("=======================");
+            expect(isVerified).toBeTruthy();
+            done();
+        });
+    });
+});
