@@ -234,14 +234,14 @@ module.exports = function(app){
                         res.json({
                             email: user.email,
                             license: {
-                                key: user.magnetId,
-                                signedKey: user.signedLicenseKey,
+                                customerId: user.magnetId,
+                                licenseKey: user.signedLicenseKey
                             },
                             aws: {
-                                bucketName: ENV_CONFIG.Cloud.AWS.BucketName,
+                                auditBucket: ENV_CONFIG.Cloud.AWS.BucketName,
                                 folderName: aws.bucketName,
-                                accessKeyId: aws.accessKeyId,
-                                secretAccessKey: aws.secretAccessKey
+                                accessKey: aws.accessKeyId,
+                                secretKey: aws.secretAccessKey
                             }
                         });
                     } else {
