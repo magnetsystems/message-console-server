@@ -233,8 +233,10 @@ module.exports = function(app){
                         var aws = cloudAccounts[0];
                         res.json({
                             email: user.email,
-                            key: user.magnetId,
-                            signedKey: user.signedLicenseKey,
+                            license: {
+                                key: user.magnetId,
+                                signedKey: user.signedLicenseKey,
+                            },
                             aws: {
                                 bucketName: ENV_CONFIG.Cloud.AWS.BucketName,
                                 folderName: aws.bucketName,
