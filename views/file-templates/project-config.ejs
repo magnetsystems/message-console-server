@@ -1,7 +1,7 @@
-GROUP_ID="com.magnetapi.apps.{{-settings.groupId}}"
-ARTIFACT_ID="{{-settings.artifactId}}"
-VERSION="{{-settings.version}}"
-PACKAGE="com.magnetapi.apps.{{-settings.groupId}}"
+GROUP_ID="com.magnetapi.apps.{{=settings.groupId}}"
+ARTIFACT_ID="{{=settings.artifactId}}"
+VERSION="{{=settings.version}}"
+PACKAGE="com.magnetapi.apps.{{=settings.groupId}}"
 RESOURCES_DIR=""
 MAGNET_VERSION="2.1.0-SNAPSHOT"
 CONNECT_VERSION="0.8.0-SNAPSHOT"
@@ -10,71 +10,71 @@ project.artifactId=ARTIFACT_ID
 project.version=VERSION
 project._package=PACKAGE
 project.type="logic"
-project.appVersion="{{-settings.version}}"
+project.appVersion="{{=settings.version}}"
 client.enabled=true
-client.enableDataEncryption={{-settings.encryptionEnabled}}
-project.sampleEntityEnabled={{-settings.sampleEntityEnabled}}
-project.useGeoLocation={{-settings.useGeoLocation}}{{ if(settings.salesforceEnabled){ }}
+client.enableDataEncryption={{=settings.encryptionEnabled}}
+project.sampleEntityEnabled={{=settings.sampleEntityEnabled}}
+project.useGeoLocation={{=settings.useGeoLocation}}{{ if(settings.salesforceEnabled){ }}
 include(SalesforceControllerDefaults)
-project.salesforceEnabled={{-settings.salesforceEnabled}}
-server.config.SFDCOAuthConfig.clientSecret="{{-settings.sfdcClientSecret}}"
-server.config.SFDCOAuthConfig.clientId="{{-settings.sfdcClientId}}"
+project.salesforceEnabled={{=settings.salesforceEnabled}}
+server.config.SFDCOAuthConfig.clientSecret="{{=settings.sfdcClientSecret}}"
+server.config.SFDCOAuthConfig.clientId="{{=settings.sfdcClientId}}"
 server.config.SFDCOAuthConfig.redirectUri=""
-server.config.SforceSoapPort.endpointAddress="{{-settings.sfdcClientEndpointAddress}}"
+server.config.SforceSoapPort.endpointAddress="{{=settings.sfdcClientEndpointAddress}}"
 server.config.SforceSoapPort.__name="SoapPort-sforce.cproperties"{{ } }}{{ if(settings.facebookEnabled){ }}
 include(FacebookControllerDefaults)
-project.facebookEnabled={{-settings.facebookEnabled}}
-server.config.FBOAuthConfig.clientId="{{-settings.fbClientId}}"
-server.config.FBOAuthConfig.clientSecret="{{-settings.fbClientSecret}}"
+project.facebookEnabled={{=settings.facebookEnabled}}
+server.config.FBOAuthConfig.clientId="{{=settings.fbClientId}}"
+server.config.FBOAuthConfig.clientSecret="{{=settings.fbClientSecret}}"
 server.config.FBOAuthConfig.redirectUri=""{{ } }}{{ if(settings.linkedinEnabled){ }}
 include(LinkedInControllerDefaults)
-project.linkedinEnabled={{-settings.linkedinEnabled}}
-server.config.LNKDINOAuthConfig.clientSecret="{{-settings.liClientSecret}}"
-server.config.LNKDINOAuthConfig.clientId="{{-settings.liClientId}}"
+project.linkedinEnabled={{=settings.linkedinEnabled}}
+server.config.LNKDINOAuthConfig.clientSecret="{{=settings.liClientSecret}}"
+server.config.LNKDINOAuthConfig.clientId="{{=settings.liClientId}}"
 server.config.LNKDINOAuthConfig.redirectUri=""{{ } }}{{ if(settings.helloWorldControllerEnabled){ }}
 include(HelloWorldControllerDefaults)
-project.helloWorldControllerEnabled={{-settings.helloWorldControllerEnabled}}
+project.helloWorldControllerEnabled={{=settings.helloWorldControllerEnabled}}
 controllers.helloworld.groupId=GROUP_ID
 controllers.helloworld.version=VERSION{{ } }}{{ if(1 == 2 && settings.helloWorldControllerDBEnabled){ }}
 include(HelloWorldControllerDBDefaults)
-project.helloWorldControllerDBEnabled={{-settings.helloWorldControllerDBEnabled}}
+project.helloWorldControllerDBEnabled={{=settings.helloWorldControllerDBEnabled}}
 controllers.helloworlddb.groupId=GROUP_ID
 controllers.helloworlddb.version=VERSION{{ } }}{{ if(settings.gcmEnabled){ }}
-project.gcmEnabled={{-settings.gcmEnabled}}
-server.config.GcmAccount.apiKey="{{-settings.gcmApiKey}}"
-client.gcmSenderId="{{-settings.gcmSenderId}}"
-server.config.GcmAccount.enabled={{-settings.gcmEnabled}}{{ } }}{{ if(settings.apnsEnabled){ }}
-project.apnsEnabled={{-settings.apnsEnabled}}
-server.config.ApnsAccount.enabled={{-settings.apnsEnabled}}
-server.config.ApnsAccount.password="{{-settings.apnsPassword}}"
-server.config.ApnsAccount.host="{{-settings.apnsHost}}"{{ if(settings.apnsCertName){ }}
-server.config.ApnsAccount.certFile="{{-settings.apnsCertName}}"
-server.config.__fileMap=["{{-settings.apnsCertName}}" : "{{-settings.apnsCertName}}"]{{ } }}
-server.config.SmtpAccount.Host="{{-settings.apnsHost}}"{{ } }}{{ if(settings.emailEnabled){ }}
-project.emailEnabled={{-settings.emailEnabled}}
-server.config.SmtpAccount.Port={{-settings.smtpPort}}
-server.config.SmtpAccount.Username="{{-settings.smtpUsername}}"
-server.config.SmtpAccount.Password="{{-settings.smtpPassword}}"
-server.config.SmtpAccount.SenderName="{{-settings.smtpSenderName}}"
-server.config.SmtpAccount.SenderEmail="{{-settings.smtpSenderEmail}}"{{ } }}
-project.userAuth="{{-settings.userAuth}}"{{ if(settings.jdbcAppEnabled){ }}
-project.jdbcAppDBName="{{-settings.jdbcAppDBName}}"
-project.jdbcAppUsername="{{-settings.jdbcAppUsername}}"
-project.jdbcAppPassword="{{-settings.jdbcAppPassword}}"{{ } }}
+project.gcmEnabled={{=settings.gcmEnabled}}
+server.config.GcmAccount.apiKey="{{=settings.gcmApiKey}}"
+client.gcmSenderId="{{=settings.gcmSenderId}}"
+server.config.GcmAccount.enabled={{=settings.gcmEnabled}}{{ } }}{{ if(settings.apnsEnabled){ }}
+project.apnsEnabled={{=settings.apnsEnabled}}
+server.config.ApnsAccount.enabled={{=settings.apnsEnabled}}
+server.config.ApnsAccount.password="{{=settings.apnsPassword}}"
+server.config.ApnsAccount.host="{{=settings.apnsHost}}"{{ if(settings.apnsCertName){ }}
+server.config.ApnsAccount.certFile="{{=settings.apnsCertName}}"
+server.config.__fileMap=["{{=settings.apnsCertName}}" : "{{=settings.apnsCertName}}"]{{ } }}
+server.config.SmtpAccount.Host="{{=settings.apnsHost}}"{{ } }}{{ if(settings.emailEnabled){ }}
+project.emailEnabled={{=settings.emailEnabled}}
+server.config.SmtpAccount.Port={{=settings.smtpPort}}
+server.config.SmtpAccount.Username="{{=settings.smtpUsername}}"
+server.config.SmtpAccount.Password="{{=settings.smtpPassword}}"
+server.config.SmtpAccount.SenderName="{{=settings.smtpSenderName}}"
+server.config.SmtpAccount.SenderEmail="{{=settings.smtpSenderEmail}}"{{ } }}
+project.userAuth="{{=settings.userAuth}}"{{ if(settings.jdbcAppEnabled){ }}
+project.jdbcAppDBName="{{=settings.jdbcAppDBName}}"
+project.jdbcAppUsername="{{=settings.jdbcAppUsername}}"
+project.jdbcAppPassword="{{=settings.jdbcAppPassword}}"{{ } }}
 project.jdbcSystemDBName="sysDBName"
-project.jdbcSystemUsername="{{-settings.jdbcSystemUsername}}"
-project.jdbcSystemPassword="{{-settings.jdbcSystemPassword}}"
-project.jdbcHost="{{-settings.jdbcHost}}"
-project.jdbcPort="{{-settings.jdbcPort}}"
-project.jdbcAppEnabled={{-settings.jdbcAppEnabled}}
+project.jdbcSystemUsername="{{=settings.jdbcSystemUsername}}"
+project.jdbcSystemPassword="{{=settings.jdbcSystemPassword}}"
+project.jdbcHost="{{=settings.jdbcHost}}"
+project.jdbcPort="{{=settings.jdbcPort}}"
+project.jdbcAppEnabled={{=settings.jdbcAppEnabled}}
 project.auditBucket="magnet-awstest-bucket"
 project.customerId="user:jdbc:83f54c3a-847c-4cd7-93a5-7651c10b0ec2"
 project.licenseKey="MCwCFFGGNH0M7XEtK81MyBp0LszqqIUXAhRCSmDVQkp_zO604Oc0vT2UCvxbiA"
 project.accessKey="AKIAICYN7HPZMQTMLMTA"
 project.secretKey="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"{{ for(var i=0;i<wsdls.length;++i){ }}
-controllers.{{= wsdls[i].serviceName }}.groupId="com.magnetapi.apps.{{-settings.groupId}}"
-controllers.{{= wsdls[i].serviceName }}.version="{{-settings.version}}"
-controllers.{{= wsdls[i].serviceName }}._package="com.magnetapi.apps.{{-settings.groupId}}.{{= wsdls[i].serviceName }}"
+controllers.{{= wsdls[i].serviceName }}.groupId="com.magnetapi.apps.{{=settings.groupId}}"
+controllers.{{= wsdls[i].serviceName }}.version="{{=settings.version}}"
+controllers.{{= wsdls[i].serviceName }}._package="com.magnetapi.apps.{{=settings.groupId}}.{{= wsdls[i].serviceName }}"
 controllers.{{= wsdls[i].serviceName }}.type="{{= wsdls[i].bindStyle }}"
 controllers.{{= wsdls[i].serviceName }}.artifactId="{{= wsdls[i].serviceName }}"
 controllers.{{= wsdls[i].serviceName }}.wsdl="{{= wsdls[i].url }}"

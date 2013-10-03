@@ -1,7 +1,7 @@
+ENV_CONFIG = require('../lib/config/config_'+process.env.NODE_ENV);
 var Cloud = require("../lib/Cloud");
 var AWS = require('aws-sdk');
 var CloudHelper = require('./CloudHelper');
-var ENV_CONFIG = require('../lib/config/env_config');
 
 AWS.config.update(ENV_CONFIG.AWS);
 

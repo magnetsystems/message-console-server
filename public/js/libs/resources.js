@@ -584,7 +584,7 @@ SessionManager.prototype.confirm = function(time){
         $('.modal').modal('hide');
         me.cookies.remove('session_timestamp');
         me.cookies.remove('magnet_auth');
-        document.cookie = 'jsessionid=;domain=.'+window.location.hostname+';path=/';
+        document.cookie = 'connect.sid=;domain=.'+window.location.hostname+';path=/';
         window.location.replace('/login/');
     }else{
         Alerts.Confirm.display({

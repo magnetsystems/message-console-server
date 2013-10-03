@@ -1,5 +1,4 @@
-var CountryList = require('../lib/config/CountryList')
-, AccountManager = require('../lib/AccountManager')
+var AccountManager = require('../lib/AccountManager')
 , UserManager = require('../lib/UserManager')
 , ProjectManager = require('../lib/ProjectManager')
 , Queries = require('../lib/Queries')
@@ -41,32 +40,6 @@ module.exports = function(app){
         }
     });
 
-    /* REGISTRATION */
-
-    // register a new user
-    app.post('/rest/startRegistrationOld', function(req, res){
-        UserManager.create({
-//            authority      : req.param('authority'),
-            userName       : req.param('email'),
-            email          : req.param('email'),
-//            phoneNumber    : req.param('phoneNumber'),
-            firstName      : req.param('firstName'),
-            lastName       : req.param('lastName'),
-//            companyName    : req.param('companyName'),
-//            title          : req.param('title'),
-            password       : req.param('password')
-//            invitor        : req.param('invitor'),
-//            allowMarketing : req.param('marketing'),
-//            inviteMessage  : req.param('inviteMessage')
-        }, function(e){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send('ok', 201);
-            }
-        });
-    });
-
     /* catch database models */
     var dbModels = ['users', 'projects'];
     app.get('/rest/:model', function(req, res, next){
@@ -103,9 +76,9 @@ module.exports = function(app){
 
     app.put('/rest/profile', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         UserManager.update(req.session.user, {
-            firstName   : req.body.firstName,
-            lastName    : req.body.lastName,
-            companyName : req.body.companyName,
+            firstName   : stripChars(req.body.firstName),
+            lastName    : stripChars(req.body.lastName),
+            companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName,
             oldpass     : req.body.oldpassword,
             newpass     : req.body.newpassword
         }, function(e, user){
@@ -248,66 +221,6 @@ module.exports = function(app){
         });
     });
 
-    /* PASSWORD RESET */
-
-    // send password reset email
-    app.post('/lost-password', function(req, res){
-        // look up the user account via email
-        UserManager.getByEmail(req.param('email'), function(e, user){
-            if(user){
-                res.send('ok', 200);
-                // build email body and send out email
-                EmailService.sendPasswordResetEmail(user, host, function(e, msg){
-                    if(msg){
-                        res.send('ok', 200);
-                    }else{
-                        res.send(e, 400);
-                    }
-                });
-            }else{
-                res.send(e, 403);
-            }
-        });
-    });
-
-    // verify reset password API credentials
-    app.get('/reset-password', function(req, res){
-        // search for a user by email and password
-        UserManager.getBy({
-            email    : req.query['e'],
-            password : req.query['p']
-        }, function(e, user){
-            if(user){
-                // store email and hashed password to session variable
-                req.session.reset = {
-                    email    : user.email,
-                    password : user.password
-                };
-                res.render('reset-password', {
-                    title : 'Reset Password',
-                    layout : 'layouts/site'
-                });
-            }else{
-                res.redirect('/');
-            }
-        })
-    });
-
-    // reset password
-    app.post('/reset-password', function(req, res){
-        // retrieve the user's email from the session
-        var email = req.session.reset.email;
-        // destroy session
-        req.session.destroy();
-        UserManager.setPassword(email, req.param('pass'), function(e, user){
-            if(user){
-                res.send('ok', 200);
-            }else{
-                res.send(e, 403);
-            }
-        })
-    });
-
     app.post('/rest/getCredentials', function(req, res){
         AccountManager.manualLogin(req.param('email'), req.param('password'), function(e, user){
             // if login returns a user object, store to session
@@ -347,10 +260,10 @@ module.exports = function(app){
      */
     app.post('/rest/startRegistration', function(req, res) {
         UserManager.registerGuest({
-            firstName : req.body.firstName,
-            lastName : req.body.lastName,
+            firstName : stripChars(req.body.firstName),
+            lastName : stripChars(req.body.lastName),
             email : req.body.email,
-            companyName : req.body.companyName
+            companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName
         }, false, function(registrationStatus) {
             if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL) {
                 res.send(registrationStatus, 201);
@@ -376,11 +289,11 @@ module.exports = function(app){
         UserManager.becomeDeveloper({
             magnetId : req.param('magnetId'),
             password : req.body.password,
-            firstName : req.body.firstName,
-            lastName : req.body.lastName,
-            roleWithinCompany : req.body.roleWithinCompany,
-            country : req.body.country,
-            companyName : req.body.companyName
+            firstName : stripChars(req.body.firstName),
+            lastName : stripChars(req.body.lastName),
+            roleWithinCompany : sanitize(req.body.roleWithinCompany).xss(),
+            country : sanitize(req.body.country).xss(),
+            companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName
         }, function(approvalStatus) {
             if(approvalStatus == UserManager.BecomeDeveloperStatusEnum.SUCCESSFUL) {
                 res.send(approvalStatus, 200);
@@ -423,10 +336,10 @@ module.exports = function(app){
         req.body.companyName = req.body.companyName || null;
 
         UserManager.registerGuest({
-            firstName : req.body.firstName,
-            lastName : req.body.lastName,
+            firstName : stripChars(req.body.firstName),
+            lastName : stripChars(req.body.lastName),
             email : req.body.email,
-            companyName : req.body.companyName,
+            companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName,
             inviterId: req.session.user.id,
             invitedEmail: req.body.email
         }, isInvitedByAdmin, function(registrationStatus, user) {
@@ -459,10 +372,10 @@ module.exports = function(app){
         req.body.companyName = req.body.companyName || null;
 
         UserManager.inviteUser({
-            firstName : req.body.firstName,
-            lastName : req.body.lastName,
+            firstName : stripChars(req.body.firstName),
+            lastName : stripChars(req.body.lastName),
             email : req.body.email,
-            companyName : req.body.companyName,
+            companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName,
             inviterId: req.session.user.id
         }, req.session.user.firstName, req.session.user.lastName, req.body.inviteMessage, function(registrationStatus) {
             if(registrationStatus == UserManager.InviteUserStatusEnum.INVITATION_SUCCESSFUL) {
@@ -513,3 +426,7 @@ module.exports = function(app){
         });
     });
 };
+
+function stripChars(str){
+    return str ? str.replace(/[^A-Za-z-_@£€ßçÇáàâäæãåèéêëîïíìôöòóøõûüùúÿñÁÀÂÄÆÃÅÈÉÊËÎÏÍÌÔÖÒÓØÕÛÜÙÚŸÑðÐ]/g, '') : null;
+}
