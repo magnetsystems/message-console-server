@@ -108,15 +108,16 @@ h1{margin-top:40px}
 
 .home-custom-list{list-style-image:url('../images/home/bullet.png')}
 .home-custom-list li{;margin-bottom:15px}
-#home-panels{width:88%;margin:80px auto 0;background-image:url(../images/home/hm_bg.png);background-repeat:no-repeat;background-size:100%;max-width:800px;background-position:center;}
+#home-panels{width:93%;margin:80px auto 0;background-image:url(../images/home/hm_bg.png);background-repeat:no-repeat;background-size:100%;max-width:1100px;background-position:center top;}
 #home-panels .span4 .centered{margin-bottom:12px;margin-top:25px}
 #home-panels{padding-bottom:40px}
-.panel-margins{margin:-55px auto 0;min-height:516px;width:75%}
-.left .panel-margins{margin-left:15px}
-.right .panel-margins{margin-left:15px}
+.panel-margins{margin:-55px auto 0;min-height:516px;width:90%}
+.panel-margins.right-side{margin-left:56px}
+.panel-margins.left-side{margin-right:30px}
 .panel-margins img{width:55%;max-width:160px}
 .panel-margins .btn{margin-bottom:6px}
 .divider-bgk{background:url('../images/home/hm_divider.png') no-repeat right bottom}
+
 
 #dev-container .page-view{margin:0 auto 25px;width:85%}
 #dev-container p.subhead{margin:26px 0 25px}
@@ -349,8 +350,9 @@ iframe .WordSection1{width:506px}
 #gs-server-tab.active a{background:url(../images/getstarted/gtstrtd_nav_3_sel.png) no-repeat 0 0}
 #gs-android-tab.active a{background:url(../images/getstarted/gtstrtd_nav_4_sel.png) no-repeat 0 0}
 #get-started .tab-content{margin-left:200px;overflow:visible}
+.guide-divider img{margin-bottom:3px;margin-left:68px}
 .guide-row{position:relative;height:117px}
-.guide-row.odd{background:url(../images/gtstrtd_bg_grad.png) repeat-y 0 0}
+.guide-row.odd{background:url(../images/getstarted/wizstart_bg_grad.png) repeat-y 0 0;background-color:#eee}
 .guide-row img{position:absolute;top:0;left:0}
 .guide-content{padding-top:25px}
 .guide-content .row-fluid{margin-left:120px}
