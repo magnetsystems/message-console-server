@@ -291,8 +291,8 @@ module.exports = function(app){
         UserManager.becomeDeveloper({
             magnetId : req.param('magnetId'),
             password : req.body.password,
-            firstName : stripChars(req.body.firstName),
-            lastName : stripChars(req.body.lastName),
+            firstName : req.body.firstName ? stripChars(req.body.firstName) : req.body.firstName,
+            lastName : req.body.lastName ? stripChars(req.body.lastName) : req.body.lastName,
             roleWithinCompany : sanitize(req.body.roleWithinCompany).xss(),
             country : sanitize(req.body.country).xss(),
             companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName
@@ -338,8 +338,8 @@ module.exports = function(app){
         req.body.companyName = req.body.companyName || null;
 
         UserManager.registerGuest({
-            firstName : stripChars(req.body.firstName),
-            lastName : stripChars(req.body.lastName),
+            firstName : req.body.firstName ? stripChars(req.body.firstName) : req.body.firstName,
+            lastName : req.body.lastName ? stripChars(req.body.lastName) : req.body.lastName,
             email : req.body.email,
             companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName,
             inviterId: req.session.user.id,
@@ -374,8 +374,8 @@ module.exports = function(app){
         req.body.companyName = req.body.companyName || null;
 
         UserManager.inviteUser({
-            firstName : stripChars(req.body.firstName),
-            lastName : stripChars(req.body.lastName),
+            firstName : req.body.firstName ? stripChars(req.body.firstName) : req.body.firstName,
+            lastName : req.body.lastName ? stripChars(req.body.lastName) : req.body.lastName,
             email : req.body.email,
             companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName,
             inviterId: req.session.user.id

@@ -101,15 +101,17 @@
 <!-- views start -->
 <script id="AdminUserDetailsView" type="text/template">
             <h3>User: <%- model.profileName %></h3>
+            <div class="buttons">
                 <div class="buttons-section">
                     <button did="delete-user" type="button" class="btn">Delete User</button>
-<% if(model.userType == 'guest'){ %>
+                    <% if(model.userType == 'guest'){ %>
                     <button did="approve-user" type="button" class="btn btn-primary">Approve User</button>
-<% } %>
+                    <% } %>
                 </div>
                 <div class="loading buttons-section" style="display:none">
                     Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
                 </div>
+            </div>
             <hr />
             <div class="row-fluid">
                 <div class="span12">
