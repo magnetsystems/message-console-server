@@ -1,0 +1,419 @@
+K 25
+svn:wc:ra_dav:version-url
+V 165
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use
+END
+TypedStringProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 202
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedStringProjectionOperations.html
+END
+NestedPredicateConjunction.html
+K 25
+svn:wc:ra_dav:version-url
+V 197
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/NestedPredicateConjunction.html
+END
+TupleByteProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 200
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleByteProjectionOperations.html
+END
+CharacterOperationsNullable.html
+K 25
+svn:wc:ra_dav:version-url
+V 198
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/CharacterOperationsNullable.html
+END
+TypedDateProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 200
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedDateProjectionOperations.html
+END
+TupleDoubleProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 202
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleDoubleProjectionOperations.html
+END
+TargetOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 187
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TargetOperations.html
+END
+TupleBigDecimalProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 206
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleBigDecimalProjectionOperations.html
+END
+TypedAlias.html
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedAlias.html
+END
+Predicate.html
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/Predicate.html
+END
+CharacterOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/CharacterOperations.html
+END
+TypedIntegerProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 203
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedIntegerProjectionOperations.html
+END
+TypedLongProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 200
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedLongProjectionOperations.html
+END
+TupleCharacterProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 205
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleCharacterProjectionOperations.html
+END
+TypedByteProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 200
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedByteProjectionOperations.html
+END
+StringOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 187
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/StringOperations.html
+END
+TupleEnumProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 200
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleEnumProjectionOperations.html
+END
+QueryFinished.html
+K 25
+svn:wc:ra_dav:version-url
+V 184
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/QueryFinished.html
+END
+Projected.html
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/Projected.html
+END
+IntegerOperationsNullable.html
+K 25
+svn:wc:ra_dav:version-url
+V 196
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/IntegerOperationsNullable.html
+END
+TypedDoubleProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 202
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedDoubleProjectionOperations.html
+END
+TypedBigDecimalProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 206
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedBigDecimalProjectionOperations.html
+END
+TupleBooleanProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 203
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleBooleanProjectionOperations.html
+END
+NestedPredicateEnd.html
+K 25
+svn:wc:ra_dav:version-url
+V 189
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/NestedPredicateEnd.html
+END
+DoubleOperationsNullable.html
+K 25
+svn:wc:ra_dav:version-url
+V 195
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/DoubleOperationsNullable.html
+END
+IntegerOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 188
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/IntegerOperations.html
+END
+TypedCharacterProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 205
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedCharacterProjectionOperations.html
+END
+NestedPredicate.html
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/NestedPredicate.html
+END
+OrderByNext.html
+K 25
+svn:wc:ra_dav:version-url
+V 182
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/OrderByNext.html
+END
+Paging.html
+K 25
+svn:wc:ra_dav:version-url
+V 177
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/Paging.html
+END
+OrderBy.html
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/OrderBy.html
+END
+PredicateConjunction.html
+K 25
+svn:wc:ra_dav:version-url
+V 191
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/PredicateConjunction.html
+END
+TupleShortProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 201
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleShortProjectionOperations.html
+END
+TypedEnumProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 200
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedEnumProjectionOperations.html
+END
+DoubleOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 187
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/DoubleOperations.html
+END
+JoinPredicate.html
+K 25
+svn:wc:ra_dav:version-url
+V 184
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/JoinPredicate.html
+END
+TupleFloatProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 201
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleFloatProjectionOperations.html
+END
+QueryStart.html
+K 25
+svn:wc:ra_dav:version-url
+V 181
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/QueryStart.html
+END
+BigDecimalOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 191
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/BigDecimalOperations.html
+END
+TupleProjectionNext.html
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleProjectionNext.html
+END
+TupleProjection.html
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleProjection.html
+END
+TypedBooleanProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 203
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedBooleanProjectionOperations.html
+END
+NestedCollectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 197
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/NestedCollectionOperations.html
+END
+BooleanOperationsNullable.html
+K 25
+svn:wc:ra_dav:version-url
+V 196
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/BooleanOperationsNullable.html
+END
+TypedShortProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 201
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedShortProjectionOperations.html
+END
+EnumOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 185
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/EnumOperations.html
+END
+QueryBuilder.html
+K 25
+svn:wc:ra_dav:version-url
+V 183
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/QueryBuilder.html
+END
+TypedFloatProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 201
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedFloatProjectionOperations.html
+END
+NestedObjectOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 193
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/NestedObjectOperations.html
+END
+TypedProjectionNext.html
+K 25
+svn:wc:ra_dav:version-url
+V 190
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedProjectionNext.html
+END
+DateOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 185
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/DateOperations.html
+END
+TupleStringProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 202
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleStringProjectionOperations.html
+END
+TypedProjection.html
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TypedProjection.html
+END
+LongOperationsNullable.html
+K 25
+svn:wc:ra_dav:version-url
+V 193
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/LongOperationsNullable.html
+END
+ShortOperationsNullable.html
+K 25
+svn:wc:ra_dav:version-url
+V 194
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/ShortOperationsNullable.html
+END
+BooleanOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 188
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/BooleanOperations.html
+END
+ByteOperationsNullable.html
+K 25
+svn:wc:ra_dav:version-url
+V 193
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/ByteOperationsNullable.html
+END
+GroupByNext.html
+K 25
+svn:wc:ra_dav:version-url
+V 182
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/GroupByNext.html
+END
+GroupBy.html
+K 25
+svn:wc:ra_dav:version-url
+V 178
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/GroupBy.html
+END
+FloatOperationsNullable.html
+K 25
+svn:wc:ra_dav:version-url
+V 194
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/FloatOperationsNullable.html
+END
+TupleDateProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 200
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleDateProjectionOperations.html
+END
+JoinPredicateConjunction.html
+K 25
+svn:wc:ra_dav:version-url
+V 195
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/JoinPredicateConjunction.html
+END
+TupleProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 196
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleProjectionOperations.html
+END
+ShortOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/ShortOperations.html
+END
+LongOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 185
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/LongOperations.html
+END
+ByteOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 185
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/ByteOperations.html
+END
+TupleIntegerProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 203
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleIntegerProjectionOperations.html
+END
+FloatOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 186
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/FloatOperations.html
+END
+TupleLongProjectionOperations.html
+K 25
+svn:wc:ra_dav:version-url
+V 200
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/persistence/query/proxy/class-use/TupleLongProjectionOperations.html
+END

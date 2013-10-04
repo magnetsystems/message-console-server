@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/android_client/com/magnet/android/async/class-use
+END
+MobileConstraint.html
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/android_client/com/magnet/android/async/class-use/MobileConstraint.html
+END
+LocationReceiver.html
+K 25
+svn:wc:ra_dav:version-url
+V 176
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/android_client/com/magnet/android/async/class-use/LocationReceiver.html
+END
+GeoConstraint.html
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/android_client/com/magnet/android/async/class-use/GeoConstraint.html
+END
+NetworkStateReceiver.html
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/android_client/com/magnet/android/async/class-use/NetworkStateReceiver.html
+END
+WifiAndGeoConstraint.html
+K 25
+svn:wc:ra_dav:version-url
+V 180
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/android_client/com/magnet/android/async/class-use/WifiAndGeoConstraint.html
+END
+GeoStore.GeofenceEntry.html
+K 25
+svn:wc:ra_dav:version-url
+V 182
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/android_client/com/magnet/android/async/class-use/GeoStore.GeofenceEntry.html
+END
+WifiConstraint.html
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/android_client/com/magnet/android/async/class-use/WifiConstraint.html
+END
+GeoStore.html
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/android_client/com/magnet/android/async/class-use/GeoStore.html
+END
+MobileAndGeoConstraint.html
+K 25
+svn:wc:ra_dav:version-url
+V 182
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/android_client/com/magnet/android/async/class-use/MobileAndGeoConstraint.html
+END

@@ -1,0 +1,8 @@
+com.magnet.android.async
+com.magnet.async
+com.magnet.mobile.android
+com.magnet.mobileserver.android.client
+com.magnet.mobileserver.android.messenger
+com.magnet.mobileserver.android.utils.logger
+com.magnet.security.api.oauth
+javax.inject

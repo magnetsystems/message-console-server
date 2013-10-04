@@ -1,0 +1,1820 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 11.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="index.css" CHARSET="UTF-8" TYPE="text/css">
+<TITLE>2.0</TITLE><link href="/images/favicon.ico" rel="shortcut icon" type="image/x-icon">    <link href="/images/apple-touch-icon.png" rel="apple-touch-icon">    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">    <link href="/stylesheets/dev.css" rel="stylesheet">    <link href=                  "http://fonts.googleapis.com/css?family=Titillium+Web:200,300,400" rel=                  "stylesheet" type="text/css">    <script src="/js/libs/modernizr.js" type="text/javascript"></script></HEAD>
+<BODY>
+<DIV>
+</div><div id="site-header">    <div class="logo_container">        <a href="/"><img alt="Developer Factory" src="/images/heading.png">            <h4>Developer Factory</h4></a>    </div>    <ul class="title_container">        <li>            <a href="/dev/">Projects</a>        </li>        <li class="dropdown">            <a class="dropdown-toggle" href="/resources/">Resources</a>            <ul class="dropdown-menu">                <li id="menu-samples" role="presentation"><a role="menuitem" tabindex="-1" href="../resources/samples.html">Samples</a></li>                <li id="menu-mam" role="presentation"><a role="menuitem" tabindex="-1" href="../resources/mobile_app_manager.html">Mobile App Manager</a></li>            </ul>        </li>        <li class="active">            <a href="/docs/">Documentation</a>        </li>        <li>            <a href="/support/">Support</a>        </li>    </ul>    <div class="control-buttons hidden">        <a href="#" id="invite-others"><em class=                                                   "icon-plus icon-white"></em><em class=                                                                                           "icon-user icon-white"></em></a> <a href="#" id=            "user-panel-toggle"><em class=                                            "icon-chevron-down icon-white"></em><span id=                                                                                              "username-placeholder"></span></a>    </div></div><div id="user-panel" style="display:none">    <div class="col">        <span class="user-username"></span><br>        <span class="user-company"></span>    </div>    <div class="col2">        <a href="/dev/#/profile-editor">Edit Profile</a>    </div>    <div class="btns">        <a class="btn-logout btn btn-primary" href="#">Log Out</a>    </div></div><div class="title_container_mobile hidden">    <div class="row-fluid">        <div class="span12">            <div class="btn-group">                <a class="btn dropdown-toggle" data-toggle="dropdown" href=                        "#">Navigation Menu <span class="caret"></span></a>                <ul class="dropdown-menu">                    <li>                        <a href="/intro/" tabindex="-1">Introduction</a>                    </li>                    <li>                        <a href="/dev/" tabindex="-1">My Projects</a>                    </li>                    <li class="disabled">                        <a href="#" tabindex="-1">Documentation</a>                    </li>                    <li>                        <a href="/support/" tabindex="-1">Support</a>                    </li>                </ul>            </div>        </div>    </div></div><div class="page" id="dev-container"><div class="row-fluid"><div class="clearfix page-view doc-list"><div class="row-fluid" id="doc-container"><div class="span4" id="doc-toc"></div><div class="span8" id="doc-content"><div></DIV>
+<P CLASS="Body">
+<A NAME="50532369_pgfId-1060768"></A>&nbsp;</P>
+<P CLASS="BookTitle">
+<A NAME="50532367_pgfId-1000198"></A>Magnet<EM CLASS="TradeMark">
+&trade;</EM>
+ iOS <BR>
+Developer Guide </P>
+<DIV>
+<H1 CLASS="Version">
+<A NAME="50532367_pgfId-998617"></A>2.0</H1>
+<DIV>
+<H4 CLASS="Revision">
+<A NAME="50532367_pgfId-998610"></A>Revision A</H4>
+<P CLASS="Copyright">
+<A NAME="50532367_pgfId-998856"></A>© 2013 Magnet Systems, Inc. All rights reserved. This manual, in whole or in part, may not be reproduced, translated, or reduced to any machine-readable form without the prior written approval of Magnet Systems, Inc. Magnet Systems, Inc. reserves the right to make any modification to this manual or the information contained herein at any time without notice. </P>
+<P CLASS="Copyright">
+<A NAME="50532367_pgfId-999403"></A>MAGNET SYSTEMS PROVIDES NO WARRANTY WITH REGARD TO THIS MANUAL, THE SOFTWARE, OR OTHER INFORMATION CONTAINED HEREIN AND HEREBY EXPRESSLY DISCLAIMS ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE WITH REGARD TO THIS MANUAL, THE SOFTWARE, OR SUCH OTHER INFORMATION. IN NO EVENT SHALL MAGNET SYSTEMS, INC. BE LIABLE FOR ANY INCIDENTAL, CONSEQUENTIAL, OR SPECIAL DAMAGES, WHETHER BASED ON TORT, CONTRACT, OR OTHERWISE, ARISING OUT OF OR IN CONNECTION WITH THIS MANUAL, THE SOFTWARE, OR OTHER INFORMATION CONTAINED HEREIN OR THE USE THEREOF. </P>
+<P CLASS="Copyright">
+<A NAME="50532367_pgfId-999554"></A>All other trademarks are trademarks of their respective owners. Any Magnet Systems patents granted or pending in the United States and other countries are protected by law. </P>
+<DIV>
+<H6 CLASS="Magnet">
+<A NAME="50532367_pgfId-998948"></A>Magnet Systems, Inc.</H6>
+<P CLASS="Address">
+<A NAME="50532367_pgfId-999133"></A>435 Tasso Street</P>
+<P CLASS="Address">
+<A NAME="50532367_pgfId-999979"></A>Suite 100</P>
+<P CLASS="Body">
+<A NAME="50532367_pgfId-999134"></A>Palo Alto, CA</P>
+<P CLASS="Body">
+<A NAME="50532367_pgfId-999129"></A>94301</P>
+<DIV>
+<H6 CLASS="Phone">
+<A NAME="50532367_pgfId-999146"></A>650–329–5904</H6>
+</DIV>
+<DIV>
+<H6 CLASS="Email">
+<A NAME="50532367_pgfId-999161"></A>info@magnet.com</H6>
+<P CLASS="Anchor">
+<A NAME="50532392_pgfId-374425"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532392_pgfId-376481"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532392_pgfId-376483"></A>&nbsp;</P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="TOCTitle">
+<A NAME="50532392_pgfId-375172"></A>&nbsp;</H2>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50532392_pgfId-377143"></A><A HREF="index.html#50532373_pgfId-1009622" CLASS="Index">1.	About This Guide	1</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377145"></A><A HREF="index.html#50532373_pgfId-1040007" CLASS="Index">Audience 	1</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377147"></A><A HREF="index.html#50532373_pgfId-1040776" CLASS="Index">Document Organization 	1</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377149"></A><A HREF="index.html#50532373_pgfId-1040788" CLASS="Index">Related Documents 	2</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50532392_pgfId-377151"></A><A HREF="index.html#50532361_pgfId-1009622" CLASS="Index">2.	 Introducing Magnet Mobile App Server	3</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377153"></A><A HREF="index.html#50532361_pgfId-1030604" CLASS="Index">Magnet Mobile Enterprise Server 	4</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50532392_pgfId-377155"></A><A HREF="index.html#50532361_pgfId-1030609" CLASS="Index">Custom Controllers 	4</A></P>
+<P CLASS="Heading3TOC">
+<A NAME="50532392_pgfId-377157"></A><A HREF="index.html#50532361_pgfId-1030613" CLASS="Index">Caching and Off-line Messaging 	4</A></P>
+<P CLASS="Heading3TOC">
+<A NAME="50532392_pgfId-377159"></A><A HREF="index.html#50532361_pgfId-1030618" CLASS="Index">Persistence 	4</A></P>
+<P CLASS="Heading3TOC">
+<A NAME="50532392_pgfId-377161"></A><A HREF="index.html#50532361_pgfId-1031102" CLASS="Index">Transactions 	5</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50532392_pgfId-377163"></A><A HREF="index.html#50532361_pgfId-1031800" CLASS="Index">Service Integration 	5</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50532392_pgfId-377165"></A><A HREF="index.html#50532361_pgfId-1030626" CLASS="Index">Third-Party Service Controllers  	5</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377167"></A><A HREF="index.html#50532361_pgfId-1031175" CLASS="Index">Magnet Mobile App Manager 	6</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50532392_pgfId-377169"></A><A HREF="index.html#50532361_pgfId-1031178" CLASS="Index">Mobile App Management Console 	6</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50532392_pgfId-377171"></A><A HREF="index.html#50532361_pgfId-1031187" CLASS="Index">Mobile App Store 	6</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377173"></A><A HREF="index.html#50532361_pgfId-1036241" CLASS="Index">Deployment 	7</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377175"></A><A HREF="index.html#50532361_pgfId-1031196" CLASS="Index">Developer Factory 	7</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50532392_pgfId-377177"></A><A HREF="index.html#50532390_pgfId-1009940" CLASS="Index">3.	 Getting Started	9</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377179"></A><A HREF="index.html#50532390_pgfId-1016975" CLASS="Index">Set Up Your IDE Environment 	9</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377181"></A><EM CLASS="URL">
+<A HREF="index.html#50532390_pgfId-1013763" CLASS="Index">Set up Your Account in Developer Factory 	9</A></EM>
+</P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50532392_pgfId-377183"></A><A HREF="index.html#50532365_pgfId-1009622" CLASS="Index">4.	Managing Your Project with Developer Factory	11</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377185"></A><A HREF="index.html#50532365_pgfId-1054417" CLASS="Index">Creating a Project 	12</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377187"></A><A HREF="index.html#50532365_pgfId-1073845" CLASS="Index">Displaying the Generated Assets 	19</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377189"></A><A HREF="index.html#50532365_pgfId-1068068" CLASS="Index">Modifying a Project 	20</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377191"></A><A HREF="index.html#50532365_pgfId-1061583" CLASS="Index">Uploading a Project 	22</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377193"></A><A HREF="index.html#50532365_pgfId-1076299" CLASS="Index">Removing a Project 	23</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377195"></A><A HREF="index.html#50532365_pgfId-1065821" CLASS="Index">Inviting Other Developers 	25</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50532392_pgfId-377197"></A><A HREF="index.html#50532441_pgfId-1055399" CLASS="Index">5.	Defining Log In and Out Services	27</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377199"></A><A HREF="index.html#50532441_pgfId-1056201" CLASS="Index">loginWithCredentials 	28</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377201"></A><A HREF="index.html#50532441_pgfId-1052671" CLASS="Index">loginWithSavedCredentials 	29</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377203"></A><A HREF="index.html#50532441_pgfId-1052027" CLASS="Index">Logout 	29</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50532392_pgfId-377205"></A><A HREF="index.html#50532428_pgfId-1059893" CLASS="Index">6.	Defining Caching and Off-line Mode Services	31</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377207"></A><A HREF="index.html#50532428_pgfId-1064534" CLASS="Index">Declaring Options 	32</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50532392_pgfId-377209"></A><A HREF="index.html#50532428_pgfId-1064633" CLASS="Index">Creating MMReliableCallOptions 	32</A></P>
+<P CLASS="Heading3TOC">
+<A NAME="50532392_pgfId-377211"></A><A HREF="index.html#50532428_pgfId-1068543" CLASS="Index">Setting Cache Age 	33</A></P>
+<P CLASS="Heading3TOC">
+<A NAME="50532392_pgfId-377213"></A><A HREF="index.html#50532428_pgfId-1067102" CLASS="Index">Setting Request Timeout 	33</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50532392_pgfId-377215"></A><A HREF="index.html#50532428_pgfId-1064232" CLASS="Index">Creating MMAsyncCallOptions 	33</A></P>
+<P CLASS="Heading3TOC">
+<A NAME="50532392_pgfId-377217"></A><A HREF="index.html#50532428_pgfId-1067586" CLASS="Index">Setting Cache Age 	34</A></P>
+<P CLASS="Heading3TOC">
+<A NAME="50532392_pgfId-377219"></A><A HREF="index.html#50532428_pgfId-1064238" CLASS="Index">Setting Constraints 	34</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377221"></A><A HREF="index.html#50532428_pgfId-1056990" CLASS="Index">Making a Reliable Request 	35</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50532392_pgfId-377223"></A><A HREF="index.html#50532428_pgfId-1062887" CLASS="Index">Caching Results and Callback 	35</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50532392_pgfId-377225"></A><A HREF="index.html#50532428_pgfId-1062309" CLASS="Index">Caching Results but no Callback 	35</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50532392_pgfId-377227"></A><A HREF="index.html#50532428_pgfId-1061018" CLASS="Index">No Caching and No Callback 	35</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377229"></A><A HREF="index.html#50532428_pgfId-1056702" CLASS="Index">Making an Asynchronous Request 	36</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50532392_pgfId-377231"></A><A HREF="index.html#50532428_pgfId-1061164" CLASS="Index">Caching Results and Callback but no Reliability 	36</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50532392_pgfId-377233"></A><A HREF="index.html#50532428_pgfId-1064311" CLASS="Index">No Caching, Reliability, or Callback 	36</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50532392_pgfId-377235"></A><A HREF="index.html#50532428_pgfId-1064322" CLASS="Index">No Caching or Reliability but With Callback 	36</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377237"></A><A HREF="index.html#50532428_pgfId-1061329" CLASS="Index">Applying a Constraint to an Asynchronous Request 	37</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50532392_pgfId-377239"></A><A HREF="index.html#50532427_pgfId-1009622" CLASS="Index">7.	Using Third-Party Social Controllers	39</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377241"></A><A HREF="index.html#50532427_pgfId-1059649" CLASS="Index">Using a Salesforce Controller 	39</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377243"></A><A HREF="index.html#50532427_pgfId-1059665" CLASS="Index">Using a Facebook Controller 	40</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50532392_pgfId-377245"></A><A HREF="index.html#50532387_pgfId-1009622" CLASS="Index">8.	Invoking a Controller	41</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377247"></A><A HREF="index.html#50532387_pgfId-1056026" CLASS="Index">Sending a Message to a Controller 	41</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377249"></A><A HREF="index.html#50532387_pgfId-1054769" CLASS="Index">Using Node 	42</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50532392_pgfId-377251"></A><A HREF="index.html#50532387_pgfId-1054912" CLASS="Index">Using MMData 	43</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50532392_pgfId-377253"></A><A HREF="index.html#50532385_pgfId-1009622" CLASS="Index">9.	Assembling Your Project	45</A></H6>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50532392_pgfId-377255"></A><A HREF="index.html#50532366_pgfId-1009940" CLASS="Index">10.	 Showing TechCare Sample App	47</A></H6>
+<P CLASS="Anchor">
+<A NAME="50532373_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532373_pgfId-1012801"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532373_pgfId-1012803"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50532373_pgfId-1009622"></A>About This Guide </H6>
+<P CLASS="Body">
+<A NAME="50532373_pgfId-1040848"></A>The Magnet™ iOS Developer Guide provides information and code samples for building enterprise native iOS apps. It also provides instructions for uploading the generated project to a private cloud-based sandbox in the Developer Factory for testing. </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532373_pgfId-1040007"></A>Audience</H3>
+<P CLASS="Body">
+<A NAME="50532373_pgfId-1040837"></A>This guide is intended for developers who write iOS client-side apps that interact with the Magnet Enterprise Server applications. This document assumes that you are experienced in an iOS development environment, such as Xcode and Objective-C frameworks.</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532373_pgfId-1040776"></A>Document Organization</H3>
+<P CLASS="Body">
+<A NAME="50532373_pgfId-1040764"></A>This guide includes these chapters:</P>
+<P CLASS="Bullet">
+<A NAME="50532373_pgfId-1040963"></A>Introducing Magnet Mobile App Server, provides a high-level description of each component, its relationship, and interaction between the components. </P>
+<P CLASS="Bullet">
+<A NAME="50532373_pgfId-1040975"></A>Getting Started, provides information that you need to gather before writing your app. </P>
+<P CLASS="Bullet">
+<A NAME="50532373_pgfId-1041039"></A>Managing Your Project with Developer Factory, provides instructions for creating, modifying, and deleting your project by way of Developer Factory. </P>
+<P CLASS="Bullet">
+<A NAME="50532373_pgfId-1041041"></A>Defining Log In and Out Services, provides methods used in user log in and log out services. </P>
+<P CLASS="Bullet">
+<A NAME="50532373_pgfId-1041372"></A>Defining Caching and Off-line Mode Services, provides methods used for making reliable and asynchronous requests, and code samples for each request scenario. </P>
+<P CLASS="Bullet">
+<A NAME="50532373_pgfId-1041374"></A>Using Third-Party Social Controllers, provides sample code for using Saleforce and Facebook controllers. </P>
+<P CLASS="Bullet">
+<A NAME="50532373_pgfId-1041479"></A>Invoking a Controller, provides construct to send a message to a controller. It also provides code samples for MMData object and node.</P>
+<P CLASS="Bullet">
+<A NAME="50532373_pgfId-1041481"></A>Assembling Your Project, provides information for compiling your project. </P>
+<P CLASS="Bullet">
+<A NAME="50532373_pgfId-1041930"></A>Showing Sample Code, shows use cases and sample code used in the TechCare app.</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532373_pgfId-1040788"></A>Related Documents</H3>
+<P CLASS="Body">
+<A NAME="50532373_pgfId-1040789"></A>The following table lists and describes other documents that are related to the Magnet products. </P>
+<P CLASS="Anchor">
+<A NAME="50532373_pgfId-1040819"></A>&nbsp;</P>
+<TABLE BORDER="1">
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="50532373_pgfId-1040792"></A>Document Title</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="50532373_pgfId-1040794"></A>Description</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532373_pgfId-1040796"></A>Magnet™ Server Application Developer Guide </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532373_pgfId-1040798"></A>Intended for developers who write Java-based server-side application, this guide provides information and code samples for building Magnet Enterprise Server applications. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532373_pgfId-1040800"></A>Magnet™ Android Developer Guide </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532373_pgfId-1040802"></A>Intended for Android app developers, this guide provides information and code samples for building enterprise native Android apps. It also provides instructions to upload the completed Android app to your private sandbox for testing. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532373_pgfId-1040804"></A>Magnet™ Mobile App Server Deployment Guide</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532373_pgfId-1040806"></A>Intended for IT administrators, this guide provides information and instructions for deploying the Magnet Mobile App Server to the Amazon cloud. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532373_pgfId-1040808"></A>Magnet™ Mobile App Administrator Guide</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532373_pgfId-1040810"></A>Intended for IT administrators, this guide provides information and instructions for managing apps using the Magnet Mobile App Management Console. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532373_pgfId-1040812"></A>Magnet™ Mobile for Android User Guide</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532373_pgfId-1040814"></A>Intended for users of Android devices, this guide provides information and instructions for installing the Magnet Mobile Server and using Apps@Work. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532373_pgfId-1040816"></A>Magnet™ Mobile for iOS User Guide</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532373_pgfId-1040818"></A>Intended for users of iOS devices, this guide provides information and instructions for installing Setup@Work and using Apps@Work. </P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="50532373_pgfId-1040563"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532361_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532361_pgfId-1012801"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50532361_pgfId-1009622"></A> Introducing Magnet Mobile App Server      </H6>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1030593"></A>The Magnet™ Mobile App Server provides basic constructs for creating and manipulating app objects spanning the server and mobile app contexts. The Magnet Mobile App Server:</P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1030594"></A>Enables data flow between users’ devices and enterprise back-end systems, as well as monitoring usage of mobile apps. </P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1030595"></A>Supports performance, availability, scalability, and reporting. </P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1033243"></A>Ensures that security-sensitive data is encrypted locally on device storage.</P>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1030597"></A>The following diagram shows the Magnet Mobile App Server components and their relationships. </P>
+<P CLASS="Anchor">
+<A NAME="50532361_pgfId-1030601"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-1.gif" ALT="">
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532361_pgfId-1030604"></A><A NAME="50532361_65768"></A>Magnet Mobile Enterprise Server</H3>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1030605"></A>Magnet Mobile Enterprise Server (MES) is a server that contains all business logic components in a single deployable JAR file. Each encapsulation of business logic is herein referred to as a Controller. Instances of the Magnet Mobile Enterprise Server are deployed in the cloud, and may contain a blend of off-the-shelf (OTS) and custom controllers that you write for your app.</P>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50532361_pgfId-1030609"></A>Custom Controllers</H5>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1031341"></A>Should you want to create your own custom controllers, you can download the source code for a reference server controller implementation. You can then modify this reference controller implementation to add your own business logic, then upload the modified project for your custom controller back into the Developer Factory so that this custom controller can be included into a build of the MES instance along with other controllers defined in your project. Custom controllers leverage services such as caching and off-line mode and persistence. </P>
+<DIV>
+<H6 CLASS="Heading3">
+<A NAME="50532361_pgfId-1030613"></A><A NAME="50532361_55359"></A>Caching and Off-line Message Delivery </H6>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1030614"></A>To deal with unreliable connections between mobile devices and MES and to ensure reliable message delivery, Magnet Mobile App Server supports off-line operations that store and cache messages, and forwards information when the network connection is reestablished. </P>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1030615"></A>You can invoke these asynchronous services locally on the server or remotely from a mobile client. The invocations from the mobile client can occur asynchronously and reliably (reliability is an option). They are asynchronous in that the invocation is recorded for later playback to the server. They are reliable in that after an invocation has been submitted, it is guaranteed to be run once—and only once from the server perspective.</P>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1030616"></A>After entries are processed and results arrive back from the server, a listener that you optionally provide will be notified. Listeners are either transient or durable. A transient listener will be forgotten if the app JVM instance is cycled for any reason. Durable (non-transient) listeners will survive JVM restarts. </P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading3">
+<A NAME="50532361_pgfId-1030618"></A>Persistence</H6>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1030619"></A>Persistence is about the storage and retrieval of structured data. Magnet Mobile App Server provides support for entities and mapping entities to the data store. This creates, in effect, a “virtual entity data store” over any combination of MySQL, LDAP, and so forth, that can be used from within the programming interface Magnet provides. </P>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1030620"></A>Magnet Mobile App Server uses Java interfaces to define functions, methods, classes, and requests. Magnet Mobile App Server generates implementation from these classes built on annotations declared on interfaces, which allows for relationship, attributes, and so forth. Using user-friendly interfaces on entities, the Magnet Mobile App Server provides these features: </P>
+<P CLASS="BulletTight">
+<A NAME="50532361_pgfId-1030621"></A>Queries on entity with query composition</P>
+<P CLASS="BulletTight">
+<A NAME="50532361_pgfId-1030622"></A>CRUD (Create, Read, Update, Delete) operations on entities</P>
+<P CLASS="BulletTight">
+<A NAME="50532361_pgfId-1030623"></A>Complex queries such as paging and ordering </P>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1034205"></A>A developer can choose any technology (JDBC, Hibernate, etc.) to access a data store. However, implementing with Magnet persistence APIs is easier to use, and powerful over time. Every time an entity is used, unstructured data is collected. Over time, recommendations can be derived from that unstructured data. For example, when something is changed on an employee record, the implementation will track when that change is made and by whom. Of course, the recommendations will only be provided if you choose to incorporate those modules into your app. The entire methodology of building apps is modular - allowing you to blend the right combination of modules that make sense for your app.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading3">
+<A NAME="50532361_pgfId-1031102"></A>Transactions</H6>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1031120"></A>Magnet Mobile App Server can optionally use transactions to maintain the integrity of data. </P>
+</DIV>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50532361_pgfId-1031800"></A>Service Integration</H5>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1034260"></A>Service integration can automatically transform Web applications from legacy enterprise application servers to the Magnet Mobile Enterprise Server. It exposes traditional SOAP-based Web Services hosted in the enterprise application servers to REST-based services for mobile access. Using the free on-line Developer Factory, you create a project with specific requirements, and download the generated APIs that abstract SOAP/REST services as controllers. Once generated, you can customize them as you see fit.</P>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50532361_pgfId-1030626"></A>Third-Party Service Controllers <A NAME="50532361_Social Networking Sites"></A></H5>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1034267"></A>The third-party service controllers are sample controllers that allow you to connect to well-known social services, such as Facebook, LinkedIn, or Salesforce. These controllers have built-in support for OAuth, so you can securely retrieve contacts information, and share an update. The source code for these controllers is included in the project generated by the Developer Factory if you choose to include them in your project. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532361_pgfId-1031175"></A><A NAME="50532361_62693"></A>Magnet Mobile App Manager</H3>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1031176"></A>The Magnet™ Mobile App Manager (MAM) is a run-time server that monitors the service status of Magnet MES and provides app management functionality by way of the Magnet Mobile App Management Console and Mobile App Store. </P>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50532361_pgfId-1031178"></A><A NAME="50532361_73425"></A>Mobile App Management Console</H5>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1031179"></A>The Magnet MAM Console is a Web interface of the Magnet Mobile App Manager that enables IT administrators to centrally manage and administer apps on client devices. Access to the MAM Console is defined by role-based and group association, which is defined in LDAP. Using the MAM Console, IT administrators can: </P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1031180"></A>Enable employee BYOD.</P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1031181"></A>Remotely install, remove, upgrade, and track apps.</P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1031182"></A>Customize an enterprise private-label app store.</P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1031183"></A>Remotely activate / deactivate user accounts.</P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1031184"></A>Push required apps to authorized users.</P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1031185"></A>View logs to monitor events history. </P>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50532361_pgfId-1031187"></A><A NAME="50532361_75441"></A>Mobile App Store</H5>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1031188"></A>The Mobile App Store is an app for installing and managing apps on a mobile device and is installed on iOS and Android devices. The Mobile App Store includes a suite of sample apps that are organized in categories. Via the MAM Console, IT administrators can brand the Mobile App Store with the enterprise private label. The App Store branding kit can be obtained on request.</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532361_pgfId-1036241"></A>Deployment</H3>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1036242"></A>An executable JAR file contains all controllers required for a specific deployment. Instances of the Magnet Mobile Enterprise Server are deployed in the Amazon cloud —a virtual private cloud that is managed by customers. </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532361_pgfId-1031196"></A>Developer Factory</H3>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1036822"></A>The Developer Factory is a free on-line service that provides a secure and private place for you to dynamically construct controller interfaces specific to the back-end services required for use in your mobile apps. The Developer Factory empowers you to</P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1036823"></A>Create and manage your app projects.</P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1036824"></A>Generate customized controllers and runtime binaries for your projects.</P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1031200"></A>Obtain source code for all your customized project assets.</P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1031201"></A>Upload modified controller and entities source codes for custom app controllers to regenerate executable JAR files.</P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1031202"></A>Obtain binaries for additional components required to deploy your projects in the Amazon cloud. Automatically create other language packs of your controllers (for example, iOS/XCode). </P>
+<P CLASS="Bullet">
+<A NAME="50532361_pgfId-1031203"></A>Test-drive your app projects by getting access to your own private sandbox environment in the cloud. </P>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1036305"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="50532361_pgfId-1031561"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532390_pgfId-1009939"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532390_pgfId-1022028"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532390_pgfId-1022030"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50532390_pgfId-1009940"></A> Getting Started</H6>
+<P CLASS="Body">
+<A NAME="50532390_pgfId-1016961"></A>Native iOS apps are built using the iOS system frameworks and Objective-C language. Native apps are installed physically on the device and can run without the presence of a network connection. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532390_pgfId-1016975"></A>Setting Up Your IDE Environment</H3>
+<P CLASS="Body">
+<A NAME="50532390_pgfId-1017356"></A>To develop applications for iOS, you need a Macintosh computer, iOS software development kit (SDK), and Xcode. Xcode is the development environment you use to create, test, debug, and tune your applications. </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532390_pgfId-1013763"></A><EM CLASS="URL">
+Setting up Your Account in Developer Factory</EM>
+</H3>
+<P CLASS="Body">
+<A NAME="50532390_pgfId-1017520"></A>To log in to the Developer Factory:</P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50532390_pgfId-1018586"></A>Launch a browser, and enter the following URL:</H6>
+<P CLASS="ScreenCommandIndent">
+<A NAME="50532390_pgfId-1022134"></A><EM CLASS="URL">
+http://factory.magnet.com</EM>
+</P>
+<P CLASS="Anchor">
+<A NAME="50532390_pgfId-1018591"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532390_pgfId-1018592"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532390_pgfId-1022095"></A>Click Request Invitation to start the process. </P>
+<P CLASS="Body">
+<A NAME="50532390_pgfId-1018550"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1012801"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1012803"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50532365_pgfId-1009622"></A>Managing Your Project with Developer Factory</H6>
+<P CLASS="Body">
+<A NAME="50532365_pgfId-1069999"></A>The Developer Factory provides an intuitive environment enabling you to easily build and manage your project. As an owner of a project that you create, you can: </P>
+<P CLASS="Bullet">
+<A NAME="50532365_pgfId-1056320"></A>Create a project (<A HREF="index.html#50532365_92768" CLASS="XRef">See Creating a Project</A>)</P>
+<P CLASS="Bullet">
+<A NAME="50532365_pgfId-1056335"></A>Deploy your project for testing or download it for customization (<A HREF="index.html#50532365_24994" CLASS="XRef">See Displaying the Generated Assets</A>)</P>
+<P CLASS="Bullet">
+<A NAME="50532365_pgfId-1075972"></A>Modify your project (<A HREF="index.html#50532365_55546" CLASS="XRef">See Modifying a Project</A>)</P>
+<P CLASS="Bullet">
+<A NAME="50532365_pgfId-1076070"></A>Upload a customized project (<A HREF="index.html#50532365_54849" CLASS="XRef">See Uploading a Project</A>)</P>
+<P CLASS="Bullet">
+<A NAME="50532365_pgfId-1076389"></A>Remove your project (<A HREF="index.html#50532365_71637" CLASS="XRef">See Removing a Project</A>)</P>
+<P CLASS="Bullet">
+<A NAME="50532365_pgfId-1067331"></A>Invite other developers (<A HREF="index.html#50532365_75037" CLASS="XRef">See Inviting Other Developers</A>)</P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532365_pgfId-1054417"></A><A NAME="50532365_92768"></A>Creating a Project</H3>
+<P CLASS="Body">
+<A NAME="50532365_pgfId-1054492"></A>The Developer Factory provides wizard that walks you through the creation of a project. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50532365_pgfId-1070639"></A>Launch a browser and enter the following URL:</H6>
+<P CLASS="ScreenCommandIndent">
+<A NAME="50532365_pgfId-1070640"></A><EM CLASS="URL">
+http://factory.magnet.com</EM>
+</P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1070644"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-3.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1070645"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1070646"></A>Enter your user credentials information in the appropriate fields: </P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1070669"></A>Click Sign in.</P>
+<P CLASS="ListContinued">
+<A NAME="50532365_pgfId-1070670"></A>The page with your user name displayed opens, as shown in the following example. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1059311"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-4.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1059338"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1054419"></A>Click Start a new project.</P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1057983"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-5.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1057999"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1054423"></A>Enter the name of your project, version number, and a brief description in the appropriate fields. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1054425"></A>Click Next Step.</P>
+<P CLASS="ListContinued">
+<A NAME="50532365_pgfId-1054767"></A>The name of the project you created is displayed as shown in the following example. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1054858"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-6.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1059392"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1054769"></A>Click to select the following configuration information:</P>
+<P CLASS="ListBullet">
+<A NAME="50532365_pgfId-1054905"></A>Encryption Services. This is used to encrypt security sensitive information in your configuration as well as on your mobile devices.</P>
+<P CLASS="ListBullet">
+<A NAME="50532365_pgfId-1054964"></A>Location data collection: This enables geo-tagged coordinates to be transported each time a controller is invoked on your server, allowing your server to know the location of the mobile app user.</P>
+<P CLASS="ListBullet">
+<A NAME="50532365_pgfId-1054992"></A>User Authentication: You can select the appropriate data store from where you want to read user credentials to authenticate for accessing server from the mobile clients. </P>
+<P CLASS="BulletSub">
+<A NAME="50532365_pgfId-1081106"></A>Select Default User if you want the Developer Factory to provide a user name and password for you that will get you access to a deployed sandbox.</P>
+<P CLASS="BulletSub">
+<A NAME="50532365_pgfId-1064062"></A>Select the appropriate option if you want to use your own tools and environment to control access to the sandbox. User name and password will be managed by one of these three systems. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1059479"></A>Click Include to enable these services so you can utilize those notification capabilities for your apps.</P>
+<P CLASS="ListBullet">
+<A NAME="50532365_pgfId-1055018"></A>Google Android Notification Service</P>
+<P CLASS="ListBullet">
+<A NAME="50532365_pgfId-1055057"></A>Apple iOS Notification Service</P>
+<P CLASS="ListBullet">
+<A NAME="50532365_pgfId-1055083"></A>Email Notification Service </P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1054938"></A>Click Next Step to select the sample services. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1080504"></A>Include the Hello World Controller if you want to get a template to start developing your own custom controllers. However, if you do not want to add your own custom controllers, then click Don’t Include. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1081456"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50532365_pgfId-1081462"></A><DIV>
+<IMG SRC="index-7.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50532365_pgfId-1081464"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+The Hello World Controller provide a simple UI that can be run on an emulator or on a phone and connect to the deployed sandbox (or any server where you may have installed our generated server JAR).<DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1058077"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1059584"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1055227"></A>Click Next Step to add your Web services. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1055882"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-10.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1058099"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1070884"></A>Click NONE to display the Web Services options. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1071033"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-11.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1071061"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1055322"></A>Enter the URL to add your WSDL or WADL file, click Add URL. </P>
+<P CLASS="ListContinued">
+<A NAME="50532365_pgfId-1060534"></A>— Or —</P>
+<P CLASS="ListContinued">
+<A NAME="50532365_pgfId-1060535"></A>Click Select a File to add your WSDL or WADL file from your computer, click Upload. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1083715"></A>Configure security settings for your app to properly communicate with this Web service. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1083738"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50532365_pgfId-1083735"></A><DIV>
+<IMG SRC="index-7.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50532365_pgfId-1083737"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+The security configuration window does not appear if security configuration is included in your WSDL file. <BR>
+<DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1083234"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-12.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1083752"></A>&nbsp;</P>
+<P CLASS="ListBullet">
+<A NAME="50532365_pgfId-1083236"></A>When Basic Auth is selected, the following window appears:</P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1083240"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-13.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1083856"></A>&nbsp;</P>
+<P CLASS="ListBullet">
+<A NAME="50532365_pgfId-1083845"></A>When UsernameToken is selected, the following window appears:</P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1083269"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-14.gif" ALT="">
+</DIV>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1060786"></A>Click Next Step to display the 3rd Party Services page. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1055334"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-15.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1058165"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1054427"></A>Select the third-party services that you want to include in your application, click Include. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1060936"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-16.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1060963"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1060894"></A>Optionally enter the credentials and password (you received those from Connected Apps) in each of the services you include. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1081613"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50532365_pgfId-1081649"></A><DIV>
+<IMG SRC="index-7.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50532365_pgfId-1081651"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+You can configure these settings later in your generated project. <BR>
+<DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1055437"></A>Click Next Step. </P>
+<P CLASS="ListContinued">
+<A NAME="50532365_pgfId-1055471"></A>Your project summary is displayed as shown in the following example. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1060969"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-17.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1060988"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1061293"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tip-Icon">
+<A NAME="50532365_pgfId-1061296"></A><DIV>
+<IMG SRC="index-18.gif" ALT="">
+</DIV>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TipText">
+<A NAME="50532365_pgfId-1061298"></A>The color-coded buttons shown on the Project Summary side are now interactive. Clicking them takes you directly to the intended page. For example, clicking User Authentication opens the App Configuration step. </P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1055448"></A>Review your project. </P>
+<P CLASS="ListBullet">
+<A NAME="50532365_pgfId-1081828"></A>To make changes, click Previous Step to the step that you need changing. </P>
+<P CLASS="ListBullet">
+<A NAME="50532365_pgfId-1081935"></A>Click Finish and Generate Assets if no further changes are needed. </P>
+<P CLASS="ListContinued">
+<A NAME="50532365_pgfId-1064926"></A>A dialog box appears informing of the project status. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1064812"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-19.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1064831"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1064833"></A>Click OK to start the asset generation process. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1064886"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-20.gif" ALT="">
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532365_pgfId-1073845"></A><A NAME="50532365_24994"></A>Displaying the Generated Assets</H3>
+<P CLASS="Body">
+<A NAME="50532365_pgfId-1073846"></A>After your project is generated, you can download it to your local machine for customization or deploy it to the sandbox for testing. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50532365_pgfId-1074185"></A>Click the Projects tab, and select the intended project. </H6>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1074189"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-21.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1074265"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1074108"></A>Click Display Assets. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1074302"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50532365_pgfId-1074309"></A><DIV>
+<IMG SRC="index-7.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50532365_pgfId-1074311"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+You are informed if the project has not been generated. Click Generate Assets, then repeat step 2. <BR>
+<DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1073850"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-22.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1073851"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1073852"></A>Click Deploy Sandbox to Cloud, or select the project you want to download, or click Download All Assets to download all assets.</P>
+<P CLASS="ListContinued">
+<A NAME="50532365_pgfId-1074742"></A>Each server project is compressed into a zip file. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532365_pgfId-1068068"></A><A NAME="50532365_55546"></A>Modifying a Project</H3>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1070343"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Important-Icon">
+<A NAME="50532365_pgfId-1070464"></A><DIV>
+<IMG SRC="index-23.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ImportantText">
+<A NAME="50532365_pgfId-1070466"></A>Do not change the maven groupId, artifactId, and version of your project if you plan to regenerate the mobile assets out of a modified project. </P>
+</TD>
+</TR>
+</TABLE>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50532365_pgfId-1061995"></A>Sign in to your Developer Factory account. </H6>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1061999"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-24.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1062000"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1062001"></A>Click the Projects tab to display all projects that you have created, as shown in the following example.</P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1062005"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-25.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1062006"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1062007"></A>Select the project you want to modify. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1065052"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-26.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1068209"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1062903"></A>Click Edit Project.</P>
+<P CLASS="ListContinued">
+<A NAME="50532365_pgfId-1068184"></A>A page similar to the following example appears. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1062972"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tip-Icon">
+<A NAME="50532365_pgfId-1062969"></A><DIV>
+<IMG SRC="index-18.gif" ALT="">
+</DIV>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TipText">
+<A NAME="50532365_pgfId-1062971"></A><BR>
+All color-coded buttons are now interactive. Clicking them takes you directly to the intended page. </P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1062536"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-27.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1062537"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1062482"></A>Click the intended color-coded services layers and modify any information (refer to <A HREF="index.html#50532365_92768" CLASS="XRef">See Creating a Project</A> for detailed description). </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532365_pgfId-1061583"></A><A NAME="50532365_46356"></A><A NAME="50532365_54849"></A>Uploading a Project</H3>
+<P CLASS="Body">
+<A NAME="50532365_pgfId-1075413"></A>When your project customization is complete, you need to upload the project from your local machine to the Developer Factory, and regenerate the assets. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50532365_pgfId-1065743"></A>Sign in to your Developer Factory account. </H6>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1065747"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-28.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1084806"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1065749"></A>Click the Projects tab to display all projects that you have created.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1065755"></A>Select the project you want to upload.</P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1065759"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-29.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1085609"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1065709"></A>Click Upload Server Jar.</P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1065815"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-30.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1065841"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1065817"></A>Click Select a File, and navigate to the aws-Server/target directory where the server JAR zip is stored. </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1082958"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50532365_pgfId-1082968"></A><DIV>
+<IMG SRC="index-7.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50532365_pgfId-1082970"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+Refer to <A HREF="../Server_Application_Develope_Guide/Project_Compile.html#92868" CLASS="XRef">See Compiling Your Project</A>, for the directory structure of the project.<BR>
+ <DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1083025"></A>Enter an optional description for the server JAR. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1066256"></A>Click Upload. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532365_pgfId-1076299"></A><A NAME="50532365_71637"></A>Removing a Project</H3>
+<P CLASS="Body">
+<A NAME="50532365_pgfId-1076300"></A>When you close your Developer Factory account, all projects that you owned will be automatically removed, and you will be removed from all projects to which you had been invited. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50532365_pgfId-1076302"></A>Sign in to your Developer Factory account. </H6>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1076306"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-31.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1076307"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1076308"></A>Click the Projects tab to display all projects that you have created, as shown in the following example.</P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1076312"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-32.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1076313"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1076314"></A>Select the project you want to remove.</P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1076318"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-33.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1076319"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1076320"></A>Click Delete Project.</P>
+<P CLASS="ListContinued">
+<A NAME="50532365_pgfId-1076321"></A>A dialog box appears asking for confirmation.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1076322"></A>Click Continue.</P>
+<P CLASS="ListContinued">
+<A NAME="50532365_pgfId-1076323"></A>A dialog box appears showing the operation status.</P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1076327"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-34.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1076328"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1076329"></A>Click OK. </P>
+<P CLASS="ListContinued">
+<A NAME="50532365_pgfId-1076330"></A>The project is immediately removed from the project page. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532365_pgfId-1065821"></A><A NAME="50532365_75037"></A>Inviting Other Developers</H3>
+<P CLASS="Body">
+<A NAME="50532365_pgfId-1067259"></A>You can invite other developers to the Developer Factory to create their own accounts. If your invitees are not registered with Developer Factory, they need to first register for an account.</P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50532365_pgfId-1082279"></A> Sign in to your Developer Factory account. </H6>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1066784"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-35.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1076464"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1076468"></A>Click <IMG SRC="index-36.gif" ALIGN="BASELINE" ALT="">
+ to display the invitation, as shown in the following: </P>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1076472"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-37.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532365_pgfId-1066863"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1065825"></A>Enter the e-mail address of the person you want to invite, and optionally delete the existing message from the Message to include box, and enter your own message that you want to include with your e-mail.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50532365_pgfId-1072737"></A>Click Send Invitation. </P>
+<P CLASS="ListContinued">
+<A NAME="50532365_pgfId-1072769"></A>You are informed of the operation status. Your recipient will receive an e-mail notification that includes a link to register an account. </P>
+<P CLASS="Body">
+<A NAME="50532365_pgfId-1072507"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532441_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532441_pgfId-1012801"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532441_pgfId-1055397"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50532441_pgfId-1055399"></A><A NAME="50532441_86281"></A>Defining Log In and Out Services</H6>
+<P CLASS="Body">
+<A NAME="50532441_pgfId-1055400"></A>MMLoginService is an interface that provides methods for user log in and log out operations. The following table lists and describes each method and the page reference pointing to the method. </P>
+<P CLASS="Anchor">
+<A NAME="50532441_pgfId-1054848"></A>&nbsp;</P>
+<TABLE BORDER="1">
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="50532441_pgfId-1054854"></A>Methods</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="50532441_pgfId-1054856"></A>Description</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="50532441_pgfId-1054858"></A>Page</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532441_pgfId-1054860"></A>loginWithCredentials</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532441_pgfId-1054960"></A>This method requires users to provide credentials when logging in. </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532441_pgfId-1054864"></A><A HREF="index.html#50532441_42120" CLASS="XRef">See loginWithCredentials</A></P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532441_pgfId-1054866"></A>loginWithSavedCredentials</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532441_pgfId-1054868"></A>This method authenticates users with saved credentials.</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532441_pgfId-1054870"></A><A HREF="index.html#50532441_38390" CLASS="XRef">See loginWithSavedCredentials</A></P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532441_pgfId-1054872"></A>logout</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532441_pgfId-1054874"></A>This method logs out the user. </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50532441_pgfId-1054876"></A><A HREF="index.html#50532441_10930" CLASS="XRef">See Logout</A></P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532441_pgfId-1056201"></A><A NAME="50532441_42120"></A>loginWithCredentials</H3>
+<P CLASS="Body">
+<A NAME="50532441_pgfId-1056202"></A>The method is an asynchronous operation with callback blocks (that is, the calling thread does not block for the call to be executed). Use this method when users are required to provide credentials when logging in. </P>
+<P CLASS="Anchor">
+<A NAME="50532441_pgfId-1053469"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-38">
+</MAP>
+<IMG SRC="index-38.gif" USEMAP="#index-38" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532441_pgfId-1053458"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="Heading6">
+<A NAME="50532441_pgfId-1053443"></A>Parameter</H6>
+<P CLASS="BulletIndent">
+<A NAME="50532441_pgfId-1053632"></A>credentials indicates a dictionary containing credentials.</P>
+<P CLASS="BulletIndent">
+<A NAME="50532441_pgfId-1053633"></A>block indicates a block object that is to be executed when the request succeeds. This block has no return value and takes one argument, BOOL. </P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading6">
+<A NAME="50532441_pgfId-1053445"></A>Return </H6>
+<P CLASS="bodyIndented3">
+<A NAME="50532441_pgfId-1053446"></A>Authentication success or failure. </P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading6">
+<A NAME="50532441_pgfId-1053447"></A>Example</H6>
+<P CLASS="Anchor">
+<A NAME="50532441_pgfId-1053719"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-39">
+</MAP>
+<IMG SRC="index-39.gif" USEMAP="#index-39" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532441_pgfId-1053439"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532441_pgfId-1052671"></A><A NAME="50532441_38390"></A>loginWithSavedCredentials</H3>
+<P CLASS="Body">
+<A NAME="50532441_pgfId-1054799"></A>The method is an asynchronous operation with callback blocks (that is, the calling thread does not block for the call to be executed). Use this method when users are authenticated with saved credentials when logging in.</P>
+<P CLASS="Anchor">
+<A NAME="50532441_pgfId-1054806"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-40">
+</MAP>
+<IMG SRC="index-40.gif" USEMAP="#index-40" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532441_pgfId-1053902"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="Heading6">
+<A NAME="50532441_pgfId-1055629"></A>Parameter</H6>
+<P CLASS="BulletIndent">
+<A NAME="50532441_pgfId-1055630"></A>block indicates a block object that is to be executed when the request succeeds. This block has no return value and takes one argument, BOOL. </P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading6">
+<A NAME="50532441_pgfId-1054105"></A>Return </H6>
+<P CLASS="bodyIndented3">
+<A NAME="50532441_pgfId-1054106"></A>Authentication success or failure. </P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading6">
+<A NAME="50532441_pgfId-1052512"></A>Example</H6>
+<P CLASS="Anchor">
+<A NAME="50532441_pgfId-1052300"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-41">
+</MAP>
+<IMG SRC="index-41.gif" USEMAP="#index-41" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532441_pgfId-1053979"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532441_pgfId-1052027"></A><A NAME="50532441_10930"></A>Logout</H3>
+<P CLASS="Body">
+<A NAME="50532441_pgfId-1054133"></A>This method logs out the current user. </P>
+<P CLASS="Anchor">
+<A NAME="50532441_pgfId-1055248"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-42">
+</MAP>
+<IMG SRC="index-42.gif" USEMAP="#index-42" ALT="">
+</DIV>
+<DIV>
+<H6 CLASS="Heading6">
+<A NAME="50532441_pgfId-1055272"></A>Parameter</H6>
+<P CLASS="bodyIndented3">
+<A NAME="50532441_pgfId-1055273"></A>None.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading6">
+<A NAME="50532441_pgfId-1055274"></A>Return Value</H6>
+<P CLASS="bodyIndented3">
+<A NAME="50532441_pgfId-1055275"></A>Not applicable. </P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading6">
+<A NAME="50532441_pgfId-1055276"></A>Example</H6>
+<P CLASS="Anchor">
+<A NAME="50532441_pgfId-1054211"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-43">
+</MAP>
+<IMG SRC="index-43.gif" USEMAP="#index-43" ALT="">
+</DIV>
+<P CLASS="Body">
+<A NAME="50532441_pgfId-1054192"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1012803"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50532428_pgfId-1059893"></A><A NAME="50532428_35885"></A>Defining Caching and Off-line Mode Services</H6>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1059894"></A>The AsyncMyController represents functionality that you write running on your server instance(s). The AsyncMyController allows you to invoke a request in an off-line mode and caching services remotely from your mobile client. </P>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1060554"></A>A request may be reliable or asynchronous. A reliable request is associated with the name of a queue, and queues are processed sequentially. An asynchronous request indicates that no queue is allowed. </P>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1061424"></A>Constraints are used to control the queue process, and may be applied to both reliable and asynchronous requests. In the case with a reliable request, only when the constraint associated with the head of the queue is in an allowed state can the queue be drained of its elements—meaning that the invocations are being messaged to the server asynchronously and reliably. </P>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1060952"></A>When an asynchronous request has a constraint and the constraint is dis-allowed, processing will continue to the next element of the queue. The element is not allowed because the constraint is essentially skipped and will be retried later, provided the request timeout on the entry has not expired the next time around. </P>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1059866"></A>The following example shows code used in the AsyncMyController. </P>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1056582"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-44">
+</MAP>
+<IMG SRC="index-44.gif" USEMAP="#index-44" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1056583"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532428_pgfId-1064534"></A>Declaring Options</H3>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1066811"></A>The following two classes are used to determine how the reliable and asynchronous calls are handled. </P>
+<P CLASS="BulletTight">
+<A NAME="50532428_pgfId-1064593"></A>MMReliableCallOptions</P>
+<P CLASS="BulletTight">
+<A NAME="50532428_pgfId-1064608"></A>MMAsyncCallOptions</P>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50532428_pgfId-1064633"></A>Creating MMReliableCallOptions</H5>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1064629"></A>When the MMReliableCallOptions class is created, you can include methods that allow the caller to:</P>
+<P CLASS="BulletTight">
+<A NAME="50532428_pgfId-1064467"></A>Use the cached value to queue up a call in a persistent storage.</P>
+<P CLASS="BulletTight">
+<A NAME="50532428_pgfId-1064468"></A>Execute the calls in sequential manner.</P>
+<P CLASS="BulletTight">
+<A NAME="50532428_pgfId-1064469"></A>Impose a restriction when the call can be invoked.</P>
+<P CLASS="BulletTight">
+<A NAME="50532428_pgfId-1064470"></A>Specify a timeout for this call. </P>
+<P CLASS="BulletTight">
+<A NAME="50532428_pgfId-1064471"></A>Specify a static callback.</P>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1066900"></A>The following example shows MMReliableCallOptions is created with two methods. Both cacheAge and requestTimeout are set at 3600 seconds, and cached value is used in an off-line mode. The call returns success or failure with userInfo that includes callId, someUUID, and token (if defined). </P>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1064505"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-45">
+</MAP>
+<IMG SRC="index-45.gif" USEMAP="#index-45" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1068542"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="Heading3">
+<A NAME="50532428_pgfId-1068543"></A>Setting Cache Age</H6>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1068544"></A>The setCacheAge method specifies an acceptable cache age and enables caching the result. The call uses the cached value (if available) when its age is within the timeout interval; otherwise, the cached value is discarded and the new result is cached.</P>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1065605"></A>If this option is not specified, the cached value is discarded and the new result is not cached. You can specify in the ignoreIfOffline parameter whether to allow the caller to use the cached value (if available) in an off-line mode. </P>
+<DIV>
+<H6 CLASS="Heading7">
+<A NAME="50532428_pgfId-1065679"></A>Parameter</H6>
+<P CLASS="BulletIndent">
+<A NAME="50532428_pgfId-1065681"></A>cacheAge indicates the length of time in seconds that cache remains valid. </P>
+<P CLASS="BulletIndent">
+<A NAME="50532428_pgfId-1065682"></A>ignoreIfOffline indicates whether or not to use the cached value in an off-line mode. </P>
+<P CLASS="BulletSub">
+<A NAME="50532428_pgfId-1065667"></A>NO indicates that the cached value is used in an off-line mode.</P>
+<P CLASS="BulletSub">
+<A NAME="50532428_pgfId-1065668"></A>YES indicates otherwise. </P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Heading3">
+<A NAME="50532428_pgfId-1067102"></A>Setting Request Timeout</H6>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1068590"></A>The setRequestTimeout method specifies a timeout value when the call object expires. You can specify a longer timeout value to survive an off-line mode</P>
+<DIV>
+<H6 CLASS="Heading7">
+<A NAME="50532428_pgfId-1067116"></A>Parameter</H6>
+<P CLASS="BulletIndent">
+<A NAME="50532428_pgfId-1067117"></A>requestTimeout indicates the request timeout expressed in seconds. </P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50532428_pgfId-1064232"></A>Creating MMAsyncCallOptions</H5>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1064454"></A>This class is used for an asynchronous call, which allows the caller to use the cached value, impose a restriction when the call can be invoked, and specify a callback. The caller must use create() to create an instance of the options. </P>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1068839"></A>The following example shows MMAsyncCallOptions is created with two methods. The cacheAge is set at 3600 seconds, and cached value is not used in an off-line mode. A restriction is imposed with the MMWifiConstraint class. The call returns success or failure. </P>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1068696"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-46">
+</MAP>
+<IMG SRC="index-46.gif" USEMAP="#index-46" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1064234"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="Heading3">
+<A NAME="50532428_pgfId-1067586"></A>Setting Cache Age</H6>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1068875"></A>The setCacheAge method specifies an acceptable cache age and enables caching the result. The call uses the cached value (if available) when its age is within the timeout interval; otherwise, the cached value is discarded and the new result is cached.</P>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1068876"></A>If this option is not specified, the cached value is discarded and the new result is not cached. You can specify in the ignoreIfOffline parameter whether to allow the caller to use the cached value (if available) in an off-line mode. </P>
+<DIV>
+<H6 CLASS="Heading7">
+<A NAME="50532428_pgfId-1067598"></A>Parameter</H6>
+<P CLASS="BulletIndent">
+<A NAME="50532428_pgfId-1067599"></A>cacheAge indicates the length of time in seconds that cache remains valid. </P>
+<P CLASS="BulletIndent">
+<A NAME="50532428_pgfId-1067600"></A>ignoreIfOffline indicates whether or not to use the cached value in an off-line mode. </P>
+<P CLASS="BulletSub">
+<A NAME="50532428_pgfId-1067601"></A>NO indicates that the cached value is used in an off-line mode.</P>
+<P CLASS="BulletSub">
+<A NAME="50532428_pgfId-1067602"></A>YES indicates otherwise. </P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Heading3">
+<A NAME="50532428_pgfId-1064238"></A>Setting Constraints</H6>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1069035"></A>Constraints provide a means to impose conditions that a queue must meet before it can be processed. The setConstraint method specifies a constraint to invoke a queued call. A queued call can be processed only when the constraint is met. The current release supports one restriction, MMWifiConstraint. </P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532428_pgfId-1056990"></A><A NAME="50532428_76747"></A>Making a Reliable Request</H3>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1060398"></A>It is typically the case that invocations from the mobile client occur asynchronously and reliably. They are asynchronous in that the invocation is recorded for later playback to the server on a separate worker thread. They are reliable in that after an invocation has been submitted, it is guaranteed to be run once—and only once—on the server side. </P>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1061199"></A>You can make a reliable request with the following specifications:</P>
+<P CLASS="Bullet">
+<A NAME="50532428_pgfId-1061268"></A>Cache results and callback (<A HREF="index.html#50532428_15853" CLASS="XRef">See Caching Results and Callback</A>)</P>
+<P CLASS="Bullet">
+<A NAME="50532428_pgfId-1061371"></A>Cache results but no callback (<A HREF="index.html#50532428_71006" CLASS="XRef">See Caching Results but no Callback</A>)</P>
+<P CLASS="Bullet">
+<A NAME="50532428_pgfId-1062885"></A>No caching and no callback (<A HREF="index.html#50532428_82744" CLASS="XRef">See No Caching and No Callback</A>)</P>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50532428_pgfId-1062887"></A><A NAME="50532428_15853"></A>Caching Results and Callback</H5>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1063114"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-47">
+</MAP>
+<IMG SRC="index-47.gif" USEMAP="#index-47" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1057050"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50532428_pgfId-1062309"></A><A NAME="50532428_71006"></A>Caching Results but no Callback</H5>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1062321"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-48">
+</MAP>
+<IMG SRC="index-48.gif" USEMAP="#index-48" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1062322"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50532428_pgfId-1061018"></A><A NAME="50532428_82744"></A>No Caching and No Callback</H5>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1057544"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-49">
+</MAP>
+<IMG SRC="index-49.gif" USEMAP="#index-49" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1057545"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532428_pgfId-1056702"></A><A NAME="50532428_48493"></A>Making an Asynchronous Request </H3>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1061842"></A>An asynchronous request indicates that no queue is named explicitly; consequently, a queue is not allowed. There might be occasions to make a request without caching the results or reliability is not a concern. You can make an asynchronous request with the following specifications:</P>
+<P CLASS="Bullet">
+<A NAME="50532428_pgfId-1061895"></A>Caching results and callback but no reliability (<A HREF="index.html#50532428_48242" CLASS="XRef">See Caching Results and Callback but no Reliability</A>)</P>
+<P CLASS="Bullet">
+<A NAME="50532428_pgfId-1064357"></A>No caching, reliability, or callback (<A HREF="index.html#50532428_96556" CLASS="XRef">See No Caching, Reliability, or Callback</A>)</P>
+<P CLASS="Bullet">
+<A NAME="50532428_pgfId-1064361"></A>No caching or reliability but with callback (<A HREF="index.html#50532428_58853" CLASS="XRef">See No Caching or Reliability but With Callback</A>)</P>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50532428_pgfId-1061164"></A><A NAME="50532428_48242"></A>Caching Results and Callback but no Reliability</H5>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1058638"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-50">
+</MAP>
+<IMG SRC="index-50.gif" USEMAP="#index-50" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1058639"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50532428_pgfId-1064311"></A><A NAME="50532428_96556"></A>No Caching, Reliability, or Callback</H5>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1064319"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-51">
+</MAP>
+<IMG SRC="index-51.gif" USEMAP="#index-51" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1064320"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50532428_pgfId-1064322"></A><A NAME="50532428_58853"></A>No Caching or Reliability but With Callback</H5>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1064335"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-52">
+</MAP>
+<IMG SRC="index-52.gif" USEMAP="#index-52" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1064336"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532428_pgfId-1061329"></A><A NAME="50532428_88964"></A>Applying a Constraint to an Asynchronous Request</H3>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1061330"></A>Constraints are useful so that processing of the queue can be paused under varying network conditions. For instance, some operations should occur only in a WIFI zone. The call fails fast and the response listener is immediately called when the constraint is not met.</P>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1061332"></A>The following example shows a constraint is applied to an asynchronous request with caching results and callback. </P>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1061349"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-53">
+</MAP>
+<IMG SRC="index-53.gif" USEMAP="#index-53" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532428_pgfId-1061350"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="50532428_pgfId-1056958"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532427_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532427_pgfId-1012803"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532427_pgfId-1059595"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50532427_pgfId-1009622"></A><A NAME="50532427_34524"></A>Using Third-Party Social Controllers </H6>
+<P CLASS="Body">
+<A NAME="50532427_pgfId-1059627"></A>The Magnet App Server currently provides three social controllers that you can include in your app to enable access to third-party services. These controllers include Salesforce, LinkedIn, and Facebook. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532427_pgfId-1059649"></A>Using the Salesforce Controller</H3>
+<P CLASS="Body">
+<A NAME="50532427_pgfId-1057584"></A>The following code example makes the search call, which returns contacts, leads, and accounts. The search string specifies the text expression to search for, the scope of fields to search, the list of objects, and fields to retrieve. </P>
+<P CLASS="Anchor">
+<A NAME="50532427_pgfId-1056578"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-54">
+</MAP>
+<IMG SRC="index-54.gif" USEMAP="#index-54" ALT="">
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532427_pgfId-1059665"></A>Using a Facebook Controller</H3>
+<P CLASS="Body">
+<A NAME="50532427_pgfId-1056712"></A>The Facebook controller enables searching for friends and sharing updates from a mobile device. </P>
+<P CLASS="Anchor">
+<A NAME="50532427_pgfId-1057015"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-55">
+</MAP>
+<IMG SRC="index-55.gif" USEMAP="#index-55" ALT="">
+</DIV>
+<P CLASS="Body">
+<A NAME="50532427_pgfId-1056764"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="50532427_pgfId-1056618"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532387_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532387_pgfId-1012801"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532387_pgfId-1012803"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50532387_pgfId-1009622"></A>Invoking a Controller</H6>
+<P CLASS="Body">
+<A NAME="50532387_pgfId-1056614"></A>The iOS apps are built using the Model-View-Controller (MVC) design pattern that assigns objects in an application one of three roles: model, view, or controller. This chapter provides information about the controller object. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532387_pgfId-1056026"></A>Sending a Message to a Controller</H3>
+<P CLASS="Body">
+<A NAME="50532387_pgfId-1056048"></A>Most controllers use the same construct. Each LoginController method is an asynchronous call with callback blocks (that is, the calling thread does not block for the call to be executed); therefore, the LoginController has a slightly different construct from the corresponding server implementation. Refer to <A HREF="index.html#50532441_86281" CLASS="XRef">See Defining Log In and Out Services</A>, for information. </P>
+<P CLASS="Body">
+<A NAME="50532387_pgfId-1055543"></A>Use the following construct to send a message to a controller:</P>
+<P CLASS="ScreenCommandIndent">
+<A NAME="50532387_pgfId-1055448"></A>&lt;controller&gt; *controllerInstance = [&lt;controller&gt; new];</P>
+<P CLASS="Body">
+<A NAME="50532387_pgfId-1055449"></A>The following example shows YellowPagesPortTypeController being added:</P>
+<P CLASS="Anchor">
+<A NAME="50532387_pgfId-1056154"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-56">
+</MAP>
+<IMG SRC="index-56.gif" USEMAP="#index-56" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532387_pgfId-1056155"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="50532387_pgfId-1055430"></A>Each application controller is represented by an interface similar to that provided by the server as shown in the following modified construct: </P>
+<P CLASS="Anchor">
+<A NAME="50532387_pgfId-1054413"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-57">
+</MAP>
+<IMG SRC="index-57.gif" USEMAP="#index-57" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532387_pgfId-1054470"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="50532387_pgfId-1054414"></A>The following example shows the YellowPagesPortTypeController interface definition:</P>
+<P CLASS="Anchor">
+<A NAME="50532387_pgfId-1054496"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-58">
+</MAP>
+<IMG SRC="index-58.gif" USEMAP="#index-58" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532387_pgfId-1054497"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532387_pgfId-1054769"></A>Using Node </H3>
+<P CLASS="Body">
+<A NAME="50532387_pgfId-1055169"></A>A corresponding Objective-C object is generated by the Developer Factory for the node that is exposed by the server. If the server exposes a FindResponseNode, a FindResponseNode object will be available in Objective-C. The Magnet Mobile Server API on iOS is capable of marshaling and un-marshaling such node.</P>
+<P CLASS="Body">
+<A NAME="50532387_pgfId-1055170"></A>The following example shows an interface definition for FindResponseNode:</P>
+<P CLASS="Anchor">
+<A NAME="50532387_pgfId-1055186"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-59">
+</MAP>
+<IMG SRC="index-59.gif" USEMAP="#index-59" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532387_pgfId-1054838"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50532387_pgfId-1054912"></A>Using MMData </H3>
+<P CLASS="Body">
+<A NAME="50532387_pgfId-1054481"></A>The MMData object represents data. You use the @property interface to declare the data type associated with the MMData object. </P>
+<P CLASS="Body">
+<A NAME="50532387_pgfId-1055260"></A>The following example shows an interface definition for MMData:</P>
+<P CLASS="Anchor">
+<A NAME="50532387_pgfId-1054946"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-60">
+</MAP>
+<IMG SRC="index-60.gif" USEMAP="#index-60" ALT="">
+</DIV>
+<P CLASS="Body">
+<A NAME="50532387_pgfId-1054814"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="50532387_pgfId-1054818"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532385_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532385_pgfId-1012801"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532385_pgfId-1012803"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50532385_pgfId-1009622"></A>Assembling Your Project   </H6>
+<P CLASS="Body">
+<A NAME="50532385_pgfId-1053946"></A>Your iOS app is delivered as an Objective-C language project, Xcode-ready. A zip file that includes the Xcode project, mobile server framework, client stubs for the controller, and a sample jump start app. </P>
+<P CLASS="Body">
+<A NAME="50532385_pgfId-1052842"></A>The ClientLibrary items are automatically generated and the following directories are created:</P>
+<P CLASS="Bullet">
+<A NAME="50532385_pgfId-1052844"></A>Entities: contains entities in the Magnet Mobile App Server.</P>
+<P CLASS="Bullet">
+<A NAME="50532385_pgfId-1052845"></A>EntityResources: contains helper classes (one per entity) for interacting with entities used for CRUD (Create, Read, Update, Delete) operations.</P>
+<P CLASS="Bullet">
+<A NAME="50532385_pgfId-1052846"></A>REST/Client: contains a wrapper class for RestKit called RestClient. (You should not need to interact with this class directly.)</P>
+<P CLASS="Bullet">
+<A NAME="50532385_pgfId-1052847"></A>REST/Response: contains classes that represent the JSON output from the Magnet Mobile App Server.</P>
+<P CLASS="Body">
+<A NAME="50532385_pgfId-1054251"></A>After you have downloaded your project from the Developer Factory to your local environment, you can write your app based on the sample jump start app, then upload the new app to the Developer Factory for new assets generation. </P>
+<P CLASS="Body">
+<A NAME="50532385_pgfId-1053712"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532366_pgfId-1009939"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532366_pgfId-1022028"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50532366_pgfId-1022030"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50532366_pgfId-1009940"></A> Showing TechCare Sample App</H6>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1026490"></A>A timely response to issues from customers can contribute to the success of an IT Support organization. TechCare app enables an administrator to view tickets as they come in, and to immediately take appropriate actions. </P>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1026739"></A>This chapter shows use cases and sample code used in the TechCare app.</P>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1027379"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50532366_pgfId-1024120"></A>Fetching Users</H6>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1027293"></A>The following example shows that users are fetched and sorted in an ascending order.</P>
+<P CLASS="Anchor">
+<A NAME="50532366_pgfId-1027305"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-61">
+</MAP>
+<IMG SRC="index-61.gif" USEMAP="#index-61" ALT="">
+</DIV>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1027310"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50532366_pgfId-1023929"></A>Caching Information</H6>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1024143"></A>The following example shows to get and cache the current user information.</P>
+<P CLASS="Anchor">
+<A NAME="50532366_pgfId-1024154"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-62">
+</MAP>
+<IMG SRC="index-62.gif" USEMAP="#index-62" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50532366_pgfId-1027360"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50532366_pgfId-1024155"></A>Posting Comments</H6>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1024210"></A>The following example shows to post comments using MMReliableCallOptions. Although comments can be posted offline, this example shows a reliable request is made, which means the comment can be posted only when there is connectivity. It also shows that the request will expire after 7 days. </P>
+<P CLASS="Anchor">
+<A NAME="50532366_pgfId-1024220"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-63">
+</MAP>
+<IMG SRC="index-63.gif" USEMAP="#index-63" ALT="">
+</DIV>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1024139"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50532366_pgfId-1026814"></A>Updating Tickets</H6>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1025535"></A>The following example shows to update tickets using MMReliableCallOptions. Although tickets can be updated offline, this example shows a reliable request is made, which means the tickets can be updated only when there is connectivity.</P>
+<P CLASS="Anchor">
+<A NAME="50532366_pgfId-1025550"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-64">
+</MAP>
+<IMG SRC="index-64.gif" USEMAP="#index-64" ALT="">
+</DIV>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1025531"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50532366_pgfId-1026838"></A>Receiving Notifications (via APNS) </H6>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1025730"></A>The following example shows to register APNS token for push notifications. </P>
+<P CLASS="Anchor">
+<A NAME="50532366_pgfId-1025744"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-65">
+</MAP>
+<IMG SRC="index-65.gif" USEMAP="#index-65" ALT="">
+</DIV>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1025745"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50532366_pgfId-1026095"></A>Setting a Geo Fence for Android Apps</H6>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1026874"></A>The following example shows to create geo fencing. (This fence is used as a constraint for the Android app, it does not apply to the TechCare app).</P>
+<P CLASS="Anchor">
+<A NAME="50532366_pgfId-1026110"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-66">
+</MAP>
+<IMG SRC="index-66.gif" USEMAP="#index-66" ALT="">
+</DIV>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1025722"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1025724"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="50532366_pgfId-1025726"></A>&nbsp;</P>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+<div id="doc-switch"></div></div></div></div></div></div><!-- dialogs start --><div class="modal-form-errors modal hide fade" id="error-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p class="subheading"></p>        <ul></ul>    </div>    <div class="modal-footer">        <button class="btn btn-primary" data-dismiss="modal">OK</button>    </div></div><div class="modal-alert modal hide fade" id="general-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p></p>    </div>    <div class="modal-footer">        <button class="btn btn-primary" data-dismiss="modal" id=                "ok">OK</button>    </div></div><div class="modal-confirm modal hide fade" id="confirm-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p></p>    </div>    <div class="modal-footer">        <button class="submit btn-primary btn">Continue</button>        <button class="cancel btn" data-dismiss="modal">Cancel</button>    </div></div><div class="modal-alert modal hide fade" id="invite-other-modal">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3>Invite Others</h3>        <p class="subheading">Enter the email address of the individual you            would like to invite to the Developer Factory.</p>    </div>    <div class="modal-body">        <div class="modal_errors" style="display:none">            <div class="alert alert-error">                <strong></strong> <span></span>            </div>        </div>        <div class="modal_success" style="display:none">            <div class="alert alert-success">                <span>Your invitation has been sent successfully.</span>            </div>        </div>        <div class="row-fluid">            <input class="span12" name="email" placeholder=                    "Enter Email Address" type="text"><br>            <strong>Message to include</strong><br>            <textarea class="span12" name="inviteMessage"                      placeholder="Message to include">                I found this great new tool to quickly create mobile apps for me.            </textarea>        </div>    </div>    <div class="modal-footer">        <button class="btn-primary btn">Send Invitation</button>        <button class="cancel btn" data-dismiss="modal">Close</button>    </div>    <div class="loading modal-footer" style="display:none">Loading.. Please        Wait.. <img src="/images/ajax-loader-sm.gif"></div></div><!-- dialogs end --><script src="/js/libs/jquery.js" type=        "text/javascript"></script><script src="/js/libs/bootstrap.js" type="text/javascript"></script><script src="/js/scripts.js" type="text/javascript"></script></BODY>
+</HTML>

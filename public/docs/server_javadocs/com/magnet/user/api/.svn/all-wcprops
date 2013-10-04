@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/user/api
+END
+LoginController.html
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/user/api/LoginController.html
+END
+package-frame.html
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/user/api/package-frame.html
+END
+package-use.html
+K 25
+svn:wc:ra_dav:version-url
+V 157
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/user/api/package-use.html
+END
+LoginController.LOGIN_STATUS.html
+K 25
+svn:wc:ra_dav:version-url
+V 174
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/user/api/LoginController.LOGIN_STATUS.html
+END
+package-summary.html
+K 25
+svn:wc:ra_dav:version-url
+V 161
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/user/api/package-summary.html
+END
+LoggedInUser.html
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/user/api/LoggedInUser.html
+END
+package-tree.html
+K 25
+svn:wc:ra_dav:version-url
+V 158
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/user/api/package-tree.html
+END
+LoggedInUserController.html
+K 25
+svn:wc:ra_dav:version-url
+V 168
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/user/api/LoggedInUserController.html
+END

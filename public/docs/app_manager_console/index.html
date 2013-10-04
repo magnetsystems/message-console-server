@@ -1,0 +1,2704 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 11.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="index.css" CHARSET="UTF-8" TYPE="text/css">
+<TITLE> </TITLE><link href="/images/favicon.ico" rel="shortcut icon" type="image/x-icon">    <link href="/images/apple-touch-icon.png" rel="apple-touch-icon">    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">    <link href="/stylesheets/dev.css" rel="stylesheet">    <link href=                  "http://fonts.googleapis.com/css?family=Titillium+Web:200,300,400" rel=                  "stylesheet" type="text/css">    <script src="/js/libs/modernizr.js" type="text/javascript"></script></HEAD>
+<BODY>
+<DIV>
+</div><div id="site-header">    <div class="logo_container">        <a href="/"><img alt="Developer Factory" src="/images/heading.png">            <h4>Developer Factory</h4></a>    </div>    <ul class="title_container">        <li>            <a href="/dev/">Projects</a>        </li>        <li class="dropdown">            <a class="dropdown-toggle" href="/resources/">Resources</a>            <ul class="dropdown-menu">                <li id="menu-samples" role="presentation"><a role="menuitem" tabindex="-1" href="../resources/samples.html">Samples</a></li>                <li id="menu-mam" role="presentation"><a role="menuitem" tabindex="-1" href="../resources/mobile_app_manager.html">Mobile App Manager</a></li>            </ul>        </li>        <li class="active">            <a href="/docs/">Documentation</a>        </li>        <li>            <a href="/support/">Support</a>        </li>    </ul>    <div class="control-buttons hidden">        <a href="#" id="invite-others"><em class=                                                   "icon-plus icon-white"></em><em class=                                                                                           "icon-user icon-white"></em></a> <a href="#" id=            "user-panel-toggle"><em class=                                            "icon-chevron-down icon-white"></em><span id=                                                                                              "username-placeholder"></span></a>    </div></div><div id="user-panel" style="display:none">    <div class="col">        <span class="user-username"></span><br>        <span class="user-company"></span>    </div>    <div class="col2">        <a href="/dev/#/profile-editor">Edit Profile</a>    </div>    <div class="btns">        <a class="btn-logout btn btn-primary" href="#">Log Out</a>    </div></div><div class="title_container_mobile hidden">    <div class="row-fluid">        <div class="span12">            <div class="btn-group">                <a class="btn dropdown-toggle" data-toggle="dropdown" href=                        "#">Navigation Menu <span class="caret"></span></a>                <ul class="dropdown-menu">                    <li>                        <a href="/intro/" tabindex="-1">Introduction</a>                    </li>                    <li>                        <a href="/dev/" tabindex="-1">My Projects</a>                    </li>                    <li class="disabled">                        <a href="#" tabindex="-1">Documentation</a>                    </li>                    <li>                        <a href="/support/" tabindex="-1">Support</a>                    </li>                </ul>            </div>        </div>    </div></div><div class="page" id="dev-container"><div class="row-fluid"><div class="clearfix page-view doc-list"><div class="row-fluid" id="doc-container"><div class="span4" id="doc-toc"></div><div class="span8" id="doc-content"><div></DIV>
+<P CLASS="Body">
+<A NAME="50601995_pgfId-1060768"></A>&nbsp;</P>
+<P CLASS="BookTitle">
+<A NAME="50601998_pgfId-998616"></A> Magnet<EM CLASS="TradeMark">
+&trade;</EM>
+ Mobile App Manager   <BR>
+Administrator Guide</P>
+<DIV>
+<H1 CLASS="Version">
+<A NAME="50601998_pgfId-1000277"></A> &nbsp;</H1>
+</DIV>
+<DIV>
+<H1 CLASS="Version">
+<A NAME="50601998_pgfId-998617"></A>2.0</H1>
+<DIV>
+<H4 CLASS="Revision">
+<A NAME="50601998_pgfId-998610"></A>Revision A</H4>
+<P CLASS="Copyright">
+<A NAME="50601998_pgfId-998856"></A>© 2013 Magnet Systems, Inc. All rights reserved. This manual, in whole or in part, may not be reproduced, translated, or reduced to any machine-readable form without the prior written approval of Magnet Systems, Inc. Magnet Systems, Inc. reserves the right to make any modification to this manual or the information contained herein at any time without notice. </P>
+<P CLASS="Copyright">
+<A NAME="50601998_pgfId-999403"></A>MAGNET SYSTEMS PROVIDES NO WARRANTY WITH REGARD TO THIS MANUAL, THE SOFTWARE, OR OTHER INFORMATION CONTAINED HEREIN AND HEREBY EXPRESSLY DISCLAIMS ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE WITH REGARD TO THIS MANUAL, THE SOFTWARE, OR SUCH OTHER INFORMATION. IN NO EVENT SHALL MAGNET SYSTEMS, INC. BE LIABLE FOR ANY INCIDENTAL, CONSEQUENTIAL, OR SPECIAL DAMAGES, WHETHER BASED ON TORT, CONTRACT, OR OTHERWISE, ARISING OUT OF OR IN CONNECTION WITH THIS MANUAL, THE SOFTWARE, OR OTHER INFORMATION CONTAINED HEREIN OR THE USE THEREOF. </P>
+<P CLASS="Copyright">
+<A NAME="50601998_pgfId-999554"></A>All other trademarks are trademarks of their respective owners. Any Magnet Systems patents granted or pending in the United States and other countries are protected by law. </P>
+<DIV>
+<H6 CLASS="Magnet">
+<A NAME="50601998_pgfId-998948"></A>Magnet Systems, Inc.</H6>
+<P CLASS="Address">
+<A NAME="50601998_pgfId-999133"></A>435 Tasso Street</P>
+<P CLASS="Address">
+<A NAME="50601998_pgfId-999979"></A>Suite 100</P>
+<P CLASS="Body">
+<A NAME="50601998_pgfId-999134"></A>Palo Alto, CA</P>
+<P CLASS="Body">
+<A NAME="50601998_pgfId-999129"></A>94301</P>
+<DIV>
+<H6 CLASS="Phone">
+<A NAME="50601998_pgfId-999146"></A>650–329–5904</H6>
+</DIV>
+<DIV>
+<H6 CLASS="Email">
+<A NAME="50601998_pgfId-999161"></A>info@magnet.com</H6>
+<P CLASS="Anchor">
+<A NAME="50602014_pgfId-374425"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602014_pgfId-376481"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602014_pgfId-376483"></A>&nbsp;</P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="TOCTitle">
+<A NAME="50602014_pgfId-375172"></A>&nbsp;</H2>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50602014_pgfId-377852"></A><A HREF="index.html#50602015_pgfId-1009622" CLASS="Index">1.	 Introducing the Mobile App Manager	1</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377854"></A><A HREF="index.html#50602015_pgfId-1031178" CLASS="Index">Mobile App Manager Console 	1</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377856"></A><A HREF="index.html#50602015_pgfId-1031187" CLASS="Index">Mobile App Store 	1</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50602014_pgfId-377858"></A><A HREF="index.html#50602016_pgfId-999043" CLASS="Index">2.	Getting Started	3</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377860"></A><A HREF="index.html#50602016_pgfId-1002802" CLASS="Index">Logging On to the Manager Console 	3</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377862"></A><A HREF="index.html#50602016_pgfId-1001244" CLASS="Index">Exploring the Magnet Console User Interface 	4</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377864"></A><A HREF="index.html#50602016_pgfId-1001238" CLASS="Index">Taking the Next Step 	4</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50602014_pgfId-377866"></A><A HREF="index.html#50602017_pgfId-999047" CLASS="Index">3.	Managing Apps	5</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377868"></A><A HREF="index.html#50602017_pgfId-999136" CLASS="Index">Creating an App 	6</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377870"></A><A HREF="index.html#50602017_pgfId-1002099" CLASS="Index">Searching for an App 	14</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377872"></A><A HREF="index.html#50602017_pgfId-1002170" CLASS="Index">Modifying an App 	16</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377874"></A><A HREF="index.html#50602017_pgfId-1002243" CLASS="Index">Removing an App from Apps@Work 	18</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377876"></A><A HREF="index.html#50602017_pgfId-1002311" CLASS="Index">Creating App Versions 	20</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377878"></A><A HREF="index.html#50602017_pgfId-1002549" CLASS="Index">Publishing an App 	25</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377880"></A><A HREF="index.html#50602017_pgfId-1002660" CLASS="Index">Adding an App to a Category 	27</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377882"></A><A HREF="index.html#50602017_pgfId-1003170" CLASS="Index">Adding an App to a Group 	29</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377884"></A><A HREF="index.html#50602017_pgfId-1003630" CLASS="Index">Creating an App Category 	32</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377886"></A><A HREF="index.html#50602017_pgfId-1003805" CLASS="Index">Searching for an App Category 	33</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377888"></A><A HREF="index.html#50602017_pgfId-1003833" CLASS="Index">Modifying an App Category 	35</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377890"></A><A HREF="index.html#50602017_pgfId-1003882" CLASS="Index">Removing an App Category 	36</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377892"></A><A HREF="index.html#50602017_pgfId-1027932" CLASS="Index">Creating an Unrestricted App 	37</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377894"></A><A HREF="index.html#50602017_pgfId-1031405" CLASS="Index">Modifying Unrestricted App Information 	38</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377896"></A><A HREF="index.html#50602017_pgfId-1039202" CLASS="Index">Deleting an Unrestricted App 	39</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50602014_pgfId-377898"></A><A HREF="index.html#50602018_pgfId-999043" CLASS="Index">4.	Managing Users	41</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377900"></A><A HREF="index.html#50602018_pgfId-1028497" CLASS="Index">Sending Account Activation Notification to Users 	42</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377902"></A><A HREF="index.html#50602018_pgfId-1000312" CLASS="Index">Searching for Users 	43</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377904"></A><A HREF="index.html#50602018_pgfId-1006730" CLASS="Index">Deactivating a Device Account 	44</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377906"></A><A HREF="index.html#50602018_pgfId-1008549" CLASS="Index">Installing Apps 	45</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377908"></A><A HREF="index.html#50602018_pgfId-1012484" CLASS="Index">Removing Apps 	46</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377910"></A><A HREF="index.html#50602018_pgfId-1009012" CLASS="Index">Viewing Events History 	48</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50602014_pgfId-377912"></A><A HREF="index.html#50602019_pgfId-999043" CLASS="Index">5.	Logging Events	51</A></H6>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50602014_pgfId-377914"></A><A HREF="index.html#50602020_pgfId-999043" CLASS="Index">6.	Searching with Filters	53</A></H6>
+</DIV>
+<DIV>
+<H6 CLASS="TitleApndxTOC">
+<A NAME="50602014_pgfId-377916"></A><A HREF="index.html#50602022_pgfId-1009622" CLASS="Index">A.	Setting up an LDAP Server	57</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377918"></A><A HREF="index.html#50602022_pgfId-1022321" CLASS="Index">LDAP Server Directory Structure 	57</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377920"></A><A HREF="index.html#50602022_pgfId-1013059" CLASS="Index">LDIF Records 	57</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50602014_pgfId-377922"></A><A HREF="index.html#50602022_pgfId-1013731" CLASS="Index">Users_Groups.LDIF 	58</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50602014_pgfId-377924"></A><A HREF="index.html#50602022_pgfId-1013837" CLASS="Index">Users.LDIF 	59</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50602014_pgfId-377926"></A><A HREF="index.html#50602022_pgfId-1014052" CLASS="Index">Groups.LDIF 	59</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50602014_pgfId-377928"></A><A HREF="index.html#50602022_pgfId-1015608" CLASS="Index">Assign.LDIF 	60</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377930"></A><A HREF="index.html#50602022_pgfId-1013574" CLASS="Index">LDAP Server Integration 	61</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleApndxTOC">
+<A NAME="50602014_pgfId-377932"></A><A HREF="index.html#50601996_pgfId-1009622" CLASS="Index">B.	Setting up HAProxy 	63</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377934"></A><A HREF="index.html#50601996_pgfId-1017604" CLASS="Index">Installing an HAProxy Instance 	63</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50602014_pgfId-377936"></A><A HREF="index.html#50601996_pgfId-1017404" CLASS="Index">Configuring HAProxy 	64</A></P>
+<P CLASS="Anchor">
+<A NAME="50602015_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602015_pgfId-1012801"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602015_pgfId-1012803"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50602015_pgfId-1009622"></A> Introducing the Mobile App Manager      </H6>
+<P CLASS="Body">
+<A NAME="50602015_pgfId-1031176"></A>The Magnet™ Mobile App Manager (MAM) is a run-time server that monitors the service status of Magnet MES and provides app management functionality by way of the Magnet Mobile App Manager Console and Mobile App Store. </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602015_pgfId-1031178"></A><A NAME="50602015_73425"></A>Mobile App Manager Console</H3>
+<P CLASS="Body">
+<A NAME="50602015_pgfId-1031179"></A>The Magnet MAM Console is a Web interface of the Magnet Mobile App Manager that enables IT administrators to centrally manage and administer apps on client devices. Access to the MAM Console is defined by role-based and group association, which is defined in LDAP. Using the MAM Console, IT administrators can: </P>
+<P CLASS="BulletTight">
+<A NAME="50602015_pgfId-1031180"></A>Enable employee BYOD.</P>
+<P CLASS="BulletTight">
+<A NAME="50602015_pgfId-1031181"></A>Remotely install, remove, upgrade, and track apps.</P>
+<P CLASS="BulletTight">
+<A NAME="50602015_pgfId-1031182"></A>Customize an enterprise private-label app store.</P>
+<P CLASS="BulletTight">
+<A NAME="50602015_pgfId-1031183"></A>Remotely activate / deactivate user accounts.</P>
+<P CLASS="BulletTight">
+<A NAME="50602015_pgfId-1031184"></A>Push required apps to authorized users.</P>
+<P CLASS="BulletTight">
+<A NAME="50602015_pgfId-1031185"></A>View logs to monitor events history. </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602015_pgfId-1031187"></A><A NAME="50602015_75441"></A>Mobile App Store</H3>
+<P CLASS="Body">
+<A NAME="50602015_pgfId-1031188"></A>The Mobile App Store is an app for installing and managing apps on a mobile device and is installed on iOS and Android devices. The Mobile App Store includes a suite of sample apps that are organized in categories. Via the MAM Console, IT administrators can brand the Mobile App Store with the enterprise private label. The App Store branding kit can be obtained on request.</P>
+<P CLASS="Anchor">
+<A NAME="50602016_pgfId-998346"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602016_pgfId-1005040"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602016_pgfId-1005042"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50602016_pgfId-999043"></A>Getting Started </H6>
+<P CLASS="Body">
+<A NAME="50602016_pgfId-999452"></A>The Magnet Mobile App Manager Console (Management Console) is a Web-based user interface that enables IT personnel to centrally manage and administer apps. The Magnet Mobile App Manager Console is also used for device provisioning. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602016_pgfId-1002802"></A><A NAME="50602016_17471"></A>Logging On to the Manager Console</H3>
+<P CLASS="Body">
+<A NAME="50602016_pgfId-1002803"></A>The following browsers are supported: </P>
+<P CLASS="BulletTight">
+<A NAME="50602016_pgfId-1002519"></A>Firefox 16 and above</P>
+<P CLASS="BulletTight">
+<A NAME="50602016_pgfId-1002536"></A>Chrome </P>
+<P CLASS="BulletTight">
+<A NAME="50602016_pgfId-1002545"></A>Safari 5 and above</P>
+<P CLASS="Anchor">
+<A NAME="50602016_pgfId-1002473"></A> &nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602016_pgfId-1002690"></A><DIV>
+<IMG SRC="index-1.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602016_pgfId-1002692"></A><DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+Internet Explorer is not currently supported because there are issues around installing apps. <BR>
+<DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602016_pgfId-999446"></A>Launch a browser, and enter the URL. </H6>
+<P CLASS="ListNumber1-">
+<A NAME="50602016_pgfId-999429"></A>Enter the username and password. </P>
+<P CLASS="Anchor">
+<A NAME="50602016_pgfId-1003256"></A> &nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602016_pgfId-1003253"></A><DIV>
+<IMG SRC="index-1.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602016_pgfId-1003255"></A><DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+Please contact Magnet Systems for the URL, username, and password. <BR>
+<DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602016_pgfId-999499"></A>Click <EM CLASS="Field">
+Sign in</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602016_pgfId-1001408"></A>The Management Console home page opens. </P>
+<P CLASS="Anchor">
+<A NAME="50602016_pgfId-1001453"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-3.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602016_pgfId-1003106"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602016_pgfId-1001244"></A>Exploring the Manager Console User Interface</H3>
+<P CLASS="Anchor">
+<A NAME="50602016_pgfId-1001248"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-4">
+</MAP>
+<IMG SRC="index-4.gif" USEMAP="#index-4" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602016_pgfId-1001249"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602016_pgfId-1001238"></A>Taking the Next Step</H3>
+<P CLASS="Body">
+<A NAME="50602016_pgfId-999415"></A>Proceed to <A HREF="index.html#50602017_37430" CLASS="XRef">See Managing Apps</A> to create and publish new apps followed by <A HREF="index.html#50602018_57352" CLASS="XRef">See Managing Users</A> to push apps to user devices. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-998346"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1030857"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1030859"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50602017_pgfId-999047"></A><A NAME="50602017_37430"></A>Managing Apps </H6>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1031459"></A>The Apps tab is the entry point for managing apps and categorizing them. It includes adding app versions and removing an app category as well as provisioning user devices. To access the App Management page, click the <EM CLASS="Field">
+Apps</EM>
+ tab. The following illustration shows the navigation among app-related pages.</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1032165"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-5">
+</MAP>
+<IMG SRC="index-5.gif" USEMAP="#index-5" ALT="">
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-999136"></A><A NAME="50602017_13568"></A>Creating an App</H3>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1031595"></A>An installation wizard guides you through the installation process. Each step is dependent, which means you must complete step 1 before moving on to step 2. By clicking Continue, the step becomes accessible at any time during the installation process. For example, steps 1 and 2 are done and you are on step 3, you can go back to steps 1 or 2 when you need to make changes. </P>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-999138"></A>You can organize your apps by category. The Magnet Mobile Server provides eight default categories for organizing your apps. You can assign an app to one or more categories. Refer to <A HREF="index.html#50602017_28667" CLASS="XRef">See Creating an App Category</A> to add new categories. </P>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-999142"></A>User groups are pre-configured through LDAP. You can assign users with an app access level based on their group association (refer to <A HREF="index.html#50602017_22522" CLASS="XRef">See Adding an App to a Group</A>). A user may belong to multiple groups, but each group has different app access level. In this case, the last group/status pair supersedes others. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-999149"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-999153"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-6.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-999154"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-999155"></A>Click <EM CLASS="Field">
+Create an App</EM>
+. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-999159"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-7.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-999160"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-999161"></A>Enter the following information that will be displayed on the user’s device. </P>
+<P CLASS="ListBullet">
+<A NAME="50602017_pgfId-999162"></A>App Title: The name of the app. </P>
+<P CLASS="ListBullet">
+<A NAME="50602017_pgfId-999163"></A>Description: A summary of what the app does. </P>
+<P CLASS="ListBullet">
+<A NAME="50602017_pgfId-999164"></A>Publisher: The person or company who publishes the app. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-999165"></A>Enter the following optional information.</P>
+<P CLASS="ListBullet">
+<A NAME="50602017_pgfId-1032482"></A>Publisher URL: </P>
+<P CLASS="ListBullet">
+<A NAME="50602017_pgfId-1032511"></A>Publisher Phone: </P>
+<P CLASS="ListBullet">
+<A NAME="50602017_pgfId-1032530"></A>Support URL: </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1032298"></A>Change (if needed) the option from the <EM CLASS="Field">
+Hidden from App Store</EM>
+ drop-down list. </P>
+<P CLASS="ListBullet">
+<A NAME="50602017_pgfId-999166"></A>Yes indicates to upload the app, but hide it from Apps@Work.</P>
+<P CLASS="ListBullet">
+<A NAME="50602017_pgfId-999167"></A>No (default) indicates to make the app visible to Apps@Work. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1014380"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1014383"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1014385"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+App@Work is an app that is used to install and manage all enterprise apps.<BR>
+<DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-999168"></A>Click <EM CLASS="Field">
+Continue </EM>
+to assign the app to one or more categories. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-999169"></A>The STEP 2 screen opens. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-999173"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-10.gif" ALT="">
+</DIV>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1000647"></A>Select a category from the Category List panel, drag and drop it or click <IMG SRC="index-11.gif" ALIGN="BASELINE" ALT="">
+to move it to the Currently Selected panel. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1017898"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1017892"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1017894"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+It is good practice to assign at least one category although it is not required at this time and you can assign one later (refer to <A HREF="index.html#50602017_56772" CLASS="XRef">See Adding an App to a Category</A>). When an app is not assigned to a category, the app is not available to users. <BR>
+<BR>
+When assigning an app to multiple categories, press &lt;Shift&gt; while making the selection; click <IMG SRC="index-12.gif" ALIGN="BASELINE" ALT="">
+to move them to the Currently Selected panel.<BR>
+<BR>
+The drag-and-drop function does not work when selecting multiple categories. <DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1000449"></A>Click <EM CLASS="Field">
+Continue</EM>
+ to assign the app to a user group.</P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1001001"></A>The STEP 3 screen opens. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001044"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-13.gif" ALT="">
+</DIV>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1001087"></A>Select the group from the Groups List panel, click <IMG SRC="index-14.gif" ALIGN="BASELINE" ALT="">
+to move it to the Currently Selected panel. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001447"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1001441"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1001443"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+Assigning an app to a group is not required at this time and you can assign the app to a group later (refer to <A HREF="index.html#50602017_22522" CLASS="XRef">See Adding an App to a Group</A>). When an app access level is not assigned, the app is available to users of that group. <BR>
+<BR>
+When assigning an app to multiple groups, press &lt;Shift&gt; while making the selection; click <IMG SRC="index-15.gif" ALIGN="BASELINE" ALT="">
+to move them to the Currently Selected panel.<BR>
+<BR>
+The Disable Groups option is not available for this release. <DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1001836"></A>Assign an app access level to the group by selecting one from the drop-down list. </P>
+<P CLASS="ListBullet">
+<A NAME="50602017_pgfId-1001837"></A>REQUIRED indicates that they must take this app and that users cannot delete it. </P>
+<P CLASS="ListBullet">
+<A NAME="50602017_pgfId-1001838"></A>OPTIONAL indicates that users may take this app by their choosing. </P>
+<P CLASS="ListBullet">
+<A NAME="50602017_pgfId-1001839"></A>BLOCKED indicates that users are not permitted to install this app. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1014649"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1014643"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1014648"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+Refer to <A HREF="index.html#50602018_94781" CLASS="XRef">See Installing Apps</A> for installing required apps. <BR>
+<DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1014650"></A>Click <EM CLASS="Field">
+Continue</EM>
+ to review the information you entered. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1014651"></A>The STEP 4 screen similar to the following opens. In this example, it shows two categories and two groups selected for app “Instagram2”.</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001854"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-16.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001855"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1001856"></A>Click <EM CLASS="Field">
+Create App</EM>
+ to complete, or click the <EM CLASS="Field">
+STEP</EM>
+ tab to go back and change any information. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1001857"></A>A dialog box opens informing you of the status.</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001861"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-17.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001862"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001909"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1001906"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1001908"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+All STEP tabs are now accessible. You can go back to any previous tabs to make changes. <BR>
+<DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1001910"></A>Click OK to go to the App Version page, as shown in the following example. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001914"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-18.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001915"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1001917"></A><A NAME="50602017_version create -- start"></A>Click <EM CLASS="Field">
+Create Package Version</EM>
+. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001921"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-19.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001922"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1001923"></A>Enter a description of recent changes to the app in the <EM CLASS="Field">
+Recent Changes</EM>
+ field. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1001924"></A>Click <EM CLASS="Field">
+Select a File</EM>
+, and navigate to the file location where the app package file (APK, file format for Android) is kept. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1001925"></A>The following screen shows an example of an app package selected. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001955"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-20.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001956"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1001957"></A>Click <EM CLASS="Field">
+Upload App</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1001958"></A>A dialog box appears informing you of the status. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001964"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1001961"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1001963"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+A given app version can be uploaded only once. An error occurs and the operation fails when you try to upload the same app version again. <DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1001965"></A>Click OK to return to the App Version page and to publish the app version. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001969"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-21.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001970"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1001977"></A>Click <EM CLASS="Field">
+Not Published</EM>
+ to publish the version. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1001978"></A>A screen similar to the following appears, showing the detailed information of the version to be published. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001982"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-22.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001983"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1001992"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1001986"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1034490"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+An app version must be published or it will not appear in Apps@Work, and users will be unable to install it. You can publish the app later; refer to <A HREF="index.html#50602017_33604" CLASS="XRef">See Creating App Versions</A> for information.  <DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1001993"></A>Click <EM CLASS="Field">
+Upload a Screenshot</EM>
+ (optional) to associate a graphic with this app version. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1032865"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-23.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1033018"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1032886"></A>Enter the name and description for the graphic in their respective fields.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1032940"></A>Click Select a File and navigate to the file folder where the graphic file is located. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1033096"></A>Click OK. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1033001"></A>The graphic is displayed when successfully uploaded, as shown in the following example. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1033112"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-24.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1033128"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1034844"></A>Click <EM CLASS="Field">
+Publish</EM>
+.</P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002040"></A>A dialog box appears informing you of the status. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002042"></A><A NAME="50602017_version create -- end"></A>Click OK to return to the app version page, and the version is now changed to Published. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002046"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-25.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1030933"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-1002099"></A><A NAME="50602017_65563"></A>Searching for an App</H3>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1002100"></A>You can only search for an app that your organization has previously created. You can specify the search by title, publisher, or description. For a more specific search, click the <EM CLASS="Field">
+Advance Search</EM>
+ tab (refer to <A HREF="index.html#50602020_27780" CLASS="XRef">See Searching with Filters</A>). </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-1002101"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002105"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-26.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002106"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002107"></A>Select a search preference from the <EM CLASS="Field">
+Search By</EM>
+ drop-down list.</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002111"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-27.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002112"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002113"></A>Enter your search preference (title, description, or publisher) and click <EM CLASS="Field">
+Search</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002114"></A>The result is displayed, as shown in the following example. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002118"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-28.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1004723"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1004748"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1004745"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1004747"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+The text for search is case sensitive. <BR>
+<DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-1002170"></A><A NAME="50602017_11249"></A>Modifying an App</H3>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-1002171"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002175"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-29.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002176"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002177"></A>Select an app of interest. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002178"></A>— Or —</P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002182"></A>Search for an app of interest (refer to <A HREF="index.html#50602017_65563" CLASS="XRef">See Searching for an App</A>).</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1035432"></A>Click <EM CLASS="Field">
+Details</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1035427"></A>The following screen shows the CRM app has been selected. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1035340"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-30.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1035341"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1035342"></A>Click <EM CLASS="Field">
+Go to App Management</EM>
+. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1035346"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-31.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002188"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1033612"></A>Modify any fields. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002196"></A>Click <EM CLASS="Field">
+Save Changes</EM>
+ when done. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1018480"></A>The updated app information is saved to Apps@Work.</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-1002243"></A><A NAME="50602017_61793"></A>Removing an App from Apps@Work</H3>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1025584"></A>When an app is removed, it is removed from Apps@Work. The app is not removed from the user device. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-1002244"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002248"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-32.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002249"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002250"></A>Select an app of interest. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002251"></A>— Or —</P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002255"></A>Search for an app of interest (refer to <A HREF="index.html#50602017_65563" CLASS="XRef">See Searching for an App</A>).</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1015258"></A>Click <EM CLASS="Field">
+Details</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1035546"></A>The following screen shows the CRM app has been selected. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1035550"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-33.gif" ALT="">
+</DIV>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1035552"></A>Click <EM CLASS="Field">
+Go to App Management</EM>
+. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1035556"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-34.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1035557"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002307"></A>Click <EM CLASS="Field">
+App Administration</EM>
+.</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1035607"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-35.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1035623"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1035600"></A>Click <EM CLASS="Field">
+Delete App</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002308"></A>A dialog box appears asking for confirmation.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002309"></A>Click OK to confirm the operation. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-1002311"></A><A NAME="50602017_33604"></A>Creating App Versions</H3>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1035917"></A>You can create an app version after an app has been created. To make an app available to users, an app version must be published to appear in Apps@Work, so it is available for users to install. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-1002312"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002316"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-36.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002317"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002349"></A>Select an app of interest, click <EM CLASS="Field">
+Details</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002350"></A>The detailed information of the selected app appears, as shown in the following example. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002354"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-37.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002355"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1033770"></A>Click <EM CLASS="Field">
+Go to App Management</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1046451"></A>The status of the version is indicated, as shown in the following example.</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1033896"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-38.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1046595"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1010671"></A>Click <EM CLASS="Field">
+Versions</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002358"></A>A page opens displaying the version list, as shown in the following example. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002362"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-39.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002363"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002364"></A>Click <EM CLASS="Field">
+Create Package Version</EM>
+. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002368"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-40.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002369"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002370"></A>Enter a description of the app in the <EM CLASS="Field">
+Recent Changes</EM>
+ field. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1008188"></A>Click <EM CLASS="Field">
+Select a File</EM>
+, and navigate to the file location where the app package file (APK, file format for Android or IPA for iOS) is kept. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1008189"></A>The following screen shows an example of the app package selected. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002376"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-41.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002377"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002378"></A>Click <EM CLASS="Field">
+Upload App</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002379"></A>A dialog box appears informing you of the status. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002385"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1002382"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1002384"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+A given app version can be uploaded only once. An error occurs and the operation fails when you try to upload the same app version again. <DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002386"></A>Click OK to return to the App Version page to publish the app. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002390"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-42.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002391"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002397"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Important-Icon">
+<A NAME="50602017_pgfId-1002394"></A><DIV>
+<IMG SRC="index-43.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ImportantText">
+<A NAME="50602017_pgfId-1002396"></A><BR>
+Be sure to publish an app version or the app will not appear in Apps@Work, and users will be unable to install it. </P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002449"></A>Click <EM CLASS="Field">
+Not Published</EM>
+ to publish the version. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002450"></A>A screen similar to the following appears, showing the detailed information of the version to be published. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002454"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-44.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1051148"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1037317"></A>Click <EM CLASS="Field">
+Upload a Screenshot</EM>
+ (optional) to associate a graphic with this app version. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1037322"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-45.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1037323"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1037324"></A>Enter the name and description for the graphic in their respective fields.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1037325"></A>Click Select a File and navigate to the file folder where the graphic file is located. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1037326"></A>Click OK. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1037327"></A>The graphic is displayed when successfully uploaded, as shown in the following example. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1037331"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-46.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1037332"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002513"></A>Click <EM CLASS="Field">
+Publish</EM>
+.</P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002514"></A>A dialog box appears informing you of the status. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1037458"></A>Click OK to return to the app version page, and the version is now changed to Published. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1037462"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-47.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1037463"></A>&nbsp;</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-1002549"></A>Publishing an App</H3>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1002550"></A>Before your users can install an app, you must publish it first. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-1002551"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002555"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-48.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002556"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002557"></A>Select an app of interest, click <EM CLASS="Field">
+Details</EM>
+ to display the app detailed information. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002558"></A>The following example shows the detailed information of the 401(K) app.</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002562"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-49.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002563"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002564"></A>Click <EM CLASS="Field">
+Go to App Management</EM>
+. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002565"></A>Click <EM CLASS="Field">
+Versions</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002566"></A>A page opens displaying version list, as shown in the following example.</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002570"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-50.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002571"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002572"></A>Click <EM CLASS="Field">
+Not Published</EM>
+ to publish the version of the app. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002573"></A>A screen similar to the following appears, showing the detailed information of the version to be published. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002577"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-51.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002578"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1037749"></A>Click <EM CLASS="Field">
+Publish</EM>
+.</P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1037750"></A>A dialog box appears informing you of the status. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1037751"></A>Click OK to return to the app version page, and the version is now changed to Published. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1037755"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-52.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1037756"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002586"></A>Click <EM CLASS="Field">
+Publish</EM>
+.</P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002587"></A>A dialog box appears informing you of the status. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-1002660"></A><A NAME="50602017_56772"></A>Adding an App to a Category</H3>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1002661"></A>You can add an app to one or more categories. When an app is not assigned to a category, the app is not available to Apps@Work, which means the app is not visible to users for installation.</P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-1002662"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002666"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-53.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002667"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002668"></A>Select an app of interest. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002669"></A>— Or —</P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1002673"></A>Search for an app of interest (refer to <A HREF="index.html#50602017_65563" CLASS="XRef">See Searching for an App</A>).</P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1015778"></A>The following screen shows an example of CRM app selected. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1008780"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-54.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002679"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1002912"></A>Click <EM CLASS="Field">
+Categories</EM>
+. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002964"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-55.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1002977"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003050"></A>Select the category from the Category List panel, drag and drop it or click <IMG SRC="index-56.gif" ALIGN="BASELINE" ALT="">
+to move it to the Currently Selected panel. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003062"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1003056"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1003058"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+When assigning an app to multiple categories, press &lt;Shift&gt; while making the selection; click <IMG SRC="index-57.gif" ALIGN="BASELINE" ALT="">
+ to move them to the Currently Selected panel.<BR>
+<BR>
+The drag-and-drop function does not work when selecting multiple categories. <DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003104"></A>Click <EM CLASS="Field">
+Save Categories</EM>
+. </P>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1003105"></A>The selected categories are now displayed as shown in the following example.</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003109"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-58.gif" ALT="">
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-1003170"></A><A NAME="50602017_22522"></A>Adding an App to a Group</H3>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1009136"></A>User groups are pre-configured through LDAP. You can assign users with an app access level based on their group association. A user may belong to multiple groups but each group has different app access status. In this case, the last group/status pair supersedes others. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-1003172"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003176"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-59.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003177"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003178"></A>Select an app of interest. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1003179"></A>— Or —</P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1003183"></A>Search for an app of interest (refer to <A HREF="index.html#50602017_65563" CLASS="XRef">See Searching for an App</A>).</P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1003184"></A>The following screen shows an example of the CRM app selected. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003188"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-60.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1047919"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003191"></A>Click <EM CLASS="Field">
+Groups</EM>
+.</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003195"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-61.gif" ALT="">
+</DIV>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003255"></A>Select the group from the Groups List panel, drag and drop it or click <IMG SRC="index-62.gif" ALIGN="BASELINE" ALT="">
+to move it to the Currently Selected panel. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003267"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1003261"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1003263"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+When assigning an app to multiple groups, press &lt;Shift&gt; while making the selection; click <IMG SRC="index-63.gif" ALIGN="BASELINE" ALT="">
+ to move them to the Currently Selected panel.<BR>
+<BR>
+The Disable Groups option is not available for this release.<DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003369"></A>Assign an app access level to the group by selecting one from the drop-down list. </P>
+<P CLASS="ListBullet">
+<A NAME="50602017_pgfId-1003370"></A>REQUIRED indicates that users must take this app and that they cannot delete it. </P>
+<P CLASS="ListBullet">
+<A NAME="50602017_pgfId-1003371"></A>OPTIONAL indicates that users may take this app by their choosing. </P>
+<P CLASS="ListBullet">
+<A NAME="50602017_pgfId-1003372"></A>BLOCKED indicates users are not permitted to install this app. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003381"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1003375"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1003377"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+Refer to <A HREF="index.html#50602018_94781" CLASS="XRef">See Installing Apps</A> for installing required apps. <BR>
+<DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003382"></A>Click <EM CLASS="Field">
+Save Groups</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1009400"></A>The selected groups are now displayed as shown in the following example.</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003387"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-64.gif" ALT="">
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-1003630"></A><A NAME="50602017_28667"></A>Creating an App Category</H3>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1003631"></A>The Magnet Mobile Server provides eight default app categories: Finance, HR, IT, Legal, Operations, Sales, Support, System. You can create new ones or modify existing ones. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-1003632"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003636"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-65.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003637"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003638"></A>Click<EM CLASS="Field">
+ Categories</EM>
+; a page similar to the following opens.</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003642"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-66.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003643"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003694"></A>Click <EM CLASS="Field">
+Create a Category</EM>
+. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003698"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-67.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003699"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003701"></A>Enter the category name you want users to see in the <EM CLASS="Field">
+Title</EM>
+ field. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003702"></A>Enter (optionally) additional information in the <EM CLASS="Field">
+Description</EM>
+ field. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003703"></A>Click <EM CLASS="Field">
+Select a File</EM>
+ to upload an image file that will be displayed in Apps@Work on a user’s mobile device. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003709"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1003706"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1003708"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+The image file must be in the PNG format and the image size must not exceed 377W x 256H pixels.<BR>
+<DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003710"></A>Click <EM CLASS="Field">
+Create Category</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1003711"></A>A page opens displaying the category created. The following example shows a newly-created category, “Energy.” </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003715"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-68.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003762"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1019460"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1019466"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1019468"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+The newly-created app category is initially placed in the default en_US locale, which you can change (refer to <A HREF="index.html#50602017_77539" CLASS="XRef">See Modifying an App Category</A>). <DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-1003805"></A>Searching for an App Category </H3>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1003806"></A>You can search for an app category by title, description, or locale.</P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-1003807"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003811"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-69.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003812"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003813"></A>Click <EM CLASS="Field">
+Categories</EM>
+.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003814"></A>Select a search filter from the <EM CLASS="Field">
+Search By</EM>
+ drop-down list, as shown in the following example. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003818"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-70.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003819"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003820"></A>Enter the search criteria and click <EM CLASS="Field">
+Search</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1021888"></A>The result is displayed in the table as shown in the following example. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003825"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-71.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1050126"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602017_pgfId-1050123"></A><DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602017_pgfId-1050125"></A><DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+The text for search is case sensitive. <BR>
+<DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-1003833"></A><A NAME="50602017_77539"></A>Modifying an App Category</H3>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1003834"></A>You can make changes to an app category. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-1003835"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003836"></A>Click <EM CLASS="Field">
+Categories</EM>
+.</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1038165"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-72.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1038190"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003837"></A>Select a category to which you want to make changes, click <EM CLASS="Field">
+Details</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1003838"></A>The Category Information page similar to the following opens. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003842"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-73.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003843"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003844"></A>Modify any information, and click Save Changes. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-1003882"></A><A NAME="50602017_23804"></A>Removing an App Category</H3>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1017447"></A>Removing an app category does not remove apps that are within that category. Apps are still available when they are associated to other categories. When apps are exclusively associated to a category being removed, they are no longer visible to App@Work; however, apps are not deleted and can be recategorized. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-1003884"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003885"></A>Click <EM CLASS="Field">
+Categories</EM>
+.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003886"></A>Select the category you want to remove, click <EM CLASS="Field">
+Details</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1003887"></A>The Category Information page similar to the following opens. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003891"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-74.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1003892"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003893"></A>Click <EM CLASS="Field">
+Delete Category</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1003894"></A>A dialog box appears asking for confirmation.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003895"></A>Click Continue. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1003896"></A>A dialog box appears informing you of the deletion status. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1003897"></A>Click OK to return to the Categories page.</P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1025494"></A>The category is immediately removed from the category list. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-1027932"></A><A NAME="50602017_83648"></A>Creating an Unrestricted App</H3>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1040120"></A>An unrestricted app is an app that is to be distributed only to a selected group of users. You can use this feature for the distribution of production-ready apps across the enterprise or, for the pre-release app to elicit user feedback. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-1038412"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1038378"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-75.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1038762"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1038427"></A>Click <EM CLASS="Field">
+Unrestricted Apps</EM>
+. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1031364"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-76.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1038771"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1048177"></A>Click <EM CLASS="Field">
+Create an Unrestricted App</EM>
+. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1048224"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-77.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1048225"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1031366"></A>Click <EM CLASS="Field">
+Select a File</EM>
+ and navigate to the folder where the unrestricted file is located. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1031368"></A>Select a file of interest, and click OK to return to the previous screen. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1038675"></A>The file you selected now appears as shown in the following example. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1031370"></A> &nbsp;</P>
+<DIV>
+<IMG SRC="index-78.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1038804"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1031401"></A>Click <EM CLASS="Field">
+Upload App</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1038845"></A>A message informing of the operational status appears. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1031403"></A>Click OK to return to the Unrestricted Apps page.</P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1038960"></A>The newly created App appears on the table. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-1031405"></A>Modifying Unrestricted App Information</H3>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-1048353"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1048357"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-79.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1048358"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1039546"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1039575"></A>Click <EM CLASS="Field">
+Unrestricted Apps</EM>
+. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1039579"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-80.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1039591"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1039651"></A>Select an unrestricted app to which you want to make changes, click <EM CLASS="Field">
+Details</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1039993"></A>The Unrestricted App Information page similar to the following opens. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1039014"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-81.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1039771"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1039757"></A>Modify any information, and click <EM CLASS="Field">
+Save Changes</EM>
+. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602017_pgfId-1039202"></A>Deleting an Unrestricted App</H3>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602017_pgfId-1048408"></A>Select the <EM CLASS="Field">
+Apps</EM>
+ tab to open the App Management page. </H6>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1048412"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-82.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1050494"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1050495"></A>Click <EM CLASS="Field">
+Unrestricted Apps</EM>
+. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1039854"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-83.gif" ALT="">
+</DIV>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1039903"></A> Select the unrestricted app you want to remove, click <EM CLASS="Field">
+Details</EM>
+. </P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1039275"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-84.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1039287"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1039261"></A>Click <EM CLASS="Field">
+Delete App. </EM>
+</P>
+<P CLASS="ListContinued">
+<A NAME="50602017_pgfId-1039307"></A>The following dialog box appears asking for confirmation.</P>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1039027"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-85.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602017_pgfId-1039396"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602017_pgfId-1039398"></A>Click Continue to return to the Unrestricted Apps page, and the app is removed from the table. </P>
+<P CLASS="Body">
+<A NAME="50602017_pgfId-1039508"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-998346"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1023271"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1023273"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50602018_pgfId-999043"></A><A NAME="50602018_57352"></A>Managing Users</H6>
+<P CLASS="Body">
+<A NAME="50602018_pgfId-999056"></A>Users and groups are configured through LDAP. When user devices are activated, they can be manually deactivated.</P>
+<P CLASS="Body">
+<A NAME="50602018_pgfId-1007962"></A>This chapter provides instructions for the following topics:</P>
+<P CLASS="BulletTight">
+<A NAME="50602018_pgfId-1029254"></A>Sending account notification to users (<A HREF="index.html#50602018_15534" CLASS="XRef">See Sending Account Activation Notification to Users</A>)</P>
+<P CLASS="BulletTight">
+<A NAME="50602018_pgfId-1008027"></A>Searching for users (<A HREF="index.html#50602018_49897" CLASS="XRef">See Searching for Users</A>)</P>
+<P CLASS="BulletTight">
+<A NAME="50602018_pgfId-1008115"></A>Deactivating a device account (<A HREF="index.html#50602018_92326" CLASS="XRef">See Deactivating a Device Account</A>)</P>
+<P CLASS="BulletTight">
+<A NAME="50602018_pgfId-1026983"></A>Installing apps (<A HREF="index.html#50602018_94781" CLASS="XRef">See Installing Apps</A>)</P>
+<P CLASS="BulletTight">
+<A NAME="50602018_pgfId-1027195"></A>Removing apps (<A HREF="index.html#50602018_98555" CLASS="XRef">See Removing Apps</A></P>
+<P CLASS="BulletTight">
+<A NAME="50602018_pgfId-1008145"></A>Reviewing events history (<A HREF="index.html#50602018_63852" CLASS="XRef">See Viewing Events History</A>)</P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602018_pgfId-1028497"></A><A NAME="50602018_15534"></A>Sending Account Activation Notification to Users</H3>
+<P CLASS="Body">
+<A NAME="50602018_pgfId-1028627"></A>You can send an account activation notification to a group of users or one individual. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602018_pgfId-1028909"></A>Click the <EM CLASS="Field">
+Users</EM>
+ tab to open the User Management page.</H6>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1028500"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-86.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1028979"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1028981"></A>Select users from the list.</P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1029020"></A>— Or —</P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1029031"></A>Search an individual user. </P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1028805"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602018_pgfId-1028802"></A><DIV>
+<IMG SRC="index-87.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602018_pgfId-1028804"></A><DIV>
+<IMG SRC="index-88.gif" ALT="">
+</DIV>
+The text for search is case sensitive.<BR>
+<DIV>
+<IMG SRC="index-88.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1028558"></A>Click <EM CLASS="Field">
+Send Activation Email</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1029111"></A>The following dialog box appears when the notification has been sent. </P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1028560"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-89.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1029214"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1029216"></A>Click OK. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602018_pgfId-1000312"></A><A NAME="50602018_49897"></A>Searching for Users </H3>
+<P CLASS="Body">
+<A NAME="50602018_pgfId-1000568"></A>You can search for a user by name or e-mail address. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602018_pgfId-1000647"></A>Select a search preference from the <EM CLASS="Field">
+Search By</EM>
+ drop-down list. </H6>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1000514"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-90.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1000515"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1000726"></A>Enter your search preference (name/email), click <EM CLASS="Field">
+Search</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1000833"></A>The result is displayed as shown in the following example.</P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1000891"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-91.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1000835"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1000975"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602018_pgfId-1000979"></A><DIV>
+<IMG SRC="index-87.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602018_pgfId-1000981"></A><DIV>
+<IMG SRC="index-88.gif" ALT="">
+</DIV>
+The text for search is case sensitive.<BR>
+<DIV>
+<IMG SRC="index-88.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602018_pgfId-1006730"></A><A NAME="50602018_92326"></A>Deactivating a Device Account </H3>
+<P CLASS="Body">
+<A NAME="50602018_pgfId-1026661"></A>As security measures and as part of the normal business process, you can prevent a device from accessing enterprise services by deactivating its account. The device is still fully operational when it is deactivated; however, access to enterprise services is disabled and the use of the enterprise applications are disengaged. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602018_pgfId-1026663"></A>Select a user account of interest from the User Management page.</H6>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1006932"></A>— Or —</P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1006936"></A>Search for a user account of interest (refer to <A HREF="index.html#50602018_49897" CLASS="XRef">See Searching for Users</A>). </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1006937"></A>Click <EM CLASS="Field">
+Details</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1006938"></A>A User Information form similar to the following appears displaying the account information. </P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1006942"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-92.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1029509"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1029516"></A>Click the device that you want to deactivate. </P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1006945"></A>The Device Details page similar to the following opens.</P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1006949"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-93.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1030491"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1006753"></A>Click <EM CLASS="Field">
+Deactivate Account</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1007434"></A>A dialog box appears informing you of the operational status. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1007435"></A>Click OK to return to the Device Details page. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602018_pgfId-1008549"></A><A NAME="50602018_94781"></A>Installing Apps </H3>
+<P CLASS="Body">
+<A NAME="50602018_pgfId-1015609"></A>When a device is connected to a network (cellular or WiFi) while you issue the Install command, the app is immediately installed on the device based on the group’s association. If an app is required for a group, the app will be installed without notification sent to the device. If an app is optional, a notification is sent to the device, and the user can decide whether or not to install the app. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602018_pgfId-1008637"></A>Select a user account of interest from the User Management page.</H6>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1008638"></A>— Or —</P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1008642"></A>Search for a user account of interest (refer to <A HREF="index.html#50602018_49897" CLASS="XRef">See Searching for Users</A>). </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1008643"></A>Click <EM CLASS="Field">
+Details</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1008644"></A>A User Information form similar to the following appears displaying the account information. </P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1008648"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-94.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1008649"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1008650"></A>Click the device to which you want to install apps. </P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1008651"></A>The Device Details page similar to the following opens.</P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1030882"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-95.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1008656"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1008585"></A>Click <EM CLASS="Field">
+Apps</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1008751"></A>A page similar to the following appears displaying apps available for installation. </P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1008733"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-96.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1008870"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1008872"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602018_pgfId-1008875"></A><DIV>
+<IMG SRC="index-87.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602018_pgfId-1008877"></A><DIV>
+<IMG SRC="index-88.gif" ALT="">
+</DIV>
+The apps must be created and published to be available. Refer to <A HREF="index.html#50602017_13568" CLASS="XRef">See Creating an App</A> for information.<BR>
+<DIV>
+<IMG SRC="index-88.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1009009"></A>Select the apps to install. </P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1009167"></A>A dialog box appears informing that the installation command has been sent to the device. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602018_pgfId-1012484"></A><A NAME="50602018_98555"></A>Removing Apps </H3>
+<P CLASS="Body">
+<A NAME="50602018_pgfId-1014981"></A>When a device is connected to a network (cellular or Wi-Fi) at the time you issue the Uninstall command, the app is immediately removed from the device. If the device is not connected to a network when you issue the Uninstall command, you can click Show to force the app removal when the device is reconnected. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602018_pgfId-1012594"></A>Select a user account of interest from the User Management page.</H6>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1012595"></A>— Or —</P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1012599"></A>Search for a user account of interest (refer to <A HREF="index.html#50602018_49897" CLASS="XRef">See Searching for Users</A>). </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1012600"></A>Click <EM CLASS="Field">
+Details</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1012601"></A>A User Information form similar to the following appears displaying the account information. </P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1012605"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-97.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1012606"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1012607"></A>Click the device from which you want to remove apps. </P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1012608"></A>The Device Details page similar to the following opens.</P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1026857"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-98.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1012613"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1012614"></A>Click <EM CLASS="Field">
+Apps</EM>
+. </P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1012486"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-99.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1017414"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1012677"></A>Select from the Installed Apps list the apps you want to remove.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1012679"></A>Click <EM CLASS="Field">
+Uninstalled Selected</EM>
+. </P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1016190"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602018_pgfId-1016201"></A><DIV>
+<IMG SRC="index-87.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602018_pgfId-1016203"></A><DIV>
+<IMG SRC="index-88.gif" ALT="">
+</DIV>
+The app is not removed from the MAM Console when the Uninstalled command is issued while the device is not connected. Continue with the following step to force an app removal from the device when it is reconnected. <DIV>
+<IMG SRC="index-88.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602018_pgfId-1009012"></A><A NAME="50602018_63852"></A>Viewing Events History</H3>
+<P CLASS="Body">
+<A NAME="50602018_pgfId-1021309"></A>The Magnet Mobile Server stores a history of events that can be helpful for diagnostic purposes. For additional information, you can view the History page to find out who deactivated the device and when it was deactivated. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602018_pgfId-1009663"></A>Select a user account of interest from the User Management page.</H6>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1009664"></A>— Or —</P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1009668"></A>Search for a user account of interest (refer to <A HREF="index.html#50602018_49897" CLASS="XRef">See Searching for Users</A>). </P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1009669"></A>Click <EM CLASS="Field">
+Details</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1009670"></A>A User Information form similar to the following appears displaying the account information and device status. </P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1009674"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-100.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1009675"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1001328"></A>Click <EM CLASS="Field">
+Go To User Management</EM>
+. </P>
+<P CLASS="ListContinued">
+<A NAME="50602018_pgfId-1009720"></A>The User Details page appears.</P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1009943"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-101.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1010406"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1009756"></A>Click <EM CLASS="Field">
+History</EM>
+ to display a page similar to the following.</P>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1009533"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-102.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602018_pgfId-1010503"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602018_pgfId-1009535"></A>Filter your search criteria by Timestamp or Event to view a specific event. </P>
+<P CLASS="Body">
+<A NAME="50602018_pgfId-1004370"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602019_pgfId-998346"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602019_pgfId-1001650"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602019_pgfId-1001652"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50602019_pgfId-999043"></A>Logging Events</H6>
+<P CLASS="Body">
+<A NAME="50602019_pgfId-999062"></A>Event logging provides information that is useful for diagnostics and auditing. Each event is time stamped. The following events are logged: </P>
+<P CLASS="Bullet">
+<A NAME="50602019_pgfId-999151"></A>Security-related events list users who have logged on to the MAM Console. </P>
+<P CLASS="Bullet">
+<A NAME="50602019_pgfId-999209"></A>Information events describing the successful operation of installing an app. </P>
+<P CLASS="Bullet">
+<A NAME="50602019_pgfId-1000111"></A>Auditing of user activities </P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602019_pgfId-999072"></A>Click the <EM CLASS="Field">
+Logging</EM>
+ tab. </H6>
+<P CLASS="ListContinued">
+<A NAME="50602019_pgfId-999519"></A>A screen similar to the following appears.</P>
+<P CLASS="Anchor">
+<A NAME="50602019_pgfId-999074"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-103.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602019_pgfId-999579"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602019_pgfId-999602"></A>Select a search preference from the <EM CLASS="Field">
+Search By</EM>
+ drop-down list. </P>
+<P CLASS="Anchor">
+<A NAME="50602019_pgfId-999095"></A> &nbsp;</P>
+<DIV>
+<IMG SRC="index-104.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602019_pgfId-999761"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602019_pgfId-999108"></A>Review the events. </P>
+<P CLASS="Body">
+<A NAME="50602019_pgfId-999110"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-998346"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1001256"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1001258"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50602020_pgfId-999043"></A><A NAME="50602020_27780"></A>Searching with Filters</H6>
+<P CLASS="Body">
+<A NAME="50602020_pgfId-1000132"></A>The Advanced Search feature enables you to apply one or more filters for looking up specific information. </P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602020_pgfId-1002221"></A>Click the <EM CLASS="Field">
+Search</EM>
+ tab. </H6>
+<P CLASS="ListContinued">
+<A NAME="50602020_pgfId-1003068"></A>A screen similar to the following appears.</P>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1003072"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-105.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1003078"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602020_pgfId-1003073"></A>Select from <EM CLASS="Field">
+Get List</EM>
+ the information you want to search. </P>
+<P CLASS="ListContinued">
+<A NAME="50602020_pgfId-1006188"></A>For example:</P>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1001297"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-106.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1003183"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602020_pgfId-1001328"></A>Click <EM CLASS="Field">
+Add Filter</EM>
+ to display the filter. </P>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1003575"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-107.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1003723"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602020_pgfId-1003557"></A>Select the filter to display search options, as shown in the following example:</P>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1003686"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-108.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1003785"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602020_pgfId-1003531"></A>Enter the text you want to search. </P>
+<P CLASS="ListContinued">
+<A NAME="50602020_pgfId-1004812"></A>For example: </P>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1004844"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-109.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1004864"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602020_pgfId-1004833"></A>Click <EM CLASS="Field">
+Search</EM>
+.</P>
+<P CLASS="ListContinued">
+<A NAME="50602020_pgfId-1004989"></A>A list of apps is displayed containing the text you entered, as shown in the following example. </P>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1004998"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-110.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1005177"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602020_pgfId-1004991"></A>Select an intended item from the list. </P>
+<P CLASS="ListContinued">
+<A NAME="50602020_pgfId-1005469"></A>The result is displayed, as shown in the following example. </P>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1005454"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-111.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602020_pgfId-1005556"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1025294"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1025296"></A>&nbsp;</P>
+<P CLASS="TitleApndx">
+<A NAME="50602022_pgfId-1009622"></A><A NAME="50602022_22360"></A>Setting up an LDAP Server</P>
+<P CLASS="Body">
+<A NAME="50602022_pgfId-1012886"></A>LDAP (Lightweight Directory Access Protocol) is an application protocol to manage and access the distributed directory information service, which provides a set of records that is organized in a hierarchical structure. The StartTLS operation establishes Transport Layer Security (TLS) on the connection. It provides data confidentiality and data integrity protection. </P>
+<P CLASS="Body">
+<A NAME="50602022_pgfId-1024183"></A>This appendix provides information and instructions for building a new LDAP server. Follow the descriptions in the subsequent sections for each LDIF file definition, then copy and import the file to populate the LDAP server. The LDAP Persister is the LDAP client instance to your enterprise LDAP server through which the Magnet Mobile Server authenticates user access. </P>
+<P CLASS="Body">
+<A NAME="50602022_pgfId-1024056"></A>For those who already have an LDAP server set up and configured, follow your own practice for creating an LDAP client instance, which allows the Magnet Mobile Server to authenticate user roles and group associations. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602022_pgfId-1022321"></A>LDAP Server Directory Structure</H3>
+<P CLASS="Body">
+<A NAME="50602022_pgfId-1012961"></A>LDAP provides an interface with directories:</P>
+<P CLASS="Bullet">
+<A NAME="50602022_pgfId-1012962"></A>An entry consists of a set of attributes. </P>
+<P CLASS="Bullet">
+<A NAME="50602022_pgfId-1012963"></A>An attribute has a name and one or more values. (Attribute names are typically mnemonic strings, such as “cn” for common name, “dc” for domain component, “sn” for surname, and “mail” for email address.)</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602022_pgfId-1013059"></A>LDIF Records</H3>
+<P CLASS="Body">
+<A NAME="50602022_pgfId-1024247"></A>The LDAP Data Interchange Format (LDIF) is a standard plain text data interchange format for representing LDAP directory content and update requests. LDIF conveys directory content as a set of records, one record for each object (or entry). It also represents update requests, such as Add and Modify. </P>
+<P CLASS="Body">
+<A NAME="50602022_pgfId-1024248"></A>The Magnet Mobile Server LDAP client instance requires certain groups and roles defined and added to the enterprise LDAP server. An LDIF file containing properly defined user groups and roles would be an excellent way for importing the information into an LDAP server. </P>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50602022_pgfId-1013731"></A>Users_Groups.LDIF</H5>
+<P CLASS="Body">
+<A NAME="50602022_pgfId-1018712"></A>A typical LDAP server has top-level nodes named Users and Groups defined in the organizational unit (ou). The LDAP Persister uses this system account’s distinguished name (dn) to bind to the LDAP server during the initialization and perform all LDAP queries on behalf of all other accounts. </P>
+<P CLASS="Body">
+<A NAME="50602022_pgfId-1023289"></A>The “dc” attribute indicates the base node that the LDAP Persister uses as the base point for searching any user object queries, for example, &quot;ou=users,dc=sample,dc=com.&quot;</P>
+<P CLASS="Body">
+<A NAME="50602022_pgfId-1023130"></A>A users_groups.ldif file includes these entries. </P>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1019137"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602022_pgfId-1019134"></A><DIV>
+<IMG SRC="index-112.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602022_pgfId-1019136"></A><DIV>
+<IMG SRC="index-113.gif" ALT="">
+</DIV>
+Replace red <EM CLASS="Field">
+text</EM>
+ entries with your environment. <BR>
+<DIV>
+<IMG SRC="index-113.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1018724"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-114">
+</MAP>
+<IMG SRC="index-114.gif" USEMAP="#index-114" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1018704"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1018709"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-115">
+</MAP>
+<IMG SRC="index-115.gif" USEMAP="#index-115" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1018801"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50602022_pgfId-1013837"></A>Users.LDIF</H5>
+<P CLASS="Body">
+<A NAME="50602022_pgfId-1013856"></A>The users.ldif identifies users that have access to the LDAP server. </P>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1018823"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-116">
+</MAP>
+<IMG SRC="index-116.gif" USEMAP="#index-116" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1018806"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50602022_pgfId-1014052"></A>Groups.LDIF</H5>
+<P CLASS="Body">
+<A NAME="50602022_pgfId-1014037"></A>The groups.ldif identifies the roles of authenticated members. The LDAP Persister maps this attribute to user roles and uses this attribute as the base point for searching group object queries. </P>
+<P CLASS="Body">
+<A NAME="50602022_pgfId-1022697"></A>The Magnet Mobile Server uses two groups: </P>
+<P CLASS="Bullet">
+<A NAME="50602022_pgfId-1019386"></A>Mobile Admins: Members assigned to this group have administration rights and privileges to access the Magnet Mobile Console.</P>
+<P CLASS="Bullet">
+<A NAME="50602022_pgfId-1019389"></A>Mobile Users: Members assigned to this group are able to access (or download) mobile apps with proper authentication.</P>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1022469"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602022_pgfId-1022475"></A><DIV>
+<IMG SRC="index-112.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602022_pgfId-1022477"></A><DIV>
+<IMG SRC="index-113.gif" ALT="">
+</DIV>
+These group names are arbitrary; however, these names must match those on both LDAP server and client. <DIV>
+<IMG SRC="index-113.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1019443"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-117">
+</MAP>
+<IMG SRC="index-117.gif" USEMAP="#index-117" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1019383"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1019694"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-118">
+</MAP>
+<IMG SRC="index-118.gif" USEMAP="#index-118" ALT="">
+</DIV>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50602022_pgfId-1015608"></A>Assign.LDIF </H5>
+<P CLASS="Body">
+<A NAME="50602022_pgfId-1017444"></A>Putting all together with the assign.ldif file. Use this file to put users into the Admin group or User group. </P>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1019761"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-119">
+</MAP>
+<IMG SRC="index-119.gif" USEMAP="#index-119" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1019743"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1016281"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602022_pgfId-1016287"></A><DIV>
+<IMG SRC="index-112.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602022_pgfId-1016289"></A><DIV>
+<IMG SRC="index-113.gif" ALT="">
+</DIV>
+“cn” in the assign.ldif must match those defined in the groups.ldif. <BR>
+<DIV>
+<IMG SRC="index-113.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50602022_pgfId-1013574"></A>LDAP Server Integration</H3>
+<P CLASS="Body">
+<A NAME="50602022_pgfId-1014401"></A>OpenLDAP is one of several tools for populating the LDAP server; you may choose one that works for your environment. The OpenLDAP utilities include tools for importing data from LDIF content records to the LDAP server using the ldapadd command.</P>
+<P CLASS="Anchor">
+<A NAME="50602022_pgfId-1024762"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50602022_pgfId-1024759"></A><DIV>
+<IMG SRC="index-112.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50602022_pgfId-1024761"></A><DIV>
+<IMG SRC="index-113.gif" ALT="">
+</DIV>
+Replace red <EM CLASS="RedText">
+text</EM>
+ entries with your environment. <BR>
+<DIV>
+<IMG SRC="index-113.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50602022_pgfId-1011540"></A>Connect to the LDAP server with the following connect string:</H6>
+<P CLASS="ScreenCommandIndent">
+<A NAME="50602022_pgfId-1017890"></A>cn=admin,dc=<EM CLASS="RedText">
+sample</EM>
+,dc=com</P>
+<P CLASS="ListContinued">
+<A NAME="50602022_pgfId-1020206"></A>Where this connect string is the same as that defined in the Groups.ldif.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602022_pgfId-1017860"></A>Import the users_groups.ldif to the LDAP server with the following command:</P>
+<P CLASS="ScreenCommandIndent">
+<A NAME="50602022_pgfId-1011542"></A>ldapadd -x -W -D &quot;cn=admin,dc=<EM CLASS="RedText">
+sample</EM>
+,dc=com&quot; -f users_groups.ldif</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602022_pgfId-1014235"></A>Import the user.ldif to the LDAP server with the following command:</P>
+<P CLASS="ScreenCommandIndent">
+<A NAME="50602022_pgfId-1014236"></A>ldapadd -x -W -D &quot;cn=admin,dc=<EM CLASS="RedText">
+sample</EM>
+,dc=com&quot; -f users.ldif</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602022_pgfId-1014255"></A>Import the groups.ldif to the LDAP server with the following command:</P>
+<P CLASS="ScreenCommandIndent">
+<A NAME="50602022_pgfId-1014257"></A>ldapadd -x -W -D &quot;cn=admin,dc=<EM CLASS="RedText">
+sample</EM>
+,dc=com&quot; -f groups.ldif</P>
+<P CLASS="ListNumber1-">
+<A NAME="50602022_pgfId-1014361"></A>Import the assign.ldif to the LDAP server with the following command:</P>
+<P CLASS="ScreenCommandIndent">
+<A NAME="50602022_pgfId-1014346"></A>ldapadd -x -W -D &quot;cn=admin,dc=<EM CLASS="RedText">
+sample</EM>
+,dc=com&quot; -f assign.ldif</P>
+<P CLASS="ScreenCommandIndent">
+<A NAME="50602022_pgfId-1023601"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50601996_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="TitleApndx">
+<A NAME="50601996_pgfId-1009622"></A>Setting up HAProxy</P>
+<P CLASS="Body">
+<A NAME="50601996_pgfId-1018162"></A>HAProxy is an open source TCP/HTTP load balancer, commonly used to improve the performance of Web sites and services by spreading requests across multiple servers. HAProxy handles all requests from the Magnet Mobile Server and proxies the request to the appropriate servers. For performance and security reasons, it is advisable to set up a reverse proxy server that stands between clients and your Magnet servers. </P>
+<P CLASS="Body">
+<A NAME="50601996_pgfId-1017285"></A>All Magnet server instances run on virtual machines in the cloud, and they are running on the Ubuntu 12.04 LTS operating system. The Magnet servers are only accessible from HAProxy. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50601996_pgfId-1017604"></A>Installing an HAProxy Instance</H3>
+<P CLASS="Body">
+<A NAME="50601996_pgfId-1017605"></A>HAProxy requires the latest operating system patches and HAProxy 1.5. The following diagram shows a typical HAProxy setup, in which an HAProxy instance stands in front of two running Magnet server instances. </P>
+<P CLASS="Anchor">
+<A NAME="50601996_pgfId-1017068"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-120">
+</MAP>
+<IMG SRC="index-120.gif" USEMAP="#index-120" ALT="">
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50601996_pgfId-1017404"></A>Configuring HAProxy</H3>
+<P CLASS="Body">
+<A NAME="50601996_pgfId-1017556"></A>The configuration file consists of sections that begins with a keyword, for example, global, defaults, frontend, and so forth. Some parameters involve values representing time, such as timeouts. These values are generally expressed in milliseconds (ms). The following file shows a sample content of HAProxy configuration. Numbers on the left indicate explanation that follows the sample. </P>
+<P CLASS="Anchor">
+<A NAME="50601996_pgfId-1015242"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-121">
+</MAP>
+<IMG SRC="index-121.gif" USEMAP="#index-121" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50601996_pgfId-1014645"></A></P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50601996_pgfId-1016334"></A>The global section sets process-wide parameters.</H6>
+<P CLASS="ListNumber1-">
+<A NAME="50601996_pgfId-1017424"></A>This configuration specifies a round robin load balancing scheme, which alternates the order of servers on record. For other options, see <BR>
+http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#4-balance}documentation. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50601996_pgfId-1016402"></A>Port 443 is specified as listening port on all interfaces and forwards requests to backend server1 listening on 10.1.2.3:8080 and server2 listening on 10.1.2.4:8080. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50601996_pgfId-1016998"></A>Redirect to server1 10.1.0.3:8080 when performing path switching tests. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50601996_pgfId-1016574"></A>Port 80 is specified as listening port on all interfaces and forwards requests to backend server1 listening on 10.1.2.3:8080 and server2 listening on 10.1.2.4:8080. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50601996_pgfId-1016398"></A>Used in a secured back-end. JSESSIONID cookie is used at initial connection time that tracks authentication, past activity, provide caching, and so forth. In effect this tells the proxy server that this application instance needs to always talk to the same instance during this session. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50601996_pgfId-1017018"></A>Used in a non-secured back-end.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50601996_pgfId-1017821"></A>Identify the path to where the test will be redirected. </P>
+<P CLASS="Body">
+<A NAME="50601996_pgfId-1017823"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="50601996_pgfId-1017730"></A>&nbsp;</P>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+<div id="doc-switch"></div></div></div></div></div></div><!-- dialogs start --><div class="modal-form-errors modal hide fade" id="error-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p class="subheading"></p>        <ul></ul>    </div>    <div class="modal-footer">        <button class="btn btn-primary" data-dismiss="modal">OK</button>    </div></div><div class="modal-alert modal hide fade" id="general-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p></p>    </div>    <div class="modal-footer">        <button class="btn btn-primary" data-dismiss="modal" id=                "ok">OK</button>    </div></div><div class="modal-confirm modal hide fade" id="confirm-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p></p>    </div>    <div class="modal-footer">        <button class="submit btn-primary btn">Continue</button>        <button class="cancel btn" data-dismiss="modal">Cancel</button>    </div></div><div class="modal-alert modal hide fade" id="invite-other-modal">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3>Invite Others</h3>        <p class="subheading">Enter the email address of the individual you            would like to invite to the Developer Factory.</p>    </div>    <div class="modal-body">        <div class="modal_errors" style="display:none">            <div class="alert alert-error">                <strong></strong> <span></span>            </div>        </div>        <div class="modal_success" style="display:none">            <div class="alert alert-success">                <span>Your invitation has been sent successfully.</span>            </div>        </div>        <div class="row-fluid">            <input class="span12" name="email" placeholder=                    "Enter Email Address" type="text"><br>            <strong>Message to include</strong><br>            <textarea class="span12" name="inviteMessage"                      placeholder="Message to include">                I found this great new tool to quickly create mobile apps for me.            </textarea>        </div>    </div>    <div class="modal-footer">        <button class="btn-primary btn">Send Invitation</button>        <button class="cancel btn" data-dismiss="modal">Close</button>    </div>    <div class="loading modal-footer" style="display:none">Loading.. Please        Wait.. <img src="/images/ajax-loader-sm.gif"></div></div><!-- dialogs end --><script src="/js/libs/jquery.js" type=        "text/javascript"></script><script src="/js/libs/bootstrap.js" type="text/javascript"></script><script src="/js/scripts.js" type="text/javascript"></script></BODY>
+</HTML>

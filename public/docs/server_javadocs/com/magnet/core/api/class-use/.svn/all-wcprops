@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/core/api/class-use
+END
+PostStarted.html
+K 25
+svn:wc:ra_dav:version-url
+V 167
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/core/api/class-use/PostStarted.html
+END
+ServicesLookup.html
+K 25
+svn:wc:ra_dav:version-url
+V 170
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/core/api/class-use/ServicesLookup.html
+END
+PreDestroy.html
+K 25
+svn:wc:ra_dav:version-url
+V 166
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/core/api/class-use/PreDestroy.html
+END
+ServicesLockable.html
+K 25
+svn:wc:ra_dav:version-url
+V 172
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/core/api/class-use/ServicesLockable.html
+END
+RequiredService.html
+K 25
+svn:wc:ra_dav:version-url
+V 171
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/core/api/class-use/RequiredService.html
+END
+ServicesWriteable.html
+K 25
+svn:wc:ra_dav:version-url
+V 173
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/core/api/class-use/ServicesWriteable.html
+END
+Startup.html
+K 25
+svn:wc:ra_dav:version-url
+V 163
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/core/api/class-use/Startup.html
+END
+Services.html
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/core/api/class-use/Services.html
+END
+PostConstruct.html
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/core/api/class-use/PostConstruct.html
+END
+Shutdown.Type.html
+K 25
+svn:wc:ra_dav:version-url
+V 169
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/core/api/class-use/Shutdown.Type.html
+END
+Shutdown.html
+K 25
+svn:wc:ra_dav:version-url
+V 164
+/svn/!svn/ver/25068/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet/core/api/class-use/Shutdown.html
+END

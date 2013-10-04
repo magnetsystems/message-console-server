@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 11.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="index.css" CHARSET="UTF-8" TYPE="text/css">
+<TITLE>  Overview</TITLE></HEAD>
+<BODY>
+<P CLASS="Anchor">
+<A NAME="pgfId-1011343"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="pgfId-1022043"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="pgfId-1022045"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="Title-Release-Note">
+<A NAME="pgfId-1011344"></A>Overview</H6>
+<P CLASS="Body">
+<A NAME="pgfId-1024247"></A>The Magnet™ Mobile App Server enables enterprises to easily build applications and deploy in the cloud for their employees and their customers while reducing the time to market, cost and complexity of development. The Magnet Mobile App Server offers a solution that gives mobile users rich and personally relevant experiences, as well as the capabilities of their preferred mobile devices. </P>
+</DIV>
+<DIV>
+<H2 CLASS="Heading1">
+<A NAME="pgfId-1022371"></A>Magnet Mobile App Server</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1024241"></A>The Magnet Mobile App Server provides basic constructs for creating and manipulating app objects spanning the server and mobile app contexts. The Magnet Mobile App Server includes the Magnet Mobile Enterprise Server (MES) and Magnet Mobile Server. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1024371"></A>The diagram on the next page shows the Magnet Mobile App Server components and their relationships. </P>
+<DIV>
+<H3 CLASS="Heading2">
+<A NAME="pgfId-1024346"></A>Magnet Mobile Enterprise Server</H3>
+<P CLASS="Body">
+<A NAME="pgfId-1024347"></A>MES is an application server that runs in the cloud and business logic is constructed in the Developer Factory. Instances of MES are deployed in the cloud, and may contain a blend of off-the-shelf (OTS) and custom controllers. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1024642"></A>An executable JAR file contains all controllers required for a specific deployment. Instances of the Magnet Mobile Enterprise Server are deployed in the Amazon cloud --a virtual private cloud that is managed by customers. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1024643"></A>All configurable properties for all controllers and the Magnet Mobile Enterprise Server are outside from the executable JAR file. Any configuration properties can be configured without having to recompile the JAR file, which reduces the possibility of injecting errors in the JAR File.</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading2">
+<A NAME="pgfId-1024348"></A>Magnet Mobile Server</H3>
+<P CLASS="Body">
+<A NAME="pgfId-1024622"></A>The Magnet Mobile Server is installed on a device and only one Magnet Mobile Server is installed on a device at any time. The Magnet Mobile Server can be deployed either as a separate process (on Android only) or embedded within the app (on both iOS and Android). The Magnet Mobile Server provides user, device, and app management, security, and communication on the mobile device. </P>
+<P CLASS="Body">
+<A NAME="pgfId-1024623"></A>For security purposes, only applications installed by the Magnet Mobile Server is allowed to communicate through the Magnet Mobile Server. The Magnet Mobile Server manages a single sign-on (SSO) for the device when a user is authenticated. Through an integration with a configured LDAP server, the Magnet Mobile Server manages credentials and authenticates on the user's behalf for each app session. </P>
+<P CLASS="Anchor">
+<A NAME="pgfId-1022070"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-1.gif" ALT="">
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="Heading1">
+<A NAME="pgfId-1024553"></A><A NAME="15211"></A>Security </H2>
+<P CLASS="Body">
+<A NAME="pgfId-1024554"></A>The Magnet Mobile App Server supports industry standards for secure access to the public and private back-end services:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId-1024555"></A>Basic authentication is used for client to MES and MES to Web service.</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-1024556"></A>WS-security is used for Magnet MES to Web service. </LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId-1024557"></A>OAuth is used for authorization to access third-party services.</LI>
+</UL>
+</DIV>
+<DIV>
+<H2 CLASS="Heading1">
+<A NAME="pgfId-1024075"></A>Installation</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1024076"></A>The Magnet Mobile Server is delivered in binary format. The Mobile Server apk is intended for installation in the system partition of the target mobile device.</P>
+</DIV>
+<DIV>
+<H2 CLASS="Heading1">
+<A NAME="pgfId-1024077"></A>System Usage</H2>
+<P CLASS="Body">
+<A NAME="pgfId-1024078"></A>The Magnet Mobile Server maintains all of its data in the private apps data space. Its SQL database is private and not accessible by other apps. Preferences are also stored in a private file that is not accessible by other apps.</P>
+<P CLASS="Body">
+<A NAME="pgfId-1024079"></A>During app installation, the app is temporarily stored on the SD card and removed as soon as the operation completes.</P>
+</DIV>
+<DIV>
+<H2 CLASS="Heading1">
+<A NAME="pgfId-1024081"></A>Build Information</H2>
+<UL>
+<LI CLASS="BulletTight">
+<A NAME="pgfId-1024083"></A>Ubuntu/Linux 12.04 LTS (64 bit)</LI>
+<LI CLASS="BulletTight">
+<A NAME="pgfId-1024084"></A>Oracle JDK 7</LI>
+<LI CLASS="BulletTight">
+<A NAME="pgfId-1024086"></A>Maven 3.0.3 or later</LI>
+</UL>
+</DIV>
+<DIV>
+<H2 CLASS="Heading1">
+<A NAME="pgfId-1025053"></A>Supported Environment</H2>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="pgfId-1025056"></A>Android SDK</H6>
+<UL>
+<LI CLASS="BulletTight">
+<A NAME="pgfId-1025057"></A>Java 1.6 </LI>
+<LI CLASS="BulletTight">
+<A NAME="pgfId-1025058"></A>Maven 3.0.3 or later</LI>
+</UL>
+</DIV>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="pgfId-1025066"></A>iOS SDK</H6>
+<UL>
+<LI CLASS="BulletTight">
+<A NAME="pgfId-1025067"></A>Objective-C language</LI>
+<LI CLASS="BulletTight">
+<A NAME="pgfId-1025068"></A>Xcode</LI>
+</UL>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="Heading1">
+<A NAME="pgfId-1024408"></A>Documentation</H2>
+<UL>
+<LI CLASS="BulletTight">
+<A NAME="pgfId-1024409"></A>Magnet Server Application Developer Guide</LI>
+<LI CLASS="BulletTight">
+<A NAME="pgfId-1024410"></A>Magnet Android Developer Guide</LI>
+<LI CLASS="BulletTight">
+<A NAME="pgfId-1024411"></A>Magnet iOS Developer Guide</LI>
+<LI CLASS="BulletTight">
+<A NAME="pgfId-1024412"></A>Magnet Mobile App Server Deployment Guide</LI>
+</UL>
+<P CLASS="Body">
+<A NAME="pgfId-1019470"></A>&nbsp;</P>
+</DIV>
+</BODY>
+</HTML>

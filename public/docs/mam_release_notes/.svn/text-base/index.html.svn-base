@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 11.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="index.css" CHARSET="UTF-8" TYPE="text/css">
+<TITLE>2.0</TITLE><link href="/images/favicon.ico" rel="shortcut icon" type="image/x-icon">    <link href="/images/apple-touch-icon.png" rel="apple-touch-icon">    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">    <link href="/stylesheets/dev.css" rel="stylesheet">    <link href=                  "http://fonts.googleapis.com/css?family=Titillium+Web:200,300,400" rel=                  "stylesheet" type="text/css">    <script src="/js/libs/modernizr.js" type="text/javascript"></script></HEAD>
+<BODY>
+<DIV>
+</div><div id="site-header">    <div class="logo_container">        <a href="/"><img alt="Developer Factory" src="/images/heading.png">            <h4>Developer Factory</h4></a>    </div>    <ul class="title_container">        <li>            <a href="/dev/">Projects</a>        </li>        <li class="dropdown">            <a class="dropdown-toggle" href="/resources/">Resources</a>            <ul class="dropdown-menu">                <li id="menu-samples" role="presentation"><a role="menuitem" tabindex="-1" href="../resources/samples.html">Samples</a></li>                <li id="menu-mam" role="presentation"><a role="menuitem" tabindex="-1" href="../resources/mobile_app_manager.html">Mobile App Manager</a></li>            </ul>        </li>        <li class="active">            <a href="/docs/">Documentation</a>        </li>        <li>            <a href="/support/">Support</a>        </li>    </ul>    <div class="control-buttons hidden">        <a href="#" id="invite-others"><em class=                                                   "icon-plus icon-white"></em><em class=                                                                                           "icon-user icon-white"></em></a> <a href="#" id=            "user-panel-toggle"><em class=                                            "icon-chevron-down icon-white"></em><span id=                                                                                              "username-placeholder"></span></a>    </div></div><div id="user-panel" style="display:none">    <div class="col">        <span class="user-username"></span><br>        <span class="user-company"></span>    </div>    <div class="col2">        <a href="/dev/#/profile-editor">Edit Profile</a>    </div>    <div class="btns">        <a class="btn-logout btn btn-primary" href="#">Log Out</a>    </div></div><div class="title_container_mobile hidden">    <div class="row-fluid">        <div class="span12">            <div class="btn-group">                <a class="btn dropdown-toggle" data-toggle="dropdown" href=                        "#">Navigation Menu <span class="caret"></span></a>                <ul class="dropdown-menu">                    <li>                        <a href="/intro/" tabindex="-1">Introduction</a>                    </li>                    <li>                        <a href="/dev/" tabindex="-1">My Projects</a>                    </li>                    <li class="disabled">                        <a href="#" tabindex="-1">Documentation</a>                    </li>                    <li>                        <a href="/support/" tabindex="-1">Support</a>                    </li>                </ul>            </div>        </div>    </div></div><div class="page" id="dev-container"><div class="row-fluid"><div class="clearfix page-view doc-list"><div class="row-fluid" id="doc-container"><div class="span4" id="doc-toc"></div><div class="span8" id="doc-content"><div></DIV>
+<P CLASS="Body">
+<A NAME="50614280_pgfId-1060768"></A>&nbsp;</P>
+<P CLASS="BookTitle">
+<A NAME="50614275_pgfId-1000259"></A>Magnet<EM CLASS="TradeMark">
+</EM>
+ Mobile App Manager Release Notes </P>
+<DIV>
+<H1 CLASS="Version">
+<A NAME="50614275_pgfId-1000260"></A>2.0</H1>
+<DIV>
+<H4 CLASS="Revision">
+<A NAME="50614275_pgfId-998610"></A>Revision A</H4>
+<P CLASS="Copyright">
+<A NAME="50614275_pgfId-998856"></A>© 2013 Magnet Systems, Inc. All rights reserved. This manual, in whole or in part, may not be reproduced, translated, or reduced to any machine-readable form without the prior written approval of Magnet Systems, Inc. Magnet Systems, Inc. reserves the right to make any modification to this manual or the information contained herein at any time without notice. </P>
+<P CLASS="Copyright">
+<A NAME="50614275_pgfId-999403"></A>MAGNET SYSTEMS PROVIDES NO WARRANTY WITH REGARD TO THIS MANUAL, THE SOFTWARE, OR OTHER INFORMATION CONTAINED HEREIN AND HEREBY EXPRESSLY DISCLAIMS ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE WITH REGARD TO THIS MANUAL, THE SOFTWARE, OR SUCH OTHER INFORMATION. IN NO EVENT SHALL MAGNET SYSTEMS, INC. BE LIABLE FOR ANY INCIDENTAL, CONSEQUENTIAL, OR SPECIAL DAMAGES, WHETHER BASED ON TORT, CONTRACT, OR OTHERWISE, ARISING OUT OF OR IN CONNECTION WITH THIS MANUAL, THE SOFTWARE, OR OTHER INFORMATION CONTAINED HEREIN OR THE USE THEREOF. </P>
+<P CLASS="Copyright">
+<A NAME="50614275_pgfId-999554"></A>All other trademarks are trademarks of their respective owners. Any Magnet Systems patents granted or pending in the United States and other countries are protected by law. </P>
+<DIV>
+<H6 CLASS="Magnet">
+<A NAME="50614275_pgfId-998948"></A>Magnet Systems, Inc.</H6>
+<P CLASS="Address">
+<A NAME="50614275_pgfId-999133"></A>435 Tasso Street</P>
+<P CLASS="Address">
+<A NAME="50614275_pgfId-999979"></A>Suite 100</P>
+<P CLASS="Body">
+<A NAME="50614275_pgfId-999134"></A>Palo Alto, CA</P>
+<P CLASS="Body">
+<A NAME="50614275_pgfId-999129"></A>94301</P>
+<DIV>
+<H6 CLASS="Phone">
+<A NAME="50614275_pgfId-999146"></A>650–329–5904</H6>
+</DIV>
+<DIV>
+<H6 CLASS="Email">
+<A NAME="50614275_pgfId-999161"></A>info@magnet.com</H6>
+<P CLASS="Anchor">
+<A NAME="50614291_pgfId-130086"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50614291_pgfId-131313"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50614291_pgfId-131315"></A>&nbsp;</P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="TOCTitle">
+<A NAME="50614291_pgfId-131015"></A>&nbsp;</H2>
+<DIV>
+<H6 CLASS="Title-Release-NoteTOC">
+<A NAME="50614291_pgfId-133731"></A><A HREF="index.html#50614276_pgfId-1011344" CLASS="Index">Overview		1</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50614291_pgfId-133733"></A><A HREF="index.html#50614276_pgfId-1022102" CLASS="Index">Mobile App Manager Console 	1</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50614291_pgfId-133735"></A><A HREF="index.html#50614276_pgfId-1022111" CLASS="Index">Apps@Work 	1</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50614291_pgfId-133737"></A><A HREF="index.html#50614276_pgfId-1024081" CLASS="Index">Mobile Server 	1</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50614291_pgfId-133739"></A><A HREF="index.html#50614276_pgfId-1024261" CLASS="Index">Supported Environment 	2</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50614291_pgfId-133741"></A><A HREF="index.html#50614276_pgfId-1024408" CLASS="Index">Documentation 	2</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="Title-Release-NoteTOC">
+<A NAME="50614291_pgfId-133743"></A><A HREF="index.html#50614277_pgfId-1011344" CLASS="Index">Known Issues		3</A></H6>
+<P CLASS="Anchor">
+<A NAME="50614276_pgfId-1011343"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50614276_pgfId-1022043"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50614276_pgfId-1022045"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="Title-Release-Note">
+<A NAME="50614276_pgfId-1011344"></A>Overview</H6>
+<P CLASS="Body">
+<A NAME="50614276_pgfId-1022100"></A>The Magnet™ Mobile App Manager (MAM) is a run-time server that monitors the service status of Magnet Mobile Enterprise Server (MES) and provides app management functionality by way of the Magnet Mobile App Manager Console and Apps@Work. </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50614276_pgfId-1022102"></A><A NAME="50614276_73425"></A>Mobile App Manager Console</H3>
+<P CLASS="Body">
+<A NAME="50614276_pgfId-1022103"></A>The Magnet MAM Console is a Web interface of the Magnet Mobile App Manager that enables IT administrators to centrally manage and administer apps on client devices. Access to the MAM Console is defined by role-based, which is defined in LDAP or Active Directory. Using the MAM Console, IT administrators can: </P>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1022104"></A>Enable employee BYOD.</P>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1022105"></A>Remotely install, remove, upgrade, and track apps.</P>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1022106"></A>Customize an enterprise private-label app store.</P>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1022107"></A>Remotely activate / deactivate user accounts.</P>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1022108"></A>Push required apps to authorized users.</P>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1022109"></A>View logs to monitor events history. </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50614276_pgfId-1022111"></A><A NAME="50614276_75441"></A>Apps@Work</H3>
+<P CLASS="Body">
+<A NAME="50614276_pgfId-1024702"></A>Apps@Work is an app for installing and managing apps on a mobile device and is installed on iOS and Android devices. Apps@Work includes a suite of mockup apps that are organized in categories. These mockup apps are non functional but serve to suggest the range of possibilities, in categories from Finance to System. </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50614276_pgfId-1024081"></A>Mobile Server</H3>
+<P CLASS="Body">
+<A NAME="50614276_pgfId-1024247"></A>The Mobile Server apk is intended for installation on the device to enable remote distribution and management of enterprise mobile apps. </P>
+<P CLASS="Body">
+<A NAME="50614276_pgfId-1024454"></A>The Magnet Mobile Server maintains all of its data in the private apps data space. Its SQL database is private and not accessible by other apps. Preferences are also stored in a private file that is not accessible by other apps.</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50614276_pgfId-1024261"></A>Supported Environment</H3>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50614276_pgfId-1024087"></A>Android Device</H6>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1024088"></A>Version 4.0.3 or later</P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50614276_pgfId-1024094"></A>iOS Device</H6>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1024095"></A>Version 6.1.2 or later </P>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1024096"></A>Devices supported</P>
+<P CLASS="BulletSub">
+<A NAME="50614276_pgfId-1024097"></A>iPhone 4 and 4s</P>
+<P CLASS="BulletSub">
+<A NAME="50614276_pgfId-1024098"></A>iPhone 5</P>
+<P CLASS="BulletSub">
+<A NAME="50614276_pgfId-1024099"></A>iPad (2nd,3rd, and 4th generation)</P>
+<P CLASS="BulletSub">
+<A NAME="50614276_pgfId-1024100"></A>iPad mini</P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50614276_pgfId-1019470"></A>Magnet Mobile App Manager Console</H6>
+<P CLASS="Body">
+<A NAME="50614276_pgfId-1024371"></A>Supported browsers:</P>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1024372"></A>Firefox 16 and above</P>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1024373"></A>Chrome</P>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1024367"></A>Safari 5 and above</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50614276_pgfId-1024408"></A>Documentation</H3>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1024412"></A>Magnet Mobile App Server Deployment Guide</P>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1024413"></A>Magnet Mobile App Manager Administrator Guide</P>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1024414"></A>Magnet Mobile for Android User Guide</P>
+<P CLASS="BulletTight">
+<A NAME="50614276_pgfId-1024415"></A>Magnet Mobile for iOS User Guide</P>
+<P CLASS="Body">
+<A NAME="50614276_pgfId-1024401"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50614277_pgfId-1011343"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="Title-Release-Note">
+<A NAME="50614277_pgfId-1011344"></A>Known Issues</H6>
+<P CLASS="Anchor">
+<A NAME="50614277_pgfId-1024979"></A>&nbsp;</P>
+<TABLE BORDER="1">
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="50614277_pgfId-1027136"></A>ID</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="50614277_pgfId-1027138"></A>Title</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="50614277_pgfId-1027140"></A>Notes</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027142"></A>3763</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027144"></A>App@Work remained on splash screen when started without being connected to any data networks. </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027146"></A>In this situation, App@Work should time out and close. </P>
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027147"></A>This issue will be addressed in subsequent releases. </P>
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027239"></A>Workaround: Check your data network connection and restart App@Work.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027149"></A>4802</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1030556"></A>During apps installation, users see installation blocked error if “Unknown sources” not selected before installation.</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027342"></A>When Android’s option “Unknown sources” option is not selected before installing apps, a screen is displayed indicating the installation is blocked. Users need to tap “Settings” to select the “Unknown sources” option then restart the process.</P>
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027154"></A>This issue will be addressed in subsequent releases. </P>
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027155"></A>Workaround: Review the “Before you Start” section in Magnet Mobile for Android User Guide before installation.    </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027164"></A>5417</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027738"></A>Mobile App Manager Console should not include a “Remove” button for Magnet Mobile Server. </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027844"></A>Mobile Server is needed for installation on the device; therefore, deleting it is not allowed. The “Remove” button should be hidden. </P>
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027169"></A>This issue will be addressed in subsequent releases. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027171"></A>5437</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1028967"></A>A manual synchronization may be required on the device when it tries to install a newer version of Mobile Server on top of an existing but older Mobile Server version. </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1029664"></A>A device has an older version of the Mobile Server installed, then a new Mobile Server and mobile apps sync on to the device. If the user chooses to install the Mobile Server first, it will cause the rest of the mobile apps disappear from the download list. </P>
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1030076"></A>This issue will be addressed in subsequent releases. </P>
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027177"></A>Workaround: Trigger a manual “Sync now” to get the mobile apps download again, then continue with the apps installation. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1030419"></A>5477</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1030421"></A>Deactivating an account from MAM Console does not remove the credential on the device.</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1030445"></A>When an account is deactivated from MAM console, all required apps and the config profile are cleaned up properly. However, the Setup@Work app and the credential still remains on the device.</P>
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1030476"></A>This issue will be addressed in subsequent releases.</P>
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1030447"></A>Workaround: Tap the Delete Account button to manual remove the credential and Setup@Work app.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027179"></A>5510</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1027181"></A>Two S4 devices are activated in the same account; only one shows up in the Mobile App Manager Console.</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1030155"></A>We observed this behavior only on two Samsung S4 devices. </P>
+<P CLASS="CellBody">
+<A NAME="50614277_pgfId-1030092"></A>This issue is still under further investigation. </P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="50614277_pgfId-1019470"></A>&nbsp;</P>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+<div id="doc-switch"></div></div></div></div></div></div><!-- dialogs start --><div class="modal-form-errors modal hide fade" id="error-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p class="subheading"></p>        <ul></ul>    </div>    <div class="modal-footer">        <button class="btn btn-primary" data-dismiss="modal">OK</button>    </div></div><div class="modal-alert modal hide fade" id="general-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p></p>    </div>    <div class="modal-footer">        <button class="btn btn-primary" data-dismiss="modal" id=                "ok">OK</button>    </div></div><div class="modal-confirm modal hide fade" id="confirm-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p></p>    </div>    <div class="modal-footer">        <button class="submit btn-primary btn">Continue</button>        <button class="cancel btn" data-dismiss="modal">Cancel</button>    </div></div><div class="modal-alert modal hide fade" id="invite-other-modal">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3>Invite Others</h3>        <p class="subheading">Enter the email address of the individual you            would like to invite to the Developer Factory.</p>    </div>    <div class="modal-body">        <div class="modal_errors" style="display:none">            <div class="alert alert-error">                <strong></strong> <span></span>            </div>        </div>        <div class="modal_success" style="display:none">            <div class="alert alert-success">                <span>Your invitation has been sent successfully.</span>            </div>        </div>        <div class="row-fluid">            <input class="span12" name="email" placeholder=                    "Enter Email Address" type="text"><br>            <strong>Message to include</strong><br>            <textarea class="span12" name="inviteMessage"                      placeholder="Message to include">                I found this great new tool to quickly create mobile apps for me.            </textarea>        </div>    </div>    <div class="modal-footer">        <button class="btn-primary btn">Send Invitation</button>        <button class="cancel btn" data-dismiss="modal">Close</button>    </div>    <div class="loading modal-footer" style="display:none">Loading.. Please        Wait.. <img src="/images/ajax-loader-sm.gif"></div></div><!-- dialogs end --><script src="/js/libs/jquery.js" type=        "text/javascript"></script><script src="/js/libs/bootstrap.js" type="text/javascript"></script><script src="/js/scripts.js" type="text/javascript"></script></BODY>
+</HTML>

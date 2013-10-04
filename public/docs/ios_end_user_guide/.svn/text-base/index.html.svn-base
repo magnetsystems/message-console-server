@@ -1,0 +1,1275 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 11.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="index.css" CHARSET="UTF-8" TYPE="text/css">
+<TITLE>2.0</TITLE><link href="/images/favicon.ico" rel="shortcut icon" type="image/x-icon">    <link href="/images/apple-touch-icon.png" rel="apple-touch-icon">    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">    <link href="/stylesheets/dev.css" rel="stylesheet">    <link href=                  "http://fonts.googleapis.com/css?family=Titillium+Web:200,300,400" rel=                  "stylesheet" type="text/css">    <script src="/js/libs/modernizr.js" type="text/javascript"></script></HEAD>
+<BODY>
+<DIV>
+</div><div id="site-header">    <div class="logo_container">        <a href="/"><img alt="Developer Factory" src="/images/heading.png">            <h4>Developer Factory</h4></a>    </div>    <ul class="title_container">        <li>            <a href="/dev/">Projects</a>        </li>        <li class="dropdown">            <a class="dropdown-toggle" href="/resources/">Resources</a>            <ul class="dropdown-menu">                <li id="menu-samples" role="presentation"><a role="menuitem" tabindex="-1" href="../resources/samples.html">Samples</a></li>                <li id="menu-mam" role="presentation"><a role="menuitem" tabindex="-1" href="../resources/mobile_app_manager.html">Mobile App Manager</a></li>            </ul>        </li>        <li class="active">            <a href="/docs/">Documentation</a>        </li>        <li>            <a href="/support/">Support</a>        </li>    </ul>    <div class="control-buttons hidden">        <a href="#" id="invite-others"><em class=                                                   "icon-plus icon-white"></em><em class=                                                                                           "icon-user icon-white"></em></a> <a href="#" id=            "user-panel-toggle"><em class=                                            "icon-chevron-down icon-white"></em><span id=                                                                                              "username-placeholder"></span></a>    </div></div><div id="user-panel" style="display:none">    <div class="col">        <span class="user-username"></span><br>        <span class="user-company"></span>    </div>    <div class="col2">        <a href="/dev/#/profile-editor">Edit Profile</a>    </div>    <div class="btns">        <a class="btn-logout btn btn-primary" href="#">Log Out</a>    </div></div><div class="title_container_mobile hidden">    <div class="row-fluid">        <div class="span12">            <div class="btn-group">                <a class="btn dropdown-toggle" data-toggle="dropdown" href=                        "#">Navigation Menu <span class="caret"></span></a>                <ul class="dropdown-menu">                    <li>                        <a href="/intro/" tabindex="-1">Introduction</a>                    </li>                    <li>                        <a href="/dev/" tabindex="-1">My Projects</a>                    </li>                    <li class="disabled">                        <a href="#" tabindex="-1">Documentation</a>                    </li>                    <li>                        <a href="/support/" tabindex="-1">Support</a>                    </li>                </ul>            </div>        </div>    </div></div><div class="page" id="dev-container"><div class="row-fluid"><div class="clearfix page-view doc-list"><div class="row-fluid" id="doc-container"><div class="span4" id="doc-toc"></div><div class="span8" id="doc-content"><div></DIV>
+<P CLASS="Body">
+<A NAME="50491399_pgfId-1060768"></A>&nbsp;</P>
+<P CLASS="BookTitle">
+<A NAME="50491419_pgfId-998616"></A>Magnet<EM CLASS="TradeMark">
+&trade;</EM>
+ Mobile for iOS <BR>
+User Guide </P>
+<DIV>
+<H1 CLASS="Version">
+<A NAME="50491419_pgfId-998617"></A>2.0</H1>
+<DIV>
+<H4 CLASS="Revision">
+<A NAME="50491419_pgfId-998610"></A>Revision A</H4>
+<P CLASS="Copyright">
+<A NAME="50491419_pgfId-998856"></A>© 2013 Magnet Systems, Inc. All rights reserved. This manual, in whole or in part, may not be reproduced, translated, or reduced to any machine-readable form without the prior written approval of Magnet Systems, Inc. Magnet Systems, Inc. reserves the right to make any modification to this manual or the information contained herein at any time without notice. </P>
+<P CLASS="Copyright">
+<A NAME="50491419_pgfId-999403"></A>MAGNET SYSTEMS PROVIDES NO WARRANTY WITH REGARD TO THIS MANUAL, THE SOFTWARE, OR OTHER INFORMATION CONTAINED HEREIN AND HEREBY EXPRESSLY DISCLAIMS ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE WITH REGARD TO THIS MANUAL, THE SOFTWARE, OR SUCH OTHER INFORMATION. IN NO EVENT SHALL MAGNET SYSTEMS, INC. BE LIABLE FOR ANY INCIDENTAL, CONSEQUENTIAL, OR SPECIAL DAMAGES, WHETHER BASED ON TORT, CONTRACT, OR OTHERWISE, ARISING OUT OF OR IN CONNECTION WITH THIS MANUAL, THE SOFTWARE, OR OTHER INFORMATION CONTAINED HEREIN OR THE USE THEREOF. </P>
+<P CLASS="Copyright">
+<A NAME="50491419_pgfId-999554"></A>All other trademarks are trademarks of their respective owners. Any Magnet Systems patents granted or pending in the United States and other countries are protected by law. </P>
+<DIV>
+<H6 CLASS="Magnet">
+<A NAME="50491419_pgfId-998948"></A>Magnet Systems, Inc.</H6>
+<P CLASS="Address">
+<A NAME="50491419_pgfId-999133"></A>435 Tasso Street</P>
+<P CLASS="Address">
+<A NAME="50491419_pgfId-999979"></A>Suite 100</P>
+<P CLASS="Body">
+<A NAME="50491419_pgfId-999134"></A>Palo Alto, CA</P>
+<P CLASS="Body">
+<A NAME="50491419_pgfId-999129"></A>94301</P>
+<DIV>
+<H6 CLASS="Phone">
+<A NAME="50491419_pgfId-999146"></A>650–329–5904</H6>
+</DIV>
+<DIV>
+<H6 CLASS="Email">
+<A NAME="50491419_pgfId-999161"></A>info@magnet.com</H6>
+<P CLASS="Anchor">
+<A NAME="50491414_pgfId-130086"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50491414_pgfId-131313"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50491414_pgfId-131315"></A>&nbsp;</P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="TOCTitle">
+<A NAME="50491414_pgfId-131015"></A>&nbsp;</H2>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50491414_pgfId-132150"></A><A HREF="index.html#50491415_pgfId-1009622" CLASS="Index">1.	 Introduction	1</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132152"></A><A HREF="index.html#50491415_pgfId-1012276" CLASS="Index">Intended Audience 	1</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132154"></A><A HREF="index.html#50491415_pgfId-1013188" CLASS="Index">Setup App 	1</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132156"></A><A HREF="index.html#50491415_pgfId-1012114" CLASS="Index">Apps@Work 	1</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50491414_pgfId-132158"></A><A HREF="index.html#50491416_pgfId-1012209" CLASS="Index">2.	Your Setup@Work Account	3</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132160"></A><A HREF="index.html#50491416_pgfId-1013249" CLASS="Index">Before You Begin 	3</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132162"></A><A HREF="index.html#50491416_pgfId-1023330" CLASS="Index">Installing Setup@Work App 	4</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132164"></A><A HREF="index.html#50491416_pgfId-1020900" CLASS="Index">Removing Your @Work Account 	9</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50491414_pgfId-132166"></A><A HREF="index.html#50491417_pgfId-1009622" CLASS="Index">3.	Apps@Work	11</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132168"></A><A HREF="index.html#50491417_pgfId-1030841" CLASS="Index">Sending a Message to IT Support 	13</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50491414_pgfId-132170"></A><A HREF="index.html#50491417_pgfId-1030845" CLASS="Index">Sending E-mail with Logs Attached 	13</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50491414_pgfId-132172"></A><A HREF="index.html#50491417_pgfId-1030876" CLASS="Index">Sending an E-mail Without Logs 	14</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132174"></A><A HREF="index.html#50491417_pgfId-1021078" CLASS="Index">Installing an Additional App 	16</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132176"></A><A HREF="index.html#50491417_pgfId-1026710" CLASS="Index">Launching an App 	17</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132178"></A><A HREF="index.html#50491417_pgfId-1022748" CLASS="Index">Searching for an App 	18</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132180"></A><A HREF="index.html#50491417_pgfId-1022776" CLASS="Index">Updating an App 	19</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132182"></A><A HREF="index.html#50491417_pgfId-1033557" CLASS="Index">Synchronizing All Apps 	20</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50491414_pgfId-132184"></A><A HREF="index.html#50491418_pgfId-1012046" CLASS="Index">4.	 Troubleshooting Tips	21</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132186"></A><A HREF="index.html#50491418_pgfId-1023003" CLASS="Index">Solving Profile Installation Failed Scenarios 	21</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50491414_pgfId-132188"></A><A HREF="index.html#50491418_pgfId-1023400" CLASS="Index">Removing Other Provisioning Profile 	21</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50491414_pgfId-132190"></A><A HREF="index.html#50491418_pgfId-1023507" CLASS="Index">Removing a Previously Installed Magnet Provisioning Profile 	22</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132192"></A><A HREF="index.html#50491418_pgfId-1021255" CLASS="Index">Solving Sign-in Scenarios 	24</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132194"></A><A HREF="index.html#50491418_pgfId-1022451" CLASS="Index">Solving Account Activation Scenarios 	25</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50491414_pgfId-132196"></A><A HREF="index.html#50491418_pgfId-1022045" CLASS="Index">Solving Apps@Work Scenarios 	26</A></P>
+<P CLASS="Anchor">
+<A NAME="50491415_pgfId-1009357"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50491415_pgfId-1009622"></A> Introduction         </H6>
+<P CLASS="Body">
+<A NAME="50491415_pgfId-1012264"></A>This user guide provides instructions for installing the Magnet™ Mobile Setup@Work app and activating your @Work account on your iOS device. </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491415_pgfId-1012276"></A>Intended Audience</H3>
+<P CLASS="Body">
+<A NAME="50491415_pgfId-1012277"></A>This user guide is intended for employees of an organization who use the Magnet Mobile Setup@Work app to install and manage mobile enterprise apps on their iOS devices. </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491415_pgfId-1013188"></A>Setup App</H3>
+<P CLASS="Body">
+<A NAME="50491415_pgfId-1013206"></A>All enterprise apps distributed by an enterprise through their enterprise app store (and not the Apple iTunes App Store) must have the required certificates and configuration profile on iOS devices. Setup@Work app is an app that is used for installing the configuration profile on your device (refer to <A HREF="index.html#50491416_53954" CLASS="XRef">See Your Setup@Work Account</A>). </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491415_pgfId-1012114"></A>Apps@Work </H3>
+<P CLASS="Body">
+<A NAME="50491415_pgfId-1013137"></A>After activating your device, you can access Apps @Work to install and manage apps (refer to <A HREF="index.html#50491417_24945" CLASS="XRef">See Apps@Work</A>). Some apps are required by your enterprise to be installed on your device, meaning that these apps cannot be deleted. All apps installed on your device are kept in the App Store, where you can easily find and launch them. </P>
+<P CLASS="Body">
+<A NAME="50491415_pgfId-1011836"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1011185"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50491416_pgfId-1012209"></A><A NAME="50491416_53954"></A>Your Setup@Work Account        </H6>
+<P CLASS="Body">
+<A NAME="50491416_pgfId-1021083"></A>Each device can support only one registered user; however, you can register your account on multiple devices. Release 2.0 supports iOS version 6.1.2 and later as well as the following devices:</P>
+<P CLASS="BulletTight">
+<A NAME="50491416_pgfId-1039797"></A>iPhone 4 and 4s</P>
+<P CLASS="BulletTight">
+<A NAME="50491416_pgfId-1034495"></A>iPhone 5</P>
+<P CLASS="BulletTight">
+<A NAME="50491416_pgfId-1039810"></A>iPad (2<EM CLASS="Superscript">
+nd</EM>
+,3<EM CLASS="Superscript">
+rd</EM>
+, and 4<EM CLASS="Superscript">
+th</EM>
+ generation)</P>
+<P CLASS="BulletTight">
+<A NAME="50491416_pgfId-1034497"></A>iPad mini </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491416_pgfId-1013249"></A>Before You Begin</H3>
+<P CLASS="Body">
+<A NAME="50491416_pgfId-1014296"></A>Ensure that your device has the following:</P>
+<P CLASS="ListBullet">
+<A NAME="50491416_pgfId-1021143"></A>a working data connection </P>
+<P CLASS="ListBullet">
+<A NAME="50491416_pgfId-1033051"></A>e-mail access to your organization</P>
+<P CLASS="ListBullet">
+<A NAME="50491416_pgfId-1033047"></A>a Passcode Lock is set up on your mobile device </P>
+<P CLASS="ListBullet">
+<A NAME="50491416_pgfId-1045001"></A>other installed config profile removed</P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1045517"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50491416_pgfId-1045523"></A><DIV>
+<IMG SRC="index-1.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50491416_pgfId-1045525"></A><DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+For security reasons, only one config profile is allowed to be installed on iOS devices at one time. You need to remove the previously installed config profile before installing the Magnet application or the installation will fail. Go to Settings --&gt; <BR>
+General--&gt;Profile, and tap App Management. Refer to <A HREF="index.html#50491418_77138" CLASS="XRef">See Solving Profile Installation Failed Scenarios</A> for detailed instructions. <DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1045918"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491416_pgfId-1023330"></A><A NAME="50491416_27150"></A>Installing Setup@Work App</H3>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1037925"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50491416_pgfId-1037922"></A><DIV>
+<IMG SRC="index-1.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50491416_pgfId-1037924"></A><DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+Both iPhone and iPad have the same functionalities although the screens may be slightly different. Screens shown in this guide illustrate an iPhone experience. <DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491416_pgfId-1029109"></A>Open the account activation e-mail from your mobile device similar to the following.</H6>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1039638"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-3.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1040772"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491416_pgfId-1029127"></A>Tap START.</P>
+<P CLASS="ListContinued">
+<A NAME="50491416_pgfId-1029128"></A>A browser window opens that takes you directly to an installation page similar to following: </P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1039528"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-4.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1048360"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491416_pgfId-1033166"></A>Tap Download. </P>
+<P CLASS="ListContinued">
+<A NAME="50491416_pgfId-1048324"></A>A dialog box appears asking to install Setup@Work.</P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1019341"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-5.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1029173"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491416_pgfId-1033247"></A>Tap Install. </P>
+<P CLASS="ListContinued">
+<A NAME="50491416_pgfId-1048348"></A>When installation is complete, the Setup icon appears on the home screen, as shown in the following. </P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1029175"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-6.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1032463"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1036598"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50491416_pgfId-1036602"></A><DIV>
+<IMG SRC="index-1.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50491416_pgfId-1036604"></A><DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+Do not start the Setup app at this point. You need to return to the browser window from which you started this process in step 2. <BR>
+<DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50491416_pgfId-1032465"></A><A NAME="50491416_Return to landing page"></A>Return to the browser window from which you started this process in step 2, and tap Activate.</P>
+<P CLASS="ListContinued">
+<A NAME="50491416_pgfId-1048376"></A>The End User License Agreement appears.</P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1029238"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-7.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1048467"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491416_pgfId-1029299"></A>Tap I Agree to continue.</P>
+<P CLASS="BodyIndented1">
+<A NAME="50491416_pgfId-1029300"></A>A screen appears showing your account information. </P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1031932"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1031964"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491416_pgfId-1019542"></A>Enter the password that is provided by your administrator.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491416_pgfId-1019777"></A>Tap Sign In. </P>
+<P CLASS="ListContinued">
+<A NAME="50491416_pgfId-1031302"></A>Setup@Work is preparing to install the provisioning profile. </P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1048037"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1048489"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491416_pgfId-1032073"></A>Tap Continue. </P>
+<P CLASS="ListContinued">
+<A NAME="50491416_pgfId-1032570"></A>The following screen appears.</P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1019317"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-10.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1025691"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491416_pgfId-1023959"></A>Tap Install. </P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1031705"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-11.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1032116"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1032670"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50491416_pgfId-1032667"></A><DIV>
+<IMG SRC="index-1.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50491416_pgfId-1032669"></A><DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+You are asked to set up Passcode Lock for your device if you have not yet protected your device. To passcode lock your device, go to Settings &gt; General &gt; Passcode Lock. <DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListNumber1-">
+<A NAME="50491416_pgfId-1032768"></A>Enter your passcode.</P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1042694"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50491416_pgfId-1042691"></A><DIV>
+<IMG SRC="index-1.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50491416_pgfId-1042693"></A><DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+The profile installation will fail if you have other config profile installed on your device. Refer to <A HREF="index.html#50491418_77138" CLASS="XRef">See Solving Profile Installation Failed Scenarios</A> for detailed instructions. <DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListContinued">
+<A NAME="50491416_pgfId-1041485"></A>The App Installation screen appears.</P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1030792"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-12.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1041588"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491416_pgfId-1032299"></A>Tap Install. </P>
+<P CLASS="ListContinued">
+<A NAME="50491416_pgfId-1032826"></A>You are returned to the home screen while installation is under way. The installation is complete when the icon is displayed.</P>
+<P CLASS="ListContinued">
+<A NAME="50491416_pgfId-1032848"></A>When multiple apps are installed, they are downloaded and installed in the same order on the device as shown in the following examples. </P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1020573"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-13.gif" ALT="">
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491416_pgfId-1020900"></A>Removing Your @Work Account</H3>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1038468"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Important-Icon">
+<A NAME="50491416_pgfId-1038472"></A><DIV>
+<IMG SRC="index-14.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="ImportantText">
+<A NAME="50491416_pgfId-1038474"></A><BR>
+Do not delete the Setup app until you have first deleted your @Work account. </P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="50491416_pgfId-1022285"></A>When you delete your @Work account, all enterprise applications on your device will be removed and you will be signed out of your @Work account immediately. The Setup app remains on your device when you want to re-register later. </P>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1037304"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50491416_pgfId-1037301"></A><DIV>
+<IMG SRC="index-1.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50491416_pgfId-1037303"></A><DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+Removing your @Work account does not remove any personal apps that are installed on your device. <BR>
+<DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491416_pgfId-1037343"></A>Tap the Setup icon on the home screen. </H6>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1022608"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-15.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491416_pgfId-1021812"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491416_pgfId-1021805"></A>Tap Delete Account. </P>
+<P CLASS="ListContinued">
+<A NAME="50491416_pgfId-1030972"></A>A dialog box appears asking for confirmation.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491416_pgfId-1037148"></A>Tap Yes, delete.</P>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1009357"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50491417_pgfId-1009622"></A><A NAME="50491417_24945"></A>Apps@Work         </H6>
+<P CLASS="Body">
+<A NAME="50491417_pgfId-1023313"></A>Apps@Work is an app that is installed automatically when you activate your Setup@Work account. You need this app to install and manage all enterprise apps. Apps@Work enables you to </P>
+<P CLASS="Bullet">
+<A NAME="50491417_pgfId-1023314"></A>look up all enterprise authorized applications that are available to you</P>
+<P CLASS="Bullet">
+<A NAME="50491417_pgfId-1023315"></A>view and launch the enterprise applications that you have installed from Apps@Work</P>
+<P CLASS="Bullet">
+<A NAME="50491417_pgfId-1032459"></A>send e-mail message to IT support</P>
+<P CLASS="Body">
+<A NAME="50491417_pgfId-1032508"></A>Apps@Work manages all enterprise apps, which are organized in categories for easy lookup. The following table lists and describes non-functional apps that may be included with Apps@Work by your administrator. </P>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1032514"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50491417_pgfId-1032511"></A><DIV>
+<IMG SRC="index-16.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50491417_pgfId-1032513"></A><DIV>
+<IMG SRC="index-17.gif" ALT="">
+</DIV>
+These sample apps listed in the following table are for reference only and they may not be included in the Apps@Work. You will see apps that are made available to you by your company.<DIV>
+<IMG SRC="index-17.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="50491417_pgfId-1032515"></A>Some apps are designated “Required” (indicated by  in the table). If removed, these apps will re-install whenever the connection is active. </P>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1021062"></A>&nbsp;</P>
+<TABLE BORDER="1">
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="50491417_pgfId-1020919"></A>Categories</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="50491417_pgfId-1020921"></A>Apps</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeading">
+<A NAME="50491417_pgfId-1020923"></A>Description</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="3" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020925"></A>Finance</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020927"></A>AP/AR</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020929"></A>Access sales invoices as well as accounts payable and receivable.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020933"></A>Budgeting</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020935"></A>Enter income and expenses; display bar charts and graphs.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020939"></A>Expense Approvals </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020941"></A>Approve expense reports. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="3" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020943"></A>HR/Admin</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020945"></A>401(k) </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020947"></A>Calculate annual return based on your account balance. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020951"></A>EAP </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020953"></A>Access information on Employee Assistance Programs. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020957"></A>LinkedIn</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020959"></A>Tracks activity updates and status of your LinkedIn contacts.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="4" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020961"></A>IT</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020963"></A>Applications Management</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020965"></A>Manage and group system applications.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020969"></A>Jira Mobile</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020971"></A>Track your Atlassian Jira server issues.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020975"></A>System Dashboard</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020977"></A>View your system performance and usage data.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020981"></A>Twitter</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020983"></A>Track and post your updates on the social networking site. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="3" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020985"></A>Legal</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020987"></A>Contracts</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020989"></A>Organize your contracts for easy recall.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020993"></A>NDA</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020995"></A>Track non-disclosure agreements. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1020999"></A>Patents</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021001"></A>Track the status of patents you and your enterprise have filed.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="3" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021003"></A>Operations</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021005"></A>Facilities</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021007"></A>Manage tasks related to facilities and their maintenance.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021011"></A>Shipment Dashboard</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021013"></A>Track shipping costs and delivery statuses.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021017"></A>Vendor Management</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021019"></A>Maintain vendor database, including search capability.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="3" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021021"></A>Support</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021023"></A>Case Tracking</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021025"></A>Track the statuses and statistics of problem reports.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021029"></A>HelpDesk </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021031"></A>Retrieve reported issues and resources used to resolve them. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021035"></A>Knowledge Base</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021037"></A>Access your enterprise information repository.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="3" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021039"></A>Sales/Marketing</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021041"></A>CRM</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021043"></A>Organize your Customer Relationship Management information.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021047"></A>Marketing Workspace</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021049"></A>Classify and organize marketing materials.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021053"></A>Sales Group Forum</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021055"></A>Organize information by clients, product areas, etc.</P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021057"></A>System</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021059"></A>Apps@Work </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50491417_pgfId-1021061"></A>Find new enterprise apps and install them. </P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491417_pgfId-1030841"></A>Sending a Message to IT Support</H3>
+<P CLASS="Body">
+<A NAME="50491417_pgfId-1030842"></A>Two e-mail templates are provided.</P>
+<P CLASS="Bullet">
+<A NAME="50491417_pgfId-1030843"></A>Email with logs enables you to automatically attach a log file to IT support when you have encountered a problem. </P>
+<P CLASS="Bullet">
+<A NAME="50491417_pgfId-1030844"></A>Email enables you to compose basic messages with no logs attached.</P>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50491417_pgfId-1030845"></A>Sending E-mail with Logs Attached</H5>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491417_pgfId-1030846"></A>Tap the Apps icon on the home screen. </H6>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1030851"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-18.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1030852"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1030853"></A>Tap Support to display e-mail options. </P>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1030857"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-19.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1030858"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1030859"></A>Tap Send Email with logs.</P>
+<P CLASS="ListContinued">
+<A NAME="50491417_pgfId-1030860"></A>An e-mail template similar to the following appears: </P>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1030865"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-20.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1030866"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1030867"></A>Tap the Subject line to change the subject of your e-mail. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1030875"></A>Tap Send to send your e-mail. </P>
+</DIV>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50491417_pgfId-1030876"></A>Sending an E-mail Without Logs</H5>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491417_pgfId-1030877"></A>Tap the Apps icon on the home screen. </H6>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1030882"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-21.gif" ALT="">
+</DIV>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1030884"></A>Tap Support to display e-mail options. </P>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1030888"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-22.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1030889"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1030890"></A>Tap Send Email. </P>
+<P CLASS="ListContinued">
+<A NAME="50491417_pgfId-1030891"></A>An e-mail template similar to the following appears: </P>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1030895"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-23.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1030896"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1030897"></A>Tap the Subject line to change the subject of your e-mail. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1030898"></A>Tap Send when you are done composing your e-mail. </P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491417_pgfId-1021078"></A><A NAME="50491417_48449"></A>Installing an Additional App</H3>
+<P CLASS="Body">
+<A NAME="50491417_pgfId-1023136"></A>Required apps are installed when you activate your Setup@Work account. Installing apps in Apps@Work is free of charge. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491417_pgfId-1020900"></A>Tap the Apps icon on the home screen. </H6>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1026319"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-24.gif" ALT="">
+</DIV>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1026228"></A>Swipe the app carousal to browse through the categories; apps available appear below the selected category. </P>
+<P CLASS="ListBullet">
+<A NAME="50491417_pgfId-1026229"></A>INSTALL indicates apps that are available to be installed. </P>
+<P CLASS="ListBullet">
+<A NAME="50491417_pgfId-1026230"></A>OPEN indicates apps that are already installed on your device.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1021184"></A>Select the app you want to install, tap INSTALL. </P>
+<P CLASS="ListContinued">
+<A NAME="50491417_pgfId-1021979"></A>A dialog asking for confirmation appears. </P>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1022345"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-25.gif" ALT="">
+</DIV>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1022336"></A>Tap Install. </P>
+<P CLASS="ListContinued">
+<A NAME="50491417_pgfId-1022419"></A>You are returned to the home screen, and the icon of the app is displayed when the installation is complete. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491417_pgfId-1026710"></A>Launching an App</H3>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491417_pgfId-1026711"></A>Tap the Apps icon on the home screen. </H6>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1026256"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-26.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1026279"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1025017"></A>Tap My Apps to display apps that are installed on your device. </P>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1027564"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-27.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1027610"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1027416"></A>Tap OPEN on the app you want to launch. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491417_pgfId-1022748"></A><A NAME="50491417_73194"></A>Searching for an App</H3>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491417_pgfId-1025035"></A>Tap the Apps icon on the home screen. </H6>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1027736"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-28.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1027737"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1027818"></A>Tap Search to display the key pad. </P>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1022774"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-29.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1025333"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1027976"></A>Enter the app title you want to search. </P>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1027984"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50491417_pgfId-1027981"></A><DIV>
+<IMG SRC="index-16.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50491417_pgfId-1027983"></A><DIV>
+<IMG SRC="index-17.gif" ALT="">
+</DIV>
+<BR>
+The Search function is not case-sensitive. <BR>
+<DIV>
+<IMG SRC="index-17.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491417_pgfId-1022776"></A>Updating an App</H3>
+<P CLASS="Body">
+<A NAME="50491417_pgfId-1034326"></A>You are notified when an update is available, you can immediately update the app by confirming the operation. This section provides instructions if you choose to update the app at a later time. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491417_pgfId-1025047"></A>Tap the Apps icon on the home screen. </H6>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1028114"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-30.gif" ALT="">
+</DIV>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1022797"></A>Tap Updates.</P>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1022799"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-31.gif" ALT="">
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491417_pgfId-1033557"></A><A NAME="50491417_20626"></A><A NAME="50491417_99210"></A>Synchronizing All Apps</H3>
+<P CLASS="Body">
+<A NAME="50491417_pgfId-1033559"></A>When you install a new app and to ensure that Apps@Work and actual apps on your device are synchronized, you may need to manually synchronize them. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491417_pgfId-1033604"></A>Tap the Setup icon on the home screen. </H6>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1033608"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-32.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491417_pgfId-1033621"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491417_pgfId-1033600"></A>Tap Sync All Apps. </P>
+<P CLASS="Body">
+<A NAME="50491417_pgfId-1033550"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1012045"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1016662"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1016664"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50491418_pgfId-1012046"></A><A NAME="50491418_61241"></A> Troubleshooting Tips      </H6>
+<P CLASS="Body">
+<A NAME="50491418_pgfId-1015312"></A>This section provides information to solve some common snags with account activation and Apps@Work. </P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491418_pgfId-1023003"></A><A NAME="50491418_77138"></A>Solving Profile Installation Failed Scenarios</H3>
+<P CLASS="Body">
+<A NAME="50491418_pgfId-1023061"></A>You are seeing the following message because your device may be installed with other config profile or the @Work account was removed but the config profile has not yet been removed.</P>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1023285"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-33.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1023301"></A>&nbsp;</P>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50491418_pgfId-1023400"></A>Removing Other Provisioning Profile</H5>
+<P CLASS="Body">
+<A NAME="50491418_pgfId-1023537"></A>For security reasons, only one provisioning profile is allowed to be installed on iOS devices at one time. To install the Magnet application on your device, you need to first remove a previously installed provisioning profile from other provider: </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491418_pgfId-1025060"></A>Go to Settings --&gt;General --&gt;Profiles.</H6>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1025064"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-34.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1025065"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1025066"></A>Tap App Store In House Dist.... </P>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1025070"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-35.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1025071"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1025072"></A>Tap Remove.</P>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1025076"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-36.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1025077"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1025078"></A>Tap Remove to confirm the operation.</P>
+<P CLASS="ListContinued">
+<A NAME="50491418_pgfId-1025085"></A>The provisioning profile is immediately removed from the profile. </P>
+</DIV>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50491418_pgfId-1023507"></A>Removing a Previously Installed Magnet Provisioning Profile</H5>
+<P CLASS="Body">
+<A NAME="50491418_pgfId-1023509"></A>When the @Work account was removed, all apps including the provisioning profile were also removed. If you tried to reactivate the @Work account before the provisioning profile was removed (the provisioning profile might take longer to remove), the profile installation will fail. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491418_pgfId-1023936"></A>Go to Settings --&gt;General --&gt;Profiles.</H6>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1026514"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-37.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1026515"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1026516"></A>Tap App Store In House Dist.... </P>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1026520"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-38.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1026521"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1026522"></A>Tap Remove.</P>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1026526"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-39.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1026527"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1026528"></A>Tap Remove to confirm the operation.</P>
+<P CLASS="ListContinued">
+<A NAME="50491418_pgfId-1026529"></A>The provisioning profile is immediately removed from the profile. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1023972"></A>Remove the @Work account by tapping the Setup icon on the home screen. </P>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1023976"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-40.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1023977"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1023978"></A>Tap Delete Account. </P>
+<P CLASS="ListContinued">
+<A NAME="50491418_pgfId-1023979"></A>A dialog box appears asking for confirmation.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1023980"></A>Tap Yes, delete.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1024082"></A>Install Setup@Work App as described on <A HREF="index.html#50491416_27150" CLASS="XRef">See Installing Setup@Work App</A>. </P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491418_pgfId-1021255"></A>Solving Sign-in Scenarios</H3>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50491418_pgfId-1021278"></A>Sign-in Failed Message</H6>
+<P CLASS="Body">
+<A NAME="50491418_pgfId-1018786"></A>You are seeing the following message because your account has not yet activated although the Setup app has been downloaded. Refer to <A HREF="index.html#50491416_Return to landing page" CLASS="XRef">See Return to the browser window from which you started this process in step 2, and tap Activate.</A> for corrective action. </P>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1018682"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-41.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1019554"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1021577"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50491418_pgfId-1021578"></A>Unable to Sign In to Your @Work Account</H6>
+<P CLASS="Body">
+<A NAME="50491418_pgfId-1021579"></A>You are unable to sign in to your @Work account although you have successfully installed the Setup app and the App Store. This may be caused by the improper removal of the previous account from this device. When the Setup app was removed before removing the account, all configuration profiles and user credentials remained on the device as though the account was still active. </P>
+<P CLASS="Body">
+<A NAME="50491418_pgfId-1019764"></A>To solve this scenario:</P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491418_pgfId-1020198"></A>Tap the Setup icon on the home screen. </H6>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1020202"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-42.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50491418_pgfId-1020203"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1020204"></A>Tap Delete Account. </P>
+<P CLASS="ListContinued">
+<A NAME="50491418_pgfId-1020205"></A>A dialog box appears asking for confirmation.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1020206"></A>Tap Yes, delete.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1022044"></A>Re-install Setup as describes in <A HREF="index.html#50491416_53954" CLASS="XRef">See Your Setup@Work Account</A>. </P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491418_pgfId-1022451"></A>Solving Account Activation Scenarios</H3>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50491418_pgfId-1022452"></A>Unable to Activate </H6>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491418_pgfId-1022453"></A>Verify that all your user name and password (provided by your administrator) are correct. </H6>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1022454"></A>Contact your administrator if problem persists.</P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50491418_pgfId-1022455"></A>Registration Failed </H6>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491418_pgfId-1022456"></A>Verify that the server URL (provided by your administrator) for your account is correct. </H6>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1022457"></A>Contact your administrator if problem persists. </P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50491418_pgfId-1022045"></A>Solving Apps@Work Scenarios</H3>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50491418_pgfId-1022046"></A>Unable to Launch the Apps@Work </H6>
+<P CLASS="Body">
+<A NAME="50491418_pgfId-1015410"></A>The App@Work requires a live connection to work. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50491418_pgfId-1015411"></A>Make sure your connection is live and try launching it again. </H6>
+<P CLASS="ListNumber1-">
+<A NAME="50491418_pgfId-1015416"></A>Contact your administrator if problem persists. </P>
+</DIV>
+</DIV>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50491418_pgfId-1015438"></A>Cannot Find an App</H6>
+<P CLASS="Body">
+<A NAME="50491418_pgfId-1015442"></A>Verify that the app is actually installed. Refer to <A HREF="index.html#50491417_73194" CLASS="XRef">See Searching for an App</A>.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading4">
+<A NAME="50491418_pgfId-1012605"></A>The Deleted App Keeps Coming Back</H6>
+<P CLASS="Body">
+<A NAME="50491418_pgfId-1012656"></A>An app that is required by your enterprise cannot be deleted and will be re-installed as soon as the connection is live. Refer to the table on <A HREF="index.html#50491417_24945" CLASS="XRef">See Apps@Work</A> to check if the app is required. </P>
+<P CLASS="Body">
+<A NAME="50491418_pgfId-1019383"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="50491418_pgfId-1019385"></A>&nbsp;</P>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+<div id="doc-switch"></div></div></div></div></div></div><!-- dialogs start --><div class="modal-form-errors modal hide fade" id="error-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p class="subheading"></p>        <ul></ul>    </div>    <div class="modal-footer">        <button class="btn btn-primary" data-dismiss="modal">OK</button>    </div></div><div class="modal-alert modal hide fade" id="general-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p></p>    </div>    <div class="modal-footer">        <button class="btn btn-primary" data-dismiss="modal" id=                "ok">OK</button>    </div></div><div class="modal-confirm modal hide fade" id="confirm-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p></p>    </div>    <div class="modal-footer">        <button class="submit btn-primary btn">Continue</button>        <button class="cancel btn" data-dismiss="modal">Cancel</button>    </div></div><div class="modal-alert modal hide fade" id="invite-other-modal">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3>Invite Others</h3>        <p class="subheading">Enter the email address of the individual you            would like to invite to the Developer Factory.</p>    </div>    <div class="modal-body">        <div class="modal_errors" style="display:none">            <div class="alert alert-error">                <strong></strong> <span></span>            </div>        </div>        <div class="modal_success" style="display:none">            <div class="alert alert-success">                <span>Your invitation has been sent successfully.</span>            </div>        </div>        <div class="row-fluid">            <input class="span12" name="email" placeholder=                    "Enter Email Address" type="text"><br>            <strong>Message to include</strong><br>            <textarea class="span12" name="inviteMessage"                      placeholder="Message to include">                I found this great new tool to quickly create mobile apps for me.            </textarea>        </div>    </div>    <div class="modal-footer">        <button class="btn-primary btn">Send Invitation</button>        <button class="cancel btn" data-dismiss="modal">Close</button>    </div>    <div class="loading modal-footer" style="display:none">Loading.. Please        Wait.. <img src="/images/ajax-loader-sm.gif"></div></div><!-- dialogs end --><script src="/js/libs/jquery.js" type=        "text/javascript"></script><script src="/js/libs/bootstrap.js" type="text/javascript"></script><script src="/js/scripts.js" type="text/javascript"></script></BODY>
+</HTML>

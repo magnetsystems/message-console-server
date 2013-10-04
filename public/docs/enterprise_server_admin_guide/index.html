@@ -1,0 +1,895 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"><HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+<META NAME="GENERATOR" CONTENT="Adobe FrameMaker 11.0/HTML Export Filter">
+<LINK REL="STYLESHEET" HREF="index.css" CHARSET="UTF-8" TYPE="text/css">
+<TITLE>2.0</TITLE><link href="/images/favicon.ico" rel="shortcut icon" type="image/x-icon">    <link href="/images/apple-touch-icon.png" rel="apple-touch-icon">    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">    <link href="/stylesheets/dev.css" rel="stylesheet">    <link href=                  "http://fonts.googleapis.com/css?family=Titillium+Web:200,300,400" rel=                  "stylesheet" type="text/css">    <script src="/js/libs/modernizr.js" type="text/javascript"></script></HEAD>
+<BODY>
+<DIV>
+</div><div id="site-header">    <div class="logo_container">        <a href="/"><img alt="Developer Factory" src="/images/heading.png">            <h4>Developer Factory</h4></a>    </div>    <ul class="title_container">        <li>            <a href="/dev/">Projects</a>        </li>        <li class="dropdown">            <a class="dropdown-toggle" href="/resources/">Resources</a>            <ul class="dropdown-menu">                <li id="menu-samples" role="presentation"><a role="menuitem" tabindex="-1" href="../resources/samples.html">Samples</a></li>                <li id="menu-mam" role="presentation"><a role="menuitem" tabindex="-1" href="../resources/mobile_app_manager.html">Mobile App Manager</a></li>            </ul>        </li>        <li class="active">            <a href="/docs/">Documentation</a>        </li>        <li>            <a href="/support/">Support</a>        </li>    </ul>    <div class="control-buttons hidden">        <a href="#" id="invite-others"><em class=                                                   "icon-plus icon-white"></em><em class=                                                                                           "icon-user icon-white"></em></a> <a href="#" id=            "user-panel-toggle"><em class=                                            "icon-chevron-down icon-white"></em><span id=                                                                                              "username-placeholder"></span></a>    </div></div><div id="user-panel" style="display:none">    <div class="col">        <span class="user-username"></span><br>        <span class="user-company"></span>    </div>    <div class="col2">        <a href="/dev/#/profile-editor">Edit Profile</a>    </div>    <div class="btns">        <a class="btn-logout btn btn-primary" href="#">Log Out</a>    </div></div><div class="title_container_mobile hidden">    <div class="row-fluid">        <div class="span12">            <div class="btn-group">                <a class="btn dropdown-toggle" data-toggle="dropdown" href=                        "#">Navigation Menu <span class="caret"></span></a>                <ul class="dropdown-menu">                    <li>                        <a href="/intro/" tabindex="-1">Introduction</a>                    </li>                    <li>                        <a href="/dev/" tabindex="-1">My Projects</a>                    </li>                    <li class="disabled">                        <a href="#" tabindex="-1">Documentation</a>                    </li>                    <li>                        <a href="/support/" tabindex="-1">Support</a>                    </li>                </ul>            </div>        </div>    </div></div><div class="page" id="dev-container"><div class="row-fluid"><div class="clearfix page-view doc-list"><div class="row-fluid" id="doc-container"><div class="span4" id="doc-toc"></div><div class="span8" id="doc-content"><div></DIV>
+<P CLASS="Body">
+<A NAME="50581513_pgfId-1060768"></A>&nbsp;</P>
+<P CLASS="BookTitle">
+<A NAME="50581515_pgfId-998616"></A> Magnet<EM CLASS="TradeMark">
+&trade;</EM>
+ Mobile App Server<BR>
+Deployment Guide </P>
+<DIV>
+<H1 CLASS="Version">
+<A NAME="50581515_pgfId-998617"></A>2.0</H1>
+<DIV>
+<H4 CLASS="Revision">
+<A NAME="50581515_pgfId-998610"></A>Revision A</H4>
+<P CLASS="Copyright">
+<A NAME="50581515_pgfId-998856"></A>© 2013 Magnet Systems, Inc. All rights reserved. This manual, in whole or in part, may not be reproduced, translated, or reduced to any machine-readable form without the prior written approval of Magnet Systems, Inc. Magnet Systems, Inc. reserves the right to make any modification to this manual or the information contained herein at any time without notice. </P>
+<P CLASS="Copyright">
+<A NAME="50581515_pgfId-999403"></A>MAGNET SYSTEMS PROVIDES NO WARRANTY WITH REGARD TO THIS MANUAL, THE SOFTWARE, OR OTHER INFORMATION CONTAINED HEREIN AND HEREBY EXPRESSLY DISCLAIMS ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE WITH REGARD TO THIS MANUAL, THE SOFTWARE, OR SUCH OTHER INFORMATION. IN NO EVENT SHALL MAGNET SYSTEMS, INC. BE LIABLE FOR ANY INCIDENTAL, CONSEQUENTIAL, OR SPECIAL DAMAGES, WHETHER BASED ON TORT, CONTRACT, OR OTHERWISE, ARISING OUT OF OR IN CONNECTION WITH THIS MANUAL, THE SOFTWARE, OR OTHER INFORMATION CONTAINED HEREIN OR THE USE THEREOF. </P>
+<P CLASS="Copyright">
+<A NAME="50581515_pgfId-999554"></A>All other trademarks are trademarks of their respective owners. Any Magnet Systems patents granted or pending in the United States and other countries are protected by law. </P>
+<DIV>
+<H6 CLASS="Magnet">
+<A NAME="50581515_pgfId-998948"></A>Magnet Systems, Inc.</H6>
+<P CLASS="Address">
+<A NAME="50581515_pgfId-999133"></A>435 Tasso Street</P>
+<P CLASS="Address">
+<A NAME="50581515_pgfId-999979"></A>Suite 100</P>
+<P CLASS="Body">
+<A NAME="50581515_pgfId-999134"></A>Palo Alto, CA</P>
+<P CLASS="Body">
+<A NAME="50581515_pgfId-999129"></A>94301</P>
+<DIV>
+<H6 CLASS="Phone">
+<A NAME="50581515_pgfId-999146"></A>650–329–5904</H6>
+</DIV>
+<DIV>
+<H6 CLASS="Email">
+<A NAME="50581515_pgfId-999161"></A>info@magnet.com</H6>
+<P CLASS="Anchor">
+<A NAME="50581562_pgfId-374425"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581562_pgfId-376481"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581562_pgfId-376483"></A>&nbsp;</P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H2 CLASS="TOCTitle">
+<A NAME="50581562_pgfId-375172"></A>&nbsp;</H2>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50581562_pgfId-376997"></A><A HREF="index.html#50581520_pgfId-1009622" CLASS="Index">1.	About This Guide	1</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-376999"></A><A HREF="index.html#50581520_pgfId-1040924" CLASS="Index">Intended Audience 	1</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377001"></A><A HREF="index.html#50581520_pgfId-1040087" CLASS="Index">Document Organization 	1</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377003"></A><A HREF="index.html#50581520_pgfId-1040057" CLASS="Index">Related Documents 	2</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50581562_pgfId-377005"></A><A HREF="index.html#50581510_pgfId-1009622" CLASS="Index">2.	 Introducing Magnet Mobile App Server	3</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377007"></A><A HREF="index.html#50581510_pgfId-1030604" CLASS="Index">Magnet Mobile Enterprise Server 	4</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50581562_pgfId-377009"></A><A HREF="index.html#50581510_pgfId-1030609" CLASS="Index">Custom Controllers 	4</A></P>
+<P CLASS="Heading3TOC">
+<A NAME="50581562_pgfId-377011"></A><A HREF="index.html#50581510_pgfId-1030613" CLASS="Index">Caching and Off-line Message Delivery 	4</A></P>
+<P CLASS="Heading3TOC">
+<A NAME="50581562_pgfId-377013"></A><A HREF="index.html#50581510_pgfId-1030618" CLASS="Index">Persistence 	4</A></P>
+<P CLASS="Heading3TOC">
+<A NAME="50581562_pgfId-377015"></A><A HREF="index.html#50581510_pgfId-1031102" CLASS="Index">Transactions 	5</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50581562_pgfId-377017"></A><A HREF="index.html#50581510_pgfId-1031800" CLASS="Index">Service Integration 	5</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50581562_pgfId-377019"></A><A HREF="index.html#50581510_pgfId-1030626" CLASS="Index">Third-Party Service Controllers  	5</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377021"></A><A HREF="index.html#50581510_pgfId-1031175" CLASS="Index">Magnet Mobile App Manager 	6</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50581562_pgfId-377023"></A><A HREF="index.html#50581510_pgfId-1031178" CLASS="Index">Mobile App Management Console 	6</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50581562_pgfId-377025"></A><A HREF="index.html#50581510_pgfId-1031187" CLASS="Index">Mobile App Store 	6</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377027"></A><A HREF="index.html#50581510_pgfId-1036241" CLASS="Index">Deployment 	6</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377029"></A><A HREF="index.html#50581510_pgfId-1031196" CLASS="Index">Developer Factory 	7</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50581562_pgfId-377031"></A><A HREF="index.html#50581534_pgfId-1009622" CLASS="Index">3.	 Getting Started	9</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377033"></A><A HREF="index.html#50581534_pgfId-1031300" CLASS="Index">Checking your Environment 	9</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377035"></A><A HREF="index.html#50581534_pgfId-1029908" CLASS="Index">Understanding the aws-server Directory Structure 	9</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377037"></A><A HREF="index.html#50581534_pgfId-1030169" CLASS="Index">Gathering Resources 	11</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377039"></A><A HREF="index.html#50581534_pgfId-1030213" CLASS="Index">Creating Relational Database Store 	11</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50581562_pgfId-377041"></A><A HREF="index.html#50581547_pgfId-1009622" CLASS="Index">4.	 Assembling the AMI	13</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377043"></A><A HREF="index.html#50581547_pgfId-1032412" CLASS="Index">Creating a New Base AMI from Scratch 	13</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50581562_pgfId-377045"></A><A HREF="index.html#50581547_pgfId-1030530" CLASS="Index">Running a Shell Script 	16</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50581562_pgfId-377047"></A><A HREF="index.html#50581547_pgfId-1031321" CLASS="Index">Launching a New Instance with AMI 	17</A></P>
+<P CLASS="Heading2TOC">
+<A NAME="50581562_pgfId-377049"></A><A HREF="index.html#50581547_pgfId-1031586" CLASS="Index">Installing the Application Bits 	18</A></P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapterTOC">
+<A NAME="50581562_pgfId-377051"></A><A HREF="index.html#50581546_pgfId-1009622" CLASS="Index">5.	 Using a Cloud Formation Template	19</A></H6>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377053"></A><A HREF="index.html#50581546_pgfId-1032565" CLASS="Index">Using CloudFormationBasic.template 	19</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377055"></A><A HREF="index.html#50581546_pgfId-1036846" CLASS="Index">Using AutoScalingGroupsWithRDS.template 	19</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377057"></A><A HREF="index.html#50581546_pgfId-1036524" CLASS="Index">Creating a Stack 	20</A></P>
+<P CLASS="Heading1TOC">
+<A NAME="50581562_pgfId-377059"></A><A HREF="index.html#50581546_pgfId-1033220" CLASS="Index">Creating a Relational Database Service (RDS) 	23</A></P>
+<P CLASS="Anchor">
+<A NAME="50581520_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581520_pgfId-1012801"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581520_pgfId-1012803"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50581520_pgfId-1009622"></A>About This Guide </H6>
+<P CLASS="Body">
+<A NAME="50581520_pgfId-1040923"></A>The Magnet™ Mobile App Server Deployment Guide provides information for deploying your Magnet Mobile App Server projects onto the Amazon cloud.</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581520_pgfId-1040924"></A>Intended Audience</H3>
+<P CLASS="Body">
+<A NAME="50581520_pgfId-1040249"></A>This guide is intended for administrators and developers who deploy the server-side projects to the Amazon cloud. This document assumes that you understand the data model and control flow used by the Java objects. It also assumes that you have a understanding of the following:</P>
+<P CLASS="BulletTight">
+<A NAME="50581520_pgfId-1043567"></A>The Amazon Web Service Console</P>
+<P CLASS="BulletTight">
+<A NAME="50581520_pgfId-1043568"></A>Basic Linux System Administration</P>
+<P CLASS="BulletTight">
+<A NAME="50581520_pgfId-1043569"></A>Basic Shell Programming</P>
+<P CLASS="BulletTight">
+<A NAME="50581520_pgfId-1043570"></A>Use of SSH and SCP</P>
+<P CLASS="BulletTight">
+<A NAME="50581520_pgfId-1043563"></A>Use of Maven to perform a build</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581520_pgfId-1040087"></A>Document Organization</H3>
+<P CLASS="Body">
+<A NAME="50581520_pgfId-1040560"></A>This guide includes these chapters:</P>
+<P CLASS="Bullet">
+<A NAME="50581520_pgfId-1042300"></A>Introducing Magnet Mobile App Server, provides a high-level description of each component, its relationship, and interaction between the components. </P>
+<P CLASS="Bullet">
+<A NAME="50581520_pgfId-1042314"></A>Getting Started, provides information that you need to gather before deploying your project. </P>
+<P CLASS="Bullet">
+<A NAME="50581520_pgfId-1042332"></A>Assembling the AMI, provides instructions for building a complete AMI that includes the operating system, Java, your application binaries, and the scripts used to start them</P>
+<P CLASS="BulletTight">
+<A NAME="50581520_pgfId-1043950"></A>Using a Cloud Formation Template, provides information and instructions for using two templates and creating a stack as well as creating a Rational Database Service.</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581520_pgfId-1040057"></A>Related Documents</H3>
+<P CLASS="Body">
+<A NAME="50581520_pgfId-1041282"></A>The following table lists and describes other documents that are related to the Magnet products. </P>
+<P CLASS="Anchor">
+<A NAME="50581520_pgfId-1041421"></A>&nbsp;</P>
+<TABLE BORDER="1">
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeadingSm">
+<A NAME="50581520_pgfId-1041424"></A>Document Title</P>
+</TH>
+<TH ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellHeadingSm">
+<A NAME="50581520_pgfId-1041426"></A>Description</P>
+</TH>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50581520_pgfId-1041428"></A>Magnet™ Android Developer Guide </P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50581520_pgfId-1041430"></A>Intended for Android app developers, this guide provides information and code samples for building enterprise native Android apps. It also provides instructions to upload the completed Android app to your private sandbox for testing. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50581520_pgfId-1041432"></A>Magnet™ iOS Developer Guide</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50581520_pgfId-1041434"></A>Intended for iOS app developers, this guide provides information and code samples for building enterprise native iOS apps. It also provides instructions to upload the completed iOS app to your private sandbox for testing. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50581520_pgfId-1041436"></A>Magnet™ Mobile App Server Application Developer Guide</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50581520_pgfId-1041438"></A>Intended for server developers, this guide provides information and instructions for </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50581520_pgfId-1041440"></A>Magnet™ Mobile App Management Console Administrator Guide</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50581520_pgfId-1041442"></A>Intended for IT administrators, this guide provides information and instructions for managing apps using the Magnet Mobile App Management Console. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50581520_pgfId-1041444"></A>Magnet™ Mobile for Android User Guide</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50581520_pgfId-1041446"></A>Intended for users of Android devices, this guide provides information and instructions for installing the Magnet Mobile Server and using Apps@Work. </P>
+</TD>
+</TR>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50581520_pgfId-1041448"></A>Magnet™ Mobile for iOS User Guide</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="CellBody">
+<A NAME="50581520_pgfId-1041450"></A>Intended for users of iOS devices, this guide provides information and instructions for installing Setup@Work and using Apps@Work. </P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="50581520_pgfId-1040580"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581510_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581510_pgfId-1012801"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50581510_pgfId-1009622"></A> Introducing Magnet Mobile App Server      </H6>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1030593"></A>The Magnet™ Mobile App Server provides basic constructs for creating and manipulating app objects spanning the server and mobile app contexts. The Magnet Mobile App Server:</P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1030594"></A>Enables data flow between users’ devices and enterprise back-end systems, as well as monitoring usage of mobile apps. </P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1030595"></A>Supports performance, availability, scalability, and reporting. </P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1033243"></A>Ensures that security-sensitive data is encrypted locally on device storage.</P>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1030597"></A>The following diagram shows the Magnet Mobile App Server components and their relationships. </P>
+<P CLASS="Anchor">
+<A NAME="50581510_pgfId-1030601"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-1.gif" ALT="">
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581510_pgfId-1030604"></A><A NAME="50581510_65768"></A>Magnet Mobile Enterprise Server</H3>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1030605"></A>Magnet Mobile Enterprise Server (MES) is a server that contains all business logic components in a single deployable JAR file. Each encapsulation of business logic is herein referred to as a Controller. Instances of the Magnet Mobile Enterprise Server are deployed in the cloud, and may contain a blend of off-the-shelf (OTS) and custom controllers that you write for your app.</P>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50581510_pgfId-1030609"></A>Custom Controllers</H5>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1031341"></A>Should you want to create your own custom controllers, you can download the source code for a reference server controller implementation. You can then modify this reference controller implementation to add your own business logic, then upload the modified project for your custom controller back into the Developer Factory so that this custom controller can be included into a build of the MES instance along with other controllers defined in your project. Custom controllers leverage services such as caching and off-line mode and persistence. </P>
+<DIV>
+<H6 CLASS="Heading3">
+<A NAME="50581510_pgfId-1030613"></A><A NAME="50581510_55359"></A>Caching and Off-line Message Delivery </H6>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1030614"></A>To deal with unreliable connections between mobile devices and MES and to ensure reliable message delivery, Magnet Mobile App Server supports off-line operations that store and cache messages, and forwards information when the network connection is reestablished. </P>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1030615"></A>You can invoke these asynchronous services locally on the server or remotely from a mobile client. The invocations from the mobile client can occur asynchronously and reliably (reliability is an option). They are asynchronous in that the invocation is recorded for later playback to the server. They are reliable in that after an invocation has been submitted, it is guaranteed to be run once—and only once from the server perspective.</P>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1030616"></A>After entries are processed and results arrive back from the server, a listener that you optionally provide will be notified. Listeners are either transient or durable. A transient listener will be forgotten if the app JVM instance is cycled for any reason. Durable (non-transient) listeners will survive JVM restarts. </P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading3">
+<A NAME="50581510_pgfId-1030618"></A>Persistence</H6>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1030619"></A>Persistence is about the storage and retrieval of structured data. Magnet Mobile App Server provides support for entities and mapping entities to the data store. This creates, in effect, a “virtual entity data store” over any combination of MySQL, LDAP, and so forth, that can be used from within the programming interface Magnet provides. </P>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1030620"></A>Magnet Mobile App Server uses Java interfaces to define functions, methods, classes, and requests. Magnet Mobile App Server generates implementation from these classes built on annotations declared on interfaces, which allows for relationship, attributes, and so forth. Using user-friendly interfaces on entities, the Magnet Mobile App Server provides these features: </P>
+<P CLASS="BulletTight">
+<A NAME="50581510_pgfId-1030621"></A>Queries on entity with query composition</P>
+<P CLASS="BulletTight">
+<A NAME="50581510_pgfId-1030622"></A>CRUD (Create, Read, Update, Delete) operations on entities</P>
+<P CLASS="BulletTight">
+<A NAME="50581510_pgfId-1030623"></A>Complex queries such as paging and ordering </P>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1034205"></A>A developer can choose any technology (JDBC, Hibernate, etc.) to access a data store. However, implementing with Magnet persistence APIs is easier to use, and powerful over time. Every time an entity is used, unstructured data is collected. Over time, recommendations can be derived from that unstructured data. For example, when something is changed on an employee record, the implementation will track when that change is made and by whom. Of course, the recommendations will only be provided if you choose to incorporate those modules into your app. The entire methodology of building apps is modular - allowing you to blend the right combination of modules that make sense for your app.</P>
+</DIV>
+<DIV>
+<H6 CLASS="Heading3">
+<A NAME="50581510_pgfId-1031102"></A>Transactions</H6>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1031120"></A>Magnet Mobile App Server can optionally use transactions to maintain the integrity of data. </P>
+</DIV>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50581510_pgfId-1031800"></A>Service Integration</H5>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1034260"></A>Service integration can automatically transform Web applications from legacy enterprise application servers to the Magnet Mobile Enterprise Server. It exposes traditional SOAP-based Web Services hosted in the enterprise application servers to REST-based services for mobile access. Using the free on-line Developer Factory, you create a project with specific requirements, and download the generated APIs that abstract SOAP/REST services as controllers. Once generated, you can customize them as you see fit.</P>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50581510_pgfId-1030626"></A>Third-Party Service Controllers <A NAME="50581510_Social Networking Sites"></A></H5>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1034267"></A>The third-party service controllers are sample controllers that allow you to connect to well-known social services, such as Facebook, LinkedIn, or Salesforce. These controllers have built-in support for OAuth, so you can securely retrieve contacts information, and share an update. The source code for these controllers is included in the project generated by the Developer Factory if you choose to include them in your project. </P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581510_pgfId-1031175"></A><A NAME="50581510_62693"></A>Magnet Mobile App Manager</H3>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1031176"></A>The Magnet™ Mobile App Manager (MAM) is a run-time server that monitors the service status of Magnet MES and provides app management functionality by way of the Magnet Mobile App Management Console and Mobile App Store. </P>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50581510_pgfId-1031178"></A><A NAME="50581510_73425"></A>Mobile App Management Console</H5>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1031179"></A>The Magnet MAM Console is a Web interface of the Magnet Mobile App Manager that enables IT administrators to centrally manage and administer apps on client devices. Access to the MAM Console is defined by role-based and group association, which is defined in LDAP. Using the MAM Console, IT administrators can: </P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1031180"></A>Enable employee BYOD.</P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1031181"></A>Remotely install, remove, upgrade, and track apps.</P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1031182"></A>Customize an enterprise private-label app store.</P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1031183"></A>Remotely activate / deactivate user accounts.</P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1031184"></A>Push required apps to authorized users.</P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1031185"></A>View logs to monitor events history. </P>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50581510_pgfId-1031187"></A><A NAME="50581510_75441"></A>Mobile App Store</H5>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1031188"></A>The Mobile App Store is an app for installing and managing apps on a mobile device and is installed on iOS and Android devices. The Mobile App Store includes a suite of sample apps that are organized in categories. Via the MAM Console, IT administrators can brand the Mobile App Store with the enterprise private label. The App Store branding kit can be obtained on request.</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581510_pgfId-1036241"></A>Deployment</H3>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1036242"></A>An executable JAR file contains all controllers required for a specific deployment. Instances of the Magnet Mobile Enterprise Server are deployed in the Amazon cloud —a virtual private cloud that is managed by customers. </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581510_pgfId-1031196"></A>Developer Factory</H3>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1036715"></A>The Developer Factory is a free on-line service that provides a secure and private place for you to dynamically construct controller interfaces specific to the back-end services required for use in your mobile apps. The Developer Factory empowers you to</P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1036716"></A>Create and manage your app projects.</P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1036717"></A>Generate customized controllers and runtime binaries for your projects.</P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1031200"></A>Obtain source code for all your customized project assets.</P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1031201"></A>Upload modified controller and entities source codes for custom app controllers to regenerate executable JAR files.</P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1031202"></A>Obtain binaries for additional components required to deploy your projects in the Amazon cloud. Automatically create other language packs of your controllers (for example, iOS/XCode). </P>
+<P CLASS="Bullet">
+<A NAME="50581510_pgfId-1031203"></A>Test-drive your app projects by getting access to your own private sandbox environment in the cloud. </P>
+<P CLASS="Body">
+<A NAME="50581510_pgfId-1031561"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581534_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581534_pgfId-1012801"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581534_pgfId-1012803"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50581534_pgfId-1009622"></A> Getting Started      </H6>
+<P CLASS="Body">
+<A NAME="50581534_pgfId-1027714"></A>Now that you have successfully built and tested your Magnet Mobile App Server application, it is time to go live and deploy it to the Amazon cloud. Magnet provides a set of tools and instructions on how to create an Amazon Web Services(t) deployment. When you use the Developer Factory to create your server application, you are provided with a separate server-aws Maven sub project that includes a set of scripts and templates. You can use these to build an environment that leverages AWS services such as EC2, RDS and VPC to achieve a highly reliable and scalable deployment of your Magnet based application.</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581534_pgfId-1031300"></A>Checking your Environment</H3>
+<P CLASS="Body">
+<A NAME="50581534_pgfId-1031332"></A>The following items are supported for deploying the server to Amazon:</P>
+<P CLASS="BulletTight">
+<A NAME="50581534_pgfId-1031227"></A>Ubuntu/Linux 12.04 LTS (64bit)</P>
+<P CLASS="BulletTight">
+<A NAME="50581534_pgfId-1031223"></A>Oracle JDK 7</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581534_pgfId-1029908"></A>Understanding the aws-server Directory Structure</H3>
+<P CLASS="Body">
+<A NAME="50581534_pgfId-1029124"></A>The aws-server includes directories containing files that you can use to fine-tune your deployment (see the following diagram). </P>
+<P CLASS="Bullet">
+<A NAME="50581534_pgfId-1029807"></A>The aws.xml file uses the Maven plugin to build a zip file that is used to integrate your application with an existing Amazon AMI. You can modify data in this file for your own environment. </P>
+<P CLASS="Bullet">
+<A NAME="50581534_pgfId-1029808"></A>The bin directory includes standard shell scripts that you can use to start and stop your server instance.</P>
+<P CLASS="BulletSub">
+<A NAME="50581534_pgfId-1029809"></A>installService.sh integrates your server process with the Host OS so that it is started and stopped at the same time.</P>
+<P CLASS="BulletSub">
+<A NAME="50581534_pgfId-1029810"></A>magnetService.sh starts an instance of the process.</P>
+<P CLASS="BulletSub">
+<A NAME="50581534_pgfId-1029811"></A>startAudit.sh starts a process that uploads audit data to an s3 bucket for purposes of licensing.</P>
+<P CLASS="BulletSub">
+<A NAME="50581534_pgfId-1029812"></A>startInstance.sh starts an instance of your server project with a customizable set of options.</P>
+<P CLASS="BulletSub">
+<A NAME="50581534_pgfId-1029813"></A> stopInstance.sh stops your instance by sending it a SIGINT and waiting for it to gracefully shutdown.</P>
+<P CLASS="Anchor">
+<A NAME="50581534_pgfId-1029086"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-2.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581534_pgfId-1029087"></A>&nbsp;</P>
+<P CLASS="Bullet">
+<A NAME="50581534_pgfId-1029316"></A>The cloud directory includes standard shell scripts and templates you can use to quickly jump start your production environment. </P>
+<P CLASS="Bullet">
+<A NAME="50581534_pgfId-1029451"></A>The audit.config.dir includes the AuditUploader-default.cproperties file that contains the location and customer keys where the audit files are delivered.</P>
+<P CLASS="Bullet">
+<A NAME="50581534_pgfId-1028394"></A>The config.dir directory includes the following cproperties files:</P>
+<P CLASS="BulletSub">
+<A NAME="50581534_pgfId-1029882"></A>logging.properties contains “production” logging configuration options to managed a file rotation.</P>
+<P CLASS="BulletSub">
+<A NAME="50581534_pgfId-1028395"></A>MagnetCustomer-license.cproperties contains your user key and signed license file.</P>
+<P CLASS="BulletSub">
+<A NAME="50581534_pgfId-1029439"></A>OutputRedirector.cproperties causes the stdout and stderr to be redirected to the server log files.</P>
+<P CLASS="Body">
+<A NAME="50581534_pgfId-1023493"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581534_pgfId-1030169"></A>Gathering Resources</H3>
+<P CLASS="Body">
+<A NAME="50581534_pgfId-1030224"></A>Assemble other required production configuration parameters, such as LDAP server locations.</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581534_pgfId-1030213"></A>Creating Relational Database Store</H3>
+<P CLASS="Body">
+<A NAME="50581534_pgfId-1030543"></A>Many Magnet application requires access to a relational database store (RDS). Magnet recommends using the example template as a starting point. You need to create an RDS to host your database. For instructions and to download the RDS_VPC.template, visit https://s3.amazonaws.com/cloudformation-templates-us-east-1/RDS_VPC.template. </P>
+<P CLASS="Body">
+<A NAME="50581534_pgfId-1030692"></A>When the process is complete, make note of the URL that is provided. </P>
+<P CLASS="Body">
+<A NAME="50581534_pgfId-1030455"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1012801"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1012803"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50581547_pgfId-1009622"></A> Assembling the AMI    </H6>
+<P CLASS="Body">
+<A NAME="50581547_pgfId-1027451"></A>For purposes of building a highly scalable and reliable environment, Magnet recommends building a complete AMI that includes the operating system, Java, your application binaries, and the scripts used to start them. The image that we end up creating will result in your application being up and ready to accept requests as soon as it is started.</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581547_pgfId-1032412"></A>Creating a New Base AMI from Scratch</H3>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50581547_pgfId-1029260"></A>Launch a new EC2 instance that you will provision with all the required software. </H6>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1032684"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-3.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1032687"></A>&nbsp;</P>
+<P CLASS="ListAlpha">
+<A NAME="50581547_pgfId-1028622"></A>Sign in to your AWS account, and select Launch Instance from the EC2 Management Console. </P>
+<P CLASS="ListAlpha-">
+<A NAME="50581547_pgfId-1028685"></A>Choose Quick Launch Wizard. </P>
+<P CLASS="ListAlpha-">
+<A NAME="50581547_pgfId-1028687"></A>Name your instance, for example, MyAppBaseline.</P>
+<P CLASS="ListAlpha-">
+<A NAME="50581547_pgfId-1028790"></A>Choose Select Existing under Choose a key pair, and select the KeyPair (for example, MyKeyPair) that you created earlier. </P>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1033154"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50581547_pgfId-1033164"></A><DIV>
+<IMG SRC="index-4.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50581547_pgfId-1033166"></A><DIV>
+<IMG SRC="index-5.gif" ALT="">
+</DIV>
+You will be prompted to create a new key pair if you did not set it up earlier. Repeat step 1. <DIV>
+<IMG SRC="index-5.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListAlpha-">
+<A NAME="50581547_pgfId-1028794"></A>Select Ubuntu 12.04.2 LTS from the Choose a Launch Configuration list. </P>
+<P CLASS="ListAlpha-">
+<A NAME="50581547_pgfId-1027455"></A>Click Continue.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581547_pgfId-1029317"></A>Click Edit data to customize your settings.</P>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1032725"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-6.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1033311"></A>&nbsp;</P>
+<P CLASS="ListAlpha">
+<A NAME="50581547_pgfId-1027457"></A>Select t1.Micro as the instance Type (you will be using this for configuration).</P>
+<P CLASS="ListAlpha-">
+<A NAME="50581547_pgfId-1029613"></A>Select the name of instance that you created, for example, MyAppBaseline. </P>
+<P CLASS="ListAlpha-">
+<A NAME="50581547_pgfId-1029668"></A>Select the KeyPair that you created, for example, MyKeyPair. </P>
+<P CLASS="ListAlpha-">
+<A NAME="50581547_pgfId-1029942"></A>Create a new Security Group, for example, myapp_access, and add the following security rules:</P>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1030161"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="Tip-Icon">
+<A NAME="50581547_pgfId-1030167"></A><DIV>
+<IMG SRC="index-7.gif" ALT="">
+</DIV>
+&nbsp;</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TipText">
+<A NAME="50581547_pgfId-1030194"></A>You can search your public IP address by entering “what is my ip” in a search engine. You can use this address when creating the security rule. </P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListBullet">
+<A NAME="50581547_pgfId-1030036"></A>SSH if you want to configure this to be only for a subset of remote IPs.</P>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1033317"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50581547_pgfId-1033338"></A><DIV>
+<IMG SRC="index-4.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50581547_pgfId-1033340"></A><DIV>
+<IMG SRC="index-5.gif" ALT="">
+</DIV>
+You can do this later by editing the security group. <BR>
+<DIV>
+<IMG SRC="index-5.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="ListBullet">
+<A NAME="50581547_pgfId-1030117"></A>Custom: Enter a port for a Magnet server configuration if you want to change the default (Port Range 8080). </P>
+<P CLASS="ListAlpha-">
+<A NAME="50581547_pgfId-1030038"></A>Click Create.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581547_pgfId-1030463"></A>Click Save to store it as an AMI snapshot. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50581547_pgfId-1030479"></A>Click Launch. </P>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1032771"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-8.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1033482"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581547_pgfId-1030538"></A>Navigate to the Instances page (Services) after the instance is launched. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50581547_pgfId-1030539"></A>Select your instance.</P>
+<P CLASS="ListContinued">
+<A NAME="50581547_pgfId-1030611"></A>Your public DNS address are displayed, as shown in the following example.</P>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1030613"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1032818"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-9.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1032820"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581547_pgfId-1030528"></A>Copy this value; you will need it to execute the script examples that follow.</P>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1031373"></A>&nbsp;</P>
+<TABLE>
+<TR>
+<TD ROWSPAN="1" COLSPAN="1">
+<H6 CLASS="Note-Icon">
+<A NAME="50581547_pgfId-1031379"></A><DIV>
+<IMG SRC="index-4.gif" ALT="">
+</DIV>
+&nbsp;</H6>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="NoteText">
+<A NAME="50581547_pgfId-1031381"></A><DIV>
+<IMG SRC="index-5.gif" ALT="">
+</DIV>
+Do not log out the account; you will need to come back to this page after running a shell script.<BR>
+<DIV>
+<IMG SRC="index-5.gif" ALT="">
+</DIV>
+</P>
+</TD>
+</TR>
+</TABLE>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50581547_pgfId-1030530"></A>Running a Shell Script</H5>
+<P CLASS="Body">
+<A NAME="50581547_pgfId-1030532"></A>Now that you have a running instance, you can prepare it for deploying your application. To do this, you need access to a shell and to the key pair .pem file you created earlier, for example, MyAppKeyPair.pem. </P>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1033547"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-10">
+</MAP>
+<IMG SRC="index-10.gif" USEMAP="#index-10" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1033607"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="50581547_pgfId-1030534"></A>The following example is created in Bourne Shell. You can cut and paste the following commands and run it from the root of your server project. </P>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1031078"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-11">
+</MAP>
+<IMG SRC="index-11.gif" USEMAP="#index-11" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1032180"></A>&nbsp;</P>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50581547_pgfId-1031321"></A>Launching a New Instance with AMI</H5>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50581547_pgfId-1031358"></A>Go back to the Instances page.</H6>
+<P CLASS="ListNumber1-">
+<A NAME="50581547_pgfId-1031323"></A>Select the running instance.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581547_pgfId-1031324"></A>Select Actions-&gt;Create Image (EBS AMI). </P>
+<P CLASS="ListNumber1-">
+<A NAME="50581547_pgfId-1031325"></A>Name the AMI MyAppBaseline, and launch a new instance with that AMI when you need to install the new applications bits. </P>
+</DIV>
+</DIV>
+<DIV>
+<H5 CLASS="Heading2">
+<A NAME="50581547_pgfId-1031586"></A><A NAME="50581547_93485"></A>Installing the Application Bits</H5>
+<P CLASS="Body">
+<A NAME="50581547_pgfId-1032118"></A>After you have completed this step, Create another Snapshot of the “fully baked” server. This is the last Magnet image that contains all the bits needed as a reference image. If you need to spin up a new production server, you can refer to this image as the AMI-Base. </P>
+<P CLASS="Anchor">
+<A NAME="50581547_pgfId-1031633"></A>&nbsp;</P>
+<DIV>
+<MAP NAME="index-12">
+</MAP>
+<IMG SRC="index-12.gif" USEMAP="#index-12" ALT="">
+</DIV>
+<P CLASS="Body">
+<A NAME="50581547_pgfId-1031084"></A>&nbsp;</P>
+<P CLASS="Body">
+<A NAME="50581547_pgfId-1031605"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1009357"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1012801"></A>&nbsp;</P>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1012803"></A>&nbsp;</P>
+<DIV>
+<H6 CLASS="TitleChapter">
+<A NAME="50581546_pgfId-1009622"></A> Using a Cloud Formation Template    </H6>
+<P CLASS="Body">
+<A NAME="50581546_pgfId-1032559"></A>Magnet provides two cloud formation templates that you can use to quickly jump start your production environment. This chapter provides information and instructions on the following topics:</P>
+<P CLASS="BulletTight">
+<A NAME="50581546_pgfId-1032564"></A>Using CloudFormationBasic.template (<A HREF="index.html#50581546_20141" CLASS="XRef">See Using CloudFormationBasic.template</A>)</P>
+<P CLASS="BulletTight">
+<A NAME="50581546_pgfId-1032640"></A>Using AutoScalingGroupsWithRDS.template (<A HREF="index.html#50581546_19006" CLASS="XRef">See Using AutoScalingGroupsWithRDS.template</A>)</P>
+<P CLASS="BulletTight">
+<A NAME="50581546_pgfId-1037976"></A>Creating a stack (<A HREF="index.html#50581546_97822" CLASS="XRef">See Creating a Stack</A>)</P>
+<P CLASS="BulletTight">
+<A NAME="50581546_pgfId-1038057"></A>Creating a Rational Database Service (<A HREF="index.html#50581546_20839" CLASS="XRef">See Creating a Relational Database Service (RDS)</A>)</P>
+</DIV>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581546_pgfId-1032565"></A><A NAME="50581546_20141"></A>Using CloudFormationBasic.template</H3>
+<P CLASS="Body">
+<A NAME="50581546_pgfId-1033008"></A>This template is used in the Amazon–one Elastic Load Balancer (ELB) deployment. When this template is provided to the CloudFormation Tool, ELB acts as the entry point, and two servers being served by this Load Balancer are located in two different zones. </P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581546_pgfId-1036846"></A><A NAME="50581546_19006"></A>Using AutoScalingGroupsWithRDS.template </H3>
+<P CLASS="Body">
+<A NAME="50581546_pgfId-1037118"></A>This template is suited for a High-Availability environment with no single-point-of-failure (within the cut-over times provided by the Amazon environment). When the setup is complete, this template automatically creates a RDS MySQL with Multi-AZ deployment that will provide a hot database backup in a different AZ. </P>
+<P CLASS="Body">
+<A NAME="50581546_pgfId-1036847"></A>This template creates the following deployment in Amazon:</P>
+<P CLASS="Bullet">
+<A NAME="50581546_pgfId-1036848"></A>One ELB with two different Auto Scaling Groups in two different regions. </P>
+<P CLASS="Bullet">
+<A NAME="50581546_pgfId-1037073"></A>A Relational Database Service (RDS) based MySQL instance with Multi-AZ configuration On. </P>
+<P CLASS="Bullet">
+<A NAME="50581546_pgfId-1037076"></A>Each AutoScaling Group has a minimum of 1 and a maximum of 3 instances (by default).</P>
+<P CLASS="Bullet">
+<A NAME="50581546_pgfId-1036849"></A>The AutoScaling Groups have the following runtime characteristics:</P>
+<P CLASS="BulletSub">
+<A NAME="50581546_pgfId-1036850"></A>Scale-up if CPU Utilization metric is &gt; 90% for 60 seconds or, if data is missing for a continuous run of 3 evaluations of the entire group (up to a maximum of three instances per ASG).</P>
+<P CLASS="BulletSub">
+<A NAME="50581546_pgfId-1036851"></A>Scale-down if CPU Utilization metric is &lt; 15% for 60 seconds for a continuous run of 5 evaluations of the entire group (down to a minimum of 1 instance per ASG).</P>
+<P CLASS="BulletSub">
+<A NAME="50581546_pgfId-1036852"></A>Cool down period of 300 secs between any two auto-scaling events to prevent trashing.</P>
+<P CLASS="Body">
+<A NAME="50581546_pgfId-1036854"></A>As detailed in the Amazon_CloudFormer_Createstack document, use Amazon Cloudformation tools and fill in the values according to your production needs and then trigger stack creation.</P>
+<P CLASS="Body">
+<A NAME="50581546_pgfId-1036855"></A>If the process completes successfully, you will have a Magnet production environment as described above. Once completed, ensure that the DB URL of the newly created MySQL database is put into the appropriate configuration file on each of the servers.</P>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581546_pgfId-1036524"></A><A NAME="50581546_34491"></A><A NAME="50581546_97822"></A>Creating a Stack</H3>
+<P CLASS="Body">
+<A NAME="50581546_pgfId-1037314"></A>Use the Amazon Cloud formation tools to create a stack that contains values specific to your production environment. </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50581546_pgfId-1032567"></A>Create the Final Magnet Enterprise Server base AMI as described in <A HREF="index.html#50581547_93485" CLASS="XRef">See Installing the Application Bits</A> on <A HREF="index.html#50581547_93485" CLASS="XRef">See Installing the Application Bits</A>.</H6>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1033137"></A>Select Create New Stack to start the stack wizard. </P>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1033067"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-13.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1033171"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1033150"></A>Enter the name of the stack, and upload the CloudFormationBasic.template file. </P>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1033174"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-14.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1033692"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1033152"></A>Click Continue. </P>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1033193"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-15.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1033728"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1033154"></A>Enter each parameter in its respective fields. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1033791"></A>Click Continue. </P>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1033210"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-16.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1033813"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1033212"></A>Add the key/value pair to the stack. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1033857"></A>Click Continue.</P>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1033214"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-17.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1033957"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1033216"></A>Review the information. </P>
+<P CLASS="ListBullet">
+<A NAME="50581546_pgfId-1033983"></A>If all information are correct, click to create the deployment</P>
+<P CLASS="ListBullet">
+<A NAME="50581546_pgfId-1034024"></A>If you need to modify any information, click the appropriate Edit. </P>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1034369"></A>Continue to Create a Relational Database Service (RDS) based MySQL instance to host the Data that these two Servers need.</P>
+</DIV>
+</DIV>
+<DIV>
+<H3 CLASS="Heading1">
+<A NAME="50581546_pgfId-1033220"></A><A NAME="50581546_20839"></A>Creating a Relational Database Service (RDS) </H3>
+<P CLASS="Body">
+<A NAME="50581546_pgfId-1034846"></A>Once the set up has been created, Create a Relational Database Service (RDS) based MySQL instance to host the Data that these two Servers need. </P>
+<P CLASS="Body">
+<A NAME="50581546_pgfId-1034861"></A>Once you complete this MySQL setup, copy the URL pointing to the RDS instance and add it to the appropriate configuration files in the two servers created above (usually in MySQLJDBCPersister.cproperties). This ensures that the servers use the RDS MySQL as their Datastore.  </P>
+<DIV>
+<H6 CLASS="ListNumber1">
+<A NAME="50581546_pgfId-1034344"></A>Click Launch a DB Instance to start the DB Instance Wizard. </H6>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1034401"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-18.gif" ALT="">
+</DIV>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1031603"></A>Select the MySQL instance that you will be using. </P>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1034421"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-19.gif" ALT="">
+</DIV>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1034423"></A>Click Continue. </P>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1034425"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-20.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1034539"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1034427"></A>Enter information in the appropriate fields, click Continue. </P>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1034429"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-21.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1034560"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1034431"></A>Enter the name of the database and the database port in the respective fields, and select additional configuration.</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1035582"></A>Click Continue. </P>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1034433"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-22.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1034577"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1034435"></A>Select other options, click Continue. </P>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1034580"></A>&nbsp;</P>
+<DIV>
+<IMG SRC="index-23.gif" ALT="">
+</DIV>
+<P CLASS="Anchor">
+<A NAME="50581546_pgfId-1035672"></A>&nbsp;</P>
+<P CLASS="ListNumber1-">
+<A NAME="50581546_pgfId-1034437"></A>Click Launch DB Instance. </P>
+<P CLASS="Body">
+<A NAME="50581546_pgfId-1037654"></A>&nbsp;</P>
+</DIV>
+</DIV>
+</DIV>
+</DIV>
+<div id="doc-switch"></div></div></div></div></div></div><!-- dialogs start --><div class="modal-form-errors modal hide fade" id="error-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p class="subheading"></p>        <ul></ul>    </div>    <div class="modal-footer">        <button class="btn btn-primary" data-dismiss="modal">OK</button>    </div></div><div class="modal-alert modal hide fade" id="general-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p></p>    </div>    <div class="modal-footer">        <button class="btn btn-primary" data-dismiss="modal" id=                "ok">OK</button>    </div></div><div class="modal-confirm modal hide fade" id="confirm-alert">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3></h3>    </div>    <div class="modal-body">        <p></p>    </div>    <div class="modal-footer">        <button class="submit btn-primary btn">Continue</button>        <button class="cancel btn" data-dismiss="modal">Cancel</button>    </div></div><div class="modal-alert modal hide fade" id="invite-other-modal">    <div class="modal-header">        <button class="close" data-dismiss="modal">x</button>        <h3>Invite Others</h3>        <p class="subheading">Enter the email address of the individual you            would like to invite to the Developer Factory.</p>    </div>    <div class="modal-body">        <div class="modal_errors" style="display:none">            <div class="alert alert-error">                <strong></strong> <span></span>            </div>        </div>        <div class="modal_success" style="display:none">            <div class="alert alert-success">                <span>Your invitation has been sent successfully.</span>            </div>        </div>        <div class="row-fluid">            <input class="span12" name="email" placeholder=                    "Enter Email Address" type="text"><br>            <strong>Message to include</strong><br>            <textarea class="span12" name="inviteMessage"                      placeholder="Message to include">                I found this great new tool to quickly create mobile apps for me.            </textarea>        </div>    </div>    <div class="modal-footer">        <button class="btn-primary btn">Send Invitation</button>        <button class="cancel btn" data-dismiss="modal">Close</button>    </div>    <div class="loading modal-footer" style="display:none">Loading.. Please        Wait.. <img src="/images/ajax-loader-sm.gif"></div></div><!-- dialogs end --><script src="/js/libs/jquery.js" type=        "text/javascript"></script><script src="/js/libs/bootstrap.js" type="text/javascript"></script><script src="/js/scripts.js" type="text/javascript"></script></BODY>
+</HTML>
