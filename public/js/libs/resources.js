@@ -584,8 +584,7 @@ SessionManager.prototype.confirm = function(time){
         $('.modal').modal('hide');
         me.cookies.remove('session_timestamp');
         me.cookies.remove('magnet_auth');
-        document.cookie = 'connect.sid=;domain=.'+window.location.hostname+';path=/';
-        window.location.replace('/login/');
+        window.location.replace('/logout');
     }else{
         Alerts.Confirm.display({
             title   : 'Session Timeout Soon',
