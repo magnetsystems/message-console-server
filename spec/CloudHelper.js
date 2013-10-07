@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 ENV_CONFIG = require('../lib/config/config_'+process.env.NODE_ENV);
+winston = require('winston');
 var AWS = require('aws-sdk');
 
 beforeAll = function(fn){
