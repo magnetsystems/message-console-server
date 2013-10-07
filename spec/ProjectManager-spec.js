@@ -81,9 +81,9 @@ describe('ProjectManager create', function(){
     });
 
     it('should succeed if data is valid', function(done){
-        ProjectManager.create(testUser.magnetId, testProject, function(e, magnetId){
+        ProjectManager.create(testUser.magnetId, testProject, function(e, project){
             _project = testProject;
-            _project.magnetId = magnetId;
+            _project.magnetId = project.magnetId;
             expect(e).toBeNull();
             done();
         });
@@ -480,9 +480,9 @@ describe('ProjectManager removeAPNSCertificate', function(){
     });
 
     it('should fail given the magnetId of a project which does not have an APNS certificate', function(done){
-        ProjectManager.create(testUser.magnetId, newProject, function(e, magnetId){
+        ProjectManager.create(testUser.magnetId, newProject, function(e, project){
             expect(e).toBeNull();
-            ProjectManager.removeAPNSCertificate(magnetId, function(e){
+            ProjectManager.removeAPNSCertificate(project.magnetId, function(e){
                 expect(e).toEqual('error-deleting-file');
                 done();
             });
@@ -491,15 +491,15 @@ describe('ProjectManager removeAPNSCertificate', function(){
 
     it('should delete the file given the magnetId of a project which does have an APNS certificate', function(done){
         newProject.apnsCertName = 'test-apns.xml';
-        ProjectManager.create(testUser.magnetId, newProject, function(e, magnetId){
+        ProjectManager.create(testUser.magnetId, newProject, function(e, project){
             expect(e).toBeNull();
-            ProjectManager.createProjectFolders(testUser.id, magnetId, function(e){
+            ProjectManager.createProjectFolders(testUser.id, project.magnetId, function(e){
                 expect(e).toBeNull();
-                ProjectManager.createFile('./target/user-projects/'+testUser.id+'/'+magnetId+'/'+newProject.apnsCertName, 'valid input', function(e){
+                ProjectManager.createFile('./target/user-projects/'+testUser.id+'/'+project.magnetId+'/'+newProject.apnsCertName, 'valid input', function(e){
                     expect(e).toBeNull();
-                    ProjectManager.removeAPNSCertificate(magnetId, function(e){
+                    ProjectManager.removeAPNSCertificate(project.magnetId, function(e){
                         expect(e).toBeNull();
-                        fs.exists('./target/user-projects/'+testUser.id+'/'+magnetId+'/'+newProject.apnsCertName, function(exists){
+                        fs.exists('./target/user-projects/'+testUser.id+'/'+project.magnetId+'/'+newProject.apnsCertName, function(exists){
                             expect(exists).toBe(false);
                             done();
                         });
@@ -511,15 +511,15 @@ describe('ProjectManager removeAPNSCertificate', function(){
 
     it('should set the apnsCertName value of the project model to be empty string', function(done){
         newProject.apnsCertName = 'test-apns2.xml';
-        ProjectManager.create(testUser.magnetId, newProject, function(e, magnetId){
+        ProjectManager.create(testUser.magnetId, newProject, function(e, project){
             expect(e).toBeNull();
             ProjectManager.createProjectFolders(testUser.id, newProject.magnetId, function(e){
                 expect(e).toBeNull();
-                ProjectManager.createFile('./target/user-projects/'+testUser.id+'/'+magnetId+'/'+newProject.apnsCertName, 'valid input', function(e){
+                ProjectManager.createFile('./target/user-projects/'+testUser.id+'/'+project.magnetId+'/'+newProject.apnsCertName, 'valid input', function(e){
                     expect(e).toBeNull();
-                    ProjectManager.removeAPNSCertificate(magnetId, function(e){
+                    ProjectManager.removeAPNSCertificate(project.magnetId, function(e){
                         expect(e).toBeNull();
-                        ProjectManager.read(magnetId, function(e, project){
+                        ProjectManager.read(project.magnetId, function(e, project){
                             expect(project.apnsCertName).toEqual('');
                             done();
                         });

@@ -6,6 +6,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], functi
             me.options.eventPubSub.bind('initPWCoreView', function(params){
                 me.project = params.project;
                 me.render(params.view);
+                $('#system-database-name').val('sysDBName'+me.project.attributes.id);
             });
             me.options.eventPubSub.bind('coreComplete', function(isPrevious){
                 me.storeDetails(isPrevious);

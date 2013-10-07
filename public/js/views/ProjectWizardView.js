@@ -295,13 +295,13 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
             var me = this;
             var obj = utils.collect($('#project-details-container'));
             if(me.isValid(obj.config)){
-                me.project.set(me.initialData);
                 me.project.save({
                     name        : utils.cleanJavaKeywords(obj.config.name),
                     version     : obj.config.version,
                     description : obj.config.description
                 }, {
                     success: function(){
+                        me.project.set(me.initData(me.project.attributes.id));
                         $('#save-project-details-btn').remove();
                         $('#wizard-image-bgk, #wizard-diagram-canvas').show();
                         $('#wizard-intro-left').hide('fast');
@@ -353,20 +353,29 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
             }
             return true;
         },
-        initialData: {
-            encryptionEnabled             : false,
-            useGeoLocation                : false,
-            userAuth                      : "MYSQL",
-            jdbcAppEnabled                : true,
-            gcmEnabled                    : false,
-            apnsEnabled                   : false,
-            apnsHost                      : "gateway.sandbox.push.apple.com",
-            emailEnabled                  : false,
-            helloWorldControllerEnabled   : true,
-            helloWorldControllerDBEnabled : false,
-            salesforceEnabled             : false,
-            facebookEnabled               : false,
-            linkedinEnabled               : false
+        initData: function(pid){
+            return {
+                encryptionEnabled             : false,
+                useGeoLocation                : false,
+                userAuth                      : "MYSQL",
+                jdbcAppEnabled                : true,
+                gcmEnabled                    : false,
+                apnsEnabled                   : false,
+                apnsHost                      : "gateway.sandbox.push.apple.com",
+                jdbcHost                      : 'localhost',
+                jdbcPort                      : 3306,
+                jdbcSystemUsername            : 'sysDBUser'+pid,
+                jdbcSystemPassword            : 'sysDBPassword'+pid,
+                jdbcAppUsername               : 'appDBUser'+pid,
+                jdbcAppPassword               : 'appDBPassword'+pid,
+                jdbcAppDBName                 : 'appDBName'+pid,
+                emailEnabled                  : false,
+                helloWorldControllerEnabled   : true,
+                helloWorldControllerDBEnabled : false,
+                salesforceEnabled             : false,
+                facebookEnabled               : false,
+                linkedinEnabled               : false
+            }
         },
         // save edited project details
         saveProjectDetailEdits: function(){

@@ -122,7 +122,11 @@ function syncOverride(mc, eventPubSub){
                 break;
             case 'create':
                 mc.create(url, uModel, function(data, status, xhr){
-                    model.set({magnetId:data, id:data});
+                    if(Object.prototype.toString.call(data) == '[object Object]'){
+                        model.set({magnetId:data.magnetId, id:data.id});
+                    }else{
+                        model.set({magnetId:data, id:data});
+                    }
                     if(typeof options.success === typeof Function){
                         options.success(model, status, xhr);
                     }

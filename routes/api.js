@@ -102,11 +102,14 @@ module.exports = function(app){
     });
 
     app.post('/rest/projects', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.create(req.session.user.magnetId, req.body, function(e, magnetId){
+        ProjectManager.create(req.session.user.magnetId, req.body, function(e, project){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(magnetId, 200);
+                res.send({
+                    id       : project.id,
+                    magnetId : project.magnetId
+                }, 200);
             }
         });
     });
