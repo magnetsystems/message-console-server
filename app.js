@@ -3,15 +3,17 @@ var express = require('express')
 , app = express()
 , server = http.createServer(app)
 , connect = require('express/node_modules/connect')
-, fs = require('fs');
+, fs = require('fs')
+, winston = require('winston');
 
+global.winston = winston;
 global.ENV_CONFIG = require('./lib/config/config_'+app.settings.env);
 
 require('./lib/orm').setup('./lib/models');
 
 app.on('uncaughtException', function(error){
-    console.error('Uncaught Error: ');
-    console.error(error.stack);
+    winston.error('Uncaught Error: ');
+    winston.error(error.stack);
 });
 
 app.set('port', ENV_CONFIG.App.port);
@@ -59,6 +61,17 @@ app.configure('production', function(){
         realm : "Authenticated Area.",
         file  : "./data/users.htpasswd" // manager1@magnetapi.com/test
     });
+    // log errors to console, log everything to file
+    global.winston = new (winston.Logger)({
+        transports : [
+            new (winston.transports.Console)({
+                level : 'error'
+            }),
+            new (winston.transports.File)({
+                filename : 'target/events/server.log'
+            })
+        ]
+    });
     var RedisStore = require('connect-redis')(express);
     //app.use(auth.connect(basic));
     connect().use(connect.session({
@@ -72,5 +85,5 @@ require('./routes')(app);
 
 // Listener
 server.listen(app.get('port'), function(){
-    console.info("Express: server listening on port %d in %s mode", app.get('port'), app.settings.env);
+    winston.info("Express: server listening on port %d in %s mode", app.get('port'), app.settings.env);
 });

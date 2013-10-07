@@ -22,7 +22,7 @@ module.exports = function(app){
             }else{
                 delete user.password;
                 req.session.user = user;
-                console.log('Tracking: user "' + user.email + '" logged in', req.session.entryPoint);
+                winston.log('Tracking: user "' + user.email + '" logged in', req.session.entryPoint);
                 res.redirect(req.session.entryPoint || '/');
             }
         });
@@ -33,7 +33,7 @@ module.exports = function(app){
         if(!req.session.user){
             res.redirect('/login');
         }else{
-            console.log('Tracking: user "' + req.session.user.username + '" logged out');
+            winston.log('Tracking: user "' + req.session.user.username + '" logged out');
             req.session.destroy(function(){
                 res.redirect('/');
             });
@@ -215,7 +215,7 @@ module.exports = function(app){
                 }
             }),
             success : function(){
-                console.log('Tracking: user "' + req.session.user.email + '" sent an email from the Contact Us form');
+                winston.log('Tracking: user "' + req.session.user.email + '" sent an email from the Contact Us form');
                 res.send('ok', 200);
             },
             error : function(e){
