@@ -9,11 +9,18 @@ var AccountManager = require("../lib/AccountManager")
  , hash = require('../lib/modules/hash')
  , CloudHelper = require('./CloudHelper')
  , UserManager = require('../lib/UserManager')
- , EmailService = require('../lib/EmailService');
-// TODO: Database details are hardcoded!
-require('../lib/orm').setup('./lib/models', true, 'developercenter', 'root');
+ , EmailService = require('../lib/EmailService')
+ , orm = require('../lib/orm');
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;
+
+describe('AccountManager database setup', function(){
+    beforeAll(function(done){
+        orm.setup('./lib/models', function(){
+            done();
+        });
+    });
+});
 
 describe("AccountManager manualLogin", function() {
     var user;

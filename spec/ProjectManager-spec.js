@@ -1,16 +1,10 @@
 var ProjectManager = require('../lib/ProjectManager')
 , UserManager = require('../lib/UserManager')
 , fs = require('fs')
-, magnetId = require('node-uuid');
-
-// TODO: Database details are hardcoded!
-require('../lib/orm').setup('./lib/models', true, 'developercentertest', 'root');
+, magnetId = require('node-uuid')
+, orm = require('../lib/orm');
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;
-
-var beforeAll = function(fn){
-    it('[beforeAll]', fn);
-}
 
 var testProject, testUser, _user, _project, testWSDL, _wsdl;
 
@@ -20,24 +14,18 @@ describe('ProjectManager database setup', function(){
         firstName   : 'Pyramid',
         lastName    : 'Hefeweizen',
         email       : 'demouser@magnet.com',
-        magnetId    : 'd2cf1210-25ae-11e3-a8c7-c743ef283553',
         userType    : 'developer',
         password    : 'wheatale',
         companyName : 'beer'
     };
 
     beforeAll(function(done){
-        UserManager.read(_user.magnetId, null, function(e, user){
-            if(!user){
-                UserManager.create(_user, function(e, user){
-                    _user = user;
-                    expect(e).toBeNull();
-                    done();
-                });
-            }else{
+        orm.setup('./lib/models', function(){
+            UserManager.create(_user, function(e, user){
                 _user = user;
+                expect(user).not.toBeUndefined();
                 done();
-            }
+            });
         });
     });
 
@@ -249,21 +237,21 @@ describe('ProjectManager generateConfig', function(){
     });
 
     it('should fail given an invalid project', function(done){
-        ProjectManager.generateConfig(null, function(e){
+        ProjectManager.generateConfig(null, null, function(e){
             expect(e).toEqual('invalid-project-object');
             done();
         });
     });
 
     it('should succeed given a valid project', function(done){
-        ProjectManager.generateConfig(testProject, function(e){
+        ProjectManager.generateConfig(testProject, null, function(e){
             expect(e).toBeNull();
             done();
         });
     });
 
     it('should return a path to the zip file given a valid project', function(done){
-        ProjectManager.generateConfig(testProject, function(e, zipPath){
+        ProjectManager.generateConfig(testProject, null, function(e, zipPath){
             expect(zipPath).not.toBeUndefined();
             done();
         });
@@ -309,7 +297,7 @@ describe('ProjectManager createProjectFolders', function(){
 });
 
 describe('ProjectManager renderConfig', function(){
-    var modifiedTestProject;
+    var modifiedTestProject, wsdls;
 
     beforeEach(function(){
         modifiedTestProject = {
@@ -319,10 +307,15 @@ describe('ProjectManager renderConfig', function(){
             apnsEnabled  : true,
             apnsCertName : 'valid-certName.xml'
         }
+        wsdls = [{
+            url         : 'http://www.magnet.com/wsdl',
+            serviceName : 'TestWSDL',
+            bindStyle   : 'ws'
+        }]
     });
 
     it('should fail if project is not an object', function(done){
-        ProjectManager.renderConfig('', function(e){
+        ProjectManager.renderConfig('', [], function(e){
             expect(e).toEqual('invalid-project-object');
             done();
         });
@@ -330,7 +323,7 @@ describe('ProjectManager renderConfig', function(){
 
     it('should fail if project does not have a project name', function(done){
         delete modifiedTestProject.name;
-        ProjectManager.renderConfig(modifiedTestProject, function(e){
+        ProjectManager.renderConfig(modifiedTestProject, [], function(e){
             expect(e).toEqual('invalid-project-object');
             done();
         });
@@ -338,15 +331,29 @@ describe('ProjectManager renderConfig', function(){
 
     it('should not have an output containing "server.config.ApnsAccount.certFile" if project has an empty apnsCertName', function(done){
         modifiedTestProject.apnsCertName = '';
-        ProjectManager.renderConfig(modifiedTestProject, function(e, output){
+        ProjectManager.renderConfig(modifiedTestProject, [], function(e, output){
             expect(output).not.toContain('server.config.ApnsAccount.certFile');
             done();
         });
     });
 
     it('should have an output containing "server.config.ApnsAccount.certFile" if project has a non-empty apnsCertName', function(done){
-        ProjectManager.renderConfig(modifiedTestProject, function(e, output){
+        ProjectManager.renderConfig(modifiedTestProject, [], function(e, output){
             expect(output).toContain('server.config.ApnsAccount.certFile');
+            done();
+        });
+    });
+
+    it('should have an output containing wsdl url if wsdl object is passed in the array', function(done){
+        ProjectManager.renderConfig(modifiedTestProject, wsdls, function(e, output){
+            expect(output).toContain('controllers.TestWSDL.wsdl="http://www.magnet.com/wsdl"');
+            done();
+        });
+    });
+
+    it('should have an output containing wsdl binding style if wsdl object is passed in the array', function(done){
+        ProjectManager.renderConfig(modifiedTestProject, wsdls, function(e, output){
+            expect(output).toContain('controllers.TestWSDL.type="ws"');
             done();
         });
     });
@@ -539,7 +546,7 @@ describe('ProjectManager addWSDLUrl', function(){
 
     it('should fail given an invalid project magnetId', function(done){
         ProjectManager.addWSDLUrl(testProject.magnetId, '', 'http://www.magnet.com', function(e){
-            expect(e).toEqual('add-wsdl-not-authorized');
+            expect(e).toEqual('not-authorized');
             done();
         });
     });

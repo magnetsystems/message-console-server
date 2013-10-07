@@ -8,6 +8,14 @@
 ENV_CONFIG = require('../lib/config/config_'+process.env.NODE_ENV);
 var AWS = require('aws-sdk');
 
+beforeAll = function(fn){
+    it('[beforeAll]', fn);
+};
+
+afterAll = function(fn){
+    it('[afterAll]', fn)
+};
+
 AWS.config.update(ENV_CONFIG.AWS);
 
 var iam = new AWS.IAM({apiVersion: ENV_CONFIG.Cloud.AWS.IAMApiVersion});

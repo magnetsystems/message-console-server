@@ -1,10 +1,17 @@
 var UserManager = require("../lib/UserManager")
 , hash = require('../lib/modules/hash')
-, CloudHelper = require('./CloudHelper');
-// TODO: Database details are hardcoded!
-require('../lib/orm').setup('./lib/models', true, 'developercenter', 'root');
+, CloudHelper = require('./CloudHelper')
+, orm = require('../lib/orm');
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;
+
+describe('UserManager database setup', function(){
+    beforeAll(function(done){
+        orm.setup('./lib/models', function(){
+            done();
+        });
+    });
+});
 
 describe("UserManager registerGuest", function() {
     var user;

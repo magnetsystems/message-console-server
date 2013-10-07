@@ -7,13 +7,7 @@ var express = require('express')
 
 global.ENV_CONFIG = require('./lib/config/config_'+app.settings.env);
 
-require('./lib/orm').setup('./lib/models',
-    ENV_CONFIG.Database.doSync,
-    ENV_CONFIG.Database.dbName,
-    ENV_CONFIG.Database.username,
-    ENV_CONFIG.Database.password,
-    ENV_CONFIG.Database.params
-);
+require('./lib/orm').setup('./lib/models');
 
 app.on('uncaughtException', function(error){
     console.error('Uncaught Error: ');

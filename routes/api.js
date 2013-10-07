@@ -200,7 +200,7 @@ module.exports = function(app){
     app.post('/rest/contactUs', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         // build email body and send out email
         EmailService.sendEmail({
-            to      : EmailService.EmailSettings.supportEmail,
+            to      : ENV_CONFIG.Email.supportEmail,
             subject : 'Magnet Developer Factory Support',
             html    : EmailService.renderTemplate({
                 main : 'support-email',

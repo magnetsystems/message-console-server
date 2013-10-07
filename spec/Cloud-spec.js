@@ -1,7 +1,8 @@
 ENV_CONFIG = require('../lib/config/config_'+process.env.NODE_ENV);
 var Cloud = require("../lib/Cloud");
 var AWS = require('aws-sdk');
-var CloudHelper = require('./CloudHelper');
+var CloudHelper = require('./CloudHelper')
+, orm = require('../lib/orm');
 
 AWS.config.update(ENV_CONFIG.AWS);
 
@@ -9,13 +10,13 @@ var iam = new AWS.IAM({apiVersion: ENV_CONFIG.Cloud.AWS.IAMApiVersion});
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;
 
-var beforeAll = function(fn) {
-    it('[beforeAll]', fn);
-}
-
-var afterAll = function(fn) {
-    it('[afterAll]', fn)
-}
+describe('Cloud database setup', function(){
+    beforeAll(function(done){
+        orm.setup('./lib/models', function(){
+            done();
+        });
+    });
+});
 
 //removeUser(ENV_CONFIG.Cloud.Uploader.UserName, function(){
 //    console.log("Deleted user");
