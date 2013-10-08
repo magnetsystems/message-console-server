@@ -1,65 +1,226 @@
+
     <div class="row-fluid">
-        <div id="resources" class="clearfix page-view">
+        <div class="clearfix page-view">
             <h4>Resources</h4>
 
-            <div class="resource-titles">
-                <div class="col50">
-                    For the Developer
-                    <div class="divider-col">
-                        <img class="divider-left" src="/images/resources/divider_left.png" />
-                        <img class="divider-right" src="/images/resources/divider_right.png" />
+            <div style="padding:50px 0;font-size:18px"></div>
+
+            <div style="display:none">
+
+            <p class="subhead">Download sample apps and source code here to help you get started and accelerate your development efforts.  You may modify (but not redistribute) this sample code.  Sample code is provided as is, and is not certified or supported by Magnet.  It is intended for educational purposes only.</p>
+
+            <ul id="resources-tabmenu" class="nav nav-tabs">
+                <li class="active"><a href="#tab-mab" data-toggle="tab">
+                    <img src="/images/resources/rsrc_icon_mab.png" />
+                    <b>Magnet App Builder</b>
+                    <span>App Development Tool</span>
+                </a></li>
+                <li><a href="#tab-ms-sdk" data-toggle="tab">
+                    <img src="/images/resources/rsrc_icon_sdk.png" />
+                    <b>Mobile Server SDK</b>
+                    <span>Software Development Kit</span>
+                </a></li>
+                <li><a href="#tab-jumpstart" data-toggle="tab">
+                    <img src="/images/resources/rsrc_icon_jmpstrt.png" />
+                    <b>Jumpstart App</b>
+                    <span>Sample App</span>
+                </a></li>
+                <li><a href="#tab-peopleatwork" data-toggle="tab">
+                    <img src="/images/resources/rsrc_icon_patw.png" />
+                    <b>People@Work</b>
+                    <span>Sample App</span>
+                </a></li>
+                <li><a href="#tab-ticketing" data-toggle="tab">
+                    <img src="/images/resources/rsrc_icon_tcktng.png" />
+                    <b>Ticketing</b>
+                    <span>Sample App</span>
+                </a></li>
+                <li><a href="#tab-techcare" data-toggle="tab">
+                    <img src="/images/resources/rsrc_icon_tecare.png" />
+                    <b>Tech Care</b>
+                    <span>Sample App</span>
+                </a></li>
+            </ul>
+
+            <div id="resources-tabcontent" class="tab-content">
+                <div class="tab-pane active" id="tab-mab">
+                    <div class="row-fluid">
+                        <div class="resources-samples-content span6">
+                            <p class="sectionhead">
+                                The TechCare and Ticketing apps complement each other by integrating
+                                with the same custom-built Mobile App Server.  The TechCare app illustrates the following
+                                capabilities: offline processing via reliable queuing and data caching, use of mapping and
+                                native device features to remotely set a network fence for the Ticketing app users, as well
+                                as use of notifications.</p>
+                            <p class="bold">
+                                Platform capabilities that this app users are:
+                            </p>
+                            <ul>
+                                <li class="first">Android</li>
+                                <li>Login controller</li>
+                                <li>xyz controller</li>
+                            </ul>
+                            <ul>
+                                <li class="first">iOS</li>
+                                <li>Login controller</li>
+                                <li>xyz controller</li>
+                            </ul>
+                            <div class="selector clearfix">
+                                <div class="caption"><b>Platform Version</b></div>
+                                <div did="select-mab" class="select-mab selector-options">
+                                    <a did="a-phone" class="a-phone-btn active" href="#"></a>
+                                    <a did="a-tab" class="a-tab-btn" href="#"></a>
+                                    <a did="i-phone" class="i-phone-btn" href="#"></a>
+                                    <a did="i-pad" class="i-pad-btn" href="#"></a>
+                                </div>
+                            </div>
+                            <div class="select-mab">
+                                <div class="a-phone">
+                                    <a href="/resources/files/mab.zip" class="btn">Download Android Phone App</a>
+                                </div>
+                                <div class="a-tab" style="display:none">
+                                    <a href="/resources/files/mab.zip" class="btn">Download Android Tablet App</a>
+                                </div>
+                                <div class="i-phone" style="display:none">
+                                    <a href="/resources/files/mab.zip" class="btn">Download iPhone app</a>
+                                </div>
+                                <div class="i-pad" style="display:none">
+                                    <a href="/resources/files/mab.zip" class="btn">Download iPad app</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="select-mab screenshots span6">
+                            <div class="a-phone">
+                                <a href="/images/getstarted/gtstrtd_act_wizard.png" data-lightbox="tab-mab-a-phone-imgs">
+                                    <img src="/images/getstarted/gtstrtd_act_wizard.png" />
+                                </a>
+                                <a href="/images/getstarted/gtstrtd_act_wizard.png" data-lightbox="tab-mab-a-phone-imgs">
+                                    <img src="/images/getstarted/gtstrtd_act_wizard.png" />
+                                </a>
+                                <a href="/images/getstarted/gtstrtd_act_wizard.png" data-lightbox="tab-mab-a-phone-imgs">
+                                    <img src="/images/getstarted/gtstrtd_act_wizard.png" />
+                                </a>
+                            </div>
+                            <div class="a-tab" style="display:none">
+                                <a href="/images/getstarted/gtstrtd_act_mmas.png" data-lightbox="tab-mab-a-tab-imgs">
+                                    <img src="/images/getstarted/gtstrtd_act_mmas.png" />
+                                </a>
+                                <a href="/images/getstarted/gtstrtd_act_mmas.png" data-lightbox="tab-mab-a-tab-imgs">
+                                    <img src="/images/getstarted/gtstrtd_act_mmas.png" />
+                                </a>
+                                <a href="/images/getstarted/gtstrtd_act_mmas.png" data-lightbox="tab-mab-a-tab-imgs">
+                                    <img src="/images/getstarted/gtstrtd_act_mmas.png" />
+                                </a>
+                            </div>
+                            <div class="i-phone" style="display:none">
+                                <a href="/images/getstarted/gtstrtd_act_tool.png" data-lightbox="tab-mab-i-phone-imgs">
+                                    <img src="/images/getstarted/gtstrtd_act_tool.png" />
+                                </a>
+                                <a href="/images/getstarted/gtstrtd_act_tool.png" data-lightbox="tab-mab-i-phone-imgs">
+                                    <img src="/images/getstarted/gtstrtd_act_tool.png" />
+                                </a>
+                                <a href="/images/getstarted/gtstrtd_act_tool.png" data-lightbox="tab-mab-i-phone-imgs">
+                                    <img src="/images/getstarted/gtstrtd_act_tool.png" />
+                                </a>
+                            </div>
+                            <div class="i-pad" style="display:none">
+                                <a href="/images/getstarted/gtstrtd_act_getProj.png" data-lightbox="tab-mab-i-pad-imgs">
+                                    <img src="/images/getstarted/gtstrtd_act_getProj.png" />
+                                </a>
+                                <a href="/images/getstarted/gtstrtd_act_getProj.png" data-lightbox="tab-mab-i-pad-imgs">
+                                    <img src="/images/getstarted/gtstrtd_act_getProj.png" />
+                                </a>
+                                <a href="/images/getstarted/gtstrtd_act_getProj.png" data-lightbox="tab-mab-i-pad-imgs">
+                                    <img src="/images/getstarted/gtstrtd_act_getProj.png" />
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col50">
-                    For the Administrator
-                    <div class="divider-col">
-                        <img class="divider-left" src="/images/resources/divider_left.png" />
-                        <img class="divider-right" src="/images/resources/divider_right.png" />
-                    </div>
+                <div class="tab-pane" id="tab-jumpstart">
+                    2
+                </div>
+                <div class="tab-pane" id="tab-ms-sdk">
+                    3
+                </div>
+                <div class="tab-pane" id="tab-peopleatwork">
+                    4
+                </div>
+                <div class="tab-pane" id="tab-ticketing">
+                    5
+                </div>
+                <div class="tab-pane" id="tab-techcare">
+                    6
                 </div>
             </div>
 
-            <div class="col50">
-                <img src="/images/resources/samples.png">
-                <strong>Samples</strong>
-                <p class="subheading">Get a head start</p>
-                <a href="samples/" class="btn btn-primary">Go to Samples</a>
-                <p>
-                    Get source code and samples to see how<br /> our APIs can be used to build great apps.
-                </p>
             </div>
-
             <!--
-            <div class="col33">
-                <img src="/images/resources/tutorials.png">
-                <strong>Tutorials</strong>
-                <p class="subheading">Learn Quickly</p>
-                <a href="tutorials/" class="btn btn-primary">Go to Tutorials</a>
-                <div class="margins">
-                    <b>Section Title</b>
+            <div class="resources-samples-container clearfix">
+                <div class="resources-samples-img">
+                    <img src="/images/resources/samp_people.png" />
+                </div>
+                <div class="resources-samples-content">
+                    <strong>People@Work sample app</strong>
+                    <p class="sectionhead"> People@Work is a simple app that  demonstrates how to use a Mobile App Server that can be generated within the Factory to contain both the Salesforce and LinkedIn controllers.  Using APIs from  these services, the mobile app provides a search interface for looking up contacts from these services after first getting authorized by them via OAuth.</p>
+                </div>
+                <div class="resources-samples-download valign-relative">
+                    <img src="/images/resources/android.png" /><img src="/images/resources/phone.png" /><br />
+                    <a class="resource-path" href="/resources/files/samples/people_at_work.zip">Download</a>
+                </div>
+            </div>
+
+            <div class="resources-samples-container clearfix">
+                <div class="resources-samples-img">
+                    <img src="/images/resources/samp_ticketing.png" />
+                </div>
+                <div class="resources-samples-content">
+                    <strong>Ticketing sample app</strong>
+                    <p class="sectionhead">The Ticketing and TechCare apps complement each other by integrating with the same custom-built Mobile App Server.  The Ticketing app illustrates the following capabilities: offline processing via reliable queuing and data caching, use of the constraint APIs to utilize location and network fencing, as well as use of notifications.</p>
+                </div>
+                <div class="resources-samples-download valign-relative">
+
+                    <img src="/images/resources/android.png" /><img src="/images/resources/phone.png" /><br />
+                    <a class="resource-path" href="/resources/files/samples/ticketing.zip">Download</a>
+
+                    <b>Coming Soon</b>
+                </div>
+            </div>
+
+            <div class="resources-samples-container clearfix">
+                <div class="resources-samples-img">
+                    <img src="/images/resources/samp_techcare.png" />
+                </div>
+                <div class="resources-samples-content">
+                    <strong>TechCare sample app</strong>
+                    <p class="sectionhead">The TechCare and Ticketing apps complement each other by integrating with the same custom-built Mobile App Server.  The TechCare app illustrates the following capabilities: offline processing via reliable queuing and data caching, use of mapping and native device features to remotely set a network fence for the Ticketing app users, as well as use of notifications.</p>
+
+                    <p>
+                        Platform capabilities that this app users are:
+                    </p>
                     <ul>
-                        <li>Caption</li>
-                        <li>Caption</li>
-                        <li>Caption</li>
-                        <li>Caption</li>
-                        <li>Caption</li>
-                        <li>Caption</li>
-                        <li>Caption</li>
-                        <li>Caption</li>
+                        <li class="first">Android</li>
+                        <li>Login controller</li>
+                        <li>xyz controller</li>
                     </ul>
+                    <ul>
+                        <li class="first">iOS</li>
+                        <li>Login controller</li>
+                        <li>xyz controller</li>
+                    </ul>
+
+                </div>
+                <div class="resources-samples-download valign-relative">
+
+                    <img src="/images/resources/ios.png" /><img src="/images/resources/tablet.png" /><br />
+                    <a class="resource-path" href="/resources/files/samples/techcare.zip">Download</a>
+
+                    <b>Coming Soon</b>
                 </div>
             </div>
             -->
 
-            <div class="col50">
-                <img src="/images/resources/mobilemanager.png" style="height:169px" >
-                <strong>Magnet Mobile App Manager</strong>
-                <p class="subheading">Manage app distribution</p>
-                <a href="mobile-app-manager/" class="btn btn-primary">Go to Download</a>
-                <p>
-                    Download all software necessary to distribute <br />and manage mobile apps to your employees.
-                </p>
-            </div>
-
         </div>
     </div>
+
+

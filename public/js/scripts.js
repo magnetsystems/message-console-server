@@ -24,6 +24,7 @@ $(document).ready(function(){
     $(window).resize(function(){
         adjustUI();
     });
+    GetStartedNavigation();
     // user authentication
     var cookies = new Cookie();
     var formauth = new FormLogin(cookies);
@@ -81,8 +82,9 @@ $(document).ready(function(){
     title.find('.dropdown').unbind('mouseenter').mouseenter(function(){
         menu.css('display', 'block');
     }).unbind('mouseleave').mouseleave(function(){
-            menu.css('display', 'none');
-        });
+        menu.css('display', 'none');
+    });
+    var resources = new ResourceNavigation();
     var docFormatter = new DocFormatter();
     initPlaceholders();
 });
@@ -1225,6 +1227,41 @@ DocFormatter.prototype.updateUI = function(dom){
         dom.css('font-weight', 'bold');
         var id = dom.attr('href').replace('index.html#', '');
         $('.doc-section[did="'+id+'"], a[name="'+id+'"]').show();
+    }
+}
+
+function ResourceNavigation(){
+    $('.selector-options a').click(function(e){
+        e.preventDefault();
+        var parent = $(this).closest('.selector-options').attr('did');
+        var selection = $(this).attr('did');
+        $('.'+parent+' > a').removeClass('active');
+        $('.'+parent+' > div').hide();
+        $('.'+parent+' > div[class~="'+selection+'"]').show();
+        $(this).addClass('active');
+    });
+}
+
+function GetStartedNavigation(){
+    var hash = window.location.hash;
+    var page = $('#get-started');
+    if(page.length){
+        if(hash){
+            page.find('.nav-tabs li').removeClass('active');
+            page.find('.tab-pane').removeClass('active');
+            page.find(hash).addClass('active');
+            page.find('.nav-tabs a[href="'+hash+'"]').closest('li').addClass('active');
+        }
+        page.find('.nav-tabs li a').click(function(e){
+            e.preventDefault();
+            var link = $(e.currentTarget);
+            var li = link.closest('li');
+            var list = li.closest('.nav-tabs');
+            list.find('li').removeClass('active');
+            page.find('.tab-pane').removeClass('active');
+            page.find(link.attr('href')).addClass('active');
+            li.addClass('active');
+        });
     }
 }
 

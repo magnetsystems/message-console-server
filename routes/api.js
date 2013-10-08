@@ -15,7 +15,7 @@ module.exports = function(app){
 
     // user log in and store to session and cookie
     app.post('/login', function(req, res){
-        AccountManager.manualLogin(req.param('username'), req.param('password'), function(e, user){
+        AccountManager.manualLogin(req.body.name, req.body.password, function(e, user){
             // if login returns a user object, store to session
             if(!user){
                 res.redirect('/login?status=invalid');
@@ -24,6 +24,18 @@ module.exports = function(app){
                 req.session.user = user;
                 winston.log('Tracking: user "' + user.email + '" logged in', req.session.entryPoint);
                 res.redirect(req.session.entryPoint || '/');
+            }
+        });
+    });
+
+    // artifactory login
+    app.post('/rest/login', function(req, res){
+        AccountManager.manualLogin(req.body.name, req.body.password, function(e, user){
+            // if login returns a user object, store to session
+            if(!user){
+                res.send('NOT_AUTHORIZED', 401);
+            }else{
+                res.send('SUCCESS', 200);
             }
         });
     });

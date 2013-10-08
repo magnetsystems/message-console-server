@@ -9,6 +9,7 @@ module.exports = function(app){
         res.render('index', {
             locals : {
                 title       : 'Home',
+                activePage  : 'home',
                 userEmail   : req.session.user.email,
                 userCompany : req.session.user.companyName
             }
@@ -30,6 +31,19 @@ module.exports = function(app){
         res.render('support/index', {
             locals : {
                 title        : 'Support',
+                activePage   : 'support',
+                userEmail    : req.session.user.email,
+                userCompany  : req.session.user.companyName,
+                userFullName : req.session.firstName +' '+ req.session.lastName
+            }
+        });
+    });
+
+    app.get('/get-started', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+        res.render('getstarted/index', {
+            locals : {
+                title        : 'Get Started',
+                activePage   : 'get-started',
                 userEmail    : req.session.user.email,
                 userCompany  : req.session.user.companyName,
                 userFullName : req.session.firstName +' '+ req.session.lastName
@@ -41,6 +55,7 @@ module.exports = function(app){
         res.render('docs/index', {
             locals : {
                 title       : 'Documentation',
+                activePage  : 'docs',
                 userEmail   : req.session.user.email,
                 userCompany : req.session.user.companyName
             }
@@ -51,12 +66,14 @@ module.exports = function(app){
         res.render('resources/index', {
             locals : {
                 title       : 'Resources',
+                activePage  : 'resources',
                 userEmail   : req.session.user.email,
                 userCompany : req.session.user.companyName
             }
         });
     });
 
+    /*
     app.get('/resources/mobile-app-manager', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('resources/mobile-app-manager', {
             locals : {
@@ -76,11 +93,13 @@ module.exports = function(app){
             }
         });
     });
+    */
 
     app.get('/profile', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('profile/index', {
             locals : {
                 title         : 'My Profile',
+                activePage    : 'profile',
                 userEmail     : req.session.user.email,
                 userFirstName : req.session.user.firstName,
                 userLastName  : req.session.user.lastName,
@@ -94,6 +113,7 @@ module.exports = function(app){
         res.render('admin/index', {
             locals : {
                 title       : 'Administration',
+                activePage  : 'admin',
                 userEmail   : req.session.user.email,
                 userCompany : req.session.user.companyName
             },
@@ -103,52 +123,6 @@ module.exports = function(app){
 
     app.get('/login', function(req, res){
         Login(res);
-    });
-
-/* ADMINISTRATION */
-
-    // retrieve list of all users and render to page
-    app.get('/admin/users', function(req, res){
-        if(req.session.user !== undefined){
-            if(req.session.user.tracking.authority == 1){
-                UserManager.getAllUsers(function(e, users){
-                    if(e){
-                        res.send(e, 400);
-                    }else{
-                        res.render('admin/users', {
-                            locals : {
-                                title      : 'User List',
-                                properties : '', //Schemas.getProperties('User'),
-                                users      : users
-                            }
-                        });
-                    }
-                });
-            }else{
-                do404(res);
-            }
-        }else{
-            do404(res);
-        }
-    });
-
-    // delete all users
-    app.get('/admin/users/delete', function(req, res){
-        if(req.session.user !== undefined){
-            if(req.session.user.tracking.authority == 1){
-                UserManager.deleteAllUsers(function(e){
-                    if(e){
-                        res.send(e, 400);
-                    }else{
-                        res.redirect('/admin/users');
-                    }
-                });
-            }else{
-                do404(res);
-            }
-        }else{
-            do404(res);
-        }
     });
 
 /* GENERAL */
