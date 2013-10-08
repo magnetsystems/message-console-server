@@ -1,97 +1,0 @@
-10
-
-dir
-25236
-https://magneteng.atlassian.net/svn/WON/trunk/devcenter/tools/management/presentation/src/main/resources/public.dir/docs/server_javadocs/com/magnet
-https://magneteng.atlassian.net/svn
-
-
-
-2013-09-05T05:25:11.477306Z
-25068
-emmanuel.texier
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-9a1fdec0-3e0f-4488-a7f4-01be6133f063
-
-i18n
-dir
-
-http
-dir
-
-android
-dir
-
-controller
-dir
-
-context
-dir
-
-base64
-dir
-
-persistence
-dir
-
-transaction
-dir
-
-attributes
-dir
-
-notification
-dir
-
-core
-dir
-
-common
-dir
-
-spi
-dir
-
-connection
-dir
-
-model
-dir
-
-config
-dir
-
-mobile
-dir
-
-security
-dir
-
-management
-dir
-
-inject
-dir
-
-async
-dir
-
-web
-dir
-
-user
-dir
-
