@@ -7,7 +7,7 @@
  */
 var AccountManager = require("../lib/AccountManager")
  , hash = require('../lib/modules/hash')
- , CloudHelper = require('./CloudHelper')
+ , Helper = require('./Helper')
  , UserManager = require('../lib/UserManager')
  , EmailService = require('../lib/EmailService')
  , orm = require('../lib/orm');
@@ -92,7 +92,7 @@ describe("AccountManager manualLogin", function() {
                                 expect(cloudAccount.accessKeyId).not.toBeNull();
                                 expect(cloudAccount.secretAccessKey).not.toBeNull();
 
-                                CloudHelper.removeUser(cloudAccount.magnetId, function(){});
+                                Helper.removeUser(cloudAccount.magnetId, function(){});
                                 cloudAccount.destroy().success(function() {
                                     approvedUser.destroy().success(function() {
                                         done();

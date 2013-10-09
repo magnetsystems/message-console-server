@@ -21,9 +21,9 @@ AWS.config.update(ENV_CONFIG.AWS);
 
 var iam = new AWS.IAM({apiVersion: ENV_CONFIG.Cloud.AWS.IAMApiVersion});
 
-var CloudHelper = function(){};
+var Helper = function(){};
 
-CloudHelper.prototype.removeUser = function(userName, done) {
+Helper.prototype.removeUser = function(userName, done) {
     // Cleanup: Delete policy, keys and then User
     // We assume that our User would have a max of 1 access key
     iam.deleteUserPolicy({UserName: userName, PolicyName: ENV_CONFIG.Cloud.PolicyName}, function (err, data) {
@@ -37,7 +37,7 @@ CloudHelper.prototype.removeUser = function(userName, done) {
                                 if (!err) {
                                     console.log("Deleted access key = " + accessKey.AccessKeyId);
                                     // We assume that our User would have a max of 1 access key
-                                    CloudHelper.prototype.deleteCloudUser(userName, done);
+                                    Helper.prototype.deleteCloudUser(userName, done);
                                 } else {
                                     console.error("Error deleting access key = " + accessKey.AccessKeyId);
                                     done();
@@ -45,7 +45,7 @@ CloudHelper.prototype.removeUser = function(userName, done) {
                             });
                         });
                     } else {
-                        CloudHelper.prototype.deleteCloudUser(userName, done);
+                        Helper.prototype.deleteCloudUser(userName, done);
                     }
                 } else {
                     console.error("Error getting access keys = " + err);
@@ -58,7 +58,7 @@ CloudHelper.prototype.removeUser = function(userName, done) {
     });
 };
 
-CloudHelper.prototype.deleteCloudUser = function(userName, done) {
+Helper.prototype.deleteCloudUser = function(userName, done) {
     iam.deleteUser({UserName: userName}, function (err, data) {
         if (!err) {
         } else {
@@ -68,4 +68,4 @@ CloudHelper.prototype.deleteCloudUser = function(userName, done) {
     });
 };
 
-module.exports = new CloudHelper();
+module.exports = new Helper();

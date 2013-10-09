@@ -1,7 +1,7 @@
 ENV_CONFIG = require('../lib/config/config_'+process.env.NODE_ENV);
 var Cloud = require("../lib/Cloud");
 var AWS = require('aws-sdk');
-var CloudHelper = require('./CloudHelper')
+var Helper = require('./Helper')
 , orm = require('../lib/orm');
 
 AWS.config.update(ENV_CONFIG.AWS);
@@ -59,7 +59,7 @@ describe("Cloud allocateCloudAccount", function() {
         });
 
         afterEach(function(done) {
-            CloudHelper.removeUser(userName, done);
+            Helper.removeUser(userName, done);
         });
 
         it("should create required keys if the User did not have keys", function(done) {
@@ -90,7 +90,7 @@ describe("Cloud allocateCloudAccount without existing user", function() {
     var userName = "NodeJsTests_" + new Date().getTime() + "@magnet.com";
 
     afterEach(function(done) {
-        CloudHelper.removeUser(userName, done);
+        Helper.removeUser(userName, done);
     });
 
     it("should create required keys if the User didn't exist", function(done) {
@@ -197,7 +197,7 @@ describe("Cloud allocateCloudAccount generated keys", function() {
             expect(err).toBeNull();
             s3.deleteObject({Bucket: otherBucketName, Key: key}, function(err, data) {
                 expect(err).toBeNull();
-//                CloudHelper.removeUser(ENV_CONFIG.Cloud.Uploader.UserName, done);
+//                Helper.removeUser(ENV_CONFIG.Cloud.Uploader.UserName, done);
                 done();
             });
         });

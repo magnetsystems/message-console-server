@@ -1,6 +1,6 @@
 var UserManager = require("../lib/UserManager")
 , hash = require('../lib/modules/hash')
-, CloudHelper = require('./CloudHelper')
+, Helper = require('./Helper')
 , orm = require('../lib/orm');
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;
@@ -238,7 +238,7 @@ describe("UserManager becomeDeveloper", function() {
                             expect(cloudAccount.accessKeyId).not.toBeNull();
                             expect(cloudAccount.secretAccessKey).not.toBeNull();
 
-                            CloudHelper.removeUser(cloudAccount.magnetId, function(){});
+                            Helper.removeUser(cloudAccount.magnetId, function(){});
                             cloudAccount.destroy().success(function() {
                                 u.destroy().success(function() {
                                     done();
@@ -282,7 +282,7 @@ describe("UserManager sendForgotPasswordEmail", function() {
                             // Clean up
                             u.getCloudAccounts().success(function(cloudAccounts) {
                                 var cloudAccount = cloudAccounts[0];
-                                CloudHelper.removeUser(cloudAccount.magnetId, function(){});
+                                Helper.removeUser(cloudAccount.magnetId, function(){});
                                 cloudAccount.destroy().success(function() {
                                     u.destroy().success(function() {
                                         done();
@@ -344,7 +344,7 @@ describe("UserManager resetPassword", function() {
                                     // Clean up
                                     u.getCloudAccounts().success(function(cloudAccounts) {
                                         var cloudAccount = cloudAccounts[0];
-                                        CloudHelper.removeUser(cloudAccount.magnetId, function(){});
+                                        Helper.removeUser(cloudAccount.magnetId, function(){});
                                         cloudAccount.destroy().success(function() {
                                             u.destroy().success(function() {
                                                 done();
