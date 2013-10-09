@@ -1,7 +1,8 @@
 var UserManager = require("../lib/UserManager")
 , hash = require('../lib/modules/hash')
 , Helper = require('./Helper')
-, orm = require('../lib/orm');
+, orm = require('../lib/orm')
+, bcrypt = require('bcrypt');
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;
 
@@ -225,7 +226,7 @@ describe("UserManager becomeDeveloper", function() {
                     expect(u.userType).toEqual('developer');
                     expect(u.country).toEqual(user.country);
                     expect(u.roleWithinCompany).toEqual(user.roleWithinCompany);
-                    expect(u.password).toEqual(hash.md5(password));
+                    expect(bcrypt.compareSync(password, u.password)).toBeTruthy();
                     u.reload().success(function() {
                         expect(u.firstName).toEqual(firstName);
                         // Clean up
@@ -339,7 +340,7 @@ describe("UserManager resetPassword", function() {
 
                             UserManager.resetPassword({password: 'newPassword', passwordResetToken: u.passwordResetToken}, function(status) {
                                 u.reload().success(function() {
-                                    expect(u.password).toEqual(hash.md5('newPassword'));
+                                    expect(bcrypt.compareSync('newPassword', u.password)).toBeTruthy();
                                     expect(u.passwordResetToken).toBeNull();
                                     // Clean up
                                     u.getCloudAccounts().success(function(cloudAccounts) {

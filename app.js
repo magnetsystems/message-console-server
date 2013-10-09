@@ -120,3 +120,33 @@ var server = http.createServer(app);
 server.listen(app.get('port'), function(){
     winston.info("Express: server listening on port %d in %s mode", app.get('port'), app.settings.env);
 });
+
+var bcrypt = require('bcrypt');
+
+bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.hash("Magnet435", salt, function(err, hash) {
+//        console.log("salt = " + salt);
+//        console.log("hash = " + hash);
+//
+//        // Load hash from your password DB.
+//        bcrypt.compare("Magnet435", "$2a$10$C9m8pFWjOWFIYhMaaRVDI.znH.P7U7LbeutU2GMV/VXkIpw6CSxY2", function(err, res) {
+//            console.log("1res =", res);
+//        });
+//        bcrypt.compare("not_bacon", "$2a$10$C9m8pFWjOWFIYhMaaRVDI.znH.P7U7LbeutU2GMV/VXkIpw6CSxY2", function(err, res) {
+//            console.log("2res =", res);
+//        });
+    });
+});
+
+bcrypt.hash('bacon', 8, function(err, hash) {
+    bcrypt.compare("bacon", hash, function(err, res) {
+        console.log("hash = " + hash);
+        console.log("3res =", res);
+    });
+});
+bcrypt.hash('bacon', 8, function(err, hash) {
+    bcrypt.compare("bacon", hash, function(err, res) {
+        console.log("hash = " + hash);
+        console.log("3res =", res);
+    });
+});

@@ -12,6 +12,8 @@ var AccountManager = require("../lib/AccountManager")
  , EmailService = require('../lib/EmailService')
  , orm = require('../lib/orm');
 
+var bcrypt = require('bcrypt');
+
 jasmine.getEnv().defaultTimeoutInterval = 30000;
 
 describe('AccountManager database setup', function(){
