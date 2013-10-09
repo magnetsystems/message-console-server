@@ -18,6 +18,10 @@
     "jasmine-node": "1.11.0",
     "http-auth": "2.0.4",
     "xml2js": "0.2.8",
-    "winston": "0.7.2"
+    "winston": "0.7.2",
+    "winston-mail": "0.2.7",
+    "redis": "0.8.6",
+    "requirejs": "2.1.8",
+    "connect-redis": "1.4.5"
   }
 }
