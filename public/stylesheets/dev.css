@@ -276,11 +276,11 @@ iframe .WordSection1{width:506px}
 #resources-tabmenu li a span{color:#888;font-size:11px}
 #resources-tabmenu li a{background:none;border:none}
 #resources-tabmenu li.active a{background:#eaeaea}
-#resources-tabcontent{background:url(../images/resources/rsrc_divider.png) no-repeat center top;background-size:100%;width:100%;margin:1px auto 20px;padding-bottom:30px}
+#resources-tabcontent{min-height:140px;background:url(../images/resources/rsrc_divider.png) no-repeat center top;background-size:100%;width:100%;margin:1px auto 20px;padding-bottom:30px}
 #resources-tabcontent .tab-pane{width:91%;margin:0 auto}
 #resources-tabcontent .screenshots{text-align:center}
 #resources-tabcontent .screenshots a{text-decoration:none}
-#resources-tabcontent .screenshots img{width:30%;max-width:145px}
+#resources-tabcontent .screenshots a img{margin:32px 10px 0;width:25%;max-width:145px}
 #resources-tabcontent .selector{width:100%;margin:40px 0 20px}
 #resources-tabcontent .selector .caption{float:left;margin-right:12px;margin-top:7px}
 #resources-tabcontent .selector .selector-options{float:left}
@@ -307,7 +307,7 @@ iframe .WordSection1{width:506px}
 .resources-samples-container{clear:both;border-top:solid 2px #ddd}
 .resources-samples-img, .resources-samples-download{padding:8px 0;float:left;width:20%;text-align:center;margin-right:-1px}
 .resources-samples-download img{margin:4px 3px}
-.resources-samples-content{padding:8px 0;float:left;width:60%;position:relative}
+.resources-samples-content{padding:23px 0 8px;float:left;width:60%;position:relative}
 .resources-samples-content p.sectionhead{margin:4px 0 10px}
 .resources-samples-content ul{display:block;clear:both;width:100%;margin:0;padding:0}
 .resources-samples-content li{margin-left:40px;float:left}

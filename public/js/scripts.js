@@ -359,7 +359,7 @@ ConfirmInvitation.prototype.request = function(){
         $('#'+me.domId+' .row-fluid, #'+me.domId+' .modal-footer').hide();
     }else{
         if(me.validator.validateConfirmInvitation()){
-            me.info.token = me.params.token;
+            me.info.magnetId = me.params.token;
             me.call();
         }
     }
