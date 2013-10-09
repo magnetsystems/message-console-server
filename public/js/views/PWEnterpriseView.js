@@ -197,8 +197,8 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'collections/ProjectCollect
                 error: function(){
                     me.options.eventPubSub.trigger('btnComplete', $('#pw-wsdl-addfile-btn'));
                     Alerts.Error.display({
-                        title   : 'Invalid WSDL URL',
-                        content : 'The URL you provided is not a valid URL.'
+                        title   : 'Invalid WSDL',
+                        content : 'The WSDL you provided could not be parsed. Please input the WSDL manually from the Magnet App Builder Tool.'
                     });
                 }
             });  

@@ -75,8 +75,7 @@ app.configure('production', function(){
         handleExceptions : true
     });
     // log only errors to support email
-    require('winston-mail').Mail;
-    winston.add(winston.transports.Mail, {
+    winston.add(require('winston-mail').Mail, {
         to               : ENV_CONFIG.Email.supportEmail,
         from             : ENV_CONFIG.Email.sender,
         host             : ENV_CONFIG.Email.host,
