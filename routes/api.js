@@ -272,15 +272,18 @@ module.exports = function(app){
      "firstName" : "Pritesh",
      "lastName" : "Shah",
      "email" : "pritesh.shah@magnet.com",
-     "companyName" : "Magnet Systems, Inc."
+     "companyName" : "Magnet Systems, Inc.",
+     "magnetId: "dbf11050-3120-11e3-9a51-655f7d3073f2"
      }
+     magnetId is passed when the registration was initiated from an invite.
      */
     app.post('/rest/startRegistration', function(req, res) {
         UserManager.registerGuest({
             firstName : stripChars(req.body.firstName),
             lastName : stripChars(req.body.lastName),
             email : req.body.email,
-            companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName
+            companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName,
+            magnetId: req.body.magnetId
         }, false, function(registrationStatus) {
             if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL) {
                 res.send(registrationStatus, 201);
