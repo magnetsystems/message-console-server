@@ -1168,16 +1168,6 @@ utils = {
         }
         return attributes;
     },
-    getInfoHeader : function(str){
-        var hdrAry = str.split(','), obj = {};
-        $.each(hdrAry, function(i, val){
-            var ary = Base64.decode($.trim(val)).match(/([^ ]*) (.*)/);
-            if(ary != null){
-                obj[ary[1]] = ary[2];
-            }
-        });
-        return obj;
-    },
      getValidXML : function(str){
          try{
             str = $.parseXML(str);

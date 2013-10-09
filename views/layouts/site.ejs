@@ -22,10 +22,10 @@
     </div>
     {{ if(typeof hideMenu == 'undefined'){ }}
     <ul class="title_container">
-        <li>
+        <li class="{{- activePage == 'get-started' ? 'active' : ''}}">
             <a href="/get-started/">Get Started</a>
         </li>
-        <li class="dropdown">
+        <li class="dropdown {{- activePage == 'resources' ? 'active' : ''}}">
             <a class="dropdown-toggle" href="/resources/">Resources</a>
             <!--
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -35,10 +35,10 @@
             </ul>
             -->
         </li>
-        <li>
+        <li class="{{- activePage == 'docs' ? 'active' : ''}}">
             <a href="/docs/">Documentation</a>
         </li>
-        <li>
+        <li class="{{- activePage == 'support' ? 'active' : ''}}">
             <a href="/support/">Support</a>
         </li>
     </ul>

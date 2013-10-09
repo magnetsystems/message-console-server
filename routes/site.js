@@ -16,17 +16,6 @@ module.exports = function(app){
         });
     });
 
-    app.get('/dev', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
-        res.render('dev/index', {
-            locals : {
-                title       : 'Developers',
-                userEmail   : req.session.user.email,
-                userCompany : req.session.user.companyName
-            },
-            _layoutFile : false
-        });
-    });
-
     app.get('/support', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('support/index', {
             locals : {
@@ -109,11 +98,21 @@ module.exports = function(app){
         });
     });
 
+    app.get('/dev', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+        res.render('dev/index', {
+            locals : {
+                title       : 'Developers',
+                userEmail   : req.session.user.email,
+                userCompany : req.session.user.companyName
+            },
+            _layoutFile : false
+        });
+    });
+
     app.get('/admin', UserManager.checkAuthority(['admin']), function(req, res){
         res.render('admin/index', {
             locals : {
                 title       : 'Administration',
-                activePage  : 'admin',
                 userEmail   : req.session.user.email,
                 userCompany : req.session.user.companyName
             },
@@ -131,12 +130,13 @@ module.exports = function(app){
     function Login(res){
         res.render('login', { 
             locals : { 
-                title    : 'Login',
-                bodyType : 'dev',
-                hideMenu : true,
-                userEmail : '',
+                title       : 'Login',
+                bodyType    : 'dev',
+                hideMenu    : true,
+                activePage  : '',
+                userEmail   : '',
                 userCompany : '',
-                countries : Countries
+                countries   : Countries
             }
         });
     }

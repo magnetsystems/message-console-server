@@ -8,8 +8,6 @@ require.config({
       "backbone"      : "libs/backbone",
       "scrollto"      : "libs/scrollto",
       "bootstrap"     : "libs/bootstrap",
-      "kineticjs"     : "libs/kineticjs",
-      "base64"        : "libs/base64",
       "resources"     : "libs/resources",
       "fileuploader"  : "libs/fileuploader",
       "placeholder"   : "libs/placeholder"
@@ -33,7 +31,7 @@ require.config({
       }
   }
 });
-require(['modernizr', 'jquery', 'backbone', 'routers/desktopRouter', 'resources', 'scrollto', 'bootstrap', 'base64', 'fileuploader', 'kineticjs', 'placeholder'], function(Modernizr, $, Backbone, Desktop){
+require(['modernizr', 'jquery', 'backbone', 'routers/desktopRouter', 'resources', 'scrollto', 'bootstrap', 'fileuploader', 'placeholder'], function(Modernizr, $, Backbone, Desktop){
     $('#loadingBar').hide();
     // create new desktop instance
     this.router = new Desktop();

@@ -11,11 +11,6 @@ global.ENV_CONFIG = require('./lib/config/config_'+app.settings.env);
 
 require('./lib/orm').setup('./lib/models');
 
-app.on('uncaughtException', function(error){
-    winston.error('Uncaught Error: ');
-    winston.error(error.stack);
-});
-
 app.set('port', ENV_CONFIG.App.port);
 
 app.configure(function(){
@@ -36,9 +31,6 @@ app.configure(function(){
     app.use(express.cookieParser(ENV_CONFIG.App.sessionSecret));
     app.use(express.methodOverride());
 
-    // prioritize router before public directory
-    app.use(express.static(__dirname + '/public'));
-
 });
 
 app.configure('development', function(){
@@ -50,6 +42,21 @@ app.configure('development', function(){
         store  : new connect.middleware.session.MemoryStore(),
         secret : ENV_CONFIG.App.sessionSecret
     }));
+    // prioritize router before public directory
+    app.use(express.static(__dirname + '/public'));
+});
+
+app.configure('test', function(){
+    app.use(express.errorHandler({
+        dumpExceptions : true,
+        showStack      : true
+    }));
+    app.use(express.session({
+        store  : new connect.middleware.session.MemoryStore(),
+        secret : ENV_CONFIG.App.sessionSecret
+    }));
+    // prioritize router before public directory
+    app.use(express.static(__dirname + '/public'));
 });
 
 app.configure('production', function(){
@@ -61,6 +68,7 @@ app.configure('production', function(){
         realm : "Authenticated Area.",
         file  : "./data/users.htpasswd" // manager1@magnetapi.com/test
     });
+    //app.use(auth.connect(basic));
     // log errors to console, log everything to file
     global.winston = new (winston.Logger)({
         transports : [
@@ -73,11 +81,16 @@ app.configure('production', function(){
         ]
     });
     var RedisStore = require('connect-redis')(express);
-    //app.use(auth.connect(basic));
     connect().use(connect.session({
         store  :  new RedisStore(),
         secret : ENV_CONFIG.App.sessionSecret
     }));
+    // minify client side code and set router to build path
+    require('requirejs').optimize(require('./lib/config/ClientBuild'), function(){
+        winston.info('Requirejs: successfully optimized client javascript');
+    });
+    // prioritize router before public directory
+    app.use(express.static(__dirname + '/public-build'));
 });
 
 // Routes

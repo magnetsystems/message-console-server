@@ -8,7 +8,6 @@ require.config({
       "backbone"      : "libs/backbone",
       "scrollto"      : "libs/scrollto",
       "bootstrap"     : "libs/bootstrap",
-      "base64"        : "libs/base64",
       "resources"     : "libs/resources",
       "placeholder"   : "libs/placeholder"
   },
@@ -28,7 +27,7 @@ require.config({
       }
   } 
 });
-require(['modernizr', 'jquery', 'backbone', 'routers/adminRouter', 'resources', 'scrollto', 'bootstrap', 'base64', 'placeholder'], function(Modernizr, $, Backbone, Desktop){
+require(['modernizr', 'jquery', 'backbone', 'routers/adminRouter', 'resources', 'scrollto', 'bootstrap', 'placeholder'], function(Modernizr, $, Backbone, Desktop){
     $('#loadingBar').hide();
     // create new desktop instance
     this.router = new Desktop();

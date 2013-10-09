@@ -11,6 +11,8 @@ pids
 logs
 results
 
+public-build
+
 npm-debug.log
 node_modules
 
