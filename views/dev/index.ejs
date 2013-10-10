@@ -82,7 +82,7 @@
                         </div>
                         <div id="wizard-intro-left">
                             <p>Welcome to the</p>
-                            <p><h4>Magnet Quick Start Wizard</h4></p>
+                            <p><h4>Mobile App Project Wizard</h4></p>
                             <img src="../images/wizard-start/wizgraphic-start.png" />
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                             </div>
                             <div class="section clearfix">
                                 <img src="../images/wizard-start/wizstart_mappicon.png" />
-                                <b>Magnet App Project Profile</b>
+                                <b>Mobile App Project Profile</b>
                             </div>
                             <div class="divider clearfix">
                                 <img src="../images/wizard-start/wizstart_arrowdn.png" />
@@ -101,7 +101,7 @@
                             </div>
                             <div class="section clearfix">
                                 <img src="../images/wizard-start/wizstart_mabicon.png" />
-                                <b>Magnet App Builder</b>
+                                <b>Mobile App Builder Tool</b>
                             </div>
                             <div class="divider clearfix">
                                 <img src="../images/wizard-start/wizstart_arrowdn.png" />
@@ -807,16 +807,35 @@
 </script>
 <script id="PWStartDevelopingView" type="text/template">
     <div class="start-developing-section">
-        <h5>Download your Magnet App Project Profile</h5>
+        <h5>Download your Magnet Mobile App Project Profile</h5>
         <p>You need this to generate your cloud APIs, iOS client files, and Android client files</p>
-        <a id="download-config-file" href="#" type="button" class="btn btn-primary">Download Magnet App Project Profile</a>
+        <a id="download-config-file" href="#" type="button" class="btn btn-primary">Download Magnet Mobile App Project Profile</a>
         <div class="divider"><img src="../images/wizard/arrow_divider.png"></div>
     </div>
     <div class="start-developing-section">
-        <h5>Import the project configuration file into the Magnet Developer Tool</h5>
+        <h5>Import the project configuration file into the Magnet Mobile App Builder Tool</h5>
         <p>This is the tool that will allow you to add different services to your app and deploy it to the cloud.</p>
-        <a href="/resources/files/mab.zip"><img width="100" src="../images/getstarted/gtstrtd_act_tool.png" /></a><br />
-        <a href="/resources/files/mab.zip" type="button" class="btn btn-primary">Download Magnet App Builder Tool</a>
+        <a href="/resources/files/mab.zip" type="button" class="btn btn-primary">Download Magnet Mobile App Builder Tool</a>
+        <div class="divider"><img src="../images/wizard/arrow_divider.png"></div>
+    </div>
+    <div class="start-developing-section">
+        <h5>Basic Commands with the Magnet Mobile App Builder Tool</h5>
+        <p>Below are some basic commands to get you started with the tool. For the complete list of commands, view the <a href="#">Mobile App Builder Tool User Manual</a>.</p>
+        <div class="code-snippet">
+            <p>Run the Tool in non-interactive mode by invoking <b>mab</b> with a command as an argument. The command (and any of its options and arguments) will be executed.</p>
+            <pre>$ mab project-use myfirstproject</pre>
+            <p>Run the Tool in interactive mode, allowing commands to be entered at the prompt until you exit the Tool. The commands below assume that the Tool was run in interactive mode.</p>
+            <pre>$ mab</pre>
+            <p>Use the <b>help</b> command to see the list of commands currently supported and get information about a particular command.</p>
+            <pre>mab> help</pre>
+            <pre>mab> help login</pre>
+            <p>Login using your Developer Factory username and password to enable all the features of the Tool.</p>
+            <pre>mab> login -u newuser -p userpass</pre>
+            <p>Create a project using the Mobile App Project Profile you downloaded above.</p>
+            <pre>mab> project-create -d /Documents/ -p test-project.zip</pre>
+            <p>Build the project.</p>
+            <pre>mab> project-build</pre>
+        </div>
         <div class="divider"><img src="../images/wizard/arrow_divider.png"></div>
     </div>
 </script>
