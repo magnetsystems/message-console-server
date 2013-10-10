@@ -532,20 +532,21 @@ describe('ProjectManager removeAPNSCertificate', function(){
 });
 
 describe('ProjectManager addWSDLUrl', function(){
+    var url = 'http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?wsdl';
 
     beforeEach(function(){
         testProject = _project;
     });
 
     it('should fail given an invalid project magnetId', function(done){
-        ProjectManager.addWSDLUrl('', testUser.id, 'http://www.magnet.com', function(e){
+        ProjectManager.addWSDLUrl('', testUser.id, url, function(e){
             expect(e).toEqual('project-not-found');
             done();
         });
     });
 
     it('should fail given an invalid project magnetId', function(done){
-        ProjectManager.addWSDLUrl(testProject.magnetId, '', 'http://www.magnet.com', function(e){
+        ProjectManager.addWSDLUrl(testProject.magnetId, '', url, function(e){
             expect(e).toEqual('not-authorized');
             done();
         });
@@ -553,21 +554,21 @@ describe('ProjectManager addWSDLUrl', function(){
 
     it('should fail given an invalid url', function(done){
         ProjectManager.addWSDLUrl(testProject.magnetId, testUser.id, 'invalid-url-format', function(e){
-            expect(e).toBe('invalid-url');
+            expect(e).toBe('request-error');
             done();
         });
     });
 
     it('should succeed if all parameters are valid', function(done){
-        ProjectManager.addWSDLUrl(testProject.magnetId, testUser.id, 'http://www.magnet.com', function(e){
+        ProjectManager.addWSDLUrl(testProject.magnetId, testUser.id, url, function(e){
             expect(e).toBeNull();
             done();
         });
     });
 
     it('should return model containing url if method completed successfully', function(done){
-        ProjectManager.addWSDLUrl(testProject.magnetId, testUser.id, 'http://www.magnet.com', function(e, model){
-            expect(model.url).toEqual('http://www.magnet.com');
+        ProjectManager.addWSDLUrl(testProject.magnetId, testUser.id, url, function(e, model){
+            expect(model.url).toEqual(url);
             _wsdl = model;
             done();
         });
@@ -576,6 +577,7 @@ describe('ProjectManager addWSDLUrl', function(){
 });
 
 describe('ProjectManager removeWSDLUrl', function(){
+    var url = 'http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?wsdl';
 
     beforeEach(function(){
         testWSDL = _wsdl;
@@ -614,10 +616,10 @@ describe('ProjectManager readWSDL', function(){
     });
 
     it('should return wsdl model given a valid magnetId', function(done){
-        ProjectManager.addWSDLUrl(testProject.magnetId, testUser.id, 'http://www.magnet.com', function(e, model){
+        ProjectManager.addWSDLUrl(testProject.magnetId, testUser.id, 'http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?wsdl', function(e, model){
             expect(e).toBeNull();
             ProjectManager.readWSDL(model.magnetId, function(e, wsdl){
-                expect(wsdl.url).toEqual('http://www.magnet.com');
+                expect(wsdl.url).toEqual('http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?wsdl');
                 done();
             });
         });

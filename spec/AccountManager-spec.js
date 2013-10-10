@@ -6,7 +6,6 @@
  * To change this template use File | Settings | File Templates.
  */
 var AccountManager = require("../lib/AccountManager")
- , hash = require('../lib/modules/hash')
  , Helper = require('./Helper')
  , UserManager = require('../lib/UserManager')
  , EmailService = require('../lib/EmailService')

@@ -1,5 +1,4 @@
 var UserManager = require("../lib/UserManager")
-, hash = require('../lib/modules/hash')
 , Helper = require('./Helper')
 , orm = require('../lib/orm')
 , bcrypt = require('bcrypt');
