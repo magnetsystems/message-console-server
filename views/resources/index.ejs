@@ -43,12 +43,14 @@
 
                 <div class="tab-pane active" id="tab-mab">
                     <div class="row-fluid">
-                        <div class="resources-samples-content span6">
+                        <div class="resources-samples-contents span6">
                             <p class="sectionhead">
-                                The Magnet App Builder Tool (or Tool) is a command line utility that allows you
-                                to create a project, add api modules, generate mobile assets, build the server,
-                                initialize a local or remote database, and manage the server app lifecycle
-                                (e.g. deploy, start, stop) either locally or in the cloud.
+                                The Magnet Mobile App Builder Tool is a command line utility that allows users
+                                to create their custom mobile app projects, add API modules, generate API
+                                Libraries for use with Mobile Server Library on iOS and Android, build the Mobile
+                                App Server Runtime, initialize local or remote databases, and manage the lifecycle
+                                of Mobile App Server Runtime instances (e.g. deploy, start, stop) either locally or
+                                in the cloud.
                             </p>
                             <a href="/resources/files/mab.zip" class="btn">Download Magnet App Builder Tool</a>
                         </div>
@@ -56,25 +58,40 @@
                 </div>
                 <div class="tab-pane" id="tab-ms-sdk">
                     <div class="row-fluid">
-                        <div class="resources-samples-content span6">
+                        <div class="resources-samples-contents span6">
                             <p class="sectionhead">
                                 The Magnet Mobile Server SDK is a framework that simplifies user authentication,
                                 enables device management, provides efficient synchronization of data, facilitates
                                 capture of device logs and performance metrics, and facilitates backup and restore of
                                 Magnet application-specific data.
                             </p>
-                            <a href="#" class="btn">Download Mobile Server SDK.</a>
+                            <div class="selector clearfix">
+                                <div class="caption"><b>Platform Version</b></div>
+                                <div did="select-jumpstart" class="select-jumpstart selector-options">
+                                    <a did="a-phone" class="a-phone-btn active" href="#"></a>
+                                    <a did="i-phone" class="i-phone-btn" href="#"></a>
+                                </div>
+                            </div>
+                            <div class="select-jumpstart">
+                                <div class="a-phone">
+                                    <a href="https://github.com/magnetsystems/sdk-android" target="_blank" class="btn">Go to Android Mobile Server SDK Github Project</a>
+                                </div>
+                                <div class="i-phone" style="display:none">
+                                    <a href="https://github.com/magnetsystems/sdk-ios" target="_blank" class="btn">Go to iOS Mobile Server SDK.</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane" id="tab-jumpstart">
                     <div class="row-fluid">
-                        <div class="resources-samples-content span6">
+                        <div class="resources-samples-contents span6">
                             <p class="sectionhead">
-                                Magnet allows a mobile developer to build and run a mobile app without
-                                requiring any support from a server developer. To accomplish this, Magnet provides
-                                a Jumpstart mobile app that is preconfigured to connect to a Jumpstart server app
-                                that is hosted by Magnet on AWS.
+                                The Jumpstart app is a simple starter mobile app project that contains a sample controller,
+                                and includes a built-in Magnet Mobile Server Library that enables the mobile app to use
+                                advanced features supported by a cloud-based Magnet Mobile App Server Runtime.  The Jumpstart
+                                app is preconfigured to connect to a Mobile App Server Runtime instance hosted by Magnet in
+                                the cloud.
                             </p>
                             <p class="bold">
                                 Platform capabilities that this sample app exposes:
@@ -92,10 +109,10 @@
                             </div>
                             <div class="select-jumpstart">
                                 <div class="a-phone">
-                                    <a href="https://github.com" target="_blank" class="btn">Go to Android Jumpstart Github Project</a>
+                                    <a href="https://github.com/magnetsystems/sdk-android" target="_blank" class="btn">Go to Android Jumpstart Github Project</a>
                                 </div>
                                 <div class="i-phone" style="display:none">
-                                    <a href="https://github.com" target="_blank" class="btn">Go to iOS Jumpstart Github Project</a>
+                                    <a href="https://github.com/magnetsystems/sdk-ios" target="_blank" class="btn">Go to iOS Jumpstart Github Project</a>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +144,7 @@
                 </div>
                 <div class="tab-pane" id="tab-peopleatwork">
                     <div class="row-fluid">
-                        <div class="resources-samples-content span6">
+                        <div class="resources-samples-contents span6">
                             <p class="sectionhead">
                                 People@Work is a simple app that  demonstrates how to use a Mobile App Server that can be generated
                                 within the Factory to contain both the Salesforce and LinkedIn controllers.  Using APIs from  these
@@ -172,7 +189,7 @@
                 </div>
                 <div class="tab-pane" id="tab-ticketing">
                     <div class="row-fluid">
-                        <div class="resources-samples-content span6">
+                        <div class="resources-samples-contents span6">
                             <p class="sectionhead">
                                 The TechCare and Ticketing apps complement each other by integrating
                                 with the same custom-built Mobile App Server.  The TechCare app illustrates the following
@@ -215,7 +232,7 @@
                 </div>
                 <div class="tab-pane" id="tab-techcare">
                     <div class="row-fluid">
-                        <div class="resources-samples-content span6">
+                        <div class="resources-samples-contents span6">
                             <p class="sectionhead">
                                 The TechCare and Ticketing apps complement each other by integrating
                                 with the same custom-built Mobile App Server.  The TechCare app illustrates the following

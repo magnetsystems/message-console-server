@@ -1,56 +1,81 @@
 
     <div class="row-fluid">
-        <div class="clearfix page-view">
-            <div class="centered">
-                <h4>Introducing Developer Factory</h4>
+        <div id="homebanner" class="clearfix page-view">
+
+            <div id="home-carousel" class="carousel slide">
+                <ol class="carousel-indicators">
+                    <li data-target="#home-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#home-carousel" data-slide-to="1"></li>
+                    <li data-target="#home-carousel" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="/images/bootstrap-mdo-sfmoma-01.jpg" alt="">
+                        <div class="carousel-caption">
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="/images/bootstrap-mdo-sfmoma-02.jpg" alt="">
+                        <div class="carousel-caption">
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="/images/bootstrap-mdo-sfmoma-03.jpg" alt="">
+                        <div class="carousel-caption">
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        </div>
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#home-carousel" data-slide="prev">&lsaquo;</a>
+                <a class="right carousel-control" href="#home-carousel" data-slide="next">&rsaquo;</a>
             </div>
+
             <div id="home-panels" class="row-fluid">
                 <div class="span4">
-                    <div class="panel-margins left-side">
-                        <div class="centered">
-                            <img src="../images/home/hm_start.png" />
-                            <h3>Start</h3>
-                            <b>Get started quick</b>
+                    <div class="panel-margins">
+                        <div class="clearfix">
+                            <img src="/images/home/hm_icon_getstarted.png" />
+                            <h4>Get Started</h4>
                         </div>
                         <p>Start an Android or iOS Mobile App project using the Magnet Quick Start Wizard.</p>
-                        <ul class="home-custom-list">
-                            <li>Choose from several common pre-built services like Facebook, LinkedIn and Salesforce.</li>
-                            <li>Add your own custom APIs and Web Services.</li>
-                        </ul>
-                        <a href="/get-started/" class="btn">Get Started </a>
+                        <div class="centered">
+                            <a href="/get-started/" class="btn">Get Started </a>
+                        </div>
                     </div>
+                    <div class="vdivider"></div>
                 </div>
                 <div class="span4">
                     <div class="panel-margins">
-                        <div class="centered">
-                            <img src="../images/home/hm_build.png" />
-                            <h3>Build</h3>
-                            <b>Jump start for mobile developers</b>
+                        <div class="clearfix">
+                            <img src="/images/home/hm_icon_mobapp.png" />
+                            <h4>Mobile App</h4>
                         </div>
                         <p>Jump start your mobile app project using the Jumpstart app.</p>
-                        <a href="/get-started/#gs-ios" class="btn">iOS Developer </a>
-                        <a href="/get-started/#gs-android" class="btn">Android Developer </a>
-                        <div class="centered">
-                            <b>A tool for sever developers</b>
+                        <div class="centered lalign">
+                            <a href="/get-started/#gs-android" class="btn">Android Developer </a>
+                            <a href="/get-started/#gs-ios" class="btn">iOS Developer </a>
                         </div>
-                        <p>Create, edit, and manage the mobile app project. Generate mobile and server code from within the Magnet Mobile App Builder Tool.</p>
-                        <a href="/get-started/#gs-server" class="btn">Server Developer </a>
                     </div>
+                    <div class="vdivider"></div>
                 </div>
                 <div class="span4">
-                    <div class="panel-margins right-side">
-                        <div class="centered">
-                            <img src="../images/home/hm_run.png" />
-                            <h3>Run</h3>
-                            <b>Magnet Mobile App Server Runtime</b>
+                    <div class="panel-margins">
+                        <div class="clearfix">
+                            <img src="/images/home/hm_icon_cldruntm.png" />
+                            <h4>Cloud Runtime</h4>
                         </div>
                         <p>Deploy your Magnet Mobile App Server Runtime locally or to the cloud to support your mobile development efforts.</p>
-                        <a href="#" class="btn">Go to Documentation </a>
+                        <div class="centered lalign">
+                            <a href="/dev/" class="btn">Run the Project Wizard</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
         </div>
+
     </div>
 
 
