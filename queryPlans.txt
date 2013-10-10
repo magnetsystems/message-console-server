@@ -9,3 +9,5 @@ SELECT * FROM `CloudAccounts` WHERE `UserId` = 12;
 
 
 SELECT * FROM `Users` WHERE `Users`.`email` IS NULL LIMIT 1;
+
+
