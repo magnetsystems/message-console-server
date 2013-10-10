@@ -31,11 +31,11 @@ mkdir -p target/tmp
 cd target/tmp
 
 #doc files
-git clone git@bitbucket.org:magneteng/docs.git
+#git clone git@bitbucket.org:magneteng/docs.git
 
 # jar file groupId:artifactId:version[:packaging][:classifier]
-mvn  --s /var/lib/jenkins/mvn_homes/pse_developer/settings.xml -Dartifact=com.magnet.tools:magnet-tools-cli:2.1.0-SNAPSHOT:zip:install -DremoteRepositories=http://nexus1.magnet.com:8081/nexus/content/groups/pse_developer/ -Dmdep.useBaseVersion=true -DoutputDirectory=. org.apache.maven.plugins:maven-dependency-plugin:2.8:copy
-mv magnet-tools-cli-2.1.0-SNAPSHOT-install.zip mab.zip
+#mvn  --s /var/lib/jenkins/mvn_homes/pec2-23-22-251-174.compute-1.amazonaws.comse_developer/settings.xml -B -Dartifact=com.magnet.tools:magnet-#tools-cli:2.1.0-SNAPSHOT:zip:install -DremoteRepositories=http://nexus1.magnet.com:8081/nexus/content/#groups/pse_developer/ -Dmdep.useBaseVersion=true -DoutputDirectory=. org.apache.maven.plugins:maven-#dependency-plugin:2.8:copy
+#mv magnet-tools-cli-2.1.0-SNAPSHOT-install.zip mab.zip
 
 #create dir for packaging
 mkdir $APP_NAME-$APP_VERSION
@@ -55,9 +55,9 @@ ln -s $SCRIPT_DIR/routes
 ln -s $SCRIPT_DIR/spec
 ln -s $SCRIPT_DIR/views
 ln -s $SCRIPT_DIR/node_modules
-ln -s $SCRIPT_DIR/target/docs/web
-mkdir -p public/resources/files
-ln -s $SCRIPT_DIR/mab.zip public/resources/files/mab.zip
+#ln -s $SCRIPT_DIR/target/docs/web
+#mkdir -p public/resources/files
+#ln -s $SCRIPT_DIR/mab.zip public/resources/files/mab.zip
 
 #create the tar!
 cd ..
