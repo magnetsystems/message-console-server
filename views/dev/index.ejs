@@ -638,30 +638,10 @@
             </div>
             <div id="samples-samplecontrollerdb" class="accordion-body collapse" style="height:0">
                 <div class="accordion-inner">
-                    <p class="accordion-caption">This module demonstrates how to interact with a controller over REST from a mobile client. It can be used as a starting template for writing your own controller.</p>
+                    <p class="accordion-caption">This module demonstrates how to interact with a controller over REST from a mobile client and stores the messages received into the app database. It can be used as a starting template for writing your own controller.</p>
                     <div did="helloWorldControllerDBEnabled" class="btn-group">
                         <button did="true" class="btn <% if(project.attributes['helloWorldControllerDBEnabled'] == true){ %>btn-primary<% } %>">Include</button>
                         <button did="false" class="btn <% if(project.attributes['helloWorldControllerDBEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div did="sampleentity" class="accordion-group">
-            <div class="accordion-heading">
-                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#samples-accordion" href="#samples-sampleentity">
-                    <img src="../images/wizard/cntrlr-entity.png" /> Sample Entity Controller
-                    <i class="icon icon-chevron-down"></i>
-                    <div class="preview-status">
-                        <% if(project.attributes['sampleEntityEnabled'] == true){ %>Included<% }else{ %>Not Included<% } %>
-                    </div>
-                </a>
-            </div>
-            <div id="samples-sampleentity" class="accordion-body collapse" style="height:0">
-                <div class="accordion-inner">
-                    <p class="accordion-caption">This module demonstrates how to interact with an entity over REST from a mobile client. It can be used as a starting template for writing your own entity.</p>
-                    <div did="sampleEntityEnabled" class="btn-group">
-                        <button did="true" class="btn <% if(project.attributes['sampleEntityEnabled'] == true){ %>btn-primary<% } %>">Include</button>
-                        <button did="false" class="btn <% if(project.attributes['sampleEntityEnabled'] !== true){ %>btn-primary<% } %>">Don't Include</button>
                     </div>
                 </div>
             </div>

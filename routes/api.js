@@ -15,7 +15,7 @@ module.exports = function(app){
 
     // user log in and store to session and cookie
     app.post('/login', function(req, res){
-        AccountManager.manualLogin(req.body.name, req.body.password, function(e, user){
+        AccountManager.manualLogin(req.body.username, req.body.password, function(e, user){
             // if login returns a user object, store to session
             if(!user){
                 res.redirect('/login?status=invalid');

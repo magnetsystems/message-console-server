@@ -165,8 +165,8 @@ body.dev .modal-footer .btn, #login-container .btn{width:190px;padding:6px 40px 
 #login-container a:hover{text-decoration:none}
 #login-container button{display:block;margin:10px auto 0}
 #login-container #btn-register i{width:0}
-#name{margin-top:38px}
-#password{margin-bottom:15px}
+#login-container #username{margin-top:38px}
+#login-container #password{margin-bottom:15px}
 
 #login-container .modal_errors{position:absolute;top:60px;left:0;width:50%}
 #login-container .alert{width:80%;margin:0 auto}

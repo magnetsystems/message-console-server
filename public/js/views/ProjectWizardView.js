@@ -143,6 +143,24 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
                     });
                     callback();
                 });
+            }else if(attrName == 'helloWorldControllerEnabled' && $('div[did="helloWorldControllerDBEnabled"] button[did="true"]').hasClass('btn-primary')){
+                Alerts.General.display({
+                    title   : 'Hello World Controller With Persistence Disabled',
+                    content : 'Since you enabled this sample, the Hello World Controller With Persistence will be disabled.'
+                });
+                var btnGroup = $('div[did="helloWorldControllerDBEnabled"]');
+                var btn = btnGroup.find('button[did="false"]');
+                me.toggleSwitchAction(btn, btnGroup);
+                callback();
+            }else if(attrName == 'helloWorldControllerDBEnabled' && $('div[did="helloWorldControllerEnabled"] button[did="true"]').hasClass('btn-primary')){
+                Alerts.General.display({
+                    title   : 'Hello World Controller Disabled',
+                    content : 'Since you enabled this sample, the Hello World Controller will be disabled.'
+                });
+                var btnGroup = $('div[did="helloWorldControllerEnabled"]');
+                var btn = btnGroup.find('button[did="false"]');
+                me.toggleSwitchAction(btn, btnGroup);
+                callback();
             }else{
                 callback();
             }
@@ -153,30 +171,33 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
             var curr = $(e.currentTarget);
             var buttonGroup = curr.closest('.btn-group');
             me.confirmAPNS(buttonGroup.attr('did'), function(){
-                if(!buttonGroup.hasClass('disabled') && !buttonGroup.closest('.optional-parameters').hasClass('disabled')){
-                    buttonGroup.find('button').removeClass('btn-primary');
-                    curr.addClass('btn-primary');
-                    if(!buttonGroup.hasClass('btn-group-only')){
-                        var group = curr.closest('.accordion-group');
-                        var state = 'OFF';
-                        switch(curr.html()){
-                            case 'OFF': group.find('.preview-status').html('OFF'); state = 'OFF'; break;
-                            case 'ON': group.find('.preview-status').html('ON'); state = 'ON'; break;
-                            case 'Don\'t Include': group.find('.preview-status').html('Not Included'); state = 'OFF'; break;
-                            case 'Include': group.find('.preview-status').html('Included'); state = 'ON'; break;
-                        }
-                        if(state == 'OFF'){
-                            group.find('div[did="OFF"]').removeClass('hidden');
-                            group.find('div[did="ON"]').addClass('hidden');
-                            group.find('.optional-parameters').addClass('disabled').append('<div class="overlay"></div>');
-                        }else{
-                            group.find('div[did="ON"]').removeClass('hidden');
-                            group.find('div[did="OFF"]').addClass('hidden');
-                            group.find('.optional-parameters').removeClass('disabled').find('.overlay').remove();
-                        }
+                me.toggleSwitchAction(curr, buttonGroup);
+            });
+        },
+        toggleSwitchAction: function(btn, buttonGroup){
+            if(!buttonGroup.hasClass('disabled') && !buttonGroup.closest('.optional-parameters').hasClass('disabled')){
+                buttonGroup.find('button').removeClass('btn-primary');
+                btn.addClass('btn-primary');
+                if(!buttonGroup.hasClass('btn-group-only')){
+                    var group = btn.closest('.accordion-group');
+                    var state = 'OFF';
+                    switch(btn.html()){
+                        case 'OFF': group.find('.preview-status').html('OFF'); state = 'OFF'; break;
+                        case 'ON': group.find('.preview-status').html('ON'); state = 'ON'; break;
+                        case 'Don\'t Include': group.find('.preview-status').html('Not Included'); state = 'OFF'; break;
+                        case 'Include': group.find('.preview-status').html('Included'); state = 'ON'; break;
+                    }
+                    if(state == 'OFF'){
+                        group.find('div[did="OFF"]').removeClass('hidden');
+                        group.find('div[did="ON"]').addClass('hidden');
+                        group.find('.optional-parameters').addClass('disabled').append('<div class="overlay"></div>');
+                    }else{
+                        group.find('div[did="ON"]').removeClass('hidden');
+                        group.find('div[did="OFF"]').addClass('hidden');
+                        group.find('.optional-parameters').removeClass('disabled').find('.overlay').remove();
                     }
                 }
-            });
+            }
         },
         // toggle display of views associated with a radio collection
         toggleRadio: function(e){
