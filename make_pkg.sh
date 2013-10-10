@@ -1,31 +1,46 @@
 #/usr/bin/bash
 
-#find script dir
-#SCRIPT_DIR="`dirname \"$0\"`"; SCRIPT_DIR="`( cd \"$SCRIPT_DIR\" && pwd )`"
+### INIT ###
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $SCRIPT_DIR
+APP_NAME=`$SCRIPT_DIR/jp.py $SCRIPT_DIR/package.json '["name"]'`
+APP_VERSION=`$SCRIPT_DIR/jp.py $SCRIPT_DIR/package.json '["version"]'`
 
-# "build"
+
+### BUILD ###
 npm install
 
-# test
+
+### TEST ###
+
+#DB setup; developercenter needed by app; developercentertest needed for tests
+mysql -u root -p -e 'drop database if exists developercenter;'
+mysql -u root -p -e 'create database developercenter;'
+mysql -u root -p -e 'drop database if exists developercentertest;'
+mysql -u root -p -e 'create database developercentertest;'
+
+#start app and run tests
 nohup node app.js &
 export NODEJS_PID=$!
 ./node_modules/.bin/jasmine-node spec/
 kill $NODEJS_PID
 
-# package
-mkdir target 
-cd target
+### PACKAGE ###
+# collect temp files in target dir  (maven standard)
+mkdir -p target/tmp
+cd target/tmp
+
+#doc files
 git clone git@bitbucket.org:magneteng/docs.git
 
-APP_NAME=`./jp.py '["name"]'`
-APP_VERSION=`./jp.py '["version"]'`
+# jar file groupId:artifactId:version[:packaging][:classifier]
+mvn -Dartifact=com.magnet.tools:magnet-tools-cli:2.1.0-SNAPSHOT:zip:install -DremoteRepositories=http://nexus1.magnet.com:8081/nexus/content/groups/pse_developer/ -Dmdep.useBaseVersion=true -DoutputDirectory=. org.apache.maven.plugins:maven-dependency-plugin:2.8:copy
 
+#create dir for packaging
 mkdir $APP_NAME-$APP_VERSION
 cd $APP_NAME-$APP_VERSION
 
-#devex stuff
+#create links to things to be packaged
 ln -s $SCRIPT_DIR/app.js
 ln -s $SCRIPT_DIR/data
 ln -s $SCRIPT_DIR/jp.py
@@ -38,11 +53,11 @@ ln -s $SCRIPT_DIR/queryPlans.txt
 ln -s $SCRIPT_DIR/routes
 ln -s $SCRIPT_DIR/spec
 ln -s $SCRIPT_DIR/views
-
-#generated from install
 ln -s $SCRIPT_DIR/node_modules
+ln -s $SCRIPT_DIR/target/docs/web
 
-#doc stuff
-ln -s $SCRIPT_DIR/docs/web
+#create the tar!
+cd ..
+tar czfh $APP_NAME-$APP_VERSION.tar.gz $APP_NAME-$APP_VERSION/*
 
 
