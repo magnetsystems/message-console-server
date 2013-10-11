@@ -87,8 +87,12 @@ app.configure('production', function(){
         handleExceptions : true
     });
     // log everything to file
+    if(!fs.existsSync(ENV_CONFIG.Logging.folder)){
+        fs.mkdirSync(ENV_CONFIG.Logging.folder);
+        winston.info('Logging: created logging directory.');
+    }
     winston.add(winston.transports.File, {
-        filename         : ENV_CONFIG.Logging.filename,
+        filename         : ENV_CONFIG.Logging.folder+'/'+ENV_CONFIG.Logging.filename,
         maxsize          : ENV_CONFIG.Logging.maxsize,
         maxFiles         : ENV_CONFIG.Logging.maxFiles,
         handleExceptions : true
