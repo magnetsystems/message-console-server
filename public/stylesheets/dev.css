@@ -355,9 +355,12 @@ iframe .WordSection1{width:506px}
 #get-started .page-h4{color:#C30000;font-size:24px;margin-bottom:16px}
 #get-started .page-view{margin:0 auto 25px auto;width:92%;padding:0 25px 0 25px;min-height:600px;padding-bottom:20px}
 #get-started .row-fluid{overflow:hidden}
-#get-started .tab-content{padding-bottom:25px;background:url('../images/getstarted/divider.png') no-repeat scroll 0 82px transparent}
-#get-started .tab-pane{min-height:560px;margin-left:36px;overflow:hidden}
-#get-started .nav-tabs{position:absolute;top:76px;left:25px;width:200px;border:none}
+#get-started .tab-content{padding-bottom:25px}
+#get-started .tab-pane{min-height:600px;margin-left:36px;overflow:hidden}
+#get-started .tab-pane h5{font-size:18px;font-weight:bold;margin:30px 18px}
+#get-started .tab-pane h5 span{margin-left:20px;font-weight:normal;font-size:13px}
+#get-started .nav-tabs{background-color:#e8eced;height:100%;position:absolute;top:0;left:0;border-radius:12px 0 0 12px;width:200px;border:none}
+#get-started .nav-tabs li.first{text-align:center;height:85px;display:block;width:100%}
 #get-started .nav-tabs li a{outline:none;padding:0;margin:0;width:200px;height:127px;border:none;border-radius:0;text-align:center;font-size:18px;line-height:205px}
 #gs-projectguide-tab a{background:url(../images/getstarted/gtstrtd_nav_1.png) no-repeat 0 0}
 #gs-ios-tab a{background:url(../images/getstarted/gtstrtd_nav_2.png) no-repeat 0 0}

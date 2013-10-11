@@ -1,7 +1,9 @@
 
 <div id="get-started" class="row-fluid page-view">
-<h4 class="page-h4">Get Started</h4>
 <ul class="nav nav-tabs">
+    <li class="first">
+        <h4 class="page-h4">Get Started</h4>
+    </li>
     <li id="gs-projectguide-tab" class="active"><a href="#gs-projectguide">Project Guide</a></li>
     <li id="gs-android-tab"><a href="#gs-android">Android Developer</a></li>
     <li id="gs-ios-tab"><a href="#gs-ios">iOS Developer</a></li>
@@ -9,7 +11,7 @@
 </ul>
 <div class="tab-content">
 <div class="tab-pane active" id="gs-projectguide">
-    <h4>Project Guide</h4>
+    <h5>Project Guide <span>The guide below outlines the typical development process.</span></h5>
     <div class="guide-container">
         <div class="guide-row odd">
             <img src="../images/getstarted/gtstrtd_mbprj_1.png" />
@@ -117,8 +119,7 @@
     </div>
 </div>
 <div class="tab-pane" id="gs-ios">
-    <h4>iOS Developer</h4>
-    <p>The topics below will help the iOS Developer get started.</p>
+    <h5>iOS Developer <span>The topics below will help the iOS Developer get started.</span></h5>
     <div class="guide-container">
         <div class="guide-row odd">
             <img src="../images/getstarted/gtstrtd_act_ios.png" />
@@ -131,22 +132,28 @@
                             <div class="accordion-group">
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-ios-1" href="#acc-ios-1-inner">
-                                        <b>Download the iOS Jumpstart App</b>
+                                        <b>OPTION 1: Use iOS Jumpstart App as a Template</b>
                                         <i class="icon icon-chevron-down"></i>
                                     </a>
-                                    <p>Get started by downloading the iOS Jumpstart App from GitHub.</p>
+                                    <p>Get started quickly and use the Jumpstart App as a template for your development
+                                        by downloading the iOS Jumpstart App from GitHub.</p>
                                 </div>
                                 <div id="acc-ios-1-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
                                         <h5>Downloading the iOS Jumpstart App from GitHub.</h5>
                                         <ol>
-                                            <li>Go to the <a href="https://github.com/magnetsystems/jumpstart-ios">
-                                                iOS Jumpstart App Github Project</a> page.</li>
-                                            <li>View the README file for instructions on how to build and run the app.</li>
+                                            <li>
+                                                Download and install Git from the <a href="http://git-scm.com/" target="_blank">Git website</a>.
+                                            </li>
+                                            <li>
+                                                <p>From <b>Terminal</b>, navigate to the directory where you would like to install the
+                                                    Jumpstart App and clone the Jumpstart App using the following command.</p>
+                                                <pre>$ git clone git@github.com:magnetsystems/jumpstart-ios.git --recursive</pre>
+                                            </li>
                                             <li>
                                                 <p>To test round-trip connectivity between the server and client, run the Jumpstart
-                                                App and login to app using the credentials below. The Jumpstart app is preconfigured
-                                                to connect with a Jumpstart server app hosted by Magnet on AWS.</p>
+                                                    App and login to app using the credentials below. The Jumpstart app is preconfigured
+                                                    to connect with a Jumpstart server app hosted by Magnet on AWS.</p>
                                                 <b>Username:</b> snowman<br />
                                                 <b>Password:</b> jumper
                                             </li>
@@ -168,19 +175,20 @@
             <div class="guide-content">
                 <div class="row-fluid">
                     <div class="span9">
-                        <div class="guide-step">2</div>
+                        <div class="guide-step">1</div>
                         <div id="acc-ios-2" class="accordion">
                             <div class="accordion-group">
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-ios-2" href="#acc-ios-2-inner">
-                                        <b>Import Your API Library</b>
+                                        <b>OPTION 2: Import The Magnet iOS SDK</b>
                                         <i class="icon icon-chevron-down"></i>
                                     </a>
-                                    <p>Learn how to import your custom Magnet API Libraries.</p>
+                                    <p>The Magnet iOS SDK provides various Magnet features. Learn how
+                                        to import the Magnet iOS SDK into your own iOS app.</p>
                                 </div>
                                 <div id="acc-ios-2-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
-                                        <h5>How to import your API library</h5>
+                                        <h5>Importing the Magnet iOS SDK into your own iOS app</h5>
                                         Coming Soon.
                                     </div>
                                 </div>
@@ -198,7 +206,7 @@
             <div class="guide-content">
                 <div class="row-fluid">
                     <div class="span9">
-                        <div class="guide-step">3</div>
+                        <div class="guide-step">2</div>
                         <div>
                             <b>Build Your App</b>
                             <p>Learn how to call an existing controller or add your own controllers.</p>
@@ -210,8 +218,7 @@
     </div>
 </div>
 <div class="tab-pane" id="gs-server">
-    <h4>Server Developer</h4>
-    <p>The topics below will help the Server Developer get started.</p>
+    <h5>Server Developer <span>The topics below will help the Server Developer get started.</span></h5>
     <div class="guide-container">
         <div class="guide-row odd">
             <img src="../images/getstarted/gtstrtd_act_wizard.png" />
@@ -399,8 +406,7 @@
     </div>
 </div>
 <div class="tab-pane" id="gs-android">
-    <h4>Android Developer</h4>
-    <p>The topics below will help the Android Developer get started.</p>
+    <h5>Android Developer <span>The topics below will help the Android Developer get started.</span></h5>
     <div class="guide-container">
         <div class="guide-row odd">
             <img src="../images/getstarted/gtstrtd_act_android.png" />
@@ -412,18 +418,24 @@
                             <div class="accordion-group">
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-android-1" href="#acc-android-1-inner">
-                                        <b>Start Android Jumpstart App</b>
+                                        <b>OPTION 1: Use Android Jumpstart App as a Template</b>
                                         <i class="icon icon-chevron-down"></i>
                                     </a>
-                                    <p>Get started by downloading the Android Jumpstart App from GitHub.</p>
+                                    <p>Get started quickly and use the Jumpstart App as a template for your development
+                                    by downloading the Android Jumpstart App from GitHub.</p>
                                 </div>
                                 <div id="acc-android-1-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
                                         <h5>Downloading the Android Jumpstart App from GitHub.</h5>
                                         <ol>
-                                            <li>Go to the <a target="_blank" href="https://github.com/magnetsystems/jumpstart-android">
-                                                Android Jumpstart App GitHub Project</a> page.</li>
-                                            <li>View the README file for instructions on how to build and run the app.</li>
+                                            <li>
+                                                Download and install Git from the <a href="http://git-scm.com/" target="_blank">Git website</a>.
+                                            </li>
+                                            <li>
+                                                <p>From <b>Terminal</b>, navigate to the directory where you would like to install the
+                                                Jumpstart App and clone the Jumpstart App using the following command.</p>
+                                                <pre>$ git clone git@github.com:magnetsystems/jumpstart-android.git --recursive</pre>
+                                            </li>
                                             <li>
                                                 <p>To test round-trip connectivity between the server and client, run the Jumpstart
                                                     App and login to app using the credentials below. The Jumpstart app is preconfigured
@@ -432,6 +444,8 @@
                                                 <b>Password:</b> jumper
                                             </li>
                                         </ol>
+                                        <p>For more information, visit the <a target="_blank" href="https://github.com/magnetsystems/jumpstart-android">
+                                            Android Jumpstart App GitHub Project</a>.</p>
                                     </div>
                                 </div>
                             </div>
@@ -448,32 +462,37 @@
             <div class="guide-content">
                 <div class="row-fluid">
                     <div class="span9">
-                        <div class="guide-step">2</div>
+                        <div class="guide-step">1</div>
                         <div id="acc-android-2" class="accordion">
                             <div class="accordion-group">
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-android-2" href="#acc-android-2-inner">
-                                        <b>Import The Magnet Android SDK</b>
+                                        <b>OPTION 2: Import The Magnet Android SDK</b>
                                         <i class="icon icon-chevron-down"></i>
                                     </a>
-                                    <p>The Magnet Android SDK is a framework that provides various Magnet Platform capabilities.</p>
+                                    <p>The Magnet Android SDK provides various Magnet features. Learn how
+                                    to import the Magnet Android SDK into your own Android app.</p>
                                 </div>
                                 <div id="acc-android-2-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
-                                        <h5>How to import the Magnet Android SDK</h5>
+                                        <h5>Importing the Magnet Android SDK into your own Android app</h5>
                                         <ol>
                                             <li>
-                                                Import the Magnet Android SDK as an <b>Android Library</b> project: Create a new <b>Android Project</b> as follows:<br />
-                                                <b>File-&gt;New Project-&gt;Android-&gt;Android Project from Existing Code</b></li>
-                                            <li>Browse to <b>sdk-submodule</b> project directory and select it as the <b>Root Directory</b>.</li>
-                                            <li>A new Android project will now be created with the name <b>magnet-sdk-android-</b>.</li>
-                                            <li>Select the Android library project and right click, select Properties, under <b>Android</b>, <b>is library</b> should be checked.</li>
-                                            <li>From the main Android application project, add the library project under <b>Project Properties-&gt;Android</b>, Add the library</li>
-                                            <li>Build your main Android application project using Eclipse.</li>
-
+                                                Download and install Git from the <a href="http://git-scm.com/" target="_blank">Git website</a>.
+                                            </li>
+                                            <li>
+                                                <p>Import the git submodule into your project.</p>
+                                                <pre>$ I NEED THIS COMMAND</pre>
+                                            </li>
+                                            <li>
+                                                <p>Initialize the Git submodule.</p>
+                                                <pre>$ git submodule update --init</pre>
+                                            </li>
+                                            <li>
+                                                <p>Get the latest version of the SDK.</p>
+                                                <pre>$ git submodule update --remote</pre>
+                                            </li>
                                         </ol>
-                                        <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original <b>./libs</b>
-                                        directory before introducing a new api library jar to <b>libs</b> directory.</p>
                                     </div>
                                 </div>
                             </div>
@@ -490,7 +509,7 @@
             <div class="guide-content">
                 <div class="row-fluid">
                     <div class="span9">
-                        <div class="guide-step">3</div>
+                        <div class="guide-step">2</div>
                         <div id="acc-android-3" class="accordion">
                             <div class="accordion-group">
                                 <div class="accordion-heading">
@@ -502,17 +521,17 @@
                                 </div>
                                 <div id="acc-android-3-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
-                                        <h5>Add custom Magnet controller API jars</h5>
+                                        <h5>Add custom Magnet API libraries</h5>
                                         <ol>
-                                            <li>Copy custom Magnet controller api library jar files to &quot;./libs&quot; directory. This is
+                                            <li>Copy custom Magnet API libraries to &quot;./libs&quot; directory. This is
                                                 typically generated from a local server build provided by your server team.
                                             </li>
                                             <li> Regenerate Magnet platform service mapping library using shell script, &quot;install-lib.sh&quot;:<br />
-                                                <pre>sh ./sdk-submodule/magnet-sdk-android-2.1.0/magnet-tools/install-lib.sh ./sdk-submodule/magnet-sdk-android-2.1.0 /libs</pre>
+                                                <pre>sh ./sdk-submodule/magnet-sdk-android-2.1.0-SNAPSHOT/magnet-tools/install-lib.sh ./sdk-submodule/magnet-sdk-android-2.1.0-SNAPSHOT &lt;project-dir&gt;/libs</pre>
                                             </li>
                                         </ol>
                                         <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original &quot;./libs&quot;
-                                            directory before introducing a new api library jar to &quot;libs&quot; directory.</p>
+                                            directory before introducing a new API library to &quot;libs&quot; directory.</p>
                                     </div>
                                 </div>
                             </div>
