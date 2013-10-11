@@ -9,7 +9,7 @@
 </ul>
 <div class="tab-content">
 <div class="tab-pane active" id="gs-projectguide">
-    <h4>Project Guide</h4> <!--The process below outlines a typical project process.-->
+    <h4>Project Guide</h4>
     <div class="guide-container">
         <div class="guide-row odd">
             <img src="../images/getstarted/gtstrtd_mbprj_1.png" />
@@ -36,12 +36,12 @@
                     <div class="span7">
                         <div class="guide-step">2</div>
                         <div>
-                            <b>Use Quickstart Wizard</b>
+                            <b>Use the Project Wizard</b>
                             <p>Choose from a list of sample services and provide your own APIs.</p>
                         </div>
                     </div>
                     <div class="span5">
-                        <a class="btn" href="/dev/#/project-wizard">Quickstart Wizard</a>
+                        <a class="btn" href="/dev/#/project-wizard">Project Wizard</a>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                     <div class="span7">
                         <div class="guide-step">3</div>
                         <div>
-                            <b>Run Magnet App Builder Tool</b>
+                            <b>Run Magnet Mobile App Builder Tool</b>
                             <p>Use the tool to create mobile and server project files.</p>
                         </div>
                     </div>
@@ -126,13 +126,36 @@
                 <div class="row-fluid">
                     <div class="span9">
                         <div class="guide-step">1</div>
-                        <div>
-                            <b>Start iOS Project</b>
-                            <p>
-                                <b>Option 1</b> Download the <a href="/resources/files/iOS-JumpStartApp.zip">Jumpstart App</a><br />
-                                <b>Option 2</b> Start your own app project and add the Magnet Mobile Framework yourself.
-                            </p>
+
+                        <div id="acc-ios-1" class="accordion">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-ios-1" href="#acc-ios-1-inner">
+                                        <b>Download the iOS Jumpstart App</b>
+                                        <i class="icon icon-chevron-down"></i>
+                                    </a>
+                                    <p>Get started by downloading the iOS Jumpstart App from GitHub.</p>
+                                </div>
+                                <div id="acc-ios-1-inner" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        <h5>Downloading the iOS Jumpstart App from GitHub.</h5>
+                                        <ol>
+                                            <li>Go to the <a href="https://github.com/magnetsystems/jumpstart-ios">
+                                                iOS Jumpstart App Github Project</a> page.</li>
+                                            <li>View the README file for instructions on how to build and run the app.</li>
+                                            <li>
+                                                <p>To test round-trip connectivity between the server and client, run the Jumpstart
+                                                App and login to app using the credentials below. The Jumpstart app is preconfigured
+                                                to connect with a Jumpstart server app hosted by Magnet on AWS.</p>
+                                                <b>Username:</b> snowman<br />
+                                                <b>Password:</b> jumper
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -146,9 +169,22 @@
                 <div class="row-fluid">
                     <div class="span9">
                         <div class="guide-step">2</div>
-                        <div>
-                            <b>Include Project Libraries</b>
-                            <p>Here is how to include your project libraries into your IDE using Command Line.</p>
+                        <div id="acc-ios-2" class="accordion">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-ios-2" href="#acc-ios-2-inner">
+                                        <b>Import Your API Library</b>
+                                        <i class="icon icon-chevron-down"></i>
+                                    </a>
+                                    <p>Learn how to import your custom Magnet API Libraries.</p>
+                                </div>
+                                <div id="acc-ios-2-inner" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        <h5>How to import your API library</h5>
+                                        Coming Soon.
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -165,7 +201,7 @@
                         <div class="guide-step">3</div>
                         <div>
                             <b>Build Your App</b>
-                            <p>Check the Hello World implementation on how to call a controller.</p>
+                            <p>Learn how to call an existing controller or add your own controllers.</p>
                         </div>
                     </div>
                 </div>
@@ -184,11 +220,12 @@
                     <div class="span9">
                         <div class="guide-step">1</div>
                         <div>
-                            <b>Use the Quick Start Wizard</b>
+                            <b>Use the Project Wizard</b>
                             <p>
                                 Choose from a list of sample services, provide your own APIs, and receive a Magnet
                                 App Project Profile (.mapp) that can be used to generate your mobile app project files.
                             </p>
+                            <a href="/dev/" class="btn">Go to Project Wizard</a>
                         </div>
                     </div>
                 </div>
@@ -203,10 +240,58 @@
                 <div class="row-fluid">
                     <div class="span9">
                         <div class="guide-step">2</div>
-                        <div>
-                            <b>Install and Run the Magnet App Builder Tool</b>
-                            <p>Using your Magnet App Project Profile (.mapp), the Magnet App Builder Tool creates the mobile
-                                and server project files to be used for development.</p>
+                        <div id="acc-server-2" class="accordion">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-server-2" href="#acc-server-2-inner">
+                                        <b>Install and Run the Magnet Mobile App Builder Tool</b>
+                                        <i class="icon icon-chevron-down"></i>
+                                    </a>
+                                    <p>Using your Magnet Mobile App Project Profile (.mapp), the Magnet Mobile App Builder Tool creates the mobile
+                                        and server project files to be used for development.</p>
+                                </div>
+                                <div id="acc-server-2-inner" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        <h5>Software required by the Mobile App Builder Tool:</h5>
+                                        <ol>
+                                            <li>Groovy 2.0 and above </li>
+                                            <li>Java 7</li>
+                                            <li>Maven 3.0.5 </li>
+                                            <li>MySQL Community Server 5.5.34 GA</li>
+                                        </ol>
+                                        <h5>How to install the  Mobile App Builder Tool:</h5>
+                                        <ol>
+                                            <li>Download the <a target="_blank" href="/resources/files/mab.zip">Magnet Mobile App Builder Tool</a>.</li>
+                                            <li>Unzip the archive to a directory of your choice. We recommend <b>$HOME/magnet</b>.</li>
+                                            <li>
+                                                For the Mobile App Builder Tool to be accessible from any directory, consider adding
+                                                <b>&lt;install-directory&gt;/mab/bin</b> to your PATH environment variable.
+                                            </li>
+                                        </ol>
+                                        <p>For detailed installation instructions, see the <a href="/docs/">Magnet Mobile App Builder Tool User Manual</a></p>
+
+                                        <h5>Basic commands to get you started with the Mobile App Builder Tool.</h5>
+                                        <div class="code-snippet">
+                                            <p>Run the Tool in non-interactive mode by invoking <b>mab</b> with a command as an argument. The command (and any of its options and arguments) will be executed.</p>
+                                            <pre>$ mab project-use myfirstproject</pre>
+                                            <p>Run the Tool in interactive mode, allowing commands to be entered at the prompt until you exit the Tool. The commands below assume that the Tool was run in interactive mode.</p>
+                                            <pre>$ mab</pre>
+                                            <p>Use the <b>help</b> command to see the list of commands currently supported and get information about a particular command.</p>
+                                            <pre>mab> help</pre>
+                                            <pre>mab> help login</pre>
+                                            <p>Login using your Developer Factory username and password to enable all the features of the Tool.</p>
+                                            <pre>mab> login -u newuser -p userpass</pre>
+                                            <p>Create a project using the Mobile App Project Profile you downloaded above.</p>
+                                            <pre>mab> project-create -o target/test -p src/test/resources/entities.magnet</pre>
+                                            <p>Build the project.</p>
+                                            <pre>mab> project-build</pre>
+                                            <p>Initialize the database.</p>
+                                            <pre>mab> db-initialize</pre>
+                                        </div>
+                                        <p>For more information, see the <a href="/docs/">Magnet Mobile App Builder Tool User Manual</a></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -223,7 +308,7 @@
                         <div class="guide-step">3</div>
                         <div>
                             <b>Build your Magnet Mobile App Server Runtime</b>
-                            <p>Using the project files created by the Magnet App Builder Tool, develop your Magnet Mobile App
+                            <p>Using the project files created by the Magnet Mobile App Builder Tool, develop your Magnet Mobile App
                                 Server Runtime.</p>
                         </div>
                     </div>
@@ -239,9 +324,56 @@
                 <div class="row-fluid">
                     <div class="span9">
                         <div class="guide-step">4</div>
-                        <div>
-                            <b>Run your Magnet Mobile App Server Runtime</b>
-                            <p>Deploy your Magnet Mobile App Server Runtime to your local environment or to the cloud.</p>
+                        <div id="acc-server-4" class="accordion">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-server-4" href="#acc-server-4-inner">
+                                        <b>Run your Magnet Mobile App Server Runtime</b>
+                                        <i class="icon icon-chevron-down"></i>
+                                    </a>
+                                    <p>Deploy your Magnet Mobile App Server Runtime to your local environment or to the cloud.</p>
+                                </div>
+                                <div id="acc-server-4-inner" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        <h5>Magnet Mobile App Builder Tool server commands</h5>
+                                        <p>The following commands assume that the project is built (using the <b>project-build</b> command).</p>
+                                        <div class="code-snippet">
+                                            <p>Distributes the app bits to the current cloud instance. For cloud deployment, the cloud instance must
+                                            have first been created (using the <b>cloud-create</b> command).</p>
+                                            <pre>mab> server-deploy</pre>
+                                            <p>Start the server locally or in the current cloud instance.</p>
+                                            <pre>mab> server-start</pre>
+                                            <p>Displays a &quot;tail&quot; of the server log running locally or in the current cloud instance.</p>
+                                            <pre>mab> server-log</pre>
+                                            <p>Stop the server that is running locally or in the current cloud instance.</p>
+                                            <pre>mab> server-stop</pre>
+                                            <p>Specify whether to use the local our cloud server associated with the current project. If an argument
+                                            is not specified, it will display the current server target environment.</p>
+                                            <pre>mab> server-use</pre>
+                                        </div>
+                                        <h5>Provision and deploy a cloud server on AWS</h5>
+                                        <div class="code-snippet">
+                                            <p>1. Establish the credentials for connecting to the developer's cloud account and verify that they function properly.</p>
+                                            <pre>mab> cloud-login -a "AKIAIO2JM4EVCJUGXNBQ" -s "vLt+/fZpvxLO5aO3AqSPglFfomcNkAAanMZjQwQq"</pre>
+                                            <p>2. Create (provisions) a cloud instance</p>
+                                            <pre>mab> cloud-create</pre>
+                                            <p>3. List available cloud instances.</p>
+                                            <pre>mab> cloud-list</pre>
+                                            <p>4. Add a cloud module to the current cloud instance.</p>
+                                            <pre>mab> cloud-config</pre>
+                                            <p>5. Change the context to the specified cloud instance.</p>
+                                            <pre>mab> server-use cloud</pre>
+                                            <p>6. Distributes the app bits to the current cloud instance.</p>
+                                            <pre>mab> server-deploy</pre>
+                                            <p>7. Initialize the database.</p>
+                                            <pre>mab> db-initialize aws</pre>
+                                            <p>8. Start the server in the current cloud instance.</p>
+                                            <pre>mab> server-start</pre>
+                                        </div>
+                                        <p>For more information, see the <a href="/docs/">Magnet Mobile App Builder Tool User Manual</a></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -276,12 +408,33 @@
                 <div class="row-fluid">
                     <div class="span9">
                         <div class="guide-step">1</div>
-                        <div>
-                            <b>Start Android Project</b>
-                            <p>
-                                <b>Option 1</b> Download the <a href="#">Jumpstart App</a><br />
-                                <b>Option 2</b> Start your own app project and include the Magnet Mobile Server Library.
-                            </p>
+                        <div id="acc-android-1" class="accordion">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-android-1" href="#acc-android-1-inner">
+                                        <b>Start Android Jumpstart App</b>
+                                        <i class="icon icon-chevron-down"></i>
+                                    </a>
+                                    <p>Get started by downloading the Android Jumpstart App from GitHub.</p>
+                                </div>
+                                <div id="acc-android-1-inner" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        <h5>Downloading the Android Jumpstart App from GitHub.</h5>
+                                        <ol>
+                                            <li>Go to the <a target="_blank" href="https://github.com/magnetsystems/jumpstart-android">
+                                                Android Jumpstart App GitHub Project</a> page.</li>
+                                            <li>View the README file for instructions on how to build and run the app.</li>
+                                            <li>
+                                                <p>To test round-trip connectivity between the server and client, run the Jumpstart
+                                                    App and login to app using the credentials below. The Jumpstart app is preconfigured
+                                                    to connect with a Jumpstart server app hosted by Magnet on AWS.</p>
+                                                <b>Username:</b> snowman<br />
+                                                <b>Password:</b> jumper
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -296,9 +449,31 @@
                 <div class="row-fluid">
                     <div class="span9">
                         <div class="guide-step">2</div>
-                        <div>
-                            <b>Include Mobile Project Library</b>
-                            <p>Include your Mobile Project Library into your app project using Command Line.</p>
+                        <div id="acc-android-2" class="accordion">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-android-2" href="#acc-android-2-inner">
+                                        <b>Import Your API Library</b>
+                                        <i class="icon icon-chevron-down"></i>
+                                    </a>
+                                    <p>Learn how to import your custom Magnet API Libraries.</p>
+                                </div>
+                                <div id="acc-android-2-inner" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        <h5>How to import your API library</h5>
+                                        <ol>
+                                            <li>Copy custom Magnet controller api library jar files to &quot;./libs&quot; directory. This is
+                                                typically generated from a local server build provided by your server team.
+                                            </li>
+                                            <li> Regenerate Magnet platform service mapping library using shell script, &quot;install-lib.sh&quot;:<br />
+                                                <pre>sh ./sdk-submodule/magnet-sdk-android-2.1.0/magnet-tools/install-lib.sh ./sdk-submodule/magnet-sdk-android-2.1.0 /libs</pre>
+                                            </li>
+                                        </ol>
+                                        <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original &quot;./libs&quot;
+                                        directory before introducing a new api library jar to &quot;libs&quot; directory.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -315,7 +490,7 @@
                         <div class="guide-step">3</div>
                         <div>
                             <b>Build Your App</b>
-                            <p>Check the Jumpstart app and learn how to call an existing controller or add your own controllers.</p>
+                            <p>Learn how to call an existing controller or add your own controllers.</p>
                         </div>
                     </div>
                 </div>

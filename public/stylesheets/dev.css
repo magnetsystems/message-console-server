@@ -129,10 +129,15 @@ h1{margin-top:40px}
 
 .carousel-inner{background-color:#333}
 .carousel .item{text-align:center}
-.carousel .item > img{max-height:230px}
-.carousel-caption{text-align:left}
+.carousel .item > .img-container{float:left;width:46%}
+.carousel .item > .img-container img{height:300px}
+.carousel-caption{margin-top:74px;position:relative;padding:10px 0 0 0;float:left;width:54%;text-align:left}
+.carousel-caption h4{margin:16px 0 8px 0 !important}
+.carousel-caption a, .carousel-caption h4, .carousel-caption{color:#fff !important}
+.carousel-caption a{text-decoration:underline}
+.carousel-caption p{margin:18px 0}
 .carousel-indicators{list-style:none;margin:0;position:absolute;right:15px;top:15px;z-index:5}
-.carousel-caption{background:none repeat scroll 0 0 rgba(0, 0, 0, 0.57)}
+.carousel-caption{background:none}
 .carousel-indicators li{background-color:rgba(255, 255, 255, 0.25);border-radius:5px;display:block;float:left;height:10px;margin-left:5px;text-indent:-999px;width:10px}
 .carousel-indicators .active{background-color:#FFF}
 .carousel .active{left:0}
@@ -351,7 +356,7 @@ iframe .WordSection1{width:506px}
 #get-started .page-view{margin:0 auto 25px auto;width:92%;padding:0 25px 0 25px;min-height:600px;padding-bottom:20px}
 #get-started .row-fluid{overflow:hidden}
 #get-started .tab-content{padding-bottom:25px;background:url('../images/getstarted/divider.png') no-repeat scroll 0 82px transparent}
-#get-started .tab-pane{min-height:560px;margin-left:20px}
+#get-started .tab-pane{min-height:560px;margin-left:36px;overflow:hidden}
 #get-started .nav-tabs{position:absolute;top:76px;left:25px;width:200px;border:none}
 #get-started .nav-tabs li a{outline:none;padding:0;margin:0;width:200px;height:127px;border:none;border-radius:0;text-align:center;font-size:18px;line-height:205px}
 #gs-projectguide-tab a{background:url(../images/getstarted/gtstrtd_nav_1.png) no-repeat 0 0}
@@ -364,16 +369,22 @@ iframe .WordSection1{width:506px}
 #gs-android-tab.active a{background:url(../images/getstarted/gtstrtd_nav_4_sel.png) no-repeat 0 0}
 #get-started .tab-content{margin-left:200px;overflow:visible}
 .guide-divider img{margin-bottom:3px;margin-left:68px}
-.guide-row{position:relative;height:117px}
+.guide-row{position:relative}
 .guide-row.odd{background:url(../images/getstarted/wizstart_bg_grad.png) repeat-y 0 0;background-color:#eee}
 .guide-row img{position:absolute;top:0;left:0}
-.guide-content{padding-top:25px}
+.guide-content{padding:25px 0 10px}
 .guide-content .row-fluid{margin-left:120px}
 .guide-content .span7{margin-top:7px}
-.guide-step{float:left;font-size:42px;color:#bbb;margin:10px 20px 0 31px;height:70px}
+.guide-step{float:left;font-size:42px;color:#bbb;margin:10px 20px 0 31px;height:82px}
 .guide-content span5{position:absolute;top:0;right:0}
 .guide-content .btn{margin-top:16px;width:42%}
 .guide-content .btn.dbl{margin-top:0;margin-bottom:4px}
+.guide-content .accordion-toggle{color:#333;padding:0 15px}
+.guide-content .accordion-group{border:none}
+.guide-content .accordion-heading p{margin:0}
+.guide-content .accordion-body{margin-top:8px}
+.guide-content .accordion-inner h5{font-weight:bold;margin:20px 0 20px 0}
+.guide-content .icon{float:right}
 
 /********************************** project assets **********************************/
 
@@ -550,7 +561,7 @@ a.main-btn{margin-left:20px}
 
 .code-snippet{text-align:left;margin:15px 0}
 .code-snippet p{margin:21px 0}
-pre{color:#eee;background:#333;fonts-size:12px;padding:7px 0 7px 13px;box-shadow:2px 2px 2px #888}
+pre{margin:11px 0;color:#eee;background:#333;fonts-size:12px;padding:7px 0 7px 13px;box-shadow:2px 2px 2px #888}
 
 
 
