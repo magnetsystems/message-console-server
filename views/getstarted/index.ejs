@@ -453,24 +453,27 @@
                             <div class="accordion-group">
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-android-2" href="#acc-android-2-inner">
-                                        <b>Import Your API Library</b>
+                                        <b>Import The Magnet Android SDK</b>
                                         <i class="icon icon-chevron-down"></i>
                                     </a>
-                                    <p>Learn how to import your custom Magnet API Libraries.</p>
+                                    <p>The Magnet Android SDK is a framework that provides various Magnet Platform capabilities.</p>
                                 </div>
                                 <div id="acc-android-2-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
-                                        <h5>How to import your API library</h5>
+                                        <h5>How to import the Magnet Android SDK</h5>
                                         <ol>
-                                            <li>Copy custom Magnet controller api library jar files to &quot;./libs&quot; directory. This is
-                                                typically generated from a local server build provided by your server team.
-                                            </li>
-                                            <li> Regenerate Magnet platform service mapping library using shell script, &quot;install-lib.sh&quot;:<br />
-                                                <pre>sh ./sdk-submodule/magnet-sdk-android-2.1.0/magnet-tools/install-lib.sh ./sdk-submodule/magnet-sdk-android-2.1.0 /libs</pre>
-                                            </li>
+                                            <li>
+                                                Import the Magnet Android SDK as an <b>Android Library</b> project: Create a new <b>Android Project</b> as follows:<br />
+                                                <b>File-&gt;New Project-&gt;Android-&gt;Android Project from Existing Code</b></li>
+                                            <li>Browse to <b>sdk-submodule</b> project directory and select it as the <b>Root Directory</b>.</li>
+                                            <li>A new Android project will now be created with the name <b>magnet-sdk-android-</b>.</li>
+                                            <li>Select the Android library project and right click, select Properties, under <b>Android</b>, <b>is library</b> should be checked.</li>
+                                            <li>From the main Android application project, add the library project under <b>Project Properties-&gt;Android</b>, Add the library</li>
+                                            <li>Build your main Android application project using Eclipse.</li>
+
                                         </ol>
-                                        <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original &quot;./libs&quot;
-                                        directory before introducing a new api library jar to &quot;libs&quot; directory.</p>
+                                        <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original <b>./libs</b>
+                                        directory before introducing a new api library jar to <b>libs</b> directory.</p>
                                     </div>
                                 </div>
                             </div>
@@ -488,9 +491,31 @@
                 <div class="row-fluid">
                     <div class="span9">
                         <div class="guide-step">3</div>
-                        <div>
-                            <b>Build Your App</b>
-                            <p>Learn how to call an existing controller or add your own controllers.</p>
+                        <div id="acc-android-3" class="accordion">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-android-3" href="#acc-android-3-inner">
+                                        <b>Build Your App</b>
+                                        <i class="icon icon-chevron-down"></i>
+                                    </a>
+                                    <p>Learn how to call an existing controller or add your own controllers.</p>
+                                </div>
+                                <div id="acc-android-3-inner" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        <h5>Add custom Magnet controller API jars</h5>
+                                        <ol>
+                                            <li>Copy custom Magnet controller api library jar files to &quot;./libs&quot; directory. This is
+                                                typically generated from a local server build provided by your server team.
+                                            </li>
+                                            <li> Regenerate Magnet platform service mapping library using shell script, &quot;install-lib.sh&quot;:<br />
+                                                <pre>sh ./sdk-submodule/magnet-sdk-android-2.1.0/magnet-tools/install-lib.sh ./sdk-submodule/magnet-sdk-android-2.1.0 /libs</pre>
+                                            </li>
+                                        </ol>
+                                        <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original &quot;./libs&quot;
+                                            directory before introducing a new api library jar to &quot;libs&quot; directory.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
