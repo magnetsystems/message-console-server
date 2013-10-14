@@ -272,12 +272,6 @@
                                             <pre>mab> help</pre>
                                             <p>Login using your Developer Factory username and password to enable all the features of the Tool.</p>
                                             <pre>mab> login -u newuser -p userpass</pre>
-                                            <p>Create a project using the Mobile App Project Profile you downloaded above.</p>
-                                            <pre>mab> project-create -o target/test -p src/test/resources/entities.magnet</pre>
-                                            <p>Build the project.</p>
-                                            <pre>mab> project-build</pre>
-                                            <p>Initialize the database.</p>
-                                            <pre>mab> db-initialize</pre>
                                         </div>
                                         <p>For more information, see the <a href="/docs/">Magnet Mobile App Builder Tool User Manual</a></p>
                                     </div>
@@ -297,10 +291,35 @@
                 <div class="row-fluid">
                     <div class="span9">
                         <div class="guide-step">3</div>
-                        <div>
-                            <b>Build your Magnet Mobile App Server Runtime</b>
-                            <p>Using the project files created by the Magnet Mobile App Builder Tool, develop your Magnet Mobile App
-                                Server Runtime.</p>
+                        <div id="acc-server-3" class="accordion">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-server-3" href="#acc-server-3-inner">
+                                        <b>Create and Build Your Mobile App Project</b>
+                                        <i class="icon icon-chevron-down"></i>
+                                    </a>
+                                    <p>Create and build your Mobile App Project using the Mobile App Project Profile you generated using the Project Wizard.</p>
+                                </div>
+                                <div id="acc-server-3-inner" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        <h5>Create and build a project</h5>
+                                        <div class="code-snippet">
+                                            <p>Create a Mobile App Project using a Mobile App Project Profile into your desired directory.</p>
+                                            <pre>mab> project-create -o Documents/dev/projects -p Documents/Dev/projects/new-project1.zip</pre>
+                                            <p>Build the server and Java APIs associated with the current project.</p>
+                                            <pre>mab> project-build</pre>
+                                        </div>
+                                        <h5>Initialize the database and set up a user</h5>
+                                        <div class="code-snippet">
+                                            <p>Create the MySQL system database used by your mobile app. If you enabled the app database in the Project Wizard, the app database will also be created.</p>
+                                            <pre>mab> db-initialize</pre>
+                                            <p>Optionally create a user in the system database for user authentication by specifying the username and password of the user.</p>
+                                            <pre>mab> user-create newuser newpass</pre>
+                                        </div>
+                                        <p>For more information, see the <a href="/docs/">Magnet Mobile App Builder Tool User Manual</a></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -322,46 +341,23 @@
                                         <b>Run your Magnet Mobile App Server Runtime</b>
                                         <i class="icon icon-chevron-down"></i>
                                     </a>
-                                    <p>Deploy your Magnet Mobile App Server Runtime to your local environment or to the cloud.</p>
+                                    <p>Deploy your Magnet Mobile App Server Runtime to your local environment.</p>
                                 </div>
                                 <div id="acc-server-4-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
-                                        <h5>Magnet Mobile App Builder Tool server commands</h5>
-                                        <p>The following commands assume that the project is built (using the <b>project-build</b> command).</p>
+                                        <h5>Deploy the Magnet Mobile App Server Runtime</h5>
+                                        <p>The following commands assume that the project has already been built (using the <b>project-build</b> command).</p>
                                         <div class="code-snippet">
-                                            <p>Distributes the app bits to the current cloud instance. For cloud deployment, the cloud instance must
-                                            have first been created (using the <b>cloud-create</b> command).</p>
-                                            <pre>mab> server-deploy</pre>
-                                            <p>Start the server locally or in the current cloud instance.</p>
+                                            <p>Start the Mobile App Server Runtime locally.</p>
                                             <pre>mab> server-start</pre>
-                                            <p>Displays a &quot;tail&quot; of the server log running locally or in the current cloud instance.</p>
-                                            <pre>mab> server-log</pre>
-                                            <p>Stop the server that is running locally or in the current cloud instance.</p>
+                                            <p>To verify that the server is running and to view a list of controllers, open the following url in your browser.</p>
+                                            <pre>http://localhost:8080/</pre>
+                                            <p>View a list of running Mobile App Server Runtimes.</p>
+                                            <pre>mab> server-list</pre>
+                                            <p>Stop the Mobile App Server Runtime.</p>
                                             <pre>mab> server-stop</pre>
-                                            <p>Specify whether to use the local our cloud server associated with the current project. If an argument
-                                            is not specified, it will display the current server target environment.</p>
-                                            <pre>mab> server-use</pre>
                                         </div>
-                                        <h5>Provision and deploy a cloud server on AWS</h5>
-                                        <div class="code-snippet">
-                                            <p>1. Establish the credentials for connecting to the developer's cloud account and verify that they function properly.</p>
-                                            <pre>mab> cloud-login -a "AKIAIO2JM4EVCJUGXNBQ" -s "vLt+/fZpvxLO5aO3AqSPglFfomcNkAAanMZjQwQq"</pre>
-                                            <p>2. Create (provisions) a cloud instance</p>
-                                            <pre>mab> cloud-create</pre>
-                                            <p>3. List available cloud instances.</p>
-                                            <pre>mab> cloud-list</pre>
-                                            <p>4. Add a cloud module to the current cloud instance.</p>
-                                            <pre>mab> cloud-config</pre>
-                                            <p>5. Change the context to the specified cloud instance.</p>
-                                            <pre>mab> server-use cloud</pre>
-                                            <p>6. Distributes the app bits to the current cloud instance.</p>
-                                            <pre>mab> server-deploy</pre>
-                                            <p>7. Initialize the database.</p>
-                                            <pre>mab> db-initialize aws</pre>
-                                            <p>8. Start the server in the current cloud instance.</p>
-                                            <pre>mab> server-start</pre>
-                                        </div>
-                                        <p>For more information, see the <a href="/docs/">Magnet Mobile App Builder Tool User Manual</a></p>
+                                        <p>For more information including how to deploy to an AWS cloud instance, see the <a href="/docs/">Magnet Mobile App Builder Tool User Manual</a></p>
                                     </div>
                                 </div>
                             </div>
