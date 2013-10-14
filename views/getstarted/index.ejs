@@ -4,12 +4,13 @@
     <li class="first">
         <h4 class="page-h4">Get Started</h4>
     </li>
-    <li id="gs-projectguide-tab" class="active"><a href="#gs-projectguide">Project Guide</a></li>
-    <li id="gs-android-tab"><a href="#gs-android">Android Developer</a></li>
+    <!-- <li id="gs-projectguide-tab" class="active"><a href="#gs-projectguide">Project Guide</a></li> -->
+    <li id="gs-android-tab" class="active"><a href="#gs-android">Android Developer</a></li>
     <li id="gs-ios-tab"><a href="#gs-ios">iOS Developer</a></li>
     <li id="gs-server-tab"><a href="#gs-server">Server Developer</a></li>
 </ul>
 <div class="tab-content">
+<!--
 <div class="tab-pane active" id="gs-projectguide">
     <h5>Project Guide <span>The guide below outlines the typical development process.</span></h5>
     <div class="guide-container">
@@ -118,7 +119,8 @@
         </div>
     </div>
 </div>
-<div class="tab-pane" id="gs-ios">
+-->
+<div class="tab-pane"  id="gs-ios">
     <h5>iOS Developer <span>The topics below will help the iOS Developer get started.</span></h5>
     <div class="guide-container">
         <div class="guide-row odd">
@@ -126,13 +128,11 @@
             <div class="guide-content">
                 <div class="row-fluid">
                     <div class="span9">
-                        <div class="guide-step">1</div>
-
                         <div id="acc-ios-1" class="accordion">
                             <div class="accordion-group">
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-ios-1" href="#acc-ios-1-inner">
-                                        <b>OPTION 1: Use iOS Jumpstart App as a Template</b>
+                                        <b>Start With Magnet Jumpstart App</b>
                                         <i class="icon icon-chevron-down"></i>
                                     </a>
                                     <p>Get started quickly and use the Jumpstart App as a template for your development
@@ -158,6 +158,8 @@
                                                 <b>Password:</b> jumper
                                             </li>
                                         </ol>
+                                        <h5>Build Your App</h5>
+                                        <p>Coming Soon</p>
                                     </div>
                                 </div>
                             </div>
@@ -167,49 +169,32 @@
                 </div>
             </div>
         </div>
-        <div class="guide-divider">
-            <img src="../images/getstarted/gtsrtd_act_dots.png" />
-        </div>
+        <div class="guide-divider-empty"></div>
         <div class="guide-row odd">
             <img src="../images/getstarted/gtstrtd_act_xcode.png" />
             <div class="guide-content">
                 <div class="row-fluid">
                     <div class="span9">
-                        <div class="guide-step">1</div>
                         <div id="acc-ios-2" class="accordion">
                             <div class="accordion-group">
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-ios-2" href="#acc-ios-2-inner">
-                                        <b>OPTION 2: Import The Magnet iOS SDK</b>
+                                        <b>Start With my Own App</b>
                                         <i class="icon icon-chevron-down"></i>
                                     </a>
                                     <p>The Magnet iOS SDK provides various Magnet features. Learn how
-                                        to import the Magnet iOS SDK into your own iOS app.</p>
+                                        to import the Magnet iOS SDK into your own Android app to leverage
+                                        Magnet Mobile Server features.</p>
                                 </div>
                                 <div id="acc-ios-2-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
                                         <h5>Importing the Magnet iOS SDK into your own iOS app</h5>
                                         Coming Soon.
+                                        <h5>Build Your App</h5>
+                                        <p>Coming Soon</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="guide-divider">
-            <img src="../images/getstarted/gtsrtd_act_dots.png" />
-        </div>
-        <div class="guide-row odd">
-            <img src="../images/getstarted/gtstrtd_act_hellow.png" />
-            <div class="guide-content">
-                <div class="row-fluid">
-                    <div class="span9">
-                        <div class="guide-step">2</div>
-                        <div>
-                            <b>Build Your App</b>
-                            <p>Learn how to call an existing controller or add your own controllers.</p>
                         </div>
                     </div>
                 </div>
@@ -264,7 +249,7 @@
                                             <li>Groovy 2.0 and above </li>
                                             <li>Java 7</li>
                                             <li>Maven 3.0.5 </li>
-                                            <li>MySQL Community Server 5.5.34 GA</li>
+                                            <li>MySQL Community Server 5.5 GA</li>
                                         </ol>
                                         <h5>How to install the  Mobile App Builder Tool:</h5>
                                         <ol>
@@ -285,7 +270,6 @@
                                             <pre>$ mab</pre>
                                             <p>Use the <b>help</b> command to see the list of commands currently supported and get information about a particular command.</p>
                                             <pre>mab> help</pre>
-                                            <pre>mab> help login</pre>
                                             <p>Login using your Developer Factory username and password to enable all the features of the Tool.</p>
                                             <pre>mab> login -u newuser -p userpass</pre>
                                             <p>Create a project using the Mobile App Project Profile you downloaded above.</p>
@@ -405,7 +389,7 @@
         </div>
     </div>
 </div>
-<div class="tab-pane" id="gs-android">
+<div class="tab-pane active" id="gs-android">
     <h5>Android Developer <span>The topics below will help the Android Developer get started.</span></h5>
     <div class="guide-container">
         <div class="guide-row odd">
@@ -413,12 +397,11 @@
             <div class="guide-content">
                 <div class="row-fluid">
                     <div class="span9">
-                        <div class="guide-step">1</div>
                         <div id="acc-android-1" class="accordion">
                             <div class="accordion-group">
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-android-1" href="#acc-android-1-inner">
-                                        <b>OPTION 1: Use Android Jumpstart App as a Template</b>
+                                        <b>Start With Magnet Jumpstart App</b>
                                         <i class="icon icon-chevron-down"></i>
                                     </a>
                                     <p>Get started quickly and use the Jumpstart App as a template for your development
@@ -444,6 +427,18 @@
                                                 <b>Password:</b> jumper
                                             </li>
                                         </ol>
+                                        <h5>Add custom Magnet API libraries</h5>
+                                        <ol>
+                                            <li>Copy custom Magnet API libraries to &quot;./libs&quot; directory. This is
+                                                typically generated from a local server build provided by your server team.
+                                            </li>
+                                            <li> Regenerate Magnet platform service mapping library using shell script, &quot;install-lib.sh&quot;:<br />
+                                                <pre>sh ./sdk-submodule/magnet-sdk-android-2.1.0-SNAPSHOT/magnet-tools/install-lib.sh ./sdk-submodule/magnet-sdk-android-2.1.0-SNAPSHOT &lt;project-dir&gt;/libs</pre>
+                                            </li>
+                                        </ol>
+                                        <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original &quot;./libs&quot;
+                                            directory before introducing a new API library to &quot;libs&quot; directory.</p>
+
                                         <p>For more information, visit the <a target="_blank" href="https://github.com/magnetsystems/jumpstart-android">
                                             Android Jumpstart App GitHub Project</a>.</p>
                                     </div>
@@ -454,24 +449,22 @@
                 </div>
             </div>
         </div>
-        <div class="guide-divider">
-            <img src="../images/getstarted/gtsrtd_act_dots.png" />
-        </div>
+        <div class="guide-divider-empty"></div>
         <div class="guide-row odd">
             <img src="../images/getstarted/gtstrtd_act_eclps.png" />
             <div class="guide-content">
                 <div class="row-fluid">
                     <div class="span9">
-                        <div class="guide-step">1</div>
                         <div id="acc-android-2" class="accordion">
                             <div class="accordion-group">
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-android-2" href="#acc-android-2-inner">
-                                        <b>OPTION 2: Import The Magnet Android SDK</b>
+                                        <b>Start With my Own App</b>
                                         <i class="icon icon-chevron-down"></i>
                                     </a>
                                     <p>The Magnet Android SDK provides various Magnet features. Learn how
-                                    to import the Magnet Android SDK into your own Android app.</p>
+                                    to import the Magnet Android SDK into your own Android app to leverage
+                                    Magnet Mobile Server features.</p>
                                 </div>
                                 <div id="acc-android-2-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
@@ -493,34 +486,7 @@
                                                 <pre>$ git submodule update --remote</pre>
                                             </li>
                                         </ol>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="guide-divider">
-            <img src="../images/getstarted/gtsrtd_act_dots.png" />
-        </div>
-        <div class="guide-row odd">
-            <img src="../images/getstarted/gtstrtd_act_hellow.png" />
-            <div class="guide-content">
-                <div class="row-fluid">
-                    <div class="span9">
-                        <div class="guide-step">2</div>
-                        <div id="acc-android-3" class="accordion">
-                            <div class="accordion-group">
-                                <div class="accordion-heading">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-android-3" href="#acc-android-3-inner">
-                                        <b>Build Your App</b>
-                                        <i class="icon icon-chevron-down"></i>
-                                    </a>
-                                    <p>Learn how to call an existing controller or add your own controllers.</p>
-                                </div>
-                                <div id="acc-android-3-inner" class="accordion-body collapse">
-                                    <div class="accordion-inner">
+
                                         <h5>Add custom Magnet API libraries</h5>
                                         <ol>
                                             <li>Copy custom Magnet API libraries to &quot;./libs&quot; directory. This is

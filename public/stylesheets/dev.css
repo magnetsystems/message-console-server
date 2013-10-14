@@ -23,6 +23,8 @@ body{min-width:980px;width:100%;margin:0;padding:0;border:0;background:url(../im
 .title_container .dropdown-menu li{padding:2px 0;background:#983C3C}
 .title_container .dropdown-menu li:hover{background:#C15454}
 
+.dropdown .dropdown-menu li.active a, .dropdown .dropdown-menu li:hover a{background:#C15454}
+
 #menu-samples a{background:url('../images/resources/menu.png') no-repeat 10px -56px #983C3C}
 #menu-samples a:hover, #menu-samples.active a{background:url('../images/resources/menu.png') no-repeat 10px -84px #C15454}
 #menu-tutorials a{background:url('../images/resources/menu.png') no-repeat 10px -112px #983C3C}
@@ -35,7 +37,7 @@ body{min-width:980px;width:100%;margin:0;padding:0;border:0;background:url(../im
 
 .title_container .dropdown-menu{font-size:15px;margin:0;border-radius:0;background:none;padding:0;border-top:solid 1px #722828;border-left:solid 1px #722828;border-right:solid 1px #722828}
 .title_container .dropdown-menu li{border-radius:none;border-bottom:solid 1px #722828}
-.title_container .dropdown-menu li a{text-indent:60px;color:#FFA9A9;padding:4px 9px 4px 12px}
+.title_container .dropdown-menu li a{color:#FFA9A9;padding:4px 9px}
 .title_container .dropdown-menu li.active a, .title_container .dropdown-menu li a:hover{color:#FFF}
 
 .title_container_mobile{width:100%;background:url(../images/header_bgk.png) repeat-x 0 0;height:43px}
@@ -333,7 +335,7 @@ iframe .WordSection1{width:506px}
 #resources .col50 ul li{margin-left:50px;text-align:left}
 #resources .col50 .margins{margin:8px 3%}
 #documentation .page-view{padding-bottom:32px}
-.docs-container{clear:both;border-top:solid 2px #ddd}
+.docs-container{clear:both;border-top:solid 2px #ddd;width:650px}
 .docs-container .section{height:40px}
 .docs-img{padding:8px 0;float:left;width:20%;text-align:center;margin-right:-1px}
 .docs-img img{padding:8px 0}
@@ -362,16 +364,17 @@ iframe .WordSection1{width:506px}
 #get-started .nav-tabs{background-color:#e8eced;height:100%;position:absolute;top:0;left:0;border-radius:12px 0 0 12px;width:200px;border:none}
 #get-started .nav-tabs li.first{text-align:center;height:85px;display:block;width:100%}
 #get-started .nav-tabs li a{outline:none;padding:0;margin:0;width:200px;height:127px;border:none;border-radius:0;text-align:center;font-size:18px;line-height:205px}
-#gs-projectguide-tab a{background:url(../images/getstarted/gtstrtd_nav_1.png) no-repeat 0 0}
-#gs-ios-tab a{background:url(../images/getstarted/gtstrtd_nav_2.png) no-repeat 0 0}
-#gs-server-tab a{background:url(../images/getstarted/gtstrtd_nav_3.png) no-repeat 0 0}
-#gs-android-tab a{background:url(../images/getstarted/gtstrtd_nav_4.png) no-repeat 0 0}
-#gs-projectguide-tab.active a{background:url(../images/getstarted/gtstrtd_nav_1_sel.png) no-repeat 0 0}
-#gs-ios-tab.active a{background:url(../images/getstarted/gtstrtd_nav_2_sel.png) no-repeat 0 0}
-#gs-server-tab.active a{background:url(../images/getstarted/gtstrtd_nav_3_sel.png) no-repeat 0 0}
-#gs-android-tab.active a{background:url(../images/getstarted/gtstrtd_nav_4_sel.png) no-repeat 0 0}
+#gs-projectguide-tab a{background:url(../images/getstarted/gtstrtd_nav_1.png) no-repeat -11px 0}
+#gs-ios-tab a{background:url(../images/getstarted/gtstrtd_nav_2.png) no-repeat -11px 0}
+#gs-server-tab a{background:url(../images/getstarted/gtstrtd_nav_3.png) no-repeat -11px 0}
+#gs-android-tab a{background:url(../images/getstarted/gtstrtd_nav_4.png) no-repeat -11px 0}
+#gs-projectguide-tab.active a{background-color:#d8e2e6}
+#gs-ios-tab.active a{background-color:#d8e2e6}
+#gs-server-tab.active a{background-color:#d8e2e6}
+#gs-android-tab.active a{background-color:#d8e2e6}
 #get-started .tab-content{margin-left:200px;overflow:visible}
 .guide-divider img{margin-bottom:3px;margin-left:68px}
+.guide-divider-empty{height:20px}
 .guide-row{position:relative}
 .guide-row.odd{background:url(../images/getstarted/wizstart_bg_grad.png) repeat-y 0 0;background-color:#eee}
 .guide-row img{position:absolute;top:0;left:0}
@@ -384,7 +387,7 @@ iframe .WordSection1{width:506px}
 .guide-content .btn.dbl{margin-top:0;margin-bottom:4px}
 .guide-content .accordion-toggle{color:#333;padding:0 15px}
 .guide-content .accordion-group{border:none}
-.guide-content .accordion-heading p{margin:0}
+.guide-content .accordion-heading p{margin:0 15px}
 .guide-content .accordion-body{margin-top:8px}
 .guide-content .accordion-inner h5{font-weight:bold;margin:20px 0 20px 0}
 .guide-content .icon{float:right}
