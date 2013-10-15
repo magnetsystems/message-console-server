@@ -111,38 +111,19 @@ h1{margin-top:40px}
 
 /* home */
 
-#homebanner{padding:0;margin:0 auto}
+#home-main{padding:0;margin:0 auto}
+#home-banner{width:90%;margin:40px auto}
+#home-banner img{margin-top:10px}
 .home-custom-list{list-style-image:url('../images/home/bullet.png')}
 .home-custom-list li{;margin-bottom:15px}
-#home-panels{margin:10px auto 0}
+#home-panels{background:url(../images/home/hm_divider.png) no-repeat center top;background-size:100%;margin:10px auto 0}
 #home-panels .span4{position:relative}
 #home-panels{padding-bottom:10px}
-.panel-margins{padding:14px;min-height:220px;width:83%;margin:0 auto}
+.panel-margins{padding:14px;width:83%;margin:0 auto;text-align:center}
 .panel-margins h4{font-size:17px !important;font-weight:bold;margin-top:20px !important;color:#000 !important}
-.panel-margins img{width:30%;max-width:100px}
-.panel-margins h4, .panel-margins img{float:left;margin-right:15px}
-.panel-margins .btn{margin-bottom:6px}
-.panel-margins .centered{position:absolute;bottom:20px;left:0;width:100%}
-.panel-margins .lalign{margin-left:-10px}
-#home-panels .span4{position:relative}
-#home-carousel{margin-top:24px}
-.vdivider{position:absolute;top:0;right:0;width:2px;height:100%;color:#ddd;background:#ddd}
-.divider-bgk{background:url('../images/home/hm_divider.png') no-repeat right bottom}
-
-.carousel-inner{background-color:#333}
-.carousel .item{text-align:center}
-.carousel .item > .img-container{float:left;width:46%}
-.carousel .item > .img-container img{height:300px}
-.carousel-caption{margin-top:74px;position:relative;padding:10px 0 0 0;float:left;width:54%;text-align:left}
-.carousel-caption h4{margin:16px 0 8px 0 !important}
-.carousel-caption a, .carousel-caption h4, .carousel-caption{color:#fff !important}
-.carousel-caption a{text-decoration:underline}
-.carousel-caption p{margin:18px 0}
-.carousel-indicators{list-style:none;margin:0;position:absolute;right:15px;top:15px;z-index:5}
-.carousel-caption{background:none}
-.carousel-indicators li{background-color:rgba(255, 255, 255, 0.25);border-radius:5px;display:block;float:left;height:10px;margin-left:5px;text-indent:-999px;width:10px}
-.carousel-indicators .active{background-color:#FFF}
-.carousel .active{left:0}
+.panel-margins .btn{margin:12px 0 6px;width:40%}
+#home-panels .span6{position:relative}
+.vdivider{position:absolute;top:30px;right:0;width:2px;height:80%;color:ccc;background:#ccc}
 
 #dev-container .page-view{margin:0 auto 25px;width:85%}
 #dev-container p.subhead{margin:26px 0 25px}
