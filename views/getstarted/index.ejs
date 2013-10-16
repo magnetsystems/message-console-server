@@ -10,116 +10,6 @@
     <li id="gs-server-tab"><a href="#gs-server">Server Developer</a></li>
 </ul>
 <div class="tab-content">
-<!--
-<div class="tab-pane active" id="gs-projectguide">
-    <h5>Project Guide <span>The guide below outlines the typical development process.</span></h5>
-    <div class="guide-container">
-        <div class="guide-row odd">
-            <img src="../images/getstarted/gtstrtd_mbprj_1.png" />
-            <div class="guide-content">
-                <div class="row-fluid">
-                    <div class="span7">
-                        <div class="guide-step">1</div>
-                        <div>
-                            <b>Get Mobile Project</b>
-                            <p>Get started with a project template for your mobile app.</p>
-                        </div>
-                    </div>
-                    <div class="span5">
-                        <a href="https://github.com/magnetsystems/jumpstart-android" target="_blank" class="btn dbl">Android Jumpstart App</a><br />
-                        <a href="https://github.com/magnetsystems/jumpstart-ios" class="btn dbl">iOS Jumpstart App</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="guide-row">
-            <img src="../images/getstarted/gtstrtd_mbprj_2.png" />
-            <div class="guide-content">
-                <div class="row-fluid">
-                    <div class="span7">
-                        <div class="guide-step">2</div>
-                        <div>
-                            <b>Use the Project Wizard</b>
-                            <p>Choose from a list of sample services and provide your own APIs.</p>
-                        </div>
-                    </div>
-                    <div class="span5">
-                        <a class="btn" href="/dev/">Project Wizard</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="guide-row odd">
-            <img src="../images/getstarted/gtstrtd_mbprj_3.png" />
-            <div class="guide-content">
-                <div class="row-fluid">
-                    <div class="span7">
-                        <div class="guide-step">3</div>
-                        <div>
-                            <b>Run Magnet Mobile App Builder Tool</b>
-                            <p>Use the tool to create mobile and server project files.</p>
-                        </div>
-                    </div>
-                    <div class="span5">
-                        <a class="btn" href="/resources/files/mab.zip">Download Mobile App Builder Tool</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="guide-row">
-            <img src="../images/getstarted/gtstrtd_mbprj_4.png" />
-            <div class="guide-content">
-                <div class="row-fluid">
-                    <div class="span7">
-                        <div class="guide-step">4</div>
-                        <div>
-                            <b>Share Project Files</b>
-                            <p>Distribute mobile and server project files among team members.</p>
-                        </div>
-                    </div>
-                    <div class="span5">
-                        <a class="btn">Go to Documentation</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="guide-row odd">
-            <img src="../images/getstarted/gtstrtd_mbprj_5.png" />
-            <div class="guide-content">
-                <div class="row-fluid">
-                    <div class="span7">
-                        <div class="guide-step">5</div>
-                        <div>
-                            <b>Build Your App</b>
-                            <p>Use the project files to develop your mobile app.</p>
-                        </div>
-                    </div>
-                    <div class="span5">
-                        <a class="btn">Go to Documentation</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="guide-row">
-            <img src="../images/getstarted/gtstrtd_mbprj_6.png" />
-            <div class="guide-content">
-                <div class="row-fluid">
-                    <div class="span7">
-                        <div class="guide-step">6</div>
-                        <div>
-                            <b>Deploy Your App</b>
-                            <p>Deploy to the cloud or your local development environment.</p>
-                        </div>
-                    </div>
-                    <div class="span5">
-                        <a class="btn">Go to Documentation</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
--->
 <div class="tab-pane"  id="gs-ios">
     <h5>iOS Developer <span>The topics below will help the iOS Developer get started.</span></h5>
     <div class="guide-container">
@@ -375,9 +265,39 @@
                 <div class="row-fluid">
                     <div class="span9">
                         <div class="guide-step">5</div>
-                        <div>
-                            <b>Extend your Magnet Mobile App Server Runtime</b>
-                            <p>Check the existing controllers and learn how to add your own custom controllers.</p>
+                        <div id="acc-server-5" class="accordion">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-server-5" href="#acc-server-5-inner">
+                                        <b>Extend your Magnet Mobile App Server Runtime</b>
+                                        <i class="icon icon-chevron-down"></i>
+                                    </a>
+                                    <p>Check the existing controllers and learn how to add your own custom controllers.</p>
+                                </div>
+                                <div id="acc-server-5-inner" class="accordion-body collapse">
+                                    <div class="accordion-inner">
+                                        <h5>Add a custom controller</h5>
+                                        <p>A single command is used to add different controllers to your current project. The following commands assume that you are logged in to the Mobile App Builder Tool and that a project has been created (using <b>project-create</b> or <b>project-import</b>).</p>
+                                        <div class="code-snippet">
+                                            <p>Add a WSDL-based controller of type document/literal or rpc/literal. You will be asked to enter additional information about the WSDL.</p>
+                                            <pre>mab> api-add -t ws</pre>
+                                            <p>Add a WSDL-based controller of type rpc/encoded.</p>
+                                            <pre>mab> api-add -t rpc</pre>
+                                            <p>Add a WADL-based controller.</p>
+                                            <pre>mab> api-add -t rs</pre>
+                                            <p>Add the Magnet Hello World Controller sample to your project.</p>
+                                            <pre>mab> api-add -t simple</pre>
+                                            <p>Add a Magnet Third Party controller (currently <b>facebook</b>, <b>linkedin</b>, and <b>salesforce</b> are supported).</p>
+                                            <pre>mab> api-add -t facebook</pre>
+                                            <p>After adding the controllers, the project must be re-built and re-deployed for the changes to take effect.</p>
+                                            <pre>mab> project-build</pre>
+                                            <pre>mab> server-deploy</pre>
+                                            <pre>mab> server-start</pre>
+                                        </div>
+                                        <p>For more information, see the <a href="/docs/">Magnet Mobile App Builder Tool User Manual</a></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -425,15 +345,15 @@
                                         </ol>
                                         <h5>Add custom Magnet API libraries</h5>
                                         <ol>
-                                            <li>Copy custom Magnet API libraries to &quot;./libs&quot; directory. This is
+                                            <li>Copy custom Magnet API libraries to <b>./libs</b> directory. This is
                                                 typically generated from a local server build provided by your server team.
                                             </li>
-                                            <li> Regenerate Magnet platform service mapping library using shell script, &quot;install-lib.sh&quot;:<br />
-                                                <pre>sh ./sdk-submodule/magnet-sdk-android-2.1.0-SNAPSHOT/magnet-tools/install-lib.sh ./sdk-submodule/magnet-sdk-android-2.1.0-SNAPSHOT &lt;project-dir&gt;/libs</pre>
+                                            <li> Regenerate Magnet platform service mapping library using shell script, <b>install-lib.sh</b>:<br />
+                                                <pre>$ sh ../sdk-android/magnet-tools/install-libs.sh ../sdk-android/libproject/2.1.0 ./libs</pre>
                                             </li>
                                         </ol>
-                                        <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original &quot;./libs&quot;
-                                            directory before introducing a new API library to &quot;libs&quot; directory.</p>
+                                        <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original <b>./libs</b>
+                                            directory before introducing a new API library to <b>libs</b> directory.</p>
 
                                         <p>For more information, visit the <a target="_blank" href="https://github.com/magnetsystems/jumpstart-android">
                                             Android Jumpstart App GitHub Project</a>.</p>
@@ -467,33 +387,26 @@
                                         <h5>Import the Magnet Android SDK into your own Android app</h5>
                                         <ol>
                                             <li>
-                                                Download and install Git from the <a href="http://git-scm.com/" target="_blank">Git website</a>.
-                                            </li>
-                                            <li>
-                                                <p>Import the git submodule into your project.</p>
-                                                <pre>$ I NEED THIS COMMAND</pre>
-                                            </li>
-                                            <li>
-                                                <p>Initialize the Git submodule.</p>
-                                                <pre>$ git submodule update --init</pre>
-                                            </li>
-                                            <li>
-                                                <p>Get the latest version of the SDK.</p>
-                                                <pre>$ git submodule update --remote</pre>
+                                                From directory of your Android application project, install the Magnet Android sdk
+                                                to your application using relative path to the SDK directory. For example, assuming
+                                                the SDK directory is one level above the application project directory named <b>sdk-android</b>:
+                                                <pre>$ sh ../sdk-android/magnet-tools/install-libs.sh ../sdk-android/libproject/2.1.0 ./libs</pre>
                                             </li>
                                         </ol>
 
                                         <h5>Add custom Magnet API libraries</h5>
+                                        <p>In order to use custom controller APIs, the library must be integrated to your application build
+                                            using <b>install-libs</b> script. The API library is typically generated from a local server build
+                                            provided by your server team.</p>
                                         <ol>
-                                            <li>Copy custom Magnet API libraries to &quot;./libs&quot; directory. This is
-                                                typically generated from a local server build provided by your server team.
-                                            </li>
-                                            <li> Regenerate Magnet platform service mapping library using shell script, &quot;install-lib.sh&quot;:<br />
-                                                <pre>sh ./sdk-submodule/magnet-sdk-android-2.1.0-SNAPSHOT/magnet-tools/install-lib.sh ./sdk-submodule/magnet-sdk-android-2.1.0-SNAPSHOT &lt;project-dir&gt;/libs</pre>
+                                            <li>First, copy custom Magnet controller api library jar files to the directory where all dependent
+                                                libraries are stored, typically <b>libs</b>.</li>
+                                            <li>Then, regenerate Magnet platform service mapping library using the script, <b>install-libs.sh</b> as described above.
+                                                <pre>$ sh ../sdk-android/magnet-tools/install-libs.sh ../sdk-android/libproject/2.1.0 ./libs</pre>
                                             </li>
                                         </ol>
-                                        <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original &quot;./libs&quot;
-                                            directory before introducing a new API library to &quot;libs&quot; directory.</p>
+                                        <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original <b>./libs</b>
+                                            directory before introducing a new API library to <b>libs</b> directory.</p>
                                     </div>
                                 </div>
                             </div>

@@ -51,7 +51,6 @@ define(['jquery', 'backbone', 'backbone', 'fileuploader'], function($, Backbone)
             me.options.eventPubSub.bind('upload'+me.options.context, function(path, params){
                 me.params = params;
                 uploader.options.request.endpoint = path;
-                //uploader._handler._options.endpoint = path;
                 uploader.uploadStoredFiles();
                 
             });
