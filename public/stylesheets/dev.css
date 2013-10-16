@@ -358,7 +358,7 @@ iframe .WordSection1{width:506px}
 .guide-divider-empty{height:20px}
 .guide-row{position:relative}
 .guide-row.odd{background:url(../images/getstarted/wizstart_bg_grad.png) repeat-y 0 0;background-color:#eee}
-.guide-row img{position:absolute;top:0;left:0}
+.guide-row > img{position:absolute;top:0;left:0}
 .guide-content{padding:25px 0 10px}
 .guide-content .row-fluid{margin-left:120px}
 .guide-content .span7{margin-top:7px}
@@ -371,6 +371,8 @@ iframe .WordSection1{width:506px}
 .guide-content .accordion-heading p{margin:0 15px}
 .guide-content .accordion-body{margin-top:8px}
 .guide-content .accordion-inner h5{font-weight:bold;margin:20px 0 20px 0}
+.guide-content .accordion-inner a img{box-shadow:2px 2px 2px #bbb;width:90%;border:solid 2px #999}
+.guide-content .accordion-inner a:hover img{border:solid 2px #333}
 .guide-content .icon{float:right}
 #gs-projectguide .guide-step{height:65px}
 

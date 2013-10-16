@@ -48,8 +48,12 @@
                                                 <b>Password:</b> jumper
                                             </li>
                                         </ol>
-                                        <h5>Build Your App</h5>
-                                        <p>Coming Soon</p>
+                                        <h5>Add custom Magnet API libraries</h5>
+                                        <p>To install custom Magnet API libraries into your project, drag and drop the API library
+                                        into the <b>Factory/Generated</b> directory.</p>
+                                        <a href="/images/getstarted/screen_ios_api_add.png" data-lightbox="ios-1-img-1">
+                                            <img src="/images/getstarted/screen_ios_api_add.png"  />
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -79,9 +83,29 @@
                                 <div id="acc-ios-2-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
                                         <h5>Import the Magnet iOS SDK into your own iOS app</h5>
-                                        Coming Soon.
-                                        <h5>Build Your App</h5>
-                                        <p>Coming Soon</p>
+                                        <p>Install CocoaPods if not yet installed.</p>
+                                        <pre>$ sudo gem install cocoapods</pre>
+                                        <pre>$ pod setup</pre>
+                                        <p>Change to the directory of your Xcode project, and Create and Edit your
+                                        Podfile and add Magnet Mobile Server:</p>
+                                        <pre>$ cd /path/to/MyProject</pre>
+                                        <pre>$ touch Podfile</pre>
+                                        <pre>$ edit Podfile</pre>
+                                        <p>Copy and paste the following commands into the PodFile.</p>
+                                        <pre>platform :ios, '6.0'<br/>pod 'MagnetMobileServer', :git => 'ssh://git@github.com/magnetsystems/iOS.git'</pre>
+                                        <p>Install the SDK into your project by navigating to the project directory and executing the following command.</p>
+                                        <pre>$ pod install</pre>
+                                        <p>Open your project in Xcode from the .xcworkspace file (not the usual project file).</p>
+                                        <hr />
+                                        <p><b>Note:</b> Please note that if your installation fails, it may be because you are installing with a version of Git
+                                            lower than CocoaPods is expecting. Please ensure that you are running Git &gt;= 1.8.0 by executing git --version.
+                                            You can get a full picture of the installation  details by executing pod install --verbose.</p>
+                                        <h5>Add custom Magnet API libraries</h5>
+                                        <p>To install custom Magnet API libraries into your project, drag and drop the API library
+                                            into the <b>Factory/Generated</b> directory.</p>
+                                        <a href="/images/getstarted/screen_ios_api_add.png" data-lightbox="ios-2-img-2">
+                                            <img src="/images/getstarted/screen_ios_api_add.png" />
+                                        </a>
                                     </div>
                                 </div>
                             </div>
