@@ -13,7 +13,7 @@ define(['jquery', 'backbone', 'backbone', 'fileuploader'], function($, Backbone)
             var uploader = new qq.FineUploader({
                 multiple                    : false,
                 maxConnections              : 1,
-                forceMultipart              : true,
+                forceMultipart              : false,
                 disableCancelForFormUploads : true,
                 autoUpload                  : false,
                 element                     : document.getElementById(me.options.el.replace('#', '')),
@@ -50,8 +50,8 @@ define(['jquery', 'backbone', 'backbone', 'fileuploader'], function($, Backbone)
             // bind upload event to set upload endpoint and upload files
             me.options.eventPubSub.bind('upload'+me.options.context, function(path, params){
                 me.params = params;
-                uploader._options.request.endpoint = path;
-                uploader._handler._options.endpoint = path;
+                uploader.options.request.endpoint = path;
+                //uploader._handler._options.endpoint = path;
                 uploader.uploadStoredFiles();
                 
             });
