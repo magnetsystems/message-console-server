@@ -62,28 +62,6 @@ module.exports = function(app){
         });
     });
 
-    /*
-    app.get('/resources/mobile-app-manager', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
-        res.render('resources/mobile-app-manager', {
-            locals : {
-                title       : 'Resources : Mobile App Manager',
-                userEmail   : req.session.user.email,
-                userCompany : req.session.user.companyName
-            }
-        });
-    });
-
-    app.get('/resources/samples', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
-        res.render('resources/samples', {
-            locals : {
-                title       : 'Resources : Samples',
-                userEmail   : req.session.user.email,
-                userCompany : req.session.user.companyName
-            }
-        });
-    });
-    */
-
     app.get('/profile', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('profile/index', {
             locals : {

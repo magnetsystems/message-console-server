@@ -285,7 +285,8 @@ iframe .WordSection1{width:506px}
 #resources-tabcontent .tab-pane{width:91%;margin:0 auto}
 #resources-tabcontent .screenshots{text-align:center}
 #resources-tabcontent .screenshots a{text-decoration:none}
-#resources-tabcontent .screenshots a img{margin:32px 10px 0;width:25%;max-width:145px}
+#resources-tabcontent .screenshots a img{margin:32px 10px 0;width:25%;max-width:145px;border:2px solid #999;box-shadow:2px 2px 2px #BBB}
+#resources-tabcontent .screenshots a:hover img{border:solid 2px #333}
 #resources-tabcontent .selector{width:100%;margin-bottom:20px;padding-top:14px;clear:both}
 #resources-tabcontent .selector .caption{float:left;margin-right:12px;margin-top:7px}
 #resources-tabcontent .selector .selector-options{float:left}

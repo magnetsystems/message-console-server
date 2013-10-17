@@ -19,7 +19,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             }).unbind('mouseleave').mouseleave(function(){
                 menu.css('display', 'none');
             });
-            $('.page').append('<div class="footer clearfix"><a href="/resources/tos.html">Terms of Service</a> | <a href="/resources/privacy_policy.html">Privacy Policy</a><br />&copy; 2013 Magnet Systems, Inc. All rights reserved.</div>');
+            $('.page').append('<div class="footer clearfix"><a href="http://www.magnet.com/resources/tos.html">Terms of Service</a> | <a href="http://www.magnet.com/resources/privacy_policy.html">Privacy Policy</a><br />&copy; 2013 Magnet Systems, Inc. All rights reserved.</div>');
         },
         events: {
             'click .goBack': 'goBack',
