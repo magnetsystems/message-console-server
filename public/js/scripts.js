@@ -1258,6 +1258,15 @@ function GetStartedNavigation(){
             page.find(link.attr('href')).addClass('active');
             li.addClass('active');
         });
+        $('#gs-site-menu li a').click(function(){
+            var link = $('.nav-tabs li a[href="'+$(this).attr('href').replace('/get-started/', '')+'"]');
+            var li = link.closest('li');
+            var list = li.closest('.nav-tabs');
+            list.find('li').removeClass('active');
+            page.find('.tab-pane').removeClass('active');
+            page.find(link.attr('href')).addClass('active');
+            li.addClass('active');
+        })
     }
 }
 

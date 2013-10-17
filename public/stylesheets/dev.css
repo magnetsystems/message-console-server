@@ -24,6 +24,8 @@ body{min-width:980px;width:100%;margin:0;padding:0;border:0;background:url(../im
 .title_container .dropdown-menu li:hover{background:#C15454}
 
 .dropdown .dropdown-menu li.active a, .dropdown .dropdown-menu li:hover a{background:#C15454}
+.dropdown-menu li a:focus{background:#983C3C}
+.dropdown .dropdown-menu li.active a.active, .dropdown .dropdown-menu li a:hover{background:none;background:#C15454}
 
 #menu-samples a{background:url('../images/resources/menu.png') no-repeat 10px -56px #983C3C}
 #menu-samples a:hover, #menu-samples.active a{background:url('../images/resources/menu.png') no-repeat 10px -84px #C15454}
@@ -38,11 +40,7 @@ body{min-width:980px;width:100%;margin:0;padding:0;border:0;background:url(../im
 .title_container .dropdown-menu{font-size:15px;margin:0;border-radius:0;background:none;padding:0;border-top:solid 1px #722828;border-left:solid 1px #722828;border-right:solid 1px #722828}
 .title_container .dropdown-menu li{border-radius:none;border-bottom:solid 1px #722828}
 .title_container .dropdown-menu li a{color:#FFA9A9;padding:4px 9px}
-.title_container .dropdown-menu li.active a, .title_container .dropdown-menu li a:hover{color:#FFF}
-
-.title_container_mobile{width:100%;background:url(../images/header_bgk.png) repeat-x 0 0;height:43px}
-.title_container_mobile .btn-group{margin:6px 0 0 5px}
-.title_container_mobile .dropdown-menu li a:hover{background:url(../images/header_bgk.png) repeat-x 0 0}
+.title_container .dropdown-menu li.active a, .title_container .dropdown-menu li:hover a{color:#FFF}
 
 #logout-btn{background:url(../images/header_sprites.png) 2px 0 no-repeat;width:101px;height:30px;float:right;margin:-2px 5px 0 30px;text-align:left;text-indent:42px;font-size:15px;line-height:26px;font-weight:normal;color:#9e9e9e}
 #logout-btn:hover{color:#fff;background-position:2px -30px}
@@ -302,6 +300,10 @@ iframe .WordSection1{width:506px}
 #resources-tabcontent .a-tab-btn.active{background:url(../images/resources/rsrc_vers_andrdtab_sel.png) no-repeat center top}
 #resources-tabcontent .i-phone-btn.active{background:url(../images/resources/rsrc_vers_ifon_sel.png) no-repeat center top}
 #resources-tabcontent .i-pad-btn.active{background:url(../images/resources/rsrc_vers_ipad_sel.png) no-repeat center top}
+
+.o-mac-btn, .o-linux-btn, .o-windows-btn{text-decoration:none;border-radius:9px;color:#000;display:block;padding:5px;border:solid 1px #ccc}
+.o-mac-btn.active, .o-linux-btn.active, .o-windows-btn.active{background:#AB4F4F;color:#fff;;border:solid 1px #AB4F4F}
+.o-mac-btn:hover, .o-linux-btn:hover, .o-windows-btn:hover{color:#000;text-decoration:none}
 
 .resources-samples-contents{padding:23px 0 8px}
 .resources-samples-contents li{float:left;margin-right:10%}
