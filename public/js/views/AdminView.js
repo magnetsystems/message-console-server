@@ -116,18 +116,10 @@ define(['jquery', 'backbone', 'collections/UserCollection'], function($, Backbon
                 }, 'json', 'application/x-www-form-urlencoded', function(xhr, status, error){
                     parent.find('.buttons-section').show();
                     parent.find('.buttons-section.loading').hide();
-                    var res = JSON.parse(xhr.responseText);
-                    if(res && res.message){
-                        Alerts.Error.display({
-                            title   : 'Invitation Not Sent', 
-                            content : res.message
-                        });
-                    }else{
-                        Alerts.Error.display({
-                            title   : 'Invitation Not Sent', 
-                            content : 'There was a problem sending the invitation.'
-                        });
-                    }
+                    Alerts.Error.display({
+                        title   : 'Invitation Not Sent',
+                        content : 'There was a problem sending the invitation: '+xhr.responseText
+                    });
                 });
             });
         },

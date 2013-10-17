@@ -27,6 +27,11 @@ app.configure(function(){
     app.use(express.cookieParser(ENV_CONFIG.App.sessionSecret));
     // enable PUT and DELETE request methods
     app.use(express.methodOverride());
+    // enable event logging to database. NOTE: only designed to log events which contain metadata
+    winston.add(require('./lib/winston-sequelize').WinstonSequelize, {
+        level            : 'info',
+        handleExceptions : false
+    });
 });
 
 app.configure('development', function(){
@@ -89,7 +94,7 @@ app.configure('production', function(){
     // log everything to file
     if(!fs.existsSync(ENV_CONFIG.Logging.folder)){
         fs.mkdirSync(ENV_CONFIG.Logging.folder);
-        winston.info('Logging: created logging directory.');
+        winston.log('Logging: created logging directory.');
     }
     winston.add(winston.transports.File, {
         filename         : ENV_CONFIG.Logging.folder+'/'+ENV_CONFIG.Logging.filename,

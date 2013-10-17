@@ -52,17 +52,9 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], functi
             $('.button-group[did="core"]').removeClass('hidden');
             var validation = validator.isInvalid(properties.config);
             if(validation){
-                Alerts.Confirm.display({
+                Alerts.Error.display({
                     title   : 'Parameters Not Filled Out',
-                    content : 'The '+validation.text+' feature'+(validation.ary.length == 1 ? ' was' : 's were')+' included, but not all the parameters were filled out. You can continue, but the project will not be able to deploy to your sandbox in the cloud.'
-                }, function(){
-                    setTimeout(function(){
-                        me.confirmCert(properties, function(){
-                            me.confirmDisableAppDB(properties, function(){
-                                me.save(properties, isPrevious);
-                            });
-                        });
-                    }, 800);
+                    content : 'The '+validation.text+' feature'+(validation.ary.length == 1 ? ' was' : 's were')+' included, but not all the parameters were filled out.'
                 });
             }else{
                 me.confirmCert(properties, function(){

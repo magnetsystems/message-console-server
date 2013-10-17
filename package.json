@@ -1,6 +1,6 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
+  "name": "devex-factory",
+  "version": "0.0.5",
   "private": true,
   "dependencies": {
     "ejs": "0.7.1",

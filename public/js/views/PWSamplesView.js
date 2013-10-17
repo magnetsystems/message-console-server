@@ -15,27 +15,36 @@ define(['jquery', 'backbone', 'models/ProjectModel'], function($, Backbone, Proj
         storeDetails: function(isPrevious){
             var me = this, btnGroup = $('.button-group[did="samples"]');
             var properties = utils.collect(me.$el);
-            btnGroup.addClass('hidden');
-            var proj = new ProjectModel();
-            proj.set({
-                magnetId : me.project.attributes.magnetId,
-                id       : me.project.attributes.id
-            });
-            proj.save(properties.config, {
-                success: function(){
-                    me.project.set(properties.config);
-                    if(!isPrevious){
-                        me.options.eventPubSub.trigger('PWNextTransition', 'samples');
+            var validation = validator.isInvalid(properties.config);
+            if(validation){
+                Alerts.Error.display({
+                    title   : 'Parameters Not Filled Out',
+                    content : 'The '+validation.text+' feature'+(validation.ary.length == 1 ? ' was' : 's were')+' included, but not all the parameters were filled out.'
+                });
+                btnGroup.removeClass('hidden');
+            }else{
+                btnGroup.addClass('hidden');
+                var proj = new ProjectModel();
+                proj.set({
+                    magnetId : me.project.attributes.magnetId,
+                    id       : me.project.attributes.id
+                });
+                proj.save(properties.config, {
+                    success: function(){
+                        me.project.set(properties.config);
+                        if(!isPrevious){
+                            me.options.eventPubSub.trigger('PWNextTransition', 'samples');
+                        }
+                    },
+                    error: function(){
+                        Alerts.Error.display({
+                            title   : 'Error Setting Properties',
+                            content : 'There was an error setting the project properties. Please contact Magnet support.'
+                        });
+                        btnGroup.removeClass('hidden');
                     }
-                },
-                error: function(){
-                    Alerts.Error.display({
-                        title   : 'Error Setting Properties',
-                        content : 'There was an error setting the project properties. Please contact Magnet support.'
-                    });
-                    btnGroup.removeClass('hidden');
-                }
-            });
+                });
+            }
         },
         // render sample services configuration
         render: function(view){

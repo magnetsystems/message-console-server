@@ -295,7 +295,8 @@ module.exports = function(app){
 
     app.put('/rest/users/:magnetId/approve', UserManager.checkAuthority(['admin'], true), function(req, res) {
         UserManager.approveUser({
-            magnetId: req.param('magnetId')
+            magnetId  : req.param('magnetId'),
+            invitedBy : req.session.user.id
         }, false, function(approvalStatus) {
             if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL) {
                 res.send(approvalStatus, 200);
@@ -365,7 +366,8 @@ module.exports = function(app){
         }, isInvitedByAdmin, function(registrationStatus, user) {
             if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL) {
                 UserManager.approveUser({
-                    magnetId: user.magnetId
+                    magnetId  : user.magnetId,
+                    invitedBy : req.session.user.id
                 }, isInvitedByAdmin, function(approvalStatus) {
                     if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL) {
                         res.send(approvalStatus, 201);

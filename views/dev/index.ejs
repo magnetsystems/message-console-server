@@ -382,16 +382,6 @@
     <div id="core-userauth" class="accordion-body collapse" style="height:0">
         <div class="accordion-inner">
             <table class="radio-collection">
-                <!--
-                <tr did="default">
-                    <td class="first">
-                        <input type="radio" did="default" name="userAuth" value="defaultUser" <% if(!project.attributes['userAuth'] || project.attributes['userAuth'] == 'defaultUser'){ %>checked="checked"<% } %> /> Default User
-                    </td>
-                    <td>
-                        Please choose this option to enable default user and login to work in Magnet's sandbox database.
-                    </td>
-                </tr>
-                -->
                 <tr>
                     <td class="default">
                         <input type="radio" did="database" name="userAuth" value="MYSQL" <% if(!project.attributes['userAuth'] || project.attributes['userAuth'] == 'MYSQL'){ %>checked="checked"<% } %> /> MySQL
@@ -407,7 +397,7 @@
                     <td>
                         Your project will use your own LDAP for user authentication.
                         <div did="ldap" class="well radio-toggle hidden">
-                            <b>Note:</b> Your sandbox will require additional information to use this type of authentication.
+                            <b>Note:</b> Your server project will require additional information to use this type of authentication.
                         </div>
                     </td>
                 </tr>
@@ -418,7 +408,7 @@
                     <td>
                         Your project will use your own Active Directory for user authentication.
                         <div did="ad" class="well radio-toggle hidden">
-                            <b>Note:</b> Your sandbox will require additional information to use this type of authentication.
+                            <b>Note:</b> Your server project will require additional information to use this type of authentication.
                         </div>
                     </td>
                 </tr>
@@ -815,7 +805,7 @@
     <div class="start-developing-section">
         <h5>Import the project configuration file into the Magnet Mobile App Builder Tool</h5>
         <p>This is the tool that will allow you to add different services to your app and deploy it to the cloud.</p>
-        <a href="/resources/files/mab.zip" type="button" class="btn btn-priprimary">Download Magnet Mobile App Builder Tool</a>
+        <a href="/resources/files/mab.zip" type="button" class="btn btn-primary">Download Magnet Mobile App Builder Tool</a>
         <div class="divider"><img src="../images/wizard/arrow_divider.png"></div>
     </div>
     <div class="start-developing-section">
