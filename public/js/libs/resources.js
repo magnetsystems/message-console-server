@@ -1105,6 +1105,9 @@ utils = {
     magnetId : function(str){
         return str.slice(str.lastIndexOf('/')+1);
     },
+    cleanName : function(str){
+        return str.replace(new RegExp(' ', 'g'), '-').replace(new RegExp('_', 'g'), '-');
+    },
     baseUrl : window.location.href.replace(window.location.hash, '').substr(0, window.location.href.replace(window.location.hash, '').lastIndexOf('/')),
     txtDefaults : function(sel){
         $(sel).focus(function(){

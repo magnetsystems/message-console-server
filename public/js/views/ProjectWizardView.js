@@ -375,6 +375,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
             return true;
         },
         initData: function(pid){
+            var cleanName = utils.cleanName(this.project.attributes.name);
             return {
                 encryptionEnabled             : false,
                 useGeoLocation                : false,
@@ -385,11 +386,11 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
                 apnsHost                      : "gateway.sandbox.push.apple.com",
                 jdbcHost                      : 'localhost',
                 jdbcPort                      : 3306,
-                jdbcSystemUsername            : 'sysDBUser'+pid,
-                jdbcSystemPassword            : 'sysDBPassword'+pid,
-                jdbcAppUsername               : 'appDBUser'+pid,
-                jdbcAppPassword               : 'appDBPassword'+pid,
-                jdbcAppDBName                 : 'appDBName'+pid,
+                jdbcSystemUsername            : cleanName+'_systemuser_'+pid,
+                jdbcSystemPassword            : cleanName+'_systempass_'+pid,
+                jdbcAppUsername               : cleanName+'_appuser_'+pid,
+                jdbcAppPassword               : cleanName+'_apppass_'+pid,
+                jdbcAppDBName                 : cleanName+'_app_'+pid,
                 emailEnabled                  : false,
                 helloWorldControllerEnabled   : true,
                 helloWorldControllerDBEnabled : false,
