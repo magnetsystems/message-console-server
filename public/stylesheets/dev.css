@@ -302,7 +302,8 @@ iframe .WordSection1{width:506px}
 #resources-tabcontent .i-pad-btn.active{background:url(../images/resources/rsrc_vers_ipad_sel.png) no-repeat center top}
 
 .o-mac-btn, .o-linux-btn, .o-windows-btn{text-decoration:none;border-radius:9px;color:#000;display:block;padding:5px;border:solid 1px #ccc}
-.o-mac-btn.active, .o-linux-btn.active, .o-windows-btn.active{background:#AB4F4F;color:#fff;;border:solid 1px #AB4F4F}
+.o-mac-btn.active, .o-linux-btn.active, .o-windows-btn.active{background:#AB4F4F;color:#fff;border:solid 1px #AB4F4F}
+.o-mac-btn.active:hover, .o-linux-btn.active:hover, .o-windows-btn.active:hover{color:#fff}
 .o-mac-btn:hover, .o-linux-btn:hover, .o-windows-btn:hover{color:#000;text-decoration:none}
 
 .resources-samples-contents{padding:23px 0 8px}
