@@ -28,10 +28,12 @@ app.configure(function(){
     // enable PUT and DELETE request methods
     app.use(express.methodOverride());
     // enable event logging to database. NOTE: only designed to log events which contain metadata
+    /*
     winston.add(require('./lib/winston-sequelize').WinstonSequelize, {
         level            : 'info',
         handleExceptions : false
     });
+    */
 });
 
 app.configure('development', function(){
