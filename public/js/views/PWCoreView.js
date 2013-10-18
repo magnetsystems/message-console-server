@@ -6,7 +6,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], functi
             me.options.eventPubSub.bind('initPWCoreView', function(params){
                 me.project = params.project;
                 me.render(params.view);
-                $('#system-database-name').val(utils.cleanName(me.project.attributes.name)+'_system_'+me.project.attributes.id);
+                $('#system-database-name').val(utils.cleanName(me.project.attributes.name)+'_SysDB'+me.project.attributes.id);
             });
             me.options.eventPubSub.bind('coreComplete', function(isPrevious){
                 me.storeDetails(isPrevious);
@@ -44,11 +44,11 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], functi
             var properties = utils.collect(me.$el);
             properties.config.jdbcHost = properties.config.jdbcHost || 'localhost';
             properties.config.jdbcPort = properties.config.jdbcPort || 3306;
-            properties.config.jdbcSystemUsername = properties.config.jdbcSystemUsername || 'sysDBUser';
-            properties.config.jdbcSystemPassword = properties.config.jdbcSystemPassword || 'sysDBPassword';
-            properties.config.jdbcAppDBName = properties.config.jdbcAppDBName || 'appDBName';
-            properties.config.jdbcAppUsername = properties.config.jdbcAppUsername || 'appDBUser';
-            properties.config.jdbcAppPassword = properties.config.jdbcAppPassword || 'appDBPassword';
+            properties.config.jdbcSystemUsername = properties.config.jdbcSystemUsername || 'SysUser';
+            properties.config.jdbcSystemPassword = properties.config.jdbcSystemPassword || 'SysPass';
+            properties.config.jdbcAppDBName = properties.config.jdbcAppDBName || 'AppDB';
+            properties.config.jdbcAppUsername = properties.config.jdbcAppUsername || 'AppUser';
+            properties.config.jdbcAppPassword = properties.config.jdbcAppPassword || 'AppPass';
             $('.button-group[did="core"]').removeClass('hidden');
             var validation = validator.isInvalid(properties.config);
             if(validation){
