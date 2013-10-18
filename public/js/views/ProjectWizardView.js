@@ -347,10 +347,10 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
                     content : '"Project Name" must be filled out before continuing.'
                 });
                 return false;
-            }else if($.trim(obj.name).length > 40){
+            }else if($.trim(obj.name).length > 30){
                 Alerts.Error.display({
                     title   : 'Project Name Length Error',
-                    content : 'The project name cannot exceed 40 characters. Please shorten your project name and try again.'
+                    content : 'The project name cannot exceed 30 characters. Please shorten your project name and try again.'
                 });
                 return false;
             }else if(/^[^a-zA-Z]/.test($.trim(obj.name)) || /[^a-zA-Z0-9-_ ]/.test($.trim(obj.name))){
