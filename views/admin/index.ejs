@@ -107,6 +107,8 @@
                     <% if(model.userType == 'guest'){ %>
                     <button did="approve-user" type="button" class="btn btn-primary">Approve User</button>
                     <% } %>
+                    <button did="deactivate-user" type="button" class="btn btn-primary <% if(model.activated !== true){ %>hidden<% } %>">Deactivate User</button>
+                    <button did="activate-user" type="button" class="btn btn-primary <% if(model.activated === true){ %>hidden<% } %>">Activate User</button>
                 </div>
                 <div class="loading buttons-section" style="display:none">
                     Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />

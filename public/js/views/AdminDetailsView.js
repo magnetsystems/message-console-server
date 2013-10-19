@@ -12,10 +12,10 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
         },
         events: {
             'click button[did="delete-user"]': 'deleteUser',
-            'click button[did="activate-account"]': 'activateAccount',
-            'click button[did="deactivate-account"]': 'activateAccount',
             'click button[did="approve-user"]': 'approveUser',
-            'click button[did="deny-user"]': 'approveUser'
+            'click button[did="deny-user"]': 'approveUser',
+            'click button[did="activate-user"]': 'activateUser',
+            'click button[did="deactivate-user"]': 'activateUser'
         },
         // fetch a user entity object from server
         fetchUser: function(params){
@@ -103,8 +103,7 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
             me.showLoading($(e.currentTarget));
             me.options.mc.query('users/'+me.entity.attributes.magnetId+'/approve', 'PUT', null, function(){
                 me.hideLoading($(e.currentTarget));
-                me.$el.find('.btn.btn-primary').hide();
-                $('#user-type-container').html('approved');
+                me.$el.find('button[did="approve-user"]').hide();
                 Alerts.General.display({
                     title   : 'User '+text+' Successfully', 
                     content : 'The user has been '+text.toLowerCase()+' successfully.'
@@ -126,36 +125,27 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
             });
         },
         // activate or deactivate the user
-        activateAccount: function(e){
+        activateUser: function(e){
             var me = this;
-            var state = $(e.currentTarget).attr('did') == 'activate-account' ? 'true' : 'false';
-            var text = state == 'true' ? 'Activated' : 'Deactivated';
+            var state = $(e.currentTarget).attr('did') == 'activate-user';
+            var text = state === true ? 'Activated' : 'Deactivated';
             me.showLoading($(e.currentTarget));
-            me.options.mc.update('accounts', utils.magnetId(me.entity.attributes.accounts[0]['magnet-uri']), {
-                magnetActive : state
+            me.options.mc.query('users/'+me.entity.attributes.magnetId+'/activated', 'PUT', {
+                activated : state
             }, function(){
                 me.hideLoading($(e.currentTarget));
-                me.$el.find('.btn.btn-primary').show();
-                $(e.currentTarget).hide();
-                $('#account-activation-state').html(text);
+                $(e.currentTarget).addClass('hidden');
+                me.$el.find('button[did="'+(state == true ? 'deactivate-user' : 'activate-user')+'"]').removeClass('hidden');
                 Alerts.General.display({
-                    title   : 'User '+text+' Successfully', 
+                    title   : 'User '+text+' Successfully',
                     content : 'The user has been '+text.toLowerCase()+' successfully.'
                 });
-            }, null, 'text/plain', function(xhr, status, error){
+            }, null, 'application/json', function(xhr, status, error){
                 me.hideLoading($(e.currentTarget));
-                var res = xhr.responseText;
-                if(res && res.message){
-                    Alerts.Error.display({
-                        title   : 'Error Sending Request', 
-                        content : res.message
-                    });
-                }else{
-                    Alerts.Error.display({
-                        title   : 'Error Sending Request', 
-                        content : 'There was a problem sending the request to the server.'
-                    });
-                }
+                Alerts.Error.display({
+                    title   : 'Error Sending Request',
+                    content : 'There was a problem sending the request to the server: '+xhr.responseText
+                });
             });
         },
         showLoading: function(dom){

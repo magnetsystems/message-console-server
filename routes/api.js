@@ -22,7 +22,7 @@ module.exports = function(app){
             }else{
                 delete user.password;
                 req.session.user = user;
-                winston.log('Tracking: user "' + user.email + '" logged in', req.session.entryPoint);
+                winston.info('Tracking: user "' + user.email + '" logged in'+ (req.session.entryPoint ? ' with redirect to '+req.session.entryPoint : ''));
                 res.redirect(req.session.entryPoint || '/');
             }
         });
@@ -266,17 +266,6 @@ module.exports = function(app){
         });
     });
 
-    // This API is used by http://www.magnet.com/factory/
-    /*
-     {
-     "firstName" : "Pritesh",
-     "lastName" : "Shah",
-     "email" : "pritesh.shah@magnet.com",
-     "companyName" : "Magnet Systems, Inc.",
-     "magnetId: "dbf11050-3120-11e3-9a51-655f7d3073f2"
-     }
-     magnetId is passed when the registration was initiated from an invite.
-     */
     app.post('/rest/startRegistration', function(req, res) {
         UserManager.registerGuest({
             firstName : stripChars(req.body.firstName),
@@ -296,7 +285,7 @@ module.exports = function(app){
     app.put('/rest/users/:magnetId/approve', UserManager.checkAuthority(['admin'], true), function(req, res) {
         UserManager.approveUser({
             magnetId  : req.param('magnetId'),
-            invitedBy : req.session.user.id
+            invitedBy : req.session.user
         }, false, function(approvalStatus) {
             if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL) {
                 res.send(approvalStatus, 200);
@@ -335,21 +324,38 @@ module.exports = function(app){
     });
 
     app.delete('/rest/users/:magnetId', UserManager.checkAuthority(['admin'], true), function(req, res){
-        UserManager.delete(req.params.magnetId, function(e){
+        UserManager.delete(req.params.magnetId, function(e, user){
             if(e){
                 res.send(e, 400);
             }else{
+                if(user){
+                    winston.info('User: user "'+req.session.user.firstName+' '+req.session.user.lastName+'"('+req.session.user.id+') deleted user "'+(user.firstName ? user.firstName+' '+user.lastName : user.email)+'"('+user.id+') successfully at: '+new Date(), {
+                        userId      : req.session.user.id,
+                        targetModel : 'User',
+                        targetId    : user.id
+                    });
+                }
+                res.send('ok', 200);
+            }
+        });
+    });
+
+    app.put('/rest/users/:magnetId/activated', UserManager.checkAuthority(['admin'], true), function(req, res){
+        UserManager.setActivation(req.params.magnetId, req.body.activated, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                winston.info('Accounts: user "'+req.session.user.firstName+' '+req.session.user.lastName+'"('+req.session.user.id+') changed activation state of user "'+(user.firstName ? user.firstName+' '+user.lastName : user.email)+'"('+user.id+') to activated:'+req.body.activated+' successfully at: '+new Date(), {
+                    userId      : req.session.user.id,
+                    targetModel : 'User',
+                    targetId    : user.id
+                });
                 res.send('ok', 200);
             }
         });
     });
 
     // This API is used for Admin to User invites
-    /*
-     {
-     "email" : "pritesh.shah@magnet.com"
-     }
-     */
     app.post('/rest/adminInviteUser', UserManager.checkAuthority(['admin'], true), function(req, res) {
         var isInvitedByAdmin = true;
         req.body.firstName = req.body.firstName || null;
@@ -367,7 +373,7 @@ module.exports = function(app){
             if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL) {
                 UserManager.approveUser({
                     magnetId  : user.magnetId,
-                    invitedBy : req.session.user.id
+                    invitedBy : req.session.user
                 }, isInvitedByAdmin, function(approvalStatus) {
                     if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL) {
                         res.send(approvalStatus, 201);
@@ -382,12 +388,6 @@ module.exports = function(app){
     });
 
     // This API is used for User to User invites
-    /*
-     {
-     "email" : "pritesh.shah@magnet.com",
-     "introduceMsg" : "I found this great new tool to quickly create mobile apps for me."
-     }
-     */
     app.post('/rest/userInviteUser', UserManager.checkAuthority(['developer', 'admin'], true), function(req, res) {
         req.body.firstName = req.body.firstName || null;
         req.body.lastName = req.body.lastName || null;
@@ -409,11 +409,6 @@ module.exports = function(app){
     });
 
     // This API is used for forgot password email
-    /*
-     {
-     "email" : "pritesh.shah@magnet.com"
-     }
-     */
     app.post('/rest/forgotPassword', function(req, res) {
 
         UserManager.sendForgotPasswordEmail({
@@ -428,12 +423,6 @@ module.exports = function(app){
     });
 
     // This API is used for resetting a forgotten password
-    /*
-     {
-     "password" : "test",
-     "passwordResetToken" : "b00184d0-2adf-11e3-bdae-e739654ae233"
-     }
-     */
     app.post('/rest/resetPassword', function(req, res) {
 
         UserManager.resetPassword({

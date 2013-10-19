@@ -28,12 +28,15 @@ app.configure(function(){
     // enable PUT and DELETE request methods
     app.use(express.methodOverride());
     // enable event logging to database. NOTE: only designed to log events which contain metadata
-    /*
     winston.add(require('./lib/winston-sequelize').WinstonSequelize, {
         level            : 'info',
         handleExceptions : false
     });
-    */
+    // log everything to the console
+    winston.remove(winston.transports.Console);
+    winston.add(winston.transports.Console, {
+        level : 'silly'
+    });
 });
 
 app.configure('development', function(){
@@ -75,13 +78,13 @@ app.configure('production', function(){
     */
     // stop exit after an uncaughtException
     winston.exitOnError = false;
-    // log only errors to console
+    // log only warn+ to console
     winston.remove(winston.transports.Console);
     winston.add(winston.transports.Console, {
-        level            : 'error',
+        level            : 'warn',
         handleExceptions : true
     });
-    // log only errors to support email
+    // log only error to support email
     winston.add(require('winston-mail').Mail, {
         to               : ENV_CONFIG.Email.supportEmail,
         from             : ENV_CONFIG.Email.sender,
@@ -93,16 +96,17 @@ app.configure('production', function(){
         tls              : true,
         handleExceptions : true
     });
-    // log everything to file
+    // log info+ to file
     if(!fs.existsSync(ENV_CONFIG.Logging.folder)){
         fs.mkdirSync(ENV_CONFIG.Logging.folder);
-        winston.log('Logging: created logging directory.');
+        winston.info('Logging: created logging directory.');
     }
     winston.add(winston.transports.File, {
         filename         : ENV_CONFIG.Logging.folder+'/'+ENV_CONFIG.Logging.filename,
         maxsize          : ENV_CONFIG.Logging.maxsize,
         maxFiles         : ENV_CONFIG.Logging.maxFiles,
-        handleExceptions : true
+        handleExceptions : true,
+        level            : 'info'
     });
     // store sessions to redis
     var RedisStore = require('connect-redis')(express);
