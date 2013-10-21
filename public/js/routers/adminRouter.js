@@ -16,6 +16,8 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             $(document).ajaxComplete(function(e, xhr){
                 if(xhr.status == 278){
                     window.location.href = '/login/';
+                }else if(xhr.status == 279){
+                    window.location.href = '/login/?status=locked';
                 }else{
                     me.sessionMgr.reset();
                 }

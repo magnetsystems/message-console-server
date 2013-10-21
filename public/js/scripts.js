@@ -135,6 +135,8 @@ function doAuth(cookies){
         $(document).ajaxComplete(function(e, xhr){
             if(xhr.status == 278){
                 window.location.href = '/login/';
+            }else if(xhr.status == 279){
+                window.location.href = '/login/?status=locked';
             }else{
                 sessionMgr.reset(true);
             }
@@ -237,6 +239,11 @@ function FormLogin(cookies){
                     var alert = $('#login-container .modal_errors').show();
                     alert.find('strong').html('Incorrect Email Address and/or Password');
                     alert.find('span').html('Please check your input and try again.');
+                    break;
+                case 'locked':
+                    var alert = $('#login-container .modal_errors').show();
+                    alert.find('strong').html('Account Locked');
+                    alert.find('span').html('Your account has been locked.');
                     break;
                 case 'duplicate':
                     var alert = $('#general-alert');
