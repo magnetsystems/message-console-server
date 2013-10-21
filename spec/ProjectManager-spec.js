@@ -370,15 +370,15 @@ describe('ProjectManager createFile', function(){
     });
 
     it('should succeed given a valid file path', function(done){
-        ProjectManager.createFile('./target/user-projects/test-createFile.txt', 'output string', function(e){
+        ProjectManager.createFile('./tmp/user-projects/test-createFile.txt', 'output string', function(e){
             expect(e).toBeNull();
             done();
         });
     });
 
     it('should return a file path given a valid file path', function(done){
-        ProjectManager.createFile('./target/user-projects/test-createFile.txt', 'output string', function(e, filePath){
-            expect(filePath).toEqual('./target/user-projects/test-createFile.txt');
+        ProjectManager.createFile('./tmp/user-projects/test-createFile.txt', 'output string', function(e, filePath){
+            expect(filePath).toEqual('./tmp/user-projects/test-createFile.txt');
             done();
         });
     });
@@ -395,11 +395,11 @@ describe('ProjectManager createFile', function(){
     });
 
     it('should create a file given a valid file path', function(done){
-        ProjectManager.createFile('./target/user-projects/test-createFile.txt', 'output string', function(e){
+        ProjectManager.createFile('./tmp/user-projects/test-createFile.txt', 'output string', function(e){
             expect(e).toBeNull();
-            fs.exists('./target/user-projects/test-createFile.txt', function(exists){
+            fs.exists('./tmp/user-projects/test-createFile.txt', function(exists){
                 expect(exists).toBe(true);
-                fs.unlink('./target/user-projects/test-createFile.txt', function(){
+                fs.unlink('./tmp/user-projects/test-createFile.txt', function(){
                     done();
                 });
             });
@@ -407,11 +407,11 @@ describe('ProjectManager createFile', function(){
     });
 
     it('should return a file path given a valid file path', function(done){
-        ProjectManager.createFile('./target/user-projects/test-createFile.txt', 'output string', function(e, filePath){
-            expect(filePath).toEqual('./target/user-projects/test-createFile.txt');
-            fs.exists('./target/user-projects/test-createFile.txt', function(exists){
+        ProjectManager.createFile('./tmp/user-projects/test-createFile.txt', 'output string', function(e, filePath){
+            expect(filePath).toEqual('./tmp/user-projects/test-createFile.txt');
+            fs.exists('./tmp/user-projects/test-createFile.txt', function(exists){
                 expect(exists).toBe(true);
-                fs.unlink('./target/user-projects/test-createFile.txt', function(){
+                fs.unlink('./tmp/user-projects/test-createFile.txt', function(){
                     done();
                 });
             });
@@ -430,11 +430,11 @@ describe('ProjectManager createFolderIfNotExist', function(){
     });
 
     it('should create folder given a valid path', function(done){
-        ProjectManager.createFolderIfNotExist('./target/user-projects', 'test-folder', function(e){
+        ProjectManager.createFolderIfNotExist('./tmp/user-projects', 'test-folder', function(e){
             expect(e).toBeUndefined();
-            fs.exists('./target/user-projects/test-folder', function(exists){
+            fs.exists('./tmp/user-projects/test-folder', function(exists){
                 expect(exists).toBe(true);
-                fs.rmdir('./target/user-projects/test-folder', function(){
+                fs.rmdir('./tmp/user-projects/test-folder', function(){
                     done();
                 });
             });
@@ -495,11 +495,11 @@ describe('ProjectManager removeAPNSCertificate', function(){
             expect(e).toBeNull();
             ProjectManager.createProjectFolders(testUser.id, project.magnetId, function(e){
                 expect(e).toBeNull();
-                ProjectManager.createFile('./target/user-projects/'+testUser.id+'/'+project.magnetId+'/'+newProject.apnsCertName, 'valid input', function(e){
+                ProjectManager.createFile('./tmp/user-projects/'+testUser.id+'/'+project.magnetId+'/'+newProject.apnsCertName, 'valid input', function(e){
                     expect(e).toBeNull();
                     ProjectManager.removeAPNSCertificate(project.magnetId, function(e){
                         expect(e).toBeNull();
-                        fs.exists('./target/user-projects/'+testUser.id+'/'+project.magnetId+'/'+newProject.apnsCertName, function(exists){
+                        fs.exists('./tmp/user-projects/'+testUser.id+'/'+project.magnetId+'/'+newProject.apnsCertName, function(exists){
                             expect(exists).toBe(false);
                             done();
                         });
@@ -515,7 +515,7 @@ describe('ProjectManager removeAPNSCertificate', function(){
             expect(e).toBeNull();
             ProjectManager.createProjectFolders(testUser.id, newProject.magnetId, function(e){
                 expect(e).toBeNull();
-                ProjectManager.createFile('./target/user-projects/'+testUser.id+'/'+project.magnetId+'/'+newProject.apnsCertName, 'valid input', function(e){
+                ProjectManager.createFile('./tmp/user-projects/'+testUser.id+'/'+project.magnetId+'/'+newProject.apnsCertName, 'valid input', function(e){
                     expect(e).toBeNull();
                     ProjectManager.removeAPNSCertificate(project.magnetId, function(e){
                         expect(e).toBeNull();
