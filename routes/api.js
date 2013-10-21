@@ -19,6 +19,8 @@ module.exports = function(app){
             // if login returns a user object, store to session
             if(!user){
                 res.redirect('/login?status=invalid');
+            }else if(user && user.activated === false){
+                res.redirect('/login?status=locked');
             }else{
                 delete user.password;
                 req.session.user = user;
@@ -31,9 +33,10 @@ module.exports = function(app){
     // artifactory login
     app.post('/rest/login', function(req, res){
         AccountManager.manualLogin(req.body.name, req.body.password, function(e, user){
-            // if login returns a user object, store to session
             if(!user){
                 res.send('NOT_AUTHORIZED', 401);
+            }else if(user && user.activated === false){
+                res.send('ACCOUNT_LOCKED', 403);
             }else{
                 res.send('SUCCESS', 200);
             }
