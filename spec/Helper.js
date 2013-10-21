@@ -9,6 +9,14 @@ ENV_CONFIG = require('../lib/config/config_'+process.env.NODE_ENV);
 winston = require('winston');
 var AWS = require('aws-sdk');
 
+winston.remove(winston.transports.Console);
+winston.add(winston.transports.Console, {
+    level : 'silly'
+});
+
+console.log('START HELPER');
+
+
 beforeAll = function(fn){
     it('[beforeAll]', fn);
 };

@@ -292,23 +292,23 @@ iframe .WordSection1{width:506px}
 #resources-tabcontent .selector .selector-options a img{border-radius:4px;border:solid 4px transparent}
 #resources-tabcontent .selector .selector-options a:hover img{border:solid 4px #ccc}
 #resources-tabcontent .selector .selector-options a.active img{border:solid 4px #777}
-#resources-tabcontent .a-phone-btn{width:37px;height:59px;background:url(../images/resources/rsrc_vers_andrdfon.png) no-repeat center top}
-#resources-tabcontent .a-tab-btn{width:70px;height:59px;background:url(../images/resources/rsrc_vers_andrdtab.png) no-repeat center top}
-#resources-tabcontent .i-phone-btn{width:37px;height:59px;background:url(../images/resources/rsrc_vers_ifon.png) no-repeat center top}
-#resources-tabcontent .i-pad-btn{width:70px;height:59px;background:url(../images/resources/rsrc_vers_ipad.png) no-repeat center top}
+#resources-tabcontent .a-phone-btn{width:41px;height:63px;background:url(../images/resources/rsrc_vers_andrdfon.png) no-repeat center top}
+#resources-tabcontent .a-tab-btn{width:80px;height:63px;background:url(../images/resources/rsrc_vers_andrdtab.png) no-repeat center top}
+#resources-tabcontent .i-phone-btn{width:41px;height:63px;background:url(../images/resources/rsrc_vers_ifon.png) no-repeat center top}
+#resources-tabcontent .i-pad-btn{width:80px;height:63px;background:url(../images/resources/rsrc_vers_ipad.png) no-repeat center top}
+#resources-tabcontent .o-windows-btn{width:79px;height:73px;background:url(../images/resources/rsrc_vers_win.png) no-repeat center top}
+#resources-tabcontent .o-linux-btn{width:84px;height:73px;background:url(../images/resources/rsrc_vers_unix.png) no-repeat center top}
+#resources-tabcontent .o-mac-btn{width:70px;height:73px;background:url(../images/resources/rsrc_vers_osx.png) no-repeat center top}
 #resources-tabcontent .a-phone-btn.active{background:url(../images/resources/rsrc_vers_andrdfon_sel.png) no-repeat center top}
 #resources-tabcontent .a-tab-btn.active{background:url(../images/resources/rsrc_vers_andrdtab_sel.png) no-repeat center top}
 #resources-tabcontent .i-phone-btn.active{background:url(../images/resources/rsrc_vers_ifon_sel.png) no-repeat center top}
 #resources-tabcontent .i-pad-btn.active{background:url(../images/resources/rsrc_vers_ipad_sel.png) no-repeat center top}
-
-.o-mac-btn, .o-linux-btn, .o-windows-btn{text-decoration:none;border-radius:9px;color:#000;display:block;padding:5px;border:solid 1px #ccc}
-.o-mac-btn.active, .o-linux-btn.active, .o-windows-btn.active{background:#AB4F4F;color:#fff;border:solid 1px #AB4F4F}
-.o-mac-btn.active:hover, .o-linux-btn.active:hover, .o-windows-btn.active:hover{color:#fff}
-.o-mac-btn:hover, .o-linux-btn:hover, .o-windows-btn:hover{color:#000;text-decoration:none}
+#resources-tabcontent .o-windows-btn.active{background:url(../images/resources/rsrc_vers_win_sel.png) no-repeat center top}
+#resources-tabcontent .o-linux-btn.active{background:url(../images/resources/rsrc_vers_unix_sel.png) no-repeat center top}
+#resources-tabcontent .o-mac-btn.active{background:url(../images/resources/rsrc_vers_osx_sel.png) no-repeat center top}
 
 .resources-samples-contents{padding:23px 0 8px}
 .resources-samples-contents li{float:left;margin-right:10%}
-
 
 
 /* documentation */

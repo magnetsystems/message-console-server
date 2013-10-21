@@ -100,11 +100,13 @@ describe("AccountManager manualLogin", function() {
                                     });
                                 });
                             });
-                        })
+                        });
+
                     });
                 });
             });
         });
+
     });
 });
 

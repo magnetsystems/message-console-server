@@ -8,15 +8,7 @@ AWS.config.update(ENV_CONFIG.AWS);
 
 var iam = new AWS.IAM({apiVersion: ENV_CONFIG.Cloud.AWS.IAMApiVersion});
 
-jasmine.getEnv().defaultTimeoutInterval = 30000;
-
-describe('Cloud database setup', function(){
-    beforeAll(function(done){
-        orm.setup('./lib/models', function(){
-            done();
-        });
-    });
-});
+jasmine.getEnv().defaultTimeoutInterval = 50000;
 
 //removeUser(ENV_CONFIG.Users.admin.user.magnetId, function(){
 //    console.log("Deleted user");
