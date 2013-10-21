@@ -17,15 +17,15 @@ module.exports = function(app){
     app.post('/login', function(req, res){
         AccountManager.manualLogin(req.body.username, req.body.password, function(e, user){
             // if login returns a user object, store to session
-            if(!user){
-                res.redirect('/login?status=invalid');
-            }else if(user && user.activated === false){
-                res.redirect('/login?status=locked');
-            }else{
+            if(user){
                 delete user.password;
                 req.session.user = user;
                 winston.info('Tracking: user "' + user.email + '" logged in'+ (req.session.entryPoint ? ' with redirect to '+req.session.entryPoint : ''));
                 res.redirect(req.session.entryPoint || '/');
+            }else if(e == 'account-locked'){
+                res.redirect('/login?status=locked');
+            }else{
+                res.redirect('/login?status=invalid');
             }
         });
     });
@@ -33,12 +33,10 @@ module.exports = function(app){
     // artifactory login
     app.post('/rest/login', function(req, res){
         AccountManager.manualLogin(req.body.name, req.body.password, function(e, user){
-            if(!user){
-                res.send('NOT_AUTHORIZED', 401);
-            }else if(user && user.activated === false){
-                res.send('ACCOUNT_LOCKED', 403);
-            }else{
+            if(user){
                 res.send('SUCCESS', 200);
+            }else{
+                res.send(e, 401);
             }
         });
     });
@@ -241,7 +239,6 @@ module.exports = function(app){
 
     app.post('/rest/getCredentials', function(req, res){
         AccountManager.manualLogin(req.param('email'), req.param('password'), function(e, user){
-            // if login returns a user object, store to session
             if (!user) {
                 res.send(e, 401);
             } else {

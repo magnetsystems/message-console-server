@@ -18,24 +18,24 @@ describe('Cloud database setup', function(){
     });
 });
 
-//removeUser(ENV_CONFIG.Cloud.Uploader.UserName, function(){
+//removeUser(ENV_CONFIG.Users.admin.user.magnetId, function(){
 //    console.log("Deleted user");
-//    Cloud.allocateCloudAccount(ENV_CONFIG.Cloud.Uploader.UserName, function(err, data) {
+//    Cloud.allocateCloudAccount(ENV_CONFIG.Users.admin.user.magnetId, function(err, data) {
 //        if (!err) {
-//            ENV_CONFIG.Cloud.Uploader.AccessKeyId = data.accessKeyId;
-//            ENV_CONFIG.Cloud.Uploader.SecretAccessKey = data.secretAccessKey;
+//            ENV_CONFIG.Users.admin.cloudAccount.AccessKeyId = data.accessKeyId;
+//            ENV_CONFIG.Users.admin.cloudAccount.SecretAccessKey = data.secretAccessKey;
 //        } else {
 //            console.error("Error creating keys = " + err);
 //        }
 //    })
 //});
-//Cloud.allocateCloudAccount(ENV_CONFIG.Cloud.Uploader.UserName, function(err, data) {
+//Cloud.allocateCloudAccount(ENV_CONFIG.Users.admin.user.magnetId, function(err, data) {
 //    if (!err) {
 //        console.log("WE ARE HERE");
 //        console.log(JSON.stringify(data));
 //        console.log("data.accessKeyId = " + data.AccessKeyId);
-//        ENV_CONFIG.Cloud.Uploader.AccessKeyId = data.accessKeyId;
-//        ENV_CONFIG.Cloud.Uploader.SecretAccessKey = data.SecretAccessKey;
+//        ENV_CONFIG.Users.admin.cloudAccount.AccessKeyId = data.accessKeyId;
+//        ENV_CONFIG.Users.admin.cloudAccount.SecretAccessKey = data.SecretAccessKey;
 //        console.log(JSON.stringify(uploader));
 //    } else {
 //        console.error("Error creating keys = " + err);
@@ -107,10 +107,10 @@ describe("Cloud allocateCloudAccount without existing user", function() {
 describe("Cloud allocateCloudAccount generated keys", function() {
     var s3 = new AWS.S3({apiVersion: ENV_CONFIG.Cloud.AWS.S3ApiVersion});
     var fileName = 'test.txt';
-    var key = ENV_CONFIG.Cloud.Uploader.UserName + '/' + fileName;
+    var key = ENV_CONFIG.Users.admin.user.magnetId + '/' + fileName;
     var otherKey = 'pshahtest' + '/' + fileName;
     var bucketName = ENV_CONFIG.Cloud.AWS.BucketName;
-    var otherBucketName = ENV_CONFIG.Cloud.AWS.SomeOtherBucketName;
+    var otherBucketName = 'pshahtest';
     var body = "Dummy text file to test CRUD on S3 for given LoginCredentials.";
     var bodyBuffer = new Buffer(body, "utf-8");
 
@@ -119,8 +119,8 @@ describe("Cloud allocateCloudAccount generated keys", function() {
             expect(err).toBeNull();
             s3.putObject({Body: bodyBuffer, Bucket: otherBucketName, Key: key}, function(err, data) {
                 expect(err).toBeNull();
-                s3.config.credentials.accessKeyId = ENV_CONFIG.Cloud.Uploader.AccessKeyId;
-                s3.config.credentials.secretAccessKey = ENV_CONFIG.Cloud.Uploader.SecretAccessKey;
+                s3.config.credentials.accessKeyId = ENV_CONFIG.Users.admin.cloudAccount.AccessKeyId;
+                s3.config.credentials.secretAccessKey = ENV_CONFIG.Users.admin.cloudAccount.SecretAccessKey;
                 done();
             });
         });
@@ -197,7 +197,7 @@ describe("Cloud allocateCloudAccount generated keys", function() {
             expect(err).toBeNull();
             s3.deleteObject({Bucket: otherBucketName, Key: key}, function(err, data) {
                 expect(err).toBeNull();
-//                Helper.removeUser(ENV_CONFIG.Cloud.Uploader.UserName, done);
+//                Helper.removeUser(ENV_CONFIG.Users.admin.user.magnetId, done);
                 done();
             });
         });
