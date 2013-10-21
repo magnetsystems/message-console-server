@@ -25,6 +25,7 @@ describe("sign", function() {
     });
 
     it("should return null if the private key is missing", function(done) {
+        License.clearPrivatekey();
         ENV_CONFIG.License.PrivateKey = './keydoesnotexist.pem';
         License.sign(data, function(signature) {
             expect(signature).toBeNull();
