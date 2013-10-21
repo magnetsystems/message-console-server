@@ -23,8 +23,8 @@ body{min-width:980px;width:100%;margin:0;padding:0;border:0;background:url(../im
 .title_container .dropdown-menu li{padding:2px 0;background:#983C3C}
 .title_container .dropdown-menu li:hover{background:#C15454}
 
-.dropdown .dropdown-menu li.active a, .dropdown .dropdown-menu li:hover a{background:#C15454}
-.dropdown-menu li a:focus{background:#983C3C}
+.dropdown .dropdown-menu li.active a, .dropdown .dropdown-menu li:hover a{outline:none;background:#C15454}
+.dropdown-menu li a:focus{outline:none;background:#983C3C}
 .dropdown .dropdown-menu li.active a.active, .dropdown .dropdown-menu li a:hover{background:none;background:#C15454}
 
 #menu-samples a{background:url('../images/resources/menu.png') no-repeat 10px -56px #983C3C}
@@ -297,7 +297,7 @@ iframe .WordSection1{width:506px}
 #resources-tabcontent .i-phone-btn{width:41px;height:63px;background:url(../images/resources/rsrc_vers_ifon.png) no-repeat center top}
 #resources-tabcontent .i-pad-btn{width:80px;height:63px;background:url(../images/resources/rsrc_vers_ipad.png) no-repeat center top}
 #resources-tabcontent .o-windows-btn{width:79px;height:73px;background:url(../images/resources/rsrc_vers_win.png) no-repeat center top}
-#resources-tabcontent .o-linux-btn{width:84px;height:73px;background:url(../images/resources/rsrc_vers_unix.png) no-repeat center top}
+#resources-tabcontent .o-linux-btn{margin-top:15px;width:84px;height:58px;background:url(../images/resources/rsrc_vers_unix.png) no-repeat center top}
 #resources-tabcontent .o-mac-btn{width:70px;height:73px;background:url(../images/resources/rsrc_vers_osx.png) no-repeat center top}
 #resources-tabcontent .a-phone-btn.active{background:url(../images/resources/rsrc_vers_andrdfon_sel.png) no-repeat center top}
 #resources-tabcontent .a-tab-btn.active{background:url(../images/resources/rsrc_vers_andrdtab_sel.png) no-repeat center top}
@@ -347,16 +347,17 @@ iframe .WordSection1{width:506px}
 #get-started .tab-pane h5{font-size:18px;font-weight:bold;margin-top:30px}
 #get-started .tab-pane h5 span{margin-left:20px;font-weight:normal;font-size:13px}
 #get-started .nav-tabs{background-color:#e8eced;height:100%;position:absolute;top:0;left:0;border-radius:12px 0 0 12px;width:200px;border:none}
+#get-started .nav-tabs li{position:relative}
 #get-started .nav-tabs li.first{text-align:center;height:85px;display:block;width:100%}
-#get-started .nav-tabs li a{outline:none;padding:0;margin:0;width:200px;height:127px;border:none;border-radius:0;text-align:center;font-size:18px;line-height:205px}
+#get-started .nav-tabs li img{display:none;position:absolute;top:0;right:-15px}
+#get-started .nav-tabs li a, #get-started .nav-tabs li a:focus, #get-started .nav-tabs li a:hover, #get-started .nav-tabs li.active a{color:#333;outline:none;padding:0;margin:0;width:200px;height:142px;border:none;border-radius:0;text-align:center;font-size:18px;line-height:225px}
 #gs-projectguide-tab a{background:url(../images/getstarted/gtstrtd_nav_1.png) no-repeat -11px 0}
-#gs-ios-tab a{background:url(../images/getstarted/gtstrtd_nav_2.png) no-repeat -11px 0}
-#gs-server-tab a{background:url(../images/getstarted/gtstrtd_nav_3.png) no-repeat -11px 0}
-#gs-android-tab a{background:url(../images/getstarted/gtstrtd_nav_4.png) no-repeat -11px 0}
-#gs-projectguide-tab.active a{background-color:#d8e2e6}
-#gs-ios-tab.active a{background-color:#d8e2e6}
-#gs-server-tab.active a{background-color:#d8e2e6}
-#gs-android-tab.active a{background-color:#d8e2e6}
+#gs-ios-tab a{background:url(../images/getstarted/gtstrtd_nav_ios.png) no-repeat -13px 0}
+#gs-server-tab a{background:url(../images/getstarted/gtstrtd_nav_srvr.png) no-repeat -13px 0}
+#gs-android-tab a{background:url(../images/getstarted/gtstrtd_nav_andrd.png) no-repeat -13px 0}
+#get-started .nav-tabs li.active img{display:inline}
+#get-started .nav-tabs li:hover a{background-color:#D7E0E2}
+#get-started .nav-tabs li.active a{background-color:#C1D6E1}
 #get-started .tab-content{margin-left:200px;overflow:visible}
 .guide-divider img{margin-bottom:3px;margin-left:68px}
 .guide-divider-empty{height:20px}
