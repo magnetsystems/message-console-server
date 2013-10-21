@@ -297,14 +297,14 @@ iframe .WordSection1{width:506px}
 #resources-tabcontent .i-phone-btn{width:41px;height:63px;background:url(../images/resources/rsrc_vers_ifon.png) no-repeat center top}
 #resources-tabcontent .i-pad-btn{width:80px;height:63px;background:url(../images/resources/rsrc_vers_ipad.png) no-repeat center top}
 #resources-tabcontent .o-windows-btn{width:79px;height:73px;background:url(../images/resources/rsrc_vers_win.png) no-repeat center top}
-#resources-tabcontent .o-linux-btn{margin-top:15px;width:84px;height:58px;background:url(../images/resources/rsrc_vers_unix.png) no-repeat center top}
+#resources-tabcontent .o-linux-btn{width:84px;height:73px;background:url(../images/resources/rsrc_vers_linux.png) no-repeat center top}
 #resources-tabcontent .o-mac-btn{width:70px;height:73px;background:url(../images/resources/rsrc_vers_osx.png) no-repeat center top}
 #resources-tabcontent .a-phone-btn.active{background:url(../images/resources/rsrc_vers_andrdfon_sel.png) no-repeat center top}
 #resources-tabcontent .a-tab-btn.active{background:url(../images/resources/rsrc_vers_andrdtab_sel.png) no-repeat center top}
 #resources-tabcontent .i-phone-btn.active{background:url(../images/resources/rsrc_vers_ifon_sel.png) no-repeat center top}
 #resources-tabcontent .i-pad-btn.active{background:url(../images/resources/rsrc_vers_ipad_sel.png) no-repeat center top}
 #resources-tabcontent .o-windows-btn.active{background:url(../images/resources/rsrc_vers_win_sel.png) no-repeat center top}
-#resources-tabcontent .o-linux-btn.active{background:url(../images/resources/rsrc_vers_unix_sel.png) no-repeat center top}
+#resources-tabcontent .o-linux-btn.active{background:url(../images/resources/rsrc_vers_linux_sel.png) no-repeat center top}
 #resources-tabcontent .o-mac-btn.active{background:url(../images/resources/rsrc_vers_osx_sel.png) no-repeat center top}
 
 .resources-samples-contents{padding:23px 0 8px}
