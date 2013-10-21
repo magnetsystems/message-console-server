@@ -6,9 +6,8 @@ define(['jquery', 'backbone', 'models/UserModel', 'models/ProjectModel'], functi
             me.options.eventPubSub.bind('initPWIntroView', function(params){
                 me.project = params.project;
                 me.settings = params.settings;
-                $('#pw-intro-fields').show();
-                $('#pw-intro-fields').find('input, textarea').val('');
-                $('#project-name-editor').html('Create Project').show();
+                $('#project-details-container').find('input, textarea').val('');
+                $('#project-details-container input[name="version"]').val('1.0');
             });
             me.options.eventPubSub.bind('introComplete', function(){
                 me.storeDetails();
