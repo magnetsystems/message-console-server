@@ -69,10 +69,9 @@ define(['jquery', 'backbone'], function($, Backbone){
         // render paging
         renderPagination: function(params){
             if(params.paging){
-                params.paging.current = params.paging.startIndex/10;
-                params.paging.previous = params.paging.current - 1;
-                if(params.paging.current < Math.floor(params.paging.totalSize/10)){
-                    params.paging.next = params.paging.current + 1;
+                params.paging.previous = params.paging.start - 10;
+                if((params.paging.start+10) <= params.paging.total){
+                    params.paging.next = parseInt(params.paging.start) + 10;
                 }
                 var template = _.template($("#paginationDetailView").html(), params);
                 this.$el.find('.pagination').html(template);

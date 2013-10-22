@@ -14,6 +14,9 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
             'click button[did="delete-user"]': 'deleteUser',
             'click button[did="approve-user"]': 'approveUser',
             'click button[did="deny-user"]': 'approveUser',
+            'click button[did="edit-user"]': 'editUser',
+            'click button[did="edit-user-cancel"]': 'editUserCancel',
+            'click button[did="edit-user-save"]': 'editUserSave',
             'click button[did="activate-user"]': 'activateUser',
             'click button[did="deactivate-user"]': 'activateUser'
         },
@@ -147,6 +150,51 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
                     content : 'There was a problem sending the request to the server: '+xhr.responseText
                 });
             });
+        },
+        editUser: function(){
+            this.$el.find('.buttons-section, .user-edit-value').hide();
+            this.$el.find('.buttons-section-edit, .user-edit-input').show();
+        },
+        editUserCancel: function(e){
+            this.$el.find('.buttons-section-edit, .user-edit-input').hide();
+            this.$el.find('.user-edit-value').show();
+            this.hideLoading($(e.currentTarget));
+        },
+        // save edits for a user
+        editUserSave: function(e){
+            var me = this;
+            me.$el.find('.buttons-section-edit').hide();
+            me.showLoading($(e.currentTarget));
+            var properties = utils.collect(me.$el.find('#user-data-container'));
+            var user = new UserModel({
+                id       : this.entity.attributes.id,
+                magnetId : this.entity.attributes.magnetId
+            });
+            for(var prop in properties.config){
+                if((properties.config[prop] == '' && me.entity.attributes[prop] == null) || properties.config[prop] == me.entity.attributes[prop]){
+                    delete properties.config[prop];
+                }
+            }
+            if(!$.isEmptyObject(properties.config)){
+                user.save(properties.config, {
+                    success: function(){
+                        me.hideLoading($(e.currentTarget));
+                        me.entity.set(properties.config);
+                        me.render('User');
+                        me.fetchProjects();
+                    },
+                    error: function(){
+                        Alerts.Error.display({
+                            title   : 'Error Updating User',
+                            content : 'There was a problem updating this user. Please try again later.'
+                        });
+                    }
+                });
+            }else{
+                me.$el.find('.buttons-section-edit, .user-edit-input').hide();
+                me.$el.find('.user-edit-value').show();
+                me.hideLoading($(e.currentTarget));
+            }
         },
         showLoading: function(dom){
             var parent = dom.closest('.buttons');

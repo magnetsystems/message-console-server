@@ -1047,7 +1047,7 @@ function tryParseJSON(str){
 }
 
 function SessionManager(cookies){
-    this.sessionLength = 10;
+    this.sessionLength = 20;
     this.timestamp = this.getTimestamp();
     this.timers = [
         {time : 2},

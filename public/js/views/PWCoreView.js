@@ -54,7 +54,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], functi
             if(validation){
                 Alerts.Error.display({
                     title   : 'Parameters Not Filled Out',
-                    content : 'The '+validation.text+' feature'+(validation.ary.length == 1 ? ' was' : 's were')+' included, but not all the parameters were filled out.'
+                    content : 'The '+validation.text+' feature'+(validation.ary.length == 1 ? ' was' : 's were')+' included, but not all the parameters were filled out. If you disable this feature you can still fill in parameters at a later time using the Magnet Mobile App Builder Tool.'
                 });
             }else{
                 me.confirmCert(properties, function(){

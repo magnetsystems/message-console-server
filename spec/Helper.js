@@ -14,9 +14,6 @@ winston.add(winston.transports.Console, {
     level : 'silly'
 });
 
-console.log('START HELPER');
-
-
 beforeAll = function(fn){
     it('[beforeAll]', fn);
 };

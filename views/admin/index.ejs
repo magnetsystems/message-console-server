@@ -44,6 +44,7 @@
               <li id="mgmt-invites-tab"><a href="#/invites">Pending</a></li>
               <li id="mgmt-requests-tab"><a href="#/requests">Requests</a></li>
                 <li id="mgmt-invitations-tab"><a href="#/invitations">User Invitations</a></li>
+                <li id="mgmt-events-tab"><a href="#/events">Event Logging</a></li>
                 <li id="mgmt-actions-tab"><a href="#/actions">User Management</a></li>
             </ul>
             <div class="tab-content">
@@ -62,6 +63,10 @@
                 <div class="tab-pane" id="mgmt-invitations">
                     <h3>Users Invited by Other Users</h3>
                     <div id="mgmt-invitations-list"></div>
+                </div>
+                <div class="tab-pane" id="mgmt-events">
+                    <h3>Event Logging</h3>
+                    <div id="mgmt-events-list"></div>
                 </div>
                 <div class="tab-pane" id="mgmt-actions">
                     <h3>User Management</h3>
@@ -104,11 +109,16 @@
             <div class="buttons">
                 <div class="buttons-section">
                     <button did="delete-user" type="button" class="btn">Delete User</button>
+                    <button did="edit-user" type="button" class="btn">Edit User</button>
                     <% if(model.userType == 'guest'){ %>
                     <button did="approve-user" type="button" class="btn btn-primary">Approve User</button>
                     <% } %>
                     <button did="deactivate-user" type="button" class="btn btn-primary <% if(model.activated !== true){ %>hidden<% } %>">Deactivate User</button>
                     <button did="activate-user" type="button" class="btn btn-primary <% if(model.activated === true){ %>hidden<% } %>">Activate User</button>
+                </div>
+                <div class="buttons-section-edit" style="display:none">
+                    <button did="edit-user-cancel" type="button" class="btn">Cancel Changes</button>
+                    <button did="edit-user-save" type="button" class="btn btn-primary">Save Changes</button>
                 </div>
                 <div class="loading buttons-section" style="display:none">
                     Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
@@ -118,27 +128,53 @@
             <div class="row-fluid">
                 <div class="span12">
                     <h4>User Information</h4>
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="user-data-container">
                         <tbody>
                             <tr>
-                                <td width="5px">Name</td>
-                                <td width="5px"><%- model.profileName %></td>
+                                <td width="5px">First Name</td>
+                                <td width="5px">
+                                    <span class="user-edit-value"><%- model.firstName %></span>
+                                    <span class="user-edit-input" style="display:none"><input type="text" name="firstName" value="<%- model.firstName %>" /></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="5px">Last Name</td>
+                                <td width="5px">
+                                    <span class="user-edit-value"><%- model.lastName %></span>
+                                    <span class="user-edit-input" style="display:none"><input type="text" name="lastName" value="<%- model.lastName %>" /></span>
+                                </td>
                             </tr>
                             <tr>
                                 <td width="5px">Email Address</td>
-                                <td width="5px"><%- model.email %></td>
+                                <td width="5px">
+                                    <span class="user-edit-value"><%- model.email %></span>
+                                    <span class="user-edit-input" style="display:none"><input type="text" name="email" value="<%- model.email %>" /></span>
+                                </td>
                             </tr>
                             <tr>
                                 <td width="5px">Company</td>
-                                <td width="5px"><%- model.companyName %></td>
+                                <td width="5px">
+                                    <span class="user-edit-value"><%- model.companyName %></span>
+                                    <span class="user-edit-input" style="display:none"><input type="text" name="companyName" value="<%- model.companyName %>" /></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="5px">Role Within Company</td>
+                                <td width="5px">
+                                    <span class="user-edit-value"><%- model.roleWithinCompany %></span>
+                                    <span class="user-edit-input" style="display:none"><input type="text" name="roleWithinCompany" value="<%- model.roleWithinCompany %>" /></span>
+                                </td>
                             </tr>
                             <tr>
                                 <td width="5px">Date Accepted EULA</td>
                                 <td width="5px"><%- model.dateAcceptedEULA %></td>
                             </tr>
                             <tr>
-                                <td width="5px">Type of User</td>
-                                <td id="user-type-container" width="5px"><%- model.userType %></td>
+                                <td width="5px">Type of User (Internal)</td>
+                                <td width="5px">
+                                    <span class="user-edit-value"><%- model.userType %></span>
+                                    <span class="user-edit-input" style="display:none"><input type="text" name="userType" value="<%- model.userType %>" /></span>
+                                </td>
                             </tr>
                             <% if(model.invitedEmail){ %>
                             <tr>
@@ -265,17 +301,17 @@
 <% }); %>
 </script>
 <script id="paginationDetailView" type="text/template">
-<% if(paging.totalSize > 10){ %>
+<% if(paging.total > 10){ %>
     <ul>
-        <li <% if(paging.startIndex == 0){ %>class="disabled"<% } %>><a href="#" page="<%-paging.previous%>">Prev</a></li>
-<% for(i=0;i<paging.totalSize;i+=10){ %>
-        <li <% if(paging.startIndex == i){ %>class="disabled"<% } %> ><a href="#" page="<%-i/10%>"><%-(i/10)+1%></a></li>
+        <li <% if(paging.start == 0){ %>class="disabled"<% } %>><a href="#" page="<%-paging.previous%>">Prev</a></li>
+<% for(i=0;i<paging.total;i+=10){ %>
+        <li <% if(paging.start == i){ %>class="disabled"<% } %> ><a href="#" page="<%-i%>"><%-(i/10)+1%></a></li>
 <% } %>
-        <li <% if(!paging.next || paging.startIndex == 90 || (paging.startIndex+paging.pageSize) == paging.totalSize){ %>class="disabled"<% } %>><a href="#" page="<%-paging.next%>">Next</a></li>
+        <li <% if(!paging.next || paging.start == 190 || (paging.start+paging.rpp) == paging.total){ %>class="disabled"<% } %>><a href="#" page="<%-paging.next%>">Next</a></li>
     </ul>
-    <% if(paging.startIndex == 90 && paging.totalSize == 100){ %>
-       <br >The maximum number of results returned has been reached. Please refine your result with search or sort.
-    <% } %> 
+    <% if(paging.start == 190 && paging.total > 200){ %>
+       <br >Too many results. Please refine your result with search and or sort features.
+    <% } %>
 <% } %>   
 </script>
 
