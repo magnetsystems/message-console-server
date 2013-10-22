@@ -1,7 +1,7 @@
 var AccountManager = require('../lib/AccountManager')
 , UserManager = require('../lib/UserManager')
 , ProjectManager = require('../lib/ProjectManager')
-, Queries = require('../lib/Queries')
+, ModelManager = require('../lib/ModelManager')
 , EmailService = require('../lib/EmailService')
 , magnetId = require('node-uuid')
 , path = require('path')
@@ -57,7 +57,7 @@ module.exports = function(app){
     var dbModels = ['users', 'projects'];
     app.get('/rest/:model', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(dbModels, req.params.model)){
-            Queries.findAll(req, function(col){
+            ModelManager.findAll(req, function(col){
                 res.send(col, 200);
             });
         }else{
@@ -67,8 +67,22 @@ module.exports = function(app){
 
     app.get('/rest/:model/:id', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(dbModels, req.params.model)){
-            Queries.find(req, function(model){
+            ModelManager.find(req, function(model){
                 res.send(model, 200);
+            });
+        }else{
+            next();
+        }
+    });
+
+    app.put('/rest/:model/:id', function(req, res, next){
+        if(req.session.user && req.session.user.userType == 'admin' && req.params.model == 'users'){
+            ModelManager.update(req, req.body, function(e, model){
+                if(e){
+                    res.send(e, 400);
+                }else{
+                    res.send('ok', 200);
+                }
             });
         }else{
             next();

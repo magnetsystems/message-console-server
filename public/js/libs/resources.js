@@ -76,10 +76,6 @@ function syncOverride(mc, eventPubSub){
             if(options.data.page && options.data.page != ''){
                 qsStr += '&_magnet_page='+options.data.page;
             }
-            // set a maximum query result on each call for less burden on server
-            if(method == 'read' && magnetId == null && !options.data.maxResults){
-                qsStr += '&_magnet_max_results=100';
-            }
             // manually set max results
             if(options.data.maxResults){
                 qsStr += '&_magnet_max_results='+options.data.maxResults;
@@ -162,40 +158,20 @@ ModelConnector.prototype.get = function(path, id, qs, params, callback, failback
         url = url.replace('&', '?');
     }
     me.query(url, 'GET', {}, function(data, status, xhr){
-        // store entity type with _magnet_queries id to delete previous query when a new query is created
-        if(data.nextPageUrl && entity){
-            var query = data.nextPageUrl.slice(data.nextPageUrl.lastIndexOf('_magnet_queries')+1).split('/');
-            if(!me.queries[entity]){
-                me.queries[entity] = {};
-            }else if(me.queries[entity].id != query[1]){
-                $.ajax({type : 'DELETE', url : me.queries[entity].url});
-            };
-            me.queries[entity].id = query[1];
-            me.queries[entity].url = 'rest/_magnet_queries/'+query[1];
-        }
         if(typeof callback === typeof Function){
             if(!me.chkSession(data, xhr)) return false;
             var result = {};
-            if(data instanceof Array){
+            if(data.paging){
                 var models = [];
                 // create pagination object
                 var paging = {};
-                paging.startIndex = data.startIndex;
-                paging.pageSize = data.pageSize;
-                paging.totalSize = data.totalSize;
-                paging.nextPageUrl = data.nextPageUrl ? data.nextPageUrl : (me.queries[entity] ? me.queries[entity].url : undefined);
-                // adding magnetId to be used as a primary key for each model. usually the primary key is the 'id' property in a model, but in our case the unique id used in our url paths are actually magnetIds. This allows us to work with entities as backbone models with more ease.
-                $.each(data, function(i, obj){
-                    me.appendIds(obj, params);
-                    models.push(obj);
-                });
-                if(params){
-                    // combine existing collection of data with new data when a nextPageUrl is used
-                    if(params.nextPage){
-                        models = params.col.models.concat(models);
-                    }
-                }
-                result = {data:models, paging:paging, params:params || undefined};
+                paging.startIndex = data.start;
+                paging.pageSize = data.paging.rpp;
+                paging.totalSize = data.total;
+                result = {
+                    data   : data.rows,
+                    paging : data.paging,
+                    params : params || undefined};
             }else{
                 me.appendIds(data, params);
                 result = data;

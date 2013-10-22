@@ -49,7 +49,7 @@ describe("UserManager registerGuest", function() {
 //            delete user.email;
             user.email = '';
             UserManager.registerGuest(user, false, function(registrationStatus) {
-                expect(registrationStatus).toBeUndefined(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
+                expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
                 done();
             });
         });
