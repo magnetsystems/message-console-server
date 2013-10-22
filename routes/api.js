@@ -54,9 +54,9 @@ module.exports = function(app){
     });
 
     /* catch database models */
-    var dbModels = ['users', 'projects'];
+    var getDBModels = ['users', 'projects', 'events'];
     app.get('/rest/:model', function(req, res, next){
-        if(req.session.user && req.session.user.userType == 'admin' && _.contains(dbModels, req.params.model)){
+        if(req.session.user && req.session.user.userType == 'admin' && _.contains(getDBModels, req.params.model)){
             ModelManager.findAll(req, function(col){
                 res.send(col, 200);
             });
@@ -66,7 +66,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/:model/:id', function(req, res, next){
-        if(req.session.user && req.session.user.userType == 'admin' && _.contains(dbModels, req.params.model)){
+        if(req.session.user && req.session.user.userType == 'admin' && _.contains(getDBModels, req.params.model)){
             ModelManager.find(req, function(model){
                 res.send(model, 200);
             });
@@ -75,8 +75,9 @@ module.exports = function(app){
         }
     });
 
+    var putDBModels = ['users'];
     app.put('/rest/:model/:id', function(req, res, next){
-        if(req.session.user && req.session.user.userType == 'admin' && req.params.model == 'users'){
+        if(req.session.user && req.session.user.userType == 'admin' && _.contains(putDBModels, req.params.model)){
             ModelManager.update(req, req.body, function(e, model){
                 if(e){
                     res.send(e, 400);

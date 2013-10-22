@@ -1,7 +1,7 @@
-define(["jquery", "backbone", "models/UserModel"], function($, Backbone, UserModel){
+define(["jquery", "backbone", "models/EventModel"], function($, Backbone, EventModel){
     var Collection = Backbone.Collection.extend({
-        model: UserModel,
-        urlRoot: 'users',
+        model: EventModel,
+        urlRoot: 'events',
         parse: function(res){
             this.paging = res.paging;
             return res.data;

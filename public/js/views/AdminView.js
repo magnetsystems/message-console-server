@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'collections/UserCollection'], function($, Backbone, UserCollection){
+define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCollection'], function($, Backbone, UserCollection, EventCollection){
     var View = Backbone.View.extend({
         el: "#admin",
         initialize: function(){
@@ -77,6 +77,19 @@ define(['jquery', 'backbone', 'collections/UserCollection'], function($, Backbon
                     search : [{
                         'userType' : 'invited'
                     }]
+                }
+            },
+            'events' : {
+                col      : EventCollection,
+                headers  : {
+                    createdAt : 'Created On',
+                    message   : 'Message'
+                },
+                searchBy : 'message',
+                disableInfo : true,
+                sortDefault : {
+                    property : 'createdAt',
+                    order    : 'desc'
                 }
             }
         },

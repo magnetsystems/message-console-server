@@ -152,18 +152,18 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
             });
         },
         editUser: function(){
-            $('.buttons-section, .user-edit-value').hide();
-            $('.buttons-section-edit, .user-edit-input').show();
+            this.$el.find('.buttons-section, .user-edit-value').hide();
+            this.$el.find('.buttons-section-edit, .user-edit-input').show();
         },
         editUserCancel: function(e){
-            $('.buttons-section-edit, .user-edit-input').hide();
-            $('.user-edit-value').show();
+            this.$el.find('.buttons-section-edit, .user-edit-input').hide();
+            this.$el.find('.user-edit-value').show();
             this.hideLoading($(e.currentTarget));
         },
         // save edits for a user
         editUserSave: function(e){
             var me = this;
-            $('.buttons-section-edit').hide();
+            me.$el.find('.buttons-section-edit').hide();
             me.showLoading($(e.currentTarget));
             var properties = utils.collect(me.$el.find('#user-data-container'));
             var user = new UserModel({
@@ -191,8 +191,8 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
                     }
                 });
             }else{
-                $('.buttons-section-edit, .user-edit-input').hide();
-                $('.user-edit-value').show();
+                me.$el.find('.buttons-section-edit, .user-edit-input').hide();
+                me.$el.find('.user-edit-value').show();
                 me.hideLoading($(e.currentTarget));
             }
         },
