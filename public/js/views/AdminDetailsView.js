@@ -191,6 +191,8 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
                     }
                 });
             }else{
+                $('.buttons-section-edit, .user-edit-input').hide();
+                $('.user-edit-value').show();
                 me.hideLoading($(e.currentTarget));
             }
         },
