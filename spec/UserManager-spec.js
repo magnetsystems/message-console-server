@@ -337,7 +337,7 @@ describe("UserManager resetPassword", function() {
                     UserManager.sendForgotPasswordEmail({email: u.email}, function(sendForgotPassword) {
                         u.reload().success(function() {
 
-                            UserManager.resetPassword({password: 'newPassword', passwordResetToken: u.passwordResetToken}, function(status) {
+                            UserManager.resetPassword({password: 'newPassword', passwordResetToken: u.passwordResetToken}, function(status, user) {
                                 u.reload().success(function() {
                                     expect(bcrypt.compareSync('newPassword', u.password)).toBeTruthy();
                                     expect(u.passwordResetToken).toBeNull();
