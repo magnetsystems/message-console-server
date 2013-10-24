@@ -120,7 +120,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/projects/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.read(req, function(e, project){
+        ProjectManager.read(req.params.magnetId, function(e, project){
             if(e){
                 res.send(e, 400);
             }else{
@@ -180,7 +180,7 @@ module.exports = function(app){
                 res.send(JSON.stringify({
                     success : true
                 }), {
-                    'Content-Type': 'text/plain'
+                    'Content-Type' : 'text/plain'
                 }, 200);
             }
         });
@@ -329,13 +329,18 @@ module.exports = function(app){
     });
 
     app.get('/rest/users/:magnetId', function(req, res){
-        UserManager.read(req.params.magnetId, (typeof req.session.user == 'undefined'), function(e, user){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send(user, 200);
-            }
-        });
+        // if there is a session, only allow retrieval if user is an admin or the user is retrieving self
+        if((req.session.user && (req.session.user.magnetId == req.params.magnetId || req.session.user.userType == 'admin')) || typeof req.session.user == 'undefined'){
+            UserManager.read(req.params.magnetId, (typeof req.session.user == 'undefined'), function(e, user){
+                if(e){
+                    res.send(e, 400);
+                }else{
+                    res.send(user, 200);
+                }
+            });
+        }else{
+            res.send('user-fetch-failed', 400);
+        }
     });
 
     app.delete('/rest/users/:magnetId', UserManager.checkAuthority(['admin'], true), function(req, res){

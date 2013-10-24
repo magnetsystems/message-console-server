@@ -369,12 +369,13 @@ iframe .WordSection1{width:506px}
 .guide-content .span7{margin-top:7px}
 .guide-step{float:left;font-size:42px;color:#bbb;margin:10px 20px 0 31px;height:82px}
 .guide-content span5{position:absolute;top:0;right:0}
-.guide-content .btn{margin-top:16px;width:42%}
+.guide-content .btn{margin-top:16px}
 .guide-content .btn.dbl{margin-top:0;margin-bottom:4px}
 .guide-content .accordion-toggle{color:#333;padding:0 15px}
 .guide-content .accordion-group{border:none}
 .guide-content .accordion-heading p{margin:0 15px}
 .guide-content .accordion-body{margin-top:8px}
+.guide-content .accordion-inner{padding:9px 0}
 .guide-content .accordion-inner h5{font-weight:bold;margin:20px 0 20px 0}
 .guide-content .accordion-inner a img{box-shadow:2px 2px 2px #bbb;width:90%;border:solid 2px #999}
 .guide-content .accordion-inner a:hover img{border:solid 2px #333}

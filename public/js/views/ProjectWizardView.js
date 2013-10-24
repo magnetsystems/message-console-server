@@ -366,12 +366,6 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
                     content : '"Project Description" must be filled out before continuing.'
                 });
                 return false;
-            }else if($.trim(obj.version) == ''){
-                Alerts.Error.display({
-                    title   : 'Required Field Left Blank',
-                    content : '"Version" must be filled out before continuing.'
-                });
-                return false;
             }
             return true;
         },
