@@ -1,5 +1,6 @@
 var AccountManager = require('../lib/AccountManager')
 , UserManager = require('../lib/UserManager')
+, JumpStartUserManager = require('../lib/JumpStartUserManager')
 , ProjectManager = require('../lib/ProjectManager')
 , ModelManager = require('../lib/ModelManager')
 , EmailService = require('../lib/EmailService')
@@ -103,18 +104,24 @@ module.exports = function(app){
     });
 
     app.put('/rest/profile', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        var newPassword = req.body.newpassword;
         UserManager.update(req.session.user, {
             firstName   : stripChars(req.body.firstName),
             lastName    : stripChars(req.body.lastName),
             companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName,
             oldpass     : req.body.oldpassword,
-            newpass     : req.body.newpassword
+            newpass     : newPassword
         }, function(e, user){
             if(e){
                 res.send(e, 400);
             }else{
                 req.session.user = user;
                 res.send('ok', 200);
+                // Populate JumpStart DB
+                JumpStartUserManager.updateUser(user.email, newPassword, function(err) {
+                    //
+                });
+
             }
         });
     });
@@ -311,17 +318,22 @@ module.exports = function(app){
     });
 
     app.post('/rest/users/:magnetId/completeRegistration', function(req, res) {
+        var password = req.body.password;
         UserManager.becomeDeveloper({
             magnetId : req.param('magnetId'),
-            password : req.body.password,
+            password : password,
             firstName : req.body.firstName ? stripChars(req.body.firstName) : req.body.firstName,
             lastName : req.body.lastName ? stripChars(req.body.lastName) : req.body.lastName,
             roleWithinCompany : sanitize(req.body.roleWithinCompany).xss(),
             country : sanitize(req.body.country).xss(),
             companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName
-        }, function(approvalStatus) {
+        }, function(approvalStatus, user) {
             if(approvalStatus == UserManager.BecomeDeveloperStatusEnum.SUCCESSFUL) {
                 res.send(approvalStatus, 200);
+                // Populate JumpStart DB
+                JumpStartUserManager.createUser(user.email, password, function(err) {
+                    //
+                });
             } else {
                 res.send(approvalStatus, 400);
             }
@@ -353,6 +365,11 @@ module.exports = function(app){
                         userId      : req.session.user.id,
                         targetModel : 'User',
                         targetId    : user.id
+                    });
+                    // Populate JumpStart DB
+                    // The following call might fail if the user is not a developer, but thats ok
+                    JumpStartUserManager.deleteUser(user.email, function(err) {
+                        //
                     });
                 }
                 res.send('ok', 200);
@@ -448,9 +465,13 @@ module.exports = function(app){
         UserManager.resetPassword({
             password : req.body.password,
             passwordResetToken: req.body.passwordResetToken
-        }, function(status) {
+        }, function(status, user) {
             if(status == UserManager.ResetPasswordEnum.RESET_SUCCESSFUL) {
                 res.send(status, 200);
+                // Populate JumpStart DB
+                JumpStartUserManager.updateUser(user.email, req.body.password, function(err) {
+                    //
+                });
             } else {
                 res.send(status, 400);
             }

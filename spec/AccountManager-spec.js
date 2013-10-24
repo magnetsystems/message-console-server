@@ -1,10 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: pshah
- * Date: 9/26/13
- * Time: 11:56 AM
- * To change this template use File | Settings | File Templates.
- */
 var AccountManager = require("../lib/AccountManager")
  , Helper = require('./Helper')
  , UserManager = require('../lib/UserManager')
