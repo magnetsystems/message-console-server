@@ -1,8 +1,7 @@
 var JumpStartUserManager = require("../lib/JumpStartUserManager")
-    , Helper = require('./Helper')
-    , sinon = require('sinon');
-
-var mysql = require('mysql');
+, Helper = require('./Helper')
+, sinon = require('sinon')
+, mysql = require('mysql');
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;
 
