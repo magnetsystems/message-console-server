@@ -72,14 +72,6 @@ describe('ProjectManager create', function(){
         });
     });
 
-    it('should fail if project version is missing', function(done){
-        delete testProject.version;
-        ProjectManager.create(testUser.magnetId, testProject, function(e){
-            expect(e).toEqual('invalid-body');
-            done();
-        });
-    });
-
     it('should succeed if data is valid', function(done){
         ProjectManager.create(testUser.magnetId, testProject, function(e, project){
             _project = testProject;

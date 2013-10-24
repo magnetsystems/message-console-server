@@ -24,6 +24,7 @@
     "requirejs": "2.1.8",
     "connect-redis": "1.4.5",
     "bcrypt": "0.7.7",
-    "sinon": "1.7.3"
+    "sinon": "1.7.3",
+    "istanbul": "0.1.44"
   }
 }
