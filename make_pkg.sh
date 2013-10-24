@@ -26,7 +26,7 @@ mysql -u root -e 'drop database if exists developercentertest;'
 mysql -u root -e 'create database developercentertest;'
 
 #start app and run tests
-nohup NODEV_ENV=test node app.js &
+NODE_ENV=test nohup node app.js &
 export NODEJS_PID=$!
 ./node_modules/.bin/jasmine-node --captureExceptions --verbose --junitreport --output target/test/ spec/
 kill $NODEJS_PID
