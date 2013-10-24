@@ -377,6 +377,26 @@ module.exports = function(app){
         });
     });
 
+    app.get('/rest/users/:magnetId/cloudAccounts', UserManager.checkAuthority(['admin'], true), function(req, res){
+        UserManager.getCloudAccounts(req.params.magnetId, function(e, cloudAccounts){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(cloudAccounts, 200);
+            }
+        });
+    });
+
+    app.get('/rest/users/:magnetId/invites', UserManager.checkAuthority(['admin'], true), function(req, res){
+        UserManager.getInvitedUsers(req.params.magnetId, function(e, users){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(users, 200);
+            }
+        });
+    });
+
     app.put('/rest/users/:magnetId/activated', UserManager.checkAuthority(['admin'], true), function(req, res){
         UserManager.setActivation(req.params.magnetId, req.body.activated, function(e, user){
             if(e){

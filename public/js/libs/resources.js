@@ -171,9 +171,14 @@ ModelConnector.prototype.get = function(path, id, qs, params, callback, failback
                 result = {
                     data   : data.rows,
                     paging : data.paging,
-                    params : params || undefined};
+                    params : params || undefined
+                };
+            }else if(data instanceof Array){
+                result = {
+                    data   : data,
+                    params : params || undefined
+                };
             }else{
-                me.appendIds(data, params);
                 result = data;
             }
             callback(result, status, utils.convertHeaderStrToObj(xhr));
