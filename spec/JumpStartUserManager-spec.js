@@ -60,20 +60,31 @@ describe("JumpStartUserManager", function() {
 
     describe("createUser", function() {
         it("should succeed if the underlying stored procedure succeeds", function() {
-            connectionMock.expects("query").once().withArgs("CALL user_create(" + userName + "," + password + ")").callsArgWith(1, null, connectionMock.object);
+            connectionMock.expects("query").once().withArgs("CALL user_create(" + userName + "," + password + ")").callsArgWith(1, null, 'anyArg');
             connectionMock.expects("escape").twice().returnsArg(0);
 
-            var called = false;
-            var callback = function() {
-                called = true;
+            var callback = function(err) {
+                expect(err).toBeNull();
             };
 
             JumpStartUserManager.createUser(userName, password, callback);
 
-            expect(called).toBeTruthy();
-
             // http://stackoverflow.com/questions/4144686/how-to-write-a-test-which-expects-an-error-to-be-thrown
             // Anonymous function is needed
+            expect(function(){ poolMock.verify() }).not.toThrow();
+            expect(function(){ connectionMock.verify() }).not.toThrow();
+        });
+
+        it("should fail if the underlying stored procedure fails", function() {
+            connectionMock.expects("query").once().withArgs("CALL user_create(" + userName + "," + password + ")").callsArgWith(1, 'someError', 'anyArg');
+            connectionMock.expects("escape").twice().returnsArg(0);
+
+            var callback = function(err) {
+                expect(err).not.toBeNull();
+            };
+
+            JumpStartUserManager.createUser(userName, password, callback);
+
             expect(function(){ poolMock.verify() }).not.toThrow();
             expect(function(){ connectionMock.verify() }).not.toThrow();
         });
@@ -81,17 +92,28 @@ describe("JumpStartUserManager", function() {
 
     describe("updateUser", function() {
         it("should succeed if the underlying stored procedure succeeds", function() {
-            connectionMock.expects("query").once().withArgs("CALL user_update(" + userName + "," + password + ")").callsArgWith(1, null, connectionMock.object);
+            connectionMock.expects("query").once().withArgs("CALL user_update(" + userName + "," + password + ")").callsArgWith(1, null, 'anyArg');
             connectionMock.expects("escape").twice().returnsArg(0);
 
-            var called = false;
-            var callback = function() {
-                called = true;
+            var callback = function(err) {
+                expect(err).toBeNull();
             };
 
             JumpStartUserManager.updateUser(userName, password, callback);
 
-            expect(called).toBeTruthy();
+            expect(function(){ poolMock.verify() }).not.toThrow();
+            expect(function(){ connectionMock.verify() }).not.toThrow();
+        });
+
+        it("should fail if the underlying stored procedure fails", function() {
+            connectionMock.expects("query").once().withArgs("CALL user_update(" + userName + "," + password + ")").callsArgWith(1, 'someError', 'anyArg');
+            connectionMock.expects("escape").twice().returnsArg(0);
+
+            var callback = function(err) {
+                expect(err).not.toBeNull();
+            };
+
+            JumpStartUserManager.updateUser(userName, password, callback);
 
             expect(function(){ poolMock.verify() }).not.toThrow();
             expect(function(){ connectionMock.verify() }).not.toThrow();
@@ -100,17 +122,28 @@ describe("JumpStartUserManager", function() {
 
     describe("deleteUser", function() {
         it("should succeed if the underlying stored procedure succeeds", function() {
-            connectionMock.expects("query").once().withArgs("CALL user_delete(" + userName + ")").callsArgWith(1, null, connectionMock.object);
+            connectionMock.expects("query").once().withArgs("CALL user_delete(" + userName + ")").callsArgWith(1, null, 'anyArg');
             connectionMock.expects("escape").once().returnsArg(0);
 
-            var called = false;
-            var callback = function() {
-                called = true;
+            var callback = function(err) {
+                expect(err).toBeNull();
             };
 
             JumpStartUserManager.deleteUser(userName, callback);
 
-            expect(called).toBeTruthy();
+            expect(function(){ poolMock.verify() }).not.toThrow();
+            expect(function(){ connectionMock.verify() }).not.toThrow();
+        });
+
+        it("should fail if the underlying stored procedure fails", function() {
+            connectionMock.expects("query").once().withArgs("CALL user_delete(" + userName + ")").callsArgWith(1, 'someError', 'anyArg');
+            connectionMock.expects("escape").once().returnsArg(0);
+
+            var callback = function(err) {
+                expect(err).not.toBeNull();
+            };
+
+            JumpStartUserManager.deleteUser(userName, callback);
 
             expect(function(){ poolMock.verify() }).not.toThrow();
             expect(function(){ connectionMock.verify() }).not.toThrow();
