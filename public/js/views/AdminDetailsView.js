@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection'], function($, Backbone, UserModel, ProjectCollection){
+define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection', 'collections/UserCollection'], function($, Backbone, UserModel, ProjectCollection, UserCollection){
     var View = Backbone.View.extend({
         el: "#admin-details",
         initialize: function(){
@@ -31,6 +31,8 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
                 success: function(){
                     me.render('User');
                     me.fetchProjects();
+                    me.fetchCloudAccounts();
+                    me.fetchInvitedUsers();
                 }, 
                 error: function(){
                     Alerts.Error.display({
@@ -64,6 +66,50 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
         renderProjects: function(){
             this.$el.find('#project-list-container').html(_.template($('#ProjectListView').html(), {
                 col : this.projects.models
+            }));
+        },
+        // fetch a collection of cloud accounts from the server
+        fetchCloudAccounts: function(){
+            var me = this;
+            me.cloudAccounts = new UserCollection();
+            me.cloudAccounts.fetch({
+                data : {
+                    relationship : {
+                        name     : 'cloudAccounts',
+                        magnetId : me.entity.attributes.magnetId
+                    }
+                },
+                success: function(){
+                    me.renderCloudAccounts();
+                },
+                error: function(){}
+            });
+        },
+        renderCloudAccounts: function(){
+            this.$el.find('#cloudaccount-list-container').html(_.template($('#CloudAccountListView').html(), {
+                col : this.cloudAccounts.models
+            }));
+        },
+        // fetch a collection of users invited by the current user from the server
+        fetchInvitedUsers: function(){
+            var me = this;
+            me.invitedUsers = new UserCollection();
+            me.invitedUsers.fetch({
+                data : {
+                    relationship : {
+                        name     : 'invites',
+                        magnetId : me.entity.attributes.magnetId
+                    }
+                },
+                success: function(){
+                    me.renderInvitedUsers();
+                },
+                error: function(){}
+            });
+        },
+        renderInvitedUsers: function(){
+            this.$el.find('#invitedusers-list-container').html(_.template($('#InvitedUsersListView').html(), {
+                col : this.invitedUsers.models
             }));
         },
         render: function(type){

@@ -201,6 +201,8 @@
                                 <td width="5px"><%- model.magnetId %></td>
                             </tr>
                             <tr id="project-list-container"></tr>
+                            <tr id="cloudaccount-list-container"></tr>
+                            <tr id="invitedusers-list-container"></tr>
                         </tbody>
                     </table>
                 </div>
@@ -212,7 +214,7 @@
             </div>
 </script>
 <script id="ProjectListView" type="text/template">
-    <% if(col){ %>
+    <% if(col && col.length > 0){ %>
         <td><h4>Projects</h4></td>
         <td>
             <% _.each(col, function(project, i){ %>
@@ -244,6 +246,72 @@
             </table>
             <% }); %>
         </td>
+    <% } %>
+</script>
+<script id="CloudAccountListView" type="text/template">
+    <% if(col && col.length > 0){ %>
+    <td><h4>CloudAccounts</h4></td>
+    <td>
+        <% _.each(col, function(cloudAccount, i){ %>
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <td>Owner Type</td>
+                <td><%- cloudAccount.attributes.ownerType %></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><%- cloudAccount.attributes.name %></td>
+            </tr>
+            <tr>
+                <td>Provider</td>
+                <td><%- cloudAccount.attributes.provider %></td>
+            </tr>
+            <tr>
+                <td>Bucket Name</td>
+                <td><%- cloudAccount.attributes.bucketName %></td>
+            </tr>
+            <tr>
+                <td>Access Key ID</td>
+                <td><%- cloudAccount.attributes.accessKeyId %></td>
+            </tr>
+            <tr>
+                <td>Secret Access Key</td>
+                <td><%- cloudAccount.attributes.secretAccessKey %></td>
+            </tr>
+            <tr>
+                <td>Created On</td>
+                <td><%- cloudAccount.attributes.createdAt %></td>
+            </tr>
+            <tr>
+                <td>Last Updated</td>
+                <td><%- cloudAccount.attributes.updatedAt %></td>
+            </tr>
+        </table>
+        <% }); %>
+    </td>
+    <% } %>
+</script>
+<script id="InvitedUsersListView" type="text/template">
+    <% if(col && col.length > 0){ %>
+    <td><h4>Invited Users</h4></td>
+    <td>
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Invited On</th>
+            </tr>
+            <tbody>
+            <% _.each(col, function(user, i){ %>
+                <tr>
+                    <td><%- user.attributes.profileName %></td>
+                    <td><%- user.attributes.email || user.attributes.invitedEmail %></td>
+                    <td><%- user.attributes.createdAt %></td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    </td>
     <% } %>
 </script>
 <script id="tableTmplView" type="text/template">

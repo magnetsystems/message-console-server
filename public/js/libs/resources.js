@@ -171,9 +171,14 @@ ModelConnector.prototype.get = function(path, id, qs, params, callback, failback
                 result = {
                     data   : data.rows,
                     paging : data.paging,
-                    params : params || undefined};
+                    params : params || undefined
+                };
+            }else if(data instanceof Array){
+                result = {
+                    data   : data,
+                    params : params || undefined
+                };
             }else{
-                me.appendIds(data, params);
                 result = data;
             }
             callback(result, status, utils.convertHeaderStrToObj(xhr));
@@ -1082,7 +1087,7 @@ utils = {
         return str.slice(str.lastIndexOf('/')+1);
     },
     cleanName : function(str){
-        return str.replace(new RegExp(' ', 'g'), '-').replace(new RegExp('_', 'g'), '-');
+        return str.replace(new RegExp(' ', 'g'), '').replace(new RegExp('-', 'g'), '').replace(new RegExp('_', 'g'), '');
     },
     baseUrl : window.location.href.replace(window.location.hash, '').substr(0, window.location.href.replace(window.location.hash, '').lastIndexOf('/')),
     txtDefaults : function(sel){
