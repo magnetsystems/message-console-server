@@ -60,7 +60,7 @@ describe("JumpStartUserManager", function() {
 
     describe("createUser", function() {
         it("should succeed if the underlying stored procedure succeeds", function() {
-            connectionMock.expects("query").once().withArgs("CALL user_create('" + userName + "','" + password + "')").callsArgWith(1, null, connectionMock.object);
+            connectionMock.expects("query").once().withArgs("CALL user_create(" + userName + "," + password + ")").callsArgWith(1, null, connectionMock.object);
             connectionMock.expects("escape").twice().returnsArg(0);
 
             var called = false;
@@ -81,7 +81,7 @@ describe("JumpStartUserManager", function() {
 
     describe("updateUser", function() {
         it("should succeed if the underlying stored procedure succeeds", function() {
-            connectionMock.expects("query").once().withArgs("CALL user_update('" + userName + "','" + password + "')").callsArgWith(1, null, connectionMock.object);
+            connectionMock.expects("query").once().withArgs("CALL user_update(" + userName + "," + password + ")").callsArgWith(1, null, connectionMock.object);
             connectionMock.expects("escape").twice().returnsArg(0);
 
             var called = false;
@@ -100,7 +100,7 @@ describe("JumpStartUserManager", function() {
 
     describe("deleteUser", function() {
         it("should succeed if the underlying stored procedure succeeds", function() {
-            connectionMock.expects("query").once().withArgs("CALL user_delete('" + userName + "')").callsArgWith(1, null, connectionMock.object);
+            connectionMock.expects("query").once().withArgs("CALL user_delete(" + userName + ")").callsArgWith(1, null, connectionMock.object);
             connectionMock.expects("escape").once().returnsArg(0);
 
             var called = false;
