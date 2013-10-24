@@ -17,7 +17,6 @@ APP_VERSION=$2
 ### BUILD ###
 npm install
 
-
 ### TEST ###
 #DB setup; developercenter needed by app; developercentertest needed for tests
 mysql -u root -e 'drop database if exists developercenter;'
@@ -28,14 +27,15 @@ mysql -u root -e 'create database developercentertest;'
 #start app and run tests
 NODE_ENV=test nohup node app.js &
 export NODEJS_PID=$!
-./node_modules/.bin/jasmine-node --captureExceptions --verbose --junitreport --output target/test/ spec/
-#./node_modules/.bin/istanbul cover ./node_modules/.bin/jasmine-node --captureExceptions --verbose --junitreport --output target/test/ spec/ --dir target/report/
+#./node_modules/.bin/jasmine-node --captureExceptions --verbose --junitreport --output target/test/ spec/API-spec.js
+./node_modules/.bin/istanbul cover --dir target/report/ -- ./node_modules/.bin/jasmine-node --captureExceptions --verbose --junitreport --output target/test/ spec/API-spec.js
 kill $NODEJS_PID
 
 
 ### PACKAGE ###
 # collect temp files in target dir  (maven standard)
 mkdir -p target/
+mkdir -p target/test/
 cd target/
 
 #create dir for packaging
