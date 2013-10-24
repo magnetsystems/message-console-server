@@ -1,11 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: pshah
- * Date: 10/2/13
- * Time: 9:16 PM
- * To change this template use File | Settings | File Templates.
- */
-
 var License = require("../lib/License");
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;

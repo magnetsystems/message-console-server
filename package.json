@@ -23,6 +23,7 @@
     "redis": "0.8.6",
     "requirejs": "2.1.8",
     "connect-redis": "1.4.5",
-    "bcrypt": "0.7.7"
+    "bcrypt": "0.7.7",
+    "sinon": "1.7.3"
   }
 }

@@ -1,10 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: pshah
- * Date: 9/30/13
- * Time: 10:16 PM
- * To change this template use File | Settings | File Templates.
- */
 ENV_CONFIG = require('../lib/config/config_'+process.env.NODE_ENV);
 winston = require('winston');
 var AWS = require('aws-sdk');
