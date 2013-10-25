@@ -7,19 +7,18 @@ jasmine.getEnv().defaultTimeoutInterval = 30000;
 describe("JumpStartUserManager", function() {
     it("should have no pool if isEnabled is false", function() {
 
-        var jsSettings = ENV_CONFIG.JumpStart;
-        delete ENV_CONFIG.JumpStart;
+        ENV_CONFIG.JumpStart.syncJumpstartDB = false;
 //        console.log(require.cache);
         delete require.cache[require.resolve("../lib/JumpStartUserManager.js")];
         var JumpStartUserManagerWithMissingConfig = require("../lib/JumpStartUserManager");
         expect(JumpStartUserManagerWithMissingConfig.pool).toBeUndefined();
 
-        ENV_CONFIG.JumpStart = jsSettings;
     });
 });
 
 describe("JumpStartUserManager", function() {
 
+    ENV_CONFIG.JumpStart.syncJumpstartDB = true;
     delete require.cache[require.resolve("../lib/JumpStartUserManager.js")];
     var JumpStartUserManager = require("../lib/JumpStartUserManager");
 

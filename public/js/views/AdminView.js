@@ -29,16 +29,22 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             'users' : {
                 col      : UserCollection,
                 headers  : {
+                    createdAt : 'Created On',
                     email     : 'Email Address',
                     firstName : 'First Name',
                     lastName  : 'Last Name',
                     userType  : 'Type of User'
                 },
-                searchBy : 'name'
+                searchBy : 'name',
+                sortDefault : {
+                    property : 'createdAt',
+                    order    : 'desc'
+                }
             },
             'invites' : {
                 col      : UserCollection,
                 headers  : {
+                    createdAt : 'Created On',
                     email     : 'Email Address',
                     firstName : 'First Name',
                     lastName  : 'Last Name',
@@ -49,11 +55,16 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     search : [{
                         'userType' : 'approved'
                     }]
+                },
+                sortDefault : {
+                    property : 'createdAt',
+                    order    : 'desc'
                 }
             },
             'requests' : {
                 col      : UserCollection,
                 headers  : {
+                    createdAt : 'Created On',
                     email     : 'Email Address',
                     firstName : 'First Name',
                     lastName  : 'Last Name',
@@ -64,11 +75,16 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     search : [{
                         'userType' : 'guest'
                     }]
+                },
+                sortDefault : {
+                    property : 'createdAt',
+                    order    : 'desc'
                 }
             },
             'invitations' : {
                 col      : UserCollection,
                 headers  : {
+                    createdAt    : 'Created On',
                     invitedEmail : 'Email Address',
                     userType     : 'Type of User'
                 },
@@ -77,6 +93,10 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     search : [{
                         'userType' : 'invited'
                     }]
+                },
+                sortDefault : {
+                    property : 'createdAt',
+                    order    : 'desc'
                 }
             },
             'events' : {

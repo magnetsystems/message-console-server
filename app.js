@@ -5,6 +5,10 @@ var express = require('express')
 , fs = require('fs')
 , winston = require('winston');
 
+if(!app.settings.env || app.settings.env == ''){
+    throw new Error('The environment variable NODE_ENV is not configured.');
+}
+
 global.winston = winston;
 global.ENV_CONFIG = require('./lib/config/config_'+app.settings.env);
 
@@ -32,14 +36,46 @@ app.configure(function(){
         level            : 'info',
         handleExceptions : false
     });
-    // log everything to the console
+});
+
+if(ENV_CONFIG.Logging.console.enabled){
     winston.remove(winston.transports.Console);
     winston.add(winston.transports.Console, {
-        level : 'silly'
+        level            : ENV_CONFIG.Logging.console.level,
+        handleExceptions : ENV_CONFIG.Logging.console.handleExceptions
     });
-});
+    winston.info('Logging: enabled console logging at level: '+ENV_CONFIG.Logging.console.level);
+}
+if(ENV_CONFIG.Logging.file.enabled){
+    if(!fs.existsSync(ENV_CONFIG.Logging.file.folder)){
+        fs.mkdirSync(ENV_CONFIG.Logging.file.folder);
+    }
+    winston.add(winston.transports.File, {
+        filename         : ENV_CONFIG.Logging.file.folder+'/'+ENV_CONFIG.Logging.file.filename,
+        maxsize          : ENV_CONFIG.Logging.file.maxsize,
+        maxFiles         : ENV_CONFIG.Logging.file.maxFiles,
+        handleExceptions : ENV_CONFIG.Logging.file.handleExceptions,
+        level            : ENV_CONFIG.Logging.file.level
+    });
+    winston.info('Logging: enabled file logging at level: '+ENV_CONFIG.Logging.file.level);
+}
+if(ENV_CONFIG.Logging.email.enabled){
+    winston.add(require('winston-mail').Mail, {
+        to               : ENV_CONFIG.Email.recipient,
+        from             : ENV_CONFIG.Email.sender,
+        host             : ENV_CONFIG.Email.host,
+        port             : ENV_CONFIG.Email.port,
+        username         : ENV_CONFIG.Email.user,
+        password         : ENV_CONFIG.Email.password,
+        tls              : true,
+        level            : ENV_CONFIG.Logging.email.level,
+        handleExceptions : ENV_CONFIG.Logging.email.handleExceptions
 
-app.configure('development', function(){
+    });
+    winston.info('Logging: enabled email logging at level: '+ENV_CONFIG.Logging.email.level);
+}
+
+if(app.settings.env == 'development' || app.settings.env == 'test'){
     app.use(express.errorHandler({
         dumpExceptions : true,
         showStack      : true
@@ -50,20 +86,7 @@ app.configure('development', function(){
     }));
     // prioritize router before public directory
     app.use(express.static(__dirname + '/public'));
-});
-
-app.configure('test', function(){
-    app.use(express.errorHandler({
-        dumpExceptions : true,
-        showStack      : true
-    }));
-    app.use(express.session({
-        store  : new connect.middleware.session.MemoryStore(),
-        secret : ENV_CONFIG.App.sessionSecret
-    }));
-    // prioritize router before public directory
-    app.use(express.static(__dirname + '/public'));
-});
+}
 
 app.configure('production', function(){
     app.use(express.errorHandler());
@@ -78,36 +101,6 @@ app.configure('production', function(){
     */
     // stop exit after an uncaughtException
     winston.exitOnError = false;
-    // log only warn+ to console
-    winston.remove(winston.transports.Console);
-    winston.add(winston.transports.Console, {
-        level            : 'warn',
-        handleExceptions : true
-    });
-    // log only error to support email
-    winston.add(require('winston-mail').Mail, {
-        to               : ENV_CONFIG.Email.supportEmail,
-        from             : ENV_CONFIG.Email.sender,
-        host             : ENV_CONFIG.Email.host,
-        port             : ENV_CONFIG.Email.port,
-        username         : ENV_CONFIG.Email.user,
-        password         : ENV_CONFIG.Email.password,
-        level            : 'error',
-        tls              : true,
-        handleExceptions : true
-    });
-    // log info+ to file
-    if(!fs.existsSync(ENV_CONFIG.Logging.folder)){
-        fs.mkdirSync(ENV_CONFIG.Logging.folder);
-        winston.info('Logging: created logging directory.');
-    }
-    winston.add(winston.transports.File, {
-        filename         : ENV_CONFIG.Logging.folder+'/'+ENV_CONFIG.Logging.filename,
-        maxsize          : ENV_CONFIG.Logging.maxsize,
-        maxFiles         : ENV_CONFIG.Logging.maxFiles,
-        handleExceptions : true,
-        level            : 'info'
-    });
     // store sessions to redis
     var RedisStore = require('connect-redis')(express);
     var redisDB = require('redis').createClient(ENV_CONFIG.Redis);
@@ -130,7 +123,6 @@ app.configure('production', function(){
 require('./routes')(app);
 
 // Run Webserver
-
 var server = http.createServer(app);
 server.listen(app.get('port'), function(){
     winston.info("Express: server listening on port %d in %s mode", app.get('port'), app.settings.env);

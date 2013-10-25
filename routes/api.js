@@ -21,7 +21,7 @@ module.exports = function(app){
             if(user){
                 delete user.password;
                 req.session.user = user;
-                winston.info('Tracking: user "' + user.email + '" logged in'+ (req.session.entryPoint ? ' with redirect to '+req.session.entryPoint : ''));
+                winston.verbose('Tracking: user "' + user.email + '" logged in'+ (req.session.entryPoint ? ' with redirect to '+req.session.entryPoint : ''));
                 res.redirect(req.session.entryPoint || '/');
             }else if(e == 'account-locked'){
                 res.redirect('/login?status=locked');
@@ -47,7 +47,7 @@ module.exports = function(app){
         if(!req.session.user){
             res.redirect('/login');
         }else{
-            winston.log('Tracking: user "' + req.session.user.username + '" logged out');
+            winston.verbose('Tracking: user "' + req.session.user.username + '" logged out');
             req.session.destroy(function(){
                 res.redirect('/');
             });
@@ -250,7 +250,7 @@ module.exports = function(app){
                 }
             }),
             success : function(){
-                winston.log('Tracking: user "' + req.session.user.email + '" sent an email from the Contact Us form');
+                winston.verbose('Tracking: user "' + req.session.user.email + '" sent an email from the Contact Us form');
                 res.send('ok', 200);
             },
             error : function(e){
@@ -451,11 +451,11 @@ module.exports = function(app){
         req.body.companyName = req.body.companyName || null;
 
         UserManager.inviteUser({
-            firstName : req.body.firstName ? stripChars(req.body.firstName) : req.body.firstName,
-            lastName : req.body.lastName ? stripChars(req.body.lastName) : req.body.lastName,
-            email : req.body.email,
+            firstName   : req.body.firstName ? stripChars(req.body.firstName) : req.body.firstName,
+            lastName    : req.body.lastName ? stripChars(req.body.lastName) : req.body.lastName,
+            email       : req.body.email,
             companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName,
-            inviterId: req.session.user.id
+            inviterId   : req.session.user.id
         }, req.session.user.firstName, req.session.user.lastName, req.body.inviteMessage, function(registrationStatus) {
             if(registrationStatus == UserManager.InviteUserStatusEnum.INVITATION_SUCCESSFUL) {
                 res.send(registrationStatus, 201);
