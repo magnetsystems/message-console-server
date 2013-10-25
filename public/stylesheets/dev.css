@@ -573,6 +573,7 @@ pre{margin:11px 0;color:#eee;background:#444;fonts-size:12px;padding:7px 0 7px 1
 #admin h3{text-indent:5px}
 #admin .tab-content > .active{padding:0 20px}
 #admin-details .table tbody td{cursor:default}
+#admin-details .buttons .pull-right{position:absolute;right:25px;top:20px}
 #invite-user-container{margin:25px 0}
 
 /*
