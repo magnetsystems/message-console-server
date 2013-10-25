@@ -50,7 +50,6 @@ ln -s $SCRIPT_DIR/license
 ln -s $SCRIPT_DIR/make_pkg.sh
 ln -s $SCRIPT_DIR/package.json
 ln -s $SCRIPT_DIR/public
-ln -s $SCRIPT_DIR/queryPlans.txt
 ln -s $SCRIPT_DIR/routes
 ln -s $SCRIPT_DIR/spec
 ln -s $SCRIPT_DIR/views
