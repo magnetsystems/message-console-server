@@ -372,7 +372,7 @@
 <% if(paging.total > 10){ %>
     <ul>
         <li <% if(paging.start == 0){ %>class="disabled"<% } %>><a href="#" page="<%-paging.previous%>">Prev</a></li>
-<% for(i=0;i<paging.total;i+=10){ %>
+<% for(i=0;i<(paging.total <= 200 ? paging.total : 200);i+=10){ %>
         <li <% if(paging.start == i){ %>class="disabled"<% } %> ><a href="#" page="<%-i%>"><%-(i/10)+1%></a></li>
 <% } %>
         <li <% if(!paging.next || paging.start == 190 || (paging.start+paging.rpp) == paging.total){ %>class="disabled"<% } %>><a href="#" page="<%-paging.next%>">Next</a></li>
