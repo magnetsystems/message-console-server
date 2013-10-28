@@ -22,18 +22,16 @@
         </a>
     </div>
     <ul class="title_container">
-        <li class="active">
-            <a href="../get-started/">Get Started</a>
+        <li class="dropdown active">
+            <a class="dropdown-toggle" href="/get-started/">Get Started</a>
+            <ul id="gs-site-menu" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="/get-started/#gs-android">Android Developer</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="/get-started/#gs-ios">iOS Developer</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="/get-started/#gs-server">Server Developer</a></li>
+            </ul>
         </li>
         <li class="dropdown">
             <a class="dropdown-toggle" href="../resources/">Resources</a>
-            <!--
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li id="menu-samples" role="presentation"><a role="menuitem" tabindex="-1" href="/resources/samples/">Samples</a></li>
-
-                <li id="menu-mam" role="presentation"><a role="menuitem" tabindex="-1" href="/resources/mobile-app-manager/">Mobile App Manager</a></li>
-            </ul>
-            -->
         </li>
         <li>
             <a href="../docs/">Documentation</a>

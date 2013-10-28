@@ -344,7 +344,7 @@ iframe .WordSection1{width:506px}
 #get-started .row-fluid{overflow:hidden}
 #get-started .tab-content{padding-bottom:25px}
 #get-started .tab-pane{min-height:600px;margin-left:36px;overflow:hidden}
-#get-started .tab-pane h5{font-size:18px;font-weight:bold;margin-top:30px}
+#get-started .tab-pane h5{font-size:18px;font-weight:bold;margin-top:30px;margin-bottom:43px}
 #get-started .tab-pane h5 span{margin-left:20px;font-weight:normal;font-size:13px}
 #get-started .nav-tabs{background-color:#e8eced;height:100%;position:absolute;top:0;left:0;border-radius:12px 0 0 12px;width:200px;border:none}
 #get-started .nav-tabs li{position:relative}
@@ -380,7 +380,11 @@ iframe .WordSection1{width:506px}
 .guide-content .accordion-inner a img{box-shadow:2px 2px 2px #bbb;width:90%;border:solid 2px #999}
 .guide-content .accordion-inner a:hover img{border:solid 2px #333}
 .guide-content .icon{float:right}
-#gs-projectguide .guide-step{height:65px}
+#get-started #gs-default.tab-pane{margin-left:0}
+#gs-default h5{margin-left:36px}
+#gs-default .guide-row.odd{height:112px;margin:6px 0}
+#gs-default .guide-row > img{float:left;margin:39px 0;position:relative}
+#gs-default .guide-content{margin-left:10px;float:left;width:80%}
 
 /********************************** project assets **********************************/
 
