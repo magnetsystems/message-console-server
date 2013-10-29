@@ -61,12 +61,12 @@ if(ENV_CONFIG.Logging.file.enabled){
 }
 if(ENV_CONFIG.Logging.email.enabled){
     winston.add(require('winston-mail').Mail, {
-        to               : ENV_CONFIG.Email.recipient,
-        from             : ENV_CONFIG.Email.sender,
-        host             : ENV_CONFIG.Email.host,
-        port             : ENV_CONFIG.Email.port,
-        username         : ENV_CONFIG.Email.user,
-        password         : ENV_CONFIG.Email.password,
+        to               : ENV_CONFIG.Logging.email.recipient,
+        from             : ENV_CONFIG.Logging.email.sender,
+        host             : ENV_CONFIG.Logging.email.host,
+        port             : ENV_CONFIG.Logging.email.port,
+        username         : ENV_CONFIG.Logging.email.user,
+        password         : ENV_CONFIG.Logging.email.password,
         tls              : true,
         level            : ENV_CONFIG.Logging.email.level,
         handleExceptions : ENV_CONFIG.Logging.email.handleExceptions
