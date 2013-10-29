@@ -1174,7 +1174,8 @@ DocFormatter.prototype.initUI = function(dom){
 DocFormatter.prototype.bindToggle = function(){
     var me = this;
     var switcher = $('#doc-switch');
-    switcher.html('<a href="/docs/" class="btn">Return To Documentation</a><a did="print" class="btn" href="pdf.pdf">Download PDF</a><button did="on" class="btn" style="display:none">View By Chapter</button><button did="off" class="btn">View Entire Guide</button>');
+    var pdfPath = window.location.pathname ? window.location.pathname.replace('/docs/', '').replace(/\//g, '')+'.pdf' : 'pdf.pdf';
+    switcher.html('<a href="/docs/" class="btn">Return To Documentation</a><a did="print" class="btn" href="'+pdfPath+'">Download PDF</a><button did="on" class="btn" style="display:none">View By Chapter</button><button did="off" class="btn">View Entire Guide</button>');
     var btnOn = switcher.find('button[did="on"]');
     var btnOff = switcher.find('button[did="off"]');
     switcher.find('button').click(function(){

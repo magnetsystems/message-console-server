@@ -42,7 +42,7 @@
             <div class="guide-content">
                 <b>Server Developer</b>
                 <p>Start your project by defining the services around your mobile app project using the Magnet App Project Wizard.
-                Use the Magnet Mobile App Builder Tool to generate, develop, and deploy your app.</p>
+                Use the Magnet Mobile App Builder to generate, develop, and deploy your app.</p>
             </div>
         </div>
     </div>
@@ -186,35 +186,35 @@
                             <div class="accordion-group">
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-server-2" href="#acc-server-2-inner">
-                                        <b>Install and Run the Magnet Mobile App Builder Tool</b>
+                                        <b>Install and Run the Magnet Mobile App Builder</b>
                                         <i class="icon icon-chevron-down"></i>
                                     </a>
-                                    <p>Using your Magnet Mobile App Project Profile (.mapp), the Magnet Mobile App Builder Tool creates the mobile
+                                    <p>Using your Magnet Mobile App Project Profile (.mapp), the Magnet Mobile App Builder creates the mobile
                                         and server project files to be used for development.</p>
                                 </div>
                                 <div id="acc-server-2-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
-                                        <a href="/resources/files/mab.zip" class="btn btn-primary">Download Magnet Mobile App Builder Tool for OS X</a>
-                                        <a href="/resources/files/mab.zip" class="btn btn-primary">Download Magnet Mobile App Builder Tool for Linux</a>
-                                        <h5>Software required by the Mobile App Builder Tool:</h5>
+                                        <a href="/resources/files/mab.zip" class="btn btn-primary">Download Magnet Mobile App Builder for OS X</a>
+                                        <a href="/resources/files/mab.zip" class="btn btn-primary">Download Magnet Mobile App Builder for Linux</a>
+                                        <h5>Software required by the Mobile App Builder:</h5>
                                         <ol>
                                             <li>Groovy 2.0 and above </li>
                                             <li>Java 7</li>
                                             <li>Maven 3.0.5 </li>
                                             <li>MySQL Community Server 5.5 GA</li>
                                         </ol>
-                                        <h5>How to install the  Mobile App Builder Tool:</h5>
+                                        <h5>How to install the  Mobile App Builder:</h5>
                                         <ol>
-                                            <li>Download the <a target="_blank" href="/resources/files/mab.zip">Magnet Mobile App Builder Tool</a>.</li>
+                                            <li>Download the <a target="_blank" href="/resources/files/mab.zip">Magnet Mobile App Builder</a>.</li>
                                             <li>Unzip the archive to a directory of your choice. We recommend <b>$HOME/magnet</b>.</li>
                                             <li>
-                                                For the Mobile App Builder Tool to be accessible from any directory, consider adding
+                                                For the Mobile App Builder to be accessible from any directory, consider adding
                                                 <b>&lt;install-directory&gt;/mab/bin</b> to your PATH environment variable.
                                             </li>
                                         </ol>
-                                        <p>For detailed installation instructions, see the <a href="/docs/mobile_app_builder/mobile_app_builder.pdf">Mobile App Builder Tool Developer Guide</a></p>
+                                        <p>For detailed installation instructions, see the <a href="/docs/mobile_app_builder/mobile_app_builder.pdf">Mobile App Builder Developer Guide</a></p>
 
-                                        <h5>Basic commands to get you started with the Mobile App Builder Tool.</h5>
+                                        <h5>Basic commands to get you started with the Mobile App Builder.</h5>
                                         <div class="code-snippet">
                                             <p>Run the Tool in non-interactive mode by invoking <b>mab</b> with a command as an argument. The command (and any of its options and arguments) will be executed.</p>
                                             <pre>$ mab project-use myfirstproject</pre>
@@ -225,7 +225,7 @@
                                             <p>Login using your Developer Factory username and password to enable all the features of the Tool.</p>
                                             <pre>mab> login -u newuser -p userpass</pre>
                                         </div>
-                                        <p>For more information, see the <a href="/docs/mobile_app_builder/mobile_app_builder.pdf">Mobile App Builder Tool Developer Guide</a></p>
+                                        <p>For more information, see the <a href="/docs/mobile_app_builder/mobile_app_builder.pdf">Mobile App Builder Developer Guide</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -268,7 +268,7 @@
                                             <p>Optionally create a user in the system database for user authentication by specifying the username and password of the user.</p>
                                             <pre>mab> user-create newuser newpass</pre>
                                         </div>
-                                        <p>For more information, see the <a href="/docs/mobile_app_builder/mobile_app_builder.pdf">Mobile App Builder Tool Developer Guide</a></p>
+                                        <p>For more information, see the <a href="/docs/mobile_app_builder/mobile_app_builder.pdf">Mobile App Builder Developer Guide</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -309,7 +309,7 @@
                                             <p>Stop the Mobile App Server Runtime.</p>
                                             <pre>mab> server-stop</pre>
                                         </div>
-                                        <p>For more information including how to deploy to an AWS cloud instance, see the <a href="/docs/mobile_app_builder/mobile_app_builder.pdf">Mobile App Builder Tool Developer Guide</a></p>
+                                        <p>For more information including how to deploy to an AWS cloud instance, see the <a href="/docs/mobile_app_builder/mobile_app_builder.pdf">Mobile App Builder Developer Guide</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -339,7 +339,7 @@
                                 <div id="acc-server-5-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
                                         <h5>Add a custom controller</h5>
-                                        <p>A single command is used to add different controllers to your current project. The following commands assume that you are logged in to the Mobile App Builder Tool and that a project has been created (using <b>project-create</b> or <b>project-import</b>).</p>
+                                        <p>A single command is used to add different controllers to your current project. The following commands assume that you are logged in to the Mobile App Builder and that a project has been created (using <b>project-create</b> or <b>project-import</b>).</p>
                                         <div class="code-snippet">
                                             <p>Add a WSDL-based controller of type document/literal or rpc/literal. You will be asked to enter additional information about the WSDL.</p>
                                             <pre>mab> api-add -t ws</pre>
@@ -356,7 +356,7 @@
                                             <pre>mab> server-deploy</pre>
                                             <pre>mab> server-start</pre>
                                         </div>
-                                        <p>For more information, see the <a href="/docs/mobile_app_builder/mobile_app_builder.pdf">Mobile App Builder Tool Developer Guide</a></p>
+                                        <p>For more information, see the <a href="/docs/mobile_app_builder/mobile_app_builder.pdf">Mobile App Builder Developer Guide</a></p>
                                     </div>
                                 </div>
                             </div>
