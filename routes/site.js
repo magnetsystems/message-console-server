@@ -122,6 +122,7 @@ module.exports = function(app){
     // render 404
     function do404(req, res){
         if(req.session.user){
+            res.status(404);
             res.render('error/404', {
                 locals : {
                     title : 'Page Not Found',
