@@ -240,7 +240,7 @@ describe('/rest/:model', function(){
             }
         }, null, function(e, out, res){
             expect(e).toBeNull();
-            expect(res.statusCode).toEqual(200);
+            expect(res.statusCode).toEqual(404);
             expect(JSON.stringify(out)).toContain('<title>Developer Factory : Page Not Found</title>');
             done();
         });
