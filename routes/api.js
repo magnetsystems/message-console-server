@@ -47,7 +47,7 @@ module.exports = function(app){
         if(!req.session.user){
             res.redirect('/login');
         }else{
-            winston.verbose('Tracking: user "' + req.session.user.username + '" logged out');
+            winston.verbose('Tracking: user "' + req.session.user.email + '" logged out');
             req.session.destroy(function(){
                 res.redirect('/');
             });
