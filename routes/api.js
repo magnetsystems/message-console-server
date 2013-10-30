@@ -408,6 +408,10 @@ module.exports = function(app){
                     targetId    : user.id
                 });
                 res.send('ok', 200);
+                // Populate JumpStart DB
+                JumpStartUserManager.setActivation(user.email, req.body.activated, function(err) {
+                    //
+                });
             }
         });
     });

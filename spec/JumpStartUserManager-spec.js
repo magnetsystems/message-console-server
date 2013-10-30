@@ -238,4 +238,59 @@ describe("JumpStartUserManager", function() {
             expect(function(){ connectionMock.verify() }).not.toThrow();
         });
     });
+
+    describe("setActivation", function() {
+
+        var isActivated;
+
+        beforeEach(function() {
+            isActivated = 1;
+        });
+
+        it("should succeed if the underlying stored procedure succeeds", function() {
+            poolMock.expects("getConnection").once().callsArgWith(0, null, connectionMock.object);
+            connectionMock.expects("query").once().withArgs("CALL user_activate(" + userName + "," + isActivated + ")").callsArgWith(1, null, 'anyArg');
+            connectionMock.expects("escape").twice().returnsArg(0);
+            connectionMock.expects("release").once();
+
+            var callback = function(err) {
+                expect(err).toBeNull();
+            };
+
+            JumpStartUserManager.setActivation(userName, isActivated, callback);
+
+            expect(function(){ poolMock.verify() }).not.toThrow();
+            expect(function(){ connectionMock.verify() }).not.toThrow();
+        });
+
+        it("should fail if the underlying stored procedure fails", function() {
+            poolMock.expects("getConnection").once().callsArgWith(0, null, connectionMock.object);
+            connectionMock.expects("query").once().withArgs("CALL user_activate(" + userName + "," + isActivated + ")").callsArgWith(1, 'someError', 'anyArg');
+            connectionMock.expects("escape").twice().returnsArg(0);
+            connectionMock.expects("release").once();
+
+            var callback = function(err) {
+                expect(err).not.toBeNull();
+            };
+
+            JumpStartUserManager.setActivation(userName, isActivated, callback);
+
+            expect(function(){ poolMock.verify() }).not.toThrow();
+            expect(function(){ connectionMock.verify() }).not.toThrow();
+        });
+
+        it("should fail if connection could not be established", function() {
+            poolMock.expects("getConnection").once().callsArgWith(0, 'someError', 'anyArg');
+            connectionMock.expects("release").never();
+
+            var callback = function(err) {
+                expect(err).not.toBeNull();
+            };
+
+            JumpStartUserManager.setActivation(userName, isActivated, callback);
+
+            expect(function(){ poolMock.verify() }).not.toThrow();
+            expect(function(){ connectionMock.verify() }).not.toThrow();
+        });
+    });
 });
