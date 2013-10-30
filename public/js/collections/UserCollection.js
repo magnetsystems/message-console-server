@@ -6,8 +6,8 @@ define(["jquery", "backbone", "models/UserModel"], function($, Backbone, UserMod
             this.paging = res.paging;
             if(res.data){
                 for(var i=res.data.length;i--;){
-                    if(res.firstName){
-                        res.profileName = res.firstName+' '+res.lastName;
+                    if(res.data[i].firstName){
+                        res.data[i].profileName = res.data[i].firstName+' '+res.data[i].lastName;
                     }
                 }
             }

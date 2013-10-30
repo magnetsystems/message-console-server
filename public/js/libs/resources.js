@@ -1259,18 +1259,21 @@ utils = {
         }
     },
     ISO8601ToDT: function(str, isNow){
-        var date = isNow ? new Date() : new Date(str);
-        if(isNaN(date)){
-            date = this.fromISO8601(str);
+        try{
+            var date = isNow ? new Date() : new Date(str);
+            if(isNaN(date)){
+                date = this.fromISO8601(str);
+            }
+            var yyyy = date.getFullYear();
+            var mm = this.formatDT(date.getMonth()+1);
+            var dd = this.formatDT(date.getDate());
+            var hh = this.formatDT(date.getHours());
+            var m = this.formatDT(date.getMinutes());
+            var ss = this.formatDT(date.getSeconds());
+            return mm+'-'+dd+'-'+yyyy+' '+hh+':'+m+':'+ss;
+        }catch(e){
+            return '';
         }
-        var yyyy = date.getFullYear();
-        var mm = this.formatDT(date.getMonth()+1); 
-        var dd = this.formatDT(date.getDate());
-        var hh = this.formatDT(date.getHours());
-        var m = this.formatDT(date.getMinutes());
-        var ss = this.formatDT(date.getSeconds());
-        dt = mm+'-'+dd+'-'+yyyy+' '+hh+':'+m+':'+ss;
-        return dt;
     },
     formatDT: function(str){
         return str < 10 ? '0'+str : str;
