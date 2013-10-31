@@ -25,6 +25,17 @@ module.exports = {
             targetId : {
                 allowNull : true,
                 type      : DataTypes.INTEGER
+            },
+            id : {
+                type          : DataTypes.INTEGER,
+                primaryKey    : true,
+                autoIncrement : true
+            },
+            createdAt : {
+                type : DataTypes.DATE
+            },
+            updatedAt : {
+                type : DataTypes.DATE
             }
         });
         done();

@@ -54,12 +54,12 @@ server.config.ApnsAccount.host="{{=settings.apnsHost}}"{{ if(settings.apnsCertNa
 server.config.ApnsAccount.certFile="{{=settings.apnsCertName}}"
 server.config.__fileMap=["{{=settings.apnsCertName}}" : "{{=settings.apnsCertName}}"]{{ } }}{{ } }}{{ if(settings.emailEnabled){ }}
 project.emailEnabled={{=settings.emailEnabled}}
-server.config.SmtpAccount.Host="{{=settings.smtpHostName}}"
-server.config.SmtpAccount.Port={{=settings.smtpPort}}
-server.config.SmtpAccount.Username="{{=settings.smtpUsername}}"
-server.config.SmtpAccount.Password="{{=settings.smtpPassword}}"
-server.config.SmtpAccount.SenderName="{{=settings.smtpSenderName}}"
-server.config.SmtpAccount.SenderEmail="{{=settings.smtpSenderEmail}}"{{ } }}{{ for(var i=0;i<wsdls.length;++i){ }}
+server.config.SmtpConfig.Host="{{=settings.smtpHostName}}"
+server.config.SmtpConfig.Port={{=settings.smtpPort}}
+server.config.SmtpConfig.Username="{{=settings.smtpUsername}}"
+server.config.SmtpConfig.Password="{{=settings.smtpPassword}}"
+server.config.SmtpConfig.SenderName="{{=settings.smtpSenderName}}"
+server.config.SmtpConfig.SenderEmail="{{=settings.smtpSenderEmail}}"{{ } }}{{ for(var i=0;i<wsdls.length;++i){ }}
 controllers.{{= wsdls[i].serviceName }}.groupId="com.magnetapi.apps.{{=settings.groupId}}"
 controllers.{{= wsdls[i].serviceName }}.version="{{=settings.version}}"
 controllers.{{= wsdls[i].serviceName }}._package="com.magnetapi.apps.{{=settings.groupId}}.{{= wsdls[i].serviceName }}"
