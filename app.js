@@ -117,6 +117,14 @@ app.configure('production', function(){
     });
     // prioritize router before public directory, use minified public directory
     app.use(express.static(__dirname + '/public-build'));
+    /* start https server
+    require('https').createServer({
+       key  : fs.readFileSync('./data/key.pem'),
+       cert : fs.readFileSync('./data/cert.pem')
+    }, app).listen(3001, function(){
+       winston.info('Express: https server listening on port %d in %s mode', 3001, app.settings.env);
+    });
+    */
 });
 
 // Routes
@@ -125,5 +133,5 @@ require('./routes')(app);
 // Run Webserver
 var server = http.createServer(app);
 server.listen(app.get('port'), function(){
-    winston.info("Express: server listening on port %d in %s mode", app.get('port'), app.settings.env);
+    winston.info("Express: http server listening on port %d in %s mode", app.get('port'), app.settings.env);
 });
