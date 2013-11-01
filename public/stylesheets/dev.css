@@ -580,6 +580,10 @@ pre{margin:11px 0;color:#eee;background:#444;fonts-size:12px;padding:7px 0 7px 1
 #admin-details .table tbody td{cursor:default}
 #admin-details .buttons .pull-right{position:absolute;right:25px;top:20px}
 #invite-user-container{margin:25px 0}
+#admin .pagination ul > li > a, .pagination ul > li > span{text-align:center;min-width:20px}
+#admin .pagination{text-align:center}
+#admin .pagination ul > li.disabled > a{background:#eee}
+#admin .pagination-captions{font-size:11px;color:#666}
 
 /*
  * Original version: 1.0 ? 2010 Andrew Valums ( andrew(at)valums.com )

@@ -25,19 +25,16 @@ project.salesforceEnabled={{=settings.salesforceEnabled}}
 include(SalesforceControllerDefaults)
 server.config.SFDCOAuthConfig.clientSecret="{{=settings.sfdcClientSecret}}"
 server.config.SFDCOAuthConfig.clientId="{{=settings.sfdcClientId}}"
-server.config.SFDCOAuthConfig.redirectUri=""
 server.config.SforceSoapPort.endpointAddress="{{=settings.sfdcClientEndpointAddress}}"
 server.config.SforceSoapPort.__name="SoapPort-sforce.cproperties"{{ } }}{{ if(settings.facebookEnabled){ }}
 project.facebookEnabled={{=settings.facebookEnabled}}
 include(FacebookControllerDefaults)
 server.config.FBOAuthConfig.clientId="{{=settings.fbClientId}}"
-server.config.FBOAuthConfig.clientSecret="{{=settings.fbClientSecret}}"
-server.config.FBOAuthConfig.redirectUri=""{{ } }}{{ if(settings.linkedinEnabled){ }}
+server.config.FBOAuthConfig.clientSecret="{{=settings.fbClientSecret}}"{{ } }}{{ if(settings.linkedinEnabled){ }}
 project.linkedinEnabled={{=settings.linkedinEnabled}}
 include(LinkedInControllerDefaults)
 server.config.LNKDINOAuthConfig.clientSecret="{{=settings.liClientSecret}}"
-server.config.LNKDINOAuthConfig.clientId="{{=settings.liClientId}}"
-server.config.LNKDINOAuthConfig.redirectUri=""{{ } }}{{ if(settings.helloWorldControllerEnabled){ }}
+server.config.LNKDINOAuthConfig.clientId="{{=settings.liClientId}}"{{ } }}{{ if(settings.helloWorldControllerEnabled){ }}
 project.helloWorldControllerEnabled={{=settings.helloWorldControllerEnabled}}
 include(HelloWorldControllerDefaults)
 controllers.helloworld.groupId=GROUP_ID

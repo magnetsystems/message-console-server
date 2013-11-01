@@ -371,15 +371,39 @@
 <% if(paging.total > 10){ %>
     <ul>
         <li <% if(paging.start == 0){ %>class="disabled"<% } %>><a href="#" page="<%-paging.previous%>">Prev</a></li>
-<% for(i=0;i<(paging.total <= 200 ? paging.total : 200);i+=10){ %>
+<% if(paging.start > (paging.rpp * 5) && paging.total < (paging.start+60)){ %>
+        <% for(i=Math.round((paging.total-110) / 10) * 10;i<paging.total;i+=paging.rpp){ %>
         <li <% if(paging.start == i){ %>class="disabled"<% } %> ><a href="#" page="<%-i%>"><%-(i/10)+1%></a></li>
+        <% } %>
+<% }else if(paging.start > (paging.rpp * 5)){ %>
+        <% for(i=(paging.start-50);i<(paging.total < (paging.start+60) ? paging.total : (paging.start+60));i+=paging.rpp){ %>
+        <li <% if(paging.start == i){ %>class="disabled"<% } %> ><a href="#" page="<%-i%>"><%-(i/10)+1%></a></li>
+        <% } %>
+<% }else{ %>
+        <% for(i=0;i<(paging.total < 110 ? paging.total : 110);i+=paging.rpp){ %>
+        <li <% if(paging.start == i){ %>class="disabled"<% } %> ><a href="#" page="<%-i%>"><%-(i/10)+1%></a></li>
+        <% } %>
 <% } %>
+        <li <% if(!paging.next || (paging.start+paging.rpp) == paging.total){ %>class="disabled"<% } %>><a href="#" page="<%-paging.next%>">Next</a></li>
+    </ul>
+    <div class="pagination-captions">
+        <%- paging.total %> records total. viewing records <%- (paging.start+1) %> to <%- (paging.total < (paging.start+paging.rpp) ? paging.total : (paging.start+paging.rpp)) %>.
+    </div>
+<% } %>
+</script>
+<script id="paginationDetailView2" type="text/template">
+    <% if(paging.total > 10){ %>
+    <ul>
+        <li <% if(paging.start == 0){ %>class="disabled"<% } %>><a href="#" page="<%-paging.previous%>">Prev</a></li>
+        <% for(i=0;i<(paging.total <= 200 ? paging.total : 200);i+=10){ %>
+        <li <% if(paging.start == i){ %>class="disabled"<% } %> ><a href="#" page="<%-i%>"><%-(i/10)+1%></a></li>
+        <% } %>
         <li <% if(!paging.next || paging.start == 190 || (paging.start+paging.rpp) == paging.total){ %>class="disabled"<% } %>><a href="#" page="<%-paging.next%>">Next</a></li>
     </ul>
     <% if(paging.start == 190 && paging.total > 200){ %>
-       <br >Too many results. Please refine your result with search and or sort features.
+    <br >Too many results. Please refine your result with search and or sort features.
     <% } %>
-<% } %>   
+    <% } %>
 </script>
 
 <!-- dialogs start -->
