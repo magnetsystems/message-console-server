@@ -51,7 +51,7 @@ server.config.ApnsAccount.host="{{=settings.apnsHost}}"{{ if(settings.apnsCertNa
 server.config.ApnsAccount.certFile="{{=settings.apnsCertName}}"
 server.config.__fileMap=["{{=settings.apnsCertName}}" : "{{=settings.apnsCertName}}"]{{ } }}{{ } }}{{ if(settings.emailEnabled){ }}
 project.emailEnabled={{=settings.emailEnabled}}
-server.config.SmtpConfig.Host="{{=settings.smtpHostName}}"
+server.config.SmtpConfig.HostName="{{=settings.smtpHostName}}"
 server.config.SmtpConfig.Port={{=settings.smtpPort}}
 server.config.SmtpConfig.Username="{{=settings.smtpUsername}}"
 server.config.SmtpConfig.Password="{{=settings.smtpPassword}}"

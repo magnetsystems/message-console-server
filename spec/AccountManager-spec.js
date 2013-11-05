@@ -2,9 +2,8 @@ var AccountManager = require("../lib/AccountManager")
  , Helper = require('./Helper')
  , UserManager = require('../lib/UserManager')
  , EmailService = require('../lib/EmailService')
- , orm = require('../lib/orm');
-
-var bcrypt = require('bcrypt');
+ , orm = require('../lib/orm')
+ , bcrypt = require('bcrypt');
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;
 
@@ -74,7 +73,6 @@ describe("AccountManager manualLogin", function() {
                     AccountManager.manualLogin(user.email, password, function(e, u){
                         expect(e).toBeNull();
                         expect(u).not.toBeNull();
-
                         approvedUser.reload().success(function() {
                             // Clean up
                             approvedUser.getCloudAccounts().success(function(cloudAccounts) {
@@ -101,5 +99,6 @@ describe("AccountManager manualLogin", function() {
         });
 
     });
+
 });
 

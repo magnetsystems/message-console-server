@@ -416,6 +416,17 @@ module.exports = function(app){
         });
     });
 
+    // This API is used to resend a Complete Registration Email
+    app.post('/rest/users/:magnetId/sendCompleteRegistrationEmail', UserManager.checkAuthority(['admin'], true), function(req, res){
+        UserManager.validateAndSendCompleteRegistrationEmail(req.params.magnetId, function(e){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(registrationStatus, 400);
+            }
+        });
+    });
+
     // This API is used for Admin to User invites
     app.post('/rest/adminInviteUser', UserManager.checkAuthority(['admin'], true), function(req, res) {
         var isInvitedByAdmin = true;

@@ -18,7 +18,8 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
             'click button[did="edit-user-cancel"]': 'editUserCancel',
             'click button[did="edit-user-save"]': 'editUserSave',
             'click button[did="activate-user"]': 'activateUser',
-            'click button[did="deactivate-user"]': 'activateUser'
+            'click button[did="deactivate-user"]': 'activateUser',
+            'click button[did="resend-registration=email"]': 'resendCompleteRegistrationEmail'
         },
         // fetch a user entity object from server
         fetchUser: function(params){
@@ -197,6 +198,24 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
                 });
             });
         },
+        // resend Complete Registration Email
+        resendCompleteRegistrationEmail: function(e){
+            var me = this;
+            me.showLoading($(e.currentTarget));
+            me.options.mc.query('users/'+me.entity.attributes.magnetId+'/sendCompleteRegistrationEmail', 'POST', null, function(){
+                me.hideLoading($(e.currentTarget));
+                Alerts.General.display({
+                    title   : 'Registration Email Sent',
+                    content : 'The user has been sent a Complete Registration email.'
+                });
+            }, null, 'application/json', function(xhr, status, error){
+                me.hideLoading($(e.currentTarget));
+                Alerts.Error.display({
+                    title   : 'Error Sending Request',
+                    content : 'There was a problem sending the request to the server: '+xhr.responseText
+                });
+            });
+        },
         editUser: function(){
             this.$el.find('.buttons-section, .user-edit-value').hide();
             this.$el.find('.buttons-section-edit, .user-edit-input').show();
@@ -228,6 +247,8 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
                         me.entity.set(properties.config);
                         me.render('User');
                         me.fetchProjects();
+                        me.fetchCloudAccounts();
+                        me.fetchInvitedUsers();
                     },
                     error: function(){
                         Alerts.Error.display({

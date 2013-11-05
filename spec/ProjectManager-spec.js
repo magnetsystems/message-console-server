@@ -38,7 +38,9 @@ describe('ProjectManager create', function(){
         testProject = {
             name        : 'test project name',
             description : 'test project description',
-            version     : '1.0'
+            version     : '1.0',
+            jdbcPort    : '3306',
+            smtpPort    : 587
         }
     });
 
@@ -76,6 +78,7 @@ describe('ProjectManager create', function(){
         ProjectManager.create(testUser.magnetId, testProject, function(e, project){
             _project = testProject;
             _project.magnetId = project.magnetId;
+            _project.UserId = project.UserId;
             expect(e).toBeNull();
             done();
         });
@@ -127,7 +130,9 @@ describe('ProjectManager update', function(){
             name        : 'modified test project name',
             description : 'modified test project description',
             version     : '2.0',
-            magnetId    : 'new magnetId'
+            magnetId    : 'new magnetId',
+            jdbcPort    : 3306,
+            smtpPort    : 587
         }
     });
 
@@ -197,6 +202,49 @@ describe('ProjectManager getConfig', function(){
             done();
         });
     });
+    it('should set configFileStale to false if config file is generated', function(done){
+        ProjectManager.create(testUser.magnetId, testProject, function(e, project){
+            expect(project.configFileStale).toEqual(true);
+            ProjectManager.getConfig(project.magnetId, function(e, filePath){
+                expect(filePath).not.toBeUndefined();
+                ProjectManager.read(project.magnetId, function(e, newproject){
+                    expect(newproject.configFileStale).toEqual(false);
+                    done();
+                });
+            });
+        });
+    });
+
+    it('should create config zip file in file system if the given magnetId exists', function(done){
+        ProjectManager.create(testUser.magnetId, testProject, function(e, project){
+            expect(project.configFileStale).toEqual(true);
+            ProjectManager.getConfig(project.magnetId, function(e, filePath){
+                expect(filePath).not.toBeUndefined();
+                fs.readFile(filePath, 'ascii', function(e, file){
+                    expect(file).not.toBeUndefined();
+                    done();
+                });
+            });
+        });
+    });
+
+    it('should succeed if a project with the given magnetId exists even if the user folder has been deleted', function(done){
+        ProjectManager.create(testUser.magnetId, testProject, function(e, project){
+            expect(project.configFileStale).toEqual(true);
+            ProjectManager.getConfig(project.magnetId, function(e, filePath){
+                expect(filePath).not.toBeUndefined();
+                fs.unlink(filePath, function(e){
+                    fs.readFile(filePath, 'ascii', function(e){
+                        expect(e).not.toBeNull();
+                        ProjectManager.getConfig(project.magnetId, function(e){
+                            expect(e).toBeNull();
+                            done();
+                        });
+                    });
+                });
+            });
+        });
+    });
 
     it('should return filePath if a project with the given magnetId exists', function(done){
         ProjectManager.getConfig(testProject.magnetId, function(e, filePath){
@@ -209,6 +257,38 @@ describe('ProjectManager getConfig', function(){
         ProjectManager.getConfig(testProject.magnetId, function(e, filePath, isCached){
             expect(isCached).toBe(true);
             done();
+        });
+    });
+
+});
+
+describe('ProjectManager generateAndUpdateState', function(){
+
+    it('should fail given an invalid project', function(done){
+        ProjectManager.generateAndUpdateState('', function(e){
+            expect(e).toEqual('invalid-project');
+            done();
+        });
+    });
+
+    it('should fail given a project missing required properties', function(done){
+        ProjectManager.create(testUser.magnetId, testProject, function(e, project){
+            expect(e).toBeNull();
+            delete project.name;
+            ProjectManager.generateAndUpdateState(project, function(e){
+                expect(e).toEqual('invalid-project-object');
+                done();
+            });
+        });
+    });
+
+    it('should succeed given a valid project', function(done){
+        ProjectManager.create(testUser.magnetId, testProject, function(e, project){
+            expect(e).toBeNull();
+            ProjectManager.generateAndUpdateState(project, function(e, filePath){
+                expect(filePath).not.toBeUndefined();
+                done();
+            });
         });
     });
 
@@ -436,20 +516,55 @@ describe('ProjectManager createFolderIfNotExist', function(){
 });
 
 describe('ProjectManager storeProjectFile', function(){
-    var req;
 
     beforeEach(function(){
-        req = {};
+        testUser = _user;
+        testProject = {
+            name        : 'test project name',
+            description : 'test project description',
+            version     : '1.0',
+            jdbcPort    : '3306',
+            smtpPort    : 587
+        }
     });
 
     it('should fail given an invalid magnetId', function(done){
-        ProjectManager.storeProjectFile('', req, function(e){
+        ProjectManager.storeProjectFile('', {}, function(e){
             expect(e).toEqual('project-not-found');
             done();
         });
     });
 
-    //TODO: test upload of apns certificate
+    it('should succeed given a valid magnetId', function(done){
+        ProjectManager.create(testUser.magnetId, testProject, function(e, project){
+            expect(e).toBeNull();
+            ProjectManager.getConfig(project.magnetId, function(e, filePath){
+                expect(filePath).not.toBeUndefined();
+                var testFilePath = filePath.replace(project.artifactId+'.zip', 'tester.xml');
+                fs.writeFile(testFilePath, 'test-file-content', function(err){
+                    // mock an HTTP upload request
+                    var req = {
+                        header : function(input){
+                            return input == 'X-Mime-Type' ? 'application/xml' : 'tester.xml';
+                        },
+                        on : function(input, callback){
+                            var out;
+                            switch(input){
+                                case 'data': out = 'file-content'; break;
+                                case 'end': break;
+                                case 'error': out = 'mock-error'; break;
+                            }
+                            callback(out);
+                        }
+                    };
+                    ProjectManager.storeProjectFile(project.magnetId, req, function(e){
+                        expect(e).toBeUndefined();
+                        done();
+                    });
+                });
+            });
+        });
+    });
 
 });
 

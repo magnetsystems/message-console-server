@@ -109,11 +109,14 @@
                 <div class="buttons-section">
                     <button did="delete-user" type="button" class="btn">Delete User</button>
                     <button did="edit-user" type="button" class="btn">Edit User</button>
+                    <button did="deactivate-user" type="button" class="btn btn-primary <% if(model.activated !== true){ %>hidden<% } %>">Deactivate User</button>
+                    <button did="activate-user" type="button" class="btn btn-primary <% if(model.activated === true){ %>hidden<% } %>">Activate User</button>
                     <% if(model.userType == 'guest'){ %>
                     <button did="approve-user" type="button" class="btn btn-primary">Approve User</button>
                     <% } %>
-                    <button did="deactivate-user" type="button" class="btn btn-primary <% if(model.activated !== true){ %>hidden<% } %>">Deactivate User</button>
-                    <button did="activate-user" type="button" class="btn btn-primary <% if(model.activated === true){ %>hidden<% } %>">Activate User</button>
+                    <% if(model.userType == 'approved'){ %>
+                    <button did="resend-registration=email" type="button" class="btn btn-primary">Resend Registration Email</button>
+                    <% } %>
                 </div>
                 <div class="buttons-section-edit" style="display:none">
                     <button did="edit-user-cancel" type="button" class="btn">Cancel Changes</button>
