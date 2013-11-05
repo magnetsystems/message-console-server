@@ -23,27 +23,35 @@ define(['jquery', 'backbone', 'models/ProjectModel'], function($, Backbone, Proj
                 });
                 btnGroup.removeClass('hidden');
             }else{
-                btnGroup.addClass('hidden');
-                var proj = new ProjectModel();
-                proj.set({
-                    magnetId : me.project.attributes.magnetId,
-                    id       : me.project.attributes.id
-                });
-                proj.save(properties.config, {
-                    success: function(){
-                        me.project.set(properties.config);
-                        if(!isPrevious){
-                            me.options.eventPubSub.trigger('PWNextTransition', 'samples');
+                if(properties.config.sfdcClientEndpointAddress && RegexValidation.validate(properties.config.sfdcClientEndpointAddress, 'url') === false){
+                    Alerts.Error.display({
+                        title   : 'Invalid URL',
+                        content : 'The url you supplied in the Salesforce settings is invalid.'
+                    });
+                    btnGroup.removeClass('hidden');
+                }else{
+                    btnGroup.addClass('hidden');
+                    var proj = new ProjectModel();
+                    proj.set({
+                        magnetId : me.project.attributes.magnetId,
+                        id       : me.project.attributes.id
+                    });
+                    proj.save(properties.config, {
+                        success: function(){
+                            me.project.set(properties.config);
+                            if(!isPrevious){
+                                me.options.eventPubSub.trigger('PWNextTransition', 'samples');
+                            }
+                        },
+                        error: function(){
+                            Alerts.Error.display({
+                                title   : 'Error Setting Properties',
+                                content : 'There was an error setting the project properties. Please contact Magnet support.'
+                            });
+                            btnGroup.removeClass('hidden');
                         }
-                    },
-                    error: function(){
-                        Alerts.Error.display({
-                            title   : 'Error Setting Properties',
-                            content : 'There was an error setting the project properties. Please contact Magnet support.'
-                        });
-                        btnGroup.removeClass('hidden');
-                    }
-                });
+                    });
+                }
             }
         },
         // render sample services configuration

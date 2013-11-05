@@ -110,23 +110,30 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'collections/ProjectCollect
             var dom = me.$el.find('input[name="wsdl-url"]');
             var wsdlUrl = $.trim(dom.val());
             if(wsdlUrl.length > 0){
-                $('.pw-wsdl-url-processing').removeClass('hidden').html('<li><span class="qq-upload-spinner"></span><span class="pw-wsdl-url-caption">'+wsdlUrl+'</span></li>').show();
-                me.options.mc.query('projects/'+me.project.attributes.magnetId+'/addWSDLUrl', 'POST', {
-                    url : wsdlUrl
-                }, function(wsdl){
-                    $('.pw-wsdl-url-processing').hide('fast');
-                    var wsdl = new ServiceModel(wsdl);
-                    me.wsdls.add(wsdl);
-                    me.render(false, wsdl);
-                    me.updateStatus();
-                }, null, null, function(){
-                    $('.pw-wsdl-url-processing').hide('fast');
+                if(RegexValidation.validate(wsdlUrl, 'url') === false){
                     Alerts.Error.display({
-                        title   : 'Error Storing Url',
-                        content : 'There was an error storing the WSDL/WADL url. Please double check whether the url is valid. If the url is valid, this WSDL/WADL may be incompatible.'
+                        title   : 'Invalid Web Service URL',
+                        content : 'The url you supplied is invalid.'
                     });
-                });
-                dom.val('');
+                }else{
+                    $('.pw-wsdl-url-processing').removeClass('hidden').html('<li><span class="qq-upload-spinner"></span><span class="pw-wsdl-url-caption">'+wsdlUrl+'</span></li>').show();
+                    me.options.mc.query('projects/'+me.project.attributes.magnetId+'/addWSDLUrl', 'POST', {
+                        url : wsdlUrl
+                    }, function(wsdl){
+                        $('.pw-wsdl-url-processing').hide('fast');
+                        var wsdl = new ServiceModel(wsdl);
+                        me.wsdls.add(wsdl);
+                        me.render(false, wsdl);
+                        me.updateStatus();
+                    }, null, null, function(){
+                        $('.pw-wsdl-url-processing').hide('fast');
+                        Alerts.Error.display({
+                            title   : 'Error Storing Url',
+                            content : 'There was an error storing the WSDL/WADL url. Please double check whether the url is valid. If the url is valid, this WSDL/WADL may be incompatible.'
+                        });
+                    });
+                    dom.val('');
+                }
             }else{
                 Alerts.Error.display({
                     title   : 'Invalid WSDL/WADL Url',

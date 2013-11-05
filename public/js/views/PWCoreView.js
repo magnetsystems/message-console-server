@@ -57,11 +57,18 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], functi
                     content : 'The '+validation.text+' feature'+(validation.ary.length == 1 ? ' was' : 's were')+' included, but not all the parameters were filled out. If you disable this feature you can still fill in parameters at a later time using the Magnet Mobile App Builder.'
                 });
             }else{
-                me.confirmCert(properties, function(){
-                    me.confirmDisableAppDB(properties, function(){
-                        me.save(properties, isPrevious);
+                if(properties.config.smtpSenderEmail && RegexValidation.validate(properties.config.smtpSenderEmail, 'email') === false){
+                    Alerts.Error.display({
+                        title   : 'Invalid Email Address',
+                        content : 'The email address you supplied in the Email Notification Service is invalid.'
                     });
-                });
+                }else{
+                    me.confirmCert(properties, function(){
+                        me.confirmDisableAppDB(properties, function(){
+                            me.save(properties, isPrevious);
+                        });
+                    });
+                }
             }
         },
         confirmCert: function(properties, callback){

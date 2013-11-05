@@ -141,23 +141,31 @@ describe("UserManager registerGuest", function() {
         });
     });
 
-    xit('should register a user invited by another user', function(done){
+    it('should register a user invited by another user', function(done){
         var invitedUserObj = {
-            firstName    : 'Chimays',
-            lastName     : 'Belgium',
-            password     : 'wheatale',
-            companyName  : 'beer'
+            email       : magnetId.v1()+'23@magnet.com',
+            companyName : 'beer',
+            firstName   : 'Pale',
+            lastName    : 'Ale'
         };
         UserManager.create({
-            userType     : 'invited',
-            firstName    : invitedUserObj.firstName,
-            lastName     : invitedUserObj.lastName,
-            invitedEmail : magnetId.v1()+'23@magnet.com'
-        }, function(e, invitedUser){
-            invitedUser.updateAttributes({email:null}).success(function(){
-                UserManager.registerGuest(invitedUserObj, false, function(registrationStatus, registeredUser){
+            userType     : 'developer',
+            firstName    : 'Blue',
+            lastName     : 'Moon',
+            email        : magnetId.v1()+'24@magnet.com'
+        }, function(e, developerUser){
+            expect(e).toBeNull();
+            UserManager.create({
+                invitedEmail : invitedUserObj.email,
+                userType     : 'invited',
+                inviterId    : developerUser.id
+            }, function(e, invitedUser){
+                expect(e).toBeNull();
+                UserManager.registerGuest(_.extend({
+                        magnetId : invitedUser.magnetId
+                }, invitedUserObj), false, function(registrationStatus, registeredUser){
                     expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL);
-                    expect(registeredUser.email).toEqual(magnetId.v1()+'23@magnet.com');
+                    expect(registeredUser.userType).toEqual('guest');
                     done();
                 });
             });
