@@ -202,9 +202,14 @@
                                 <td width="5px">Magnet Id</td>
                                 <td width="5px"><%- model.magnetId %></td>
                             </tr>
-                            <tr id="project-list-container"></tr>
                             <tr id="cloudaccount-list-container"></tr>
                             <tr id="invitedusers-list-container"></tr>
+                            <tr>
+                                <td><h4>Projects</h4></td>
+                                <td>
+                                    <div id="project-list2-container"></div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -214,41 +219,6 @@
                     <a href="#/users" class="main-btn btn"><i class="icon icon-chevron-left"></i>Back to Administration Page</a>
                 </div>
             </div>
-</script>
-<script id="ProjectListView" type="text/template">
-    <% if(col && col.length > 0){ %>
-        <td><h4>Projects</h4></td>
-        <td>
-            <% _.each(col, function(project, i){ %>
-            <table class="table table-bordered table-striped table-hover">
-                <tr>
-                    <td>Name</td>
-                    <td><%- project.attributes.name %></td>
-                </tr>
-                <tr>
-                    <td>Description</td>
-                    <td><%- project.attributes.description %></td>
-                </tr>
-                <tr>
-                    <td>Version</td>
-                    <td><%- project.attributes.version %></td>
-                </tr>
-                <tr>
-                    <td>Created On</td>
-                    <td><%- project.attributes.createdAt %></td>
-                </tr>
-                <tr>
-                    <td>Last Updated</td>
-                    <td><%- project.attributes.updatedAt %></td>
-                </tr>
-                <tr>
-                    <td>Configuration</td>
-                    <td><a class="btn" href="/rest/projects/<%- project.attributes.magnetId %>/getConfig">Download Magnet App Project Profile</a></td>
-                </tr>
-            </table>
-            <% }); %>
-        </td>
-    <% } %>
 </script>
 <script id="CloudAccountListView" type="text/template">
     <% if(col && col.length > 0){ %>
@@ -332,7 +302,7 @@
                                             <button class="btn btn-primary" type="button">Search</button>
                                             <ul class="dropdown-menu">
 <% _.each(headers, function(header, key){ %>
-                                                <% if(key != 'profileName' && key != 'accountMagnetActive'){ %><li<% if(key == searchBy){ %> class="active"<% } %>><a href="#" p="<%- key %>"><%- header %><% } %></a></li>
+                                                <% if(key != 'profileName' && key != 'accountMagnetActive' && key != 'getConfig'){ %><li<% if(key == searchBy){ %> class="active"<% } %>><a href="#" p="<%- key %>"><%- header %><% } %></a></li>
 <% }); %>
                                             </ul>
                                         </div>
@@ -347,7 +317,7 @@
                                       <thead>
                                         <tr>
 <% _.each(headers, function(header, key){ %>
-                                            <th <% if(key != 'profileName' && key != 'accountMagnetActive'){ %>p="<%- key %>"<% } %>><%- header %><span class=""></span></th>
+                                            <th <% if(key != 'profileName' && key != 'accountMagnetActive' && key != 'getConfig'){ %>p="<%- key %>"<% } %>><%- header %><span class=""></span></th>
                                             <% }); %>
 <% if(!disableInfo){ %>
                                             <th class="listview-details">Details</th>
@@ -362,7 +332,11 @@
 <% _.each(collection, function(model, key){ %>
                                         <tr data-id="<%- model.attributes.magnetId %>">
 <% _.each(headers, function(header, key){ %>
-                                          <td><% if(model.attributes[key]){ %><% if(model.attributes[key].length > 0){ %><%- model.attributes[key] %><% } %><% } %></td>
+                                            <% if(key == 'getConfig'){ %>
+                                            <td><%= model.attributes['getConfig'] %></td>
+                                            <% }else{ %>
+                                            <td><% if(model.attributes[key]){ %><% if(model.attributes[key].length > 0){ %><%- model.attributes[key] %><% } %><% } %></td>
+                                            <% } %>
 <% }); %>
 <% if(!disableInfo){ %>
                                           <td><button class="btn">Details</button></td>
@@ -393,20 +367,6 @@
         <%- paging.total %> records total. viewing records <%- (paging.start+1) %> to <%- (paging.total < (paging.start+paging.rpp) ? paging.total : (paging.start+paging.rpp)) %>.
     </div>
 <% } %>
-</script>
-<script id="paginationDetailView2" type="text/template">
-    <% if(paging.total > 10){ %>
-    <ul>
-        <li <% if(paging.start == 0){ %>class="disabled"<% } %>><a href="#" page="<%-paging.previous%>">Prev</a></li>
-        <% for(i=0;i<(paging.total <= 200 ? paging.total : 200);i+=10){ %>
-        <li <% if(paging.start == i){ %>class="disabled"<% } %> ><a href="#" page="<%-i%>"><%-(i/10)+1%></a></li>
-        <% } %>
-        <li <% if(!paging.next || paging.start == 190 || (paging.start+paging.rpp) == paging.total){ %>class="disabled"<% } %>><a href="#" page="<%-paging.next%>">Next</a></li>
-    </ul>
-    <% if(paging.start == 190 && paging.total > 200){ %>
-    <br >Too many results. Please refine your result with search and or sort features.
-    <% } %>
-    <% } %>
 </script>
 
 <!-- dialogs start -->

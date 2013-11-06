@@ -112,9 +112,9 @@ define(['jquery', 'backbone'], function($, Backbone){
         },
         // bind table row select to trigger basic info display
         selectRow: function(e, dom){
-            e.preventDefault();
             var me = this;
             if(!me.options.disableInfo){
+                e.preventDefault();
                 me.ignoreTimer(function(){   
                     var item;
                     if(dom){

@@ -12,6 +12,7 @@ define(["jquery", "backbone", "models/ProjectModel"], function($, Backbone, Proj
                     if(res.data[i].createdAt){
                         res.data[i].createdAt = utils.ISO8601ToDT(res.data[i].createdAt);
                     }
+                    res.data[i].getConfig = '<a class="btn" href="/rest/projects/'+res.data[i].magnetId+'/getConfig">Download Magnet App Project Profile</a>';
                 }
             }
             return res.data;

@@ -45,29 +45,28 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
         },
         // fetch a collection of projects from the server
         fetchProjects: function(){
-            var me = this;
-            me.projects = new ProjectCollection();
-            me.projects.fetch({
+            this.col = new ProjectCollection();
+            this.options.eventPubSub.trigger('initListView', {
+                el              : '#project-list2-container',
+                col             : this.col,
+                headers         : {
+                    createdAt   : 'Created On',
+                    name        : 'Name',
+                    description : 'Description',
+                    getConfig   : 'Project Profile'
+                },
+                searchBy : 'name',
+                sortDefault : {
+                    property : 'createdAt',
+                    order    : 'desc'
+                },
+                disableInfo : true,
                 data: {
                     search : [{
-                        UserId : me.entity.attributes.id
+                        UserId : this.entity.attributes.id
                     }]
-                },
-                success: function(){
-                    me.renderProjects();
-                },
-                error: function(){
-                    Alerts.Error.display({
-                        title   : 'Error Retrieving Projects',
-                        content : 'There was a problem retrieving this project collection. Please try again later.'
-                    });
                 }
             });
-        },
-        renderProjects: function(){
-            this.$el.find('#project-list-container').html(_.template($('#ProjectListView').html(), {
-                col : this.projects.models
-            }));
         },
         // fetch a collection of cloud accounts from the server
         fetchCloudAccounts: function(){

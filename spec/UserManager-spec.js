@@ -33,6 +33,7 @@ describe("UserManager registerGuest", function() {
         it("if the firstName is missing", function(done) {
 //            delete user.firstName;
             user.firstName = '';
+            UserManager.orm =
             UserManager.registerGuest(user, false, function(registrationStatus) {
                 expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
                 done();
