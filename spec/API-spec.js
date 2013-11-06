@@ -941,7 +941,7 @@ describe('POST /rest/projects/:magnetId/removeAPNSCertificate', function(){
 });
 
 // TODO: only tested positive use case
-describe('POST /rest/projects/:magnetId/addWSDLUrl', function(){
+describe('POST /rest/projects/:magnetId/addWebServiceURL', function(){
 
     var testProject = {
         name        : 'test project name 6',
@@ -959,7 +959,7 @@ describe('POST /rest/projects/:magnetId/addWSDLUrl', function(){
 
     it('should add WSDL url', function(done){
         Transport.request({
-            path    : '/rest/projects/'+testProject.magnetId+'/addWSDLUrl',
+            path    : '/rest/projects/'+testProject.magnetId+'/addWebServiceURL',
             method  : 'POST',
             headers : {
                 'Cookie'       : developerUserCookie,
@@ -971,7 +971,7 @@ describe('POST /rest/projects/:magnetId/addWSDLUrl', function(){
             expect(e).toBeNull();
             expect(res.statusCode).toEqual(200);
             Transport.request({
-                path    : '/rest/projects/'+testProject.magnetId+'/wsdls',
+                path    : '/rest/projects/'+testProject.magnetId+'/webservices',
                 method  : 'GET',
                 headers : {
                     'Cookie' : developerUserCookie
@@ -988,7 +988,7 @@ describe('POST /rest/projects/:magnetId/addWSDLUrl', function(){
 });
 
 // TODO: only tested positive use case
-describe('GET /rest/projects/:magnetId/wsdls', function(){
+describe('GET /rest/projects/:magnetId/webservices', function(){
 
     var testProject = {
         name        : 'test project name 7',
@@ -1001,7 +1001,7 @@ describe('GET /rest/projects/:magnetId/wsdls', function(){
             testProject.magnetId = project.magnetId;
             expect(e).toBeNull();
             Transport.request({
-                path    : '/rest/projects/'+testProject.magnetId+'/addWSDLUrl',
+                path    : '/rest/projects/'+testProject.magnetId+'/addWebServiceURL',
                 method  : 'POST',
                 headers : {
                     'Cookie'       : developerUserCookie,
@@ -1019,7 +1019,7 @@ describe('GET /rest/projects/:magnetId/wsdls', function(){
 
     it('should return a list of WSDLs', function(done){
         Transport.request({
-            path    : '/rest/projects/'+testProject.magnetId+'/wsdls',
+            path    : '/rest/projects/'+testProject.magnetId+'/webservices',
             method  : 'GET',
             headers : {
                 'Cookie' : developerUserCookie
@@ -1050,7 +1050,7 @@ describe('DELETE /rest/wsdls/:magnetId', function(){
             testProject.magnetId = project.magnetId;
             expect(e).toBeNull();
             Transport.request({
-                path    : '/rest/projects/'+testProject.magnetId+'/addWSDLUrl',
+                path    : '/rest/projects/'+testProject.magnetId+'/addWebServiceURL',
                 method  : 'POST',
                 headers : {
                     'Cookie'       : developerUserCookie,
@@ -1079,7 +1079,7 @@ describe('DELETE /rest/wsdls/:magnetId', function(){
             expect(e).toBeNull();
             expect(res.statusCode).toEqual(200);
             Transport.request({
-                path    : '/rest/projects/'+testProject.magnetId+'/wsdls',
+                path    : '/rest/projects/'+testProject.magnetId+'/webservices',
                 method  : 'GET',
                 headers : {
                     'Cookie' : developerUserCookie

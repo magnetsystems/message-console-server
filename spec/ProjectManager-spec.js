@@ -638,7 +638,7 @@ describe('ProjectManager removeAPNSCertificate', function(){
 
 });
 
-describe('ProjectManager addWSDLUrl', function(){
+describe('ProjectManager addWebServiceURL', function(){
     var url = 'http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?wsdl';
 
     beforeEach(function(){
@@ -646,35 +646,35 @@ describe('ProjectManager addWSDLUrl', function(){
     });
 
     it('should fail given an invalid project magnetId', function(done){
-        ProjectManager.addWSDLUrl('', testUser.id, url, function(e){
+        ProjectManager.addWebServiceURL('', testUser.id, url, function(e){
             expect(e).toEqual('project-not-found');
             done();
         });
     });
 
     it('should fail given an invalid project magnetId', function(done){
-        ProjectManager.addWSDLUrl(testProject.magnetId, '', url, function(e){
+        ProjectManager.addWebServiceURL(testProject.magnetId, '', url, function(e){
             expect(e).toEqual('not-authorized');
             done();
         });
     });
 
     it('should fail given an invalid url', function(done){
-        ProjectManager.addWSDLUrl(testProject.magnetId, testUser.id, 'invalid-url-format', function(e){
+        ProjectManager.addWebServiceURL(testProject.magnetId, testUser.id, 'invalid-url-format', function(e){
             expect(e).toBe('request-error');
             done();
         });
     });
 
     it('should succeed if all parameters are valid', function(done){
-        ProjectManager.addWSDLUrl(testProject.magnetId, testUser.id, url, function(e){
+        ProjectManager.addWebServiceURL(testProject.magnetId, testUser.id, url, function(e){
             expect(e).toBeNull();
             done();
         });
     });
 
     it('should return model containing url if method completed successfully', function(done){
-        ProjectManager.addWSDLUrl(testProject.magnetId, testUser.id, url, function(e, model){
+        ProjectManager.addWebServiceURL(testProject.magnetId, testUser.id, url, function(e, model){
             expect(model.url).toEqual(url);
             _wsdl = model;
             done();
@@ -683,7 +683,7 @@ describe('ProjectManager addWSDLUrl', function(){
 
 });
 
-describe('ProjectManager removeWSDLUrl', function(){
+describe('ProjectManager removeWebServiceURL', function(){
     var url = 'http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?wsdl';
 
     beforeEach(function(){
@@ -691,14 +691,14 @@ describe('ProjectManager removeWSDLUrl', function(){
     });
 
     it('should fail given an invalid wsdl magnetId', function(done){
-        ProjectManager.removeWSDLUrl('', function(e){
+        ProjectManager.removeWebServiceURL('', function(e){
             expect(e).toEqual('wsdl-not-found');
             done();
         });
     });
 
     it('should remove WSDL model given a valid wsdl magnetId', function(done){
-        ProjectManager.removeWSDLUrl(testWSDL.magnetId, function(e){
+        ProjectManager.removeWebServiceURL(testWSDL.magnetId, function(e){
             expect(e).toBeNull();
             ProjectManager.readWSDL(testWSDL.magnetId, function(e){
                 expect(e).toEqual('wsdl-not-found');
@@ -723,7 +723,7 @@ describe('ProjectManager readWSDL', function(){
     });
 
     it('should return wsdl model given a valid magnetId', function(done){
-        ProjectManager.addWSDLUrl(testProject.magnetId, testUser.id, 'http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?wsdl', function(e, model){
+        ProjectManager.addWebServiceURL(testProject.magnetId, testUser.id, 'http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?wsdl', function(e, model){
             expect(e).toBeNull();
             ProjectManager.readWSDL(model.magnetId, function(e, wsdl){
                 expect(wsdl.url).toEqual('http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?wsdl');
@@ -734,17 +734,17 @@ describe('ProjectManager readWSDL', function(){
 
 });
 
-describe('ProjectManager getWSDLs', function(){
+describe('ProjectManager getWebServices', function(){
 
     it('should fail given an invalid wsdl magnetId', function(done){
-        ProjectManager.getWSDLs('', function(e){
+        ProjectManager.getWebServices('', function(e){
             expect(e).toEqual('project-not-found');
             done();
         });
     });
 
     it('should return a collection of wsdls given a valid project magnetId', function(done){
-        ProjectManager.getWSDLs(testProject.magnetId, function(e, wsdls){
+        ProjectManager.getWebServices(testProject.magnetId, function(e, wsdls){
             expect(wsdls).not.toBeUndefined();
             done();
         });

@@ -23,7 +23,7 @@ describe("UserManager registerGuest", function() {
         user = {
             firstName: "John",
             lastName: "Appleseed",
-            email: "john.appleseed@magnet.com",
+            email: magnetId.v1()+'25@magnet.com',
             companyName: "Apple Inc."
         };
     });
@@ -175,35 +175,31 @@ describe("UserManager registerGuest", function() {
 });
 
 describe("UserManager approveUser", function() {
-    var user;
-
-    describe("should fail approval", function() {
-
-        beforeEach(function() {
-            user = {
-                magnetId: "d2cf1210-25ae-11e3-a8c7-c743ef283553"
-            };
-        });
-
-        it("if the magnetId does not exist", function(done) {
-            UserManager.approveUser(user, false, function(approvalStatus) {
-                expect(approvalStatus).toEqual(UserManager.ApproveUserStatusEnum.USER_DOES_NOT_EXIST);
-                done();
-            });
-        });
-    });
+    var _user;
 
     beforeEach(function() {
-        user = {
-            firstName: "John",
-            lastName: "Appleseed",
-            email: magnetId.v1()+"john.appleseed@magnet.com",
-            companyName: "Apple Inc."
+        _user = {
+            firstName   : 'John',
+            lastName    : 'Appleseed',
+            email       : magnetId.v1()+'26@magnet.com',
+            companyName : 'Apple Inc.',
+            userType    : 'guest'
         };
     });
 
+    it("should fail approval if the magnetId does not exist", function(done) {
+        _user = {
+            magnetId: "d2cf1210-25ae-11e3-a8c7-c743ef283553"
+        };
+        UserManager.approveUser(_user, false, function(approvalStatus) {
+            expect(approvalStatus).toEqual(UserManager.ApproveUserStatusEnum.USER_DOES_NOT_EXIST);
+            done();
+        });
+    });
+
     it("should succeed if the input is valid", function(done) {
-        UserManager.registerGuest(user, false, function(registrationStatus, u) {
+
+        UserManager.create(_.extend({}, _user), function(e, user){
             UserManager.approveUser({magnetId: user.magnetId}, false, function(approvalStatus, user) {
                 expect(user).not.toBeNull();
                 expect(approvalStatus).toEqual(UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL);
@@ -241,7 +237,7 @@ describe("UserManager becomeDeveloper", function() {
         user = {
             firstName: firstName,
             lastName: "Appleseed",
-            email: "john.appleseed@magnet.com",
+            email: magnetId.v1()+'27@magnet.com',
             companyName: "Apple Inc.",
             password: password,
             roleWithinCompany: 'Software Engineer',
@@ -296,7 +292,7 @@ describe("UserManager sendForgotPasswordEmail", function() {
         user = {
             firstName: firstName,
             lastName: "Appleseed",
-            email: "john.appleseed@magnet.com",
+            email: magnetId.v1()+'28@magnet.com',
             companyName: "Apple Inc.",
             password: password,
             roleWithinCompany: 'Software Engineer',
@@ -355,7 +351,7 @@ describe("UserManager resetPassword", function() {
         user = {
             firstName: firstName,
             lastName: "Appleseed",
-            email: "john.appleseed@magnet.com",
+            email: magnetId.v1()+'29@magnet.com',
             companyName: "Apple Inc.",
             password: password,
             roleWithinCompany: 'Software Engineer',

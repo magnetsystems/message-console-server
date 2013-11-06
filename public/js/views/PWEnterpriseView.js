@@ -38,7 +38,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'collections/ProjectCollect
             });
         },
         events: {
-            'click #pw-wsdl-addurl-btn' : 'addWSDLUrl',
+            'click #pw-wsdl-addurl-btn' : 'addWebServiceURL',
             'click #pw-wsdl-list li i' : 'removeWSDL',
             'click #pw-wsdl-addfile-btn' : 'addWSDLFile'
         },
@@ -92,7 +92,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'collections/ProjectCollect
             me.wsdls.fetch({
                 data : {
                     relationship : {
-                        name     : 'wsdls',
+                        name     : 'webservices',
                         magnetId : this.project.attributes.magnetId
                     }
                 },
@@ -105,7 +105,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'collections/ProjectCollect
             });
         },
         // validate url and create webservice entity related to the current project
-        addWSDLUrl: function(){
+        addWebServiceURL: function(){
             var me = this;
             var dom = me.$el.find('input[name="wsdl-url"]');
             var wsdlUrl = $.trim(dom.val());
@@ -117,7 +117,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'collections/ProjectCollect
                     });
                 }else{
                     $('.pw-wsdl-url-processing').removeClass('hidden').html('<li><span class="qq-upload-spinner"></span><span class="pw-wsdl-url-caption">'+wsdlUrl+'</span></li>').show();
-                    me.options.mc.query('projects/'+me.project.attributes.magnetId+'/addWSDLUrl', 'POST', {
+                    me.options.mc.query('projects/'+me.project.attributes.magnetId+'/addWebServiceURL', 'POST', {
                         url : wsdlUrl
                     }, function(wsdl){
                         $('.pw-wsdl-url-processing').hide('fast');

@@ -203,8 +203,8 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/projects/:magnetId/wsdls', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.getWSDLs(req.params.magnetId, function(e, wsdls){
+    app.get('/rest/projects/:magnetId/webservices', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        ProjectManager.getWebServices(req.params.magnetId, function(e, wsdls){
             if(e){
                 res.send(e, 400);
             }else{
@@ -213,8 +213,8 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/projects/:magnetId/addWSDLUrl', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.addWSDLUrl(req.params.magnetId, req.session.user.id, req.body.url, function(e, wsdl){
+    app.post('/rest/projects/:magnetId/addWebServiceURL', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        ProjectManager.addWebServiceURL(req.params.magnetId, req.session.user.id, req.body.url, function(e, wsdl){
             if(e){
                 res.send(e, 400);
             }else{
@@ -224,7 +224,7 @@ module.exports = function(app){
     });
 
     app.delete('/rest/wsdls/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.removeWSDLUrl(req.params.magnetId, function(e){
+        ProjectManager.removeWebServiceURL(req.params.magnetId, function(e){
             if(e){
                 res.send(e, 400);
             }else{

@@ -3,6 +3,7 @@ var AccountManager = require("../lib/AccountManager")
  , UserManager = require('../lib/UserManager')
  , EmailService = require('../lib/EmailService')
  , orm = require('../lib/orm')
+, magnetId = require('node-uuid')
  , bcrypt = require('bcrypt');
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;
@@ -64,6 +65,24 @@ describe("AccountManager manualLogin", function() {
             });
         });
 
+    });
+
+    it('should return locked status if user account is locked', function(done){
+        var _user = {
+            firstName : 'Pyramid',
+            lastName  : 'Hefeweizen',
+            email     : magnetId.v1()+'@magnet.com',
+            userType  : 'developer',
+            activated : false,
+            password  : 'wheatale'
+        };
+        UserManager.create(_user, function(e, user){
+            expect(e).toBeNull();
+            AccountManager.manualLogin(_user.email, _user.password, function(e, u){
+                expect(e).toEqual('account-locked');
+                done();
+            });
+        });
     });
 
     it("should succeed if the credentials are valid", function(done) {
