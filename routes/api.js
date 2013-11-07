@@ -422,7 +422,7 @@ module.exports = function(app){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(registrationStatus, 400);
+                res.send('ok', 200);
             }
         });
     });
