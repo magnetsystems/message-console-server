@@ -514,24 +514,32 @@ module.exports = function(app){
     });
 
     // return server statistics
-    app.get('/rest/stats', UserManager.checkAuthority(['developer'], true), function(req, res){
+    app.get('/rest/stats', UserManager.checkAuthority(['admin'], true), function(req, res){
         res.send({
-            'Platform'          : process.platform,
-            'Architecture'      : process.arch,
-            'Process Title'     : process.title,
-            'PID'               : process.pid,
-            'Environment Vars'  : process.env,
-            'Node Version'      : process.version,
-            'Module Versions'   : process.versions,
-            'Execution Path'    : process.execPath,
-            'Working Directory' : process.cwd(),
-            'Memory Usage'      : process.memoryUsage(),
-            'File Mask'         : process.umask().toString(8),
-            'Uptime'            : process.uptime() + ' seconds',
-            'POSIX UID'         : process.getuid(),
-            'POSIX GID'         : process.getgid(),
-            'POSIX Groups'      : process.getgroups()
-        });
+            'Hostname'        : require('os').hostname(),
+            'Node Version'    : process.version,
+            'Factory Version' : require('../package.json').version,
+            'Memory Usage'    : process.memoryUsage()
+          });
+//        res.send({
+//            'Platform'          : process.platform,
+//            'Architecture'      : process.arch,
+//            'Process Title'     : process.title,
+//            'PID'               : process.pid,
+//            'Environment Vars'  : process.env,
+//            'Hostname'          : require('os').hostname(),
+//            'Node Version'      : process.version,
+//            'Factory Version'   : require('./package.json').version,
+//            'Module Versions'   : process.versions,
+//            'Execution Path'    : process.execPath,
+//            'Working Directory' : process.cwd(),
+//            'Memory Usage'      : process.memoryUsage(),
+//            'File Mask'         : process.umask().toString(8),
+//            'Uptime'            : process.uptime() + ' seconds',
+//            'POSIX UID'         : process.getuid(),
+//            'POSIX GID'         : process.getgid(),
+//            'POSIX Groups'      : process.getgroups()
+//        });
     });
 };
 
