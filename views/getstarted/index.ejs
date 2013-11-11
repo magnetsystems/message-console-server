@@ -63,7 +63,9 @@
                                         <i class="icon icon-chevron-down"></i>
                                     </a>
                                     <p>Get started quickly using the Jumpstart App as a template for your development
-                                        by downloading the iOS Jumpstart App from GitHub.</p>
+                                        by downloading the iOS Jumpstart App from GitHub. For more detailed information,
+                                        visit the <a target="_blank" href="https://github.com/magnetsystems/jumpstart-ios">
+                                        iOS Jumpstart App GitHub Project</a>.</p>
                                 </div>
                                 <div id="acc-ios-1-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
@@ -395,7 +397,9 @@
                                         <i class="icon icon-chevron-down"></i>
                                     </a>
                                     <p>Get started quickly using the Jumpstart App as a template for your development
-                                    by downloading the Android Jumpstart App from GitHub.</p>
+                                    by downloading the Android Jumpstart App from GitHub. For more detailed information,
+                                        visit the <a target="_blank" href="https://github.com/magnetsystems/jumpstart-android">
+                                        Android Jumpstart App GitHub Project</a>.</p>
                                 </div>
                                 <div id="acc-android-1-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
@@ -421,14 +425,12 @@
                                                 typically generated from a local server build provided by your server team.
                                             </li>
                                             <li> Regenerate Magnet platform service mapping library using shell script, <b>install-lib.sh</b>:<br />
-                                                <pre>$ sh ../sdk-android/magnet-tools/install-libs.sh ../sdk-android/libproject/2.1.0 ./libs</pre>
+                                                <pre>$ sh ./sdk-submodule/magnet-tools/install-libs.sh ./sdk-submodule/libproject/&lt;version&gt; ./libs</pre>
                                             </li>
                                         </ol>
                                         <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original <b>./libs</b>
                                             directory before introducing a new API library to <b>libs</b> directory.</p>
 
-                                        <p>For more information, visit the <a target="_blank" href="https://github.com/magnetsystems/jumpstart-android">
-                                            Android Jumpstart App GitHub Project</a>.</p>
                                     </div>
                                 </div>
                             </div>
@@ -460,8 +462,8 @@
                                             <li>
                                                 From directory of your Android application project, install the Magnet Android sdk
                                                 to your application using relative path to the SDK directory. For example, assuming
-                                                the SDK directory is one level above the application project directory named <b>sdk-android</b>:
-                                                <pre>$ sh ../sdk-android/magnet-tools/install-libs.sh ../sdk-android/libproject/2.1.0 ./libs</pre>
+                                                the SDK directory is one level above the application project directory named <b>magnet-sdk-android</b>:
+                                                <pre>$ sh ../magnet-sdk-android/magnet-tools/install-libs.sh ../magnet-sdk-android/libproject/2.1.0 ./libs</pre>
                                             </li>
                                         </ol>
 
@@ -473,7 +475,7 @@
                                             <li>First, copy custom Magnet controller api library jar files to the directory where all dependent
                                                 libraries are stored, typically <b>libs</b>.</li>
                                             <li>Then, regenerate Magnet platform service mapping library using the script, <b>install-libs.sh</b> as described above.
-                                                <pre>$ sh ../sdk-android/magnet-tools/install-libs.sh ../sdk-android/libproject/2.1.0 ./libs</pre>
+                                                <pre>$ sh ../magnet-sdk-android/magnet-tools/install-libs.sh ../magnet-sdk-android/libproject/2.1.0 ./libs</pre>
                                             </li>
                                         </ol>
                                         <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original <b>./libs</b>
