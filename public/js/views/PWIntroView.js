@@ -6,7 +6,7 @@ define(['jquery', 'backbone', 'models/UserModel', 'models/ProjectModel'], functi
             me.options.eventPubSub.bind('initPWIntroView', function(params){
                 me.project = params.project;
                 me.settings = params.settings;
-                $('#project-details-container').find('input, textarea').val('');
+                $('#project-details-container').find('input, textarea').val('').removeAttr('disabled');
                 $('#project-details-container input[name="version"]').val('1.0');
             });
             me.options.eventPubSub.bind('introComplete', function(){
