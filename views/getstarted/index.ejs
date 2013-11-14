@@ -71,7 +71,7 @@
                                     <div class="accordion-inner">
                                         <h5>System Requirements</h5>
                                         <ol>
-                                            <li>Xcode 5.0.1</li>
+                                            <li>Xcode 5.0.1 and higher</li>
                                         </ol>
                                         <h5>Download the iOS Jumpstart App from GitHub.</h5>
                                         <ol>
@@ -81,7 +81,7 @@
                                             <li>
                                                 <p>From <b>Terminal</b>, navigate to the directory where you would like to install the
                                                     Jumpstart App and clone the Jumpstart App using the following command.</p>
-                                                <pre>$ git clone git@github.com:magnetsystems/jumpstart-ios.git --recursive</pre>
+                                                <pre>$ git clone https://github.com/magnetsystems/jumpstart-ios.git --recursive</pre>
                                             </li>
                                             <li>
                                                 <p>To test round-trip connectivity between the server and client, run the Jumpstart
@@ -130,7 +130,7 @@
                                     <div class="accordion-inner">
                                         <h5>System Requirements</h5>
                                         <ol>
-                                            <li>Xcode 5.0.1</li>
+                                            <li>Xcode 5.0.1 and higher</li>
                                             <li>CocoaPods</li>
                                         </ol>
                                         <h5>Import the Magnet iOS SDK into your own iOS app</h5>
@@ -366,8 +366,8 @@
                                             <p>Add a Magnet Third Party controller (currently <b>facebook</b>, <b>linkedin</b>, and <b>salesforce</b> are supported).</p>
                                             <pre>mab> api-add -t facebook</pre>
                                             <p>After adding the controllers, the project must be re-built and re-deployed for the changes to take effect.</p>
+                                            <pre>mab> server-stop</pre>
                                             <pre>mab> project-build</pre>
-                                            <pre>mab> server-deploy</pre>
                                             <pre>mab> server-start</pre>
                                         </div>
                                         <p>For more information, see the <a href="/docs/mobile_app_builder/mobile_app_builder.pdf">Mobile App Builder Developer Guide</a></p>
@@ -411,7 +411,16 @@
                                             <li>
                                                 <p>From <b>Terminal</b>, navigate to the directory where you would like to install the
                                                 Jumpstart App and clone the Jumpstart App using the following command.</p>
-                                                <pre>$ git clone git@github.com:magnetsystems/jumpstart-android.git --recursive</pre>
+                                                <pre>$ git clone https://github.com/magnetsystems/jumpstart-android.git --recursive</pre>
+                                            </li>
+                                            <li>
+                                                Open Eclipse and and select File->New Project->Android->Android Project from Existing Code.
+                                            </li>
+                                            <li>
+                                                Browse to &quot;jumpstart-android&quot; project directory and select it as the &quot;Root Directory&quot;.
+                                            </li>
+                                            <li>
+                                                Clean and build JumpstartActivity and OAuthActivityFlow projects using Eclipse.
                                             </li>
                                             <li>
                                                 <p>To test round-trip connectivity between the server and client, run the Jumpstart
@@ -425,7 +434,7 @@
                                                 typically generated from a local server build provided by your server team.
                                             </li>
                                             <li> Regenerate Magnet platform service mapping library using shell script, <b>install-lib.sh</b>:<br />
-                                                <pre>$ sh ./sdk-submodule/magnet-tools/install-libs.sh ./sdk-submodule/libproject/&lt;version&gt; ./libs</pre>
+                                                <pre>$ sh ./sdk-submodule/magnet-tools/install-libs.sh ./sdk-submodule/libproject/2.1.0 ./libs</pre>
                                             </li>
                                         </ol>
                                         <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original <b>./libs</b>

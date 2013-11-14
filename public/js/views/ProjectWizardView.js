@@ -4,8 +4,7 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/PWIntroView', 'views
         initialize: function(){
             var me = this;
             me.options.eventPubSub.bind('initProjectWizard', function(params){
-                $('#project-details-container').find('input, textarea').val('');
-                $('#project-details-container input[name="version"]').val('1.0');
+                $('#project-details-container').find('input, textarea').val('').removeAttr('disabled');
                 $('#project-details-container input[name="name"]').focus();
                 me.fallbackImg = $('#wizard-diagram-canvas img');
                 me.stepTitle = $('#wizard-step-title');

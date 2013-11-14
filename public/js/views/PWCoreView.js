@@ -72,13 +72,10 @@ define(['jquery', 'backbone', 'models/ProjectModel', 'views/UploadView'], functi
             }
         },
         confirmCert: function(properties, callback){
-            var me = this;
-            if(me.project.attributes.apnsEnabled && (!me.project.attributes.apnsCertName || me.project.attributes.apnsCertName.length == 0)){
-                Alerts.Confirm.display({
+            if(properties.config.apnsEnabled && (!this.project.attributes.apnsCertName || this.project.attributes.apnsCertName.length == 0)){
+                Alerts.Error.display({
                     title   : 'APNS Certficate Not Uploaded',
-                    content : 'Since the APNS feature was enabled, an APNS certificate should be uploaded. You can continue without uploading a certificate, but the certificate must be manually placed in the project later.'
-                }, function(){
-                    callback();
+                    content : 'Since the APNS feature was enabled, an APNS certificate must be uploaded.'
                 });
             }else{
                 callback();
