@@ -461,7 +461,7 @@ FriendInvitation.prototype.call = function(){
         $('#'+me.domId+' .modal_errors').hide();
     }).fail(function(xhr){
         endLoading(me.domId);
-        var msg = 'A server error occurred during the invitation process. Please try again later.';
+        var msg = 'A user by this email address already exists.';
         if(xhr.status == 500){
             var res = tryParseJSON(xhr.responseText);
             if(res && res.message){
@@ -633,7 +633,7 @@ StartResetPassword.prototype.call = function(){
         $('#'+me.domId+' .modal_errors, #btn-start-reset-password').hide();
     }).fail(function(xhr){
         endLoading(me.domId);
-        var msg = 'A server error occurred during password reset. Please try again later.';
+        var msg = 'We cannot find this email address in our records.';
         if(xhr.status == 500){
             var res = tryParseJSON(xhr.responseText);
             if(res && res.message){
