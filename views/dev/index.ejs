@@ -327,7 +327,7 @@
                 <div class="accordion-inner">
                     <div did="ON" class="<% if(project.attributes['jdbcAppEnabled'] !== true){ %>hidden<% } %>">
                         <p>
-                            Your app will use a MySQL database for app related persistence on your server. <br />
+                            If you plan to add sample APIs (such as SalesForce, Facebook APIs), enable the application database. <br />
                             Configure the MySQL database information below or use the defaults.
                         </p>
                         <div class="controls controls-row">
@@ -346,7 +346,7 @@
                         </div>
                     </div>
                     <div did="OFF" class="<% if(project.attributes['jdbcAppEnabled'] == true){ %>hidden<% } %>">
-                        Your app will not use MySQL for app related persistence.
+                        You will not be able to use server entities or any sample APIs if the App Database is not enabled.
                         <div class="well">
                             <b>Note:</b> You will not be able to use server entities or any sample APIs if the App Database is not enabled.
                         </div>
