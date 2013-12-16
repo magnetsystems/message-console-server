@@ -381,11 +381,18 @@ ConfirmInvitation.prototype.call = function(){
         dataType    : 'html',
         contentType : 'application/x-www-form-urlencoded',
         data        : me.info
-    }).done(function(){
-        endLoading(me.domId, {
+    }).done(function(status){
+        var msg = {
             title : 'Invitation Confirmation Submitted Successfully',
             text  : 'Your invitation confirmation has been sent successfully. An administrator will review your application and contact you through email.'
-        });
+        };
+        if(status && status.indexOf('"skipAdminApproval": true') != -1){
+            msg = {
+                title : 'Invitation Confirmation Submitted Successfully',
+                text  : 'Your invitation confirmation has been sent successfully. An email has been sent to the email address you provided. Please check your email and click on the link to complete the registration process.'
+            }
+        }
+        endLoading(me.domId, msg);
         $('#'+me.domId+' .modal_errors, #btn-confirm-invitation').hide();
     }).fail(function(xhr){
         endLoading(me.domId);
@@ -546,12 +553,9 @@ CompleteRegistration.prototype.call = function(){
         window.location.href = '/login/?status=success';
     }).fail(function(xhr){
         endLoading(me.domId);
-        var msg = 'A server error occurred during registration. Please try again later.';
-        if(xhr.status == 500){
-            var res = tryParseJSON(xhr.responseText);
-            if(res && res.message){
-                msg = res.message;
-            }
+        var msg = 'A problem occurred during registration. Have you already registered? If so, please click on the "Return to Login" button below and try logging in.';
+        if(xhr.responseText == '"USER_DOES_NOT_EXIST"'){
+            msg = 'You have already completed registration. Please click on the "Return to Login" button below and try logging in.';
         }
         if(msg.indexOf('invit_req_pending') != -1 || msg.indexOf('finish') != -1 || msg.indexOf('failed') != -1){
             endLoading(me.domId);

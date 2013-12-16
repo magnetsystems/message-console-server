@@ -22,6 +22,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 me.options.eventPubSub.off('displayInfoView').bind('displayInfoView', function(model){
                     Backbone.history.navigate('#/'+page+'/'+model.attributes.magnetId);
                 });
+                if(page == 'actions') me.getConfig();
             });
         },
         // metadata for admin views
@@ -116,6 +117,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         events: {
             'click #send-invitation': 'sendInvitation',
             'click #mgmt-history-list tbody td': 'showInfoPopup',
+            'click #update-configuration': 'updateConfig',
             'click .attachment-link' : 'showLog'
         },
         // handle events for switching between tabs
@@ -129,17 +131,15 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         },
         // send invitation to a user 
         sendInvitation: function(){
-            var input = $('#invited-user-email');
             var me = this;
-            var parent = input.closest('.tab-pane');
-            parent.find('.buttons-section').hide();
-            parent.find('.buttons-section.loading').show();
+            var input = $('#invited-user-email');
+            var parent = $('#app-management-container');
+            me.showLoading(parent);
             me.options.eventPubSub.trigger('getUserIdentity', function(user){
                 me.options.mc.query('adminInviteUser', 'POST', {
                     email   : input.val()
                 }, function(){
-                    parent.find('.buttons-section').show();
-                    parent.find('.buttons-section.loading').hide();
+                    me.hideLoading(parent);
                     me.options.eventPubSub.trigger('refreshListView');
                     Alerts.General.display({
                         title   : 'Invitation Sent Successfully', 
@@ -147,12 +147,48 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     });
                     input.val('');
                 }, 'json', 'application/x-www-form-urlencoded', function(xhr, status, error){
-                    parent.find('.buttons-section').show();
-                    parent.find('.buttons-section.loading').hide();
+                    me.hideLoading(parent);
                     Alerts.Error.display({
                         title   : 'Invitation Not Sent',
                         content : 'There was a problem sending the invitation: '+xhr.responseText
                     });
+                });
+            });
+        },
+        hideLoading: function(parent){
+            parent.find('.buttons-section').show();
+            parent.find('.buttons-section.loading').hide();
+        },
+        showLoading: function(parent){
+            parent.find('.buttons-section').hide();
+            parent.find('.buttons-section.loading').show();
+        },
+        // get app configuration
+        getConfig: function(){
+            this.options.mc.query('configs', 'GET', null, function(data){
+                if(data && data.skipAdminApproval){
+                    $('#skipAdminApproval option').eq(data.skipAdminApproval === true ? 1 : 0).prop('selected', true);
+                }
+            });
+        },
+        // update configuration
+        updateConfig: function(){
+            var me = this;
+            var parent = $('#app-management-container');
+            me.showLoading(parent);
+            me.options.mc.query('configs', 'PUT', {
+                skipAdminApproval : $('#skipAdminApproval').val()
+            }, function(){
+                me.hideLoading(parent);
+                Alerts.General.display({
+                    title   : 'Config Updated Successfully',
+                    content : 'App configuration has been updated successfully.'
+                });
+            }, null, null, function(xhr, status, error){
+                me.hideLoading(parent);
+                Alerts.Error.display({
+                    title   : 'Error Sending Request',
+                    content : xhr.responseText
                 });
             });
         },

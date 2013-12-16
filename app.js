@@ -11,6 +11,7 @@ if(!app.settings.env || app.settings.env == ''){
 
 global.winston = winston;
 global.ENV_CONFIG = require('./lib/config/config_'+app.settings.env);
+global.APP_CONFIG = {};
 
 require('./lib/orm').setup('./lib/models');
 

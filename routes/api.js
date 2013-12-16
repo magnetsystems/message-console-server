@@ -4,6 +4,7 @@ var AccountManager = require('../lib/AccountManager')
 , ProjectManager = require('../lib/ProjectManager')
 , ModelManager = require('../lib/ModelManager')
 , EmailService = require('../lib/EmailService')
+, AppConfigManager = require('../lib/ConfigManager')
 , magnetId = require('node-uuid')
 , path = require('path')
 , fs = require('fs')
@@ -297,7 +298,10 @@ module.exports = function(app){
             magnetId: req.body.magnetId
         }, false, function(registrationStatus) {
             if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL) {
-                res.send(registrationStatus, 201);
+                res.send({
+                    status            : registrationStatus,
+                    skipAdminApproval : APP_CONFIG.skipAdminApproval
+                }, 201);
             } else {
                 res.send(registrationStatus, 400);
             }
@@ -412,6 +416,27 @@ module.exports = function(app){
                 JumpStartUserManager.setActivation(user.email, req.body.activated, function(err) {
                     //
                 });
+            }
+        });
+    });
+
+    // This API is used to retrieve configuration
+    app.get('/rest/configs', UserManager.checkAuthority(['admin'], true), function(req, res){
+        res.send(APP_CONFIG, 200);
+    });
+
+    // This API is used to update configuration
+    app.put('/rest/configs', UserManager.checkAuthority(['admin'], true), function(req, res){
+        AppConfigManager.set(req.body, function(e, changes){
+            if(e){
+                res.send(e, 400);
+            }else{
+                winston.info('AppConfig: user "'+req.session.user.firstName+' '+req.session.user.lastName+'"('+req.session.user.id+') updated app configuration: '+JSON.stringify(changes)+' successfully at: '+new Date(), {
+                    userId      : req.session.user.id,
+                    targetModel : 'AppConfig',
+                    targetId    : APP_CONFIG.id || 0
+                });
+                res.send('ok', 200);
             }
         });
     });
