@@ -260,6 +260,7 @@ describe("UserManager becomeDeveloper", function() {
                     expect(bcrypt.compareSync(password, u.password)).toBeTruthy();
                     u.reload().success(function() {
                         expect(u.firstName).toEqual(firstName);
+                        expect(u.signedLicenseKey).not.toBeNull();
                         // Clean up
                         u.getCloudAccounts().success(function(cloudAccounts) {
                             expect(cloudAccounts.length).toEqual(1);
