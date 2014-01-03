@@ -44,7 +44,7 @@
               <li id="mgmt-requests-tab"><a href="#/requests">Requests</a></li>
                 <li id="mgmt-invitations-tab"><a href="#/invitations">User Invitations</a></li>
                 <li id="mgmt-events-tab"><a href="#/events">Event Logging</a></li>
-                <li id="mgmt-actions-tab"><a href="#/actions">User Management</a></li>
+                <li id="mgmt-actions-tab"><a href="#/actions">App Management</a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="mgmt-users">
@@ -68,12 +68,21 @@
                     <div id="mgmt-events-list"></div>
                 </div>
                 <div class="tab-pane" id="mgmt-actions">
-                    <h3>User Management</h3>
-                    <div id="invite-user-container">
+                    <h3>App Management</h3>
+                    <div id="app-management-container">
                         <h4>Invite a User</h4>
                         <div class="input-append buttons-section">
                             <input class="span5" id="invited-user-email" type="text" placeholder="Email Address">
                             <button class="btn" type="button" id="send-invitation">Send Invitation</button>
+                        </div>
+                        <h4>App Configuration</h4>
+                        <div class="input-append buttons-section">
+                            <label for="skipAdminApproval">Require Admin Approval</label>
+                            <select name="skipAdminApproval" id="skipAdminApproval" placeholder="Skip Admin Approval">
+                                <option value="false">Yes</option>
+                                <option value="true">No</option>
+                            </select>
+                            <button class="btn" type="button" id="update-configuration">Update</button>
                         </div>
                         <div class="loading buttons-section" style="display:none">
                             Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />

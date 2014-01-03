@@ -327,7 +327,7 @@
                 <div class="accordion-inner">
                     <div did="ON" class="<% if(project.attributes['jdbcAppEnabled'] !== true){ %>hidden<% } %>">
                         <p>
-                            Your app will use a MySQL database for app related persistence on your server. <br />
+                            If you plan to add sample APIs (such as SalesForce, Facebook APIs), enable the application database. <br />
                             Configure the MySQL database information below or use the defaults.
                         </p>
                         <div class="controls controls-row">
@@ -346,7 +346,7 @@
                         </div>
                     </div>
                     <div did="OFF" class="<% if(project.attributes['jdbcAppEnabled'] == true){ %>hidden<% } %>">
-                        Your app will not use MySQL for app related persistence.
+                        You will not be able to use server entities or any sample APIs if the App Database is not enabled.
                         <div class="well">
                             <b>Note:</b> You will not be able to use server entities or any sample APIs if the App Database is not enabled.
                         </div>
@@ -669,7 +669,7 @@
                                         <input class="span5" type="text" name="sfdcClientSecret" value="<%- project.attributes['sfdcClientSecret'] %>" placeholder="Consumer Secret">
                                     </div>
                                     <div class="controls controls-row">
-                                        <input class="span10" type="text" name="sfdcClientEndpointAddress" value="<%- project.attributes['sfdcClientEndpointAddress'] %>" placeholder="Callback URL">
+                                        <input class="span10" type="text" name="sfdcClientEndpointAddress" value="<%- project.attributes['sfdcClientEndpointAddress'] %>" placeholder="Salesforce Connected App Endpoint Address">
                                     </div>
                                 </dd>
                             </dl>
@@ -803,8 +803,7 @@
     <div class="start-developing-section">
         <h5>Import the project configuration file into the Magnet Mobile App Builder</h5>
         <p>This is the tool that will allow you to add different services to your app and deploy it to the cloud.</p>
-        <a href="/resources/files/mab.zip" class="btn btn-primary">Download Magnet Mobile App Builder for OS X</a>
-        <a href="/resources/files/mab.zip" class="btn btn-primary">Download Magnet Mobile App Builder for Linux</a>
+        <a href="/resources/files/mab.zip" class="btn btn-primary">Download Magnet Mobile App Builder</a>
         <p>View system requirements in the <a href="/docs/mobile_app_builder/mobile_app_builder.pdf">Mobile App Builder Developer Guide</a></p>
         <div class="divider"><img src="../images/wizard/arrow_divider.png"></div>
     </div>
