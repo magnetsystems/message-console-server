@@ -23,6 +23,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     Backbone.history.navigate('#/'+page+'/'+model.attributes.magnetId);
                 });
                 if(page == 'actions') me.getConfig();
+                if(page == 'announcements') me.startAnnouncements();
             });
         },
         // metadata for admin views
@@ -166,10 +167,14 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         // get app configuration
         getConfig: function(){
             this.options.mc.query('configs', 'GET', null, function(data){
-                if(data && data.skipAdminApproval){
+                if(data){
                     $('#skipAdminApproval option').eq(data.skipAdminApproval === true ? 1 : 0).prop('selected', true);
                 }
             });
+        },
+        // start announcements
+        startAnnouncements: function(){
+            this.options.eventPubSub.trigger('initAnnouncementsView');
         },
         // update configuration
         updateConfig: function(){
@@ -177,7 +182,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             var parent = $('#app-management-container');
             me.showLoading(parent);
             me.options.mc.query('configs', 'PUT', {
-                skipAdminApproval : $('#skipAdminApproval').val()
+                skipAdminApproval : ($('#skipAdminApproval').val() === 'true')
             }, function(){
                 me.hideLoading(parent);
                 Alerts.General.display({

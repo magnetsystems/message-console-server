@@ -46,6 +46,24 @@
     </div>
     {{ } }}
 </div>
+<div id="latest-news">
+    {{ if(typeof hideMenu == 'undefined' && typeof activePage !== 'undefined' && activePage == 'home' && typeof latestNews !== 'undefined' && latestNews.length > 0){ }}
+    <div class="main">
+        {{ for(var i=0;i<latestNews.length;++i){ }}
+            <div class="news-item {{ if(i > 0){ }}others{{ } }}">
+                <a href="{{- latestNews[i].hyperlink}}">
+                {{- latestNews[i].subject}} - {{- latestNews[i].description}}
+                </a>
+            </div>
+        {{ } }}
+        {{ if(latestNews.length > 1){ }}
+        <div id="open-more-news">
+            <a id="open-more-news-btn" href="#">More News <i class="icon-chevron-down icon-white"></i></a>
+        </div>
+        {{ } }}
+    </div>
+    {{ } }}
+</div>
 
 {{ if(typeof hideMenu == 'undefined'){ }}
 <div id="user-panel" style="display:none">
@@ -80,7 +98,7 @@
 </div>
 {{ } }}
 
-<div id="dev-container" class="page">
+<div id="dev-container" class="{{ if(typeof activePage !== 'undefined' && activePage != 'home'){ }}page{{ } }}">
     {{-body}}
     <div class="footer">
         <a href="http://www.magnet.com/resources/tos.html">Terms of Service</a> | <a href="http://www.magnet.com/resources/privacy_policy.html">Privacy Policy</a>
@@ -88,8 +106,31 @@
         &copy; 2013 Magnet Systems, Inc. All rights reserved.
     </div>
 </div>
-
-
+{{ if(typeof hideMenu == 'undefined'){ }}
+<div id="leave-feedback-container">
+    <a id="feedback-btn" href="">Leave Feedback</a>
+    <div id="feedback-content">
+        <p>We welcome any comments or questions. Responses to questions will be sent to your registered email address.</p>
+        <select id="feedback-type-field">
+            <option value="Comment">Comment</option>
+            <option value="Question">Question</option>
+        </select>
+        <input id="feedback-subject" type="text" placeholder="Subject" name="email">
+        <textarea id="feedback-message" placeholder="Message"></textarea>
+        <button id="submit-feedback-btn" class="btn">Submit Feedback</button>
+        <img src="/images/ajax-loader-sm.gif" style="display:none" />
+    </div>
+    <div id="feedback-complete" style="display:none">
+        <h4>Feedback Has Been<br />Submitted</h4>
+        <p>Thank you for submitting your feedback or question. If you asked a question, a response
+        to your question will be sent to the email address you used to register.</p>
+    </div>
+    <div id="feedback-error" style="display:none">
+        <h4>Error Submitting<br />Feedback</h4>
+        <p>There was an error submitting your feedback. Please try again later.</p>
+    </div>
+</div>
+{{ } }}
 
 <!-- dialogs start -->
 <div id="error-alert" class="modal-form-errors modal hide fade">

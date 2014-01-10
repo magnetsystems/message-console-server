@@ -1,4 +1,5 @@
 var UserManager = require('../lib/UserManager')
+, Jobs = require('../lib/Jobs')
 , Countries = require('../lib/config/CountryList');
 
 module.exports = function(app){
@@ -10,6 +11,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Home',
                 activePage  : 'home',
+                latestNews  : Jobs.get('Announcements'),
                 userEmail   : req.session.user.email,
                 userCompany : req.session.user.companyName
             }

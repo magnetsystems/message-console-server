@@ -42,8 +42,9 @@
               <li id="mgmt-users-tab" class="active"><a href="#/users">Users</a></li>
               <li id="mgmt-invites-tab"><a href="#/invites">Pending</a></li>
               <li id="mgmt-requests-tab"><a href="#/requests">Requests</a></li>
-                <li id="mgmt-invitations-tab"><a href="#/invitations">User Invitations</a></li>
-                <li id="mgmt-events-tab"><a href="#/events">Event Logging</a></li>
+                <li id="mgmt-invitations-tab"><a href="#/invitations">Invitations</a></li>
+                <li id="mgmt-events-tab"><a href="#/events">Logging</a></li>
+                <li id="mgmt-announcements-tab"><a href="#/announcements">Announcements</a></li>
                 <li id="mgmt-actions-tab"><a href="#/actions">App Management</a></li>
             </ul>
             <div class="tab-content">
@@ -67,15 +68,42 @@
                     <h3>Event Logging</h3>
                     <div id="mgmt-events-list"></div>
                 </div>
+                <div class="tab-pane" id="mgmt-announcements">
+                    <h3>Announcements</h3>
+                    <div class="row-fluid">
+                        <div class="span8">
+                            <div id="mgmt-announcements-list"></div>
+                        </div>
+                        <div class="span4" id="create-announcement-container">
+                            <div class="well">
+                                <h4>Manage</h4>
+                                <p>
+                                    <strong>Last Updated</strong>: <br /><span id="announcement-lastupdate"></span>
+                                </p>
+                                <button id="update-announcements" class="btn">Update Cache</button>
+                            </div>
+                            <div class="well">
+                                <h4>Create New</h4>
+                                <label for="subject">Title</label>
+                                <input type="text" name="subject" class="span12" placeholder="Title">
+                                <label for="description">Description</label>
+                                <textarea name="description" class="span12" placeholder="Description"></textarea>
+                                <label for="hyperlink">Hyperlink</label>
+                                <input type="text" name="hyperlink" class="span12" placeholder="Hyperlink">
+                                <br />
+                                <button id="create-announcement" class="btn">Create</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="tab-pane" id="mgmt-actions">
-                    <h3>App Management</h3>
                     <div id="app-management-container">
-                        <h4>Invite a User</h4>
+                        <h3>Invite a User</h3>
                         <div class="input-append buttons-section">
                             <input class="span5" id="invited-user-email" type="text" placeholder="Email Address">
                             <button class="btn" type="button" id="send-invitation">Send Invitation</button>
                         </div>
-                        <h4>App Configuration</h4>
+                        <h3>Settings</h3>
                         <div class="input-append buttons-section">
                             <label for="skipAdminApproval">Require Admin Approval</label>
                             <select name="skipAdminApproval" id="skipAdminApproval" placeholder="Skip Admin Approval">
@@ -293,6 +321,39 @@
             </tbody>
         </table>
     </td>
+    <% } %>
+</script>
+<script id="AnnouncementsView" type="text/template">
+    <% if(col && col.length > 0){ %>
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>Created</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Link</th>
+            <th>Manage</th>
+        </tr>
+        </thead>
+        <tbody>
+            <% _.each(col, function(model, i){ %>
+            <tr did="<%- model.attributes.magnetId %>">
+                <td><%- model.attributes.createdAt %></td>
+                <td did="subject" class="editable"><%- model.attributes.subject %></td>
+                <td did="description" class="editable"><%- model.attributes.description %></td>
+                <td did="hyperlink" class="editable"><%- model.attributes.hyperlink %></td>
+                <td>
+                    <a href="#" class="btn edit"><i class="icon-edit"></i></a>
+                    <a href="#" class="btn remove"><i class="icon-trash"></i></a>
+                    <a href="#" class="btn save" style="display:none"><i class="icon-ok"></i></a>
+                    <a href="#" class="btn cancel" style="display:none"><i class="icon-remove"></i></a>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <% }else{ %>
+    No announcements have been created.
     <% } %>
 </script>
 <script id="tableTmplView" type="text/template">

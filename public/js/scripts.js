@@ -82,6 +82,8 @@ $(document).ready(function(){
     var resources = new ResourceNavigation();
     var docFormatter = new DocFormatter();
     initPlaceholders();
+    bindFeedbackButton();
+    bindNews();
 });
 
 function adjustUI(){
@@ -110,6 +112,90 @@ function adjustUI(){
     }else{
         $('.carousel-control').removeClass('mob');;
     }
+}
+
+function bindFeedbackButton(){
+    var div = $('#feedback-content');
+    var complete = $('#feedback-complete');
+    var error = $('#feedback-error');
+    var btn = $('#feedback-btn');
+    var submitBtn = $('#submit-feedback-btn');
+    var loader = $('#feedback-content img');
+    var isActive = false;
+    var closed = {
+        height  : 0,
+        width   : 0,
+        padding : 0,
+        opacity : 0
+    };
+    div.each(function(){
+        $.data(this, 'baseHeight', $(this).height());
+        $.data(this, 'baseWidth', $(this).width());
+        $('#leave-feedback-container').css('opacity', '1');
+    }).css(closed);
+    btn.toggle(function(){
+        complete.hide('slow');
+        error.hide('slow');
+        div.animate({
+            height  : div.data('baseHeight'),
+            width   : div.data('baseWidth'),
+            padding : '10px',
+            opacity : 1
+        }, 600);
+    }, function(){
+        complete.hide('slow');
+        error.hide('slow');
+        div.animate(closed, 600);
+    });
+    submitBtn.click(function(){
+        var type = $('#feedback-type-field');
+        var sub = $('#feedback-subject');
+        var msg = $('#feedback-message');
+        if(isActive === false && $.trim(msg.val()).length > 0){
+            isActive = true;
+            submitBtn.hide();
+            loader.show();
+            $.ajax({
+                type        : 'POST',
+                url         : '/rest/submitFeedback',
+                data        : {
+                    type : type.val(),
+                    msg  : msg.val(),
+                    sub  : sub.val()
+                },
+                contentType : 'application/x-www-form-urlencoded'
+            }).done(function(){
+                complete.show('slow');
+            }).fail(function(){
+                error.show('slow');
+            }).always(function(){
+                msg.val('');
+                sub.val('');
+                div.css(closed);
+                isActive = false;
+                submitBtn.show();
+                loader.hide();
+            });
+        }
+    });
+}
+
+function bindNews(){
+    var otherNews = $('#latest-news .others');
+    var btn =$('#open-more-news-btn');
+    var on = false;
+    $('#open-more-news-btn').click(function(e){
+        e.preventDefault();
+        if(on === true){
+            on = false
+            btn.html('More News <i class="icon-chevron-down icon-white"></i>');
+            otherNews.hide();
+        }else{
+            on = true;
+            btn.html('Less News <i class="icon-chevron-up icon-white"></i>');
+            otherNews.show();
+        }
+    });
 }
 
 function switchView(view){
@@ -787,8 +873,6 @@ ContactForm.prototype.contact = function(){
     $('#contact-form input, #contact-form select, #contact-form textarea').each(function(){
         me.info[$(this).attr('name')] = $(this).val();
     });
-    delete me.info.name;
-    delete me.info.emailAddress;
     if(me.validator.validateContactForm()){
         me.call();
     }
@@ -797,11 +881,12 @@ ContactForm.prototype.call = function(){
     var me = this;
     $.ajax({  
         type        : 'POST',  
-        url         : '/rest/contactUs',
+        url         : '/rest/submitFeedback',
         dataType    : 'html',
         data        : me.info
     }).done(function(result, status, xhr){
         $('#contact-form .well').html('<h4>Contact Us</h4><p class="subheading">Thank you for submitting your contact request. A Magnet representative will follow up with you shortly.</p>');
+        $('#contact-form input, #contact-form textarea').val('');
     }).fail(function(){
         me.validator.showError('Contact Request Failure', 'A server error occurred sending out the contact request. Please try again later.');
     });
@@ -950,17 +1035,13 @@ Validator.prototype.validateResetPassword = function(){
 Validator.prototype.validateContactForm = function(){
     var me = this;
     var valid = true;
-    $('#contact-form input[name!="captcha"], #contact-form select, #contact-form textarea').each(function(){
+    var form = $('#contact-form');
+    form.find('input, select, textarea').each(function(){
         if($.trim($(this).val()).length < 1 || $(this).val() == $(this).attr('placeholder')){
             me.showError('Required Field Missing', 'Please enter a '+$(this).attr('placeholder'));
             valid = false;
         }
     });
-    var emailRxp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
-	if(!emailRxp.test($('#contact-form input[name="emailAddress"]').val())){
-        me.showError('Invalid Email Address', 'The format of the email address you provided is invalid.');
-        valid = false;
-    }
 	return valid;
 }
 

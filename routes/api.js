@@ -6,10 +6,13 @@ var AccountManager = require('../lib/AccountManager')
 , EmailService = require('../lib/EmailService')
 , AppConfigManager = require('../lib/ConfigManager')
 , magnetId = require('node-uuid')
+, Jobs = require('../lib/Jobs')
 , path = require('path')
 , fs = require('fs')
+, jiraNewIssue = require('../lib/config/JiraNewIssue')
 , _ = require('underscore')
-, sanitize = require('validator').sanitize;
+, sanitize = require('validator').sanitize
+, JiraApi = require('jira').JiraApi;
 
 module.exports = function(app){
 
@@ -56,7 +59,7 @@ module.exports = function(app){
     });
 
     /* catch database models */
-    var getDBModels = ['users', 'projects', 'events'];
+    var getDBModels = ['users', 'projects', 'events', 'announcements'];
     app.get('/rest/:model', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(getDBModels, req.params.model)){
             ModelManager.findAll(req, function(col){
@@ -77,10 +80,40 @@ module.exports = function(app){
         }
     });
 
-    var putDBModels = ['users'];
+    var putDBModels = ['users', 'announcements'];
     app.put('/rest/:model/:id', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(putDBModels, req.params.model)){
             ModelManager.update(req, req.body, function(e, model){
+                if(e){
+                    res.send(e, 400);
+                }else{
+                    res.send('ok', 200);
+                }
+            });
+        }else{
+            next();
+        }
+    });
+
+    var postDBModels = ['announcements'];
+    app.post('/rest/:model', function(req, res, next){
+        if(req.session.user && req.session.user.userType == 'admin' && _.contains(postDBModels, req.params.model)){
+            ModelManager.create(req, req.body, function(e, model){
+                if(e){
+                    res.send(e, 400);
+                }else{
+                    res.send(model, 201);
+                }
+            });
+        }else{
+            next();
+        }
+    });
+
+    var deleteDBModels = ['announcements'];
+    app.delete('/rest/:model/:id', function(req, res, next){
+        if(req.session.user && req.session.user.userType == 'admin' && _.contains(deleteDBModels, req.params.model)){
+            ModelManager.delete(req, function(e){
                 if(e){
                     res.send(e, 400);
                 }else{
@@ -236,26 +269,51 @@ module.exports = function(app){
 
     /* GENERAL */
 
-    app.post('/rest/contactUs', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        // build email body and send out email
-        EmailService.sendEmail({
-            to      : ENV_CONFIG.Email.supportEmail,
-            subject : 'Magnet Developer Factory Support',
-            html    : EmailService.renderTemplate({
-                main : 'support-email',
-                vars : {
-                    customerName  : req.session.user.firstName +' '+ req.session.user.lastName,
-                    customerEmail : req.session.user.email,
-                    reason        : sanitize(req.body.reason).xss(),
-                    message       : sanitize(req.body.message).xss()
-                }
-            }),
-            success : function(){
-                winston.verbose('Tracking: user "' + req.session.user.email + '" sent an email from the Contact Us form');
+//    app.post('/rest/contactUs', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        // build email body and send out email
+//        EmailService.sendEmail({
+//            to      : ENV_CONFIG.Email.supportEmail,
+//            subject : 'Magnet Developer Factory Support',
+//            html    : EmailService.renderTemplate({
+//                main : 'support-email',
+//                vars : {
+//                    customerName  : req.session.user.firstName +' '+ req.session.user.lastName,
+//                    customerEmail : req.session.user.email,
+//                    reason        : sanitize(req.body.reason).xss(),
+//                    message       : sanitize(req.body.message).xss()
+//                }
+//            }),
+//            success : function(){
+//                winston.verbose('Tracking: user "' + req.session.user.email + '" sent an email from the Contact Us form');
+//                res.send('ok', 200);
+//            },
+//            error : function(e){
+//                res.send(e, 400);
+//            }
+//        });
+//    });
+
+    app.post('/rest/submitFeedback', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        var jira = new JiraApi('https', ENV_CONFIG.Jira.host, ENV_CONFIG.Jira.port, ENV_CONFIG.Jira.user, ENV_CONFIG.Jira.password, ENV_CONFIG.Jira.version);
+        jiraNewIssue.fields.summary = sanitize(req.body.sub).xss();
+        jiraNewIssue.fields.labels = ['MCI', req.body.type == 'Comment' ? 'COMMENT' : 'QUESTION', ENV_CONFIG.Email.appUrl];
+        jiraNewIssue.fields.description = sanitize(req.body.msg).xss();
+        jiraNewIssue.fields.issuetype = {
+            id : req.body.type == 'Comment' ? '4' : '2'
+        };
+        jiraNewIssue.fields['customfield_10950'] = req.session.user.firstName +' '+ req.session.user.lastName;
+        jiraNewIssue.fields['customfield_10951'] = req.session.user.email;
+        jiraNewIssue.fields['customfield_10751'] = ENV_CONFIG.Email.appUrl+'/admin#/users/'+req.session.user.magnetId;
+        var utc = new Date().toISOString();
+        jiraNewIssue.fields['customfield_10752'] = utc.slice(0, utc.lastIndexOf('.'))+'.730-0700';
+        jira.addNewIssue(jiraNewIssue, function(e, issue){
+            if(e){
+                console.log(jiraNewIssue);
+                winston.error('Tracking: feedback submission failed: ', e, jiraNewIssue);
+                res.send('error', 400);
+            }else{
+                winston.verbose('Tracking: user "' + req.session.user.email + '" submitted feedback.');
                 res.send('ok', 200);
-            },
-            error : function(e){
-                res.send(e, 400);
             }
         });
     });
@@ -418,6 +476,29 @@ module.exports = function(app){
                 });
             }
         });
+    });
+
+    // This API is used to retrieve the latest news
+    app.get('/rest/news', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        res.send(Jobs.get('Announcements'), 200);
+    });
+
+    // This API is used to retrieve the latest news
+    app.get('/rest/news/getInfo', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        res.send({
+            updatedAt  : Jobs.cache['Announcements'].updatedAt,
+            nextUpdate : Jobs.cache['Announcements'].nextUpdate
+        }, 200);
+    });
+
+    // This API is used to update the news
+    app.post('/rest/news/updateCache', UserManager.checkAuthority(['admin'], true), function(req, res){
+        Jobs.refresh('Announcements', function(cache){
+            res.send({
+                updatedAt  : cache.updatedAt,
+                nextUpdate : cache.nextUpdate
+            }, 200);
+        })
     });
 
     // This API is used to retrieve configuration

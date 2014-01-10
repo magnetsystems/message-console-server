@@ -19,6 +19,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             }).unbind('mouseleave').mouseleave(function(){
                 menu.css('display', 'none');
             });
+            me.bindFeedbackButton();
             $('.page').append('<div class="footer clearfix"><a href="http://www.magnet.com/resources/tos.html">Terms of Service</a> | <a href="http://www.magnet.com/resources/privacy_policy.html">Privacy Policy</a><br />&copy; 2013 Magnet Systems, Inc. All rights reserved.</div>');
         },
         events: {
@@ -107,6 +108,71 @@ define(['jquery', 'backbone'], function($, Backbone){
                 {to : 'project-wizard', slide : 'right'},
                 {to : 'project-assets', slide : 'right'}
             ]
+        },
+        bindFeedbackButton : function(){
+            var div = $('#feedback-content');
+            var complete = $('#feedback-complete');
+            var error = $('#feedback-error');
+            var btn = $('#feedback-btn');
+            var submitBtn = $('#submit-feedback-btn');
+            var loader = $('#feedback-content img');
+            var isActive = false;
+            var closed = {
+                height  : 0,
+                width   : 0,
+                padding : 0,
+                opacity : 0
+            };
+            div.each(function(){
+                $.data(this, 'baseHeight', $(this).height());
+                $.data(this, 'baseWidth', $(this).width());
+                $('#leave-feedback-container').css('opacity', '1');
+            }).css(closed);
+            btn.toggle(function(){
+                complete.hide('slow');
+                error.hide('slow');
+                div.animate({
+                    height  : div.data('baseHeight'),
+                    width   : div.data('baseWidth'),
+                    padding : '10px',
+                    opacity : 1
+                }, 600);
+            }, function(){
+                complete.hide('slow');
+                error.hide('slow');
+                div.animate(closed, 600);
+            });
+            submitBtn.click(function(){
+                var type = $('#feedback-type-field');
+                var sub = $('#feedback-subject');
+                var msg = $('#feedback-message');
+                if(isActive === false && $.trim(msg.val()).length > 0){
+                    isActive = true;
+                    submitBtn.hide();
+                    loader.show();
+                    $.ajax({
+                        type        : 'POST',
+                        url         : '/rest/submitFeedback',
+                        data        : {
+                            type : type.val(),
+                            msg  : msg.val(),
+                            sub  : sub.val()
+                        },
+                        contentType : 'application/x-www-form-urlencoded'
+                    }).done(function(){
+                        complete.show('slow');
+                    }).fail(function(){
+                        error.show('slow');
+                    }).always(function(){
+                        msg.val('');
+                        sub.val('');
+                        div.css(closed);
+                        isActive = false;
+                        submitBtn.show();
+                        loader.hide();
+                    });
+                }
+            });
         }
         /*
         mobilize: function(){

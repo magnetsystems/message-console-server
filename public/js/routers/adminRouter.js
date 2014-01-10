@@ -1,4 +1,4 @@
-define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','views/AlertErrorView','views/GlobalView','models/UserModel', 'views/AdminView', 'views/ListView', 'views/AdminDetailsView'], function($, Backbone, AlertGeneralView, AlertConfirmView, AlertErrorView, GlobalView, UserModel, AdminView, ListView, AdminDetailsView){
+define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','views/AlertErrorView','views/GlobalView','models/UserModel', 'views/AdminView', 'views/AnnouncementsView', 'views/ListView', 'views/AdminDetailsView'], function($, Backbone, AlertGeneralView, AlertConfirmView, AlertErrorView, GlobalView, UserModel, AdminView, AnnouncementsView, ListView, AdminDetailsView){
     // bind alerts
     Alerts.General = new AlertGeneralView();
     Alerts.Confirm = new AlertConfirmView();
@@ -31,6 +31,7 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             var lstv = new ListView({mc:this.mc, eventPubSub:this.eventPubSub});
             var av = new AdminView({mc:this.mc, eventPubSub:this.eventPubSub});
             var adv = new AdminDetailsView({mc:this.mc, eventPubSub:this.eventPubSub});
+            var anv = new AnnouncementsView({mc:this.mc, eventPubSub:this.eventPubSub});
             // define models
             this.profile = new UserModel();
             // override default backbone model sync method to be compatible with REST APIs
