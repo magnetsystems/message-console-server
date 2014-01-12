@@ -306,6 +306,7 @@ iframe .WordSection1{width:506px}
 #resources-tabcontent .a-tab-btn{width:80px;height:63px;background:url(../images/resources/rsrc_vers_andrdtab.png) no-repeat center top}
 #resources-tabcontent .i-phone-btn{width:41px;height:63px;background:url(../images/resources/rsrc_vers_ifon.png) no-repeat center top}
 #resources-tabcontent .i-pad-btn{width:80px;height:63px;background:url(../images/resources/rsrc_vers_ipad.png) no-repeat center top}
+#resources-tabcontent .javascript-btn{width:41px;height:63px;background:url(../images/resources/rsrc_vers_js.png) no-repeat center top}
 #resources-tabcontent .o-windows-btn{width:79px;height:73px;background:url(../images/resources/rsrc_vers_win.png) no-repeat center top}
 #resources-tabcontent .o-linux-btn{width:84px;height:73px;background:url(../images/resources/rsrc_vers_linux.png) no-repeat center top}
 #resources-tabcontent .o-mac-btn{width:70px;height:73px;background:url(../images/resources/rsrc_vers_osx.png) no-repeat center top}
@@ -316,6 +317,7 @@ iframe .WordSection1{width:506px}
 #resources-tabcontent .o-windows-btn.active{background:url(../images/resources/rsrc_vers_win_sel.png) no-repeat center top}
 #resources-tabcontent .o-linux-btn.active{background:url(../images/resources/rsrc_vers_linux_sel.png) no-repeat center top}
 #resources-tabcontent .o-mac-btn.active{background:url(../images/resources/rsrc_vers_osx_sel.png) no-repeat center top}
+#resources-tabcontent .javascript-btn.active{background:url(../images/resources/rsrc_vers_js_sel.png) no-repeat center top}
 
 .resources-samples-contents{padding:23px 0 8px}
 .resources-samples-contents li{float:left;margin-right:10%}
@@ -350,10 +352,10 @@ iframe .WordSection1{width:506px}
 /********************************** get started **********************************/
 
 #get-started .page-h4{color:#C30000;font-size:24px;margin-bottom:16px}
-#get-started .page-view{margin:0 auto 25px auto;width:92%;padding:0 25px 0 25px;min-height:600px;padding-bottom:20px}
+#get-started .page-view{margin:0 auto 25px auto;width:92%;padding:0 25px 0 25px;min-height:700px;padding-bottom:20px}
 #get-started .row-fluid{overflow:hidden}
 #get-started .tab-content{padding-bottom:25px}
-#get-started .tab-pane{min-height:600px;margin-left:36px;overflow:hidden}
+#get-started .tab-pane{min-height:700px;margin-left:36px;overflow:hidden}
 #get-started .tab-pane h5{font-size:18px;font-weight:bold;margin-top:30px;margin-bottom:43px}
 #get-started .tab-pane h5 span{margin-left:20px;font-weight:normal;font-size:13px}
 #get-started .nav-tabs{background-color:#e8eced;height:100%;position:absolute;top:0;left:0;border-radius:12px 0 0 12px;width:200px;border:none}
@@ -365,6 +367,7 @@ iframe .WordSection1{width:506px}
 #gs-ios-tab a{background:url(../images/getstarted/gtstrtd_nav_ios.png) no-repeat -13px 0}
 #gs-server-tab a{background:url(../images/getstarted/gtstrtd_nav_srvr.png) no-repeat -13px 0}
 #gs-android-tab a{background:url(../images/getstarted/gtstrtd_nav_andrd.png) no-repeat -13px 0}
+#gs-javascript-tab a{background:url(../images/getstarted/gtstrtd_nav_andrd.png) no-repeat -13px 0}
 #get-started .nav-tabs li.active img{display:inline}
 #get-started .nav-tabs li:hover a{background-color:#D7E0E2}
 #get-started .nav-tabs li.active a{background-color:#C1D6E1}
