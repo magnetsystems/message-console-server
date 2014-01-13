@@ -1155,14 +1155,14 @@ function DocSearch(){
         var hashTag = str.slice(str.indexOf(me.matcher)).replace(me.matcher, '');
         var ary = hashTag.split('/');
         me.startIndex = ary[1] ? parseInt(ary[1]) : me.startIndex;
-        if(ary[0].length > 4) me.exec(ary[0]);
+        if(ary[0].length > 2) me.exec(ary[0]);
     }
 }
 DocSearch.prototype.exec = function(query){
     var me = this;
-    var invalidInput = 'Input must have a minimum of four characters. Please refine your search.';
+    var invalidInput = 'Input must have a minimum of three characters. Please refine your search.';
     var val = query || $.trim(me.input.val()).replace(/[^a-zA-Z0-9 _-]/g, '');
-    if(val.length > 4 && me.isActive === false){
+    if(val.length > 2 && me.isActive === false){
         me.isActive = true;
         $.ajax({
             type     : 'GET',
