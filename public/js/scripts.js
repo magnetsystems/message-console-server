@@ -1141,11 +1141,13 @@ function DocSearch(){
     me.startIndex = 1;
     me.input.live('keypress', function(e){
         if(e.keyCode == 13){
+            me.startIndex = 1;
             me.exec();
             return false;
         }
     });
     $('#docs-search-btn').click(function(){
+        me.startIndex = 1;
         me.exec();
     });
     var str = window.location.href;
@@ -1185,14 +1187,12 @@ DocSearch.prototype.exec = function(query){
         me.renderDocs(val, {}, invalidInput);
     }
 }
-
 DocSearch.prototype.formatQuery = function(val){
     var str = window.location.href;
     if(str.indexOf(this.matcher) != -1)
         str = str.substr(str.indexOf(this.matcher));
     window.location.href = window.location.href.replace(str, '') + this.matcher + val + '/' + this.startIndex;
 }
-
 DocSearch.prototype.renderDocs = function(val, results, error){
     var me = this, html = '', meta = '<p id="search-meta">';
     if(error){
