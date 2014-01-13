@@ -119,6 +119,8 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             'click #send-invitation': 'sendInvitation',
             'click #mgmt-history-list tbody td': 'showInfoPopup',
             'click #update-configuration': 'updateConfig',
+            'click #clear-search-indexes': 'clearIndexes',
+            'click #update-search-indexes': 'updateIndexes',
             'click .attachment-link' : 'showLog'
         },
         // handle events for switching between tabs
@@ -188,6 +190,44 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 Alerts.General.display({
                     title   : 'Config Updated Successfully',
                     content : 'App configuration has been updated successfully.'
+                });
+            }, null, null, function(xhr, status, error){
+                me.hideLoading(parent);
+                Alerts.Error.display({
+                    title   : 'Error Sending Request',
+                    content : xhr.responseText
+                });
+            });
+        },
+        // clear search indexes
+        clearIndexes: function(){
+            var me = this;
+            var parent = $('#app-management-container');
+            me.showLoading(parent);
+            me.options.mc.query('search/clearIndexes', 'POST', null, function(){
+                me.hideLoading(parent);
+                Alerts.General.display({
+                    title   : 'Search Indexes Cleared',
+                    content : 'The search indexes have have been cleared successfully.'
+                });
+            }, null, null, function(xhr, status, error){
+                me.hideLoading(parent);
+                Alerts.Error.display({
+                    title   : 'Error Sending Request',
+                    content : xhr.responseText
+                });
+            });
+        },
+        // update search indexes
+        updateIndexes: function(){
+            var me = this;
+            var parent = $('#app-management-container');
+            me.showLoading(parent);
+            me.options.mc.query('search/updateIndexes', 'POST', null, function(){
+                me.hideLoading(parent);
+                Alerts.General.display({
+                    title   : 'Search Indexes Updated',
+                    content : 'The search indexes have have been updated successfully.'
                 });
             }, null, null, function(xhr, status, error){
                 me.hideLoading(parent);

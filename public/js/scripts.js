@@ -84,6 +84,7 @@ $(document).ready(function(){
     initPlaceholders();
     bindFeedbackButton();
     bindNews();
+    var docSearch = new DocSearch();
 });
 
 function adjustUI(){
@@ -1131,6 +1132,103 @@ function tryParseJSON(str){
     }
 }
 
+function DocSearch(){
+    var me = this;
+    me.matcher = '#/query/';
+    me.container = $('#docs-search-results');
+    me.input = $('#docs-search-input');
+    me.isActive = false;
+    me.startIndex = 1;
+    me.input.live('keypress', function(e){
+        if(e.keyCode == 13){
+            me.exec();
+            return false;
+        }
+    });
+    $('#docs-search-btn').click(function(){
+        me.exec();
+    });
+    var str = window.location.href;
+    if(str.indexOf(me.matcher) != -1){
+        var hashTag = str.slice(str.indexOf(me.matcher)).replace(me.matcher, '');
+        var ary = hashTag.split('/');
+        me.startIndex = ary[1] ? parseInt(ary[1]) : me.startIndex;
+        if(ary[0].length > 4) me.exec(ary[0]);
+    }
+}
+DocSearch.prototype.exec = function(query){
+    var me = this;
+    var invalidInput = 'Input must have a minimum of four characters. Please refine your search.';
+    var val = query || $.trim(me.input.val()).replace(/[^a-zA-Z0-9 _-]/g, '');
+    if(val.length > 4 && me.isActive === false){
+        me.isActive = true;
+        $.ajax({
+            type     : 'GET',
+            url      : '/rest/search?query='+val+'&from='+me.startIndex,
+            dataType : 'json'
+        }).done(function(res){
+            me.renderDocs(val, res);
+            me.input.val('');
+        }).fail(function(xhr){
+            var e = String(xhr.responseText);
+            switch(e){
+                case 'missing-query' : e = invalidInput; break;
+                case 'server-error' : e = 'A server error has occurred. Please try again later.'; break;
+            }
+            me.renderDocs(val, {}, e);
+        }).always(function(){
+            me.isActive = false;
+            me.formatQuery(val);
+        });
+    }else{
+        me.formatQuery(val);
+        me.renderDocs(val, {}, invalidInput);
+    }
+}
+
+DocSearch.prototype.formatQuery = function(val){
+    var str = window.location.href;
+    if(str.indexOf(this.matcher) != -1)
+        str = str.substr(str.indexOf(this.matcher));
+    window.location.href = window.location.href.replace(str, '') + this.matcher + val + '/' + this.startIndex;
+}
+
+DocSearch.prototype.renderDocs = function(val, results, error){
+    var me = this, html = '', meta = '<p id="search-meta">';
+    if(error){
+        html += error;
+    }else if(!results.hits || !results.hits.hits || results.hits.hits.length == 0){
+        meta += 'No results found. Please refine your search.';
+        html += (meta + '</p>');
+    }else{
+        var ary = results.hits.hits;
+        var total = results.hits.total;
+        meta += total+' result'+(total == 1 ? '' : 's') + ' found. ';
+        if(total > 10) meta += 'Showing results ' + me.startIndex + ' to ' + ((me.startIndex+10) < total ? (me.startIndex+9) : total) + '.';
+        html += (meta + '</p>');
+        for(var i=0;i<ary.length;++i){
+            html += '<div>\
+                <a href="'+ary[i]._id+'">'+ary[i].fields.name+'</a><br />\
+                <span>'+ary[i]._id+'</span><br />\
+                <p>'+(ary[i].highlight.name || ('...'+ary[i].highlight.text+'...'))+'</p>\
+            </div>';
+        }
+        if(total > 10){
+            html += '<div class="pagination">';
+            if(this.startIndex >= 10)
+                html += '<button class="prev-page btn" from="'+(me.startIndex - 10)+'">Previous Page</button>';
+            if((this.startIndex + 10) < total)
+                html += '<button class="next-page btn" from="'+(me.startIndex + 10)+'">Next Page</button>';
+            html += '</div>';
+        }
+    }
+    me.container.html(html);
+    me.container.find('.pagination button').click(function(){
+        me.startIndex = parseInt($(this).attr('from'));
+        me.exec(val);
+    });
+}
+
 function SessionManager(cookies){
     this.sessionLength = 20;
     this.timestamp = this.getTimestamp();
@@ -1260,7 +1358,8 @@ DocFormatter.prototype.bindToggle = function(){
     var me = this;
     var switcher = $('#doc-switch');
     var pdfPath = window.location.pathname ? window.location.pathname.replace('/docs/', '').replace(/\//g, '')+'.pdf' : 'pdf.pdf';
-    switcher.html('<a href="/docs/" class="btn">Return To Documentation</a><a did="print" class="btn" href="'+pdfPath+'">Download PDF</a><button did="on" class="btn" style="display:none">View By Chapter</button><button did="off" class="btn">View Entire Guide</button>');
+    switcher.html('<a href="/docs/" class="btn">Return To Documentation</a><a did="print" class="btn" target="_blank" href="'+pdfPath+'">Download PDF</a>');
+    //switcher.html('<a href="/docs/" class="btn">Return To Documentation</a><a did="print" class="btn" href="'+pdfPath+'">Download PDF</a><button did="on" class="btn" style="display:none">View By Chapter</button><button did="off" class="btn">View Entire Guide</button>');
     var btnOn = switcher.find('button[did="on"]');
     var btnOff = switcher.find('button[did="off"]');
     switcher.find('button').click(function(){
@@ -1297,25 +1396,25 @@ DocFormatter.prototype.bindClick = function(){
         if(me.showFull){
             return true;
         }
-        $('.doc-section').hide();
+        //$('.doc-section').hide();
         tocList.css('font-weight', 'normal');
         var id = $(this).attr('href').replace('index.html#', '');
-        $('a[name="'+id+'"]').closest('.doc-section').show();
+        //$('a[name="'+id+'"]').closest('.doc-section').show();
     });
 }
 DocFormatter.prototype.updateUI = function(dom){
-    $('.doc-section').hide();
+    //$('.doc-section').hide();
     var parent = dom.parent();
     if(parent.attr('class') == 'TitleChapterTOC' || 1 == 1){
         parent.closest('div').find('.Index').each(function(){
             $(this).css('font-weight', 'bold');
             var id = $(this).attr('href').replace('index.html#', '');
-            $('.doc-section[did="'+id+'"]').show();
+            //$('.doc-section[did="'+id+'"]').show();
         });
     }else{
         dom.css('font-weight', 'bold');
         var id = dom.attr('href').replace('index.html#', '');
-        $('.doc-section[did="'+id+'"], a[name="'+id+'"]').show();
+        //$('.doc-section[did="'+id+'"], a[name="'+id+'"]').show();
     }
 }
 

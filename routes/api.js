@@ -5,6 +5,7 @@ var AccountManager = require('../lib/AccountManager')
 , ModelManager = require('../lib/ModelManager')
 , EmailService = require('../lib/EmailService')
 , AppConfigManager = require('../lib/ConfigManager')
+, FullTextSearch = require('../lib/FullTextSearch')
 , magnetId = require('node-uuid')
 , Jobs = require('../lib/Jobs')
 , path = require('path')
@@ -499,6 +500,39 @@ module.exports = function(app){
                 nextUpdate : cache.nextUpdate
             }, 200);
         })
+    });
+
+    // This API is used to clear search indexes
+    app.post('/rest/search/clearIndexes', UserManager.checkAuthority(['admin'], true), function(req, res){
+        FullTextSearch.clear(function(e){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('ok', 200);
+            }
+        });
+    });
+
+    // This API is used to update search indexes
+    app.post('/rest/search/updateIndexes', UserManager.checkAuthority(['admin'], true), function(req, res){
+        FullTextSearch.index(function(e){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('ok', 200);
+            }
+        });
+    });
+
+    // This API is used to search
+    app.get('/rest/search', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        FullTextSearch.search(req.query.query, req.query.from, 10, function(e, results){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(results, 200);
+            }
+        });
     });
 
     // This API is used to retrieve configuration

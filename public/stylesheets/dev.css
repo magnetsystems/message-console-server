@@ -275,9 +275,19 @@ iframe .WordSection1{width:506px}
 #doc-content{position:relative}
 #doc-toc{padding-top:14px}
 #doc-toc a, #doc-content a, #doc-content p, #doc-content span, #doc-content div, #doc-content em{font-family:"Titillium Web","Helvetica Neue",Helvetica,Arial,sans-serif !important}
-.doc-section{display:none}
 #doc-switch{position:absolute;top:20px;right:0}
 #doc-switch .btn{margin-left:12px}
+
+#documentation label{font-weight:bold}
+#docs-search-input{margin-bottom:0}
+#docs-search-results{margin:30px 0 10px}
+#docs-search-results em{background:#ddd;padding:0 2px;border-radius:4px;font-style:normal}
+#docs-search-results div{margin:10px 0 28px}
+#docs-search-results div a{font-weight:bold;text-decoration:underline}
+#docs-search-results div p{margin-bottom:26px}
+#docs-search-results span{color:#999;font-size:13px}
+#docs-search-results #search-meta{margin:15px 0;font-size:12px;color:#999}
+#docs-search-results button{margin-right:8px}
 
 /* resources */
 #resources-tabmenu{border-bottom:none;width:87%;margin:0 auto}
@@ -603,11 +613,14 @@ pre{margin:11px 0;color:#eee;background:#444;fonts-size:12px;padding:7px 0 7px 1
 #admin .pagination{text-align:center}
 #admin .pagination ul > li.disabled > a{background:#eee}
 #admin .pagination-captions{font-size:11px;color:#666}
+#admin .loading.buttons-section{margin:20px 0}
 
 #admin #create-announcement{background:#eee;margin-bottom:25px;border-radius:6px}
 #mgmt-announcements-list td .btn{margin-bottom:7px}
 #mgmt-announcements-list td .btn i{margin:4px 0 !important}
 #mgmt-announcements-list textarea{min-height:120px}
+
+#app-management-container .input-append label{margin-top:18px}
 
 /*
  * Original version: 1.0 ? 2010 Andrew Valums ( andrew(at)valums.com )

@@ -53,6 +53,17 @@ module.exports = function(app){
         });
     });
 
+    app.get('/docs/search', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+        res.render('docs/search', {
+            locals : {
+                title       : 'Documentation Search',
+                activePage  : 'docs',
+                userEmail   : req.session.user.email,
+                userCompany : req.session.user.companyName
+            }
+        });
+    });
+
     app.get('/resources', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('resources/index', {
             locals : {
