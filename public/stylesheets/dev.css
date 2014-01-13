@@ -316,7 +316,7 @@ iframe .WordSection1{width:506px}
 #resources-tabcontent .a-tab-btn{width:80px;height:63px;background:url(../images/resources/rsrc_vers_andrdtab.png) no-repeat center top}
 #resources-tabcontent .i-phone-btn{width:41px;height:63px;background:url(../images/resources/rsrc_vers_ifon.png) no-repeat center top}
 #resources-tabcontent .i-pad-btn{width:80px;height:63px;background:url(../images/resources/rsrc_vers_ipad.png) no-repeat center top}
-#resources-tabcontent .javascript-btn{width:41px;height:63px;background:url(../images/resources/rsrc_vers_js.png) no-repeat center top}
+#resources-tabcontent .javascript-btn{width:70px;height:70px;background:url(../images/resources/rsrc_vers_js.png) no-repeat center top}
 #resources-tabcontent .o-windows-btn{width:79px;height:73px;background:url(../images/resources/rsrc_vers_win.png) no-repeat center top}
 #resources-tabcontent .o-linux-btn{width:84px;height:73px;background:url(../images/resources/rsrc_vers_linux.png) no-repeat center top}
 #resources-tabcontent .o-mac-btn{width:70px;height:73px;background:url(../images/resources/rsrc_vers_osx.png) no-repeat center top}
@@ -377,7 +377,7 @@ iframe .WordSection1{width:506px}
 #gs-ios-tab a{background:url(../images/getstarted/gtstrtd_nav_ios.png) no-repeat -13px 0}
 #gs-server-tab a{background:url(../images/getstarted/gtstrtd_nav_srvr.png) no-repeat -13px 0}
 #gs-android-tab a{background:url(../images/getstarted/gtstrtd_nav_andrd.png) no-repeat -13px 0}
-#gs-javascript-tab a{background:url(../images/getstarted/gtstrtd_nav_andrd.png) no-repeat -13px 0}
+#gs-javascript-tab a{background:url(../images/getstarted/gtstrtd_nav_js.png) no-repeat -13px 0}
 #get-started .nav-tabs li.active img{display:inline}
 #get-started .nav-tabs li:hover a{background-color:#D7E0E2}
 #get-started .nav-tabs li.active a{background-color:#C1D6E1}
