@@ -215,7 +215,19 @@
                                 <td width="5px">Type of User (Internal)</td>
                                 <td width="5px">
                                     <span class="user-edit-value"><%- model.userType %></span>
-                                    <span class="user-edit-input" style="display:none"><input type="text" name="userType" value="<%- model.userType %>" /></span>
+                                    <span class="user-edit-input" style="display:none">
+                                        <% if(model.userType == 'developer' || model.userType == 'admin'){ %>
+                                        <select name="userType">
+                                            <!--
+                                            <option value="invited" <% if(model.userType == 'invited'){ %>selected="selected"<% } %>>invited</option>
+                                            <option value="approved" <% if(model.userType == 'approved'){ %>selected="selected"<% } %>>approved</option>
+                                            <option value="guest" <% if(model.userType == 'guest'){ %>selected="selected"<% } %>>guest</option>
+                                            -->
+                                            <option value="developer" <% if(model.userType == 'developer'){ %>selected="selected"<% } %>>developer</option>
+                                            <option value="admin" <% if(model.userType == 'admin'){ %>selected="selected"<% } %>>admin</option>
+                                        </select>
+                                        <% } %>
+                                    </span>
                                 </td>
                             </tr>
                             <% if(model.invitedEmail){ %>

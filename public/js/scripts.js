@@ -320,7 +320,8 @@ function FormLogin(cookies){
                     var alert = $('#error-alert');
                     alert.modal('show');
                     alert.find('.modal-header h3').html('Registration Failed');
-                    alert.find('.modal-body p').html('Registration has failed. Please contact Magnet support for assistance.');
+                    alert.find('.modal-body p').html('A problem occurred during registration. Have you already registered? If so, try logging in. If you cannot log in,' +
+                        ' your account may have been removed. Please contact Magnet support for assistance or create a new account.');
                     break;
                 case 'invalid':
                     var alert = $('#login-container .modal_errors').show();
@@ -484,18 +485,11 @@ ConfirmInvitation.prototype.call = function(){
     }).fail(function(xhr){
         endLoading(me.domId);
         var msg = 'A server error occurred during invitation confirmation. Please try again later.';
-        if(xhr.status == 500){
-            var res = tryParseJSON(xhr.responseText);
-            if(res && res.message){
-                msg = res.message;
-            }
-        }
-        if(msg.indexOf('invit_req_pending') || msg.indexOf('finish') != -1){
-            endLoading(me.domId, {
-                title : 'Invitation Confirmation Submitted Successfully',
-                text  : 'Your invitation confirmation has been sent successfully. An administrator will review your application and contact you through email.'
-            });
-            $('#'+me.domId+' .modal_errors, #btn-confirm-invitation').hide();
+        if(xhr.responseText.indexOf('REGISTRATION_FAILED') != -1){
+            me.validator.showError('Confirmation Failure', 'A problem occurred during registration. Have you already registered? If so, try logging in. If you cannot log in,' +
+            ' your account may have been removed. Please contact Magnet support for assistance or create a new account.');
+        }else if(xhr.responseText.indexOf('USER_ALREADY_EXISTS') != -1){
+            me.validator.showError('Confirmation Failure', 'This email address has already been taken. Please try another email address. If you own this email address, you may already have an account. Click on "Return to Login" and try to log in.');
         }else{
             me.validator.showError('Confirmation Failure', msg);
         }
@@ -642,7 +636,7 @@ CompleteRegistration.prototype.call = function(){
         endLoading(me.domId);
         var msg = 'A problem occurred during registration. Have you already registered? If so, please click on the "Return to Login" button below and try logging in.';
         if(xhr.responseText == '"USER_DOES_NOT_EXIST"'){
-            msg = 'You have already completed registration. Please click on the "Return to Login" button below and try logging in.';
+            msg = 'A problem occurred during registration. Have you already registered? If so, try logging in. If you cannot log in, your account may have been removed. Please contact Magnet support for assistance or create a new account.';
         }
         if(msg.indexOf('invit_req_pending') != -1 || msg.indexOf('finish') != -1 || msg.indexOf('failed') != -1){
             endLoading(me.domId);
@@ -1142,20 +1136,27 @@ function DocSearch(){
     me.input.live('keypress', function(e){
         if(e.keyCode == 13){
             me.startIndex = 1;
-            me.exec();
+            if(window.location.href.indexOf('docs/search') == -1)
+                window.location.href = '/docs/search/#/query/'+me.input.val()+'/1';
+            else
+                me.exec();
             return false;
         }
     });
     $('#docs-search-btn').click(function(){
         me.startIndex = 1;
-        me.exec();
+        if(window.location.href.indexOf('docs/search') == -1)
+            window.location.href = '/docs/search/#/query/'+me.input.val()+'/1';
+        else
+            me.exec();
+
     });
     var str = window.location.href;
     if(str.indexOf(me.matcher) != -1){
         var hashTag = str.slice(str.indexOf(me.matcher)).replace(me.matcher, '');
         var ary = hashTag.split('/');
         me.startIndex = ary[1] ? parseInt(ary[1]) : me.startIndex;
-        if(ary[0].length > 2) me.exec(ary[0]);
+        me.exec(ary[0]);
     }
 }
 DocSearch.prototype.exec = function(query){
@@ -1338,6 +1339,7 @@ function DocFormatter(){
         });
         me.bindClick();
         me.bindToggle();
+        $('#doc-content, #doc-toc').show();
     }
 }
 DocFormatter.prototype.initUI = function(dom){

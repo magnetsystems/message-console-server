@@ -1267,7 +1267,7 @@ utils = {
             }
             obj[name] = $(this).val();
         });
-        dom.find('input[type="text"], input[type="password"], textarea').each(function(){
+        dom.find('input[type="text"], select, input[type="password"], textarea').each(function(){
             var val = $(this).val();
             //if($.trim(val).length > 0){
                 if($(this).attr('name') && $(this).attr('name').indexOf('Port') != -1 && $.trim(val).length == 0){

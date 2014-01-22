@@ -234,6 +234,7 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
                 id       : this.entity.attributes.id,
                 magnetId : this.entity.attributes.magnetId
             });
+            console.log(properties.config);
             for(var prop in properties.config){
                 if((properties.config[prop] == '' && me.entity.attributes[prop] == null) || properties.config[prop] == me.entity.attributes[prop]){
                     delete properties.config[prop];

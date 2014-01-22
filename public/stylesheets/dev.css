@@ -274,11 +274,14 @@ iframe .WordSection1{width:506px}
 .Version, .Revision{font-size:14px !important}
 #doc-content{position:relative}
 #doc-toc{padding-top:14px}
+#doc-toc, #doc-content{display:none}
 #doc-toc a, #doc-content a, #doc-content p, #doc-content span, #doc-content div, #doc-content em{font-family:"Titillium Web","Helvetica Neue",Helvetica,Arial,sans-serif !important}
 #doc-switch{position:absolute;top:20px;right:0}
 #doc-switch .btn{margin-left:12px}
 
+#documentation .pull-right{margin-top:20px}
 #documentation label{font-weight:bold}
+.search-input-container{padding:8px 12px;background:#eee;border-radius:6px;margin:7px 0;width:630px}
 #docs-search-input{margin-bottom:0}
 #docs-search-results{margin:30px 0 10px}
 #docs-search-results em{background:#ddd;padding:0 2px;border-radius:4px;font-style:normal}
@@ -344,10 +347,14 @@ iframe .WordSection1{width:506px}
 #documentation .page-view{padding-bottom:32px}
 .docs-container{clear:both;border-top:solid 2px #ddd;width:650px}
 .docs-container .section{height:40px}
+.docs-container h5{font-weight:bold}
+.docs-container strong{font-weight:normal}
+#documentation .section-title{float:left;width:80%;border-bottom:solid 1px #ddd}
 .docs-img{padding:8px 0;float:left;width:20%;text-align:center;margin-right:-1px}
-.docs-img img{padding:8px 0}
-.docs-download{text-align:left;font-size:16px;float:left;padding:8px 0;width:20%}
-.docs-content{padding:8px 0;float:left;width:60%;position:relative}
+.docs-img.placeholder{height:65px;width:130px}
+.docs-img img{padding:8px 0 14px}
+.docs-download{text-align:left;font-size:16px;float:left;padding:3px 0;width:20%}
+.docs-content{padding:3px 0;float:left;width:60%;position:relative}
 .docs-content p.sectionhead{margin:4px 0 10px}
 .docs-content ul{display:block;clear:both;width:100%;margin:0;padding:0}
 .docs-content li{margin-left:40px;float:left}
