@@ -171,6 +171,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             this.options.mc.query('configs', 'GET', null, function(data){
                 if(data){
                     $('#skipAdminApproval option').eq(data.skipAdminApproval === true ? 1 : 0).prop('selected', true);
+                    $('#homePageVideoID').val(data.homePageVideoID);
                 }
             });
         },
@@ -184,7 +185,8 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             var parent = $('#app-management-container');
             me.showLoading(parent);
             me.options.mc.query('configs', 'PUT', {
-                skipAdminApproval : ($('#skipAdminApproval').val() === 'true')
+                skipAdminApproval : ($('#skipAdminApproval').val() === 'true'),
+                homePageVideoID   : $.trim($('#homePageVideoID').val())
             }, function(){
                 me.hideLoading(parent);
                 Alerts.General.display({

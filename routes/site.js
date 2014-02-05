@@ -9,11 +9,12 @@ module.exports = function(app){
     app.get('/', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('index', {
             locals : {
-                title       : 'Home',
-                activePage  : 'home',
-                latestNews  : Jobs.get('Announcements'),
-                userEmail   : req.session.user.email,
-                userCompany : req.session.user.companyName
+                title           : 'Home',
+                activePage      : 'home',
+                latestNews      : Jobs.get('Announcements'),
+                userEmail       : req.session.user.email,
+                userCompany     : req.session.user.companyName,
+                homePageVideoID : APP_CONFIG.homePageVideoID
             }
         });
     });

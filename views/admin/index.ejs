@@ -45,7 +45,7 @@
                 <li id="mgmt-invitations-tab"><a href="#/invitations">Invitations</a></li>
                 <li id="mgmt-events-tab"><a href="#/events">Logging</a></li>
                 <li id="mgmt-announcements-tab"><a href="#/announcements">Announcements</a></li>
-                <li id="mgmt-actions-tab"><a href="#/actions">App Management</a></li>
+                <li id="mgmt-actions-tab"><a href="#/actions">Administration</a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="mgmt-users">
@@ -113,7 +113,10 @@
                                 <option value="false">Yes</option>
                                 <option value="true">No</option>
                             </select>
-                            <button class="btn" type="button" id="update-configuration">Update</button>
+                            <label for="homePageVideoID">Set Home Page Video ID</label>
+                            <input class="span6" id="homePageVideoID" name="homePageVideoID" type="text" placeholder="Youtube Video ID">
+                            <p><b>Note:</b> leave field empty to remove video</p>
+                            <button class="btn" type="button" id="update-configuration">Save Changes</button>
                         </div>
                         <div class="loading buttons-section" style="display:none">
                             Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />

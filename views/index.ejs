@@ -2,9 +2,23 @@
     <div class="row-fluid">
         <div id="home-main" class="clearfix page-view">
 
-            <h4 class="main-title">Mobile Development &amp; You</h4>
+            {{ if(typeof homePageVideoID != 'undefined' && homePageVideoID.length > 1){ }}
+            <div id="home-tutorial-video-container">
+                <button id="watchVideo" class="btn btn-primary" did="{{-homePageVideoID}}">Watch Tutorial</button>
+            </div>
+            <div id="WatchVideoModal" class="modal hide fade">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close">x</button>
+                    <h3>Developer Tutorial</h3>
+                </div>
+                <div class="modal-body" id="tutorialVideoContainer"></div>
+                <div class="modal-footer">
+                    <button data-dismiss="modal" id="ok" class="btn btn-primary">Close</button>
+                </div>
+            </div>
+            {{ } }}
             <div id="home-banner">
-                <img src="/images/home/story_graphic.png" />
+                <img src="/images/home/story_graphic.png" class="{{ if(typeof homePageVideoID != 'undefined' && homePageVideoID.length > 1){ }}withVideo{{ } }}" />
             </div>
             <div id="home-panels" class="row-fluid">
                 <div class="span6">
@@ -14,9 +28,9 @@
                         </div>
                         <p>Get up and running quickly with a sample mobile app on Android&trade;, and iOS&trade;.</p>
                         <div class="centered">
-                            <a href="/get-started/#gs-android" class="btn btn-primary">Android Developer </a>
-                            <a href="/get-started/#gs-ios" class="btn btn-primary">iOS Developer </a>
-                            <a href="/get-started/#gs-javascript" class="btn btn-primary">Javascript Developer </a>
+                            <a href="/get-started/#gs-android" class="btn btn-primary">Android Developer </a> <br />
+                            <a href="/get-started/#gs-ios" class="btn btn-primary">iOS Developer </a> <br />
+                            <a href="/get-started/#gs-javascript" class="btn btn-primary">JavaScript Developer </a>
                         </div>
                     </div>
                     <div class="vdivider"></div>
