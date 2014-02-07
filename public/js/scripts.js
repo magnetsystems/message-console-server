@@ -201,6 +201,7 @@ function bindNews(){
 }
 
 var ytVideoID;
+var ytVideoPlayer;
 function bindWatchVideo(){
     var ytVideoID;
     var $window = $(window);
@@ -208,41 +209,46 @@ function bindWatchVideo(){
     var modal = $('#WatchVideoModal');
     var modalHeader = $('#WatchVideoModal .modal-header');
     var modalFooter = $('#WatchVideoModal .modal-footer');
-    $('#watchVideo').click(function(e){
-        ytVideoID = $(this).attr('did');
-        if(ytVideoID && ytVideoID.length > 1){
-            modal.modal('show');
-            window.onYouTubeIframeAPIReady = function(){
-                var videoContainer = $('#tutorialVideoContainer');
-                var player = new YT.Player('tutorialVideoContainer', {
-                    height  : videoContainer.height(),
-                    width   : videoContainer.width(),
-                    videoId : ytVideoID,
-                    events  : {
-                        'onReady' : function(event){
-                            event.target.playVideo();
+    if(modal.length){
+        $('#watchVideo').click(function(e){
+            ytVideoID = $(this).attr('did');
+            if(ytVideoID && ytVideoID.length > 1){
+                modal.modal('show');
+                window.onYouTubeIframeAPIReady = function(){
+                    var videoContainer = $('#tutorialVideoContainer');
+                    ytVideoPlayer = new YT.Player('tutorialVideoContainer', {
+                        height  : videoContainer.height(),
+                        width   : videoContainer.width(),
+                        videoId : ytVideoID,
+                        events  : {
+                            'onReady' : function(event){
+                                event.target.playVideo();
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                setTimeout(function(){
+                    videoContainer.css('height', modal.height()-modalHeader.height()-modalFooter.height()-48);
+                    var tag = document.createElement('script');
+                    tag.src = "https://www.youtube.com/iframe_api";
+                    var firstScriptTag = document.getElementsByTagName('script')[0];
+                    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                }, 500);
             }
+        });
+        $window.resize(function(){
             setTimeout(function(){
-                videoContainer.css('height', modal.height()-modalHeader.height()-modalFooter.height()-48);
-                var tag = document.createElement('script');
-                tag.src = "https://www.youtube.com/iframe_api";
-                var firstScriptTag = document.getElementsByTagName('script')[0];
-                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-            }, 500);
-        }
-    });
-    $window.resize(function(){
-        setTimeout(function(){
-            if(ytVideoID){
-                var videoContainer2 = $('#tutorialVideoContainer');
-                videoContainer2.css('width', modal.width());
-                videoContainer2.css('height', modal.height()-modalHeader.height()-modalFooter.height()-48);
-            }
-        }, 800);
-    });
+                if(ytVideoID){
+                    var videoContainer2 = $('#tutorialVideoContainer');
+                    videoContainer2.css('width', modal.width());
+                    videoContainer2.css('height', modal.height()-modalHeader.height()-modalFooter.height()-48);
+                }
+            }, 800);
+        });
+        modal.on('hidden', function(){
+            ytVideoPlayer.stopVideo();
+        });
+    }
 }
 
 function switchView(view){
