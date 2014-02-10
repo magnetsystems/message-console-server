@@ -13,7 +13,8 @@ var AccountManager = require('../lib/AccountManager')
 , jiraNewIssue = require('../lib/config/JiraNewIssue')
 , _ = require('underscore')
 , sanitize = require('validator').sanitize
-, JiraApi = require('jira').JiraApi;
+, JiraApi = require('jira').JiraApi
+, packageJSON = require('../package.json');
 
 module.exports = function(app){
 
@@ -309,7 +310,6 @@ module.exports = function(app){
         jiraNewIssue.fields['customfield_10752'] = utc.slice(0, utc.lastIndexOf('.'))+'.730-0700';
         jira.addNewIssue(jiraNewIssue, function(e, issue){
             if(e){
-                console.log(jiraNewIssue);
                 winston.error('Tracking: feedback submission failed: ', e, jiraNewIssue);
                 res.send('error', 400);
             }else{
@@ -658,7 +658,7 @@ module.exports = function(app){
         res.send({
             'Hostname'        : require('os').hostname(),
             'Node Version'    : process.version,
-            'Factory Version' : require('../package.json').version,
+            'Factory Version' : packageJSON.version,
             'Memory Usage'    : process.memoryUsage()
           });
 //        res.send({
