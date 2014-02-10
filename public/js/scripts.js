@@ -1375,14 +1375,11 @@ function DocFormatter(){
     var me = this;
     me.showFull = false;
     me.className = '.TitleChapterTOC, .Heading1TOC, .Heading2TOC, .Heading3TOC, .Title-Release-Note';
-    if(window.location.href.indexOf('release_notes') != -1){
-        $('#doc-toc').html($(me.className).html());
-        return false;
-    }
     me.el = $(this.className);
     me.destination = $('#doc-toc');
     if(me.destination.length){
-        me.el.closest('div').appendTo(me.destination);
+        if(window.location.href.indexOf('release_notes') == -1)
+            me.el.closest('div').appendTo(me.destination);
         $('.Copyright').remove();
         $('.Address').closest('div').remove();
         $('.BookTitle').find('br').remove();

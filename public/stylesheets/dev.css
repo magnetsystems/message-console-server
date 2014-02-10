@@ -272,9 +272,9 @@ iframe .WordSection1{width:506px}
 
 /* docs */
 .doc-list{background:#fff !important}
-.BookTitle, #doc-content h1, #doc-content h2, #doc-content h3, #doc-content h4, #doc-content h5, #doc-content h6{font-family:"Titillium Web","Helvetica Neue",Helvetica,Arial,sans-serif !important;text-align:left !important;line-height:normal}
+.BookTitle, .Title-Release-Note, #doc-content h1, #doc-content h2, #doc-content h3, #doc-content h4, #doc-content h5, #doc-content h6{font-family:"Titillium Web","Helvetica Neue",Helvetica,Arial,sans-serif !important;text-align:left !important;line-height:normal}
 .TitleChapterTOC{margin:14px 0 3px !important;font-size:17px !important}
-.BookTitle{margin-top:45px !important;font-size:26pt !important}
+.BookTitle, .Title-Release-Note{margin-top:45px !important;font-size:26pt !important;color:#000 !important}
 .Heading1TOC, .Heading2TOC, .Heading3TOC, .Title-Release-NoteTOC{margin:3px 0 3px 15px !important}
 .TitleChapter{color:#222 !important}
 .Version, .Revision{font-size:14px !important}
