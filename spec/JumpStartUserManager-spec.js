@@ -1,8 +1,17 @@
 var Helper = require('./Helper')
 , sinon = require('sinon')
-, mysql = require('mysql');
+, mysql = require('mysql')
+, crypto = require('crypto');
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;
+
+function getHash(str){
+    var shasum = crypto.createHash('sha1');
+    shasum.update(ENV_CONFIG.JumpStart.Database.salt);
+    shasum.update(str);
+    var out = 'SHA-1'+shasum.digest('base64');
+    return (out.charAt(out.length-1) == '=' ? out.slice(0, -1) : out);
+}
 
 describe("JumpStartUserManager", function() {
     it("should have no pool if isEnabled is false", function() {
@@ -60,8 +69,8 @@ describe("JumpStartUserManager", function() {
     describe("createUser", function() {
         it("should succeed if the underlying stored procedure succeeds", function() {
             poolMock.expects("getConnection").once().callsArgWith(0, null, connectionMock.object);
-            connectionMock.expects("query").once().withArgs("CALL user_create(" + userName + "," + password + ")").callsArgWith(1, null, 'anyArg');
-            connectionMock.expects("escape").twice().returnsArg(0);
+            connectionMock.expects("query").once().withArgs("CALL user_create(" + userName + ",\"" + getHash(password) + "\",\""+ENV_CONFIG.JumpStart.Database.type+"\",\""+ENV_CONFIG.JumpStart.Database.salt+"\")").callsArgWith(1, null, 'anyArg');
+            connectionMock.expects("escape").once().returnsArg(0);
             connectionMock.expects("release").once();
 
             var callback = function(err) {
@@ -78,8 +87,8 @@ describe("JumpStartUserManager", function() {
 
         it("should fail if the underlying stored procedure fails", function() {
             poolMock.expects("getConnection").once().callsArgWith(0, null, connectionMock.object);
-            connectionMock.expects("query").once().withArgs("CALL user_create(" + userName + "," + password + ")").callsArgWith(1, 'someError', 'anyArg');
-            connectionMock.expects("escape").twice().returnsArg(0);
+            connectionMock.expects("query").once().withArgs("CALL user_create(" + userName + ",\"" + getHash(password) + "\",\""+ENV_CONFIG.JumpStart.Database.type+"\",\""+ENV_CONFIG.JumpStart.Database.salt+"\")").callsArgWith(1, 'someError', 'anyArg');
+            connectionMock.expects("escape").once().returnsArg(0);
             connectionMock.expects("release").once();
 
             var callback = function(err) {
@@ -95,9 +104,9 @@ describe("JumpStartUserManager", function() {
         it("should update user if the user already exists", function() {
             var error = { sqlState: 99001 };
             poolMock.expects("getConnection").twice().callsArgWith(0, null, connectionMock.object);
-            connectionMock.expects("query").once().withArgs("CALL user_create(" + userName + "," + password + ")").callsArgWith(1, error, 'anyArg');
-            connectionMock.expects("query").once().withArgs("CALL user_update(" + userName + "," + password + ")");
-            connectionMock.expects("escape").exactly(4).returnsArg(0);
+            connectionMock.expects("query").once().withArgs("CALL user_create(" + userName + ",\"" + getHash(password) + "\",\""+ENV_CONFIG.JumpStart.Database.type+"\",\""+ENV_CONFIG.JumpStart.Database.salt+"\")").callsArgWith(1, error, 'anyArg');
+            connectionMock.expects("query").once().withArgs("CALL user_update(" + userName + ",\"" + getHash(password) + "\",\""+ENV_CONFIG.JumpStart.Database.type+"\",\""+ENV_CONFIG.JumpStart.Database.salt+"\")");
+            connectionMock.expects("escape").exactly(2).returnsArg(0);
             connectionMock.expects("release").once();
 
             var callback = function(err) {
@@ -128,8 +137,8 @@ describe("JumpStartUserManager", function() {
     describe("updateUser", function() {
         it("should succeed if the underlying stored procedure succeeds", function() {
             poolMock.expects("getConnection").once().callsArgWith(0, null, connectionMock.object);
-            connectionMock.expects("query").once().withArgs("CALL user_update(" + userName + "," + password + ")").callsArgWith(1, null, 'anyArg');
-            connectionMock.expects("escape").twice().returnsArg(0);
+            connectionMock.expects("query").once().withArgs("CALL user_update(" + userName + ",\"" + getHash(password) + "\",\""+ENV_CONFIG.JumpStart.Database.type+"\",\""+ENV_CONFIG.JumpStart.Database.salt+"\")").callsArgWith(1, null, 'anyArg');
+            connectionMock.expects("escape").once().returnsArg(0);
             connectionMock.expects("release").once();
 
             var callback = function(err) {
@@ -144,8 +153,8 @@ describe("JumpStartUserManager", function() {
 
         it("should fail if the underlying stored procedure fails", function() {
             poolMock.expects("getConnection").once().callsArgWith(0, null, connectionMock.object);
-            connectionMock.expects("query").once().withArgs("CALL user_update(" + userName + "," + password + ")").callsArgWith(1, 'someError', 'anyArg');
-            connectionMock.expects("escape").twice().returnsArg(0);
+            connectionMock.expects("query").once().withArgs("CALL user_update(" + userName + ",\"" + getHash(password) + "\",\""+ENV_CONFIG.JumpStart.Database.type+"\",\""+ENV_CONFIG.JumpStart.Database.salt+"\")").callsArgWith(1, 'someError', 'anyArg');
+            connectionMock.expects("escape").once().returnsArg(0);
             connectionMock.expects("release").once();
 
             var callback = function(err) {
@@ -161,9 +170,9 @@ describe("JumpStartUserManager", function() {
         it("should create user if the user did not exist", function() {
             var error = { sqlState: 99002 };
             poolMock.expects("getConnection").twice().callsArgWith(0, null, connectionMock.object);
-            connectionMock.expects("query").once().withArgs("CALL user_update(" + userName + "," + password + ")").callsArgWith(1, error, 'anyArg');
-            connectionMock.expects("query").once().withArgs("CALL user_create(" + userName + "," + password + ")");
-            connectionMock.expects("escape").exactly(4).returnsArg(0);
+            connectionMock.expects("query").once().withArgs("CALL user_update(" + userName + ",\"" + getHash(password) + "\",\""+ENV_CONFIG.JumpStart.Database.type+"\",\""+ENV_CONFIG.JumpStart.Database.salt+"\")").callsArgWith(1, error, 'anyArg');
+            connectionMock.expects("query").once().withArgs("CALL user_create(" + userName + ",\"" + getHash(password) + "\",\""+ENV_CONFIG.JumpStart.Database.type+"\",\""+ENV_CONFIG.JumpStart.Database.salt+"\")");
+            connectionMock.expects("escape").exactly(2).returnsArg(0);
             connectionMock.expects("release").once();
 
             var callback = function(err) {
