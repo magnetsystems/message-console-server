@@ -192,6 +192,7 @@ body.dev .modal-footer .btn, #login-container .btn{width:190px;padding:6px 40px 
 
 #login-container a{color:#C30000}
 #login-container a:hover{color:#FF0000}
+#login-container a.btn-primary{color:#fff}
 #login-container .span12{text-align:center}
 .login-footer{text-align:center;margin:8px 0}
 .login-footer.clearfix button{float:left;margin-left:28px !important}

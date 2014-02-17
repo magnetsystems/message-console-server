@@ -37,6 +37,7 @@ app.configure(function(){
         level            : 'info',
         handleExceptions : false
     });
+    app.disable('x-powered-by');
 });
 
 if(ENV_CONFIG.Logging.console.enabled){
