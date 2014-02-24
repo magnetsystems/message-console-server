@@ -156,7 +156,7 @@
                                         <pre>$ touch Podfile</pre>
                                         <pre>$ open Podfile</pre>
                                         <p>Copy and paste the following commands into the PodFile.</p>
-                                        <pre>platform :ios, '7.0'<br/>pod 'MagnetMobileServer', :git => 'https://github.com/magnetsystems/magnet-sdk-ios.git', :tag => 'v2.2.0'</pre>
+                                        <pre>platform :ios, '7.0'<br/>pod 'MagnetMobileServer', :git => 'https://github.com/magnetsystems/magnet-sdk-ios.git', :tag => 'v2.2.1'</pre>
                                         <p>Install the SDK into your project by navigating to the project directory and executing the following command.</p>
                                         <pre>$ pod install</pre>
                                         <p>Open your project in Xcode from the .xcworkspace file (not the usual project file).</p>
@@ -687,7 +687,7 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
                                                 typically generated from a local server build provided by your server team.
                                             </li>
                                             <li> Regenerate Magnet platform service mapping library using shell script, <b>install-lib.sh</b>:<br />
-                                                <pre>$ sh ./sdk-submodule/magnet-tools/install-libs.sh ./sdk-submodule/libproject/2.2.0 ./libs</pre>
+                                                <pre>$ sh ./sdk-submodule/magnet-tools/install-libs.sh ./sdk-submodule/libproject/2.2.1 ./libs</pre>
                                             </li>
                                         </ol>
                                         <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original <b>./libs</b>
@@ -725,7 +725,7 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
                                                 From directory of your Android application project, install the Mobile Server SDK for Android
                                                 to your application using relative path to the SDK directory. For example, assuming
                                                 the SDK directory is one level above the application project directory named <b>magnet-sdk-android</b>:
-                                                <pre>$ sh ../magnet-sdk-android/magnet-tools/install-libs.sh ../magnet-sdk-android/libproject/2.2.0 ./libs</pre>
+                                                <pre>$ sh ../magnet-sdk-android/magnet-tools/install-libs.sh ../magnet-sdk-android/libproject/2.2.1 ./libs</pre>
                                             </li>
                                         </ol>
 
@@ -737,7 +737,7 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
                                             <li>First, copy custom Magnet controller api library jar files to the directory where all dependent
                                                 libraries are stored, typically <b>libs</b>.</li>
                                             <li>Then, regenerate Magnet platform service mapping library using the script, <b>install-libs.sh</b> as described above.
-                                                <pre>$ sh ../magnet-sdk-android/magnet-tools/install-libs.sh ../magnet-sdk-android/libproject/2.2.0 ./libs</pre>
+                                                <pre>$ sh ../magnet-sdk-android/magnet-tools/install-libs.sh ../magnet-sdk-android/libproject/2.2.1 ./libs</pre>
                                             </li>
                                         </ol>
                                         <p><b>IMPORTANT:</b> It's highly recommended that you make a backup copy of the original <b>./libs</b>
