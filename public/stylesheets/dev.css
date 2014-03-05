@@ -102,8 +102,8 @@ body{min-width:980px;width:100%;margin:0;padding:0;border:0;background:url(../im
 .generalMsg{padding:20px}
 .clear-fix{clear:both}
 
-.protectedresourceinfo{margin-top:2px;font-size:13px;display:block;border:solid 1px #bbb;background:#ddd;padding:2px 4px;width:108px}
-.protectedresourceinfo i{margin-top:3px;margin-right:4px}
+.protectedresourceinfo{margin-top:2px;font-size:13px;display:block;border:solid 1px #bbb;background:#ddd;padding:2px 4px;width:118px}
+.protectedresourceinfo i{margin-right:4px}
 
 /* global */
 
@@ -454,6 +454,7 @@ iframe .WordSection1{width:506px}
 .guide-content .btn{margin-top:16px}
 .guide-content .btn.dbl{margin-top:0;margin-bottom:4px}
 .guide-content .accordion-toggle{color:#333;padding:0 15px}
+.guide-content .accordion-toggle .btn{float:right}
 .guide-content .accordion-group{border:none}
 .guide-content .accordion-heading p{margin:0 15px}
 .guide-content .accordion-body{margin-top:8px}
