@@ -1,6 +1,6 @@
 {
   "name": "devex-factory",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "private": true,
   "dependencies": {
     "ejs": "0.7.1",
@@ -16,7 +16,6 @@
     "ejs-locals": "~1.0.2",
     "enum": "0.2.5",
     "jasmine-node": "1.11.0",
-    "http-auth": "2.0.4",
     "xml2js": "0.2.8",
     "winston": "0.7.2",
     "winston-mail": "0.2.7",
@@ -28,6 +27,7 @@
     "istanbul": "0.1.44",
     "jira": "~0.8.2",
     "elasticsearch": "~1.0.3",
-    "elasticsearchclient": "~0.5.3"
+    "elasticsearchclient": "~0.5.3",
+    "simple-recaptcha": "0.0.3"
   }
 }

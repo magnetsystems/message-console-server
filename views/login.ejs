@@ -46,8 +46,8 @@
                         </ul>
                     </div>
                     <div class="login-footer clearfix">
-                        <a class="btn btn-primary pull-left" href="http://www.magnet.com/factory/">Request Invitation</a>
-                        <a href="http://www.magnet.com/factory/" class="textlink">More Information >></a>
+                        <a class="btn btn-primary pull-left preauth-btns" did="invitation" href="#">Request Invitation</a>
+                        <a href="/learn-more/" class="textlink">More Information >></a>
                     </div>
                     <p class="smallnote">
                         Note: By pressing the "Request Invitation" button above, you will be taken to <a href="http://www.magnet.com">www.magnet.com</a> to request an invitation to the Magnet Developer Factory.
@@ -88,6 +88,17 @@
                 <input type="text" class="span12" name="companyName" placeholder="Company Name*">
             </div>
           </div>
+          <div class="row-fluid">
+            <div class="span12">
+                <label>Spam Protection</label>
+                <script type="text/javascript" src="http://www.google.com/recaptcha/api/challenge?k=6LcVfO8SAAAAAD1haiOFt2ZXQHDW-OpS5WiCT64Q"></script>
+                <noscript>
+                    <iframe src="http://www.google.com/recaptcha/api/noscript?k=6LcVfO8SAAAAAD1haiOFt2ZXQHDW-OpS5WiCT64Q" height="300" width="500" frameborder="0"></iframe><br>
+                    <textarea name="recaptcha_challenge_field" rows="3" cols="40"> </textarea>
+                    <input type="hidden" name="recaptcha_response_field" value="manual_challenge">
+                </noscript>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
             <button type="button" id="btn-request-invitation" class="btn btn-primary">Send Request</button>
@@ -98,6 +109,7 @@
         </div>
     </div>
 </div>
+
 <div id="confirm-introduce-container" class="page" style="display:none">
     <div class="page-view valign">
         <h4>Confirm Invitation</h4>

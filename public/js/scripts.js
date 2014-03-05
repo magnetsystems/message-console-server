@@ -23,6 +23,7 @@ $(document).ready(function(){
     // user authentication
     var cookies = new Cookie();
     var formauth = new FormLogin(cookies);
+    var ajaxauth = new AJAXLogin(cookies);
     var logout = new Logout(cookies);
     var confirmInvitation = new ConfirmInvitation(cookies, {
         token : getQuerystring('t'),
@@ -72,12 +73,14 @@ $(document).ready(function(){
     if(view){
         $('#'+view+'-container').modal('show');
     }
-    var title = $('.title_container');
-    var menu = title.find('.dropdown-menu');
-    title.find('.dropdown').unbind('mouseenter').mouseenter(function(){
-        menu.css('display', 'block');
-    }).unbind('mouseleave').mouseleave(function(){
-        menu.css('display', 'none');
+    var menus = $('.title_container .dropdown-menu');
+    menus.each(function(){
+        var menu = $(this);
+        $(this).closest('.dropdown').unbind('mouseenter').mouseenter(function(){
+            menu.css('display', 'block');
+        }).unbind('mouseleave').mouseleave(function(){
+            menu.css('display', 'none');
+        });
     });
     var resources = new ResourceNavigation();
     var docFormatter = new DocFormatter();
@@ -267,32 +270,45 @@ function checkLogin(cookies){
     }
 }
 
+function isLoggedIn(){
+    return $('#user-panel-toggle').size() != 0;
+}
+
 function doAuth(cookies){
     if(window.location.pathname.indexOf('/login') == -1){
         // session timeout notification is disabled
-        var sessionMgr = new SessionManager(cookies);
+        //var sessionMgr = new SessionManager(cookies);
         $(document).ajaxComplete(function(e, xhr){
             if(xhr.status == 278){
                 window.location.href = '/login/';
             }else if(xhr.status == 279){
                 window.location.href = '/login/?status=locked';
             }else{
-                sessionMgr.reset(true);
+                //sessionMgr.reset(true);
             }
         });
         getBeacon();
-        if(!checkLogin(cookies)){
-            /*
-            getProfile(cookies, function(){
-                setProfile(cookies);
-            });
-            */
-        }else{
+        if(checkLogin(cookies)){
             setProfile(cookies);
         }
     }else{
         //document.cookie = 'connect.sid=;domain=.'+window.location.hostname+';path=/';
         cookies.remove('magnet_auth');
+    }
+    if(!isLoggedIn()){
+        var res = $('.protectedresource');
+        var pop = $('#login-popup');
+        res.after('<div class="protectedresourceinfo"> <i class="icon-lock"></i>Requires Sign In</div>');
+        res.click(function(e){
+            e.preventDefault();
+            pop.find('.modal-header strong').show();
+            pop.modal('show');
+            setTimeout(function(){
+                pop.find('#username').focus();
+            }, 500);
+        });
+    }else{
+        $('.protectedresourceinfo').remove();
     }
 }
 
@@ -401,6 +417,59 @@ function FormLogin(cookies){
         });
     }
 }
+function AJAXLogin(cookies){
+    var me = this;
+    me.domId = 'login-popup';
+    me.container = $('#'+me.domId);
+    if(me.container.length){
+        $('.show-login-popup').click(function(){
+            me.container.find('.modal-header strong').hide();
+            me.container.modal('show');
+            setTimeout(function(){
+                me.container.find('#username').focus();
+            }, 500);
+        });
+        cookies.remove('magnet_auth');
+        me.validator = new Validator(this.domId);
+        $('#login-popup-btn').click(function(){
+            me.validate();
+        });
+        me.container.find('input').keypress(function(e){
+            if(e.keyCode == 13) me.validate();
+        });
+    }
+}
+AJAXLogin.prototype.validate = function(){
+    var obj = {};
+    this.container.find('input').each(function(){
+        $(this).closest('.control-group').removeClass('error');
+        obj[$(this).attr('name')] = $(this).val();
+    });
+    if(this.validator.validateLogin()){
+        obj.authority = 'magnet';
+        this.login(obj);
+    }
+}
+AJAXLogin.prototype.login = function(obj){
+    $('.modal_errors').hide();
+    var me = this;
+    startLoading(me.domId);
+    $.ajax({
+        type        : 'POST',
+        url         : '/rest/login',
+        dataType    : 'html',
+        contentType : 'application/x-www-form-urlencoded',
+        data        : obj
+    }).done(function(){
+        window.location.reload(true);
+    }).fail(function(xhr){
+        endLoading(me.domId);
+        if(xhr.responseText == 'invalid-login')
+            me.validator.showError('Incorrect Email Address and/or Password', 'Please check your input and try again.');
+        else
+            me.validator.showError('Account Locked', 'Your account has been locked.');
+    });
+}
 
 // object to handle invitation process
 function Invitation(cookies){
@@ -452,11 +521,11 @@ Invitation.prototype.call = function(){
     }).fail(function(xhr){
         endLoading(me.domId);
         var msg = 'A server error occurred during registration. Please try again later.';
-        if(xhr.status == 500){
-            var res = tryParseJSON(xhr.responseText);
-            if(res && res.message){
-                msg = res.message;
-            }
+        switch(xhr.responseText){
+            case 'invalid-email' : msg = 'The format of the email address you provided is invalid.'; break;
+            case 'required-field-missing' : msg = 'A required field has been left blank.'; break;
+            case 'captcha-failed' : msg = 'The Spam Protection validation has failed. Please try again.'; Recaptcha.reload(); break;
+            case '"USER_ALREADY_EXISTS"' : msg = 'The email address you specified has already been taken.'; break;
         }
         me.validator.showError('Registration Failure', msg);
     });
@@ -906,13 +975,10 @@ function ContactForm(){
     $('#send-contact').click(function(){
         me.contact();
     });
-    /*
     $('#contact-form input').keypress(function(e){
-        if(e.keyCode == 13){
+        if(e.keyCode == 13)
             me.contact();
-        }
     });
-    */
 }
 ContactForm.prototype.contact = function(){
     var me = this;
@@ -926,6 +992,7 @@ ContactForm.prototype.contact = function(){
 }
 ContactForm.prototype.call = function(){
     var me = this;
+    me.validator.hideError();
     $.ajax({  
         type        : 'POST',  
         url         : '/rest/submitFeedback',
@@ -934,8 +1001,14 @@ ContactForm.prototype.call = function(){
     }).done(function(result, status, xhr){
         $('#contact-form .well').html('<h4>Contact Us</h4><p class="subheading">Thank you for submitting your contact request. A Magnet representative will follow up with you shortly.</p>');
         $('#contact-form input, #contact-form textarea').val('');
-    }).fail(function(){
-        me.validator.showError('Contact Request Failure', 'A server error occurred sending out the contact request. Please try again later.');
+    }).fail(function(xhr){
+        var msg = 'A server error occurred sending out the contact request. Please try again later.';
+        switch(xhr.responseText){
+            case 'invalid-email' : msg = 'The format of the email address you provided is invalid.'; break;
+            case 'required-field-missing' : msg = 'A required field has been left blank.'; break;
+            case 'captcha-failed' : msg = 'The Spam Protection validation has failed. Please try again.'; Recaptcha.reload(); break;
+        }
+        me.validator.showError('Contact Request Failure', msg);
     });
 }
 
@@ -984,12 +1057,17 @@ Validator.prototype.showError = function(t, m){
     $('#'+this.domId+' .modal_errors span').text(m);
     $('#'+this.domId+' .modal_errors').hide().slideDown('fast');
 }
+Validator.prototype.hideError = function(){
+    $('#'+this.domId+' .modal_errors').hide()
+}
 Validator.prototype.validateLogin = function(){
 	if($('#username').val() == ''){
 		this.showError('Required Field Missing', 'Please enter a valid email address');
+        $('#username').closest('.control-group').addClass('error');
 		return false;
 	}else if($('#password').val() == ''){
 		this.showError('Required Field Missing', 'Please enter a valid password');
+        $('#password').closest('.control-group').addClass('error');
 		return false;
 	}else{
 		return true;
@@ -1014,7 +1092,7 @@ Validator.prototype.validateInvitation = function(){
     var me = this;
     var valid = true;
     $('#invitation-container input[name!="captcha"]').each(function(){
-        if($.trim($(this).val()).length < 1 || $(this).val() == $(this).attr('placeholder')){
+        if($(this).attr('id') != 'recaptcha_response_field' && $.trim($(this).val()).length < 1 || $(this).val() == $(this).attr('placeholder')){
             me.showError('Required Field Missing', 'Please enter a '+$(this).attr('placeholder'));
             valid = false;
         }
@@ -1084,11 +1162,16 @@ Validator.prototype.validateContactForm = function(){
     var valid = true;
     var form = $('#contact-form');
     form.find('input, select, textarea').each(function(){
-        if($.trim($(this).val()).length < 1 || $(this).val() == $(this).attr('placeholder')){
+        if($(this).attr('id') != 'recaptcha_response_field' && $.trim($(this).val()).length < 1 || $(this).val() == $(this).attr('placeholder')){
             me.showError('Required Field Missing', 'Please enter a '+$(this).attr('placeholder'));
             valid = false;
         }
     });
+    var emailRxp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
+    if(!emailRxp.test($('#contact-form').find('input[name="emailaddress"]').val())){
+        me.showError('Invalid Email Address', 'The format of the email address you provided is invalid.');
+        valid = false;
+    }
 	return valid;
 }
 
@@ -1501,6 +1584,7 @@ function GetStartedNavigation(){
             page.find(link.attr('href')).addClass('active');
             li.addClass('active');
         });
+        var menu = $('#gs-site-menu');
         $('#gs-site-menu li a').click(function(){
             var link = $('.nav-tabs li a[href="'+$(this).attr('href').replace('/get-started/', '')+'"]');
             var li = link.closest('li');

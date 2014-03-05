@@ -4,10 +4,12 @@
 
             <p class="subhead">Learn about the nitty-gritty details of developing and enhancing your own mobile apps with these developer guides.<p>
 
+            {{ if(typeof sessionUser != 'undefined'){ }}
             <div class="search-input-container">
                 <input type="text" id="docs-search-input" name="docs-search-input" placeholder="Enter Search Terms" />
                 <button class="btn" id="docs-search-btn">Search</button>
             </div>
+            {{ } }}
 
             <div class="docs-container clearfix">
                 <div class="docs-img">
@@ -20,8 +22,12 @@
                             <strong>Developer Guide</strong>
                         </div>
                         <div class="docs-download">
+                            {{ if(typeof sessionUser != 'undefined'){ }}
                             <a href="mobile_app_builder/">View</a> |
                             <a href="mobile_app_builder/mobile_app_builder.pdf">Download</a>
+                            {{ }else{ }}
+                            <a href="#" class="protectedresource"></a>
+                            {{ } }}
                         </div>
                     </div>
                     <div class="section">
@@ -29,8 +35,12 @@
                             <strong>Release Notes</strong>
                         </div>
                         <div class="docs-download">
+                            {{ if(typeof sessionUser != 'undefined'){ }}
                             <a href="mab_release_notes/">View</a> |
                             <a href="mab_release_notes/mab_release_notes.pdf">Download</a>
+                            {{ }else{ }}
+                            <a href="#" class="protectedresource"></a>
+                            {{ } }}
                         </div>
                     </div>
                 </div>
@@ -47,8 +57,12 @@
                             <strong>Developer Guide</strong>
                         </div>
                         <div class="docs-download">
+                            {{ if(typeof sessionUser != 'undefined'){ }}
                             <a href="android_developer_guide/">View</a> |
                             <a href="android_developer_guide/android_developer_guide.pdf">Download</a>
+                            {{ }else{ }}
+                            <a href="#" class="protectedresource"></a>
+                            {{ } }}
                         </div>
                     </div>
                     <div class="section">
@@ -56,7 +70,11 @@
                             <strong>API Documentation</strong>
                         </div>
                         <div class="docs-download">
+                            {{ if(typeof sessionUser != 'undefined'){ }}
                             <a href="android_client/">View</a>
+                            {{ }else{ }}
+                            <a href="#" class="protectedresource"></a>
+                            {{ } }}
                         </div>
                     </div>
                 </div>
@@ -73,8 +91,12 @@
                             <strong>Developer Guide</strong>
                         </div>
                         <div class="docs-download">
+                            {{ if(typeof sessionUser != 'undefined'){ }}
                             <a href="ios_developer_guide/">View</a> |
                             <a href="ios_developer_guide/ios_developer_guide.pdf">Download</a>
+                            {{ }else{ }}
+                            <a href="#" class="protectedresource"></a>
+                            {{ } }}
                         </div>
                     </div>
                     <div class="section">
@@ -82,7 +104,11 @@
                             <strong>API Documentation</strong>
                         </div>
                         <div class="docs-download">
+                            {{ if(typeof sessionUser != 'undefined'){ }}
                             <a href="ios_client/">View</a>
+                            {{ }else{ }}
+                            <a href="#" class="protectedresource"></a>
+                            {{ } }}
                         </div>
                     </div>
                 </div>
@@ -99,8 +125,12 @@
                             <strong>Developer Guide</strong>
                         </div>
                         <div class="docs-download">
+                            {{ if(typeof sessionUser != 'undefined'){ }}
                             <a href="javascript_developer_guide/">View</a> |
                             <a href="javascript_developer_guide/javascript_developer_guide.pdf">Download</a>
+                            {{ }else{ }}
+                            <a href="#" class="protectedresource"></a>
+                            {{ } }}
                         </div>
                     </div>
                     <div class="section">
@@ -108,7 +138,11 @@
                             <strong>API Documentation</strong>
                         </div>
                         <div class="docs-download">
+                            {{ if(typeof sessionUser != 'undefined'){ }}
                             <a href="javascript_client/">View</a>
+                            {{ }else{ }}
+                            <a href="#" class="protectedresource"></a>
+                            {{ } }}
                         </div>
                     </div>
                 </div>
@@ -125,8 +159,12 @@
                             <strong>Developer Guide</strong>
                         </div>
                         <div class="docs-download">
+                            {{ if(typeof sessionUser != 'undefined'){ }}
                             <a href="server_developer_guide/">View</a> |
                             <a href="server_developer_guide/server_developer_guide.pdf">Download</a>
+                            {{ }else{ }}
+                            <a href="#" class="protectedresource"></a>
+                            {{ } }}
                         </div>
                     </div>
                     <div class="section">
@@ -134,7 +172,11 @@
                             <strong>API Documentation</strong>
                         </div>
                         <div class="docs-download">
+                            {{ if(typeof sessionUser != 'undefined'){ }}
                             <a href="server_javadocs/">View</a>
+                            {{ }else{ }}
+                            <a href="#" class="protectedresource"></a>
+                            {{ } }}
                         </div>
                     </div>
                     <div class="section">
@@ -142,12 +184,17 @@
                             <strong>Release Notes</strong>
                         </div>
                         <div class="docs-download">
+                            {{ if(typeof sessionUser != 'undefined'){ }}
                             <a href="mas_release_notes/">View</a> |
                             <a href="mas_release_notes/mas_release_notes.pdf">Download</a>
+                            {{ }else{ }}
+                            <a href="#" class="protectedresource"></a>
+                            {{ } }}
                         </div>
                     </div>
                 </div>
             </div>
+
 
         </div>
     </div>

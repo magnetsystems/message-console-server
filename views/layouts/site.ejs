@@ -20,8 +20,15 @@
             <img src="/images/heading.png" alt="Developer Factory" /><h4>Developer Factory</h4>
         </a>
     </div>
-    {{ if(typeof hideMenu == 'undefined'){ }}
     <ul class="title_container">
+        <li class="dropdown {{- activePage == 'learn-more' ? 'active' : ''}}">
+            <a class="dropdown-toggle" href="/learn-more/">Learn More</a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="/learn-more/mobile/">Mobile Developers</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="/learn-more/server/">Server Developers</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="/learn-more/admin/">IT Administrators</a></li>
+            </ul>
+        </li>
         <li class="dropdown {{- activePage == 'get-started' ? 'active' : ''}}">
             <a class="dropdown-toggle" href="/get-started/">Get Started</a>
             <ul id="gs-site-menu" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -41,14 +48,20 @@
             <a href="/support/">Support</a>
         </li>
     </ul>
+    {{ if(typeof sessionUser != 'undefined'){ }}
     <div class="control-buttons">
         <a href="#" id="invite-others"><i class="icon-plus icon-white"></i><i class="icon-user icon-white"></i></a>
-        <a href="#" id="user-panel-toggle"><i class="icon-chevron-down icon-white"></i><span id="username-placeholder">{{= userEmail }}</span></a>
+        <a href="#" id="user-panel-toggle"><i class="icon-chevron-down icon-white"></i><span id="username-placeholder">{{= sessionUser.email }}</span></a>
+    </div>
+    {{ }else{ }}
+    <div class="prelogin-control-buttons">
+        <a href="/login?a=invitation" id="start-registration">Register</a>
+        <a href="#" id="sign-in" class="show-login-popup">Sign In</a>
     </div>
     {{ } }}
 </div>
 <div id="latest-news">
-    {{ if(typeof hideMenu == 'undefined' && typeof activePage !== 'undefined' && activePage == 'home' && typeof latestNews !== 'undefined' && latestNews.length > 0){ }}
+    {{ if(typeof activePage !== 'undefined' && activePage == 'home' && typeof latestNews !== 'undefined' && latestNews.length > 0){ }}
     <div class="main">
         {{ for(var i=0;i<latestNews.length;++i){ }}
             <div class="news-item {{ if(i > 0){ }}others{{ } }}">
@@ -66,11 +79,11 @@
     {{ } }}
 </div>
 
-{{ if(typeof hideMenu == 'undefined'){ }}
+{{ if(typeof sessionUser != 'undefined'){ }}
 <div id="user-panel" style="display:none">
     <div class="col">
-        <span class="user-username">{{= userEmail }}</span><br />
-        <span class="user-company">{{= userCompany }}</span>
+        <span class="user-username">{{= sessionUser.email }}</span><br />
+        <span class="user-company">{{= sessionUser.company }}</span>
     </div>
     <div class="col2">
         <a href="/profile/">Edit Profile</a>
@@ -79,6 +92,7 @@
         <a href="/logout" class="btn btn-primary">Log Out</a>
     </div>
 </div>
+{{ } }}
 <div class="title_container_mobile hidden">
     <div class="row-fluid">
         <div class="span12">
@@ -97,7 +111,6 @@
         </div>
     </div>
 </div>
-{{ } }}
 
 <div id="dev-container" class="{{ if(typeof activePage !== 'undefined' && activePage != 'home'){ }}page{{ } }}">
     {{-body}}
@@ -107,7 +120,7 @@
         &copy; 2014 Magnet Systems, Inc. All rights reserved.
     </div>
 </div>
-{{ if(typeof hideMenu == 'undefined'){ }}
+{{ if(typeof sessionUser != 'undefined'){ }}
 <div id="leave-feedback-container">
     <a id="feedback-btn" href="">Leave Feedback</a>
     <div id="feedback-content">
@@ -203,11 +216,47 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn-primary btn">Send Invitation</button>
         <button data-dismiss="modal" class="cancel btn">Close</button>
+        <button class="btn-primary btn">Send Invitation</button>
     </div>
     <div class="loading modal-footer" style="display:none">
         Loading.. Please Wait.. <img src="/images/ajax-loader-sm.gif" />
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="login-popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="LoginPopup" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="LoginPopup">Sign In</h3>
+        <strong>This resource requires registration to access.</strong>
+        <p>Please Sign In below, or click on <a href="/login?a=invitation">Register</a> to register for a new account.<br />
+            Click on <a href="/login?a=start-reset-password">Reset Your Password</a> if you don't remember your password.</p>
+    </div>
+    <div class="modal-body">
+        <div class="modal_errors" style="display:none">
+            <div class="alert alert-error">
+                <strong></strong><br /><span></span>
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="control-group">
+                <div class="controls">
+                    <label class="control-label" for="username">Email Address</label>
+                    <input type="text" name="name" id="username" placeholder="Email Address">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <label class="control-label" for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Password">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button id="login-popup-btn" class="btn btn-primary">Sign in<i class="icon-lock icon-white"></i></button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     </div>
 </div>
 <!-- dialogs end -->

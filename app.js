@@ -86,21 +86,15 @@ if(app.settings.env == 'development' || app.settings.env == 'test'){
         store  : new connect.middleware.session.MemoryStore(),
         secret : ENV_CONFIG.App.sessionSecret
     }));
+    // protect files and documentation behind login
+    app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/resources\/files\/.*$/));
+    app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/docs\/.*\/.*$/));
     // prioritize router before public directory
     app.use(express.static(__dirname + '/public'));
 }
 
 app.configure('production', function(){
     app.use(express.errorHandler());
-    /// TODO: Take out before hitting production
-    /* Authentication module to prevent authorized access to factory
-    var auth = require('http-auth');
-    var basic = auth.basic({
-        realm : "Authenticated Area.",
-        file  : "./data/users.htpasswd" // manager1@magnetapi.com/test
-    });
-    app.use(auth.connect(basic));
-    */
     // stop exit after an uncaughtException
     winston.exitOnError = false;
     // store sessions to redis
@@ -117,6 +111,9 @@ app.configure('production', function(){
     require('requirejs').optimize(require('./lib/config/ClientBuild'), function(){
         winston.info('Requirejs: successfully optimized client javascript');
     });
+    // protect files and documentation behind login
+    app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/resources\/files\/.*$/));
+    app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/docs\/.*\/.*$/));
     // prioritize router before public directory, use minified public directory
     app.use(express.static(__dirname + '/public-build'));
     /* start https server
