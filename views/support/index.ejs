@@ -113,6 +113,7 @@
                                 <textarea name="msg" class="span12" placeholder="Message"></textarea>
                             </div>
                         </div>
+                        {{ if(typeof sessionUser == 'undefined'){ }}
                         <div class="row-fluid">
                             <div class="span12">
                                 <label>Spam Protection</label>
@@ -124,6 +125,7 @@
                                 </noscript>
                             </div>
                         </div>
+                        {{ } }}
                         <div class="row-fluid">
                             <div class="span12">
                                 <button id="send-contact" type="button" class="btn btn-primary">Send Contact Request</button>

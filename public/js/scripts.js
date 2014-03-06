@@ -1168,7 +1168,7 @@ Validator.prototype.validateContactForm = function(){
         }
     });
     var emailRxp = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i;
-    if(!emailRxp.test($('#contact-form').find('input[name="emailaddress"]').val())){
+    if(!isLoggedIn() && !emailRxp.test($('#contact-form').find('input[name="emailaddress"]').val())){
         me.showError('Invalid Email Address', 'The format of the email address you provided is invalid.');
         valid = false;
     }
