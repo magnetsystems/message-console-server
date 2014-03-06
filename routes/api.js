@@ -60,7 +60,8 @@ module.exports = function(app){
         }else{
             winston.verbose('Tracking: user "' + req.session.user.email + '" logged out');
             req.session.destroy(function(){
-                res.redirect('/');
+                res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+                res.redirect('back');
             });
         }
     });
