@@ -7,6 +7,9 @@ body{min-width:980px;width:100%;margin:0;padding:0;border:0;background:url(../im
 #site-header #invite-others{margin-right:9px}
 #site-header #invite-others i{margin-top:5px}
 #site-header .control-buttons img{float:right;margin:-3px 6px 0 25px}
+#site-header .prelogin-control-buttons{float:right;top:11px;position:absolute;top:0;right:8px;text-align:right}
+#site-header .prelogin-control-buttons a, #site-header .prelogin-control-buttons a:visited{color:#ddd;display:block;float:right;height:100%;padding:16px 10px;margin-right:10px}
+#site-header .prelogin-control-buttons a:hover, #site-header .prelogin-control-buttons a:active{text-decoration:none;color:#fff}
 .site-user-container{float:right}
 .site-user-prefix{color:#9e9e9e;font-size:16px;font-weight:normal}
 .site-user{color:#fff;font-size:16px;font-weight:bold}
@@ -14,7 +17,7 @@ body{min-width:980px;width:100%;margin:0;padding:0;border:0;background:url(../im
 .logo_container a{text-decoration:none;color:#fff}
 .logo_container img{float:left;margin-right:10px}
 .logo_container h4{float:left;font-size:19px;margin-top:6px}
-.title_container{margin:0 auto;width:444px}
+.title_container{margin:0 auto;width:580px}
 .title_container > li{position:relative;float:left;display:block;background:url(../images/header_btn.png) no-repeat 0 0;width:111px;height:55px}
 
 .title_container > li > a{font-size:15px;line-height:50px;text-decoration:none;text-align:center;float:left;display:block;width:100%;height:100%;color:#ffa9a9}
@@ -26,6 +29,12 @@ body{min-width:980px;width:100%;margin:0;padding:0;border:0;background:url(../im
 .dropdown .dropdown-menu li.active a, .dropdown .dropdown-menu li:hover a{outline:none;background:#C15454}
 .dropdown-menu li a:focus{outline:none;background:#983C3C}
 .dropdown .dropdown-menu li.active a.active, .dropdown .dropdown-menu li a:hover{background:none;background:#C15454}
+
+#login-popup strong{font-size:15px}
+#login-popup .btn{padding:6px 0;width:37%}
+#login-popup label{font-weight:bold;margin-right:15px}
+#login-popup .modal-header p{margin:0 0 -2px 0}
+#login-popup .form-horizontal .controls{margin-left:auto}
 
 #menu-samples a{background:url('../images/resources/menu.png') no-repeat 10px -56px #983C3C}
 #menu-samples a:hover, #menu-samples.active a{background:url('../images/resources/menu.png') no-repeat 10px -84px #C15454}
@@ -92,6 +101,9 @@ body{min-width:980px;width:100%;margin:0;padding:0;border:0;background:url(../im
 #invite-other-modal, #upload-server-jar{width:400px}
 .generalMsg{padding:20px}
 .clear-fix{clear:both}
+
+.protectedresourceinfo{margin-top:2px;font-size:13px;display:block;border:solid 1px #bbb;background:#ddd;padding:2px 4px;width:118px}
+.protectedresourceinfo i{margin-right:4px}
 
 /* global */
 
@@ -177,7 +189,6 @@ body.dev .page .subheading{margin-bottom:15px}
 body.dev .page .form-horizontal .control-label{width:130px}
 body.dev .page .form-horizontal .controls{margin-left:150px}
 body.dev .title_container_mobile{margin-top:55px}
-body.dev .modal-footer .btn, #login-container .btn{width:190px;padding:6px 40px 6px 40px;margin-top:2px}
 
 #login-container .btn{padding:6px 10px;width:145px}
 #login-container h4, #login-container .subheading{margin-left:20px}
@@ -195,7 +206,7 @@ body.dev .modal-footer .btn, #login-container .btn{width:190px;padding:6px 40px 
 #login-container a.btn-primary{color:#fff}
 #login-container .span12{text-align:center}
 .login-footer{text-align:center;margin:8px 0}
-.login-footer.clearfix button{float:left;margin-left:28px !important}
+.login-footer .btn-primary.preauth-btns{float:left;margin-left:13px !important}
 .login-footer .textlink{display:block;float:left;margin:7px 8px 0 36px}
 .modal .subheading{margin-bottom:0}
 .modal-footer{text-align:center}
@@ -299,6 +310,39 @@ iframe .WordSection1{width:506px}
 #docs-search-results #search-meta{margin:15px 0;font-size:12px;color:#999}
 #docs-search-results button{margin-right:8px}
 
+/* learnmore */
+
+#learnmore .row-fluid .content{font-size:16px;margin-bottom:25px}
+#learnmore strong{line-height:40px}
+#learnmore li{margin:12px}
+#learnmore ol, #learnmore ul{margin-top:15px;margin-bottom:25px}
+#learnmore .subhead{font-size:1.3em}
+.learnmore-mainimg{margin-bottom:20px}
+.option-columns{margin-top:25px;margin-bottom:25px}
+.option-columns .span4{border:solid 1px #ccc;border-radius:6px}
+.option-columns .span4 img{width:100%;border:none;margin-bottom:0}
+.option-columns .span4 p{font-size:14px;margin:14px auto;text-align:center}
+.option-columns .span4 ul{margin:10px 0 14px 0}
+.option-columns .span4 li{padding:0 0 0 8px;font-size:14px;list-style-type:none}
+.option-columns .span4 li i{margin:5px 6px 0 0;background-image:url("../../_media/images/glyphicons-halflings.png")}
+.option-columns .btn{width:81px;display:block;margin:0 auto 20px}
+.option-columns .column-title{padding:19px 0;border-radius:6px 6px 0 0;color:#fff;font-size:20px;text-align:center;background:#C50000}
+
+.sidebar-hold .sidebar00,.sidebar-hold .sidebar01,.sidebar-hold .sidebar02{width:auto;overflow:hidden;min-height:100px;padding:20px}
+.sidebar00{-webkit-border-top-left-radius:0;-webkit-border-top-right-radius:0;-moz-border-radius-topleft:0;-moz-border-radius-topright:0;border-top-left-radius:0;border-top-right-radius:0;border:1px solid #dfdfdf;border-top:none}
+.sidebar01{-webkit-border-top-left-radius:6px;-webkit-border-top-right-radius:6px;-moz-border-radius-topleft:6px;-moz-border-radius-topright:6px;border-top-left-radius:6px;border-top-right-radius:6px;border:1px solid #dfdfdf}
+.sidebar02{-webkit-border-bottom-left-radius:6px;-webkit-border-bottom-right-radius:6px;-moz-border-radius-bottomleft:6px;-moz-border-radius-bottomright:6px;border-bottom-left-radius:6px;border-bottom-right-radius:6px;border-bottom:1px solid #dfdfdf;border-left:1px solid #dfdfdf;border-right:1px solid #dfdfdf}
+.sidebar-hold p{font-size:16px}
+.sidebar-hold h2{padding-bottom:10px;display:block;width:auto;border-bottom:dotted 1px #dfdfdf;font-size:20px;padding-left:25px;margin:0 0 10px}
+.sidebar-hold ul{margin-left:0}
+.sidebar-hold li{list-style-type:none}
+.content-hold hr{border-top:1px solid #DFDFDF;border-bottom:1px solid #FFF}
+.sidebar-hold .btn{float:left;clear:both}
+
+#invitation-container input{margin:8px 0}
+#invitation-container h2{padding-left:0}
+
+
 /* resources */
 #resources-tabmenu{border-bottom:none;width:87%;margin:0 auto}
 #resources-tabmenu li{width:16.6%}
@@ -388,6 +432,7 @@ iframe .WordSection1{width:506px}
 #get-started .nav-tabs li img{display:none;position:absolute;top:0;right:-15px}
 #get-started .nav-tabs li a, #get-started .nav-tabs li a:focus, #get-started .nav-tabs li a:hover, #get-started .nav-tabs li.active a{color:#333;outline:none;padding:0;margin:0;width:200px;height:142px;border:none;border-radius:0;text-align:center;font-size:18px;line-height:225px}
 #gs-projectguide-tab a{background:url(../images/getstarted/gtstrtd_nav_1.png) no-repeat -11px 0}
+#gs-server .btn-primary{min-width:200px}
 #gs-ios-tab a{background:url(../images/getstarted/gtstrtd_nav_ios.png) no-repeat -13px 0}
 #gs-server-tab a{background:url(../images/getstarted/gtstrtd_nav_srvr.png) no-repeat -13px 0}
 #gs-android-tab a{background:url(../images/getstarted/gtstrtd_nav_andrd.png) no-repeat -13px 0}
@@ -409,6 +454,7 @@ iframe .WordSection1{width:506px}
 .guide-content .btn{margin-top:16px}
 .guide-content .btn.dbl{margin-top:0;margin-bottom:4px}
 .guide-content .accordion-toggle{color:#333;padding:0 15px}
+.guide-content .accordion-toggle .btn{float:right}
 .guide-content .accordion-group{border:none}
 .guide-content .accordion-heading p{margin:0 15px}
 .guide-content .accordion-body{margin-top:8px}

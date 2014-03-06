@@ -12,8 +12,10 @@ var AccountManager = require('../lib/AccountManager')
 , fs = require('fs')
 , jiraNewIssue = require('../lib/config/JiraNewIssue')
 , _ = require('underscore')
-, sanitize = require('validator').sanitize
+, validator = require('validator')
+, sanitize = validator.sanitize
 , JiraApi = require('jira').JiraApi
+, recaptcha = require('simple-recaptcha')
 , packageJSON = require('../package.json');
 
 module.exports = function(app){
@@ -41,6 +43,9 @@ module.exports = function(app){
     app.post('/rest/login', function(req, res){
         AccountManager.manualLogin(req.body.name, req.body.password, function(e, user){
             if(user){
+                delete user.password;
+                req.session.user = user;
+                winston.verbose('Tracking: user "' + user.email + '" logged in'+ (req.session.entryPoint));
                 res.send('SUCCESS', 200);
             }else{
                 res.send(e, 401);
@@ -55,7 +60,8 @@ module.exports = function(app){
         }else{
             winston.verbose('Tracking: user "' + req.session.user.email + '" logged out');
             req.session.destroy(function(){
-                res.redirect('/');
+                res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+                res.redirect('back');
             });
         }
     });
@@ -295,7 +301,33 @@ module.exports = function(app){
 //        });
 //    });
 
-    app.post('/rest/submitFeedback', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.post('/rest/submitFeedback', function(req, res){
+        if(isAuthenticated(req) === false && !req.body.fullname){
+            res.send('required-field-missing', 400);
+        }else if(isAuthenticated(req) === false && (!req.body.emailaddress || !validator.validators.isEmail(req.body.emailaddress))){
+            res.send('invalid-email', 400);
+        }else if(!req.body.sub || !req.body.msg){
+            res.send('required-field-missing', 400);
+        }else{
+            if(isAuthenticated(req) === false)
+                recaptcha(ENV_CONFIG.reCAPTCHA.privateKey, req.ip, req.body.recaptcha_challenge_field, req.body.recaptcha_response_field, function(e){
+                    if(e){
+                        res.send('captcha-failed', 400);
+                    }else{
+                        sendJira(req, res);
+                    }
+                });
+            else{
+                sendJira(req, res);
+            }
+        }
+    });
+
+    function isAuthenticated(req){
+        return (req.session && req.session.user && req.session.user.activated === true && (req.session.user.userType == 'admin' || req.session.user.userType == 'developer')) || false;
+    }
+
+    function sendJira(req, res){
         var jira = new JiraApi('https', ENV_CONFIG.Jira.host, ENV_CONFIG.Jira.port, ENV_CONFIG.Jira.user, ENV_CONFIG.Jira.password, ENV_CONFIG.Jira.version);
         jiraNewIssue.fields.summary = sanitize(req.body.sub).xss();
         jiraNewIssue.fields.labels = ['MCI', req.body.type == 'Comment' ? 'COMMENT' : 'QUESTION', ENV_CONFIG.Email.appUrl];
@@ -303,9 +335,9 @@ module.exports = function(app){
         jiraNewIssue.fields.issuetype = {
             id : req.body.type == 'Comment' ? '4' : '2'
         };
-        jiraNewIssue.fields['customfield_10950'] = req.session.user.firstName +' '+ req.session.user.lastName;
-        jiraNewIssue.fields['customfield_10951'] = req.session.user.email;
-        jiraNewIssue.fields['customfield_10751'] = ENV_CONFIG.Email.appUrl+'/admin#/users/'+req.session.user.magnetId;
+        jiraNewIssue.fields['customfield_10950'] = isAuthenticated(req) === false ? req.body.fullname : req.session.user.firstName +' '+ req.session.user.lastName;
+        jiraNewIssue.fields['customfield_10951'] = isAuthenticated(req) === false ? req.body.emailaddress : req.session.user.email;
+        jiraNewIssue.fields['customfield_10751'] = isAuthenticated(req) === false ? 'unregistered-user' : ENV_CONFIG.Email.appUrl+'/admin#/users/'+req.session.user.magnetId;
         var utc = new Date().toISOString();
         jiraNewIssue.fields['customfield_10752'] = utc.slice(0, utc.lastIndexOf('.'))+'.730-0700';
         jira.addNewIssue(jiraNewIssue, function(e, issue){
@@ -313,11 +345,11 @@ module.exports = function(app){
                 winston.error('Tracking: feedback submission failed: ', e, jiraNewIssue);
                 res.send('error', 400);
             }else{
-                winston.verbose('Tracking: user "' + req.session.user.email + '" submitted feedback.');
+                winston.verbose('Tracking: user "' + (req.body.fullname || req.session.user.email) + '" submitted feedback.');
                 res.send('ok', 200);
             }
         });
-    });
+    }
 
     app.post('/rest/getCredentials', function(req, res){
         AccountManager.manualLogin(req.param('email'), req.param('password'), function(e, user){
@@ -348,7 +380,25 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/startRegistration', function(req, res) {
+    app.post('/rest/startRegistration', function(req, res){
+        if(isAuthenticated(req) === false){
+            if(!req.body.recaptcha_challenge_field || !req.body.recaptcha_response_field){
+                res.send('captcha-failed', 400);
+            }else{
+                recaptcha(ENV_CONFIG.reCAPTCHA.privateKey, req.ip, req.body.recaptcha_challenge_field, req.body.recaptcha_response_field, function(e){
+                    if(e){
+                        res.send('captcha-failed', 400);
+                    }else{
+                        registerGuest(req, res);
+                    }
+                });
+            }
+        }else{
+            registerGuest(req, res);
+        }
+    });
+
+    function registerGuest(req, res){
         UserManager.registerGuest({
             firstName : stripChars(req.body.firstName),
             lastName : stripChars(req.body.lastName),
@@ -364,8 +414,19 @@ module.exports = function(app){
             } else {
                 res.send(registrationStatus, 400);
             }
+            if(isAuthenticated(req) === false)
+                recaptcha(ENV_CONFIG.reCAPTCHA.privateKey, req.ip, req.body.recaptcha_challenge_field, req.body.recaptcha_response_field, function(e){
+                    if(e){
+                        res.send('captcha-failed', 400);
+                    }else{
+                        sendJira(req, res);
+                    }
+                });
+            else{
+                sendJira(req, res);
+            }
         });
-    });
+    }
 
     app.put('/rest/users/:magnetId/approve', UserManager.checkAuthority(['admin'], true), function(req, res) {
         UserManager.approveUser({

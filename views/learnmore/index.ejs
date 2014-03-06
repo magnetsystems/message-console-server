@@ -1,0 +1,62 @@
+<div id="learnmore" class="row-fluid">
+    <div class="clearfix page-view">
+        <h4>Custom Built Software for Your Mobile Apps</h4>
+
+        <p class="subhead">Mobile demands a new approach to app development.<p>
+
+        <div class="row-fluid">
+
+            {{ if(typeof registerPanel != 'undefined' && typeof sessionUser == 'undefined'){ }}
+            <div class="span9 content">
+                {{ } }}
+
+                <img class="learnmore-mainimg" src="/images/learnmore/factory-main.png" alt="main factory image" />
+
+                <p>The traditional one-size-fits-all model no longer applies. Every mobile app uniquely integrates with its own set of web services and data sources and presents them through an engaging and relevant user experience. Developers should focus on designing the user interface and experience of mobile apps, and not worry about the back-end server infrastructure.</p>
+
+                <p>We take care of the hard part of building the cloud-based Mobile App Server and the matching Mobile App SDK so you can focus on building great mobile apps.</p>
+
+                <p>Just specify requirements for your mobile app and, within a few minutes, you’re ready to use the Mobile App SDK in your favorite language to begin building your mobile app within your favorite IDE.</p>
+
+                <p>When you are ready, test your mobile app by instantly deploying the Mobile App Server Runtime locally or in the cloud. Why wait days or weeks for your IT to setup a simple server instance? You can do it yourself.</p>
+
+                <div class="option-columns row-fluid">
+
+                    <div class="span4">
+                        <div class="column-title">
+                            Mobile Developers
+                        </div>
+                        <img src="/images/learnmore/developers-mobile.png" alt="mobile developers">
+                        <p>Quickly build great mobile apps natively in Objective C, Android, or JavaScript.</p>
+                        <a class="btn btn-primary" href="/learn-more/mobile/"> Learn how </a>
+                    </div>
+
+                    <div class="span4">
+                        <div class="column-title">
+                            Server Developers
+                        </div>
+                        <img src="/images/learnmore/developers-server.png" alt="server developers">
+                        <p>Easily extend the server with new capabilities to support mobile apps.</p>
+                        <a class="btn btn-primary" href="/learn-more/server/"> Learn how </a>
+                    </div>
+
+                    <div class="span4">
+                        <div class="column-title">
+                            IT Admins
+                        </div>
+                        <img src="/images/learnmore/developers-it.png" alt="IT admins">
+                        <p>Reliably deploy the server in the cloud and manage app delivery for employees.</p>
+                        <a class="btn btn-primary" href="/learn-more/admin/"> Learn how </a>
+                    </div>
+                </div>
+
+                {{ if(typeof registerPanel != 'undefined' && typeof sessionUser == 'undefined'){ }}
+            </div>
+            {{- registerPanel }}
+            {{ } }}
+
+        </div>
+
+
+    </div>
+</div>

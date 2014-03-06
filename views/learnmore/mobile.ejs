@@ -1,0 +1,36 @@
+<div id="learnmore" class="row-fluid">
+    <div class="clearfix page-view">
+        <h4>Mobile Developers</h4>
+
+        <div class="row-fluid">
+
+            {{ if(typeof registerPanel != 'undefined' && typeof sessionUser == 'undefined'){ }}
+            <div class="span9 content">
+            {{ } }}
+
+                <img class="learnmore-mainimg" src="/images/learnmore/factory-mobile.png" alt="mobile developers main flow" />
+
+                <p>
+                    Get a head start on creating great mobile apps. You can focus on building lighter-weight apps that deliver an engaging user experience through design and user interaction, rather than spending time writing complex framework software  just to enable basic features.
+                </p>
+
+                <p><strong>Simplify your development process for Mobile Apps</strong><br />
+
+                <ul>
+                    <li>Identify desired enterprise applications and web services to use in your mobile app</li>
+                    <li>Select the desired mobile features like notification, encryption, and data collection that you want to enable for your specific app</li>
+                    <li>Get a customized Mobile Server SDK in Objective C or Android that provides direct access to those applications and web services along with the specified mobile features through easy-to-use APIs</li>
+                    <li>Using the Mobile Server SDK, build your app in your favorite IDE, such as Xcode, Eclipse, or IntelliJ</li>
+                    <li>Test your mobile app against a cloud-based Mobile App Server Runtime that automatically takes care of all the back-end interactions and mobile features for your app</li>
+                </ul>
+
+            {{ if(typeof registerPanel != 'undefined' && typeof sessionUser == 'undefined'){ }}
+            </div>
+            {{- registerPanel }}
+            {{ } }}
+
+        </div>
+
+
+    </div>
+</div>

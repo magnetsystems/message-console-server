@@ -72,7 +72,7 @@
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-ios-1" href="#acc-ios-1-inner">
                                         <b>Start with Magnet Jumpstart App</b>
-                                        <i class="icon icon-chevron-down"></i>
+                                        <button class="btn"><i class="icon icon-chevron-down"></i></button>
                                     </a>
                                     <p>Get started quickly using the Jumpstart App as a template for your development
                                         by downloading the Jumpstart App for iOS from GitHub. For more detailed information,
@@ -134,7 +134,7 @@
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-ios-2" href="#acc-ios-2-inner">
                                         <b>Start with your Own App</b>
-                                        <i class="icon icon-chevron-down"></i>
+                                        <button class="btn"><i class="icon icon-chevron-down"></i></button>
                                     </a>
                                     <p>The Mobile Server SDK for iOS provides various Magnet features. Import the Magnet iOS
                                     SDK into your own iOS app to leverage these features.</p>
@@ -146,6 +146,9 @@
                                             <li>Xcode 5.0.1 and higher</li>
                                             <li>CocoaPods</li>
                                         </ol>
+                                        <h5>Download the Mobile Server SDK for iOS</h5>
+                                        <p>Visit the <a href="https://github.com/magnetsystems/magnet-sdk-ios">Mobile Server SDK GitHub</a> for download instructions.</p>
+
                                         <h5>Import the Mobile Server SDK for iOS into your own iOS app</h5>
                                         <p>Install CocoaPods if not yet installed.</p>
                                         <pre>$ sudo gem install cocoapods</pre>
@@ -164,6 +167,7 @@
                                         <p><b>Note:</b> Please note that if your installation fails, it may be because you are installing with a version of Git
                                             lower than CocoaPods is expecting. Please ensure that you are running Git &gt;= 1.8.0 by executing git --version.
                                             You can get a full picture of the installation  details by executing pod install --verbose.</p>
+                                        <p>Refer to README in downloaded SDK for more details.</p>
                                         <h5>Add custom Magnet API libraries</h5>
                                         <p>To install custom Magnet API libraries into your project, drag and drop the API library
                                             anywhere inside the project.</p>
@@ -194,7 +198,7 @@
                         <div class="accordion-heading">
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-javascript-1" href="#acc-javascript-1-inner">
                                 <b>Start with Magnet Jumpstart App</b>
-                                <i class="icon icon-chevron-down"></i>
+                                <button class="btn"><i class="icon icon-chevron-down"></i></button>
                             </a>
                             <p>Get started quickly using the Jumpstart App as a template for your development
                                 by downloading the Jumpstart App for JavaScript from GitHub. For more detailed information,
@@ -324,25 +328,16 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
                         <div class="accordion-heading">
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-javascript-2" href="#acc-javascript-2-inner">
                                 <b>Start with your Own App</b>
-                                <i class="icon icon-chevron-down"></i>
+                                <button class="btn"><i class="icon icon-chevron-down"></i></button>
                             </a>
                             <p>The Mobile Server SDK for JavaScript provides various Magnet features. Import the Magnet JavaScript
                                 SDK into your own Phonegap, Node.js, or web application to leverage these features.</p>
                         </div>
                         <div id="acc-javascript-2-inner" class="accordion-body collapse">
                             <div class="accordion-inner">
-                                <h5>Download the JavaScript SDK from GitHub.</h5>
-                                <ol>
-                                    <li>
-                                        Download and install Git from the <a href="http://git-scm.com/" target="_blank">Git website</a>.
-                                    </li>
-                                    <li>
-                                        <p>From <b>Terminal</b>, navigate to the directory where you would like to download the SDK
-                                            and clone the project using the following command.</p>
-                                        <pre>$ git clone https://github.com/magnetsystems/magnet-javascript-sdk.git</pre>
-                                    </li>
-                                    <li>Read the instructions below to import the Mobile Server SDK for JavaScript into the type of client of your choosing.</li>
-                                </ol>
+                                <h5>Download the Mobile Server SDK for JavaScript</h5>
+                                <p>Visit the <a href="https://github.com/magnetsystems/magnet-sdk-javascript">Mobile Server SDK GitHub</a> for download instructions.</p>
+
                                 <h5>Import the SDK into your own Phonegap app</h5>
                                 <p>Download and place magnet-sdk.js into a directory within your project.
                                     In your HTML file, add a script tag reference to the file.</p>
@@ -358,7 +353,7 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
 &lt;/html&gt;</pre>
                                 <h5>Import the SDK into your own Node.js app</h5>
                                 <p>From command line, navigate to the root directory of a node.js project. Place the magnet-sdk.js into a directory
-                                    with your project. You will need to reference the SDK within your application logic as shown below.</p>
+                                    with your project. You will need to reference the SDK within your application logic as shown below. </p>
                                 <pre>var MagnetJS = require('./lib/magnet-sdk');</pre>
 
                                 <h5>Import the SDK into your own Web application</h5>
@@ -374,6 +369,8 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
     &lt;script type="text/javascript" src="js/magnet-sdk.js"&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</pre>
+
+                                <p>Refer to README in downloaded SDK for more details.</p>
 
                                 <h5>Add custom Magnet API libraries into a Phonegap or web browser app</h5>
                                 <ol>
@@ -436,7 +433,9 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
                                 Configure your app, choose from a list of sample services, and include your
                                 own APIs to generate a Magnet Mobile App Project Profile (.mapp file).
                             </p>
-                            <a href="/dev/" class="btn btn-primary" style="margin-bottom:16px">Launch Project Wizard</a>
+                            <div style="margin-left:73px">
+                                <a href="/dev/" class="btn btn-primary protectedresource">Launch Project Wizard</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -456,7 +455,7 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-server-2" href="#acc-server-2-inner">
                                         <b>Install and Run the Magnet Mobile App Builder</b>
-                                        <i class="icon icon-chevron-down"></i>
+                                        <button class="btn"><i class="icon icon-chevron-down"></i></button>
                                     </a>
                                     <p>Using your Magnet Mobile App Project Profile (.mapp), the Magnet Mobile App Builder creates the mobile
                                         and server project files to be used for development.</p>
@@ -515,7 +514,7 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-server-3" href="#acc-server-3-inner">
                                         <b>Create and Build Your Mobile App Project</b>
-                                        <i class="icon icon-chevron-down"></i>
+                                        <button class="btn"><i class="icon icon-chevron-down"></i></button>
                                     </a>
                                     <p>Create and build your Mobile App Project using the Mobile App Project Profile you generated using the Project Wizard.</p>
                                 </div>
@@ -558,7 +557,7 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-server-4" href="#acc-server-4-inner">
                                         <b>Run your Magnet Mobile App Server Runtime</b>
-                                        <i class="icon icon-chevron-down"></i>
+                                        <button class="btn"><i class="icon icon-chevron-down"></i></button>
                                     </a>
                                     <p>Deploy your Magnet Mobile App Server Runtime to your local environment.</p>
                                 </div>
@@ -599,7 +598,7 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-server-5" href="#acc-server-5-inner">
                                         <b>Extend your Magnet Mobile App Server Runtime</b>
-                                        <i class="icon icon-chevron-down"></i>
+                                        <button class="btn"><i class="icon icon-chevron-down"></i></button>
                                     </a>
                                     <p>Check the existing controllers and learn how to add your own custom controllers.</p>
                                 </div>
@@ -647,7 +646,7 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-android-1" href="#acc-android-1-inner">
                                         <b>Start with Magnet Jumpstart App</b>
-                                        <i class="icon icon-chevron-down"></i>
+                                        <button class="btn"><i class="icon icon-chevron-down"></i></button>
                                     </a>
                                     <p>Get started quickly using the Jumpstart App as a template for your development
                                     by downloading the Jumpstart App for Android from GitHub. For more detailed information,
@@ -671,6 +670,9 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
                                             </li>
                                             <li>
                                                 Browse to &quot;jumpstart-android&quot; project directory and select it as the &quot;Root Directory&quot;.
+                                            </li>
+                                            <li> Regenerate Magnet platform service mapping library using shell script, <b>install-lib.sh</b>:<br />
+                                                <pre>$ sh ./sdk-submodule/magnet-tools/install-libs.sh ./sdk-submodule/libproject/2.2.1 ./libs</pre>
                                             </li>
                                             <li>
                                                 Clean and build JumpstartActivity and OAuthActivityFlow projects using Eclipse.
@@ -712,13 +714,18 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
                                 <div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#acc-android-2" href="#acc-android-2-inner">
                                         <b>Start with your Own App</b>
-                                        <i class="icon icon-chevron-down"></i>
+                                        <button class="btn"><i class="icon icon-chevron-down"></i></button>
                                     </a>
-                                    <p>The Mobile Server SDK for Android provides various Magnet features. Import the Magnet Android
+                                    <p>The Mobile Server SDK for Android provides various Magnet features. Import the 
                                     SDK into your own Android app to leverage these features.</p>
                                 </div>
                                 <div id="acc-android-2-inner" class="accordion-body collapse">
                                     <div class="accordion-inner">
+
+                                        <h5>Download the Mobile Server SDK for Android</h5>
+                                        <p>Visit the <a href="https://github.com/magnetsystems/magnet-sdk-android">Mobile Server SDK GitHub</a> for download instructions.</p>
+
+
                                         <h5>Import the Mobile Server SDK for Android into your own Android app</h5>
                                         <ol>
                                             <li>
@@ -728,6 +735,8 @@ MagnetJS.define('../lib/magnet-controllers');</pre>
                                                 <pre>$ sh ../magnet-sdk-android/magnet-tools/install-libs.sh ../magnet-sdk-android/libproject/2.2.1 ./libs</pre>
                                             </li>
                                         </ol>
+
+                                        <p>Refer to README in downloaded SDK for more details.</p>
 
                                         <h5>Add custom Magnet API libraries</h5>
                                         <p>In order to use custom controller APIs, the library must be integrated to your application build

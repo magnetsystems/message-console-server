@@ -11,14 +11,14 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             this.eventPubSub = _.extend({}, Backbone.Events);
             this.cookies = new Cookie();
             // session timeout notification is disabled
-            this.sessionMgr = new SessionManager(this.cookies);
+            //this.sessionMgr = new SessionManager(this.cookies);
             $(document).ajaxComplete(function(e, xhr){
                 if(xhr.status == 278){
                     window.location.href = '/login/';
                 }else if(xhr.status == 279){
                     window.location.href = '/login/?status=locked';
                 }else{
-                    me.sessionMgr.reset();
+                    //me.sessionMgr.reset();
                 }
             });
             // init HTTP request methods
