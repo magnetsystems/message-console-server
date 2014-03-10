@@ -309,7 +309,7 @@ module.exports = function(app){
         }else if(!req.body.sub || !req.body.msg){
             res.send('required-field-missing', 400);
         }else{
-            if(isAuthenticated(req) === false)
+            if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true)
                 recaptcha(ENV_CONFIG.reCAPTCHA.privateKey, req.ip, req.body.recaptcha_challenge_field, req.body.recaptcha_response_field, function(e){
                     if(e){
                         res.send('captcha-failed', 400);
@@ -381,7 +381,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/startRegistration', function(req, res){
-        if(isAuthenticated(req) === false){
+        if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true){
             if(!req.body.recaptcha_challenge_field || !req.body.recaptcha_response_field){
                 res.send('captcha-failed', 400);
             }else{
@@ -414,7 +414,7 @@ module.exports = function(app){
             } else {
                 res.send(registrationStatus, 400);
             }
-            if(isAuthenticated(req) === false)
+            if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true)
                 recaptcha(ENV_CONFIG.reCAPTCHA.privateKey, req.ip, req.body.recaptcha_challenge_field, req.body.recaptcha_response_field, function(e){
                     if(e){
                         res.send('captcha-failed', 400);

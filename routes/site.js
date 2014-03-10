@@ -27,7 +27,8 @@ module.exports = function(app){
             locals : {
                 title        : 'Support',
                 activePage   : 'support',
-                sessionUser  : req.session.user
+                sessionUser  : req.session.user,
+                captcha      : ENV_CONFIG.reCAPTCHA.enabled
             }
         });
     });
@@ -170,7 +171,8 @@ module.exports = function(app){
                 activePage  : '',
                 userEmail   : '',
                 userCompany : '',
-                countries   : Countries
+                countries   : Countries,
+                captcha     : ENV_CONFIG.reCAPTCHA.enabled
             }
         });
     }
