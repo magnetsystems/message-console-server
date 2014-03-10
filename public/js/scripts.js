@@ -461,7 +461,10 @@ AJAXLogin.prototype.login = function(obj){
         contentType : 'application/x-www-form-urlencoded',
         data        : obj
     }).done(function(){
-        window.location.reload(true);
+        if(window.location.href.indexOf('/login') == -1)
+            window.location.reload(true);
+        else
+            window.location.href = '/';
     }).fail(function(xhr){
         endLoading(me.domId);
         if(xhr.responseText == 'invalid-login')
@@ -1061,13 +1064,15 @@ Validator.prototype.hideError = function(){
     $('#'+this.domId+' .modal_errors').hide()
 }
 Validator.prototype.validateLogin = function(){
-	if($('#username').val() == ''){
+    var user = $('#'+this.domId+' #username');
+    var pass = $('#'+this.domId+' #password');
+	if(user.val() == ''){
 		this.showError('Required Field Missing', 'Please enter a valid email address');
-        $('#username').closest('.control-group').addClass('error');
+        user.closest('.control-group').addClass('error');
 		return false;
-	}else if($('#password').val() == ''){
+	}else if(pass.val() == ''){
 		this.showError('Required Field Missing', 'Please enter a valid password');
-        $('#password').closest('.control-group').addClass('error');
+        pass.closest('.control-group').addClass('error');
 		return false;
 	}else{
 		return true;
