@@ -454,7 +454,7 @@ iframe .WordSection1{width:506px}
 .guide-content .btn{margin-top:16px}
 .guide-content .btn.dbl{margin-top:0;margin-bottom:4px}
 .guide-content .accordion-toggle{color:#333;padding:0 15px}
-.guide-content .accordion-toggle .btn{}
+.guide-content .accordion-toggle .btn{float:right}
 .guide-content .accordion-group{border:none}
 .guide-content .accordion-heading p{margin:0 15px}
 .guide-content .accordion-body{margin-top:8px}
