@@ -14,7 +14,7 @@ body{min-width:980px;width:100%;margin:0;padding:0;border:0;background:url(../im
 .site-user-prefix{color:#9e9e9e;font-size:16px;font-weight:normal}
 .site-user{color:#fff;font-size:16px;font-weight:bold}
 .logo_container{position:absolute;top:10px;left:10px;color:#fff}
-.logo_container a{text-decoration:none;color:#fff}
+.logo_container a{text-decoration:none;color:#fff;float:left}
 .logo_container img{float:left;margin-right:10px}
 .logo_container h4{float:left;font-size:19px;margin-top:6px}
 .title_container{margin:0 auto;width:580px}
@@ -102,8 +102,8 @@ body{min-width:980px;width:100%;margin:0;padding:0;border:0;background:url(../im
 .generalMsg{padding:20px}
 .clear-fix{clear:both}
 
-.protectedresourceinfo{margin-top:2px;font-size:13px;display:block;border:solid 1px #bbb;background:#ddd;padding:2px 4px;width:118px}
-.protectedresourceinfo i{margin-right:4px}
+.protectedresourceinfo{margin-top:2px;font-size:13px;display:block;border:solid 1px #bbb;background:#ddd;padding:2px 4px;width:11px}
+.protectedresourceinfo i{margin-top:3px;margin-right:4px}
 
 /* global */
 
