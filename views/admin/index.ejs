@@ -21,18 +21,23 @@
             <img src="../images/heading.png" alt="Developer Factory" /><h4>Developer Factory Administrator</h4>
         </a>
     </div>
-    <div class="control-buttons hidden">
-        <a href="#" id="user-panel-toggle"><i class="icon-chevron-down icon-white"></i><span id="username-placeholder"></span></a>
+    <div class="control-buttons">
+        <a href="#" id="user-panel-toggle"><i class="icon-chevron-down icon-white"></i><span id="username-placeholder">{{= sessionUser.email }}</span></a>
     </div>
-</div>
-<div id="user-panel" style="display:none">
-    <div class="col">
-        <span class="user-username"></span><br />
-        <span class="user-company"></span>
+    {{ if(typeof sessionUser != 'undefined'){ }}
+    <div id="user-panel" style="display:none">
+        <div class="col">
+            <span class="user-username">{{= sessionUser.email }}</span><br />
+            <span class="user-company">{{= sessionUser.companyName }}</span>
+        </div>
+        <div class="col2">
+            <a href="/profile/">Edit Profile</a>
+        </div>
+        <div class="btns">
+            <a href="/logout" class="btn btn-primary">Log Out</a>
+        </div>
     </div>
-    <div class="btns">
-        <a href="#/logout" class="btn btn-primary">Log Out</a>
-    </div>
+    {{ } }}
 </div>
 <div id="admin" class="page hidden">
     <div class="row-fluid">
@@ -45,6 +50,7 @@
                 <li id="mgmt-invitations-tab"><a href="#/invitations">Invitations</a></li>
                 <li id="mgmt-events-tab"><a href="#/events">Logging</a></li>
                 <li id="mgmt-announcements-tab"><a href="#/announcements">Announcements</a></li>
+                <li id="mgmt-cms-tab"><a href="#/cms">CMS</a></li>
                 <li id="mgmt-actions-tab"><a href="#/actions">Administration</a></li>
             </ul>
             <div class="tab-content">
@@ -92,6 +98,31 @@
                                 <input type="text" name="hyperlink" class="span12" placeholder="Hyperlink">
                                 <br />
                                 <button id="create-announcement" class="btn">Create</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="mgmt-cms">
+                    <h3>Content Management</h3>
+                    <div class="row-fluid">
+                        <div id="" class="span2">
+                            <h5>Content List</h5>
+                            <div id="cms-menu"></div>
+                        </div>
+                        <div class="span10">
+                            <div id="cms-actions">
+                                <button did="edit" class="cms-button btn btn-primary">Edit Content</button>
+                                <button did="save" class="cms-editing-button btn btn-primary" style="display:none">Save Updates</button>
+                                <button did="preview" class="cms-editing-button btn btn-primary" style="display:none">Preview</button>
+                                <button did="cancel" class="cms-editing-button btn" style="display:none">Cancel</button>
+                            </div>
+                            <h5>
+                                Content Editor  <span id="cms-content-title-span"></span>
+                            </h5>
+                            <div id="cms-content">
+                                <!--<textarea id="cms-editable-section" cols="100" rows="10"></textarea>-->
+                                <div id="cms-editable-section" style="display:none"></div>
+                                <iframe id="cms-preview"></iframe>
                             </div>
                         </div>
                     </div>
@@ -280,14 +311,14 @@
     <td><h4>CloudAccounts</h4></td>
     <td>
         <% _.each(col, function(cloudAccount, i){ %>
-        <table class="table table-bordered table-striped table-hover">
+        <table did="<%- cloudAccount.attributes.magnetId %>" class="table table-bordered table-striped table-hover">
             <tr>
                 <td>Owner Type</td>
                 <td><%- cloudAccount.attributes.ownerType %></td>
             </tr>
             <tr>
                 <td>Name</td>
-                <td><%- cloudAccount.attributes.name %></td>
+                <td class="cloudAccountName"><%- cloudAccount.attributes.name %></td>
             </tr>
             <tr>
                 <td>Provider</td>
@@ -299,11 +330,23 @@
             </tr>
             <tr>
                 <td>Access Key ID</td>
-                <td><%- cloudAccount.attributes.accessKeyId %></td>
+                <td>
+                    <% if(cloudAccount.attributes.enabled === true){ %>
+                        <%- cloudAccount.attributes.accessKeyId %>
+                    <% }else{ %>
+                        <b class="redtxtsm">Access Id has been revoked.</b>
+                    <% } %>
+                </td>
             </tr>
             <tr>
                 <td>Secret Access Key</td>
-                <td><%- cloudAccount.attributes.secretAccessKey %></td>
+                <td>
+                    <% if(cloudAccount.attributes.enabled === true){ %>
+                    <%- cloudAccount.attributes.secretAccessKey %>
+                    <% }else{ %>
+                    <b class="redtxtsm">Secret Key has been revoked.</b>
+                    <% } %>
+                </td>
             </tr>
             <tr>
                 <td>Created On</td>
@@ -312,6 +355,13 @@
             <tr>
                 <td>Last Updated</td>
                 <td><%- cloudAccount.attributes.updatedAt %></td>
+            </tr>
+            <tr>
+                <td>Actions</td>
+                <td>
+                    <button did="regenerate" class="btn btn-primary">Regenerate Keys</button>
+                    <% if(cloudAccount.attributes.enabled === true){ %><button did="revoke" class="btn btn-primary">Revoke</button><% } %>
+                </td>
             </tr>
         </table>
         <% }); %>
@@ -372,6 +422,21 @@
     </table>
     <% }else{ %>
     No announcements have been created.
+    <% } %>
+</script>
+
+<script id="CMSListView" type="text/template">
+    <% if(col && col.length > 0){ %>
+            <ul class="nav nav-list well">
+            <% var cached = ''; _.each(col, function(model, i){ %>
+                <% if(cached != model.folder){ cached = model.folder; %>
+                <li class="nav-header"><%- cached %></li>
+                <% } %>
+                <li><a href="#" class="cmspage" folder="<%- model.folder %>" noLayout="<%- model.noLayout %>" filename="<%- model.filename %>"><%- model.filename %></a></li>
+            <% }); %>
+            </ul>
+    <% }else{ %>
+    No pages are available.
     <% } %>
 </script>
 <script id="tableTmplView" type="text/template">

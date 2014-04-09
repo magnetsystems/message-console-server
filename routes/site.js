@@ -122,12 +122,7 @@ module.exports = function(app){
             locals : {
                 title       : 'My Profile',
                 activePage  : 'profile',
-                sessionUser : req.session.user,
-                userEmail     : req.session.user.email,
-                userFirstName : req.session.user.firstName,
-                userLastName  : req.session.user.lastName,
-                userPhone     : req.session.user.phone,
-                userCompany   : req.session.user.companyName
+                sessionUser : req.session.user
             }
         });
     });
@@ -136,9 +131,7 @@ module.exports = function(app){
         res.render('dev/index', {
             locals : {
                 title       : 'Developers',
-                sessionUser : req.session.user,
-                userEmail   : req.session.user.email,
-                userCompany : req.session.user.companyName
+                sessionUser : req.session.user
             },
             _layoutFile : false
         });
@@ -148,9 +141,7 @@ module.exports = function(app){
         res.render('admin/index', {
             locals : {
                 title       : 'Administration',
-                sessionUser : req.session.user,
-                userEmail   : req.session.user.email,
-                userCompany : req.session.user.companyName
+                sessionUser : req.session.user
             },
             _layoutFile : false
         });
