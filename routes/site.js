@@ -4,8 +4,6 @@ var UserManager = require('../lib/UserManager')
 , ejs = require('ejs')
 , fs = require('fs');
 
-var registerPanel = ejs.render(fs.readFileSync('./views/file-templates/register-panel.ejs', 'ascii'));
-
 module.exports = function(app){
 
 /* PAGES */
@@ -79,7 +77,7 @@ module.exports = function(app){
                 title         : 'Learn More',
                 activePage    : 'learn-more',
                 sessionUser   : req.session.user,
-                registerPanel : registerPanel
+                registerPanel : ejs.render(fs.readFileSync('./views/file-templates/register-panel.ejs', 'ascii'))
             }
         });
     });
@@ -90,7 +88,7 @@ module.exports = function(app){
                 title         : 'Learn More : Mobile Developers',
                 activePage    : 'learn-more',
                 sessionUser   : req.session.user,
-                registerPanel : registerPanel
+                registerPanel : ejs.render(fs.readFileSync('./views/file-templates/register-panel.ejs', 'ascii'))
             }
         });
     });
@@ -101,7 +99,7 @@ module.exports = function(app){
                 title         : 'Learn More : Server Developers',
                 activePage    : 'learn-more',
                 sessionUser   : req.session.user,
-                registerPanel : registerPanel
+                registerPanel : ejs.render(fs.readFileSync('./views/file-templates/register-panel.ejs', 'ascii'))
             }
         });
     });
@@ -112,7 +110,7 @@ module.exports = function(app){
                 title         : 'Learn More : IT Administrators',
                 activePage    : 'learn-more',
                 sessionUser   : req.session.user,
-                registerPanel : registerPanel
+                registerPanel : ejs.render(fs.readFileSync('./views/file-templates/register-panel.ejs', 'ascii'))
             }
         });
     });
