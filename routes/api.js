@@ -354,7 +354,7 @@ module.exports = function(app){
         });
     }
 
-    app.post('/rest/getCredentials', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.post('/rest/getCredentials', function(req, res){
         var clientVersion = req.headers['x_client_version'];
         AccountManager.manualLogin(req.param('email'), req.param('password'), function(e, user){
             if (!user) {
