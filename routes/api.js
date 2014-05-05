@@ -48,7 +48,7 @@ module.exports = function(app){
                 delete user.password;
                 req.session.user = user;
                 winston.verbose('Tracking: user "' + user.email + '" logged in'+ (req.session.entryPoint));
-                res.send('SUCCESS', 200);
+                res.send(req.query.requireUser ? req.session.user.magnetId : 'SUCCESS', 200);
             }else{
                 res.send(e, 401);
             }
