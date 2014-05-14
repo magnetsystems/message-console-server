@@ -169,113 +169,113 @@ module.exports = function(app){
             }
         });
     });
-
-    app.get('/rest/projects/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.read(req.params.magnetId, function(e, project){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send(project, 200);
-            }
-        });
-    });
-
-    app.post('/rest/projects', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.create(req.session.user.magnetId, req.body, function(e, project){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send({
-                    id       : project.id,
-                    magnetId : project.magnetId
-                }, 200);
-            }
-        });
-    });
-
-    app.put('/rest/projects/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.update(req.params.magnetId, req.session.user.id, req.body, function(e, project){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send('ok', 200);
-            }
-        });
-    });
-
-    app.get('/rest/projects/:magnetId/getConfig', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.getConfig(req.params.magnetId, function(e, filePath){
-            if(e){
-                res.send(e, 400);
-            }else{
-                var filename = filePath.slice(filePath.lastIndexOf('/')+1);
-                fs.readFile(filePath, function(e, content){
-                    if(e){
-                        res.writeHead(400);
-                        res.end();
-                    }else{
-                        res.contentType('zip');
-                        res.setHeader('Content-disposition', 'attachment; filename='+filename);
-                        res.end(content, 'utf-8');
-                    }
-                });
-            }
-        });
-    });
-
-    app.post('/rest/projects/:magnetId/uploadAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.storeProjectFile(req.params.magnetId, req, function(e){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send(JSON.stringify({
-                    success : true
-                }), {
-                    'Content-Type' : 'text/plain'
-                }, 200);
-            }
-        });
-    });
-
-    app.post('/rest/projects/:magnetId/removeAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.removeAPNSCertificate(req.params.magnetId, function(e){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send('ok', 200);
-            }
-        });
-    });
-
-    app.get('/rest/projects/:magnetId/webservices', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.getWebServices(req.params.magnetId, function(e, wsdls){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send(wsdls, 200);
-            }
-        });
-    });
-
-    app.post('/rest/projects/:magnetId/addWebServiceURL', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.addWebServiceURL(req.params.magnetId, req.session.user.id, req.body.url, function(e, wsdl){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send(wsdl, 200);
-            }
-        });
-    });
-
-    app.delete('/rest/wsdls/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.removeWebServiceURL(req.params.magnetId, function(e){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send('ok', 200);
-            }
-        });
-    });
+//
+//    app.get('/rest/projects/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.read(req.params.magnetId, function(e, project){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send(project, 200);
+//            }
+//        });
+//    });
+//
+//    app.post('/rest/projects', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.create(req.session.user.magnetId, req.body, function(e, project){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send({
+//                    id       : project.id,
+//                    magnetId : project.magnetId
+//                }, 200);
+//            }
+//        });
+//    });
+//
+//    app.put('/rest/projects/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.update(req.params.magnetId, req.session.user.id, req.body, function(e, project){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send('ok', 200);
+//            }
+//        });
+//    });
+//
+//    app.get('/rest/projects/:magnetId/getConfig', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.getConfig(req.params.magnetId, function(e, filePath){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                var filename = filePath.slice(filePath.lastIndexOf('/')+1);
+//                fs.readFile(filePath, function(e, content){
+//                    if(e){
+//                        res.writeHead(400);
+//                        res.end();
+//                    }else{
+//                        res.contentType('zip');
+//                        res.setHeader('Content-disposition', 'attachment; filename='+filename);
+//                        res.end(content, 'utf-8');
+//                    }
+//                });
+//            }
+//        });
+//    });
+//
+//    app.post('/rest/projects/:magnetId/uploadAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.storeProjectFile(req.params.magnetId, req, function(e){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send(JSON.stringify({
+//                    success : true
+//                }), {
+//                    'Content-Type' : 'text/plain'
+//                }, 200);
+//            }
+//        });
+//    });
+//
+//    app.post('/rest/projects/:magnetId/removeAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.removeAPNSCertificate(req.params.magnetId, function(e){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send('ok', 200);
+//            }
+//        });
+//    });
+//
+//    app.get('/rest/projects/:magnetId/webservices', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.getWebServices(req.params.magnetId, function(e, wsdls){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send(wsdls, 200);
+//            }
+//        });
+//    });
+//
+//    app.post('/rest/projects/:magnetId/addWebServiceURL', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.addWebServiceURL(req.params.magnetId, req.session.user.id, req.body.url, function(e, wsdl){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send(wsdl, 200);
+//            }
+//        });
+//    });
+//
+//    app.delete('/rest/wsdls/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.removeWebServiceURL(req.params.magnetId, function(e){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send('ok', 200);
+//            }
+//        });
+//    });
 
     /* GENERAL */
 

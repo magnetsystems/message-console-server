@@ -125,15 +125,15 @@ module.exports = function(app){
         });
     });
 
-    app.get('/dev', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
-        res.render('dev/index', {
-            locals : {
-                title       : 'Developers',
-                sessionUser : req.session.user
-            },
-            _layoutFile : false
-        });
-    });
+//    app.get('/dev', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+//        res.render('dev/index', {
+//            locals : {
+//                title       : 'Developers',
+//                sessionUser : req.session.user
+//            },
+//            _layoutFile : false
+//        });
+//    });
 
     app.get('/admin', UserManager.checkAuthority(['admin']), function(req, res){
         res.render('admin/index', {

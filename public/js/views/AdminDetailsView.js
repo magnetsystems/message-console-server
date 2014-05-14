@@ -32,7 +32,6 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
             me.entity.fetch({
                 success: function(){
                     me.render('User');
-                    me.fetchProjects();
                     me.fetchCloudAccounts();
                     me.fetchInvitedUsers();
                 }, 

@@ -89,7 +89,7 @@ $(document).ready(function(){
     bindNews();
     bindWatchVideo();
     var docSearch = new DocSearch();
-    var tokens = window.location.href.indexOf('/profile/') != -1 ? new TokenManager() : undefined;
+    //var tokens = window.location.href.indexOf('/profile/') != -1 ? new TokenManager() : undefined;
 });
 
 function adjustUI(){
