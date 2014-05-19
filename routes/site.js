@@ -71,50 +71,6 @@ module.exports = function(app){
         });
     });
 
-    app.get('/learn-more', function(req, res){
-        res.render('learnmore/index', {
-            locals : {
-                title         : 'Learn More',
-                activePage    : 'learn-more',
-                sessionUser   : req.session.user,
-                registerPanel : ejs.render(fs.readFileSync('./views/file-templates/register-panel.ejs', 'ascii'))
-            }
-        });
-    });
-
-    app.get('/learn-more/mobile', function(req, res){
-        res.render('learnmore/mobile', {
-            locals : {
-                title         : 'Learn More : Mobile Developers',
-                activePage    : 'learn-more',
-                sessionUser   : req.session.user,
-                registerPanel : ejs.render(fs.readFileSync('./views/file-templates/register-panel.ejs', 'ascii'))
-            }
-        });
-    });
-
-    app.get('/learn-more/server', function(req, res){
-        res.render('learnmore/server', {
-            locals : {
-                title         : 'Learn More : Server Developers',
-                activePage    : 'learn-more',
-                sessionUser   : req.session.user,
-                registerPanel : ejs.render(fs.readFileSync('./views/file-templates/register-panel.ejs', 'ascii'))
-            }
-        });
-    });
-
-    app.get('/learn-more/admin', function(req, res){
-        res.render('learnmore/admin', {
-            locals : {
-                title         : 'Learn More : IT Administrators',
-                activePage    : 'learn-more',
-                sessionUser   : req.session.user,
-                registerPanel : ejs.render(fs.readFileSync('./views/file-templates/register-panel.ejs', 'ascii'))
-            }
-        });
-    });
-
     app.get('/profile', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('profile/index', {
             locals : {
@@ -124,16 +80,6 @@ module.exports = function(app){
             }
         });
     });
-
-//    app.get('/dev', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
-//        res.render('dev/index', {
-//            locals : {
-//                title       : 'Developers',
-//                sessionUser : req.session.user
-//            },
-//            _layoutFile : false
-//        });
-//    });
 
     app.get('/admin', UserManager.checkAuthority(['admin']), function(req, res){
         res.render('admin/index', {

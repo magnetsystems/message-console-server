@@ -87,7 +87,7 @@ if(app.settings.env == 'development' || app.settings.env == 'test'){
         secret : ENV_CONFIG.App.sessionSecret
     }));
     // protect files and documentation behind login
-    app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/resources\/files\/.*$/));
+//    app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/resources\/files\/.*$/));
     app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/docs\/.*\/.*$/));
     // prioritize router before public directory
     app.use(express.static(__dirname + '/public'));
@@ -112,7 +112,7 @@ app.configure('production', function(){
         winston.info('Requirejs: successfully optimized client javascript');
     });
     // protect files and documentation behind login
-    app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/resources\/files\/.*$/));
+//    app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/resources\/files\/.*$/));
     app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/docs\/.*\/.*$/));
     // prioritize router before public directory, use minified public directory
     app.use(express.static(__dirname + '/public-build'));

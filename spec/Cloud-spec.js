@@ -34,8 +34,8 @@ jasmine.getEnv().defaultTimeoutInterval = 50000;
 //    }
 //});
 
-describe("Cloud allocateCloudAccount", function() {
-    describe("with existing user", function() {
+xdescribe("Cloud allocateCloudAccount", function() {
+    xdescribe("with existing user", function() {
         var userName = "NodeJsTests_" + new Date().getTime() + "@magnet.com";
 
         beforeEach(function(done) {
@@ -78,7 +78,7 @@ describe("Cloud allocateCloudAccount", function() {
     });
 });
 
-describe("Cloud allocateCloudAccount without existing user", function() {
+xdescribe("Cloud allocateCloudAccount without existing user", function() {
     var userName = "NodeJsTests_" + new Date().getTime() + "@magnet.com";
 
     afterEach(function(done) {
@@ -96,7 +96,7 @@ describe("Cloud allocateCloudAccount without existing user", function() {
     });
 });
 
-describe("Cloud allocateCloudAccount generated keys", function() {
+xdescribe("Cloud allocateCloudAccount generated keys", function() {
     var s3 = new AWS.S3({apiVersion: ENV_CONFIG.Cloud.AWS.S3ApiVersion});
     var fileName = 'test.txt';
     var key = ENV_CONFIG.Users.admin.user.magnetId + '/' + fileName;

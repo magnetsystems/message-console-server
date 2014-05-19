@@ -14,7 +14,7 @@ function getHash(str){
     return (out.charAt(out.length-1) == '=' ? out.slice(0, -1) : out);
 }
 
-describe("JumpStartUserManager", function() {
+xdescribe("JumpStartUserManager", function() {
     it("should have no pool if isEnabled is false", function() {
 
         ENV_CONFIG.JumpStart.syncJumpstartDB = false;
@@ -26,7 +26,7 @@ describe("JumpStartUserManager", function() {
     });
 });
 
-describe("JumpStartUserManager", function() {
+xdescribe("JumpStartUserManager", function() {
 
     ENV_CONFIG.JumpStart.syncJumpstartDB = true;
     delete require.cache[require.resolve("../lib/JumpStartUserManager.js")];

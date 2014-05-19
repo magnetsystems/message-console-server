@@ -1,6 +1,5 @@
 var AccountManager = require('../lib/AccountManager')
 , UserManager = require('../lib/UserManager')
-, JumpStartUserManager = require('../lib/JumpStartUserManager')
 , ProjectManager = require('../lib/ProjectManager')
 , ModelManager = require('../lib/ModelManager')
 , EmailService = require('../lib/EmailService')
@@ -161,11 +160,6 @@ module.exports = function(app){
             }else{
                 req.session.user = user;
                 res.send('ok', 200);
-                // Populate JumpStart DB
-                JumpStartUserManager.updateUser(user.email, newPassword, function(err) {
-                    //
-                });
-
             }
         });
     });
@@ -493,10 +487,6 @@ module.exports = function(app){
         }, function(approvalStatus, user) {
             if(approvalStatus == UserManager.BecomeDeveloperStatusEnum.SUCCESSFUL) {
                 res.send(approvalStatus, 200);
-                // Populate JumpStart DB
-                JumpStartUserManager.createUser(user.email, password, function(err) {
-                    //
-                });
             } else {
                 res.send(approvalStatus, 400);
             }
@@ -528,11 +518,6 @@ module.exports = function(app){
                         userId      : req.session.user.id,
                         targetModel : 'User',
                         targetId    : user.id
-                    });
-                    // Populate JumpStart DB
-                    // The following call might fail if the user is not a developer, but thats ok
-                    JumpStartUserManager.deleteUser(user.email, function(err) {
-                        //
                     });
                 }
                 res.send('ok', 200);
@@ -571,10 +556,6 @@ module.exports = function(app){
                     targetId    : user.id
                 });
                 res.send('ok', 200);
-                // Populate JumpStart DB
-                JumpStartUserManager.setActivation(user.email, req.body.activated, function(err) {
-                    //
-                });
             }
         });
     });
@@ -773,10 +754,6 @@ module.exports = function(app){
         }, function(status, user) {
             if(status == UserManager.ResetPasswordEnum.RESET_SUCCESSFUL) {
                 res.send(status, 200);
-                // Populate JumpStart DB
-                JumpStartUserManager.updateUser(user.email, req.body.password, function(err) {
-                    //
-                });
             } else {
                 res.send(status, 400);
             }

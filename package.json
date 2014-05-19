@@ -1,6 +1,6 @@
 {
   "name": "devex-factory",
-  "version": "1.2.0-2",
+  "version": "2.3.0",
   "private": true,
   "dependencies": {
     "ejs": "0.7.1",

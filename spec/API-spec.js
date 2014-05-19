@@ -15,7 +15,7 @@ var developerUser
 , adminCookie
 , adminUser = Transport.extend({}, ENV_CONFIG.Users.admin.user);
 
-describe('API test database setup', function(){
+xdescribe('API test database setup', function(){
 
     developerUser = {
         firstName   : 'Activated',
@@ -126,7 +126,7 @@ describe('API test database setup', function(){
 
 });
 
-describe('/login (form based login)', function(){
+xdescribe('/login (form based login)', function(){
 
     it('should redirect to login page with invalid flag given invalid credentials', function(done){
         Transport.request({
@@ -175,7 +175,7 @@ describe('/login (form based login)', function(){
 
 });
 
-describe('/rest/login (artifactory login)', function(){
+xdescribe('/rest/login (artifactory login)', function(){
 
     it('should fail given invalid credentials', function(done){
         Transport.request({
@@ -224,7 +224,7 @@ describe('/rest/login (artifactory login)', function(){
 
 });
 
-describe('/rest/:model', function(){
+xdescribe('/rest/:model', function(){
 
     var tempAdminUser;
     beforeEach(function(){
@@ -338,7 +338,7 @@ describe('/rest/:model', function(){
 
 });
 
-describe('GET /rest/:model/:id', function(){
+xdescribe('GET /rest/:model/:id', function(){
 
     it('should not allow a developer user to access information about another user', function(done){
         Transport.request({
@@ -405,7 +405,7 @@ describe('GET /rest/:model/:id', function(){
 
 });
 
-describe('PUT /rest/:model/:id', function(){
+xdescribe('PUT /rest/:model/:id', function(){
 
     var testDeveloperUser = Transport.extend({}, developerUser, {
         email : 'testDeveloperUser1'+(Math.round(+new Date()/1000))+'@magnet.com'
@@ -465,7 +465,7 @@ describe('PUT /rest/:model/:id', function(){
 
 });
 
-describe('GET /rest/profile', function(){
+xdescribe('GET /rest/profile', function(){
 
     it('should return 278 session expired error given no session cookie', function(done){
         Transport.request({
@@ -530,7 +530,7 @@ describe('GET /rest/profile', function(){
 });
 
 
-describe('PUT /rest/profile', function(){
+xdescribe('PUT /rest/profile', function(){
 
     var testDeveloperUserCookie, testDeveloperUser = Transport.extend({}, developerUser, {
         email : 'testDeveloperUser2'+(Math.round(+new Date()/1000))+'@magnet.com'
@@ -639,7 +639,7 @@ describe('PUT /rest/profile', function(){
 
 });
 
-describe('GET /rest/projects/:magnetId', function(){
+xdescribe('GET /rest/projects/:magnetId', function(){
 
     var testProject = {
         name        : 'test project name',
@@ -689,7 +689,7 @@ describe('GET /rest/projects/:magnetId', function(){
 
 });
 
-describe('POST /rest/projects', function(){
+xdescribe('POST /rest/projects', function(){
 
     var testProject = {
         name        : 'test project name2',
@@ -738,7 +738,7 @@ describe('POST /rest/projects', function(){
 });
 
 // TODO: only tested positive use case
-describe('PUT /rest/projects/:magnetId', function(){
+xdescribe('PUT /rest/projects/:magnetId', function(){
 
     var testProject = {
         name        : 'test project name',
@@ -806,7 +806,7 @@ describe('PUT /rest/projects/:magnetId', function(){
 });
 
 // TODO: only tested positive use case
-describe('GET /rest/projects/:magnetId/getConfig', function(){
+xdescribe('GET /rest/projects/:magnetId/getConfig', function(){
 
     var testProject = {
         name        : 'test project name 3',
@@ -855,7 +855,7 @@ describe('GET /rest/projects/:magnetId/getConfig', function(){
 });
 
 // TODO: only tested positive use case
-describe('POST /rest/projects/:magnetId/uploadAPNSCertificate', function(){
+xdescribe('POST /rest/projects/:magnetId/uploadAPNSCertificate', function(){
 
     var testProject = {
         name        : 'test project name 4',
@@ -907,7 +907,7 @@ describe('POST /rest/projects/:magnetId/uploadAPNSCertificate', function(){
 });
 
 // TODO: only tested positive use case
-describe('POST /rest/projects/:magnetId/removeAPNSCertificate', function(){
+xdescribe('POST /rest/projects/:magnetId/removeAPNSCertificate', function(){
 
     var testProject = {
         name        : 'test project name 5',
@@ -941,7 +941,7 @@ describe('POST /rest/projects/:magnetId/removeAPNSCertificate', function(){
 });
 
 // TODO: only tested positive use case
-describe('POST /rest/projects/:magnetId/addWebServiceURL', function(){
+xdescribe('POST /rest/projects/:magnetId/addWebServiceURL', function(){
 
     var testProject = {
         name        : 'test project name 6',
@@ -988,7 +988,7 @@ describe('POST /rest/projects/:magnetId/addWebServiceURL', function(){
 });
 
 // TODO: only tested positive use case
-describe('GET /rest/projects/:magnetId/webservices', function(){
+xdescribe('GET /rest/projects/:magnetId/webservices', function(){
 
     var testProject = {
         name        : 'test project name 7',
@@ -1035,7 +1035,7 @@ describe('GET /rest/projects/:magnetId/webservices', function(){
 });
 
 // TODO: only tested positive use case
-describe('DELETE /rest/wsdls/:magnetId', function(){
+xdescribe('DELETE /rest/wsdls/:magnetId', function(){
 
     var testProject = {
         name        : 'test project name 8',

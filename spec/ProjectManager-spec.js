@@ -8,7 +8,7 @@ jasmine.getEnv().defaultTimeoutInterval = 30000;
 
 var testProject, testUser, _user, _project, testWSDL, _wsdl;
 
-describe('ProjectManager database setup', function(){
+xdescribe('ProjectManager database setup', function(){
 
     _user = {
         firstName   : 'Pyramid',
@@ -31,7 +31,7 @@ describe('ProjectManager database setup', function(){
 
 });
 
-describe('ProjectManager create', function(){
+xdescribe('ProjectManager create', function(){
 
     beforeEach(function(){
         testUser = _user;
@@ -86,7 +86,7 @@ describe('ProjectManager create', function(){
 
 });
 
-describe('ProjectManager read', function(){
+xdescribe('ProjectManager read', function(){
 
     beforeEach(function(){
         testUser = _user;
@@ -119,7 +119,7 @@ describe('ProjectManager read', function(){
 
 });
 
-describe('ProjectManager update', function(){
+xdescribe('ProjectManager update', function(){
 
     var modifiedTestProject;
 
@@ -183,7 +183,7 @@ describe('ProjectManager update', function(){
 
 });
 
-describe('ProjectManager getConfig', function(){
+xdescribe('ProjectManager getConfig', function(){
 
     beforeEach(function(){
         testProject = _project;
@@ -262,7 +262,7 @@ describe('ProjectManager getConfig', function(){
 
 });
 
-describe('ProjectManager generateAndUpdateState', function(){
+xdescribe('ProjectManager generateAndUpdateState', function(){
 
     it('should fail given an invalid project', function(done){
         ProjectManager.generateAndUpdateState('', function(e){
@@ -294,7 +294,7 @@ describe('ProjectManager generateAndUpdateState', function(){
 
 });
 
-describe('ProjectManager generateConfig', function(){
+xdescribe('ProjectManager generateConfig', function(){
 
     beforeAll(function(done){
         ProjectManager.read(testProject.magnetId, function(e, project){
@@ -331,7 +331,7 @@ describe('ProjectManager generateConfig', function(){
 
 });
 
-describe('ProjectManager createProjectFolders', function(){
+xdescribe('ProjectManager createProjectFolders', function(){
 
     beforeEach(function(){
         testUser = _user;
@@ -368,7 +368,7 @@ describe('ProjectManager createProjectFolders', function(){
 
 });
 
-describe('ProjectManager renderConfig', function(){
+xdescribe('ProjectManager renderConfig', function(){
     var modifiedTestProject, wsdls;
 
     beforeEach(function(){
@@ -432,7 +432,7 @@ describe('ProjectManager renderConfig', function(){
 
 });
 
-describe('ProjectManager createFile', function(){
+xdescribe('ProjectManager createFile', function(){
 
     it('should fail given an invalid file path', function(done){
         ProjectManager.createFile('invalid-path/file.txt', 'valid input', function(e){
@@ -457,7 +457,7 @@ describe('ProjectManager createFile', function(){
 
 });
 
-describe('ProjectManager createFile', function(){
+xdescribe('ProjectManager createFile', function(){
 
     it('should fail given an invalid file path', function(done){
         ProjectManager.createFile('invalid-path/file.txt', 'valid input', function(e){
@@ -492,7 +492,7 @@ describe('ProjectManager createFile', function(){
 
 });
 
-describe('ProjectManager createFolderIfNotExist', function(){
+xdescribe('ProjectManager createFolderIfNotExist', function(){
 
     it('should fail given an invalid path', function(done){
         ProjectManager.createFolderIfNotExist('invalid-path', 'testfolder', function(e){
@@ -515,7 +515,7 @@ describe('ProjectManager createFolderIfNotExist', function(){
 
 });
 
-describe('ProjectManager storeProjectFile', function(){
+xdescribe('ProjectManager storeProjectFile', function(){
 
     beforeEach(function(){
         testUser = _user;
@@ -568,7 +568,7 @@ describe('ProjectManager storeProjectFile', function(){
 
 });
 
-describe('ProjectManager removeAPNSCertificate', function(){
+xdescribe('ProjectManager removeAPNSCertificate', function(){
     var newProject;
 
     beforeEach(function(){
@@ -638,7 +638,7 @@ describe('ProjectManager removeAPNSCertificate', function(){
 
 });
 
-describe('ProjectManager addWebServiceURL', function(){
+xdescribe('ProjectManager addWebServiceURL', function(){
     var url = 'http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?wsdl';
 
     beforeEach(function(){
@@ -683,7 +683,7 @@ describe('ProjectManager addWebServiceURL', function(){
 
 });
 
-describe('ProjectManager removeWebServiceURL', function(){
+xdescribe('ProjectManager removeWebServiceURL', function(){
     var url = 'http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?wsdl';
 
     beforeEach(function(){
@@ -709,7 +709,7 @@ describe('ProjectManager removeWebServiceURL', function(){
 
 });
 
-describe('ProjectManager readWSDL', function(){
+xdescribe('ProjectManager readWSDL', function(){
 
     beforeEach(function(){
         testWSDL = _wsdl;
@@ -734,7 +734,7 @@ describe('ProjectManager readWSDL', function(){
 
 });
 
-describe('ProjectManager getWebServices', function(){
+xdescribe('ProjectManager getWebServices', function(){
 
     it('should fail given an invalid wsdl magnetId', function(done){
         ProjectManager.getWebServices('', function(e){
