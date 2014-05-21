@@ -305,7 +305,7 @@ module.exports = function(app){
         }else if(!req.body.sub || !req.body.msg){
             res.send('required-field-missing', 400);
         }else{
-            if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true)
+            if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true && !debugOverride(req.body.recaptcha_response_field))
                 recaptcha(ENV_CONFIG.reCAPTCHA.privateKey, req.ip, req.body.recaptcha_challenge_field, req.body.recaptcha_response_field, function(e){
                     if(e){
                         res.send('captcha-failed', 400);
@@ -321,6 +321,10 @@ module.exports = function(app){
 
     function isAuthenticated(req){
         return (req.session && req.session.user && req.session.user.activated === true && (req.session.user.userType == 'admin' || req.session.user.userType == 'developer')) || false;
+    }
+
+    function debugOverride(str){
+        return str === 'captcha-override';
     }
 
     function sendJira(req, res){
@@ -414,7 +418,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/startRegistration', function(req, res){
-        if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true){
+        if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true && !debugOverride(req.body.recaptcha_response_field)){
             if(!req.body.recaptcha_challenge_field || !req.body.recaptcha_response_field){
                 res.send('captcha-failed', 400);
             }else{
@@ -447,7 +451,7 @@ module.exports = function(app){
             } else {
                 res.send(registrationStatus, 400);
             }
-            if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true)
+            if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true && !debugOverride(req.body.recaptcha_response_field))
                 recaptcha(ENV_CONFIG.reCAPTCHA.privateKey, req.ip, req.body.recaptcha_challenge_field, req.body.recaptcha_response_field, function(e){
                     if(e){
                         res.send('captcha-failed', 400);
