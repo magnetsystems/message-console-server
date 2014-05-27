@@ -418,7 +418,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/startRegistration', function(req, res){
-        if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true && !debugOverride(req.body.recaptcha_response_field)){
+        if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true && !debugOverride(req.body.recaptcha_response_field) && !req.body.magnetId){
             if(!req.body.recaptcha_challenge_field || !req.body.recaptcha_response_field){
                 res.send('captcha-failed', 400);
             }else{
@@ -450,17 +450,6 @@ module.exports = function(app){
                 }, 201);
             } else {
                 res.send(registrationStatus, 400);
-            }
-            if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true && !debugOverride(req.body.recaptcha_response_field))
-                recaptcha(ENV_CONFIG.reCAPTCHA.privateKey, req.ip, req.body.recaptcha_challenge_field, req.body.recaptcha_response_field, function(e){
-                    if(e){
-                        res.send('captcha-failed', 400);
-                    }else{
-                        sendJira(req, res);
-                    }
-                });
-            else{
-                sendJira(req, res);
             }
         });
     }
