@@ -1630,18 +1630,19 @@ function GetStartedNavigation(){
     var page = $('#get-started');
     if(page.length){
         if(hash){
-            page.find('.nav-tabs li').removeClass('active');
-            page.find('.tab-pane').removeClass('active');
+            page.find('.nav-tabs[did="gs-nav-main"] li').removeClass('active');
+            page.find('.tab-content[did="gs-nav-main"] > .tab-pane').removeClass('active');
             page.find(hash).addClass('active');
             page.find('.nav-tabs a[href="'+hash+'"]').closest('li').addClass('active');
         }
-        page.find('.nav-tabs li a').click(function(e){
+        page.find('.nav-tabs > li > a').click(function(e){
             e.preventDefault();
             var link = $(e.currentTarget);
             var li = link.closest('li');
             var list = li.closest('.nav-tabs');
+            var did = list.attr('did');
             list.find('li').removeClass('active');
-            page.find('.tab-pane').removeClass('active');
+            page.find('.tab-content[did="'+did+'"] > .tab-pane').removeClass('active');
             page.find(link.attr('href')).addClass('active');
             li.addClass('active');
         });
@@ -1650,8 +1651,9 @@ function GetStartedNavigation(){
             var link = $('.nav-tabs li a[href="'+$(this).attr('href').replace('/get-started/', '')+'"]');
             var li = link.closest('li');
             var list = li.closest('.nav-tabs');
+            var did = list.attr('did');
             list.find('li').removeClass('active');
-            page.find('.tab-pane').removeClass('active');
+            page.find('.tab-content[did="'+did+'"] > .tab-pane').removeClass('active');
             page.find(link.attr('href')).addClass('active');
             li.addClass('active');
         })

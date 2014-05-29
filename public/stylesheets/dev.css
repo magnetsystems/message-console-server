@@ -428,48 +428,48 @@ iframe .WordSection1{width:506px}
 #get-started .tab-pane h5, .support-page h5{font-size:18px;font-weight:bold;margin-top:30px;margin-bottom:43px}
 .support-page h5{margin-bottom:15px}
 #get-started .tab-pane h5 span{margin-left:20px;font-weight:normal;font-size:13px}
-#get-started .nav-tabs{background-color:#e8eced;height:100%;position:absolute;top:0;left:0;border-radius:12px 0 0 12px;width:200px;border:none}
-#get-started .nav-tabs li{position:relative}
-#get-started .nav-tabs li.first{text-align:center;height:85px;display:block;width:100%}
-#get-started .nav-tabs li img{display:none;position:absolute;top:0;right:-15px}
-#get-started .nav-tabs li a, #get-started .nav-tabs li a:focus, #get-started .nav-tabs li a:hover, #get-started .nav-tabs li.active a{color:#333;outline:none;padding:0;margin:0;width:200px;height:142px;border:none;border-radius:0;text-align:center;font-size:18px;line-height:225px}
+#get-started > .nav-tabs{background-color:#e8eced;height:100%;position:absolute;top:0;left:0;border-radius:12px 0 0 12px;width:200px;border:none}
+#get-started > .nav-tabs li{position:relative}
+#get-started > .nav-tabs li.first{text-align:center;height:85px;display:block;width:100%}
+#get-started > .nav-tabs li img{display:none;position:absolute;top:0;right:-15px}
+#get-started > .nav-tabs li a, #get-started > .nav-tabs li a:focus, #get-started > .nav-tabs li a:hover, #get-started > .nav-tabs li.active a{color:#333;outline:none;padding:0;margin:0;width:200px;height:142px;border:none;border-radius:0;text-align:center;font-size:18px;line-height:257px}
 #gs-projectguide-tab a{background:url(../images/getstarted/gtstrtd_nav_1.png) no-repeat -11px 0}
-#gs-server .btn-primary{min-width:200px}
-#gs-ios-tab a{background:url(../images/getstarted/gtstrtd_nav_ios.png) no-repeat -13px 0}
-#gs-server-tab a{background:url(../images/getstarted/gtstrtd_nav_srvr.png) no-repeat -13px 0}
-#gs-android-tab a{background:url(../images/getstarted/gtstrtd_nav_andrd.png) no-repeat -13px 0}
-#gs-javascript-tab a{background:url(../images/getstarted/gtstrtd_nav_js.png) no-repeat -13px 0}
-#get-started .nav-tabs li.active img{display:inline}
-#get-started .nav-tabs li:hover a{background-color:#D7E0E2}
-#get-started .nav-tabs li.active a{background-color:#C1D6E1}
-#get-started .tab-content{margin-left:200px;overflow:visible}
+#get-started > .nav-tabs li.active img{display:inline}
+#get-started > .nav-tabs li:hover a{background-color:#D7E0E2}
+#get-started > .nav-tabs li.active a{background-color:#C1D6E1}
+#get-started > .nav-tabs li div{position:absolute;top:60px;right:5px;font-size:50px}
+#gs-step0-tab a{background:url(../images/getstarted/getstarted_step0.png) no-repeat center center}
+#gs-step1-tab a{background:url(../images/getstarted/getstarted_step1.png) no-repeat center center}
+#gs-step2-tab a{background:url(../images/getstarted/getstarted_step2.png) no-repeat center center}
+#gs-step3-tab a{background:url(../images/getstarted/getstarted_step3.png) no-repeat center center}
+#get-started > .tab-content{margin-left:200px}
+#get-started .tab-content{overflow:visible}
+#get-started .tab-content h4{overflow:visible;color:#333 !important}
 .guide-divider img{margin-bottom:3px;margin-left:68px}
 .guide-divider-empty{height:20px}
-.guide-row{position:relative}
-.guide-row.odd{background:url(../images/getstarted/wizstart_bg_grad.png) repeat-y 0 0;background-color:#eee}
-.guide-row > img{position:absolute;top:0;left:0}
-.guide-content{padding:25px 0 10px}
-.guide-content .row-fluid{margin-left:120px}
-.guide-content .span7{margin-top:7px}
+#gs-step0 .guide-content{padding:25px 0 10px}
+.guide-container{margin-top:60px}
 .guide-step{float:left;font-size:42px;color:#bbb;margin:10px 20px 0 31px;height:82px}
+.guide-content h3{margin:25px 0 20px 0}
+.guide-content h4{color:#333 !important;font-size:17px !important;margin:14px 0 10px 0;font-weight:bold}
 .guide-content span5{position:absolute;top:0;right:0}
 .guide-content .btn{margin-top:16px}
 .guide-content .btn.dbl{margin-top:0;margin-bottom:4px}
-.guide-content .accordion-toggle{color:#333;padding:0 15px}
-.guide-content .accordion-toggle .btn{float:right}
-.guide-content .accordion-group{border:none}
-.guide-content .accordion-heading p{margin:0 15px}
-.guide-content .accordion-body{margin-top:8px}
-.guide-content .accordion-inner{padding:9px 0}
-.guide-content .accordion-inner h5{font-weight:bold;margin:20px 0 20px 0}
-.guide-content .accordion-inner a img{box-shadow:2px 2px 2px #bbb;width:90%;border:solid 2px #999}
-.guide-content .accordion-inner a:hover img{border:solid 2px #333}
 .guide-content .icon{float:right}
-#get-started #gs-default.tab-pane{margin-left:0}
-#gs-default h5{margin-left:36px}
-#gs-default .guide-row.odd{height:112px;margin:6px 0}
-#gs-default .guide-row > img{float:left;margin:39px 0;position:relative}
-#gs-default .guide-content{margin-left:10px;float:left;width:80%}
+.guide-content pre{width:92%}
+#get-started #gs-step0.tab-pane{margin-left:0}
+#gs-step0 h5{margin-left:36px}
+#gs-step0 .guide-row{position:relative}
+#gs-step0 .guide-row.odd{height:112px;margin:6px 0}
+#gs-step0 .guide-row > img{position:absolute;top:0;left:0;margin:39px 0}
+#gs-step0 .guide-content{position:absolute;top:0;left:65px;width:80%}
+
+#gs-step3 .nav{margin-bottom:0}
+#gs-step3 .nav-tabs{margin-top:12px;border-radius:4px;border:none}
+#gs-step3 .nav-tabs > li{width:33%}
+#gs-step3 .nav-tabs > li > a{font-size:17px;width:100%;text-align:center;background:#ddd;border:solid 1px #aaa;padding:8px 0;border-radius:0;outline:0}
+#gs-step3 .nav-tabs > li.active > a, .accordion-inner .nav-tabs > li.active > a:focus, .accordion-inner .nav-tabs > li.active > a:hover{color:#333;border:solid 1px #aaa;border-bottom:0;font-weight:bold;background:#F7F7F7}
+#gs-step3 .tab-content{padding-top:18px;width:99%;margin-bottom:25px;clear:both;border:solid 1px #aaa;border-top:0}
 
 /********************************** project assets **********************************/
 
