@@ -1,4 +1,5 @@
 var AccountManager = require("../lib/AccountManager")
+ , Helper = require('./Helper')
  , UserManager = require('../lib/UserManager')
  , EmailService = require('../lib/EmailService')
  , orm = require('../lib/orm')
@@ -102,12 +103,8 @@ describe("AccountManager manualLogin", function() {
                                 expect(cloudAccount.bucketName).not.toBeNull();
                                 expect(cloudAccount.accessKeyId).not.toBeNull();
                                 expect(cloudAccount.secretAccessKey).not.toBeNull();
-
-                                Helper.removeUser(cloudAccount.magnetId, function(){});
-                                cloudAccount.destroy().success(function() {
-                                    approvedUser.destroy().success(function() {
-                                        done();
-                                    });
+                                approvedUser.destroy().success(function() {
+                                    done();
                                 });
                             });
                         });
