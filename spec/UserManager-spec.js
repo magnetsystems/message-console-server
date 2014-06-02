@@ -1,7 +1,6 @@
 var UserManager = require('../lib/UserManager')
 , orm = require('../lib/orm')
 , bcrypt = require('bcrypt')
-, Helper = require('./Helper')
 , magnetId = require('node-uuid')
 , express = require('express')
 , _ = require('underscore');
