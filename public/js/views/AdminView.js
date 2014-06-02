@@ -196,7 +196,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             me.showLoading(parent);
             me.options.mc.query('views', 'GET', {}, function(res){
                 me.hideLoading(parent);
-                me.pages = res;
+                me.cmsPages = res;
                 parent.html(_.template($('#CMSListView').html(), {
                     col : res
                 }));
@@ -316,9 +316,9 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         },
         getLayoutType: function(){
             var status;
-            for(var i=this.pages.length;i--;)
-                if((typeof this.selectedPage.folder === 'undefined' || this.pages[i].folder === this.selectedPage.folder) && this.pages[i].filename === this.selectedPage.filename)
-                    status = this.pages[i].noLayout;
+            for(var i=this.cmsPages.length;i--;)
+                if((typeof this.selectedPage.folder === 'undefined' || this.cmsPages[i].folder === this.selectedPage.folder) && this.cmsPages[i].filename === this.selectedPage.filename)
+                    status = this.cmsPages[i].noLayout;
             return status;
         },
         // update configuration

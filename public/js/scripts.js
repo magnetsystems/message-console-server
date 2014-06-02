@@ -1629,7 +1629,7 @@ function GetStartedNavigation(){
     var hash = window.location.hash;
     var page = $('#get-started');
     if(page.length){
-        if(hash){
+        if(hash && inIframe() === false){
             page.find('.nav-tabs[did="gs-nav-main"] li').removeClass('active');
             page.find('.tab-content[did="gs-nav-main"] > .tab-pane').removeClass('active');
             page.find(hash).addClass('active');
@@ -1657,6 +1657,14 @@ function GetStartedNavigation(){
             page.find(link.attr('href')).addClass('active');
             li.addClass('active');
         })
+    }
+}
+
+function inIframe(){
+    try{
+        return window.self !== window.top;
+    }catch(e){
+        return true;
     }
 }
 
