@@ -1,5 +1,4 @@
 var AccountManager = require("../lib/AccountManager")
- , Helper = require('./Helper')
  , UserManager = require('../lib/UserManager')
  , EmailService = require('../lib/EmailService')
  , orm = require('../lib/orm')
@@ -20,7 +19,7 @@ describe("AccountManager manualLogin", function() {
     var user;
     var password = 'test';
 
-    beforeEach(function() {
+    beforeEach(function(done) {
         user = {
             firstName: "John",
             lastName: "Appleseed",
@@ -30,6 +29,7 @@ describe("AccountManager manualLogin", function() {
             roleWithinCompany: 'Software Engineer',
             country: 'No Country For Old Men'
         };
+        done();
     });
 
     describe("should fail login", function() {
