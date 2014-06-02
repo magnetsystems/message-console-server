@@ -19,6 +19,7 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
             'click button[did="edit-user-save"]': 'editUserSave',
             'click button[did="activate-user"]': 'activateUser',
             'click button[did="deactivate-user"]': 'activateUser',
+            'click #cloudaccount-list-container button': 'tokenAction',
             'click button[did="resend-registration=email"]': 'resendCompleteRegistrationEmail'
         },
         // fetch a user entity object from server
@@ -31,7 +32,6 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
             me.entity.fetch({
                 success: function(){
                     me.render('User');
-                    me.fetchProjects();
                     me.fetchCloudAccounts();
                     me.fetchInvitedUsers();
                 }, 
@@ -41,6 +41,38 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
                         content : 'There was a problem retrieving this user. Please try again later.'
                     });
                 }
+            });
+        },
+        tokenAction: function(e){
+            var me = this;
+            var item = $(e.currentTarget);
+            var outer = item.closest('table');
+            var magnetId = outer.attr('did');
+            var actionId = item.attr('did');
+            var context = outer.find('.cloudAccountName').text();
+            Alerts.Confirm.display({
+                title   : 'Are You Sure?',
+                content : 'Please confirm whether you wish to '+actionId+' keys for "'+context+'"'
+            }, function(){
+                me.doTokenAction(actionId, magnetId, context);
+            });
+        },
+        doTokenAction: function(actionId, magnetId, context){
+            var me = this;
+            $.ajax({
+                type : 'POST',
+                url  : '/rest/tokens/'+magnetId+'/'+actionId
+            }).done(function(){
+                me.fetchCloudAccounts();
+                Alerts.General.display({
+                    title   : 'Action Completed',
+                    content : 'Keys have been '+actionId+'d for "'+context+'"'
+                });
+            }).fail(function(xhr){
+                Alerts.Error.display({
+                    title   : 'Error Completing Action',
+                    content : 'Unable to '+actionId+' keys for "'+context+'". Please try again later.'
+                });
             });
         },
         // fetch a collection of projects from the server

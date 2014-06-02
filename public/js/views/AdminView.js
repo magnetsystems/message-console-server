@@ -24,6 +24,9 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 });
                 if(page == 'actions') me.getConfig();
                 if(page == 'announcements') me.startAnnouncements();
+                if(page == 'cms') me.getPageList();
+                me.selectedPage = {};
+                $('#cms-folder-span, #cms-filename-span').text('');
             });
         },
         // metadata for admin views
@@ -121,7 +124,10 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             'click #update-configuration': 'updateConfig',
             'click #clear-search-indexes': 'clearIndexes',
             'click #update-search-indexes': 'updateIndexes',
-            'click .attachment-link' : 'showLog'
+            'click .attachment-link' : 'showLog',
+            'click .cmspage' : 'selectPage',
+            'click .cms-button' : 'startCMSEdit',
+            'click .cms-editing-button' : 'endCMSEdit'
         },
         // handle events for switching between tabs
         loadTab: function(id){
@@ -159,6 +165,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             });
         },
         hideLoading: function(parent){
+            if(!parent) return false;
             parent.find('.buttons-section').show();
             parent.find('.buttons-section.loading').hide();
         },
@@ -178,6 +185,141 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         // start announcements
         startAnnouncements: function(){
             this.options.eventPubSub.trigger('initAnnouncementsView');
+        },
+        // get CMS pages
+        getPageList: function(){
+            var me = this;
+            var parent = $('#cms-menu');
+            $('#cms-content, #cms-actions').hide();
+            $('#cms-editable-section').hide();
+            me.resetButtons();
+            me.showLoading(parent);
+            me.options.mc.query('views', 'GET', {}, function(res){
+                me.hideLoading(parent);
+                me.cmsPages = res;
+                parent.html(_.template($('#CMSListView').html(), {
+                    col : res
+                }));
+            }, null, null, function(xhr, status, error){
+                me.hideLoading(parent);
+            });
+            me.retrieveCMSPage(null, {
+                folder   : 'layouts',
+                filename : 'site'
+            }, function(data){
+                me.CMSLayout = data;
+            });
+        },
+        resetButtons: function(){
+            $('.cms-button').show();
+            $('.cms-editing-button').hide();
+        },
+        retrieveCMSPage: function(parent, page, callback){
+            var me = this;
+            me.resetButtons();
+            me.options.mc.query('getView', 'POST', {
+                folder    : page.folder,
+                filename  : page.filename,
+                isPreview : parent ? false : true
+            }, function(data){
+                me.hideLoading(parent);
+                callback(data);
+            }, null, null, function(){
+                me.hideLoading(parent);
+            });
+        },
+        selectPage: function(e){
+            e.preventDefault();
+            var item = $(e.currentTarget);
+            $('#cms-preview').height($(window).height() - 40);
+            var parent = $('#cms-content');
+            var me = this;
+            var folder = item.attr('folder');
+            var filename = item.attr('filename');
+            me.selectedPage = {
+                folder   : (folder && folder != '') ? folder : undefined,
+                filename : filename
+            };
+            me.closeEditor();
+            me.showLoading(parent);
+            me.retrieveCMSPage(parent, me.selectedPage, function(data){
+                me.selectedPage.data = data;
+                $('#cms-content, #cms-actions').show();
+                $('#cms-content-title-span').text((me.selectedPage.folder ? me.selectedPage.folder+'/' : '')+me.selectedPage.filename);
+                me.setPreview();
+            });
+        },
+        setPreview: function(data){
+            data = data || this.selectedPage.data;
+            if(this.getLayoutType() !== true){
+                data = this.CMSLayout.replace('~~~Magnet_Layout_Body~~~', data);
+            }
+            $('#cms-preview').squirt(data.replace(/{{(.*?)}}/gm, ''));
+            $('.lightbox, .lightboxOverlay').remove();
+        },
+        startCMSEdit: function(e){
+            e.preventDefault();
+            var me = this;
+            $('#cms-editable-section').show('fast', function(){
+                me.openEditor();
+            });
+        },
+        openEditor: function(){
+            this.editor = ace.edit('cms-editable-section');
+            this.editor.setValue(this.selectedPage.data, 1);
+            this.editor.setTheme('ace/theme/chrome');
+            this.editor.getSession().setMode('ace/mode/html');
+            $('#cms-preview, #cms-editable-section').height(($(window).height() / 2) - 40);
+            $('#cms-preview').css('border-radius', '0 0 10px 10px');
+            $('.cms-button').hide();
+            $('.cms-editing-button').show();
+        },
+        endCMSEdit: function(e){
+            e.preventDefault();
+            var item = $(e.currentTarget);
+            var action = item.attr('did');
+            var data = this.editor.getValue();
+            if(action == 'preview'){
+                this.setPreview(data);
+            }else{
+                if(action == 'save'){
+                    this.selectedPage.data = data;
+                    this.updateCMSPage(this.selectedPage);
+                }
+                this.setPreview(this.selectedPage.data);
+                this.closeEditor();
+                this.resetButtons();
+            }
+        },
+        closeEditor: function(){
+            if(this.editor){
+                this.editor.destroy();
+                this.editor = undefined;
+                $('#cms-editable-section').replaceWith('<div id="cms-editable-section" style="display:none"></div>');
+                $('#cms-preview').height($(window).height() - 40);
+                $('#cms-preview').css('border-radius', '10px');
+            }
+        },
+        updateCMSPage: function(page){
+            var me = this;
+            var parent = $('#cms-content');
+            me.resetButtons();
+            me.options.mc.query('updateView', 'POST', page, function(){
+                me.hideLoading(parent);
+                Alerts.General.display({
+                    title   : 'Page Updated Successfully',
+                    content : 'The page you selected has been updated successfully.'
+                });
+            }, null, null, function(){
+                me.hideLoading(parent);
+            });
+        },
+        getLayoutType: function(){
+            var status;
+            for(var i=this.cmsPages.length;i--;)
+                if((typeof this.selectedPage.folder === 'undefined' || this.cmsPages[i].folder === this.selectedPage.folder) && this.cmsPages[i].filename === this.selectedPage.filename)
+                    status = this.cmsPages[i].noLayout;
+            return status;
         },
         // update configuration
         updateConfig: function(){

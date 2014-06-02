@@ -9,14 +9,20 @@ require.config({
       "scrollto"      : "libs/scrollto",
       "bootstrap"     : "libs/bootstrap",
       "resources"     : "libs/resources",
-      "placeholder"   : "libs/placeholder"
+      "placeholder"   : "libs/placeholder",
+      "iframe"        : "libs/iframe",
+      "ace"           : "libs/ace"
+
   },
   shim : {
       "resources"  : {
           "deps"    : ["backbone", "jquery"]
       },
+      "iframe" : {
+          "deps" : ["jquery"]
+      },
       "backbone"  : {
-          "deps"    : ["underscore", "jquery", "scrollto", "bootstrap"],
+          "deps"    : ["underscore", "jquery", "scrollto", "bootstrap", "ace"],
           "exports" : "Backbone" 
       },
       "scrollto"  : {
@@ -27,7 +33,7 @@ require.config({
       }
   } 
 });
-require(['modernizr', 'jquery', 'backbone', 'routers/adminRouter', 'resources', 'scrollto', 'bootstrap', 'placeholder'], function(Modernizr, $, Backbone, Desktop){
+require(['modernizr', 'jquery', 'backbone', 'routers/adminRouter', 'resources', 'scrollto', 'bootstrap', 'placeholder', 'iframe', 'ace'], function(Modernizr, $, Backbone, Desktop){
     $('#loadingBar').hide();
     // create new desktop instance
     this.router = new Desktop();

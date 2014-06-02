@@ -10,7 +10,7 @@ jasmine.getEnv().defaultTimeoutInterval = 30000;
 
 var testProject, testUser, _user, _project, testWSDL, _wsdl;
 
-describe('WebServiceManager database setup', function(){
+xdescribe('WebServiceManager database setup', function(){
 
     _user = {
         firstName   : 'Pyramid',
@@ -49,7 +49,7 @@ describe('WebServiceManager database setup', function(){
 
 });
 
-describe('WebServiceManager getWebService', function(){
+xdescribe('WebServiceManager getWebService', function(){
 
     it('should fail if url is invalid', function(done){
         WebServiceManager.getWebService('', function(e){
@@ -81,7 +81,7 @@ describe('WebServiceManager getWebService', function(){
 
 });
 
-describe('WebServiceManager request', function(){
+xdescribe('WebServiceManager request', function(){
 
     it('should fail if url is invalid', function(done){
         WebServiceManager.request('', function(e){
@@ -113,7 +113,7 @@ describe('WebServiceManager request', function(){
 
 });
 
-describe('WebServiceManager parse', function(){
+xdescribe('WebServiceManager parse', function(){
     var invalidStr = '<html>html content</html>';
     var invalidXML = "<?xml version='1.0' encoding='UTF-8'?></xml>";
     var validXML = "<?xml version='1.0' encoding='UTF-8' ?><definitions>works</definitions>";
@@ -148,7 +148,7 @@ describe('WebServiceManager parse', function(){
 
 });
 
-describe('WebServiceManager getServiceName', function(){
+xdescribe('WebServiceManager getServiceName', function(){
     var yellowPagesJSON = {"definitions":{"$":{"xmlns:wsu":"http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd","xmlns:wsp":"http://www.w3.org/ns/ws-policy","xmlns:wsp1_2":"http://schemas.xmlsoap.org/ws/2004/09/policy","xmlns:wsam":"http://www.w3.org/2007/05/addressing/metadata","xmlns:soap":"http://schemas.xmlsoap.org/wsdl/soap/","xmlns:tns":"http://www.magnet.com","xmlns:xsd":"http://www.w3.org/2001/XMLSchema","xmlns":"http://schemas.xmlsoap.org/wsdl/","targetNamespace":"http://www.magnet.com","name":"YellowPagesService"},"types":[{"xsd:schema":[{"xsd:import":[{"$":{"namespace":"http://www.magnet.com","schemaLocation":"http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?xsd=1"}}]},{"xsd:import":[{"$":{"namespace":"http://www.magnet.com/yp","schemaLocation":"http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?xsd=2"}}]}]}],"message":[{"$":{"name":"findAll"},"part":[{"$":{"name":"findAll","element":"tns:findAll"}}]},{"$":{"name":"findAllResponse"},"part":[{"$":{"xmlns:ns1":"http://www.magnet.com/yp","name":"FindResponseList","element":"ns1:FindResponseList"}}]},{"$":{"name":"Exception"},"part":[{"$":{"name":"fault","element":"tns:Exception"}}]},{"$":{"name":"getImage"},"part":[{"$":{"name":"getImage","element":"tns:getImage"}}]},{"$":{"name":"getImageResponse"},"part":[{"$":{"xmlns:ns2":"http://www.magnet.com/yp","name":"ImageByteArray","element":"ns2:ImageByteArray"}}]},{"$":{"name":"find"},"part":[{"$":{"name":"find","element":"tns:find"}}]},{"$":{"name":"findResponse"},"part":[{"$":{"xmlns:ns3":"http://www.magnet.com/yp","name":"FindResponse","element":"ns3:FindResponse"}}]},{"$":{"name":"list"}},{"$":{"name":"listResponse"},"part":[{"$":{"xmlns:ns4":"http://www.magnet.com/yp","name":"FindResponseList","element":"ns4:FindResponseList"}}]},{"$":{"name":"match"},"part":[{"$":{"name":"match","element":"tns:match"}}]},{"$":{"name":"matchResponse"},"part":[{"$":{"xmlns:ns5":"http://www.magnet.com/yp","name":"FindResponseMatchList","element":"ns5:FindResponseMatchList"}}]}],"portType":[{"$":{"name":"YellowPagesPortType"},"operation":[{"$":{"name":"findAll"},"input":[{"$":{"wsam:Action":"http://www.magnet.com/YellowPagesPortType/findAllRequest","message":"tns:findAll"}}],"output":[{"$":{"wsam:Action":"http://www.magnet.com/YellowPagesPortType/findAllResponse","message":"tns:findAllResponse"}}],"fault":[{"$":{"message":"tns:Exception","name":"Exception","wsam:Action":"http://www.magnet.com/YellowPagesPortType/findAll/Fault/Exception"}}]},{"$":{"name":"getImage"},"input":[{"$":{"wsam:Action":"http://www.magnet.com/YellowPagesPortType/getImageRequest","message":"tns:getImage"}}],"output":[{"$":{"wsam:Action":"http://www.magnet.com/YellowPagesPortType/getImageResponse","message":"tns:getImageResponse"}}],"fault":[{"$":{"message":"tns:Exception","name":"Exception","wsam:Action":"http://www.magnet.com/YellowPagesPortType/getImage/Fault/Exception"}}]},{"$":{"name":"find"},"input":[{"$":{"wsam:Action":"http://www.magnet.com/YellowPagesPortType/findRequest","message":"tns:find"}}],"output":[{"$":{"wsam:Action":"http://www.magnet.com/YellowPagesPortType/findResponse","message":"tns:findResponse"}}],"fault":[{"$":{"message":"tns:Exception","name":"Exception","wsam:Action":"http://www.magnet.com/YellowPagesPortType/find/Fault/Exception"}}]},{"$":{"name":"list"},"input":[{"$":{"wsam:Action":"http://www.magnet.com/YellowPagesPortType/listRequest","message":"tns:list"}}],"output":[{"$":{"wsam:Action":"http://www.magnet.com/YellowPagesPortType/listResponse","message":"tns:listResponse"}}],"fault":[{"$":{"message":"tns:Exception","name":"Exception","wsam:Action":"http://www.magnet.com/YellowPagesPortType/list/Fault/Exception"}}]},{"$":{"name":"match"},"input":[{"$":{"wsam:Action":"http://www.magnet.com/YellowPagesPortType/matchRequest","message":"tns:match"}}],"output":[{"$":{"wsam:Action":"http://www.magnet.com/YellowPagesPortType/matchResponse","message":"tns:matchResponse"}}],"fault":[{"$":{"message":"tns:Exception","name":"Exception","wsam:Action":"http://www.magnet.com/YellowPagesPortType/match/Fault/Exception"}}]}]}],"binding":[{"$":{"name":"YellowPagesPortTypePortBinding","type":"tns:YellowPagesPortType"},"soap:binding":[{"$":{"transport":"http://schemas.xmlsoap.org/soap/http","style":"document"}}],"operation":[{"$":{"name":"findAll"},"soap:operation":[{"$":{"soapAction":""}}],"input":[{"soap:body":[{"$":{"use":"literal"}}]}],"output":[{"soap:body":[{"$":{"use":"literal"}}]}],"fault":[{"$":{"name":"Exception"},"soap:fault":[{"$":{"name":"Exception","use":"literal"}}]}]},{"$":{"name":"getImage"},"soap:operation":[{"$":{"soapAction":""}}],"input":[{"soap:body":[{"$":{"use":"literal"}}]}],"output":[{"soap:body":[{"$":{"use":"literal"}}]}],"fault":[{"$":{"name":"Exception"},"soap:fault":[{"$":{"name":"Exception","use":"literal"}}]}]},{"$":{"name":"find"},"soap:operation":[{"$":{"soapAction":""}}],"input":[{"soap:body":[{"$":{"use":"literal"}}]}],"output":[{"soap:body":[{"$":{"use":"literal"}}]}],"fault":[{"$":{"name":"Exception"},"soap:fault":[{"$":{"name":"Exception","use":"literal"}}]}]},{"$":{"name":"list"},"soap:operation":[{"$":{"soapAction":""}}],"input":[{"soap:body":[{"$":{"use":"literal"}}]}],"output":[{"soap:body":[{"$":{"use":"literal"}}]}],"fault":[{"$":{"name":"Exception"},"soap:fault":[{"$":{"name":"Exception","use":"literal"}}]}]},{"$":{"name":"match"},"soap:operation":[{"$":{"soapAction":""}}],"input":[{"soap:body":[{"$":{"use":"literal"}}]}],"output":[{"soap:body":[{"$":{"use":"literal"}}]}],"fault":[{"$":{"name":"Exception"},"soap:fault":[{"$":{"name":"Exception","use":"literal"}}]}]}]}],"service":[{"$":{"name":"YellowPagesService"},"port":[{"$":{"name":"YellowPagesPortTypePort","binding":"tns:YellowPagesPortTypePortBinding"},"soap:address":[{"$":{"location":"http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService"}}]}]}]}};
     var invalidWSDLJSON = {
         "definitions" : {
@@ -206,7 +206,7 @@ describe('WebServiceManager getServiceName', function(){
 
 });
 
-describe('WebServiceManager saveWebService', function(){
+xdescribe('WebServiceManager saveWebService', function(){
     var urls = {
         urlNoHTTP : 'ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?wsdl',
         valid     : 'http://ec2-184-73-100-147.compute-1.amazonaws.com:7001/yp/YellowPagesService?wsdl'
@@ -244,7 +244,7 @@ describe('WebServiceManager saveWebService', function(){
 
 });
 
-describe('WebServiceManager create', function(){
+xdescribe('WebServiceManager create', function(){
     var invalidURL = {
         serviceName : 'YellowPagesService',
         bindStyle   : 'ws',
@@ -303,7 +303,7 @@ describe('WebServiceManager create', function(){
 
 });
 
-describe('WebServiceManager getWADLResourcePath', function(){
+xdescribe('WebServiceManager getWADLResourcePath', function(){
     var wadlPath = 'data/wadls';
     var urlParser = require('url');
 

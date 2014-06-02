@@ -1,9 +1,9 @@
 var AccountManager = require('../lib/AccountManager')
 , UserManager = require('../lib/UserManager')
-, JumpStartUserManager = require('../lib/JumpStartUserManager')
 , ProjectManager = require('../lib/ProjectManager')
 , ModelManager = require('../lib/ModelManager')
 , EmailService = require('../lib/EmailService')
+, TokenManager = require('../lib/TokenManager')
 , AppConfigManager = require('../lib/ConfigManager')
 , FullTextSearch = require('../lib/FullTextSearch')
 , magnetId = require('node-uuid')
@@ -16,6 +16,7 @@ var AccountManager = require('../lib/AccountManager')
 , sanitize = validator.sanitize
 , JiraApi = require('jira').JiraApi
 , recaptcha = require('simple-recaptcha')
+, ContentManagement = require('../lib/ContentManagement')
 , packageJSON = require('../package.json');
 
 module.exports = function(app){
@@ -46,7 +47,7 @@ module.exports = function(app){
                 delete user.password;
                 req.session.user = user;
                 winston.verbose('Tracking: user "' + user.email + '" logged in'+ (req.session.entryPoint));
-                res.send('SUCCESS', 200);
+                res.send(req.query.requireUser ? req.session.user.magnetId : 'SUCCESS', 200);
             }else{
                 res.send(e, 401);
             }
@@ -159,121 +160,116 @@ module.exports = function(app){
             }else{
                 req.session.user = user;
                 res.send('ok', 200);
-                // Populate JumpStart DB
-                JumpStartUserManager.updateUser(user.email, newPassword, function(err) {
-                    //
-                });
-
             }
         });
     });
-
-    app.get('/rest/projects/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.read(req.params.magnetId, function(e, project){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send(project, 200);
-            }
-        });
-    });
-
-    app.post('/rest/projects', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.create(req.session.user.magnetId, req.body, function(e, project){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send({
-                    id       : project.id,
-                    magnetId : project.magnetId
-                }, 200);
-            }
-        });
-    });
-
-    app.put('/rest/projects/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.update(req.params.magnetId, req.session.user.id, req.body, function(e, project){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send('ok', 200);
-            }
-        });
-    });
-
-    app.get('/rest/projects/:magnetId/getConfig', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.getConfig(req.params.magnetId, function(e, filePath){
-            if(e){
-                res.send(e, 400);
-            }else{
-                var filename = filePath.slice(filePath.lastIndexOf('/')+1);
-                fs.readFile(filePath, function(e, content){
-                    if(e){
-                        res.writeHead(400);
-                        res.end();
-                    }else{
-                        res.contentType('zip');
-                        res.setHeader('Content-disposition', 'attachment; filename='+filename);
-                        res.end(content, 'utf-8');
-                    }
-                });
-            }
-        });
-    });
-
-    app.post('/rest/projects/:magnetId/uploadAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.storeProjectFile(req.params.magnetId, req, function(e){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send(JSON.stringify({
-                    success : true
-                }), {
-                    'Content-Type' : 'text/plain'
-                }, 200);
-            }
-        });
-    });
-
-    app.post('/rest/projects/:magnetId/removeAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.removeAPNSCertificate(req.params.magnetId, function(e){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send('ok', 200);
-            }
-        });
-    });
-
-    app.get('/rest/projects/:magnetId/webservices', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.getWebServices(req.params.magnetId, function(e, wsdls){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send(wsdls, 200);
-            }
-        });
-    });
-
-    app.post('/rest/projects/:magnetId/addWebServiceURL', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.addWebServiceURL(req.params.magnetId, req.session.user.id, req.body.url, function(e, wsdl){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send(wsdl, 200);
-            }
-        });
-    });
-
-    app.delete('/rest/wsdls/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        ProjectManager.removeWebServiceURL(req.params.magnetId, function(e){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send('ok', 200);
-            }
-        });
-    });
+//
+//    app.get('/rest/projects/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.read(req.params.magnetId, function(e, project){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send(project, 200);
+//            }
+//        });
+//    });
+//
+//    app.post('/rest/projects', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.create(req.session.user.magnetId, req.body, function(e, project){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send({
+//                    id       : project.id,
+//                    magnetId : project.magnetId
+//                }, 200);
+//            }
+//        });
+//    });
+//
+//    app.put('/rest/projects/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.update(req.params.magnetId, req.session.user.id, req.body, function(e, project){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send('ok', 200);
+//            }
+//        });
+//    });
+//
+//    app.get('/rest/projects/:magnetId/getConfig', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.getConfig(req.params.magnetId, function(e, filePath){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                var filename = filePath.slice(filePath.lastIndexOf('/')+1);
+//                fs.readFile(filePath, function(e, content){
+//                    if(e){
+//                        res.writeHead(400);
+//                        res.end();
+//                    }else{
+//                        res.contentType('zip');
+//                        res.setHeader('Content-disposition', 'attachment; filename='+filename);
+//                        res.end(content, 'utf-8');
+//                    }
+//                });
+//            }
+//        });
+//    });
+//
+//    app.post('/rest/projects/:magnetId/uploadAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.storeProjectFile(req.params.magnetId, req, function(e){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send(JSON.stringify({
+//                    success : true
+//                }), {
+//                    'Content-Type' : 'text/plain'
+//                }, 200);
+//            }
+//        });
+//    });
+//
+//    app.post('/rest/projects/:magnetId/removeAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.removeAPNSCertificate(req.params.magnetId, function(e){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send('ok', 200);
+//            }
+//        });
+//    });
+//
+//    app.get('/rest/projects/:magnetId/webservices', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.getWebServices(req.params.magnetId, function(e, wsdls){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send(wsdls, 200);
+//            }
+//        });
+//    });
+//
+//    app.post('/rest/projects/:magnetId/addWebServiceURL', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.addWebServiceURL(req.params.magnetId, req.session.user.id, req.body.url, function(e, wsdl){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send(wsdl, 200);
+//            }
+//        });
+//    });
+//
+//    app.delete('/rest/wsdls/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+//        ProjectManager.removeWebServiceURL(req.params.magnetId, function(e){
+//            if(e){
+//                res.send(e, 400);
+//            }else{
+//                res.send('ok', 200);
+//            }
+//        });
+//    });
 
     /* GENERAL */
 
@@ -309,7 +305,7 @@ module.exports = function(app){
         }else if(!req.body.sub || !req.body.msg){
             res.send('required-field-missing', 400);
         }else{
-            if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true)
+            if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true && !debugOverride(req.body.recaptcha_response_field))
                 recaptcha(ENV_CONFIG.reCAPTCHA.privateKey, req.ip, req.body.recaptcha_challenge_field, req.body.recaptcha_response_field, function(e){
                     if(e){
                         res.send('captcha-failed', 400);
@@ -325,6 +321,10 @@ module.exports = function(app){
 
     function isAuthenticated(req){
         return (req.session && req.session.user && req.session.user.activated === true && (req.session.user.userType == 'admin' || req.session.user.userType == 'developer')) || false;
+    }
+
+    function debugOverride(str){
+        return str === 'captcha-override';
     }
 
     function sendJira(req, res){
@@ -352,27 +352,32 @@ module.exports = function(app){
     }
 
     app.post('/rest/getCredentials', function(req, res){
+        var clientVersion = req.headers['x_client_version'];
         AccountManager.manualLogin(req.param('email'), req.param('password'), function(e, user){
             if (!user) {
                 res.send(e, 401);
             } else {
-                var aws = {};
-                user.getCloudAccounts().success(function(cloudAccounts) {
-                    if (cloudAccounts.length) {
-                        var aws = cloudAccounts[0];
-                        res.json({
-                            email: user.email,
-                            license: {
-                                customerId: user.magnetId,
-                                licenseKey: user.signedLicenseKey
-                            },
-                            aws: {
-                                auditBucket: ENV_CONFIG.Cloud.AWS.BucketName,
-                                accessKey: aws.accessKeyId,
-                                secretKey: aws.secretAccessKey
+                TokenManager.getTokens(user, function(e, tokens){
+                    if(typeof tokens != 'undefined' && tokens.length){
+                        var json = {
+                            email   : user.email,
+                            license : {
+                                customerId : user.magnetId,
+                                licenseKey : user.signedLicenseKey
                             }
-                        });
-                    } else {
+                        }
+                        if(typeof clientVersion == 'undefined'){
+                            json.aws = {
+                                auditBucket : ENV_CONFIG.Cloud.AWS.BucketName,
+                                accessKey   : tokens[0].accessKeyId,
+                                secretKey   : tokens[0].secretAccessKey
+                            };
+                        }else{
+                            json.auditBucket = ENV_CONFIG.Cloud.AWS.BucketName;
+                            json.tokens = tokens;
+                        }
+                        res.json(json);
+                    }else{
                         res.send('missing-cloud-keys', 500);
                     }
                 });
@@ -380,8 +385,40 @@ module.exports = function(app){
         });
     });
 
+    // get list of tokens belonging to the current user
+    app.get('/rest/tokens', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        TokenManager.getTokens(req.session.user, function(e, tokens){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(tokens, 200);
+            }
+        });
+    });
+
+    // revoke a Magnet token
+    app.post('/rest/tokens/:magnetId/revoke', UserManager.checkAuthority(['admin', 'developer'], true, null, true), function(req, res){
+        TokenManager.revoke(req._basicAuthUser || req.session.user, req.param('magnetId'), function(e){
+            if(e)
+                res.send(e, 400);
+            else
+                res.send('ok', 200);
+        });
+    });
+
+    // regnerate a Magnet token
+    app.post('/rest/tokens/:magnetId/regenerate', UserManager.checkAuthority(['admin', 'developer'], true, null, true), function(req, res){
+        TokenManager.allocate(req._basicAuthUser || req.session.user, req.param('magnetId'), function(e, newToken){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(newToken, 200);
+            }
+        });
+    });
+
     app.post('/rest/startRegistration', function(req, res){
-        if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true){
+        if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true && !debugOverride(req.body.recaptcha_response_field) && !req.body.magnetId){
             if(!req.body.recaptcha_challenge_field || !req.body.recaptcha_response_field){
                 res.send('captcha-failed', 400);
             }else{
@@ -414,17 +451,6 @@ module.exports = function(app){
             } else {
                 res.send(registrationStatus, 400);
             }
-            if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true)
-                recaptcha(ENV_CONFIG.reCAPTCHA.privateKey, req.ip, req.body.recaptcha_challenge_field, req.body.recaptcha_response_field, function(e){
-                    if(e){
-                        res.send('captcha-failed', 400);
-                    }else{
-                        sendJira(req, res);
-                    }
-                });
-            else{
-                sendJira(req, res);
-            }
         });
     }
 
@@ -454,10 +480,6 @@ module.exports = function(app){
         }, function(approvalStatus, user) {
             if(approvalStatus == UserManager.BecomeDeveloperStatusEnum.SUCCESSFUL) {
                 res.send(approvalStatus, 200);
-                // Populate JumpStart DB
-                JumpStartUserManager.createUser(user.email, password, function(err) {
-                    //
-                });
             } else {
                 res.send(approvalStatus, 400);
             }
@@ -489,11 +511,6 @@ module.exports = function(app){
                         userId      : req.session.user.id,
                         targetModel : 'User',
                         targetId    : user.id
-                    });
-                    // Populate JumpStart DB
-                    // The following call might fail if the user is not a developer, but thats ok
-                    JumpStartUserManager.deleteUser(user.email, function(err) {
-                        //
                     });
                 }
                 res.send('ok', 200);
@@ -532,10 +549,36 @@ module.exports = function(app){
                     targetId    : user.id
                 });
                 res.send('ok', 200);
-                // Populate JumpStart DB
-                JumpStartUserManager.setActivation(user.email, req.body.activated, function(err) {
-                    //
-                });
+            }
+        });
+    });
+
+    app.get('/rest/views', UserManager.checkAuthority(['admin'], true), function(req, res){
+        ContentManagement.getPageList(function(e, results){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(results, 200);
+            }
+        });
+    });
+
+    app.post('/rest/getView', UserManager.checkAuthority(['admin'], true), function(req, res){
+        ContentManagement.viewPageContent(req, function(e, page){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(page, 200);
+            }
+        });
+    });
+
+    app.post('/rest/updateView', UserManager.checkAuthority(['admin'], true), function(req, res){
+        ContentManagement.updateSinglePage(req, function(e, page){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(page, 200);
             }
         });
     });
@@ -704,10 +747,6 @@ module.exports = function(app){
         }, function(status, user) {
             if(status == UserManager.ResetPasswordEnum.RESET_SUCCESSFUL) {
                 res.send(status, 200);
-                // Populate JumpStart DB
-                JumpStartUserManager.updateUser(user.email, req.body.password, function(err) {
-                    //
-                });
             } else {
                 res.send(status, 400);
             }
@@ -715,58 +754,17 @@ module.exports = function(app){
     });
 
     // return server statistics
-    app.get('/rest/stats', function(req, res){
-        var creds = getBasicAuth(req.headers['authorization']);
-        if(creds){
-            AccountManager.manualLogin(creds.username, creds.password, function(e, user){
-                if(user && user.userType == 'admin'){
-                    res.send({
-                        'Hostname'        : require('os').hostname(),
-                        'Node Version'    : process.version,
-                        'Factory Version' : packageJSON.version,
-                        'Memory Usage'    : process.memoryUsage()
-                    });
-        //        res.send({
-        //            'Platform'          : process.platform,
-        //            'Architecture'      : process.arch,
-        //            'Process Title'     : process.title,
-        //            'PID'               : process.pid,
-        //            'Environment Vars'  : process.env,
-        //            'Hostname'          : require('os').hostname(),
-        //            'Node Version'      : process.version,
-        //            'Factory Version'   : require('./package.json').version,
-        //            'Module Versions'   : process.versions,
-        //            'Execution Path'    : process.execPath,
-        //            'Working Directory' : process.cwd(),
-        //            'Memory Usage'      : process.memoryUsage(),
-        //            'File Mask'         : process.umask().toString(8),
-        //            'Uptime'            : process.uptime() + ' seconds',
-        //            'POSIX UID'         : process.getuid(),
-        //            'POSIX GID'         : process.getgid(),
-        //            'POSIX Groups'      : process.getgroups()
-        //        });
-                }else{
-                    res.send(e, 401);
-                }
-            });
-        }else{
-            res.send('invalid-login', 401);
-        }
+    app.get('/rest/stats', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
+        res.send({
+            'Hostname'        : require('os').hostname(),
+            'Node Version'    : process.version,
+            'Factory Version' : packageJSON.version,
+            'Memory Usage'    : process.memoryUsage()
+        });
     });
 };
 
-function getBasicAuth(header){
-    var token, auth, parts = [];
-    if(header){
-        token = (header.split(/\s+/).pop() || '');
-        auth = new Buffer(token, 'base64').toString();
-        parts = auth.split(/:/);
-    }
-    return parts.length == 2 ? {
-        username : parts[0],
-        password : parts[1]
-    } : false;
-}
+
 
 
 function stripChars(str){

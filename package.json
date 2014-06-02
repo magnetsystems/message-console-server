@@ -1,6 +1,6 @@
 {
   "name": "devex-factory",
-  "version": "1.2.0-1",
+  "version": "2.3.0",
   "private": true,
   "dependencies": {
     "ejs": "0.7.1",
@@ -28,6 +28,7 @@
     "jira": "~0.8.2",
     "elasticsearch": "~1.0.3",
     "elasticsearchclient": "~0.5.3",
-    "simple-recaptcha": "0.0.3"
+    "simple-recaptcha": "0.0.3",
+    "gift": "0.4.0"
   }
 }
