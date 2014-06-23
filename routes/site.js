@@ -71,6 +71,28 @@ module.exports = function(app){
         });
     });
 
+    app.get('/docs/oss-mobile-app-builder', function(req, res){
+        res.render('file-templates/doc-template', {
+            locals : {
+                title       : 'Mobile App Builder Open Source',
+                activePage  : 'docs',
+                metadata    : require('../views/file-templates/oss_mobile_app_builder.json'),
+                sessionUser : req.session.user
+            }
+        });
+    });
+
+    app.get('/docs/oss-mobile-backend', function(req, res){
+        res.render('file-templates/doc-template', {
+            locals : {
+                title       : 'Mobile Backend Open Source',
+                activePage  : 'docs',
+                metadata    : require('../views/file-templates/oss_mobile_backend.json'),
+                sessionUser : req.session.user
+            }
+        });
+    });
+
     app.get('/profile', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('profile/index', {
             locals : {
