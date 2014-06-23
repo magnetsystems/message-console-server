@@ -397,7 +397,8 @@ iframe .WordSection1{width:506px}
 #resources .col50 ul li{margin-left:50px;text-align:left}
 #resources .col50 .margins{margin:8px 3%}
 #documentation .page-view{padding-bottom:32px}
-.docs-container{clear:both;border-top:solid 2px #ddd;width:650px}
+#documentation .docs-container{width:650px}
+.docs-container{clear:both;border-top:solid 2px #ddd}
 .docs-container .section{height:40px}
 .docs-container h5{font-weight:bold;font-size:16px}
 .docs-container strong{font-weight:normal}
