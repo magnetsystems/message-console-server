@@ -1518,7 +1518,7 @@ ConfirmAlert.prototype.bind = function(){
 function DocFormatter(){
     var me = this;
     me.showFull = false;
-    me.className = '.TitleChapterTOC, .Heading1TOC, .Heading2TOC, .Heading3TOC, .Title-Release-Note';
+    me.className = '.TitleTOC, .TitleChapterTOC, .Heading1TOC, .Heading2TOC, .Heading3TOC, .Title-Release-Note';
     me.el = $(this.className);
     me.destination = $('#doc-toc');
     if(me.destination.length){
