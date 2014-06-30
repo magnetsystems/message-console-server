@@ -647,11 +647,7 @@ a.main-btn{margin-left:20px}
 
 .code-snippet{text-align:left;margin:15px 0}
 .code-snippet p{margin:21px 0}
-/*pre{margin:11px 0;color:#eee;background:#444;fonts-size:12px;padding:7px 0 7px 13px;box-shadow:2px 2px 2px #888}*/
-
-pre, code{font-family:background-color: #f8f8f8 !important;border: 1px solid #ddd !important;border-radius:3px !important;color:#000}
-
-
+pre{margin:11px 0;color:#eee;background:#444;fonts-size:12px;padding:7px 0 7px 13px;box-shadow:2px 2px 2px #888}
 
 #leave-feedback-container{opacity:0;text-align:center;z-index:100000;background:#fff;border-radius:4px 4px 0 0;position:fixed;right:10px;bottom:0;box-shadow:0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);border:solid 1px #ccc;border-bottom:none}
 #leave-feedback-container a{outline:none;display:block;padding:5px 12px;color:#fff;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);line-height:17px;border-radius:4px 4px 0 0;text-decoration:none;background:#840A09;transition:all 0.2s ease-in-out 0s}
@@ -701,6 +697,15 @@ pre, code{font-family:background-color: #f8f8f8 !important;border: 1px solid #dd
 #mgmt-announcements-list textarea{min-height:120px}
 
 #app-management-container .input-append label{margin-top:18px}
+
+/* generated docs */
+.floatholder ul.wTabGroup, div.desktop_functionholder{background-color: #761a1a}
+.floatholder ul.wTabGroup, #xmlEditorButtonBarIDX, #xmlEditorButtonBarGLO{display:none}
+.floatholder div.wTabContentGroup{top:8px}
+.floatholder div.title{left:0;}
+.floatholder div.sidebar, div.content{top:8em}
+.floatholder div.header{background-color: #333;border-top: 1px solid #fff}
+.floatholder .header span{ font-weight:normal;color: #fff; font-size: 24px;margin-bottom: 16px;margin-left: 20px;margin-top: 20px;font-family:"Titillium Web","Helvetica Neue",Helvetica,Arial,sans-serif}
 
 /*
  * Original version: 1.0 ? 2010 Andrew Valums ( andrew(at)valums.com )
@@ -764,3 +769,4 @@ body:after{content:url(../images/lightbox/close.png) url(../images/lightbox/load
 .lb-data .lb-close:hover{cursor:pointer;filter:alpha(opacity=100);opacity:1}
 
 @media (max-width:767px){.modal.fade.in{margin:0 !important}}
+
