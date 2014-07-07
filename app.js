@@ -108,14 +108,14 @@ app.configure('production', function(){
         })
     }));
     // minify client side code and set router to build path
-    require('requirejs').optimize(require('./lib/config/ClientBuild'), function(){
-        winston.info('Requirejs: successfully optimized client javascript');
-    });
+//    require('requirejs').optimize(require('./lib/config/ClientBuild'), function(){
+//        winston.info('Requirejs: successfully optimized client javascript');
+//    });
     // protect files and documentation behind login
 //    app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/resources\/files\/.*$/));
     app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/docs\/.*\/.*$/));
     // prioritize router before public directory, use minified public directory
-    app.use(express.static(__dirname + '/public-build'));
+    app.use(express.static(__dirname + '/public'));
     /* start https server
     require('https').createServer({
        key  : fs.readFileSync('./data/key.pem'),
