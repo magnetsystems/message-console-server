@@ -758,6 +758,7 @@ module.exports = function(app){
         res.send({
             'Hostname'        : require('os').hostname(),
             'Node Version'    : process.version,
+            'Environment'     : app.settings.env,
             'Factory Version' : packageJSON.version,
             'Memory Usage'    : process.memoryUsage()
         });
