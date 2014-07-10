@@ -699,12 +699,13 @@ pre{margin:11px 0;color:#eee;background:#444;fonts-size:12px;padding:7px 0 7px 1
 #app-management-container .input-append label{margin-top:18px}
 
 /* generated docs */
+.overthrow-enabled #site-header{position:fixed;top:0;left:0}
 .floatholder ul.wTabGroup, div.desktop_functionholder{background-color: #761a1a}
 .floatholder ul.wTabGroup, #xmlEditorButtonBarIDX, #xmlEditorButtonBarGLO{display:none}
 .floatholder div.wTabContentGroup{top:8px}
 .floatholder div.title{left:0;}
 .floatholder div.sidebar, div.content{top:8em}
-.floatholder div.header{background-color: #333;border-top: 1px solid #fff}
+.floatholder div.header{background-color: #333;border-top: 1px solid #fff;top: 55px}
 .floatholder .header span{ font-weight:normal;color: #fff; font-size: 24px;margin-bottom: 16px;margin-left: 20px;margin-top: 20px;font-family:"Titillium Web","Helvetica Neue",Helvetica,Arial,sans-serif}
 
 /*
