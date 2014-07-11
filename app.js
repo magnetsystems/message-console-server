@@ -99,7 +99,7 @@ app.configure('production', function(){
     winston.exitOnError = false;
     // store sessions to redis
     var RedisStore = require('connect-redis')(express);
-    var redisDB = require('redis').createClient(ENV_CONFIG.Redis);
+    var redisDB = require('redis').createClient(ENV_CONFIG.Redis.port, ENV_CONFIG.Redis.host);
     app.use(express.session({
         secret : ENV_CONFIG.App.sessionSecret,
         store  : new RedisStore({
