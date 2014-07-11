@@ -31,7 +31,7 @@ module.exports = function(app){
                 delete user.password;
                 req.session.user = user;
                 winston.verbose('Tracking: user "' + user.email + '" logged in'+ (req.session.entryPoint ? ' with redirect to '+req.session.entryPoint : ''));
-                res.redirect(req.session.entryPoint || '/');
+                res.redirect((req.session.entryPoint && req.session.entryPoint.indexOf('login') == -1) ? req.session.entryPoint : '/');
             }else if(e == 'account-locked'){
                 res.redirect('/login?status=locked');
             }else{
@@ -386,7 +386,7 @@ module.exports = function(app){
     });
 
     // get list of tokens belonging to the current user
-    app.get('/rest/tokens', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/tokens', UserManager.checkAuthority(['admin', 'developer'], true, null, true), function(req, res){
         TokenManager.getTokens(req.session.user, function(e, tokens){
             if(e){
                 res.send(e, 400);
@@ -607,7 +607,7 @@ module.exports = function(app){
     });
 
     // This API is used to clear search indexes
-    app.post('/rest/search/clearIndexes', UserManager.checkAuthority(['admin'], true), function(req, res){
+    app.post('/rest/search/clearIndexes', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
         FullTextSearch.clear(function(e){
             if(e){
                 res.send(e, 400);
@@ -618,7 +618,7 @@ module.exports = function(app){
     });
 
     // This API is used to update search indexes
-    app.post('/rest/search/updateIndexes', UserManager.checkAuthority(['admin'], true), function(req, res){
+    app.post('/rest/search/updateIndexes', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
         FullTextSearch.index(function(e){
             if(e){
                 res.send(e, 400);
