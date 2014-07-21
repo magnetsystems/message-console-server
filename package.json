@@ -15,7 +15,7 @@
     "validator": "1.5.1",
     "ejs-locals": "~1.0.2",
     "enum": "0.2.5",
-    "jasmine-node": "1.11.0",
+    "jasmine-node": "1.15.5",
     "xml2js": "0.2.8",
     "winston": "0.7.2",
     "winston-mail": "0.2.7",
