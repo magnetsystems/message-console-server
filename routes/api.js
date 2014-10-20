@@ -1,25 +1,40 @@
 var AccountManager = require('../lib/AccountManager')
-, UserManager = require('../lib/UserManager')
-, ProjectManager = require('../lib/ProjectManager')
-, ModelManager = require('../lib/ModelManager')
-, EmailService = require('../lib/EmailService')
-, TokenManager = require('../lib/TokenManager')
-, AppConfigManager = require('../lib/ConfigManager')
-, FullTextSearch = require('../lib/FullTextSearch')
-, magnetId = require('node-uuid')
-, Jobs = require('../lib/Jobs')
-, path = require('path')
-, fs = require('fs')
-, jiraNewIssue = require('../lib/config/JiraNewIssue')
-, _ = require('underscore')
-, validator = require('validator')
-, sanitize = validator.sanitize
-, JiraApi = require('jira').JiraApi
-, recaptcha = require('simple-recaptcha')
-, ContentManagement = require('../lib/ContentManagement')
-, packageJSON = require('../package.json');
+    , UserManager = require('../lib/UserManager')
+    , ProjectManager = require('../lib/ProjectManager')
+    , ModelManager = require('../lib/ModelManager')
+    , MMXManager = require('../lib/MMXManager')
+    , EmailService = require('../lib/EmailService')
+    , TokenManager = require('../lib/TokenManager')
+    , AppConfigManager = require('../lib/ConfigManager')
+    , FullTextSearch = require('../lib/FullTextSearch')
+    , magnetId = require('node-uuid')
+    , Jobs = require('../lib/Jobs')
+    , path = require('path')
+    , fs = require('fs')
+    , jiraNewIssue = require('../lib/config/JiraNewIssue')
+    , _ = require('underscore')
+    , validator = require('validator')
+    , sanitize = validator.sanitize
+    , JiraApi = require('jira').JiraApi
+    , recaptcha = require('simple-recaptcha')
+    , ContentManagement = require('../lib/ContentManagement')
+    , packageJSON = require('../package.json');
 
 module.exports = function(app){
+
+    // allow CORS
+    app.all('*', function(req, res, next) {
+        res.header('Access-Control-Allow-Credentials', 'true');
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+        res.header('Access-Control-Expose-Headers', 'Set-Cookie, Cache-Control, *');
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.header('Access-Control-Allow-Headers', 'appId, X-Requested-With, Accept, Origin, Referer, User-Agent, Content-Type, Authorization, X-Mindflash-SessionID, Geolocation, X-Magnet-Device-Id, X-Magnet-Correlation-id, X-Magnet-Auth-Challenge, X-Magnet-Result-Timeout, Cookie');
+        if('OPTIONS' == req.method){
+            res.send(200);
+        }else{
+            next();
+        }
+    });
 
     /* AUTHENTICATION */
 
@@ -63,6 +78,19 @@ module.exports = function(app){
             req.session.destroy(function(){
                 res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
                 res.redirect('back');
+            });
+        }
+    });
+
+    // api style user logout
+    app.all('/rest/logout', function(req, res){
+        if(!req.session.user){
+            res.send('ok', 200);
+        }else{
+            winston.verbose('Tracking: user "' + req.session.user.email + '" logged out');
+            req.session.destroy(function(){
+                res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+                res.send('ok', 200);
             });
         }
     });
@@ -297,6 +325,106 @@ module.exports = function(app){
 //        });
 //    });
 
+    app.post('/rest/apps', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.createApp(req.session.user.magnetId, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getApps(req.session.user.magnetId, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getApp(req.session.user.magnetId, req.params.id, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.put('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.updateApp(req.session.user.magnetId, req.session.user.userType === 'admin', req.params.id, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.delete('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.deleteApp(req.session.user.magnetId, req.session.user.userType === 'admin', req.params.id, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id/messages', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getAppMessages(req.session.user.id, req.params.id, req.query, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id/users', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getAppUsers(req.session.user.id, req.params.id, req.query, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id/users/:uid/devices', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getAppUserDevices(req.session.user.id, req.params.id, req.params.uid, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.post('/rest/apps/:id/users/:uid/:type', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.sendMessage(req.session.user.id, req.params.id, req.params.uid, req.params.type, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id/devices/:did/messages', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getDeviceMessages(req.session.user.id, req.params.id, req.params.did, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
     app.post('/rest/submitFeedback', function(req, res){
         if(isAuthenticated(req) === false && !req.body.fullname){
             res.send('required-field-missing', 400);
@@ -441,12 +569,13 @@ module.exports = function(app){
             lastName : stripChars(req.body.lastName),
             email : req.body.email,
             companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName,
-            magnetId: req.body.magnetId
+            magnetId: req.body.magnetId,
+            source : sanitize(req.body.source).xss()
         }, false, function(registrationStatus) {
             if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL) {
                 res.send({
                     status            : registrationStatus,
-                    skipAdminApproval : APP_CONFIG.skipAdminApproval
+                    skipAdminApproval : req.body.source ? true : APP_CONFIG.skipAdminApproval
                 }, 201);
             } else {
                 res.send(registrationStatus, 400);
@@ -534,6 +663,16 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 res.send(users, 200);
+            }
+        });
+    });
+
+    app.get('/rest/users/:magnetId/apps', UserManager.checkAuthority(['admin'], true), function(req, res){
+        MMXManager.getApps(req.params.magnetId, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
             }
         });
     });
@@ -728,7 +867,8 @@ module.exports = function(app){
     app.post('/rest/forgotPassword', function(req, res) {
 
         UserManager.sendForgotPasswordEmail({
-            email : req.body.email
+            email  : req.body.email,
+            source : sanitize(req.body.source).xss()
         }, function(status) {
             if(status == UserManager.SendForgotPasswordEmailEnum.EMAIL_SUCCESSFUL) {
                 res.send(status, 200);

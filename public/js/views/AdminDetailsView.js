@@ -1,4 +1,4 @@
-define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection', 'collections/UserCollection'], function($, Backbone, UserModel, ProjectCollection, UserCollection){
+define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection', 'collections/UserCollection', 'models/AppModel', 'collections/AppCollection'], function($, Backbone, UserModel, ProjectCollection, UserCollection, AppModel, AppCollection){
     var View = Backbone.View.extend({
         el: "#admin-details",
         initialize: function(){
@@ -7,6 +7,7 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
             me.options.eventPubSub.bind('initAdminDetailsView', function(params){
                 me.page = params.page;
                 me.$el.find('.page-view').html('<img src="/images/ajax-loader.gif" style="padding:8px">');
+                me.mmxCol = new AppCollection();
                 me.fetchUser(params);
             });
         },
@@ -20,7 +21,11 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
             'click button[did="activate-user"]': 'activateUser',
             'click button[did="deactivate-user"]': 'activateUser',
             'click #cloudaccount-list-container button': 'tokenAction',
-            'click button[did="resend-registration=email"]': 'resendCompleteRegistrationEmail'
+            'click button[did="resend-registration=email"]': 'resendCompleteRegistrationEmail',
+            'click .panel-body button': 'performAction',
+            'click .panel .mmx-edit': 'editName',
+            'click .panel .mmx-saveedit': 'saveEditName',
+            'click .panel .mmx-canceledit': 'cancelEditName'
         },
         // fetch a user entity object from server
         fetchUser: function(params){
@@ -34,6 +39,7 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
                     me.render('User');
                     me.fetchCloudAccounts();
                     me.fetchInvitedUsers();
+                    me.fetchMMXApps();
                 }, 
                 error: function(){
                     Alerts.Error.display({
@@ -120,6 +126,32 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
         renderCloudAccounts: function(){
             this.$el.find('#cloudaccount-list-container').html(_.template($('#CloudAccountListView').html(), {
                 col : this.cloudAccounts.models
+            }));
+        },
+        // fetch a collection of mmx apps from the server
+        fetchMMXApps: function(){
+            var me = this;
+            var col = new UserCollection();
+            col.fetch({
+                data : {
+                    relationship : {
+                        name     : 'apps',
+                        magnetId : me.entity.attributes.magnetId
+                    }
+                },
+                success: function(col){
+                    me.mmxCol = new AppCollection();
+                    for(var i=0;i<col.models.length;++i){
+                        me.mmxCol.add(col.models[i].attributes);
+                    }
+                    me.renderMMXApps();
+                },
+                error: function(){}
+            });
+        },
+        renderMMXApps: function(){
+            this.$el.find('#mmxapp-list-container').html(_.template($('#MMXAppListView').html(), {
+                col : this.mmxCol.models
             }));
         },
         // fetch a collection of users invited by the current user from the server
@@ -266,7 +298,6 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
                 id       : this.entity.attributes.id,
                 magnetId : this.entity.attributes.magnetId
             });
-            console.log(properties.config);
             for(var prop in properties.config){
                 if((properties.config[prop] == '' && me.entity.attributes[prop] == null) || properties.config[prop] == me.entity.attributes[prop]){
                     delete properties.config[prop];
@@ -304,6 +335,70 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/ProjectCollection
             var parent = dom.closest('.buttons');
             parent.find('.buttons-section').show();
             parent.find('.buttons-section.loading').hide();
+        },
+        editName: function(e){
+            var me = this;
+            var item = $(e.currentTarget).closest('.panel');
+            var did = item.attr('did');
+            var model = me.mmxCol.where({
+                magnetId : did
+            })[0];
+            item.find('.panel-title').addClass('hidden');
+            item.find('.panel-name').removeClass('hidden');
+            item.find('.panel-name input').val(model.attributes.appName);
+        },
+        cancelEditName: function(e){
+            var item = $(e.currentTarget).closest('.panel');
+            item.find('.panel-title').removeClass('hidden');
+            item.find('.panel-name').addClass('hidden');
+        },
+        saveEditName: function(e){
+            var me = this;
+            var item = $(e.currentTarget).closest('.panel');
+            var did = item.attr('did');
+            var panelInput = item.find('.panel-name input');
+            var panelTitle = item.find('.panel-title');
+            panelTitle.text(panelInput.val());
+            panelTitle.removeClass('hidden');
+            panelInput.addClass('hidden');
+            var model = me.mmxCol.where({
+                magnetId : did
+            })[0];
+            model.set({
+                id      : model.attributes.magnetId,
+                appName : panelInput.val()
+            });
+            model.save({
+                appName : panelInput.val()
+            }, {
+                patch: true,
+                success: function(){
+                    me.renderMMXApps();
+                },
+                error: function(e){
+                    console.log('error', e);
+                }
+            });
+        },
+        performAction: function(e){
+            var me = this;
+            var item = $(e.currentTarget);
+            var action = item.attr('did');
+            var did = item.closest('.panel').attr('did');
+            var model = me.mmxCol.where({
+                magnetId : did
+            })[0];
+            model.set({id:model.attributes.magnetId});
+            if(action === 'delete'){
+                model.destroy({
+                    success: function(){
+                        me.renderMMXApps();
+                    },
+                    error: function(e){
+                        console.log('error', e);
+                    }
+                });
+            }
         }
     });
     return View;

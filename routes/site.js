@@ -8,6 +8,27 @@ module.exports = function(app){
 
 /* PAGES */
 
+    // mmx
+//    app.get('/', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+//        res.render('account/index', {
+//            locals : {
+//                title       : 'Messaging',
+//                activePage  : 'account',
+//                sessionUser : req.session.user
+//            }
+//        });
+//    });
+//
+//    app.get('/account', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+//        res.render('account/index', {
+//            locals : {
+//                title       : 'Messaging',
+//                activePage  : 'account',
+//                sessionUser : req.session.user
+//            }
+//        });
+//    });
+
     app.get('/', function(req, res){
         res.render('index', {
             locals : {
