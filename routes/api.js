@@ -326,7 +326,7 @@ module.exports = function(app){
 //    });
 
     app.post('/rest/apps', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.createApp(req.session.user.magnetId, req.body, function(e, user){
+        MMXManager.createApp(req.session.user.email, req.session.user.magnetId, req.body, function(e, user){
             if(e){
                 res.send(e, 400);
             }else{
