@@ -345,6 +345,16 @@ module.exports = function(app){
         });
     });
 
+    app.get('/rest/apps/stats', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getStats(req.session.user.id, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
     app.get('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         MMXManager.getApp(req.session.user.magnetId, req.params.id, function(e, user){
             if(e){
@@ -385,6 +395,16 @@ module.exports = function(app){
         });
     });
 
+    app.get('/rest/apps/:id/stats', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getAppStats(req.session.user.id, req.params.id, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
     app.get('/rest/apps/:id/users', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         MMXManager.getAppUsers(req.session.user.id, req.params.id, req.query, function(e, user){
             if(e){
@@ -417,6 +437,36 @@ module.exports = function(app){
 
     app.get('/rest/apps/:id/devices/:did/messages', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         MMXManager.getDeviceMessages(req.session.user.id, req.params.id, req.params.did, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getAppTopics(req.session.user.id, req.params.id, req.query, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.post('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.createAppTopic(req.session.user.id, req.params.id, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.delete('/rest/apps/:id/topics/:tid', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.deleteAppTopic(req.session.user.id, req.params.id, req.params.tid, function(e, user){
             if(e){
                 res.send(e, 400);
             }else{
