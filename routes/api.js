@@ -506,6 +506,16 @@ module.exports = function(app){
         });
     });
 
+    app.post('/rest/apps/:id/topics/:tid/publish', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.publishToTopic(req.session.user.id, req.params.id, req.params.tid, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
     app.post('/rest/submitFeedback', function(req, res){
         if(isAuthenticated(req) === false && !req.body.fullname){
             res.send('required-field-missing', 400);
