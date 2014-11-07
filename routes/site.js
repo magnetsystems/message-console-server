@@ -228,9 +228,10 @@ module.exports = function(app){
         res.render('admin/index', {
             locals : {
                 title       : 'Administration',
-                sessionUser : req.session.user
-            },
-            _layoutFile : false
+                activePage  : 'admin',
+                sessionUser : req.session.user,
+                header      :  ejs.render(fs.readFileSync('./views/layouts/header.ejs', 'ascii'), {})
+            }
         });
     });
 
