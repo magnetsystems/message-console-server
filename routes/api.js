@@ -406,6 +406,16 @@ module.exports = function(app){
         });
     });
 
+    app.get('/rest/apps/:id/endpoints', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getAppEndpoints(req.session.user.id, req.params.id, req.query, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
     app.get('/rest/apps/:id/users', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         MMXManager.getAppUsers(req.session.user.id, req.params.id, req.query, function(e, user){
             if(e){
@@ -426,8 +436,28 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/apps/:id/users/:uid/:type', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.sendMessage(req.session.user.id, req.params.id, req.params.uid, req.params.type, req.body, function(e, user){
+    app.post('/rest/apps/:id/endpoints/:did/message', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.sendMessage(req.session.user.id, req.params.id, req.params.did, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.post('/rest/apps/:id/endpoints/:did/ping', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.sendPing(req.session.user.id, req.params.id, req.params.did, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.post('/rest/apps/:id/endpoints/:did/notification', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.sendNotification(req.session.user.id, req.params.id, req.params.did, req.body, function(e, user){
             if(e){
                 res.send(e, 400);
             }else{

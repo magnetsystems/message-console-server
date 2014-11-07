@@ -82,6 +82,16 @@ module.exports = function(app){
         });
     });
 
+    app.get('/resources', function(req, res){
+        res.render('resources/index', {
+            locals : {
+                title       : 'Resources',
+                activePage  : 'resources',
+                sessionUser : req.session.user
+            }
+        });
+    });
+
     app.get('/rest2mobile', function(req, res){
         res.render('rest2mobile/index', {
             locals : {
