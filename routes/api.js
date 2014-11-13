@@ -516,6 +516,30 @@ module.exports = function(app){
         });
     });
 
+    app.get('/rest/apps/:id/sample', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        var platform = (req.query && req.query.platform && (req.query.platform == 'android' || req.query.platform == 'ios')) ? req.query.platform : 'android';
+        MMXManager.getSample(req.session.user.magnetId, req.params.id, platform, function(e, content){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.contentType('application/zip');
+                res.setHeader('Content-disposition', 'attachment; filename='+platform+'_messaging_sample_app.zip');
+                res.end(content, 'utf-8');
+            }
+        });
+    });
+
+    app.post('/rest/samples/:platform/update', function(req, res){
+        var platform = (req.params && req.params.platform && (req.params.platform == 'android' || req.params.platform == 'ios')) ? req.params.platform : 'android';
+        MMXManager.updateSample(platform, function(e){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('ok', 200);
+            }
+        });
+    });
+
     app.post('/rest/submitFeedback', function(req, res){
         if(isAuthenticated(req) === false && !req.body.fullname){
             res.send('required-field-missing', 400);

@@ -3,16 +3,16 @@ define(['jquery', 'backbone'], function($, Backbone){
         initialize: function(){
             this.setElement('#error-alert');
             $(this.el).modal({
-                show     : false, 
-                keyboard : true, 
+                show     : false,
+                keyboard : true,
                 backdrop : true
             });
         },
         display: function(vars, failback, onClose){
-            if(vars){   
+            if(vars){
                 $(this.el).modal('show');
-                $(this.el).find('.modal-header h3').html(vars.title);
-                $(this.el).find(' .modal-body p').html(vars.content);
+                $(this.el).find('.modal-title').html(vars.title);
+                $(this.el).find('.modal-body').html(vars.content);
             }
             if(typeof failback == typeof Function){
                 failback();
