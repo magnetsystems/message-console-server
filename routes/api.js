@@ -529,7 +529,7 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/samples/:platform/update', function(req, res){
+    app.post('/rest/samples/:platform/update', UserManager.checkAuthority(['admin'], true), function(req, res){
         var platform = (req.params && req.params.platform && (req.params.platform == 'android' || req.params.platform == 'ios')) ? req.params.platform : 'android';
         MMXManager.updateSample(platform, function(e){
             if(e){
