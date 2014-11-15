@@ -27,9 +27,9 @@ module.exports = function(app){
     app.all('*', function(req, res, next) {
         res.header('Access-Control-Allow-Credentials', 'true');
         res.header('Access-Control-Allow-Origin', req.headers.origin);
-        res.header('Access-Control-Expose-Headers', 'Set-Cookie, Cache-Control, *');
+        res.header('Access-Control-Expose-Headers', 'Set-Cookie, Cache-Control, X-New-MMX-User');
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-        res.header('Access-Control-Allow-Headers', 'appId, X-Requested-With, Accept, Origin, Referer, User-Agent, Content-Type, Authorization, X-Mindflash-SessionID, Geolocation, X-Magnet-Device-Id, X-Magnet-Correlation-id, X-Magnet-Auth-Challenge, X-Magnet-Result-Timeout, Cookie');
+        res.header('Access-Control-Allow-Headers', 'appId, X-Requested-With, Accept, Origin, Referer, User-Agent, Content-Type, Authorization, X-Mindflash-SessionID, Geolocation, X-Magnet-Device-Id, X-Magnet-Correlation-id, X-Magnet-Auth-Challenge, X-Magnet-Result-Timeout, Cookie, X-NEW-MMX-USER');
         if('OPTIONS' == req.method){
             res.send(200);
         }else{
@@ -41,11 +41,12 @@ module.exports = function(app){
 
     // user log in and store to session and cookie
     app.post('/login', function(req, res){
-        AccountManager.manualLogin(req.body.username, req.body.password, function(e, user){
+        AccountManager.manualLogin(req.body.username, req.body.password, function(e, user, newMMXUser){
             // if login returns a user object, store to session
             if(user){
                 delete user.password;
                 req.session.user = user;
+                if(newMMXUser) res.header('X-New-MMX-User', 'enabled');
                 winston.verbose('Tracking: user "' + user.email + '" logged in'+ (req.session.entryPoint ? ' with redirect to '+req.session.entryPoint : ''));
                 res.redirect((req.session.entryPoint && req.session.entryPoint.indexOf('login') == -1) ? req.session.entryPoint : '/');
             }else if(e == 'account-locked'){
@@ -58,10 +59,11 @@ module.exports = function(app){
 
     // artifactory login
     app.post('/rest/login', function(req, res){
-        AccountManager.manualLogin(req.body.name, req.body.password, function(e, user){
+        AccountManager.manualLogin(req.body.name, req.body.password, function(e, user, newMMXUser){
             if(user){
                 delete user.password;
                 req.session.user = user;
+                if(newMMXUser) res.header('X-New-MMX-User', 'enabled');
                 winston.verbose('Tracking: user "' + user.email + '" logged in'+ (req.session.entryPoint));
                 res.send(req.query.requireUser ? req.session.user.magnetId : 'SUCCESS', 200);
             }else{
@@ -170,7 +172,12 @@ module.exports = function(app){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                if(req.session.user.newMMXUser === true){
+                    req.session.user.newMMXUser = false;
+                    res.send(_.extend(user, {'newMMXUser':true}), 200);
+                }else{
+                    res.send(user, 200);
+                }
             }
         });
     });
