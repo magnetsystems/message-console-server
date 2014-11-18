@@ -124,6 +124,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             'click #update-configuration': 'updateConfig',
             'click #clear-search-indexes': 'clearIndexes',
             'click #update-search-indexes': 'updateIndexes',
+            'click div[did="update-mmx-sample"] button': 'updateMMXSample',
             'click .attachment-link' : 'showLog',
             'click .cmspage' : 'selectPage',
             'click .cms-button' : 'startCMSEdit',
@@ -393,6 +394,25 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         showLog: function(e){
             var url = $(e.currentTarget).attr('did');
             window.open(url, '123894712893', 'width=600,height=400,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');
+        },
+        updateMMXSample: function(e){
+            var me = this;
+            var parent = $('#app-management-container');
+            me.showLoading(parent);
+            var platform = $(e.currentTarget).attr('did');
+            me.options.mc.query('samples/'+platform+'/update', 'POST', null, function(){
+                me.hideLoading(parent);
+                Alerts.General.display({
+                    title   : 'Sample Updated',
+                    content : 'Sample code for platform: '+platform+' has been updated successfully.'
+                });
+            }, null, null, function(xhr, status, error){
+                me.hideLoading(parent);
+                Alerts.Error.display({
+                    title   : 'Error Updating Sample',
+                    content : xhr.responseText
+                });
+            });
         }
     });
     return View;

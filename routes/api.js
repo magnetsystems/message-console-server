@@ -1,35 +1,52 @@
 var AccountManager = require('../lib/AccountManager')
-, UserManager = require('../lib/UserManager')
-, ProjectManager = require('../lib/ProjectManager')
-, ModelManager = require('../lib/ModelManager')
-, EmailService = require('../lib/EmailService')
-, TokenManager = require('../lib/TokenManager')
-, AppConfigManager = require('../lib/ConfigManager')
-, FullTextSearch = require('../lib/FullTextSearch')
-, magnetId = require('node-uuid')
-, Jobs = require('../lib/Jobs')
-, path = require('path')
-, fs = require('fs')
-, jiraNewIssue = require('../lib/config/JiraNewIssue')
-, _ = require('underscore')
-, validator = require('validator')
-, sanitize = validator.sanitize
-, JiraApi = require('jira').JiraApi
-, recaptcha = require('simple-recaptcha')
-, ContentManagement = require('../lib/ContentManagement')
-, packageJSON = require('../package.json');
+    , UserManager = require('../lib/UserManager')
+    , ProjectManager = require('../lib/ProjectManager')
+    , ModelManager = require('../lib/ModelManager')
+    , MMXManager = require('../lib/MMXManager')
+    , EmailService = require('../lib/EmailService')
+    , TokenManager = require('../lib/TokenManager')
+    , AppConfigManager = require('../lib/ConfigManager')
+    , FullTextSearch = require('../lib/FullTextSearch')
+    , magnetId = require('node-uuid')
+    , Jobs = require('../lib/Jobs')
+    , path = require('path')
+    , http = require('http')
+    , fs = require('fs')
+    , jiraNewIssue = require('../lib/config/JiraNewIssue')
+    , _ = require('underscore')
+    , validator = require('validator')
+    , sanitize = validator.sanitize
+    , JiraApi = require('jira').JiraApi
+    , recaptcha = require('simple-recaptcha')
+    , ContentManagement = require('../lib/ContentManagement')
+    , packageJSON = require('../package.json');
 
 module.exports = function(app){
+
+    // allow CORS
+    app.all('*', function(req, res, next) {
+        res.header('Access-Control-Allow-Credentials', 'true');
+        res.header('Access-Control-Allow-Origin', req.headers.origin);
+        res.header('Access-Control-Expose-Headers', 'Set-Cookie, Cache-Control, X-New-MMX-User');
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.header('Access-Control-Allow-Headers', 'appId, X-Requested-With, Accept, Origin, Referer, User-Agent, Content-Type, Authorization, X-Mindflash-SessionID, Geolocation, X-Magnet-Device-Id, X-Magnet-Correlation-id, X-Magnet-Auth-Challenge, X-Magnet-Result-Timeout, Cookie, X-NEW-MMX-USER');
+        if('OPTIONS' == req.method){
+            res.send(200);
+        }else{
+            next();
+        }
+    });
 
     /* AUTHENTICATION */
 
     // user log in and store to session and cookie
     app.post('/login', function(req, res){
-        AccountManager.manualLogin(req.body.username, req.body.password, function(e, user){
+        AccountManager.manualLogin(req.body.username, req.body.password, function(e, user, newMMXUser){
             // if login returns a user object, store to session
             if(user){
                 delete user.password;
                 req.session.user = user;
+                if(newMMXUser) res.header('X-New-MMX-User', 'enabled');
                 winston.verbose('Tracking: user "' + user.email + '" logged in'+ (req.session.entryPoint ? ' with redirect to '+req.session.entryPoint : ''));
                 res.redirect((req.session.entryPoint && req.session.entryPoint.indexOf('login') == -1) ? req.session.entryPoint : '/');
             }else if(e == 'account-locked'){
@@ -42,10 +59,11 @@ module.exports = function(app){
 
     // artifactory login
     app.post('/rest/login', function(req, res){
-        AccountManager.manualLogin(req.body.name, req.body.password, function(e, user){
+        AccountManager.manualLogin(req.body.name, req.body.password, function(e, user, newMMXUser){
             if(user){
                 delete user.password;
                 req.session.user = user;
+                if(newMMXUser) res.header('X-New-MMX-User', 'enabled');
                 winston.verbose('Tracking: user "' + user.email + '" logged in'+ (req.session.entryPoint));
                 res.send(req.query.requireUser ? req.session.user.magnetId : 'SUCCESS', 200);
             }else{
@@ -63,6 +81,19 @@ module.exports = function(app){
             req.session.destroy(function(){
                 res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
                 res.redirect('back');
+            });
+        }
+    });
+
+    // api style user logout
+    app.all('/rest/logout', function(req, res){
+        if(!req.session.user){
+            res.send('ok', 200);
+        }else{
+            winston.verbose('Tracking: user "' + req.session.user.email + '" logged out');
+            req.session.destroy(function(){
+                res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+                res.send('ok', 200);
             });
         }
     });
@@ -141,7 +172,12 @@ module.exports = function(app){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                if(req.session.user.newMMXUser === true){
+                    req.session.user.newMMXUser = false;
+                    res.send(_.extend(user, {'newMMXUser':true}), 200);
+                }else{
+                    res.send(user, 200);
+                }
             }
         });
     });
@@ -297,6 +333,220 @@ module.exports = function(app){
 //        });
 //    });
 
+    app.post('/rest/apps', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.createApp(req.session.user.email, req.session.user.magnetId, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getApps(req.session.user.magnetId, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/stats', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getStats(req.session.user.id, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getApp(req.session.user.magnetId, req.params.id, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.put('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.updateApp(req.session.user.magnetId, req.session.user.userType === 'admin', req.params.id, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.delete('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.deleteApp(req.session.user.magnetId, req.session.user.userType === 'admin', req.params.id, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id/messages', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getAppMessages(req.session.user.id, req.params.id, req.query, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id/stats', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getAppStats(req.session.user.id, req.params.id, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id/endpoints', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getAppEndpoints(req.session.user.id, req.params.id, req.query, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id/users', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getAppUsers(req.session.user.id, req.params.id, req.query, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id/users/:uid/devices', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getAppUserDevices(req.session.user.id, req.params.id, req.params.uid, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.post('/rest/apps/:id/endpoints/:did/message', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.sendMessage(req.session.user.id, req.params.id, req.params.did, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.post('/rest/apps/:id/endpoints/:did/ping', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.sendPing(req.session.user.id, req.params.id, req.params.did, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.post('/rest/apps/:id/endpoints/:did/notification', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.sendNotification(req.session.user.id, req.params.id, req.params.did, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id/devices/:did/messages', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getDeviceMessages(req.session.user.id, req.params.id, req.params.did, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getAppTopics(req.session.user.id, req.params.id, req.query, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.post('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.createAppTopic(req.session.user.id, req.params.id, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.delete('/rest/apps/:id/topics/:tid', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.deleteAppTopic(req.session.user.id, req.params.id, req.params.tid, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.post('/rest/apps/:id/topics/:tid/publish', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.publishToTopic(req.session.user.id, req.params.id, req.params.tid, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id/sample', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        var platform = (req.query && req.query.platform && (req.query.platform == 'android' || req.query.platform == 'ios')) ? req.query.platform : 'android';
+        MMXManager.getSample(req.session.user.magnetId, req.params.id, platform, function(e, content){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.contentType('application/zip');
+                res.setHeader('Content-disposition', 'attachment; filename='+platform+'_messaging_sample_app.zip');
+                res.end(content, 'utf-8');
+            }
+        });
+    });
+
+    app.post('/rest/samples/:platform/update', UserManager.checkAuthority(['admin'], true), function(req, res){
+        var platform = (req.params && req.params.platform && (req.params.platform == 'android' || req.params.platform == 'ios')) ? req.params.platform : 'android';
+        MMXManager.updateSample(platform, function(e){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('ok', 200);
+            }
+        });
+    });
+
     app.post('/rest/submitFeedback', function(req, res){
         if(isAuthenticated(req) === false && !req.body.fullname){
             res.send('required-field-missing', 400);
@@ -441,12 +691,13 @@ module.exports = function(app){
             lastName : stripChars(req.body.lastName),
             email : req.body.email,
             companyName : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName,
-            magnetId: req.body.magnetId
+            magnetId: req.body.magnetId,
+            source : sanitize(req.body.source).xss()
         }, false, function(registrationStatus) {
             if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL) {
                 res.send({
                     status            : registrationStatus,
-                    skipAdminApproval : APP_CONFIG.skipAdminApproval
+                    skipAdminApproval : req.body.source ? true : APP_CONFIG.skipAdminApproval
                 }, 201);
             } else {
                 res.send(registrationStatus, 400);
@@ -534,6 +785,16 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 res.send(users, 200);
+            }
+        });
+    });
+
+    app.get('/rest/users/:magnetId/apps', UserManager.checkAuthority(['admin'], true), function(req, res){
+        MMXManager.getApps(req.params.magnetId, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(user, 200);
             }
         });
     });
@@ -728,7 +989,8 @@ module.exports = function(app){
     app.post('/rest/forgotPassword', function(req, res) {
 
         UserManager.sendForgotPasswordEmail({
-            email : req.body.email
+            email  : req.body.email,
+            source : sanitize(req.body.source).xss()
         }, function(status) {
             if(status == UserManager.SendForgotPasswordEmailEnum.EMAIL_SUCCESSFUL) {
                 res.send(status, 200);
@@ -751,6 +1013,41 @@ module.exports = function(app){
                 res.send(status, 400);
             }
         });
+    });
+
+    // pipe file from external url
+    app.get('/assets/r2m/cli', function(req, res){
+        var extReq = http.request({
+            hostname: "www.github.com",
+            path: "/magnetsystems/r2m-cli/releases/download/1.1.0/r2m-installer-1.1.0.zip"
+        }, function(extRes){
+            res.setHeader("content-type", "application/octet-stream");
+            res.setHeader("content-disposition", "attachment; filename=r2m-installer-1.1.0.zip");
+            extRes.pipe(res);
+        });
+        extReq.end();
+    });
+    app.get('/assets/r2m/ios_plugin', function(req, res){
+        var extReq = http.request({
+            hostname: "www.github.com",
+            path: "/magnetsystems/r2m-plugin-ios/releases/download/v1.1.0/r2m-Xcode-plugin.zip"
+        }, function(extRes){
+            res.setHeader("content-type", "application/octet-stream");
+            res.setHeader("content-disposition", "attachment; filename=magnet-r2m-Xcode-plugin.zip");
+            extRes.pipe(res);
+        });
+        extReq.end();
+    });
+    app.get('/assets/r2m/android_plugin', function(req, res){
+        var extReq = http.request({
+            hostname: "www.github.com",
+            path: "/magnetsystems/r2m-plugin-android/releases/download/1.1.0/r2m-plugin-android-1.1.0.zip"
+        }, function(extRes){
+            res.setHeader("content-type", "application/octet-stream");
+            res.setHeader("content-disposition", "attachment; filename=r2m-plugin-android-1.1.0.zip");
+            extRes.pipe(res);
+        });
+        extReq.end();
     });
 
     // return server statistics

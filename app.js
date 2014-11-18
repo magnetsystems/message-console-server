@@ -3,7 +3,8 @@ var express = require('express')
 , app = express()
 , connect = require('express/node_modules/connect')
 , fs = require('fs')
-, winston = require('winston');
+, winston = require('winston')
+, expressLayouts = require('express-ejs-layouts');
 
 if(!app.settings.env || app.settings.env == ''){
     throw new Error('The environment variable NODE_ENV is not configured.');
@@ -21,9 +22,12 @@ app.configure(function(){
     // view rendering
     app.engine('ejs', require('ejs-locals'));
     app.set('views', __dirname + '/views');
-    app.locals({
-        _layoutFile : '/layouts/site'
-    });
+    app.set('layout', __dirname + '/views/layouts/site');
+    app.use(expressLayouts);
+//    app.locals({
+//        _layoutFile : '/layouts/site'
+//    });
+
     app.locals.open = '{{';
     app.locals.close = '}}';
     app.set('view engine', 'ejs');

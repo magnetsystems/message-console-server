@@ -37,6 +37,7 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             // override default backbone model sync method to be compatible with REST APIs
             syncOverride(this.mc, this.eventPubSub);
             Backbone.history.start();
+            $('.title_container, #leave-feedback-container, #invite-others').hide();
             this.initGetIdentity();
         },
         routes: {
@@ -51,10 +52,10 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             var me = this;
             me.auth(function(){
                 if(id){
-                    me.eventPubSub.trigger('resetPages', 'admin-details');
+                    me.eventPubSub.trigger('resetAdminPages', 'admin-details');
                     me.eventPubSub.trigger('initAdminDetailsView', {page:page, magnetId:id});
                 }else{
-                    me.eventPubSub.trigger('resetPages', 'admin');
+                    me.eventPubSub.trigger('resetAdminPages', 'admin');
                     me.eventPubSub.trigger('initAdminView', page);
                 }
             });

@@ -8,6 +8,27 @@ module.exports = function(app){
 
 /* PAGES */
 
+    // mmx
+//    app.get('/', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+//        res.render('account/index', {
+//            locals : {
+//                title       : 'Messaging',
+//                activePage  : 'account',
+//                sessionUser : req.session.user
+//            }
+//        });
+//    });
+//
+//    app.get('/account', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+//        res.render('account/index', {
+//            locals : {
+//                title       : 'Messaging',
+//                activePage  : 'account',
+//                sessionUser : req.session.user
+//            }
+//        });
+//    });
+
     app.get('/', function(req, res){
         res.render('index', {
             locals : {
@@ -71,6 +92,106 @@ module.exports = function(app){
         });
     });
 
+    app.get('/rest2mobile', function(req, res){
+        res.render('rest2mobile/index', {
+            locals : {
+                title       : 'rest2mobile',
+                sessionUser : req.session.user
+            },
+            layout : '../views/layouts/site_dev'
+        });
+    });
+
+    app.get('/rest2mobile/cli', function(req, res){
+        res.render('rest2mobile/cli', {
+            locals : {
+                title       : 'rest2mobile - Command Line Tool',
+                sessionUser : req.session.user
+            },
+            layout : '../views/layouts/site_dev'
+        });
+    });
+
+    app.get('/rest2mobile/android', function(req, res){
+        res.render('rest2mobile/android', {
+            locals : {
+                title       : 'rest2mobile - Android Plugin',
+                sessionUser : req.session.user
+            },
+            layout : '../views/layouts/site_dev'
+        });
+    });
+
+    app.get('/rest2mobile/ios', function(req, res){
+        res.render('rest2mobile/ios', {
+            locals : {
+                title       : 'rest2mobile - XCode Plugin',
+                sessionUser : req.session.user
+            },
+            layout : '../views/layouts/site_dev'
+        });
+    });
+
+    app.get('/messaging', function(req, res){
+        res.render('messaging/index', {
+            locals : {
+                title       : 'Mobile Messaging',
+                sessionUser : req.session.user
+            },
+            layout : '../views/layouts/site_dev'
+        });
+    });
+
+    app.get('/messaging/android', function(req, res){
+        res.render('messaging/android', {
+            locals : {
+                title       : 'Mobile Messaging - Android',
+                sessionUser : req.session.user
+            },
+            layout : '../views/layouts/site_dev'
+        });
+    });
+
+    app.get('/messaging/ios', function(req, res){
+        res.render('messaging/ios', {
+            locals : {
+                title       : 'Mobile Messaging - iOS',
+                sessionUser : req.session.user
+            },
+            layout : '../views/layouts/site_dev'
+        });
+    });
+
+    app.get('/persistence', function(req, res){
+        res.render('persistence/index', {
+            locals : {
+                title       : 'Mobile Persistence',
+                sessionUser : req.session.user
+            },
+            layout : '../views/layouts/site_dev'
+        });
+    });
+
+    app.get('/persistence/android', function(req, res){
+        res.render('persistence/android', {
+            locals : {
+                title       : 'Mobile Persistence - Android',
+                sessionUser : req.session.user
+            },
+            layout : '../views/layouts/site_dev'
+        });
+    });
+
+    app.get('/persistence/ios', function(req, res){
+        res.render('persistence/ios', {
+            locals : {
+                title       : 'Mobile Persistence - iOS',
+                sessionUser : req.session.user
+            },
+            layout : '../views/layouts/site_dev'
+        });
+    });
+
     app.get('/docs/oss-mobile-app-builder', function(req, res){
         res.render('file-templates/doc-template', {
             locals : {
@@ -107,9 +228,10 @@ module.exports = function(app){
         res.render('admin/index', {
             locals : {
                 title       : 'Administration',
-                sessionUser : req.session.user
-            },
-            _layoutFile : false
+                activePage  : 'admin',
+                sessionUser : req.session.user,
+                header      :  ejs.render(fs.readFileSync('./views/layouts/header.ejs', 'ascii'), {})
+            }
         });
     });
 
