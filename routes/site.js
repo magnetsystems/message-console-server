@@ -8,35 +8,41 @@ module.exports = function(app){
 
 /* PAGES */
 
-    // mmx
-//    app.get('/', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
-//        res.render('account/index', {
-//            locals : {
-//                title       : 'Messaging',
-//                activePage  : 'account',
-//                sessionUser : req.session.user
-//            }
-//        });
-//    });
-//
-//    app.get('/account', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
-//        res.render('account/index', {
-//            locals : {
-//                title       : 'Messaging',
-//                activePage  : 'account',
-//                sessionUser : req.session.user
-//            }
-//        });
-//    });
-
     app.get('/', function(req, res){
-        res.render('index', {
+//        res.render('index', {
+//            locals : {
+//                title           : 'Home',
+//                activePage      : 'home',
+//                latestNews      : Jobs.get('Announcements'),
+//                sessionUser     : req.session.user,
+//                homePageVideoID : APP_CONFIG.homePageVideoID
+//            }
+//        });
+        res.render('resources/index', {
             locals : {
-                title           : 'Home',
-                activePage      : 'home',
-                latestNews      : Jobs.get('Announcements'),
-                sessionUser     : req.session.user,
-                homePageVideoID : APP_CONFIG.homePageVideoID
+                title       : 'Resources',
+                activePage  : 'resources',
+                sessionUser : req.session.user
+            }
+        });
+    });
+
+    app.get('/resources', function(req, res){
+        res.render('resources/index', {
+            locals : {
+                title       : 'Resources',
+                activePage  : 'resources',
+                sessionUser : req.session.user
+            }
+        });
+    });
+
+    app.get('/get-started', function(req, res){
+        res.render('getstarted/index', {
+            locals : {
+                title        : 'Get Started',
+                activePage   : 'get-started',
+                sessionUser  : req.session.user
             }
         });
     });
@@ -48,16 +54,6 @@ module.exports = function(app){
                 activePage   : 'support',
                 sessionUser  : req.session.user,
                 captcha      : ENV_CONFIG.reCAPTCHA.enabled
-            }
-        });
-    });
-
-    app.get('/get-started', function(req, res){
-        res.render('getstarted/index', {
-            locals : {
-                title        : 'Get Started',
-                activePage   : 'get-started',
-                sessionUser  : req.session.user
             }
         });
     });
@@ -78,16 +74,57 @@ module.exports = function(app){
                 title       : 'Documentation Search',
                 activePage  : 'docs',
                 sessionUser : req.session.user
+            },
+            layout : '../views/layouts/site'
+        });
+    });
+
+    app.get('/archives', function(req, res){
+        res.render('archives/v230', {
+            locals : {
+                title        : 'Archive for version 2.3',
+                activePage   : 'archives',
+                sessionUser  : req.session.user
             }
         });
     });
 
-    app.get('/resources', function(req, res){
-        res.render('resources/index', {
+    app.get('/archives/2.3', function(req, res){
+        res.render('archives/v230', {
             locals : {
-                title       : 'Resources',
-                activePage  : 'resources',
-                sessionUser : req.session.user
+                title        : 'Archive for version 2.3',
+                activePage   : 'archives',
+                sessionUser  : req.session.user
+            }
+        });
+    });
+
+    app.get('/archives/2.3/get-started', function(req, res){
+        res.render('archives/v230-getstarted', {
+            locals : {
+                title        : 'Archive for version 2.3',
+                activePage   : 'archives',
+                sessionUser  : req.session.user
+            }
+        });
+    });
+
+    app.get('/archives/2.3/build-backend', function(req, res){
+        res.render('archives/v230-buildbackend', {
+            locals : {
+                title        : 'Archive for version 2.3',
+                activePage   : 'archives',
+                sessionUser  : req.session.user
+            }
+        });
+    });
+
+    app.get('/archives/2.3/build-mobile', function(req, res){
+        res.render('archives/v230-buildmobile', {
+            locals : {
+                title        : 'Archive for version 2.3',
+                activePage   : 'archives',
+                sessionUser  : req.session.user
             }
         });
     });
@@ -97,8 +134,7 @@ module.exports = function(app){
             locals : {
                 title       : 'rest2mobile',
                 sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
+            }
         });
     });
 
@@ -107,8 +143,7 @@ module.exports = function(app){
             locals : {
                 title       : 'rest2mobile - Command Line Tool',
                 sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
+            }
         });
     });
 
@@ -117,8 +152,7 @@ module.exports = function(app){
             locals : {
                 title       : 'rest2mobile - Android Plugin',
                 sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
+            }
         });
     });
 
@@ -127,8 +161,7 @@ module.exports = function(app){
             locals : {
                 title       : 'rest2mobile - XCode Plugin',
                 sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
+            }
         });
     });
 
@@ -137,8 +170,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Mobile Messaging',
                 sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
+            }
         });
     });
 
@@ -147,8 +179,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Mobile Messaging - Android',
                 sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
+            }
         });
     });
 
@@ -157,8 +188,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Mobile Messaging - iOS',
                 sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
+            }
         });
     });
 
@@ -167,8 +197,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Mobile Persistence',
                 sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
+            }
         });
     });
 
@@ -177,8 +206,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Mobile Persistence - Android',
                 sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
+            }
         });
     });
 
@@ -187,8 +215,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Mobile Persistence - iOS',
                 sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
+            }
         });
     });
 
@@ -224,6 +251,58 @@ module.exports = function(app){
         });
     });
 
+    app.get('/account/registration', function(req, res){
+        res.render('registration/registration', {
+            locals : {
+                title       : 'Registration',
+                activePage  : 'account',
+                sessionUser : req.session.user
+            }
+        });
+    });
+
+    app.get('/account/confirm-registration', function(req, res){
+        res.render('registration/confirm-registration', {
+            locals : {
+                title       : 'Confirm Registration',
+                activePage  : 'account',
+                countries   : Countries,
+                sessionUser : req.session.user
+            }
+        });
+    });
+
+    app.get('/account/complete-registration', function(req, res){
+        res.render('registration/complete-registration', {
+            locals : {
+                title       : 'Complete Registration',
+                activePage  : 'account',
+                countries   : Countries,
+                sessionUser : req.session.user
+            }
+        });
+    });
+
+    app.get('/account/forgot-password', function(req, res){
+        res.render('registration/forgot-password', {
+            locals : {
+                title       : 'Forgot Password',
+                activePage  : 'account',
+                sessionUser : req.session.user
+            }
+        });
+    });
+
+    app.get('/account/reset-password', function(req, res){
+        res.render('registration/reset-password', {
+            locals : {
+                title       : 'Reset Password',
+                activePage  : 'account',
+                sessionUser : req.session.user
+            }
+        });
+    });
+
     app.get('/admin', UserManager.checkAuthority(['admin']), function(req, res){
         res.render('admin/index', {
             locals : {
@@ -231,7 +310,8 @@ module.exports = function(app){
                 activePage  : 'admin',
                 sessionUser : req.session.user,
                 header      :  ejs.render(fs.readFileSync('./views/layouts/header.ejs', 'ascii'), {})
-            }
+            },
+            layout : '../views/layouts/site'
         });
     });
 
