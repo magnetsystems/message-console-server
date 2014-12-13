@@ -3,6 +3,9 @@ var IS_LOGGED_IN;
 $(document).ready(function(){
     Alerts.init();
     initPlaceholders();
+    bindFeedbackButton();
+    bindNewsletterSignup();
+    bindWatchVideo();
     bindNews();
     initAuthBootstrap();
     var contact = new ContactForm();
@@ -89,6 +92,127 @@ function initAuthBootstrap(){
     }
 }
 
+function bindFeedbackButton(){
+    $('#leave-feedback-container').show();
+    var div = $('#feedback-content');
+    var complete = $('#feedback-complete');
+    var error = $('#feedback-error');
+    var btn = $('#feedback-btn');
+    var submitBtn = $('#submit-feedback-btn');
+    var loader = $('#feedback-content img');
+    var isActive = false;
+    var closed = {
+        height  : 0,
+        width   : 0,
+        padding : 0,
+        opacity : 0
+    };
+    div.each(function(){
+        $.data(this, 'baseHeight', $(this).height());
+        $.data(this, 'baseWidth', $(this).width());
+        $('#leave-feedback-container').css('opacity', '1');
+    }).css(closed);
+    btn.click(function(e){
+        e.preventDefault();
+        if(btn.hasClass('active')){
+            btn.removeClass('active');
+            complete.hide('slow');
+            error.hide('slow');
+            div.animate(closed, 600);
+        }else{
+            setTimeout(function(){
+                btn.addClass('active');
+                complete.hide('slow');
+                error.hide('slow');
+                div.animate({
+                    height  : div.data('baseHeight') + 20,
+                    width   : div.data('baseWidth'),
+                    padding : '10px',
+                    opacity : 1
+                }, 600);
+            }, 100);
+        }
+    });
+    $('html').click(function(e){
+        if(btn.hasClass('active')){
+            btn.removeClass('active');
+            complete.hide('slow');
+            error.hide('slow');
+            div.animate(closed, 600);
+        }
+    });
+    $('#leave-feedback-container').click(function(e){
+        e.stopPropagation();
+    });
+    submitBtn.click(function(e){
+        e.stopPropagation();
+        e.preventDefault();
+        var type = $('#feedback-type-field');
+        var sub = $('#feedback-subject');
+        var msg = $('#feedback-message');
+        var email = $('#feedback-email');
+        if(isActive === false && $.trim(msg.val()).length > 0){
+            isActive = true;
+            submitBtn.hide();
+            loader.show();
+            $.ajax({
+                type        : 'POST',
+                url         : '/rest/submitFeedback',
+                data        : {
+                    type  : type.val(),
+                    msg   : msg.val(),
+                    sub   : sub.val(),
+                    email : email.val()
+                },
+                contentType : 'application/x-www-form-urlencoded'
+            }).done(function(){
+                complete.show('slow');
+            }).fail(function(){
+                error.show('slow');
+            }).always(function(){
+                msg.val('');
+                sub.val('');
+                email.val('');
+                div.css(closed);
+                isActive = false;
+                submitBtn.show();
+                loader.hide();
+            });
+        }
+    });
+}
+
+function bindNewsletterSignup(){
+    $('.newsletter-signup-btn').click(function(){
+        var parent = $(this).closest('.form-group');
+        var input = parent.find('input[name="email"]');
+        if(!utils.emailRegex.test(input.val())){
+            return Alerts.Error.display({
+                title   : 'Invalid Email Address',
+                content : 'The format of the email address you provided is invalid.'
+            });
+        }
+        $.ajax({
+            type        : 'POST',
+            url         : '/rest/subscribeNewsletter',
+            data        : {
+                email  : $.trim(input.val()),
+                source : window.location.pathname
+            },
+            contentType : 'application/x-www-form-urlencoded'
+        }).done(function(){
+            parent.html('<div class="alert alert-success" role="alert"><strong>All Set!</strong> <span>You have been registered to receive our newsletter.</span></div>');
+        }).fail(function(xhr){
+            var msg = 'There was an error subscribing your email. Please try again later.';
+            if(xhr.responseText == 'already-registered') msg = 'This email address has already been used to subscribe.';
+            Alerts.Error.display({
+                title   : 'Could Not Subscribe',
+                content : msg
+            });
+        });
+    });
+}
+
 function bindNews(){
     var otherNews = $('#latest-news .others');
     var btn =$('#open-more-news-btn');
@@ -105,6 +229,60 @@ function bindNews(){
             otherNews.show();
         }
     });
+}
+
+var ytVideoID;
+var ytVideoPlayer;
+function bindWatchVideo(){
+    var ytVideoID, ytModalTitle;
+    var $window = $(window);
+    var modal = $('#watch-video-modal');
+    var videoContainer = modal.find('.modal-body');
+    var modalHeader = modal.find('.modal-header');
+    var modalFooter = modal.find('.modal-footer');
+    if(modal.length){
+        $('.watch-video-btn').click(function(e){
+            e.preventDefault();
+            ytVideoID = $(this).attr('did');
+            ytModalTitle = $(this).attr('video-title');
+            if(ytVideoID && ytVideoID.length > 1){
+                modal.find('.modal-title').html(ytModalTitle);
+                modal.modal('show');
+                window.onYouTubeIframeAPIReady = function(){
+                    var videoContainer = modal.find('#watch-video-container');
+                    ytVideoPlayer = new YT.Player('watch-video-container', {
+                        height  : videoContainer.height(),
+                        width   : videoContainer.width(),
+                        videoId : ytVideoID,
+                        events  : {
+                            'onReady' : function(event){
+                                event.target.playVideo();
+                            }
+                        }
+                    });
+                };
+                setTimeout(function(){
+                    videoContainer.css('height', modal.height()-modalHeader.height()-modalFooter.height()-120);
+                    var tag = document.createElement('script');
+                    tag.src = "https://www.youtube.com/iframe_api";
+                    var firstScriptTag = document.getElementsByTagName('script')[0];
+                    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                }, 500);
+            }
+        });
+        $window.resize(function(){
+            setTimeout(function(){
+                if(ytVideoID){
+                    var videoContainer2 = modal.find('#watch-video-container');
+                    videoContainer2.css('width', modal.width());
+                    videoContainer2.css('height', modal.height()-modalHeader.height()-modalFooter.height()-120);
+                }
+            }, 800);
+        });
+        modal.on('hidden', function(){
+            ytVideoPlayer.stopVideo();
+        });
+    }
 }
 
 function Logout(){

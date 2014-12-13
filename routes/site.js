@@ -8,21 +8,16 @@ module.exports = function(app){
 
 /* PAGES */
 
+    var siteHeader = ejs.render(fs.readFileSync('./views/layouts/header.ejs', 'ascii'), {});
+
     app.get('/', function(req, res){
-//        res.render('index', {
-//            locals : {
-//                title           : 'Home',
-//                activePage      : 'home',
-//                latestNews      : Jobs.get('Announcements'),
-//                sessionUser     : req.session.user,
-//                homePageVideoID : APP_CONFIG.homePageVideoID
-//            }
-//        });
-        res.render('resources/index', {
+        res.render('index', {
             locals : {
-                title       : 'Resources',
-                activePage  : 'resources',
-                sessionUser : req.session.user
+                title           : 'Home',
+                activePage      : 'home',
+                latestNews      : Jobs.get('Announcements'),
+                sessionUser     : req.session.user,
+                homePageVideoID : APP_CONFIG.homePageVideoID
             }
         });
     });
@@ -76,6 +71,28 @@ module.exports = function(app){
                 sessionUser : req.session.user
             },
             layout : '../views/layouts/site'
+        });
+    });
+
+    app.get('/docs/oss-mobile-app-builder', function(req, res){
+        res.render('file-templates/doc-template', {
+            locals : {
+                title       : 'Mobile App Builder Open Source',
+                activePage  : 'docs',
+                metadata    : require('../views/file-templates/oss_mobile_app_builder.json'),
+                sessionUser : req.session.user
+            }
+        });
+    });
+
+    app.get('/docs/oss-mobile-backend', function(req, res){
+        res.render('file-templates/doc-template', {
+            locals : {
+                title       : 'Mobile Backend Open Source',
+                activePage  : 'docs',
+                metadata    : require('../views/file-templates/oss_mobile_backend.json'),
+                sessionUser : req.session.user
+            }
         });
     });
 
@@ -133,7 +150,9 @@ module.exports = function(app){
         res.render('rest2mobile/index', {
             locals : {
                 title       : 'rest2mobile',
-                sessionUser : req.session.user
+                activePage  : 'rest2mobile',
+                sessionUser : req.session.user,
+                page        : 'developer'
             }
         });
     });
@@ -142,7 +161,9 @@ module.exports = function(app){
         res.render('rest2mobile/cli', {
             locals : {
                 title       : 'rest2mobile - Command Line Tool',
-                sessionUser : req.session.user
+                activePage  : 'rest2mobile',
+                sessionUser : req.session.user,
+                page        : 'developer'
             }
         });
     });
@@ -151,7 +172,9 @@ module.exports = function(app){
         res.render('rest2mobile/android', {
             locals : {
                 title       : 'rest2mobile - Android Plugin',
-                sessionUser : req.session.user
+                activePage  : 'rest2mobile',
+                sessionUser : req.session.user,
+                page        : 'developer'
             }
         });
     });
@@ -160,7 +183,9 @@ module.exports = function(app){
         res.render('rest2mobile/ios', {
             locals : {
                 title       : 'rest2mobile - XCode Plugin',
-                sessionUser : req.session.user
+                activePage  : 'rest2mobile',
+                sessionUser : req.session.user,
+                page        : 'developer'
             }
         });
     });
@@ -169,7 +194,9 @@ module.exports = function(app){
         res.render('messaging/index', {
             locals : {
                 title       : 'Mobile Messaging',
-                sessionUser : req.session.user
+                activePage  : 'messaging',
+                sessionUser : req.session.user,
+                page        : 'developer'
             }
         });
     });
@@ -178,7 +205,9 @@ module.exports = function(app){
         res.render('messaging/android', {
             locals : {
                 title       : 'Mobile Messaging - Android',
-                sessionUser : req.session.user
+                activePage  : 'messaging',
+                sessionUser : req.session.user,
+                page        : 'developer'
             }
         });
     });
@@ -187,7 +216,9 @@ module.exports = function(app){
         res.render('messaging/ios', {
             locals : {
                 title       : 'Mobile Messaging - iOS',
-                sessionUser : req.session.user
+                activePage  : 'messaging',
+                sessionUser : req.session.user,
+                page        : 'developer'
             }
         });
     });
@@ -196,7 +227,9 @@ module.exports = function(app){
         res.render('persistence/index', {
             locals : {
                 title       : 'Mobile Persistence',
-                sessionUser : req.session.user
+                activePage  : 'messaging',
+                sessionUser : req.session.user,
+                page        : 'developer'
             }
         });
     });
@@ -205,7 +238,9 @@ module.exports = function(app){
         res.render('persistence/android', {
             locals : {
                 title       : 'Mobile Persistence - Android',
-                sessionUser : req.session.user
+                activePage  : 'messaging',
+                sessionUser : req.session.user,
+                page        : 'developer'
             }
         });
     });
@@ -214,29 +249,9 @@ module.exports = function(app){
         res.render('persistence/ios', {
             locals : {
                 title       : 'Mobile Persistence - iOS',
-                sessionUser : req.session.user
-            }
-        });
-    });
-
-    app.get('/docs/oss-mobile-app-builder', function(req, res){
-        res.render('file-templates/doc-template', {
-            locals : {
-                title       : 'Mobile App Builder Open Source',
-                activePage  : 'docs',
-                metadata    : require('../views/file-templates/oss_mobile_app_builder.json'),
-                sessionUser : req.session.user
-            }
-        });
-    });
-
-    app.get('/docs/oss-mobile-backend', function(req, res){
-        res.render('file-templates/doc-template', {
-            locals : {
-                title       : 'Mobile Backend Open Source',
-                activePage  : 'docs',
-                metadata    : require('../views/file-templates/oss_mobile_backend.json'),
-                sessionUser : req.session.user
+                activePage  : 'messaging',
+                sessionUser : req.session.user,
+                page        : 'developer'
             }
         });
     });
@@ -309,7 +324,7 @@ module.exports = function(app){
                 title       : 'Administration',
                 activePage  : 'admin',
                 sessionUser : req.session.user,
-                header      :  ejs.render(fs.readFileSync('./views/layouts/header.ejs', 'ascii'), {})
+                header      :  siteHeader
             },
             layout : '../views/layouts/site'
         });
