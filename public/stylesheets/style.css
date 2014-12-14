@@ -3,8 +3,8 @@
 html, body{background:#e6e6e6;height:100%;font-size:15px;font-weight:300;font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}
 #head{background:#000;color:#fff;padding:3px 7px;font-size:18px;height:54px}
 #head-logo{float:left}
-#head-logo img{margin-top:9px;float:left}
-#head-logo p{margin:9px 0 0 0;padding:0 0 0 5px;display:block;float:left}
+#head-logo img{float:left;margin:7px -6px 0 0;max-width:114px}
+#head-logo p{margin:7px 0 0 0;padding:0 0 0 5px;display:block;float:left}
 #head-logo a{text-decoration:none;color:#999;font-weight:200;font-size:21px}
 #head-controls{float:right;height:100%}
 #head-controls a{display:block;height:100%;float:right;margin:0 8px;padding:0 10px;font-weight:300;font-size:13px;color:#999;line-height:44px}

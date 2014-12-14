@@ -17,7 +17,8 @@ module.exports = function(app){
                 activePage      : 'home',
                 latestNews      : Jobs.get('Announcements'),
                 sessionUser     : req.session.user,
-                homePageVideoID : APP_CONFIG.homePageVideoID
+                homePageVideoID : APP_CONFIG.homePageVideoID,
+                page            : 'developer'
             }
         });
     });
