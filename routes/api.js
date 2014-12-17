@@ -19,6 +19,7 @@ var AccountManager = require('../lib/AccountManager')
     , JiraApi = require('jira').JiraApi
     , recaptcha = require('simple-recaptcha')
     , ContentManagement = require('../lib/ContentManagement')
+    , MailChimpManager = require('../lib/MailChimpManager')
     , packageJSON = require('../package.json');
 
 module.exports = function(app){
@@ -566,6 +567,30 @@ module.exports = function(app){
             else{
                 sendJira(req, res);
             }
+        }
+    });
+
+    app.post('/rest/subscribeNewsletter', function(req, res){
+        if(isAuthenticated(req) === false && (!req.body.email || !validator.validators.isEmail(req.body.email))){
+            res.send('invalid-email', 400);
+        }else{
+            var obj = {
+                SOURCEPATH : sanitize(req.body.source).xss(),
+                SOURCEIP   : req.ip,
+                optin_ip   : req.ip
+            };
+            if(req.session.user){
+                obj.USERID = req.session.user.magnetId;
+                obj.FNAME = req.session.user.firstName;
+                obj.LNAME = req.session.user.lastName;
+            }
+            MailChimpManager.submit(req.body.email, obj, function(e){
+                if(e){
+                    res.send(e, 400);
+                }else{
+                    res.send('ok', 200);
+                }
+            });
         }
     });
 

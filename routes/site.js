@@ -8,26 +8,7 @@ module.exports = function(app){
 
 /* PAGES */
 
-    // mmx
-//    app.get('/', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
-//        res.render('account/index', {
-//            locals : {
-//                title       : 'Messaging',
-//                activePage  : 'account',
-//                sessionUser : req.session.user
-//            }
-//        });
-//    });
-//
-//    app.get('/account', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
-//        res.render('account/index', {
-//            locals : {
-//                title       : 'Messaging',
-//                activePage  : 'account',
-//                sessionUser : req.session.user
-//            }
-//        });
-//    });
+    var siteHeader = ejs.render(fs.readFileSync('./views/layouts/header.ejs', 'ascii'), {});
 
     app.get('/', function(req, res){
         res.render('index', {
@@ -36,7 +17,28 @@ module.exports = function(app){
                 activePage      : 'home',
                 latestNews      : Jobs.get('Announcements'),
                 sessionUser     : req.session.user,
-                homePageVideoID : APP_CONFIG.homePageVideoID
+                homePageVideoID : APP_CONFIG.homePageVideoID,
+                page            : 'developer'
+            }
+        });
+    });
+
+    app.get('/resources', function(req, res){
+        res.render('resources/index', {
+            locals : {
+                title       : 'Resources',
+                activePage  : 'resources',
+                sessionUser : req.session.user
+            }
+        });
+    });
+
+    app.get('/get-started', function(req, res){
+        res.render('getstarted/index', {
+            locals : {
+                title        : 'Get Started',
+                activePage   : 'get-started',
+                sessionUser  : req.session.user
             }
         });
     });
@@ -48,16 +50,6 @@ module.exports = function(app){
                 activePage   : 'support',
                 sessionUser  : req.session.user,
                 captcha      : ENV_CONFIG.reCAPTCHA.enabled
-            }
-        });
-    });
-
-    app.get('/get-started', function(req, res){
-        res.render('getstarted/index', {
-            locals : {
-                title        : 'Get Started',
-                activePage   : 'get-started',
-                sessionUser  : req.session.user
             }
         });
     });
@@ -78,117 +70,8 @@ module.exports = function(app){
                 title       : 'Documentation Search',
                 activePage  : 'docs',
                 sessionUser : req.session.user
-            }
-        });
-    });
-
-    app.get('/resources', function(req, res){
-        res.render('resources/index', {
-            locals : {
-                title       : 'Resources',
-                activePage  : 'resources',
-                sessionUser : req.session.user
-            }
-        });
-    });
-
-    app.get('/rest2mobile', function(req, res){
-        res.render('rest2mobile/index', {
-            locals : {
-                title       : 'rest2mobile',
-                sessionUser : req.session.user
             },
-            layout : '../views/layouts/site_dev'
-        });
-    });
-
-    app.get('/rest2mobile/cli', function(req, res){
-        res.render('rest2mobile/cli', {
-            locals : {
-                title       : 'rest2mobile - Command Line Tool',
-                sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
-        });
-    });
-
-    app.get('/rest2mobile/android', function(req, res){
-        res.render('rest2mobile/android', {
-            locals : {
-                title       : 'rest2mobile - Android Plugin',
-                sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
-        });
-    });
-
-    app.get('/rest2mobile/ios', function(req, res){
-        res.render('rest2mobile/ios', {
-            locals : {
-                title       : 'rest2mobile - XCode Plugin',
-                sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
-        });
-    });
-
-    app.get('/messaging', function(req, res){
-        res.render('messaging/index', {
-            locals : {
-                title       : 'Mobile Messaging',
-                sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
-        });
-    });
-
-    app.get('/messaging/android', function(req, res){
-        res.render('messaging/android', {
-            locals : {
-                title       : 'Mobile Messaging - Android',
-                sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
-        });
-    });
-
-    app.get('/messaging/ios', function(req, res){
-        res.render('messaging/ios', {
-            locals : {
-                title       : 'Mobile Messaging - iOS',
-                sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
-        });
-    });
-
-    app.get('/persistence', function(req, res){
-        res.render('persistence/index', {
-            locals : {
-                title       : 'Mobile Persistence',
-                sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
-        });
-    });
-
-    app.get('/persistence/android', function(req, res){
-        res.render('persistence/android', {
-            locals : {
-                title       : 'Mobile Persistence - Android',
-                sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
-        });
-    });
-
-    app.get('/persistence/ios', function(req, res){
-        res.render('persistence/ios', {
-            locals : {
-                title       : 'Mobile Persistence - iOS',
-                sessionUser : req.session.user
-            },
-            layout : '../views/layouts/site_dev'
+            layout : '../views/layouts/site'
         });
     });
 
@@ -214,11 +97,223 @@ module.exports = function(app){
         });
     });
 
+    app.get('/archives', function(req, res){
+        res.render('archives/v230', {
+            locals : {
+                title        : 'Archive for version 2.3',
+                activePage   : 'archives',
+                sessionUser  : req.session.user
+            }
+        });
+    });
+
+    app.get('/archives/2.3', function(req, res){
+        res.render('archives/v230', {
+            locals : {
+                title        : 'Archive for version 2.3',
+                activePage   : 'archives',
+                sessionUser  : req.session.user
+            }
+        });
+    });
+
+    app.get('/archives/2.3/get-started', function(req, res){
+        res.render('archives/v230-getstarted', {
+            locals : {
+                title        : 'Archive for version 2.3',
+                activePage   : 'archives',
+                sessionUser  : req.session.user
+            }
+        });
+    });
+
+    app.get('/archives/2.3/build-backend', function(req, res){
+        res.render('archives/v230-buildbackend', {
+            locals : {
+                title        : 'Archive for version 2.3',
+                activePage   : 'archives',
+                sessionUser  : req.session.user
+            }
+        });
+    });
+
+    app.get('/archives/2.3/build-mobile', function(req, res){
+        res.render('archives/v230-buildmobile', {
+            locals : {
+                title        : 'Archive for version 2.3',
+                activePage   : 'archives',
+                sessionUser  : req.session.user
+            }
+        });
+    });
+
+    app.get('/rest2mobile', function(req, res){
+        res.render('rest2mobile/index', {
+            locals : {
+                title       : 'rest2mobile',
+                activePage  : 'rest2mobile',
+                sessionUser : req.session.user,
+                page        : 'developer'
+            }
+        });
+    });
+
+    app.get('/rest2mobile/cli', function(req, res){
+        res.render('rest2mobile/cli', {
+            locals : {
+                title       : 'rest2mobile - Command Line Tool',
+                activePage  : 'rest2mobile',
+                sessionUser : req.session.user,
+                page        : 'developer'
+            }
+        });
+    });
+
+    app.get('/rest2mobile/android', function(req, res){
+        res.render('rest2mobile/android', {
+            locals : {
+                title       : 'rest2mobile - Android Plugin',
+                activePage  : 'rest2mobile',
+                sessionUser : req.session.user,
+                page        : 'developer'
+            }
+        });
+    });
+
+    app.get('/rest2mobile/ios', function(req, res){
+        res.render('rest2mobile/ios', {
+            locals : {
+                title       : 'rest2mobile - XCode Plugin',
+                activePage  : 'rest2mobile',
+                sessionUser : req.session.user,
+                page        : 'developer'
+            }
+        });
+    });
+
+    app.get('/messaging', function(req, res){
+        res.render('messaging/index', {
+            locals : {
+                title       : 'Mobile Messaging',
+                activePage  : 'messaging',
+                sessionUser : req.session.user,
+                page        : 'developer'
+            }
+        });
+    });
+
+    app.get('/messaging/android', function(req, res){
+        res.render('messaging/android', {
+            locals : {
+                title       : 'Mobile Messaging - Android',
+                activePage  : 'messaging',
+                sessionUser : req.session.user,
+                page        : 'developer'
+            }
+        });
+    });
+
+    app.get('/messaging/ios', function(req, res){
+        res.render('messaging/ios', {
+            locals : {
+                title       : 'Mobile Messaging - iOS',
+                activePage  : 'messaging',
+                sessionUser : req.session.user,
+                page        : 'developer'
+            }
+        });
+    });
+
+    app.get('/persistence', function(req, res){
+        res.render('persistence/index', {
+            locals : {
+                title       : 'Mobile Persistence',
+                activePage  : 'messaging',
+                sessionUser : req.session.user,
+                page        : 'developer'
+            }
+        });
+    });
+
+    app.get('/persistence/android', function(req, res){
+        res.render('persistence/android', {
+            locals : {
+                title       : 'Mobile Persistence - Android',
+                activePage  : 'messaging',
+                sessionUser : req.session.user,
+                page        : 'developer'
+            }
+        });
+    });
+
+    app.get('/persistence/ios', function(req, res){
+        res.render('persistence/ios', {
+            locals : {
+                title       : 'Mobile Persistence - iOS',
+                activePage  : 'messaging',
+                sessionUser : req.session.user,
+                page        : 'developer'
+            }
+        });
+    });
+
     app.get('/profile', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('profile/index', {
             locals : {
                 title       : 'My Profile',
                 activePage  : 'profile',
+                sessionUser : req.session.user
+            }
+        });
+    });
+
+    app.get('/account/registration', function(req, res){
+        res.render('registration/registration', {
+            locals : {
+                title       : 'Registration',
+                activePage  : 'account',
+                sessionUser : req.session.user
+            }
+        });
+    });
+
+    app.get('/account/confirm-registration', function(req, res){
+        res.render('registration/confirm-registration', {
+            locals : {
+                title       : 'Confirm Registration',
+                activePage  : 'account',
+                countries   : Countries,
+                sessionUser : req.session.user
+            }
+        });
+    });
+
+    app.get('/account/complete-registration', function(req, res){
+        res.render('registration/complete-registration', {
+            locals : {
+                title       : 'Complete Registration',
+                activePage  : 'account',
+                countries   : Countries,
+                sessionUser : req.session.user
+            }
+        });
+    });
+
+    app.get('/account/forgot-password', function(req, res){
+        res.render('registration/forgot-password', {
+            locals : {
+                title       : 'Forgot Password',
+                activePage  : 'account',
+                sessionUser : req.session.user
+            }
+        });
+    });
+
+    app.get('/account/reset-password', function(req, res){
+        res.render('registration/reset-password', {
+            locals : {
+                title       : 'Reset Password',
+                activePage  : 'account',
                 sessionUser : req.session.user
             }
         });
@@ -230,8 +325,9 @@ module.exports = function(app){
                 title       : 'Administration',
                 activePage  : 'admin',
                 sessionUser : req.session.user,
-                header      :  ejs.render(fs.readFileSync('./views/layouts/header.ejs', 'ascii'), {})
-            }
+                header      :  siteHeader
+            },
+            layout : '../views/layouts/site'
         });
     });
 

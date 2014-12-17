@@ -22,7 +22,7 @@ app.configure(function(){
     // view rendering
     app.engine('ejs', require('ejs-locals'));
     app.set('views', __dirname + '/views');
-    app.set('layout', __dirname + '/views/layouts/site');
+    app.set('layout', __dirname + '/views/layouts/site_dev');
     app.use(expressLayouts);
 //    app.locals({
 //        _layoutFile : '/layouts/site'
