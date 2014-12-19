@@ -1,21 +1,11 @@
 $(document).ready(function(){
-//    function getParameterByName(name){
-//        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-//        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-//            results = regex.exec(location.search);
-//        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-//    }
-//    var dl = getParameterByName('dl');
-//    if(dl){
-//        var ifm = document.getElementById('downloader');
-//        ifm.src = 'download/';
-//    }else{
-//        $('#subtitle .sdk-section').show();
-//    }
+    if(getParameterByName('dl')) document.getElementById('downloader').src = $('.sdk-section a').attr('href');
     var r2m = $('#r2m-demo');
     if(r2m.length) initR2M(r2m);
     var mmx = $('#messaging-demo');
     if(mmx.length) initMessaging(mmx);
+    var mp = $('#persistence-demo');
+    if(mp.length) initPersistence();
 });
 
 function initR2M(container){
@@ -133,9 +123,9 @@ function initMessaging(container){
         setTimeout(function(){
             output.text(input.val());
         }, (Math.floor((Math.random() * 3000) + 700)));
-        showMessagingCode(select.val());
+        showMessagingCode(select.val(), input.val());
     });
-    function showMessagingCode(did){
+    function showMessagingCode(did, val){
         if(editor){
             editor.destroy();
             editor = undefined;
@@ -163,7 +153,42 @@ function initMessaging(container){
         editor.setOptions({
             minLines : 1
         });
-        editor.setValue($('#sample-'+did[0]+'-'+did[1]).text(), 1);
+        var tmpl = new EJS({
+            element : 'sample-'+did[0]+'-'+did[1]
+        });
+        editor.setValue(tmpl.render({
+            val : val
+        }), 1);
         editor.gotoLine(1);
     }
+}
+
+function initPersistence(){
+    var editor;
+    editor = ace.edit('persistence-demo-code');
+    editor.setOptions({
+        maxLines : Infinity
+    });
+    editor.setTheme('ace/theme/chrome');
+    editor.getSession().setMode('ace/mode/java');
+    editor.setShowPrintMargin(false);
+    editor.renderer.setShowGutter(false);
+    editor.renderer.setScrollMargin(8, 8, 12, 12);
+    editor.setHighlightActiveLine(false);
+    editor.getSession().setUseWrapMode(true);
+    editor.setOptions({
+        minLines : 1
+    });
+    var tmpl = new EJS({
+        element : 'sample-persistence-android'
+    });
+    editor.setValue(tmpl.render(), 1);
+    editor.gotoLine(1);
+}
+
+function getParameterByName(name){
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }

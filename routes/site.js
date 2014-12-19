@@ -257,34 +257,34 @@ module.exports = function(app){
         res.render('persistence/index', {
             locals : {
                 title       : 'Mobile Persistence',
-                activePage  : 'messaging',
+                activePage  : 'persistence',
                 sessionUser : req.session.user,
                 view        : ENV_CONFIG.App.view
             }
         });
     });
-
-    app.get('/persistence/android', function(req, res){
-        res.render('persistence/android', {
-            locals : {
-                title       : 'Mobile Persistence - Android',
-                activePage  : 'messaging',
-                sessionUser : req.session.user,
-                view        : ENV_CONFIG.App.view
-            }
-        });
-    });
-
-    app.get('/persistence/ios', function(req, res){
-        res.render('persistence/ios', {
-            locals : {
-                title       : 'Mobile Persistence - iOS',
-                activePage  : 'messaging',
-                sessionUser : req.session.user,
-                view        : ENV_CONFIG.App.view
-            }
-        });
-    });
+//
+//    app.get('/persistence/android', function(req, res){
+//        res.render('persistence/android', {
+//            locals : {
+//                title       : 'Mobile Persistence - Android',
+//                activePage  : 'messaging',
+//                sessionUser : req.session.user,
+//                view        : ENV_CONFIG.App.view
+//            }
+//        });
+//    });
+//
+//    app.get('/persistence/ios', function(req, res){
+//        res.render('persistence/ios', {
+//            locals : {
+//                title       : 'Mobile Persistence - iOS',
+//                activePage  : 'messaging',
+//                sessionUser : req.session.user,
+//                view        : ENV_CONFIG.App.view
+//            }
+//        });
+//    });
 
     }
 
