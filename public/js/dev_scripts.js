@@ -122,7 +122,7 @@ function initMessaging(container){
         output.html('<img src="/img/site/ajax-loader-sm.gif" />');
         setTimeout(function(){
             output.text(input.val());
-        }, (Math.floor((Math.random() * 3000) + 700)));
+        }, (Math.floor((Math.random() * 1300) + 100)));
         showMessagingCode(select.val(), input.val());
     });
     function showMessagingCode(did, val){
