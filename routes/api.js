@@ -1040,41 +1040,6 @@ module.exports = function(app){
         });
     });
 
-    // pipe file from external url
-    app.get('/assets/r2m/cli', function(req, res){
-        var extReq = http.request({
-            hostname: "www.github.com",
-            path: "/magnetsystems/r2m-cli/releases/download/1.1.0/r2m-installer-1.1.0.zip"
-        }, function(extRes){
-            res.setHeader("content-type", "application/octet-stream");
-            res.setHeader("content-disposition", "attachment; filename=r2m-installer-1.1.0.zip");
-            extRes.pipe(res);
-        });
-        extReq.end();
-    });
-    app.get('/assets/r2m/ios_plugin', function(req, res){
-        var extReq = http.request({
-            hostname: "www.github.com",
-            path: "/magnetsystems/r2m-plugin-ios/releases/download/v1.1.0/r2m-Xcode-plugin.zip"
-        }, function(extRes){
-            res.setHeader("content-type", "application/octet-stream");
-            res.setHeader("content-disposition", "attachment; filename=magnet-r2m-Xcode-plugin.zip");
-            extRes.pipe(res);
-        });
-        extReq.end();
-    });
-    app.get('/assets/r2m/android_plugin', function(req, res){
-        var extReq = http.request({
-            hostname: "www.github.com",
-            path: "/magnetsystems/r2m-plugin-android/releases/download/1.1.0/r2m-plugin-android-1.1.0.zip"
-        }, function(extRes){
-            res.setHeader("content-type", "application/octet-stream");
-            res.setHeader("content-disposition", "attachment; filename=r2m-plugin-android-1.1.0.zip");
-            extRes.pipe(res);
-        });
-        extReq.end();
-    });
-
     // return server statistics
     app.get('/rest/stats', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
         res.send({
@@ -1086,9 +1051,6 @@ module.exports = function(app){
         });
     });
 };
-
-
-
 
 function stripChars(str){
     return str ? str.replace(/[^A-Za-z-_@£€ßçÇáàâäæãåèéêëîïíìôöòóøõûüùúÿñÁÀÂÄÆÃÅÈÉÊËÎÏÍÌÔÖÒÓØÕÛÜÙÚŸÑðÐ]/g, '') : null;

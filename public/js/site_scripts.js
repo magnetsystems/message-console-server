@@ -108,7 +108,7 @@ function bindFeedbackButton(){
         opacity : 0
     };
     div.each(function(){
-        $.data(this, 'baseHeight', $(this).height());
+        $.data(this, 'baseHeight', $(this).height()+14);
         $.data(this, 'baseWidth', $(this).width());
         $('#leave-feedback-container').css('opacity', '1');
     }).css(closed);
@@ -148,6 +148,7 @@ function bindFeedbackButton(){
         e.stopPropagation();
         e.preventDefault();
         var type = $('#feedback-type-field');
+        var name = $('#feedback-name');
         var sub = $('#feedback-subject');
         var msg = $('#feedback-message');
         var email = $('#feedback-email');
@@ -159,10 +160,11 @@ function bindFeedbackButton(){
                 type        : 'POST',
                 url         : '/rest/submitFeedback',
                 data        : {
-                    type  : type.val(),
-                    msg   : msg.val(),
-                    sub   : sub.val(),
-                    email : email.val()
+                    fullname     : name.val(),
+                    type         : type.val(),
+                    msg          : msg.val(),
+                    sub          : sub.val(),
+                    emailaddress : email.val()
                 },
                 contentType : 'application/x-www-form-urlencoded'
             }).done(function(){
@@ -170,6 +172,7 @@ function bindFeedbackButton(){
             }).fail(function(){
                 error.show('slow');
             }).always(function(){
+                name.val('');
                 msg.val('');
                 sub.val('');
                 email.val('');
@@ -184,9 +187,11 @@ function bindFeedbackButton(){
 
 function bindNewsletterSignup(){
     $('.newsletter-signup-btn').click(function(){
-        var parent = $(this).closest('.form-group');
+        var form = $(this).closest('.form-group');
+        var parent = form.length ? form : $(this).closest('.modal-content');
         var input = parent.find('input[name="email"]');
         if(!utils.emailRegex.test(input.val())){
+            if(!form.length) parent.closest('.modal').modal('hide');
             return Alerts.Error.display({
                 title   : 'Invalid Email Address',
                 content : 'The format of the email address you provided is invalid.'
@@ -201,10 +206,21 @@ function bindNewsletterSignup(){
             },
             contentType : 'application/x-www-form-urlencoded'
         }).done(function(){
-            parent.html('<div class="alert alert-success" role="alert"><strong>All Set!</strong> <span>You have been registered to receive our newsletter.</span></div>');
+            var title = 'All Set!';
+            var content = 'You have been registered to receive our newsletter.';
+            if(form.length){
+                parent.html('<div class="alert alert-success" role="alert"><strong>'+title+'</strong> <span>'+content+'</span></div>');
+            }else{
+                parent.closest('.modal').modal('hide');
+                Alerts.General.display({
+                    title   : title,
+                    content : content
+                });
+            }
         }).fail(function(xhr){
             var msg = 'There was an error subscribing your email. Please try again later.';
             if(xhr.responseText == 'already-registered') msg = 'This email address has already been used to subscribe.';
+            if(!form.length) parent.closest('.modal').modal('hide');
             Alerts.Error.display({
                 title   : 'Could Not Subscribe',
                 content : msg
@@ -251,10 +267,13 @@ function bindWatchVideo(){
                 window.onYouTubeIframeAPIReady = function(){
                     var videoContainer = modal.find('#watch-video-container');
                     ytVideoPlayer = new YT.Player('watch-video-container', {
-                        height  : videoContainer.height(),
-                        width   : videoContainer.width(),
-                        videoId : ytVideoID,
-                        events  : {
+                        height     : videoContainer.height(),
+                        width      : videoContainer.width(),
+                        playerVars : {
+                            controls : 0
+                        },
+                        videoId    : ytVideoID,
+                        events     : {
                             'onReady' : function(event){
                                 event.target.playVideo();
                             }
@@ -279,7 +298,7 @@ function bindWatchVideo(){
                 }
             }, 800);
         });
-        modal.on('hidden', function(){
+        modal.on('hide.bs.modal', function(){
             ytVideoPlayer.stopVideo();
         });
     }
