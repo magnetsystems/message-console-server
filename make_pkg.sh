@@ -58,6 +58,6 @@ ln -s $SCRIPT_DIR/migrations
 
 #create the tar!
 cd ..
-tar czfh $APP_NAME-$APP_VERSION.tar.gz $APP_NAME-$APP_VERSION/*
+tar czfh $APP_NAME-$APP_VERSION.tar.gz $APP_NAME/*
 
 
