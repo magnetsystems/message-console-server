@@ -81,15 +81,14 @@ module.exports = function(app){
         });
     });
 
-    app.get('/docs/search', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+    app.get('/docs/search', function(req, res){
         res.render('docs/search', {
             locals : {
                 title       : 'Documentation Search',
                 activePage  : 'docs',
                 sessionUser : req.session.user,
                 view        : ENV_CONFIG.App.view
-            },
-            layout : '../views/layouts/site'
+            }
         });
     });
 

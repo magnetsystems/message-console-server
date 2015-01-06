@@ -38,8 +38,8 @@ mkdir -p target/
 cd target/
 
 #create dir for packaging
-mkdir $APP_NAME-$APP_VERSION
-cd $APP_NAME-$APP_VERSION
+mkdir $APP_NAME
+cd $APP_NAME
 
 #create links to things to be packaged
 ln -s $SCRIPT_DIR/app.js

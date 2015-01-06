@@ -7,11 +7,33 @@ $(document).ready(function(){
     bindNewsletterSignup();
     bindWatchVideo();
     bindNews();
+    bindCollapsible();
     initAuthBootstrap();
     var contact = new ContactForm();
     var docSearch = new DocSearch();
     //var tokens = window.location.href.indexOf('/profile/') != -1 ? new TokenManager() : undefined;
 });
+
+function bindCollapsible(){
+    var btn = $('#show-collapsible-menu-btn');
+    var els = btn.closest('.collapsible-menu-list').find('> .padding-sm, > ul');
+    $('#hide-collapsible-menu-btn').click(function(){
+        els.hide();
+        $('.collapsible-menu-list').animate({
+            width  : '42px'
+        }, 500, function(){
+            btn.show();
+        });
+    });
+    btn.click(function(){
+        $('.collapsible-menu-list').animate({
+            width  : '280px'
+        }, 500, function(){
+            els.show();
+            btn.hide();
+        });
+    });
+}
 
 function initAuthBootstrap(){
     var me = this;
