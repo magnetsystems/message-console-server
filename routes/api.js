@@ -355,7 +355,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/stats', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getStats(req.session.user.id, function(e, user){
+        MMXManager.getStats(req.session.user.magnetId, function(e, user){
             if(e){
                 res.send(e, 400);
             }else{
@@ -415,7 +415,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/:id/stats', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getAppStats(req.session.user.id, req.params.id, function(e, user){
+        MMXManager.getAppStats(req.session.user.magnetId, req.params.id, function(e, user){
             if(e){
                 res.send(e, 400);
             }else{
