@@ -65,7 +65,7 @@ module.exports = function(app){
                 delete user.password;
                 req.session.user = user;
                 if(newMMXUser) res.header('X-New-MMX-User', 'enabled');
-                winston.verbose('Tracking: user "' + user.email + '" logged in'+ (req.session.entryPoint));
+                winston.verbose('Tracking: user "' + user.email + '" logged in.');
                 res.send(req.query.requireUser ? req.session.user.magnetId : 'SUCCESS', 200);
             }else{
                 res.send(e, 401);
@@ -360,6 +360,16 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 res.send(user, 200);
+            }
+        });
+    });
+
+    app.get('/rest/apps/configs', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getConfigs(req.session.user.id, function(e, configs){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(configs, 200);
             }
         });
     });
