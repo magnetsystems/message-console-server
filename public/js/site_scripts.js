@@ -282,9 +282,9 @@ function bindWatchVideo(){
         $('.watch-video-btn').click(function(e){
             e.preventDefault();
             ytVideoID = $(this).attr('did');
-            ytModalTitle = $(this).attr('video-title');
+//            ytModalTitle = $(this).attr('video-title');
             if(ytVideoID && ytVideoID.length > 1){
-                modal.find('.modal-title').html(ytModalTitle);
+//                modal.find('.modal-title').html(ytModalTitle);
                 modal.modal('show');
                 window.onYouTubeIframeAPIReady = function(){
                     var videoContainer = modal.find('#watch-video-container');
@@ -292,7 +292,8 @@ function bindWatchVideo(){
                         height     : videoContainer.height(),
                         width      : videoContainer.width(),
                         playerVars : {
-                            controls : 0
+                            controls : 0,
+                            showinfo : 0
                         },
                         videoId    : ytVideoID,
                         events     : {

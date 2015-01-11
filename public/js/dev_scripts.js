@@ -133,7 +133,7 @@ function changeSelect(dom, sel){
             timezone   : 'Google Time Zone'
         },
         urls : {
-            earthquake : 'http://www.seismi.org/api/eqs/{yyyy:2014}/{mm:01}?min_magnitude=6&limit=500',
+            earthquake : 'http://www.seismi.org/api/eqs/2011/03?min_magnitude=6&limit=500',
             distance   : 'http://maps.googleapis.com/maps/api/distancematrix/json?origins=435+Tasso+Street+Palo+Alto+CA',
             timezone   : 'https://maps.googleapis.com/maps/api/timezone/json?location=39.6034810,-119.6822510'
         }
@@ -146,7 +146,7 @@ function changeSelect(dom, sel){
 
 function initMessaging(container){
     var editor;
-    container.find('input').val('');
+    container.find('input').val('Hello World!');
     var code = $('#messaging-demo-code');
     var output = container.find('#messaging-demo-phone-wrapper > div');
     container.find('.btn').click(function(){
@@ -194,6 +194,7 @@ function initMessaging(container){
         }), 1);
         editor.gotoLine(1);
     }
+    showMessagingCode('push-android', 'Hello World!');
 }
 
 function initPersistence(){
