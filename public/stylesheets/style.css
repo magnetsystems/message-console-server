@@ -266,7 +266,7 @@ h4.step-title{font-weight:600;color:#7f878f;float:left;margin-left:-50px;margin-
 #home-body #home-quote .glyphicon-user{font-size:40px;margin-top:24px}
 #home-body #home-quote .glyphicon-circle-arrow-right{;margin-top:35px;font-size:30px}
 #home-body blockquote{border-left:none}
-#home-body .img-section-v .fixed-height-container{height:130px}
+#home-body .img-section-v .fixed-height-container{height:170px}
 
 /* get started */
 #get-started ol li{margin-bottom:30px}
@@ -311,7 +311,7 @@ h4.step-title{font-weight:600;color:#7f878f;float:left;margin-left:-50px;margin-
 #download-plugin-modal .modal-body p, #download-plugin-modal .modal-body h4{text-align:center}
 
 /* messaging */
-#messaging-body .hero-lg .hero-list{max-width:788px}
+#messaging-body .hero-lg .hero-list{max-width:818px}
 #messaging-demo{margin:0 auto;width:90%;position:relative;padding:30px 0}
 #messaging-form .form-group{float:left;width:50%}
 #messaging-form input{margin-left:10px}
@@ -407,7 +407,7 @@ body:after{content:url(../images/lightbox/close.png) url(../images/lightbox/load
 }
 @media only screen and (max-width:980px){
     #home-body .img-section-v h5{font-size:18px}
-    #home-body .img-section-v .fixed-height-container{height:170px}
+    #home-body .img-section-v .fixed-height-container{height:220px}
 }
 @media only screen and (max-width:767px){
     .img-section-h-lg .logo{float:none;width:100%;margin:0 auto}

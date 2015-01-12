@@ -293,7 +293,8 @@ function bindWatchVideo(){
                         width      : videoContainer.width(),
                         playerVars : {
                             controls : 0,
-                            showinfo : 0
+                            showinfo : 0,
+                            rel      : 0
                         },
                         videoId    : ytVideoID,
                         events     : {
