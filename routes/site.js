@@ -34,6 +34,28 @@ module.exports = function(app){
         }
     });
 
+    app.get('/docs', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+        res.render('docs/index', {
+            locals : {
+                title       : 'Documentation',
+                activePage  : 'docs',
+                sessionUser : req.session.user,
+                view        : ENV_CONFIG.App.view
+            }
+        });
+    });
+
+    app.get('/docs/search', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+        res.render('docs/search', {
+            locals : {
+                title       : 'Documentation Search',
+                activePage  : 'docs',
+                sessionUser : req.session.user,
+                view        : ENV_CONFIG.App.view
+            }
+        });
+    });
+
     if(ENV_CONFIG.App.view == 'factory'){
 
     app.get('/resources', function(req, res){
@@ -66,28 +88,6 @@ module.exports = function(app){
                 sessionUser  : req.session.user,
                 captcha      : ENV_CONFIG.reCAPTCHA.enabled,
                 view         : ENV_CONFIG.App.view
-            }
-        });
-    });
-
-    app.get('/docs', function(req, res){
-        res.render('docs/index', {
-            locals : {
-                title       : 'Documentation',
-                activePage  : 'docs',
-                sessionUser : req.session.user,
-                view        : ENV_CONFIG.App.view
-            }
-        });
-    });
-
-    app.get('/docs/search', function(req, res){
-        res.render('docs/search', {
-            locals : {
-                title       : 'Documentation Search',
-                activePage  : 'docs',
-                sessionUser : req.session.user,
-                view        : ENV_CONFIG.App.view
             }
         });
     });

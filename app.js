@@ -117,7 +117,7 @@ app.configure('production', function(){
 //    });
     // protect files and documentation behind login
 //    app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/resources\/files\/.*$/));
-    app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/docs\/.*\/.*$/));
+    if(ENV_CONFIG.App.docNeedAuth) app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/docs\/.*\/.*$/));
     // prioritize router before public directory, use minified public directory
     app.use(express.static(__dirname + '/public'));
     /* start https server

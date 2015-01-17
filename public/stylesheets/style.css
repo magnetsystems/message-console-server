@@ -329,6 +329,23 @@ h4.step-title{font-weight:600;color:#7f878f;float:left;margin-left:-50px;margin-
 #persistence-body .persistence-demo .code{text-align:left;margin-top:0}
 #persistence-body .hero-list{max-width:964px}
 
+/* docs */
+#documentation h1{font-size:28px}
+#documentation h2{font-size:25px}
+#documentation h3{font-size:22px}
+#documentation h4{font-size:19px}
+#documentation h5{font-size:16px}
+#documentation h3.page-title{font-size:30px}
+#docs-search-input{margin-bottom:0}
+#docs-search-results{margin:30px 0 10px}
+#docs-search-results em{background:#cdcdcd;padding:0 2px;border-radius:4px;font-style:normal}
+#docs-search-results div{margin:10px 0 28px}
+#docs-search-results div a{font-weight:400;text-decoration:underline}
+#docs-search-results div p{margin-bottom:26px}
+#docs-search-results span{color:#999;font-size:13px}
+#docs-search-results #search-meta{margin:15px 0;font-size:12px;color:#999}
+#docs-search-results button{margin-right:8px}
+
 /* THIRD PARTY */
 
 /* lightbox 2 */
@@ -423,6 +440,7 @@ body:after{content:url(../images/lightbox/close.png) url(../images/lightbox/load
     #home-body .img-section-v p{text-align:center}
     #home-body .img-section-v .fixed-height-container{height:inherit}
     #home-body #home-quote .glyphicon{display:none}
+    #documentation > .table-cell{display:block;width:100%}
 }
 @media only screen and (max-width:550px){
     #messaging-form{padding-bottom:0}
