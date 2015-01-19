@@ -287,10 +287,9 @@ function bindWatchVideo(){
 //                modal.find('.modal-title').html(ytModalTitle);
                 modal.modal('show');
                 window.onYouTubeIframeAPIReady = function(){
-                    var videoContainer = modal.find('#watch-video-container');
                     ytVideoPlayer = new YT.Player('watch-video-container', {
-                        height     : videoContainer.height(),
-                        width      : videoContainer.width(),
+                        height     : 487,
+                        width      : 869,
                         playerVars : {
                             controls : 0,
                             showinfo : 0,
@@ -305,7 +304,9 @@ function bindWatchVideo(){
                     });
                 };
                 setTimeout(function(){
-                    videoContainer.css('height', modal.height()-modalHeader.height()-modalFooter.height()-120);
+                    var videoContainer = modal.find('#watch-video-container');
+//                    videoContainer.css('width', '100%');
+//                    videoContainer.css('height', modal.height()-modalHeader.height()-modalFooter.height()-120);
                     var tag = document.createElement('script');
                     tag.src = "https://www.youtube.com/iframe_api";
                     var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -314,18 +315,27 @@ function bindWatchVideo(){
             }
         });
         $window.resize(function(){
-            setTimeout(function(){
-                if(ytVideoID){
-                    var videoContainer2 = modal.find('#watch-video-container');
-                    videoContainer2.css('width', modal.width());
-                    videoContainer2.css('height', modal.height()-modalHeader.height()-modalFooter.height()-120);
-                }
-            }, 800);
+//            setTimeout(function(){
+//                if(ytVideoID){
+//                    var videoContainer2 = modal.find('#watch-video-container');
+//                    var dim = calculateAspectRatioFit(videoContainer2.width(), videoContainer2.height(), 1738, 974);
+//                    videoContainer2.css('width', dim.width);
+//                    videoContainer2.css('height', dim.height);
+//                }
+//            }, 800);
         });
         modal.on('hide.bs.modal', function(){
             ytVideoPlayer.stopVideo();
         });
     }
+}
+
+function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight){
+    var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+    return {
+        width  : srcWidth * ratio,
+        height : srcHeight * ratio
+    };
 }
 
 function Logout(){
