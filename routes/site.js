@@ -34,17 +34,6 @@ module.exports = function(app){
         }
     });
 
-    app.get('/docs', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
-        res.render('docs/index', {
-            locals : {
-                title       : 'Documentation',
-                activePage  : 'docs',
-                sessionUser : req.session.user,
-                view        : ENV_CONFIG.App.view
-            }
-        });
-    });
-
     app.get('/docs/search', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('docs/search', {
             locals : {
@@ -57,6 +46,17 @@ module.exports = function(app){
     });
 
     if(ENV_CONFIG.App.view == 'factory'){
+
+    app.get('/docs', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+        res.render('docs/index', {
+            locals : {
+                title       : 'Documentation',
+                activePage  : 'docs',
+                sessionUser : req.session.user,
+                view        : ENV_CONFIG.App.view
+            }
+        });
+    });
 
     app.get('/resources', function(req, res){
         res.render('resources/index', {
