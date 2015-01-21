@@ -55,6 +55,7 @@ ln -s $SCRIPT_DIR/spec
 ln -s $SCRIPT_DIR/views
 ln -s $SCRIPT_DIR/node_modules
 ln -s $SCRIPT_DIR/migrations
+ln -s $SCRIPT_DIR/quickstart-android
 
 #create the tar!
 cd ..

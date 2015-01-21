@@ -10,7 +10,7 @@ $(document).ready(function(){
     bindCollapsible();
     initAuthBootstrap();
     var contact = new ContactForm();
-    var docSearch = new DocSearch();
+    var docSearch = new DocHelper();
     //var tokens = window.location.href.indexOf('/profile/') != -1 ? new TokenManager() : undefined;
 });
 
@@ -282,17 +282,18 @@ function bindWatchVideo(){
         $('.watch-video-btn').click(function(e){
             e.preventDefault();
             ytVideoID = $(this).attr('did');
-            ytModalTitle = $(this).attr('video-title');
+//            ytModalTitle = $(this).attr('video-title');
             if(ytVideoID && ytVideoID.length > 1){
-                modal.find('.modal-title').html(ytModalTitle);
+//                modal.find('.modal-title').html(ytModalTitle);
                 modal.modal('show');
                 window.onYouTubeIframeAPIReady = function(){
-                    var videoContainer = modal.find('#watch-video-container');
                     ytVideoPlayer = new YT.Player('watch-video-container', {
-                        height     : videoContainer.height(),
-                        width      : videoContainer.width(),
+                        height     : 487,
+                        width      : 869,
                         playerVars : {
-                            controls : 0
+                            controls : 0,
+                            showinfo : 0,
+                            rel      : 0
                         },
                         videoId    : ytVideoID,
                         events     : {
@@ -303,7 +304,9 @@ function bindWatchVideo(){
                     });
                 };
                 setTimeout(function(){
-                    videoContainer.css('height', modal.height()-modalHeader.height()-modalFooter.height()-120);
+                    var videoContainer = modal.find('#watch-video-container');
+//                    videoContainer.css('width', '100%');
+//                    videoContainer.css('height', modal.height()-modalHeader.height()-modalFooter.height()-120);
                     var tag = document.createElement('script');
                     tag.src = "https://www.youtube.com/iframe_api";
                     var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -312,18 +315,27 @@ function bindWatchVideo(){
             }
         });
         $window.resize(function(){
-            setTimeout(function(){
-                if(ytVideoID){
-                    var videoContainer2 = modal.find('#watch-video-container');
-                    videoContainer2.css('width', modal.width());
-                    videoContainer2.css('height', modal.height()-modalHeader.height()-modalFooter.height()-120);
-                }
-            }, 800);
+//            setTimeout(function(){
+//                if(ytVideoID){
+//                    var videoContainer2 = modal.find('#watch-video-container');
+//                    var dim = calculateAspectRatioFit(videoContainer2.width(), videoContainer2.height(), 1738, 974);
+//                    videoContainer2.css('width', dim.width);
+//                    videoContainer2.css('height', dim.height);
+//                }
+//            }, 800);
         });
         modal.on('hide.bs.modal', function(){
             ytVideoPlayer.stopVideo();
         });
     }
+}
+
+function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight){
+    var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+    return {
+        width  : srcWidth * ratio,
+        height : srcHeight * ratio
+    };
 }
 
 function Logout(){
@@ -1098,7 +1110,7 @@ TokenManager.prototype.doAction = function(actionId, magnetId){
     });
 };
 
-function DocSearch(){
+function DocHelper(){
     var me = this;
     me.matcher = '#/query/';
     me.container = $('#docs-search-results');
@@ -1130,8 +1142,23 @@ function DocSearch(){
         me.startIndex = ary[1] ? parseInt(ary[1]) : me.startIndex;
         me.exec(ary[0]);
     }
+    var docs = $('#documentation');
+    if(docs.length){
+        var active = docs.find('li.active.last');
+        if(active.length){
+            for(var i=0;i<4;++i){
+                active = active.parent().parent();
+                if(active.is('li')){
+                    active.addClass('active');
+                    active.find('> ul').addClass('in');
+                }else{
+                    break;
+                }
+            }
+        }
+    }
 }
-DocSearch.prototype.exec = function(query){
+DocHelper.prototype.exec = function(query){
     var me = this;
     var invalidInput = 'Input must have a minimum of three characters. Please refine your search.';
     var val = query || $.trim(me.input.val()).replace(/[^a-zA-Z0-9 _-]/g, '');
@@ -1160,13 +1187,13 @@ DocSearch.prototype.exec = function(query){
         me.renderDocs(val, {}, invalidInput);
     }
 }
-DocSearch.prototype.formatQuery = function(val){
+DocHelper.prototype.formatQuery = function(val){
     var str = window.location.href;
     if(str.indexOf(this.matcher) != -1)
         str = str.substr(str.indexOf(this.matcher));
     window.location.href = window.location.href.replace(str, '') + this.matcher + val + '/' + this.startIndex;
 }
-DocSearch.prototype.renderDocs = function(val, results, error){
+DocHelper.prototype.renderDocs = function(val, results, error){
     var me = this, html = '', meta = '<p id="search-meta">';
     if(error){
         html += error;
@@ -1183,15 +1210,15 @@ DocSearch.prototype.renderDocs = function(val, results, error){
             html += '<div>\
                 <a href="'+ary[i]._id+'">'+ary[i].fields.name+'</a><br />\
                 <span>'+ary[i]._id+'</span><br />\
-                <p>'+(ary[i].highlight.name || ('...'+ary[i].highlight.text+'...'))+'</p>\
+                <p>'+(ary[i].fields.brief +'... '+(ary[i].highlight.text ? ary[i].highlight.text.join('... ') : ary[i].fields.name)+'...')+'</p>\
             </div>';
         }
         if(total > 10){
             html += '<div class="pagination">';
             if(this.startIndex >= 10)
-                html += '<button class="prev-page btn" from="'+(me.startIndex - 10)+'">Previous Page</button>';
+                html += '<button class="prev-page btn btn-primary" from="'+(me.startIndex - 10)+'">Previous Page</button>';
             if((this.startIndex + 10) < total)
-                html += '<button class="next-page btn" from="'+(me.startIndex + 10)+'">Next Page</button>';
+                html += '<button class="next-page btn btn-primary" from="'+(me.startIndex + 10)+'">Next Page</button>';
             html += '</div>';
         }
     }
