@@ -337,8 +337,9 @@ h4.step-title{font-weight:600;color:#7f878f;float:left;margin-left:-50px;margin-
 
 /* docs */
 #documentation .code{background:none;box-shadow:none;border:none;min-height:auto;margin-top:0;padding:0}
-#documentation code{background:none;color:#000 !important}
-#documentation h1{font-size:28px}
+#documentation code{background:none;color:#000}
+#documentation pre code{color:#fff}
+#documentation h1{font-size:28px;color:#000}
 #documentation h2{font-size:25px}
 #documentation h3{font-size:22px}
 #documentation h4{font-size:19px}
