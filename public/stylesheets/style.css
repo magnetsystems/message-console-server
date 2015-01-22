@@ -336,13 +336,16 @@ h4.step-title{font-weight:600;color:#7f878f;float:left;margin-left:-50px;margin-
 #persistence-body .hero-list{max-width:964px}
 
 /* docs */
-#documentation .code{background:none;box-shadow:none;border:none;min-height:auto;margin-top:0}
-#documentation h1{font-size:28px}
-#documentation h2{font-size:25px}
-#documentation h3{font-size:22px}
-#documentation h4{font-size:19px}
-#documentation h5{font-size:16px}
-#documentation h3.page-title{font-size:30px}
+#documentation-content .code{background:none;box-shadow:none;border:none;min-height:0;margin-top:0;padding:0}
+#documentation-content code{background:none;color:#000}
+#documentation-content pre code{color:#fff}
+#documentation-content h1{font-size:28px;color:#000}
+#documentation-content h2{font-size:25px}
+#documentation-content h3{font-size:22px}
+#documentation-content h4{font-size:19px}
+#documentation-content h5{font-size:16px}
+#documentation-content h3.page-title{font-size:30px}
+#documentation-content ul li, #documentation-content ol li{margin-left:15px}
 #docs-search-input{margin-bottom:0}
 #docs-search-results{margin:30px 0 10px}
 #docs-search-results em{background:#cdcdcd;padding:0 2px;border-radius:4px;font-style:normal}

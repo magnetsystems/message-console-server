@@ -39,7 +39,6 @@ function initAuthBootstrap(){
     var me = this;
     me.container = $('#login-modal');
     if(me.container.length){
-        Cookie.remove('magnet_auth');
         var qs = {
             token  : utils.getQuerystring('t'),
             type   : utils.getQuerystring('s'),
