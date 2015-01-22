@@ -336,7 +336,7 @@ h4.step-title{font-weight:600;color:#7f878f;float:left;margin-left:-50px;margin-
 #persistence-body .hero-list{max-width:964px}
 
 /* docs */
-#documentation-content .code{background:none;box-shadow:none;border:none;min-height:auto;margin-top:0;padding:0}
+#documentation-content .code{background:none;box-shadow:none;border:none;min-height:0;margin-top:0;padding:0}
 #documentation-content code{background:none;color:#000}
 #documentation-content pre code{color:#fff}
 #documentation-content h1{font-size:28px;color:#000}
