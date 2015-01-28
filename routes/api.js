@@ -1,25 +1,18 @@
 var AccountManager = require('../lib/AccountManager')
     , UserManager = require('../lib/UserManager')
-    , ProjectManager = require('../lib/ProjectManager')
     , ModelManager = require('../lib/ModelManager')
     , MMXManager = require('../lib/MMXManager')
     , EmailService = require('../lib/EmailService')
-    , TokenManager = require('../lib/TokenManager')
-    , AppConfigManager = require('../lib/ConfigManager')
-    , FullTextSearch = require('../lib/FullTextSearch')
     , magnetId = require('node-uuid')
     , Jobs = require('../lib/Jobs')
     , path = require('path')
     , http = require('http')
     , fs = require('fs')
-    , jiraNewIssue = require('../lib/config/JiraNewIssue')
     , _ = require('underscore')
     , validator = require('validator')
     , sanitize = validator.sanitize
-    , JiraApi = require('jira').JiraApi
     , recaptcha = require('simple-recaptcha')
     , ContentManagement = require('../lib/ContentManagement')
-    , MailChimpManager = require('../lib/MailChimpManager')
     , packageJSON = require('../package.json');
 
 module.exports = function(app){
@@ -51,14 +44,13 @@ module.exports = function(app){
                 winston.verbose('Tracking: user "' + user.email + '" logged in'+ (req.session.entryPoint ? ' with redirect to '+req.session.entryPoint : ''));
                 res.redirect((req.session.entryPoint && req.session.entryPoint.indexOf('login') == -1) ? req.session.entryPoint : '/');
             }else if(e == 'account-locked'){
-                res.redirect('/login?status=locked');
+                res.redirect('/?status=locked');
             }else{
-                res.redirect('/login?status=invalid');
+                res.redirect('/?status=invalid');
             }
         });
     });
 
-    // artifactory login
     app.post('/rest/login', function(req, res){
         AccountManager.manualLogin(req.body.name, req.body.password, function(e, user, newMMXUser){
             if(user){
@@ -73,10 +65,10 @@ module.exports = function(app){
         });
     });
 
-    // logout user by destroying session and clearing cookies
+    // logout user
     app.all('/logout', function(req, res){
         if(!req.session.user){
-            res.redirect('/login');
+            res.redirect('/');
         }else{
             winston.verbose('Tracking: user "' + req.session.user.email + '" logged out');
             req.session.destroy(function(){
@@ -200,139 +192,6 @@ module.exports = function(app){
             }
         });
     });
-//
-//    app.get('/rest/projects/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-//        ProjectManager.read(req.params.magnetId, function(e, project){
-//            if(e){
-//                res.send(e, 400);
-//            }else{
-//                res.send(project, 200);
-//            }
-//        });
-//    });
-//
-//    app.post('/rest/projects', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-//        ProjectManager.create(req.session.user.magnetId, req.body, function(e, project){
-//            if(e){
-//                res.send(e, 400);
-//            }else{
-//                res.send({
-//                    id       : project.id,
-//                    magnetId : project.magnetId
-//                }, 200);
-//            }
-//        });
-//    });
-//
-//    app.put('/rest/projects/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-//        ProjectManager.update(req.params.magnetId, req.session.user.id, req.body, function(e, project){
-//            if(e){
-//                res.send(e, 400);
-//            }else{
-//                res.send('ok', 200);
-//            }
-//        });
-//    });
-//
-//    app.get('/rest/projects/:magnetId/getConfig', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-//        ProjectManager.getConfig(req.params.magnetId, function(e, filePath){
-//            if(e){
-//                res.send(e, 400);
-//            }else{
-//                var filename = filePath.slice(filePath.lastIndexOf('/')+1);
-//                fs.readFile(filePath, function(e, content){
-//                    if(e){
-//                        res.writeHead(400);
-//                        res.end();
-//                    }else{
-//                        res.contentType('zip');
-//                        res.setHeader('Content-disposition', 'attachment; filename='+filename);
-//                        res.end(content, 'utf-8');
-//                    }
-//                });
-//            }
-//        });
-//    });
-//
-//    app.post('/rest/projects/:magnetId/uploadAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-//        ProjectManager.storeProjectFile(req.params.magnetId, req, function(e){
-//            if(e){
-//                res.send(e, 400);
-//            }else{
-//                res.send(JSON.stringify({
-//                    success : true
-//                }), {
-//                    'Content-Type' : 'text/plain'
-//                }, 200);
-//            }
-//        });
-//    });
-//
-//    app.post('/rest/projects/:magnetId/removeAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-//        ProjectManager.removeAPNSCertificate(req.params.magnetId, function(e){
-//            if(e){
-//                res.send(e, 400);
-//            }else{
-//                res.send('ok', 200);
-//            }
-//        });
-//    });
-//
-//    app.get('/rest/projects/:magnetId/webservices', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-//        ProjectManager.getWebServices(req.params.magnetId, function(e, wsdls){
-//            if(e){
-//                res.send(e, 400);
-//            }else{
-//                res.send(wsdls, 200);
-//            }
-//        });
-//    });
-//
-//    app.post('/rest/projects/:magnetId/addWebServiceURL', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-//        ProjectManager.addWebServiceURL(req.params.magnetId, req.session.user.id, req.body.url, function(e, wsdl){
-//            if(e){
-//                res.send(e, 400);
-//            }else{
-//                res.send(wsdl, 200);
-//            }
-//        });
-//    });
-//
-//    app.delete('/rest/wsdls/:magnetId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-//        ProjectManager.removeWebServiceURL(req.params.magnetId, function(e){
-//            if(e){
-//                res.send(e, 400);
-//            }else{
-//                res.send('ok', 200);
-//            }
-//        });
-//    });
-
-    /* GENERAL */
-
-//    app.post('/rest/contactUs', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-//        // build email body and send out email
-//        EmailService.sendEmail({
-//            to      : ENV_CONFIG.Email.supportEmail,
-//            subject : 'Magnet Developer Factory Support',
-//            html    : EmailService.renderTemplate({
-//                main : 'support-email',
-//                vars : {
-//                    customerName  : req.session.user.firstName +' '+ req.session.user.lastName,
-//                    customerEmail : req.session.user.email,
-//                    reason        : sanitize(req.body.reason).xss(),
-//                    message       : sanitize(req.body.message).xss()
-//                }
-//            }),
-//            success : function(){
-//                winston.verbose('Tracking: user "' + req.session.user.email + '" sent an email from the Contact Us form');
-//                res.send('ok', 200);
-//            },
-//            error : function(e){
-//                res.send(e, 400);
-//            }
-//        });
-//    });
 
     app.post('/rest/apps', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         MMXManager.createApp(req.session.user.email, req.session.user.magnetId, req.body, function(e, user){
@@ -534,76 +393,6 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/:id/sample', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        var platform = (req.query && req.query.platform && (req.query.platform == 'android' || req.query.platform == 'ios')) ? req.query.platform : 'android';
-        MMXManager.getSample(req.session.user.magnetId, req.params.id, platform, function(e, content){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.contentType('application/zip');
-                res.setHeader('Content-disposition', 'attachment; filename='+platform+'_messaging_sample_app.zip');
-                res.end(content, 'utf-8');
-            }
-        });
-    });
-
-    app.post('/rest/samples/:platform/update', UserManager.checkAuthority(['admin'], true), function(req, res){
-        var platform = (req.params && req.params.platform && (req.params.platform == 'android' || req.params.platform == 'ios')) ? req.params.platform : 'android';
-        MMXManager.updateSample(platform, function(e){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send('ok', 200);
-            }
-        });
-    });
-
-    app.post('/rest/submitFeedback', function(req, res){
-        if(isAuthenticated(req) === false && !req.body.fullname){
-            res.send('required-field-missing', 400);
-        }else if(isAuthenticated(req) === false && (!req.body.emailaddress || !validator.validators.isEmail(req.body.emailaddress))){
-            res.send('invalid-email', 400);
-        }else if(!req.body.sub || !req.body.msg){
-            res.send('required-field-missing', 400);
-        }else{
-            if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true && !debugOverride(req.body.recaptcha_response_field))
-                recaptcha(ENV_CONFIG.reCAPTCHA.privateKey, req.ip, req.body.recaptcha_challenge_field, req.body.recaptcha_response_field, function(e){
-                    if(e){
-                        res.send('captcha-failed', 400);
-                    }else{
-                        sendJira(req, res);
-                    }
-                });
-            else{
-                sendJira(req, res);
-            }
-        }
-    });
-
-    app.post('/rest/subscribeNewsletter', function(req, res){
-        if(isAuthenticated(req) === false && (!req.body.email || !validator.validators.isEmail(req.body.email))){
-            res.send('invalid-email', 400);
-        }else{
-            var obj = {
-                SOURCEPATH : sanitize(req.body.source).xss(),
-                SOURCEIP   : req.ip,
-                optin_ip   : req.ip
-            };
-            if(req.session.user){
-                obj.USERID = req.session.user.magnetId;
-                obj.FNAME = req.session.user.firstName;
-                obj.LNAME = req.session.user.lastName;
-            }
-            MailChimpManager.submit(req.body.email, obj, function(e){
-                if(e){
-                    res.send(e, 400);
-                }else{
-                    res.send('ok', 200);
-                }
-            });
-        }
-    });
-
     function isAuthenticated(req){
         return (req.session && req.session.user && req.session.user.activated === true && (req.session.user.userType == 'admin' || req.session.user.userType == 'developer')) || false;
     }
@@ -611,96 +400,6 @@ module.exports = function(app){
     function debugOverride(str){
         return str === 'captcha-override';
     }
-
-    function sendJira(req, res){
-        var jira = new JiraApi('https', ENV_CONFIG.Jira.host, ENV_CONFIG.Jira.port, ENV_CONFIG.Jira.user, ENV_CONFIG.Jira.password, ENV_CONFIG.Jira.version);
-        jiraNewIssue.fields.summary = sanitize(req.body.sub).xss();
-        jiraNewIssue.fields.labels = ['MCI', req.body.type == 'Comment' ? 'COMMENT' : 'QUESTION', ENV_CONFIG.Email.appUrl];
-        jiraNewIssue.fields.description = sanitize(req.body.msg).xss();
-        jiraNewIssue.fields.issuetype = {
-            id : req.body.type == 'Comment' ? '4' : '2'
-        };
-        jiraNewIssue.fields['customfield_10950'] = isAuthenticated(req) === false ? req.body.fullname : req.session.user.firstName +' '+ req.session.user.lastName;
-        jiraNewIssue.fields['customfield_10951'] = isAuthenticated(req) === false ? req.body.emailaddress : req.session.user.email;
-        jiraNewIssue.fields['customfield_10751'] = isAuthenticated(req) === false ? 'unregistered-user' : ENV_CONFIG.Email.appUrl+'/admin#/users/'+req.session.user.magnetId;
-        var utc = new Date().toISOString();
-        jiraNewIssue.fields['customfield_10752'] = utc.slice(0, utc.lastIndexOf('.'))+'.730-0700';
-        jira.addNewIssue(jiraNewIssue, function(e, issue){
-            if(e){
-                winston.error('Tracking: feedback submission failed: ', e, jiraNewIssue);
-                res.send('error', 400);
-            }else{
-                winston.verbose('Tracking: user "' + (req.body.fullname || req.session.user.email) + '" submitted feedback.');
-                res.send('ok', 200);
-            }
-        });
-    }
-
-    app.post('/rest/getCredentials', function(req, res){
-        var clientVersion = req.headers['x_client_version'];
-        AccountManager.manualLogin(req.param('email'), req.param('password'), function(e, user){
-            if (!user) {
-                res.send(e, 401);
-            } else {
-                TokenManager.getTokens(user, function(e, tokens){
-                    if(typeof tokens != 'undefined' && tokens.length){
-                        var json = {
-                            email   : user.email,
-                            license : {
-                                customerId : user.magnetId,
-                                licenseKey : user.signedLicenseKey
-                            }
-                        }
-                        if(typeof clientVersion == 'undefined'){
-                            json.aws = {
-                                auditBucket : ENV_CONFIG.Cloud.AWS.BucketName,
-                                accessKey   : tokens[0].accessKeyId,
-                                secretKey   : tokens[0].secretAccessKey
-                            };
-                        }else{
-                            json.auditBucket = ENV_CONFIG.Cloud.AWS.BucketName;
-                            json.tokens = tokens;
-                        }
-                        res.json(json);
-                    }else{
-                        res.send('missing-cloud-keys', 500);
-                    }
-                });
-            }
-        });
-    });
-
-    // get list of tokens belonging to the current user
-    app.get('/rest/tokens', UserManager.checkAuthority(['admin', 'developer'], true, null, true), function(req, res){
-        TokenManager.getTokens(req.session.user, function(e, tokens){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send(tokens, 200);
-            }
-        });
-    });
-
-    // revoke a Magnet token
-    app.post('/rest/tokens/:magnetId/revoke', UserManager.checkAuthority(['admin', 'developer'], true, null, true), function(req, res){
-        TokenManager.revoke(req._basicAuthUser || req.session.user, req.param('magnetId'), function(e){
-            if(e)
-                res.send(e, 400);
-            else
-                res.send('ok', 200);
-        });
-    });
-
-    // regnerate a Magnet token
-    app.post('/rest/tokens/:magnetId/regenerate', UserManager.checkAuthority(['admin', 'developer'], true, null, true), function(req, res){
-        TokenManager.allocate(req._basicAuthUser || req.session.user, req.param('magnetId'), function(e, newToken){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send(newToken, 200);
-            }
-        });
-    });
 
     app.post('/rest/startRegistration', function(req, res){
         if(isAuthenticated(req) === false && ENV_CONFIG.reCAPTCHA.enabled === true && !debugOverride(req.body.recaptcha_response_field) && !req.body.magnetId){
@@ -732,7 +431,7 @@ module.exports = function(app){
             if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL) {
                 res.send({
                     status            : registrationStatus,
-                    skipAdminApproval : req.body.source ? true : APP_CONFIG.skipAdminApproval
+                    skipAdminApproval : req.body.source ? true : ENV_CONFIG.App.skipAdminApproval
                 }, 201);
             } else {
                 res.send(registrationStatus, 400);
@@ -804,16 +503,6 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/users/:magnetId/cloudAccounts', UserManager.checkAuthority(['admin'], true), function(req, res){
-        UserManager.getCloudAccounts(req.params.magnetId, function(e, cloudAccounts){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send(cloudAccounts, 200);
-            }
-        });
-    });
-
     app.get('/rest/users/:magnetId/invites', UserManager.checkAuthority(['admin'], true), function(req, res){
         UserManager.getInvitedUsers(req.params.magnetId, function(e, users){
             if(e){
@@ -875,83 +564,6 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 res.send(page, 200);
-            }
-        });
-    });
-
-    // This API is used to retrieve the latest news
-    app.get('/rest/news', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        res.send(Jobs.get('Announcements'), 200);
-    });
-
-    // This API is used to retrieve the latest news
-    app.get('/rest/news/getInfo', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        res.send({
-            updatedAt  : Jobs.cache['Announcements'].updatedAt,
-            nextUpdate : Jobs.cache['Announcements'].nextUpdate
-        }, 200);
-    });
-
-    // This API is used to update the news
-    app.post('/rest/news/updateCache', UserManager.checkAuthority(['admin'], true), function(req, res){
-        Jobs.refresh('Announcements', function(cache){
-            res.send({
-                updatedAt  : cache.updatedAt,
-                nextUpdate : cache.nextUpdate
-            }, 200);
-        })
-    });
-
-    // This API is used to clear search indexes
-    app.post('/rest/search/clearIndexes', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
-        FullTextSearch.clear(function(e){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send('ok', 200);
-            }
-        });
-    });
-
-    // This API is used to update search indexes
-    app.post('/rest/search/updateIndexes', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
-        FullTextSearch.index(function(e){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send('ok', 200);
-            }
-        });
-    });
-
-    // This API is used to search
-    app.get('/rest/search', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        FullTextSearch.search(req.query.query, req.query.from, 10, function(e, results){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send(results, 200);
-            }
-        });
-    });
-
-    // This API is used to retrieve configuration
-    app.get('/rest/configs', UserManager.checkAuthority(['admin'], true), function(req, res){
-        res.send(APP_CONFIG, 200);
-    });
-
-    // This API is used to update configuration
-    app.put('/rest/configs', UserManager.checkAuthority(['admin'], true), function(req, res){
-        AppConfigManager.set(req.body, function(e, changes){
-            if(e){
-                res.send(e, 400);
-            }else{
-                winston.info('AppConfig: user "'+req.session.user.firstName+' '+req.session.user.lastName+'"('+req.session.user.id+') updated app configuration: '+JSON.stringify(changes)+' successfully at: '+new Date(), {
-                    userId      : req.session.user.id,
-                    targetModel : 'AppConfig',
-                    targetId    : APP_CONFIG.id || 0
-                });
-                res.send('ok', 200);
             }
         });
     });

@@ -12,7 +12,6 @@ if(!app.settings.env || app.settings.env == ''){
 
 global.winston = winston;
 global.ENV_CONFIG = require('./lib/config/config_'+app.settings.env);
-global.APP_CONFIG = {};
 
 require('./lib/orm').setup('./lib/models');
 
@@ -22,16 +21,11 @@ app.configure(function(){
     // view rendering
     app.engine('ejs', require('ejs-locals'));
     app.set('views', __dirname + '/views');
-    app.set('layout', __dirname + '/views/layouts/site_dev');
+    app.set('layout', __dirname + '/views/layouts/general');
     app.use(expressLayouts);
-//    app.locals({
-//        _layoutFile : '/layouts/site'
-//    });
-
     app.locals.open = '{{';
     app.locals.close = '}}';
     app.set('view engine', 'ejs');
-    // allow req.body
     app.use(express.bodyParser());
     app.use(express.cookieParser(ENV_CONFIG.App.sessionSecret));
     // enable PUT and DELETE request methods
@@ -90,9 +84,6 @@ if(app.settings.env == 'development' || app.settings.env == 'test'){
         store  : new connect.middleware.session.MemoryStore(),
         secret : ENV_CONFIG.App.sessionSecret
     }));
-    // protect files and documentation behind login
-//    app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/resources\/files\/.*$/));
-    app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/docs\/.*\/.*$/));
     // prioritize router before public directory
     app.use(express.static(__dirname + '/public'));
 }
@@ -111,23 +102,8 @@ app.configure('production', function(){
             secret : ENV_CONFIG.App.sessionSecret
         })
     }));
-    // minify client side code and set router to build path
-//    require('requirejs').optimize(require('./lib/config/ClientBuild'), function(){
-//        winston.info('Requirejs: successfully optimized client javascript');
-//    });
-    // protect files and documentation behind login
-//    app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/resources\/files\/.*$/));
-    if(ENV_CONFIG.App.docNeedAuth) app.use(require('./lib/UserManager').checkAuthority(['admin', 'developer'], false, /^\/docs\/.*\/.*$/));
     // prioritize router before public directory, use minified public directory
     app.use(express.static(__dirname + '/public'));
-    /* start https server
-    require('https').createServer({
-       key  : fs.readFileSync('./data/key.pem'),
-       cert : fs.readFileSync('./data/cert.pem')
-    }, app).listen(3001, function(){
-       winston.info('Express: https server listening on port %d in %s mode', 3001, app.settings.env);
-    });
-    */
 });
 
 // Routes
