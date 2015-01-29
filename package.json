@@ -1,5 +1,5 @@
 {
-  "name": "mmx-console-server",
+  "name": "messanging-console-server",
   "version": "1.0.0-SNAPSHOT",
   "private": true,
   "dependencies": {

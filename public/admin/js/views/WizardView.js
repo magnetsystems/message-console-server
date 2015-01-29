@@ -11,7 +11,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                 me.wizard = $('#project-wizard-container');
                 me.renderDB();
                 me.renderAdmin();
-//                me.renderMessaging();
+                me.renderMessaging();
             });
             options.eventPubSub.bind('initRestart', function(params){
                 me.handleRestart(params, function(){
@@ -52,7 +52,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                     me.wizard.wizard('next');
                 });
             }else if(did === 'admin'){
-                me.createSeedAdmin(function(){
+                me.createAdmin(function(){
                     me.wizard.wizard('next');
                 });
             }else if(did === 'seedadmin'){
@@ -100,7 +100,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                 me.options.eventPubSub.trigger('btnComplete', btn);
                 Alerts.Error.display({
                     title   : 'Connection Error',
-                    content : 'Unable to connect to the database with the settings you provided. Has the database already been configured?'
+                    content : 'Unable to connect to the database with the settings you provided. Have you created the database "'+obj.dbName+'"?'
                 });
             });
         },
@@ -114,58 +114,35 @@ define(['jquery', 'backbone'], function($, Backbone){
             utils.resetError(form);
             var obj = utils.collect(form);
             if(!this.isValid(form, obj)) return;
-            if(obj.seedDb === true){
-                if($.trim(obj.userName).length < 1){
-                    utils.showError(form, 'userName', 'Invalid Username. Username is a required field.');
-                    return false;
-                }else if($.trim(obj.credential.length) < 1){
-                    utils.showError(form, 'password', 'Invalid Password. Password is a required field.');
-                    return false;
-                }else if(me.provisionDb === 'true' && obj.userName != obj.passwordVerify){
-                    utils.showError(form, 'passwordVerify', 'Passwords do not match. Please try again.');
-                    return false;
-                }else if(_.intersection(me.invalidGroups, obj.securityGroups).length){
-                    return utils.showError(form, 'securityGroups', 'You cannot use a reserved group name. Reserved group names: users, anonymous, everyone, and super-admin');
-                }else if(!utils.isValidUsername(obj.userName)){
-                    return utils.showError(form, 'userName', 'Usernames must consist only of letters, numbers, and the following special characters: -_.@');
-                }
-            }else{
-                delete obj.credential;
-                delete obj.securityGroups;
-                delete obj.userName;
+            if(obj.password !== obj.passwordVerify){
+                return utils.showError(form, 'passwordVerify', 'Passwords do not match. Please try again.');;
             }
-            if(obj.cipherKeyConfig == 'inputkey' && $.trim(obj.cipherKey).length < 1){
-                utils.showError(form, 'cipherKey', 'Invalid Cipher Key. Cipher Key is a required field.');
-                return false;
-            }
-            delete obj.credentialVerify;
-            delete obj.cipherKeyConfig;
             me.options.eventPubSub.trigger('btnLoading', btn);
-            AJAX('idm/users/_admin', 'POST', 'application/json', obj, function(res){
+            AJAX('admin/setAdmin', 'POST', 'application/json', obj, function(res){
                 me.options.eventPubSub.trigger('btnComplete', btn);
-                me.states.seedadmin = true;
-                $('#wizard-admin-container').find('.alert-warning').hide('fast');
-                $('#wizard-admin-container').html(_.template($('#WizardSeedAdminTmpl').html(), {
-                    completed : true
-                }));
+                if(!$('#wizard-admin-container > .alert').length){
+                    $('#wizard-admin-container').prepend(_.template($('#WizardSeedAdminTmpl').html(), {
+                        active : true
+                    }));
+                }
                 cb();
             }, function(e){
                 me.options.eventPubSub.trigger('btnComplete', btn);
-                alert(e);
+                if(e == 'user-exists'){
+                    Alerts.Confirm.display({
+                        title   : 'User Already Exists',
+                        content : 'This user already exists in the database. If you would like to continue with installation without configuring another user, click <b>Yes</b>. Otherwise, click <b>No</b> to try again with another user.'
+                    }, function(){
+                        form.find('input[name^="password"]').val('');
+                        cb();
+                    });
+                }else{
+                    alert(e);
+                }
             });
         },
-        renderMessaging: function(cb){
-            var me = this;
-            me.states.seedadmin = (res === 'true');
-            $('#wizard-admin-container').html(_.template($('#WizardSeedAdminTmpl').html(), {
-                completed : me.states.seedadmin
-            }));
-            var adminForm = $('#wizard-admin-form');
-            adminForm.html(_.template($('#CreateUserView').html(), {
-                provisionDb : me.provisionDb,
-                seedAdmin   : true
-            }));
-            me.renderRoles(adminForm, ['admins'], [true]);
+        renderMessaging: function(){
+            $('#wizard-messaging-container').html(_.template($('#WizardMessagingTmpl').html()));
         },
         renderRoles: function(dom, roles, requiredRoles){
             var template = _.template($('#UserRoleListView').html(), {

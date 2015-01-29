@@ -2,7 +2,7 @@ var fs = require('fs');
 
 module.exports = function(app){
 
-    if(!ENV_CONFIG.Database.configured){
+    if(!ENV_CONFIG.App.configured){
         return require('./bootstrap.js')(app);
     }
 

@@ -731,7 +731,7 @@ utils = {
         return str;
     },
     resetError: function(form){
-        form.find('.col-sm-12, .col-sm-10, .col-sm-8, .col-sm-6, .col-sm-4, .col-md-3, .col-md-4').removeClass('has-error');
+        form.find('.col-sm-12, .col-sm-10, .col-sm-8, .col-sm-6, .col-sm-4, .col-md-3, .col-md-4, .col-md-6').removeClass('has-error');
         form.find('.alert-container').html('');
     },
     showError: function(dom, name, error){

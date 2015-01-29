@@ -33,6 +33,13 @@ module.exports = function(app){
         });
     });
 
+    app.post('/rest/admin/finishBootstrap', function(req, res){
+        ConfigManager.finishBootstrap(function(e){
+            if(e) return res.send(e, 400);
+            res.send('restart-needed', 200);
+        });
+    });
+
     app.post('/rest/restart', function(req, res){
         res.send('ok', 200);
         winston.error('System: restarting server now.');

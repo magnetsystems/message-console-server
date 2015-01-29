@@ -62,24 +62,7 @@
                 <h4>Setup Messaging</h4>
                 <p>Configure your Magnet Messaging server.</p>
                 <hr />
-                <label>
-                    Provision an admin user.
-                </label>
-                <p>If you skip this step, make sure you have an admin user already set up which can log in to the Management Console.</p>
-                <div class="btn-group btn-toggle" did="seedDb">
-                    <button class="btn btn-sm btn-primary active" did="true" type="button">Yes</button>
-                    <button class="btn btn-sm btn-default" did="false" type="button">No</button>
-                </div>
-                <div id="wizard-admin-container"></div>
-                <label>Set up a cipher key for encrypting security sensitive values</label>
-                <p>Choose whether you would like to create a cipher key based on the admin user password, or input
-                    a cipher key from an existing node in a server cluster.</p>
-                <div class="form-group clearfix">
-                    <div class="btn-group btn-toggle" did="cipherKeyConfig">
-                        <button class="btn btn-sm btn-primary active" did="inputkey" type="button">Input Cipher Key</button>
-                        <button class="btn btn-sm btn-default" did="useadmin" type="button">Use Admin Password</button>
-                    </div>
-                </div>
+                <div id="wizard-messaging-container"></div>
                 <div class="button-group clearfix">
                     <button class="wiz-prev btn btn-primary" type="button">
                         <span class="glyphicon glyphicon-arrow-left"></span>
@@ -161,6 +144,12 @@
 </script>
 
 <script id="WizardSeedAdminTmpl" type="text/template">
+    <% if(typeof active !== 'undefined'){ %>
+    <div class="alert alert-success fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>All Ready!</strong> An admin user has been created.
+    </div>
+    <% }else{ %>
     <div class="alert alert-info" role="alert">
         <strong>Note:</strong> To protect your security, use a password with 10 or more alphanumerical characters with both
         upper and lower case letters.
@@ -170,24 +159,52 @@
         <div class="form-group">
             <div class="col-md-6">
                 <label>Username</label>
-                <input type="text" class="form-control" name="email" placeholder="Email Address" value="" />
+                <input type="text" class="form-control" name="username" placeholder="Username" value="admin" />
             </div>
             <div class="col-md-6">
                 <label>Email Address</label>
-                <input type="text" class="form-control" name="email" placeholder="Email Address" value="" />
+                <input type="text" class="form-control" name="email" placeholder="Email Address" value="admin@magnet.com" />
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-6">
                 <label>Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Password" value="" />
+                <input type="password" class="form-control" name="password" placeholder="Password" value="admin" />
             </div>
             <div class="col-md-6">
                 <label>Password (repeat)</label>
-                <input type="password" class="form-control" name="passwordVerify" placeholder="Password (repeat)" value="" />
+                <input type="password" class="form-control" name="passwordVerify" placeholder="Password (repeat)" value="admin" />
             </div>
         </div>
     </form>
+    <% } %>
+</script>
+
+<script id="WizardMessagingTmpl" type="text/template">
+    <% if(typeof active !== 'undefined'){ %>
+    <div class="alert alert-success fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>All Ready!</strong> Your Magnet Messaging configuration has been completed.
+    </div>
+    <% }else{ %>
+    <form id="wizard-messaging-form" role="form" class="clearfix">
+        <span class="alert-container"></span>
+        <div class="form-group">
+            <div class="col-md-4">
+                <label>Hostname</label>
+                <input type="text" class="form-control" name="host" placeholder="Hostname" value="citest01.magneteng.com" />
+            </div>
+            <div class="col-md-4">
+                <label>Username</label>
+                <input type="text" class="form-control" name="user" placeholder="Username" value="admin" />
+            </div>
+            <div class="col-md-4">
+                <label>Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password" value="admin" />
+            </div>
+        </div>
+    </form>
+    <% } %>
 </script>
 
 <div id="restart-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
