@@ -1,7 +1,4 @@
-var UserManager = require('../lib/UserManager')
-, Jobs = require('../lib/Jobs')
-, ejs = require('ejs')
-, fs = require('fs');
+var UserManager = require('../lib/UserManager');
 
 module.exports = function(app){
 

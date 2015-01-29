@@ -32,8 +32,7 @@ require.config({
       }
   } 
 });
-require(['modernizr', 'jquery', 'backbone', 'routers/adminRouter', 'resources', 'scrollto', 'bootstrap', 'placeholder', 'iframe', 'ace'], function(Modernizr, $, Backbone, Desktop){
+require(['modernizr', 'jquery', 'backbone', 'routers/adminRouter', 'resources', 'scrollto', 'bootstrap', 'placeholder', 'iframe', 'ace'], function(Modernizr, $, Backbone, Admin){
     $('#loadingBar').hide();
-    // create new desktop instance
-    this.router = new Desktop();
+    this.router = new Admin();
 });

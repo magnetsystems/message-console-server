@@ -2,7 +2,7 @@
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js fuelux" lang="en"> <!--<![endif]-->
 <head>
     <title>Magnet Messaging Admin : {{=title}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -10,10 +10,11 @@
     <link rel="shortcut icon" href="/admin/images/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="/admin/images/apple-touch-icon.png">
     <link rel="stylesheet" href="/admin/stylesheets/bootstrap3.min.css" />
+    <link rel="stylesheet" href="/admin/stylesheets/fuelux.min.css" />
     <link rel="stylesheet" href="/admin/stylesheets/font-awesome.min.css" />
-    <link rel="stylesheet" href="/admin/stylesheets/dev.css" />
+    <link rel="stylesheet" href="/admin/stylesheets/admin.css" />
     <link href='//fonts.googleapis.com/css?family=Roboto:400,500,700,900,300,100' rel='stylesheet' type='text/css'>
-    <script data-main="/admin/js/admin" src="/admin/js/libs/require.js"></script>
+    <script data-main="/admin/js/{{- activePage }}" src="/admin/js/libs/require.js"></script>
 </head>
 
 <body id="{{- activePage }}-body">

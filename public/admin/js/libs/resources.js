@@ -1,6 +1,60 @@
 
 /* HELPERS */
 
+var GLOBAL = {};
+var GlobalEventDispatcher = {};
+
+var AJAX = function(loc, method, contentType, data, callback, failback, headers, params){
+    params = params || {};
+    var dataStr = (!$.isEmptyObject(data) && (contentType == 'application/json')) ? JSON.stringify(data) : data;
+    if(method === 'POST' && dataStr === null) dataStr = '{}';
+    if(params.redirectHost){
+        return pingHost(window.location.protocol+'//'+params.redirectHost, function(){
+            window.location = window.location.protocol+'//'+params.redirectHost;
+        }, function(xhr, status, thrownError){
+            failback(xhr, status, thrownError);
+        });
+    }
+    $.support.cors = true;
+    $.ajax({
+        type        : method,
+        url         : (loc.charAt(0) == '/' || params.redirectHost) ? loc : '/rest/'+loc,
+        contentType : contentType,
+        data        : dataStr,
+        beforeSend  : function(xhr){
+            if(headers){
+                $.each(headers, function(i , header){
+                    xhr.setRequestHeader(header.name, header.val);
+                });
+            }
+        }
+    }).complete(function(xhr){
+        if(xhr && xhr.responseText && xhr.responseText == 'restart-needed')
+            GlobalEventDispatcher.generalEventPubSub.trigger('initRestart');
+        if(params.btn)
+            params.btn.html(params.btn.attr('txt')).removeClass('disabled');
+    }).done(function(result, status, xhr){
+        if(typeof callback === typeof Function)
+            callback(result, status, xhr);
+    }).fail(function(xhr, status, thrownError){
+        if(xhr.status == 403 || xhr.status == 401){
+            GLOBAL.referrer = window.location.hash;
+            Backbone.history.navigate('/');
+            GLOBAL.polling = false;
+        }else if(typeof failback === typeof Function){
+            var e = xhr.responseJSON ? xhr.responseJSON.message : xhr.responseText;
+            failback(e, status, thrownError, xhr);
+        }
+    });
+};
+
+function pingHost(loc, cb, fb){
+    var img = new Image();
+    img.onload = cb;
+    img.onerror = fb;
+    img.src = loc+'/admin/images/ajax-loader-sm.gif';
+}
+
 // custom backbone sync function to use magnet entity model
 function syncOverride(mc, eventPubSub){
     Backbone.sync = function(method, model, options){
@@ -676,13 +730,25 @@ utils = {
         }
         return str;
     },
+    resetError: function(form){
+        form.find('.col-sm-12, .col-sm-10, .col-sm-8, .col-sm-6, .col-sm-4, .col-md-3, .col-md-4').removeClass('has-error');
+        form.find('.alert-container').html('');
+    },
+    showError: function(dom, name, error){
+        dom.find('input[name="'+name+'"]').closest('div').addClass('has-error');
+        var alert = $('<div class="alert alert-danger" role="alert"><strong>Error</strong> '+error+'</div>');
+        dom.find('.alert-container:first').html(alert);
+        setTimeout(function(){
+            alert.fadeOut('slow', function(){
+                alert.remove();
+            });
+        }, 5000);
+    },
     // collect project details from form fields into data object
-    collect : function(dom){
+    collect : function(dom, looseBooleans, skipEmptyStrings){
         var obj = {}, me = this;
-        var api = {
-            "_node" : []
-        };
         dom.find('.btn-group:not(.disabled)').each(function(){
+            if($(this).hasClass('pillbox-input-wrap')) return;
             obj[$(this).attr('did')] = $(this).find('button.btn-primary').attr('did');
         });
         dom.find('input[type="radio"]:checked').each(function(){
@@ -692,28 +758,37 @@ utils = {
             }
             obj[name] = $(this).val();
         });
-        dom.find('input[type="text"], select, input[type="password"], textarea').each(function(){
+        dom.find('input[type="text"], select, input[type="password"], input[type="hidden"], textarea').each(function(){
             var val = $(this).val();
-            //if($.trim(val).length > 0){
+            if(typeof $(this).attr('name') != 'undefined' && $(this).attr('name').length){
                 if($(this).attr('name') && $(this).attr('name').indexOf('Port') != -1 && $.trim(val).length == 0){
                     val = 0;
                 }
                 obj[$(this).attr('name')] = val;
-            //}
-        });
-        $.each(obj, function(name, val){
-            if(val === 'true'){
-                obj[name] = true;
             }
-            if(val === 'false'){
-                obj[name] = false;
-            }
-            me.pushNode(api, name, val);
         });
-        return {
-            config : obj,
-            api    : api
-        };
+        dom.find('.pill-group > .pill > span:first-child').each(function(){
+            var did = $(this).closest('.pillbox').attr('name');
+            obj[did] = obj[did] || [];
+            obj[did].push($(this).text());
+        });
+        if(!looseBooleans){
+            $.each(obj, function(name, val){
+                if(val === 'true'){
+                    obj[name] = true;
+                }
+                if(val === 'false'){
+                    obj[name] = false;
+                }
+            });
+        }
+        if(skipEmptyStrings){
+            $.each(obj, function(name, val){
+                if(obj[name] === '' || obj[name] === null)
+                    delete obj[name];
+            });
+        }
+        return obj;
     },
     pushNode : function(obj, name, val){
         if(!obj['_node']) return false;
