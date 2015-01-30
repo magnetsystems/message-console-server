@@ -40,6 +40,7 @@ ln -s $SCRIPT_DIR/node_modules
 
 #create the tar!
 cd ..
-tar czfh $APP_NAME-$APP_VERSION.tar.gz $APP_NAME/*
+#tar czfh $APP_NAME-$APP_VERSION.tar.gz $APP_NAME/*
+zip -r $APP_NAME-$APP_VERSION.zip $APP_NAME/*
 
 
