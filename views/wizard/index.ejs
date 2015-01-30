@@ -121,7 +121,7 @@
                 <div class="form-group">
                     <div class="col-sm-6">
                         <label>Username</label>
-                        <input type="text" name="username" class="form-control" placeholder="Username" value="root" />
+                        <input type="text" name="username" class="form-control" placeholder="Username" value="<%- username %>" />
                     </div>
                     <div class="col-sm-6">
                         <label>Password</label>
@@ -129,15 +129,15 @@
                     </div>
                     <div class="col-sm-4">
                         <label>Hostname</label>
-                        <input type="text" name="host" class="form-control" placeholder="Hostname" value="localhost" />
+                        <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- host %>" />
                     </div>
                     <div class="col-sm-4">
                         <label>Port</label>
-                        <input type="text" name="port" class="form-control" placeholder="Port" value="3306" />
+                        <input type="text" name="port" class="form-control" placeholder="Port" value="<%- port %>" />
                     </div>
                     <div class="col-sm-4">
                         <label>Database Name</label>
-                        <input type="text" name="dbName" class="form-control" placeholder="Database Name" value="magnetmessaging" />
+                        <input type="text" name="dbName" class="form-control" placeholder="Database Name" value="<%- dbName %>" />
                     </div>
                 </div>
             </form>
@@ -192,18 +192,60 @@
         <div class="form-group clearfix">
             <div class="col-md-12">
                 <label>Hostname</label>
-                <input type="text" class="form-control" name="host" placeholder="Hostname" value="citest01.magneteng.com" />
-            </div>
-            <div class="col-md-6">
-                <label>Username</label>
-                <input type="text" class="form-control" name="user" placeholder="Username" value="admin" />
-            </div>
-            <div class="col-md-6">
-                <label>Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Password" value="" />
+                <input type="text" class="form-control" name="host" placeholder="Hostname" value="localhost" />
             </div>
         </div>
         <div class="panel-group clearfix" id="wizard-messaging-advanced-config">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#wizard-messaging-advanced-config" href="#wizard-messaging-db-config-item">
+                            Database Configuration
+                        </a>
+                    </h4>
+                </div>
+                <div id="wizard-messaging-db-config-item" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>Database configuration for the messaging server. By default, the messaging server will share the same database as
+                            the Admin Console. You can configure a different database by modifying the configuration below.</p>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-4">
+                                <label>Share Database
+                                    <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Choose Yes to share the same database as the Admin Console."></span>
+                                </label>
+                                <div class="btn-group btn-toggle" did="shareDB">
+                                    <button class="btn btn-sm btn-primary active" did="true" type="button">Yes</button>
+                                    <button class="btn btn-sm btn-default" did="false" type="button">No</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="wizard-messaging-database-config" class="hidden">
+                            <div class="form-group clearfix">
+                                <div class="col-sm-6">
+                                    <label>Username</label>
+                                    <input type="text" name="mysql.user" class="form-control" placeholder="Username" value="<%- username %>" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <label>Password</label>
+                                    <input type="password" name="mysql.password" class="form-control" placeholder="Password" value="" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Hostname</label>
+                                    <input type="text" name="mysql.host" class="form-control" placeholder="Hostname" value="<%- host %>" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Port</label>
+                                    <input type="text" name="mysql.port" class="form-control" placeholder="Port" value="<%- port %>" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Database Name</label>
+                                    <input type="text" name="mysql.db" class="form-control" placeholder="Database Name" value="<%- dbName %>" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -216,6 +258,14 @@
                     <div class="panel-body">
                         <p>Additional configuration for advanced users. Please do not modify these unless you are familiar with the settings.</p>
                         <div class="form-group clearfix">
+                            <div class="col-md-6">
+                                <label>Messaging Username</label>
+                                <input type="text" class="form-control" name="user" placeholder="Username" value="admin" />
+                            </div>
+                            <div class="col-md-6">
+                                <label>Messaging Password</label>
+                                <input type="password" class="form-control" name="password" placeholder="Password" value="admin" />
+                            </div>
                             <div class="col-sm-4">
                                 <label>XMPP Domain</label>
                                 <input type="text" name="xmppDomain" class="form-control" placeholder="XMPP Domain" value="localhost" />

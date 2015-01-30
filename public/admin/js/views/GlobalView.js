@@ -1,8 +1,9 @@
 define(['jquery', 'backbone'], function($, Backbone){
     var View = Backbone.View.extend({
         el: "body",
-        initialize: function(){
+        initialize: function(options){
             var me = this;
+            me.options = options;
             me.options.eventPubSub.bind("btnLoading", function(btn){
                 btn.attr('txt', btn.html()).html('Loading..').addClass('disabled');
             });

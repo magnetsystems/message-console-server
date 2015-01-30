@@ -1,5 +1,5 @@
 var forever = require('forever-monitor')
-, winston = require('winston')
+, winston = require('winston');
 
 var child = new (forever.Monitor)('app.js', {
     env : {
@@ -8,11 +8,11 @@ var child = new (forever.Monitor)('app.js', {
 });
 
 child.on('exit', function(){
-    winston.info('Express: http server exiting permanently.');
+    winston.info('System: http server exiting permanently.');
 });
 
 child.on('restart', function(){
-    winston.info('Express: http server restarting.');
+    winston.info('System: http server restarting.');
 });
 
 child.start();

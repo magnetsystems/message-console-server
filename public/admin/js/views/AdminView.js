@@ -1,8 +1,9 @@
 define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCollection'], function($, Backbone, UserCollection, EventCollection){
     var View = Backbone.View.extend({
         el: "#admin",
-        initialize: function(){
+        initialize: function(options){
             var me = this;
+            me.options = options;
             me.options.eventPubSub.bind('initAdminView', function(page){
                 page = page || 'users';
                 me.loadTab(page);

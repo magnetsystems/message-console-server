@@ -40,7 +40,7 @@
                 <a id="mmx-contextual-doc-btn" href="#" target="_blank" class="hidden-xs">
                     <span class="fa fa-question-circle fa-2x"></span>
                 </a>
-                <a id="user-nav-popover" data-title="<div class='clearfix'><a href='/#/profile' class='btn btn-sm btn-default pull-left'>Profile</a><a href='#/logout' class='btn btn-sm btn-default pull-right'>Sign Out</button></div>" data-content="<b>{{= sessionUser.email }}</b><br />{{= sessionUser.companyName }}">
+                <a id="user-nav-popover" data-title="<div class='clearfix'><a href='/#/profile' class='btn btn-sm btn-default pull-left'>Profile</a><a href='#/logout' class='btn btn-sm btn-default pull-right'>Sign Out</button></div>" data-content="<b>{{= sessionUser.email }}</b><br />{{= sessionUser.companyName || '' }}">
                     <span class="fa fa-cog fa-2x"></span> <span class="caret"></span>
                 </a>
             </li>

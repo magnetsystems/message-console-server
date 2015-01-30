@@ -1,8 +1,9 @@
 define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 'models/AppModel', 'collections/AppCollection'], function($, Backbone, UserModel, UserCollection, AppModel, AppCollection){
     var View = Backbone.View.extend({
         el: "#admin-details",
-        initialize: function(){
+        initialize: function(options){
             var me = this;
+            me.options = options;
             // initialize the view
             me.options.eventPubSub.bind('initAdminDetailsView', function(params){
                 me.page = params.page;

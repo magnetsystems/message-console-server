@@ -1,8 +1,9 @@
 define(['jquery', 'backbone'], function($, Backbone){
     var View = Backbone.View.extend({
         el: "#list-placeholder",
-        initialize: function(){
+        initialize: function(options){
             var me = this;
+            me.options = options;
             // initialize the view
             me.options.eventPubSub.bind("initListView", function(params){
                 me.setElement(params.el);
