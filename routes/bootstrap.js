@@ -47,6 +47,10 @@ module.exports = function(app){
         });
     });
 
+    app.get('/rest/isInit', function(req, res){
+        res.send(false, 200);
+    });
+
     app.post('/rest/restart', function(req, res){
         res.send('ok', 200);
         winston.error('System: restarting server now.');

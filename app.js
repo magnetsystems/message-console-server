@@ -13,9 +13,10 @@ if(!app.settings.env || app.settings.env == ''){
 global.winston = winston;
 global.ENV_CONFIG = require('./lib/ConfigManager').get();
 
-// initialize database
-require('./lib/orm').setup('./lib/models', function(){
-    winston.info('Open web browser and navigate to '+ENV_CONFIG.Email.appUrl+' to use the console.');
+// database initialization
+require('./lib/orm').setup('./lib/models', function(e){
+
+    winston.info('Open web browser and navigate to '+ENV_CONFIG.App.appUrl+'/wizard to perform initial setup.');
 });
 
 // set port
@@ -114,10 +115,10 @@ if(ENV_CONFIG.Redis.enabled){
 // prioritize router before public directory
 app.use(express.static(__dirname + '/public'));
 
-// Routes
+// routes
 require('./routes')(app);
 
-// Run Webserver
+// run webserver
 var server = http.createServer(app);
 server.listen(app.get('port'), function(){
     winston.info("System: http server listening on port %d in %s mode", app.get('port'), app.settings.env);

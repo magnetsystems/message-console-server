@@ -1,5 +1,5 @@
-var AccountManager = require('../lib/AccountManager')
-, UserManager = require('../lib/UserManager')
+var UserManager = require('../lib/UserManager')
+, AccountManager = require('../lib/AccountManager')
 , ModelManager = require('../lib/ModelManager')
 , MMXManager = require('../lib/MMXManager')
 , EmailService = require('../lib/EmailService')
@@ -10,6 +10,34 @@ var AccountManager = require('../lib/AccountManager')
 , ContentManagement = require('../lib/ContentManagement');
 
 module.exports = function(app){
+
+    // user log in
+    app.post('/rest/login', function(req, res){
+        AccountManager.manualLogin(req.body.name, req.body.password, function(e, user, newMMXUser){
+            if(user){
+                delete user.password;
+                req.session.user = user;
+                if(newMMXUser) res.header('X-New-MMX-User', 'enabled');
+                winston.verbose('Tracking: user "' + user.email + '" logged in.');
+                res.send(req.query.requireUser ? req.session.user.magnetId : 'SUCCESS', 200);
+            }else{
+                res.send(e, 401);
+            }
+        });
+    });
+
+    // user logout
+    app.all('/rest/logout', function(req, res){
+        if(!req.session.user){
+            res.send('ok', 200);
+        }else{
+            winston.verbose('Tracking: user "' + req.session.user.email + '" logged out');
+            req.session.destroy(function(){
+                res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+                res.send('ok', 200);
+            });
+        }
+    });
 
     /* catch database models */
     var getDBModels = ['users', 'projects', 'events', 'announcements'];
@@ -546,7 +574,9 @@ module.exports = function(app){
     });
 
     // restart the server
-    app.get('/rest/restart', UserManager.checkAuthority(['admin'], true), function(req, res, next){
+    app.post('/rest/restart', UserManager.checkAuthority(['admin'], true), function(req, res){
+        res.send('ok', 200);
+        winston.error('System: restarting server now.');
         process.exit(1);
     });
 
