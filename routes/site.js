@@ -12,6 +12,11 @@ module.exports = function(app){
         });
     });
 
+    // restart the server
+    app.get('/wizard', function(req, res){
+        res.redirect('/');
+    });
+
 	app.get('*', function(req, res){
         res.status(404);
         res.send('', 404);

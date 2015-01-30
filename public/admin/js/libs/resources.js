@@ -204,7 +204,7 @@ ModelConnector.prototype.get = function(path, id, qs, params, callback, failback
     }
     var url = path+(id != null ? '/'+id+(qs == '' ? '' : selectAll+qs) : selectAll+qs);
     // add a unique timestamp to prevent 304 Not Modified caching of dynamic data under IE only
-    if($.browser.msie){
+    if(window.navigator.userAgent.indexOf('MSIE ') != -1){
         var timestamp = new Date().getTime();
         url += '&_magnet_body='+timestamp;
     }
