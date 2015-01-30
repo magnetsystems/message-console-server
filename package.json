@@ -1,5 +1,5 @@
 {
-  "name": "messanging-console-server",
+  "name": "messaging-console-server",
   "version": "1.0.0-SNAPSHOT",
   "private": true,
   "dependencies": {

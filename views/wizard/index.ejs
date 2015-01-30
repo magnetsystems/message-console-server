@@ -75,11 +75,15 @@
             </div>
             <div class="step-pane sample-pane alert" data-step="5">
                 <h4>Confirm and Finish</h4>
-                <p>Below is a summary of the settings you configured. When you are ready to start using the server, click <b>Finish</b>. </p>
+                <p>Below is a summary of the settings you configured. When you are ready to start using the server, click <b>Complete Installation</b>. </p>
                 <table id="wizard-summary-table" class="table">
                     <tbody>
                     <tr>
                         <td>Setup Database</td>
+                        <td><span class="label label-success">Success</span></td>
+                    </tr>
+                    <tr>
+                        <td>Setup Admin User</td>
                         <td><span class="label label-success">Success</span></td>
                     </tr>
                     <tr>
@@ -169,11 +173,11 @@
         <div class="form-group">
             <div class="col-md-6">
                 <label>Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Password" value="admin" />
+                <input type="password" class="form-control" name="password" placeholder="Password" value="" />
             </div>
             <div class="col-md-6">
                 <label>Password (repeat)</label>
-                <input type="password" class="form-control" name="passwordVerify" placeholder="Password (repeat)" value="admin" />
+                <input type="password" class="form-control" name="passwordVerify" placeholder="Password (repeat)" value="" />
             </div>
         </div>
     </form>
@@ -200,7 +204,7 @@
             </div>
             <div class="col-md-4">
                 <label>Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Password" value="admin" />
+                <input type="password" class="form-control" name="password" placeholder="Password" value="" />
             </div>
         </div>
     </form>

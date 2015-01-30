@@ -144,82 +144,6 @@ define(['jquery', 'backbone'], function($, Backbone){
         renderMessaging: function(){
             $('#wizard-messaging-container').html(_.template($('#WizardMessagingTmpl').html()));
         },
-        renderRoles: function(dom, roles, requiredRoles){
-            var template = _.template($('#UserRoleListView').html(), {
-                roles         : roles,
-                requiredRoles : requiredRoles
-            });
-            dom.find('.role-container').html(template);
-            this.$el.find('.pillbox').pillbox({
-                edit : true
-            });
-            this.$el.find('.pillbox .pill-group').append('<a href="#" class="btn btn-primary">Add</a>');
-            return this;
-        },
-        checkPasswordStrength: function(e){
-            setTimeout(function(){
-                if(e.keyCode != 13){
-                    var val = $(e.currentTarget).val();
-                    if(val.length > 9 && val.match(/[a-z]+/) && val.match(/[A-Z]+/)){
-                        $('#wizard-admin-container').find('.alert-warning').hide('fast');
-                    }else{
-                        $('#wizard-admin-container').find('.alert-warning').show('fast');
-                    }
-                }
-            }, 50);
-        },
-        showSuccess: function(dom, name){
-            var alert = $('<div class="alert alert-success" role="alert"><strong>Admin User Created</strong>admin user "'+name+'"  has been created.</div>');
-            dom.find('.alert-container').html(alert);
-            setTimeout(function(){
-                alert.fadeOut('slow', function(){
-                    alert.remove();
-                });
-            }, 5000);
-        },
-        checkForRestart: function(cb){
-            var me = this;
-            AJAX('provisioning/restart/status', 'GET', 'application/json', null, function(res){
-                me.states.needrestart = res.required;
-                if(!me.states.needrestart){
-                    cb();
-                }else{
-                    me.handleRestart(true, cb);
-                }
-            }, function(e){
-                me.options.eventPubSub.trigger('btnComplete', $('#complete-wizard-btn'));
-                alert(e);
-            });
-        },
-        handleRestart: function(params, cb){
-            var me = this;
-            params = typeof params === 'boolean' ? {
-                isInstall : params
-            } : (params || {});
-            var tick = function(next, done){
-                AJAX('provisioning/restart/status', 'GET', 'application/json', null, function(res){
-                    me.states.needrestart = res.required;
-                    if(me.states.needrestart === false){
-                        me.$el.find('div[did="idm"] .button-group').css('visibility', 'visible');
-                        done();
-                    }else{
-                        next();
-                    }
-                }, function(){
-                    next();
-                }, null, {
-                    redirectHost : (me.options.opts.restartParams && me.options.opts.restartParams.redirectPort) ? (window.location.host.indexOf(':') != -1 ? window.location.host.replace(':'+window.location.port, ':'+me.options.opts.restartParams.redirectPort) : '') : null
-                });
-            };
-            AJAX('provisioning/restart', 'POST', 'application/json', {
-                kind : params.hard ? 'HARD' : ''
-            }, function(res){
-                me.handleLoadingModal('restart-wizard-modal', tick, cb);
-            }, function(e){
-                me.options.eventPubSub.trigger('btnComplete', $('#complete-wizard-btn'));
-                alert(e);
-            });
-        },
         completeWizard: function(e){
             var me = this;
             var btn = $(e.currentTarget);
@@ -227,30 +151,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             me.checkForRestart(function(){
                 me.options.eventPubSub.trigger('btnComplete', btn);
                 me.options.opts.isInit = true;
-                Backbone.history.navigate('#/login');
-            });
-        },
-        generateRandomKey: function(e){
-            var btn = $(e.currentTarget);
-            var me = this, ctr = 5;
-            var input = me.$el.find('input[name="cipherKey"]');
-            input.val('');
-            btn.removeClass('btn-success').addClass('btn-primary');
-            btn.html('Move your mouse (5 seconds left)');
-            var int = setInterval(function(){
-                ctr -= 1;
-                btn.html('Move your mouse ('+ctr+' seconds left)');
-                if(ctr == 0){
-                    btn.html('Generate Random Key');
-                    alert('Not enough entropy collected. Click the Generate Random Key button and move the mouse more to generate a secure password.');
-                    clearInterval(int);
-                }
-            }, 1000);
-            utils.getRandomKey(function(key){
-                btn.html('Generate Random Key');
-                btn.removeClass('btn-primary').addClass('btn-success');
-                input.val(key);
-                clearInterval(int);
+                Backbone.history.navigate('/');
             });
         }
     });
