@@ -30,7 +30,7 @@ var AJAX = function(loc, method, contentType, data, callback, failback, headers,
         }
     }).complete(function(xhr){
         if(xhr && xhr.responseText && xhr.responseText == 'restart-needed')
-            GlobalEventDispatcher.generalEventPubSub.trigger('initRestart');
+            GlobalEventDispatcher.generalEventPubSub.trigger('initRestart', params);
         if(params.btn)
             params.btn.html(params.btn.attr('txt')).removeClass('disabled');
     }).done(function(result, status, xhr){
@@ -745,7 +745,7 @@ utils = {
         }, 5000);
     },
     // collect project details from form fields into data object
-    collect : function(dom, looseBooleans, skipEmptyStrings){
+    collect : function(dom, looseBooleans, skipEmptyStrings, convertNumericStrings){
         var obj = {}, me = this;
         dom.find('.btn-group:not(.disabled)').each(function(){
             if($(this).hasClass('pillbox-input-wrap')) return;
@@ -772,22 +772,23 @@ utils = {
             obj[did] = obj[did] || [];
             obj[did].push($(this).text());
         });
-        if(!looseBooleans){
-            $.each(obj, function(name, val){
+        $.each(obj, function(name, val){
+            if(!looseBooleans){
                 if(val === 'true'){
                     obj[name] = true;
                 }
                 if(val === 'false'){
                     obj[name] = false;
                 }
-            });
-        }
-        if(skipEmptyStrings){
-            $.each(obj, function(name, val){
+            }
+            if(convertNumericStrings && obj[name] && $.trim(obj[name]) !== '' && me.isNumeric(obj[name])){
+                obj[name] = parseInt(obj[name]);
+            }
+            if(skipEmptyStrings){
                 if(obj[name] === '' || obj[name] === null)
                     delete obj[name];
-            });
-        }
+            }
+        });
         return obj;
     },
     pushNode : function(obj, name, val){

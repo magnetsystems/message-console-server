@@ -15,7 +15,7 @@ global.ENV_CONFIG = require('./lib/ConfigManager').get();
 
 // initialize database
 require('./lib/orm').setup('./lib/models', function(){
-    winston.info('Open web browser and navigate to '+ENV_CONFIG.Email.appUrl+' to perform initial setup.');
+    winston.info('Open web browser and navigate to '+ENV_CONFIG.Email.appUrl+' to use the console.');
 });
 
 // set port

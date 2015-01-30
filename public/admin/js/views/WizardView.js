@@ -24,9 +24,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             'click .actions button': 'stepChanged',
             'click #complete-wizard-btn': 'completeWizard',
             'click .wiz-prev': 'prevStep',
-            'click .wiz-next': 'nextStep',
-            'keypress #wizard-admin-container input[name="credential"]': 'checkPasswordStrength',
-            'click #wizard-random-key-btn': 'generateRandomKey'
+            'click .wiz-next': 'nextStep'
         },
         render: function(){
             var template = _.template($('#ProjectWizardView').html());
@@ -55,8 +53,8 @@ define(['jquery', 'backbone'], function($, Backbone){
                 me.createAdmin(function(){
                     me.wizard.wizard('next');
                 });
-            }else if(did === 'seedadmin'){
-                me.createSeedAdmin(function(){
+            }else if(did === 'messaging'){
+                me.setupMessaging(function(){
                     me.wizard.wizard('next');
                 });
             }else{
@@ -65,12 +63,12 @@ define(['jquery', 'backbone'], function($, Backbone){
         },
         renderDB: function(){
             $('#wizard-db-container').html(_.template($('#WizardDBTmpl').html()));
-            $('#wizard-db-container').find('.glyphicon-info-sign').tooltip();
         },
-        isValid: function(form, obj){
+        isValid: function(form, obj, optionals){
+            optionals = optionals || [];
             var valid = true;
             for(var key in obj){
-                if(key != 'password' && !$.trim(obj[key]).length){
+                if(optionals.indexOf(key) === -1 && !$.trim(obj[key]).length){
                     var name = form.find('input[name="'+key+'"]').attr('placeholder');
                     utils.showError(form, key, 'Invalid '+name+'. '+name+' is a required field.');
                     valid = false;
@@ -85,7 +83,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             var btn = form.closest('.step-pane').find('.wiz-next');
             utils.resetError(form);
             var obj = utils.collect(form);
-            if(!this.isValid(form, obj)) return;
+            if(!this.isValid(form, obj, ['password'])) return;
             obj.port = parseInt(obj.port);
             me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/setDB', 'POST', 'application/json', obj, function(res){
@@ -109,7 +107,7 @@ define(['jquery', 'backbone'], function($, Backbone){
         },
         createAdmin: function(cb){
             var me = this;
-            var form = $('#project-wizard-container .step-pane[did="admin"]');
+            var form = $('#wizard-admin-container');
             var btn = form.find('.wiz-next');
             utils.resetError(form);
             var obj = utils.collect(form);
@@ -144,17 +142,65 @@ define(['jquery', 'backbone'], function($, Backbone){
         renderMessaging: function(){
             $('#wizard-messaging-container').html(_.template($('#WizardMessagingTmpl').html()));
         },
+        setupMessaging: function(cb){
+            var me = this;
+            var form = $('#wizard-messaging-container');
+            var btn = form.find('.wiz-next');
+            utils.resetError(form);
+            var obj = utils.collect(form, false, false, true);
+            if(!this.isValid(form, obj)) return;
+            me.options.eventPubSub.trigger('btnLoading', btn);
+            AJAX('admin/setMessaging', 'POST', 'application/json', obj, function(res){
+                me.options.eventPubSub.trigger('btnComplete', btn);
+                if(!$('#wizard-messaging-container > .alert').length){
+                    $('#wizard-messaging-container').prepend(_.template($('#WizardMessagingTmpl').html(), {
+                        active : true
+                    }));
+                }
+                cb();
+            }, function(e){
+                me.options.eventPubSub.trigger('btnComplete', btn);
+                if(e === 'already-configured'){
+                    return Alerts.Confirm.display({
+                        title   : 'Messaging Server Already Configured',
+                        content : 'The messaging server at "'+obj.host+'" has already been configured. If you would like to continue using this messaging server, click <b>Yes</b>. Otherwise, click <b>No</b> to try again with a different Hostname.'
+                    }, function(){
+                        form.find('input[name^="password"]').val('');
+                        cb();
+                    });
+                }
+                if(e === 'auth-failure'){
+                    return Alerts.Error.display({
+                        title   : 'Messaging Server Already Configured',
+                        content : 'The messaging server at "'+obj.host+'" has already been configured, but the credentials you specified were invalid. Please try again with different credentials.'
+                    });
+                }
+                if(e === 'not-found'){
+                    return Alerts.Error.display({
+                        title   : 'Messaging Server Not Found',
+                        content : 'The messaging server at "'+obj.host+'" could not be reached. Please try again with a different hostname or port.'
+                    });
+                }
+                Alerts.Error.display({
+                    title   : 'Connection Error',
+                    content : 'Unable to configure the mesaging server with the settings you provided. <br />Error: '+e
+                });
+            });
+        },
         completeWizard: function(e){
             var me = this;
             var btn = $(e.currentTarget);
             me.options.eventPubSub.trigger('btnLoading', btn);
-            me.checkForRestart(function(){
+            AJAX('admin/completeInstall', 'POST', 'application/json', null, null, function(e){
                 me.options.eventPubSub.trigger('btnComplete', btn);
-                me.options.opts.isInit = true;
-                Backbone.history.navigate('/');
+                alert(e);
+            }, null, {
+                btn : btn,
+                cb  : function(){
+                    window.location.href = '/';
+                }
             });
         }
     });
-
     return View;
 });

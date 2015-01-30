@@ -23,7 +23,8 @@ define(['jquery', 'backbone'], function($, Backbone){
         events: {
             'click .goBack': 'goBack',
             'click .btn-logout': 'logout',
-            'click #user-panel-toggle': 'toggleUserPanel'
+            'click #user-panel-toggle': 'toggleUserPanel',
+            'click .btn-toggle': 'toggleSwitch'
         },
         goBack: function(e){
             e.preventDefault();
@@ -110,6 +111,22 @@ define(['jquery', 'backbone'], function($, Backbone){
                     me.doPoll(tick, int, cb);
                 }, cb);
             }, int);
+        },
+        toggleSwitch: function(e){
+            var tog = $(e.currentTarget);
+            if(tog.find('.btn').hasClass('disabled')){
+                return;
+            }
+            tog.find('.btn').toggleClass('active');
+            if(tog.find('.btn-primary').size()>0)
+                tog.find('.btn').toggleClass('btn-primary');
+            if(tog.find('.btn-danger').size()>0)
+                tog.find('.btn').toggleClass('btn-danger');
+            if(tog.find('.btn-success').size()>0)
+                tog.find('.btn').toggleClass('btn-success');
+            if(tog.find('.btn-info').size()>0)
+                tog.find('.btn').toggleClass('btn-info');
+            tog.find('.btn').toggleClass('btn-default');
         }
     });
     return View;
