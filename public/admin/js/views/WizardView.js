@@ -161,7 +161,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             var btn = form.find('.wiz-next');
             utils.resetError(form);
             var obj = utils.collect(form, false, false, true);
-            if(!this.isValid(form, obj, ['mysql.password'])) return;
+            if(!this.isValid(form, obj, ['mysqlPassword'])) return;
             me.options.eventPubSub.trigger('btnLoading', btn);
             if(skipProvisioning) obj.skipProvisioning = true;
             AJAX('admin/setMessaging', 'POST', 'application/json', obj, function(res){
