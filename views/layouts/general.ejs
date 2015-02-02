@@ -14,10 +14,23 @@
     <link rel="stylesheet" href="/admin/stylesheets/font-awesome.min.css" />
     <link rel="stylesheet" href="/admin/stylesheets/admin.css" />
     <link href='//fonts.googleapis.com/css?family=Roboto:400,500,700,900,300,100' rel='stylesheet' type='text/css'>
+    {{ if(typeof sessionUser != 'undefined' && userType == 'admin'){ }}
     <script data-main="/admin/js/{{- activePage }}" src="/admin/js/libs/require.js"></script>
+    {{ }else{ }}
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/account.css" />
+    <script src="/admin/js/libs/jquery.js"></script>
+    <script src="/admin/js/libs/bootstrap.min.js"></script>
+    <script src="/admin/js/libs/resources.js"></script>
+    <script src="/admin/js/scripts.js"></script>
+    {{ } }}
 </head>
 
+{{ if(typeof sessionUser == 'undefined' || userType != 'admin'){ }}
+<body id="messaging">
+{{ }else{ }}
 <body id="{{- activePage }}-body">
+{{ } }}
 
 <nav class="navbar navbar-default navbar-inverse" role="navigation">
     <div class="row-fluid">
@@ -34,7 +47,7 @@
                 <span class="project-name-holder"></span>
             </a>
         </div>
-        {{ if(typeof sessionUser != 'undefined'){ }}
+        {{ if(typeof sessionUser != 'undefined' && userType == 'admin'){ }}
         <ul id="user-nav-menu" class="nav navbar-nav navbar-right">
             <li>
                 <a id="mmx-contextual-doc-btn" href="#" target="_blank" class="hidden-xs">
@@ -49,7 +62,7 @@
     </div>
 </nav>
 
-{{ if(typeof sessionUser != 'undefined'){ }}
+{{ if(typeof sessionUser != 'undefined' && userType == 'admin'){ }}
 <div id="user-panel" style="display:none">
     <div class="col">
         <span class="user-username">{{= sessionUser.email }}</span><br />
@@ -64,7 +77,35 @@
 </div>
 {{ } }}
 
+{{ if(typeof sessionUser == 'undefined' || userType != 'admin'){ }}
+<div id="login-container" class="app-view pre-login-containers fullpos">
+    <div class="centered-wrapper">
+        <div class="panel panel-default">
+            <h4>Sign In</h4>
+            <form id="login-form">
+                <!--<span class="alert-container"></span>-->
+                <div class="form-group">
+                    <input class="form-control" type="text" name="name" placeholder="Username" />
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="password" name="password" placeholder="Password" />
+                </div>
+                <div class="form-group">
+                    <a href="/#/forgot-password">Forgot Password?</a>
+                </div>
+                <div class="form-group">
+                    <a id="login-btn" class="btn btn-primary">Sign In</a>
+                </div>
+                <div class="form-group">
+                    <p>or <a href="/#/register">Register</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{ }else{ }}
 {{-body}}
+{{ } }}
 
 <!-- dialogs start -->
 <div id="general-alert" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

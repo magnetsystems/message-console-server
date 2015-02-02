@@ -2,11 +2,12 @@ var UserManager = require('../lib/UserManager');
 
 module.exports = function(app){
 
-    app.get('/admin', UserManager.checkAuthority(['admin']), function(req, res){
+    app.get('/admin', function(req, res){
         res.render('admin/index', {
             locals : {
                 title       : 'Administration',
                 activePage  : 'admin',
+                userType    : req.session.user ? req.session.user.userType : 'developer',
                 sessionUser : req.session.user
             }
         });

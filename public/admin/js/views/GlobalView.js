@@ -23,26 +23,12 @@ define(['jquery', 'backbone'], function($, Backbone){
         },
         events: {
             'click .goBack': 'goBack',
-            'click .btn-logout': 'logout',
             'click #user-panel-toggle': 'toggleUserPanel',
             'click .btn-toggle': 'toggleSwitch'
         },
         goBack: function(e){
             e.preventDefault();
             window.history.back();
-        },
-        logout: function(){
-            var me = this;
-            $('.modal_errors').hide();
-            $.ajax({
-                type        : 'POST',
-                url         : '/rest/logout',
-                dataType    : 'html',
-                contentType : 'application/x-www-form-urlencoded'
-            }).done(function(result, status, xhr){
-                me.cookies.remove('magnet_auth');
-                window.location.href = '/login/';
-            });
         },
         toggleUserPanel: function(e){
             e.preventDefault();

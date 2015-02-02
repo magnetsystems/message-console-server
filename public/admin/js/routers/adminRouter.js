@@ -74,7 +74,7 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             var me = this;
             me.cookies.remove('magnet_auth');
             me.mc.query('logout', 'POST', null, function(data, status, xhr){
-                window.location.href = '/';
+                window.location.href = '/admin/';
             }, 'html', 'application/x-www-form-urlencoded', function(){
                 me.login();
             });
