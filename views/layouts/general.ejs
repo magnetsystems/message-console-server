@@ -14,19 +14,19 @@
     <link rel="stylesheet" href="/admin/stylesheets/font-awesome.min.css" />
     <link rel="stylesheet" href="/admin/stylesheets/admin.css" />
     <link href='//fonts.googleapis.com/css?family=Roboto:400,500,700,900,300,100' rel='stylesheet' type='text/css'>
-    {{ if(typeof sessionUser != 'undefined' && userType == 'admin'){ }}
-    <script data-main="/admin/js/{{- activePage }}" src="/admin/js/libs/require.js"></script>
-    {{ }else{ }}
+    {{ if(userType != 'admin' && userType != 'wizard'){ }}
     <link rel="stylesheet" href="/css/styles.css" />
     <link rel="stylesheet" href="/css/account.css" />
     <script src="/admin/js/libs/jquery.js"></script>
     <script src="/admin/js/libs/bootstrap.min.js"></script>
     <script src="/admin/js/libs/resources.js"></script>
     <script src="/admin/js/scripts.js"></script>
+    {{ }else{ }}
+    <script data-main="/admin/js/{{- activePage }}" src="/admin/js/libs/require.js"></script>
     {{ } }}
 </head>
 
-{{ if(typeof sessionUser == 'undefined' || userType != 'admin'){ }}
+{{ if(userType != 'admin' && userType != 'wizard'){ }}
 <body id="messaging">
 {{ }else{ }}
 <body id="{{- activePage }}-body">
@@ -47,7 +47,7 @@
                 <span class="project-name-holder"></span>
             </a>
         </div>
-        {{ if(typeof sessionUser != 'undefined' && userType == 'admin'){ }}
+        {{ if(userType == 'admin'){ }}
         <ul id="user-nav-menu" class="nav navbar-nav navbar-right">
             <li>
                 <a id="mmx-contextual-doc-btn" href="#" target="_blank" class="hidden-xs">
@@ -62,7 +62,7 @@
     </div>
 </nav>
 
-{{ if(typeof sessionUser != 'undefined' && userType == 'admin'){ }}
+{{ if(userType == 'admin'){ }}
 <div id="user-panel" style="display:none">
     <div class="col">
         <span class="user-username">{{= sessionUser.email }}</span><br />
@@ -77,7 +77,7 @@
 </div>
 {{ } }}
 
-{{ if(typeof sessionUser == 'undefined' || userType != 'admin'){ }}
+{{ if(userType != 'admin' && userType != 'wizard'){ }}
 <div id="login-container" class="app-view pre-login-containers fullpos">
     <div class="centered-wrapper">
         <div class="panel panel-default">

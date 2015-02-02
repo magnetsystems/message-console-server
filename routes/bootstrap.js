@@ -7,6 +7,7 @@ module.exports = function(app){
             locals : {
                 title       : 'Administration',
                 activePage  : 'wizard',
+                userType    : 'wizard',
                 sessionUser : req.session.user
             }
         });

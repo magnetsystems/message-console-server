@@ -32,7 +32,7 @@ var AJAX = function(loc, method, contentType, data, callback, failback, headers,
     }).fail(function(xhr, status, thrownError){
         if(xhr.status == 403 || xhr.status == 401){
             GLOBAL.referrer = window.location.hash;
-            Backbone.history.navigate('/');
+            window.location.href = '/admin';
             GLOBAL.polling = false;
         }else if(typeof failback === typeof Function){
             var e = xhr.responseJSON ? xhr.responseJSON.message : xhr.responseText;
@@ -364,7 +364,7 @@ HTTPRequest.prototype.call = function(loc, method, dataType, contentType, data, 
         // handle not authorized status codes to redirect to login page
         if(xhr.status == 403 || xhr.status == 401){
             me.cookies.remove('magnet_auth');
-            window.location.replace('/login/');
+            window.location.href = '/admin';
         }else if(typeof failback === typeof Function){
             failback(xhr, status, thrownError);
         }

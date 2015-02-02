@@ -53,7 +53,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             var location = params.redirectPort ? (window.location.host.indexOf(':') != -1 ? window.location.protocol+'//'+window.location.host.replace(':'+window.location.port, ':'+params.redirectPort) : '') : '';
             var tick = function(next, done){
                 if(location !== ''){
-                    params.location = location;
+                    params.location = location+'/admin';
                     pingHost(location, done, next);
                 }else{
                     AJAX('/admin/beacon.json', 'GET', 'text/plain', null, function(){
