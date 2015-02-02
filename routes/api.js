@@ -7,6 +7,7 @@ var UserManager = require('../lib/UserManager')
 , _ = require('underscore')
 , validator = require('validator')
 , sanitize = validator.sanitize
+, ConfigManager = require('../lib/ConfigManager')
 , ContentManagement = require('../lib/ContentManagement');
 
 module.exports = function(app){
@@ -40,7 +41,7 @@ module.exports = function(app){
     });
 
     /* catch database models */
-    var getDBModels = ['users', 'projects', 'events', 'announcements'];
+    var getDBModels = ['users', 'events'];
     app.get('/rest/:model', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(getDBModels, req.params.model)){
             ModelManager.findAll(req, function(col){
@@ -61,7 +62,7 @@ module.exports = function(app){
         }
     });
 
-    var putDBModels = ['users', 'announcements'];
+    var putDBModels = ['users'];
     app.put('/rest/:model/:id', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(putDBModels, req.params.model)){
             ModelManager.update(req, req.body, function(e, model){
@@ -76,7 +77,7 @@ module.exports = function(app){
         }
     });
 
-    var postDBModels = ['announcements'];
+    var postDBModels = ['users'];
     app.post('/rest/:model', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(postDBModels, req.params.model)){
             ModelManager.create(req, req.body, function(e, model){
@@ -91,7 +92,7 @@ module.exports = function(app){
         }
     });
 
-    var deleteDBModels = ['announcements'];
+    var deleteDBModels = [];
     app.delete('/rest/:model/:id', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(deleteDBModels, req.params.model)){
             ModelManager.delete(req, function(e){
@@ -562,6 +563,27 @@ module.exports = function(app){
         });
     });
 
+    // Get environment configs
+    app.get('/rest/configs', UserManager.checkAuthority(['admin'], true), function(req, res){
+        res.send(ConfigManager.getConfigs(), 200);
+    });
+
+    // Get single environment config
+    app.get('/rest/configs/:config', UserManager.checkAuthority(['admin'], true), function(req, res){
+        res.send(ConfigManager.getConfig(req.params.config), 200);
+    });
+
+    // Get single environment config
+    app.post('/rest/configs/:config', UserManager.checkAuthority(['admin'], true), function(req, res){
+        ConfigManager.setConfig(req.params.config, req.body, function(e){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('restart-needed', 200);
+            }
+        });
+    });
+
     // return server statistics
     app.get('/rest/stats', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
         res.send({
@@ -571,6 +593,11 @@ module.exports = function(app){
             'Factory Version' : require('../package.json').version,
             'Memory Usage'    : process.memoryUsage()
         });
+    });
+
+    // return server status
+    app.get('/rest/status', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
+        res.send('ok', 200);
     });
 
     // restart the server

@@ -80,7 +80,7 @@ label{font-weight:500}
 .form-group .btn-group{display:block}
 .form-group .well{padding:7px 3px}
 .btn-row{display:block;clear:both;padding-top:16px;margin:0 0 20px 18px}
-input.form-control, select.form-control{margin-bottom:5px;border-radius:0}
+input.form-control, select.form-control{border-radius:0}
 .form-horizontal .form-group{margin-bottom:0}
 .btn-primary.input-group-addon, .btn-primary.input-group-addon:hover{color:#fff}
 .max150{max-width:150px}
@@ -130,7 +130,7 @@ input.form-control, select.form-control{margin-bottom:5px;border-radius:0}
 
 /* ADMIN PAGE */
 .fullpos{height:auto;position:absolute;top:0;bottom:0;left:0;right:0}
-.page{height:100%;height:auto;position:absolute;top:76px;bottom:0;width:100%;min-width:980px;margin-bottom:25px}
+.page{height:100%;height:auto;position:absolute;top:76px;bottom:0;width:100%;margin-bottom:25px}
  .page-view{position:relative;margin-bottom:25px;padding:0 25px 25px;background-color:#f7f7f7;border-radius:4px;border:solid 1px #888}
 .heading{height:46px;width:100%;background:url(../images/hdr_bkgd_parameters.gif) repeat-x 0 0}
 .config{background:#e3e3e3;height:20px;padding:10px 0}
@@ -222,6 +222,7 @@ input.form-control, select.form-control{margin-bottom:5px;border-radius:0}
 #admin .nav-tabs > li.active > a{border:solid 1px #ddd;border-bottom:none}
 #admin .tab-content{background:#fff;border:solid 1px #ddd;margin-bottom:25px}
 #admin h3{text-indent:5px;font-size:25px;font-weight:300}
+#admin h4{text-indent:5px;font-size:19px;font-weight:300}
 #admin .tab-content > .active{padding:0 20px 15px}
 #admin-details .table tbody td{cursor:default}
 #admin-details .buttons .pull-right{position:absolute;right:25px;top:20px}
@@ -250,6 +251,7 @@ input.form-control, select.form-control{margin-bottom:5px;border-radius:0}
 #mgmt-announcements-list td .btn{margin-bottom:7px}
 #mgmt-announcements-list td .btn i{margin:4px 0 !important}
 #mgmt-announcements-list textarea{min-height:120px}
+.admin-config-item-container{margin:5px 0}
 
 #app-management-container .input-append label{margin-top:18px}
 #wizard-messaging-database-config{position:relative}

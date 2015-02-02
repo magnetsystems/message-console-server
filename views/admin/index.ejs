@@ -57,6 +57,40 @@
                             Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
                         </div>
                     </div>
+                    <div class="admin-config-item-container">
+                        <h3>Create a User</h3>
+                        <div class="buttons-section">
+                            <span class="alert-container"></span>
+                            <div class="form-group clearfix">
+                                <div class="col-sm-4">
+                                    <label>Email</label>
+                                    <input type="text" name="email" class="form-control" placeholder="Email" value="" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>Password</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Password" value="" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>User Type</label>
+                                    <select class="form-control"  name="userType">
+                                        <option value="developer">developer</option>
+                                        <option value="admin">admin</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="button-group clearfix">
+                                <button id="admin-user-create-btn" class="btn btn-primary">Create User</button>
+                            </div>
+                        </div>
+                        <div class="loading buttons-section" style="display:none">
+                            Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
+                        </div>
+                    </div>
+                    <h3>Configuration</h3>
+                    <div class="alert alert-info" role="alert">
+                        <strong>Note:</strong> Changes made to the configuration below will initiate a restart of the server.
+                    </div>
+                    <div id="admin-configuration-container"></div>
                 </div>
             </div>
         </div>
@@ -153,19 +187,19 @@
                     <td width="5px">Type of User (Internal)</td>
                     <td width="5px">
                         <span class="user-edit-value"><%- model.userType %></span>
-                                    <span class="user-edit-input" style="display:none">
-                                        <% if(model.userType == 'developer' || model.userType == 'admin'){ %>
-                                        <select class="form-control"  name="userType">
-                                        <!--
-                                        <option value="invited" <% if(model.userType == 'invited'){ %>selected="selected"<% } %>>invited</option>
-                                        <option value="approved" <% if(model.userType == 'approved'){ %>selected="selected"<% } %>>approved</option>
-                                        <option value="guest" <% if(model.userType == 'guest'){ %>selected="selected"<% } %>>guest</option>
-                                        -->
-                                        <option value="developer" <% if(model.userType == 'developer'){ %>selected="selected"<% } %>>developer</option>
-                                        <option value="admin" <% if(model.userType == 'admin'){ %>selected="selected"<% } %>>admin</option>
-                                    </select>
-                                        <% } %>
-                                    </span>
+                        <span class="user-edit-input" style="display:none">
+                            <% if(model.userType == 'developer' || model.userType == 'admin'){ %>
+                            <select class="form-control"  name="userType">
+                            <!--
+                            <option value="invited" <% if(model.userType == 'invited'){ %>selected="selected"<% } %>>invited</option>
+                            <option value="approved" <% if(model.userType == 'approved'){ %>selected="selected"<% } %>>approved</option>
+                            <option value="guest" <% if(model.userType == 'guest'){ %>selected="selected"<% } %>>guest</option>
+                            -->
+                            <option value="developer" <% if(model.userType == 'developer'){ %>selected="selected"<% } %>>developer</option>
+                            <option value="admin" <% if(model.userType == 'admin'){ %>selected="selected"<% } %>>admin</option>
+                        </select>
+                            <% } %>
+                        </span>
                     </td>
                 </tr>
                             <% if(model.invitedEmail){ %>
@@ -379,5 +413,316 @@
     </div>
 <% } %>
 </script>
-
 <!-- dialogs end -->
+
+<script id="AdminConfigurationTmpl" type="text/template">
+    <div class="panel-group clearfix" id="admin-config-container-collapsible">
+        <% _.each(configs, function(val, key){ %>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#admin-config-container-collapsible" href="#admin-config-item-<%- key %>">
+                        <%- key %>
+                    </a>
+                </h4>
+            </div>
+            <div id="admin-config-item-<%- key %>" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="admin-config-item-container" did="<%- key %>">
+                        <div class="buttons-section">
+                            <span class="alert-container"></span>
+                            <div class="form-group clearfix">
+                            <%= renderConfigItem(key, val, configs) %>
+                            </div>
+                            <hr />
+                            <div class="button-group clearfix">
+                                <button class="admin-config-save-btn btn btn-primary">Save Changes</button>
+                            </div>
+                        </div>
+                        <div class="loading buttons-section" style="display:none">
+                            Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+</script>
+<script id="AdminConfigurationAppTmpl" type="text/template">
+    <div class="col-sm-6">
+        <label>App Url</label>
+        <input type="text" name="appUrl" class="form-control" placeholder="App Url" value="<%- config.appUrl %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Port</label>
+        <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
+    </div>
+</script>
+<script id="AdminConfigurationDatabaseTmpl" type="text/template">
+    <p>Modify the Admin Console database configuration.</p>
+    <div class="alert alert-info" role="alert">
+        <strong>Note:</strong> If you change to another database, you should make sure that the other
+        database has at least one admin user. Otherwise, you will not be able to log in.
+    </div>
+    <div class="col-sm-4">
+        <label>Hostname</label>
+        <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
+    </div>
+    <div class="col-sm-4">
+        <label>Port</label>
+        <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
+    </div>
+    <div class="col-sm-4">
+        <label>Database Name</label>
+        <input type="text" name="dbName" class="form-control" placeholder="Database Name" value="<%- config.dbName %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Username</label>
+        <input type="text" name="username" class="form-control" placeholder="Username" value="<%- config.username %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Password" value="" />
+    </div>
+</script>
+<script id="AdminConfigurationRedisTmpl" type="text/template">
+    <p>Redis can be used to share user session between multiple Admin Console nodes in a cluster. For a single
+        Admin Console deployment, Redis allows modfication of configuration without getting logged out.</p>
+    <div class="col-sm-6">
+        <label>Enabled
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
+        </label>
+        <div class="btn-group btn-toggle clearfix" did="enabled">
+            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <label>Hostname</label>
+        <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Port</label>
+        <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Password</label>
+        <input type="pass" name="pass" class="form-control" placeholder="Password" value="" />
+    </div>
+</script>
+<script id="AdminConfigurationConsoleLogTmpl" type="text/template">
+    <div class="col-sm-4">
+        <label>Enabled
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
+        </label>
+        <div class="btn-group btn-toggle clearfix" did="enabled">
+            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <label>Handle Exceptions
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="If enabled, uncaught exceptions do not crash the server and the exception is logged."></span>
+        </label>
+        <div class="btn-group btn-toggle clearfix" did="handleExceptions">
+            <button class="btn btn-sm <% if(config.handleExceptions === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+            <button class="btn btn-sm <% if(typeof config.handleExceptions == 'undefined' || config.handleExceptions === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <label>Log Level</label>
+        <select class="form-control" name="level">
+            <% _.each(levels, function(val, key){ %>
+            <option value="<%- val %>" <% if(config.level === val){ %>selected="selected"<% } %>><%- val %></option>
+            <% }); %>
+        </select>
+    </div>
+</script>
+<script id="AdminConfigurationFileLogTmpl" type="text/template">
+    <p>Logs can be written to log files.</p>
+    <div class="col-sm-4">
+        <label>Enabled
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
+        </label>
+        <div class="btn-group btn-toggle clearfix" did="enabled">
+            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <label>Handle Exceptions
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="If enabled, uncaught exceptions do not crash the server and the exception is logged."></span>
+        </label>
+        <div class="btn-group btn-toggle clearfix" did="handleExceptions">
+            <button class="btn btn-sm <% if(config.handleExceptions === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+            <button class="btn btn-sm <% if(typeof config.handleExceptions == 'undefined' || config.handleExceptions === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <label>Log Level</label>
+        <select class="form-control" name="level">
+            <% _.each(levels, function(val, key){ %>
+            <option value="<%- val %>" <% if(config.level === val){ %>selected="selected"<% } %>><%- val %></option>
+            <% }); %>
+        </select>
+    </div>
+    <div class="col-sm-6">
+        <label>Folder
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The folder to write log files, relative to the root directory."></span>
+        </label></label>
+        <input type="text" name="folder" class="form-control" placeholder="Folder" value="<%- config.folder %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Filename</label>
+        <input type="text" name="filename" class="form-control" placeholder="Filename" value="<%- config.filename %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Maximum Size
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The maximum log file size before logs are written to a new file."></span>
+        </label></label>
+        <input type="text" name="maxsize" class="form-control" placeholder="Maximum Size" value="<%- config.maxsize %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Maximum Files
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The maximum number of log files before logs are overwritten."></span>
+        </label></label>
+        <input type="text" name="maxFiles" class="form-control" placeholder="Maximum Files" value="<%- config.maxFiles %>" />
+    </div>
+</script>
+<script id="AdminConfigurationEmailLogTmpl" type="text/template">
+    <p>Logs can be emailed to a recipient.</p>
+    <div class="col-sm-4">
+        <label>Enabled
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
+        </label>
+        <div class="btn-group btn-toggle clearfix" did="enabled">
+            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <label>Handle Exceptions
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="If enabled, uncaught exceptions do not crash the server and the exception is logged."></span>
+        </label>
+        <div class="btn-group btn-toggle clearfix" did="handleExceptions">
+            <button class="btn btn-sm <% if(config.handleExceptions === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+            <button class="btn btn-sm <% if(typeof config.handleExceptions == 'undefined' || config.handleExceptions === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <label>Log Level</label>
+        <select class="form-control" name="level">
+            <% _.each(levels, function(val, key){ %>
+            <option value="<%- val %>" <% if(config.level === val){ %>selected="selected"<% } %>><%- val %></option>
+            <% }); %>
+        </select>
+    </div>
+    <div class="col-sm-12">
+        <label>Recipient</label>
+        <input type="text" name="recipient" class="form-control" placeholder="Folder" value="<%- config.recipient %>" />
+    </div>
+</script>
+<script id="AdminConfigurationEmailTmpl" type="text/template">
+    <p>Once email is set up properly, the email logging feature can be enabled and emails can be sent automatically to users during the registration process.</p>
+    <div class="col-sm-4">
+        <label>Enabled
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
+        </label>
+        <div class="btn-group btn-toggle clearfix" did="enabled">
+            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <label>TLS</label>
+        <div class="btn-group btn-toggle clearfix" did="tls">
+            <button class="btn btn-sm <% if(config.tls === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+            <button class="btn btn-sm <% if(typeof config.tls == 'undefined' || config.tls === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <label>Sender</label>
+        <input type="text" name="sender" class="form-control" placeholder="Folder" value="<%- config.sender %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Hostname</label>
+        <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Port</label>
+        <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Username</label>
+        <input type="text" name="user" class="form-control" placeholder="Username" value="<%- config.user %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Password" value="" />
+    </div>
+</script>
+<script id="AdminConfigurationMMXTmpl" type="text/template">
+    <p>Database configuration for the messaging server. By default, the messaging server will share the same database as
+        the Admin Console. You can configure a different database by modifying the configuration below.</p>
+    <div class="form-group clearfix">
+        <div class="col-sm-4">
+            <label>Share Database
+                <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Choose Yes to share the same database as the Admin Console."></span>
+            </label>
+            <div class="btn-group btn-toggle" did="shareDB">
+                <button class="btn btn-sm <% if(config.shareDB === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+                <button class="btn btn-sm <% if(typeof config.shareDB == 'undefined' || config.shareDB === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <label>Hostname</label>
+            <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
+        </div>
+        <div class="col-sm-4">
+            <label>Port</label>
+            <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
+        </div>
+        <div class="col-sm-4">
+            <label>SSL Enabled</label>
+            <div class="btn-group btn-toggle clearfix" did="ssl">
+                <button class="btn btn-sm <% if(config.ssl === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+                <button class="btn btn-sm <% if(typeof config.ssl == 'undefined' || config.ssl === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <label>Username</label>
+            <input type="text" name="user" class="form-control" placeholder="Username" value="<%- config.user %>" />
+        </div>
+        <div class="col-sm-4">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Password" value="" />
+        </div>
+    </div>
+    <div id="wizard-messaging-database-config" class="hidden">
+        <h5>Messaging Server Database Configuration</h5>
+        <div class="form-group clearfix">
+            <div class="col-sm-6">
+                <label>Username</label>
+                <input type="text" name="mysql.user" class="form-control" placeholder="Username" value="<%- config['mysql.user'] || allConfigs.Database['username'] %>" />
+            </div>
+            <div class="col-sm-6">
+                <label>Password</label>
+                <input type="password" name="mysql.password" class="form-control" placeholder="Password" value="" />
+            </div>
+            <div class="col-sm-4">
+                <label>Hostname</label>
+                <input type="text" name="mysql.host" class="form-control" placeholder="Hostname" value="<%- config['mysql.host'] || allConfigs.Database['host'] %>" />
+            </div>
+            <div class="col-sm-4">
+                <label>Port</label>
+                <input type="text" name="mysql.port" class="form-control" placeholder="Port" value="<%- config['mysql.port'] || allConfigs.Database['port'] %>" />
+            </div>
+            <div class="col-sm-4">
+                <label>Database Name</label>
+                <input type="text" name="mysql.db" class="form-control" placeholder="Database Name" value="<%- config['mysql.db'] || allConfigs.Database['dbName'] %>" />
+            </div>
+        </div>
+    </div>
+</script>
+

@@ -12,8 +12,10 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             // init HTTP request methods
             this.cookies = new Cookie();
             // session timeout notification is disabled
+            this.opts = {};
             this.sessionMgr = new SessionManager(this.cookies);
             $(document).ajaxComplete(function(e, xhr){
+                if(xhr.skipStatusCheck) return;
                 if(xhr.status == 278){
                     window.location.href = '/';
                 }else if(xhr.status == 279){
@@ -27,10 +29,10 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             this.mc = new ModelConnector(this.httpreq);
             utils.setIndexOf();
             // init site views
-            var gv = new GlobalView({eventPubSub:this.eventPubSub});
-            var lstv = new ListView({mc:this.mc, eventPubSub:this.eventPubSub});
-            var av = new AdminView({mc:this.mc, eventPubSub:this.eventPubSub});
-            var adv = new AdminDetailsView({mc:this.mc, eventPubSub:this.eventPubSub});
+            var gv = new GlobalView({opts:this.opts, eventPubSub:this.eventPubSub});
+            var lstv = new ListView({opts:this.opts, mc:this.mc, eventPubSub:this.eventPubSub});
+            var av = new AdminView({opts:this.opts, mc:this.mc, eventPubSub:this.eventPubSub});
+            var adv = new AdminDetailsView({opts:this.opts, mc:this.mc, eventPubSub:this.eventPubSub});
             // define models
             // override default backbone model sync method to be compatible with REST APIs
             syncOverride(this.mc, this.eventPubSub);

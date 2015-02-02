@@ -8,13 +8,6 @@ var AJAX = function(loc, method, contentType, data, callback, failback, headers,
     params = params || {};
     var dataStr = (!$.isEmptyObject(data) && (contentType == 'application/json')) ? JSON.stringify(data) : data;
     if(method === 'POST' && dataStr === null) dataStr = '{}';
-    if(params.redirectHost){
-        return pingHost(window.location.protocol+'//'+params.redirectHost, function(){
-            window.location = window.location.protocol+'//'+params.redirectHost;
-        }, function(xhr, status, thrownError){
-            failback(xhr, status, thrownError);
-        });
-    }
     $.support.cors = true;
     $.ajax({
         type        : method,
@@ -871,6 +864,10 @@ utils = {
     // returns whether current browser is an iOS device
     isIOS : function(){
         return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    },
+    isValidEmail: function(e){
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(e);
     }
 };
 

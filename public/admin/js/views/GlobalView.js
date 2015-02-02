@@ -64,14 +64,18 @@ define(['jquery', 'backbone'], function($, Backbone){
         handleRestart: function(params){
             var me = this;
             params = params || {};
+            var location = params.redirectPort ? (window.location.host.indexOf(':') != -1 ? window.location.protocol+'//'+window.location.host.replace(':'+window.location.port, ':'+params.redirectPort) : '') : '';
             var tick = function(next, done){
-                AJAX('/admin/beacon.json', 'GET', 'text/plain', null, function(){
-                    done();
-                }, function(){
-                    next();
-                }, null, {
-                    redirectHost : (me.options.opts.restartParams && me.options.opts.restartParams.redirectPort) ? (window.location.host.indexOf(':') != -1 ? window.location.host.replace(':'+window.location.port, ':'+me.options.opts.restartParams.redirectPort) : '') : null
-                });
+                if(location !== ''){
+                    params.location = location;
+                    pingHost(location, done, next);
+                }else{
+                    AJAX('/admin/beacon.json', 'GET', 'text/plain', null, function(){
+                        done();
+                    }, function(){
+                        next();
+                    });
+                }
             };
             AJAX('restart', 'POST', 'application/json', null, function(res){
                 me.serverRestartModal('restart-modal', tick, params);
@@ -100,8 +104,9 @@ define(['jquery', 'backbone'], function($, Backbone){
             me.doPoll(tick, 1000, function(){
                 GLOBAL.polling = false;
                 modal.modal('hide');
+                if(typeof params.cb === typeof Function) params.cb(params.location);
+                if(params.redirectPort) window.location.href = params.location;
                 clearInterval(prog);
-                if(typeof params.cb === typeof Function) params.cb();
             });
         },
         doPoll: function(tick, int, cb){

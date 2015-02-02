@@ -186,7 +186,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                 if(e === 'auth-failure'){
                     return Alerts.Error.display({
                         title   : 'Messaging Server Already Configured',
-                        content : 'The messaging server at "'+obj.host+'" has already been configured, and the credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server without provisioning.'
+                        content : 'The messaging server at "'+obj.host+'" has already been configured, but the credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server without provisioning.'
                     });
                 }
                 if(e === 'not-found'){
