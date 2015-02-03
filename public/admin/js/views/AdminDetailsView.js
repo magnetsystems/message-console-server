@@ -218,16 +218,16 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
                 id       : this.entity.attributes.id,
                 magnetId : this.entity.attributes.magnetId
             });
-            for(var prop in properties.config){
-                if((properties.config[prop] == '' && me.entity.attributes[prop] == null) || properties.config[prop] == me.entity.attributes[prop]){
-                    delete properties.config[prop];
+            for(var prop in properties){
+                if((properties[prop] == '' && me.entity.attributes[prop] == null) || properties[prop] == me.entity.attributes[prop]){
+                    delete properties[prop];
                 }
             }
-            if(!$.isEmptyObject(properties.config)){
-                user.save(properties.config, {
+            if(!$.isEmptyObject(properties)){
+                user.save(properties, {
                     success: function(){
                         me.hideLoading($(e.currentTarget));
-                        me.entity.set(properties.config);
+                        me.entity.set(properties);
                         me.render('User');
                         me.fetchInvitedUsers();
                     },
