@@ -24,7 +24,7 @@ define(['jquery', 'backbone'], function($, Backbone){
         events: {
             'click .goBack': 'goBack',
             'click #user-panel-toggle': 'toggleUserPanel',
-            'click .btn-toggle': 'toggleSwitch'
+            'click .btn-toggle button': 'toggleSwitch'
         },
         goBack: function(e){
             e.preventDefault();
@@ -63,11 +63,13 @@ define(['jquery', 'backbone'], function($, Backbone){
                     });
                 }
             };
-            AJAX('restart', 'POST', 'application/json', null, function(res){
-                me.serverRestartModal('restart-modal', tick, params);
-            }, function(e){
-                me.serverRestartModal('restart-modal', tick, params);
-            });
+            setTimeout(function(){
+                AJAX('restart', 'POST', 'application/json', null, function(res){
+                    me.serverRestartModal('restart-modal', tick, params);
+                }, function(e){
+                    me.serverRestartModal('restart-modal', tick, params);
+                });
+            }, 100);
         },
         serverRestartModal: function(sel, tick, params){
             var me = this;
@@ -105,7 +107,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             }, int);
         },
         toggleSwitch: function(e){
-            var tog = $(e.currentTarget);
+            var tog = $(e.currentTarget).parent();
             if(tog.find('.btn').hasClass('disabled')){
                 return;
             }

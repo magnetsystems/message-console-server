@@ -439,7 +439,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/users/:magnetId/apps', UserManager.checkAuthority(['admin'], true), function(req, res){
-        MMXManager.getApps(req.params.magnetId, function(e, user){
+        MMXManager.getApps(req.session.user.magnetId, function(e, user){
             if(e){
                 res.send(e, 400);
             }else{

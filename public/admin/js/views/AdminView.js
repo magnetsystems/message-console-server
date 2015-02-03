@@ -323,7 +323,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                         Alerts.General.display({
                             title   : did+' Config Updated Successfully',
                             content : 'The configuration for section <b>'+did+'</b> has been updated successfully and the server has been restarted.' + redirection
-                        }, (location || '/'), 5000, true);
+                        }, (location || '/admin'), 5000, true);
                     });
                 }
             });

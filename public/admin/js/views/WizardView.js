@@ -105,23 +105,28 @@ define(['jquery', 'backbone'], function($, Backbone){
                 me.options.eventPubSub.trigger('btnComplete', btn);
                 Alerts.Error.display({
                     title   : 'Connection Error',
-                    content : 'Unable to connect to the database with the settings you provided. Have you created the database "'+obj.dbName+'"?'
+                    content : 'Unable to connect to the database with the settings you provided. Have you installed MySQL and created the database "'+obj.dbName+'"?'
                 });
+            }, null, {
+                timeout : 7000
             });
         },
         renderAdmin: function(){
             $('#wizard-admin-container').html(_.template($('#WizardSeedAdminTmpl').html()));
         },
         onShareDBClick: function(e){
-            if($(e.currentTarget).attr('did') === 'true')
-                this.$el.find('#wizard-messaging-database-config').addClass('hidden');
-            else
-                this.$el.find('#wizard-messaging-database-config').removeClass('hidden');
+            var me = this;
+            setTimeout(function(){
+                if($(e.currentTarget).parent().find('.btn-primary').attr('did') == 'true')
+                    me.$el.find('#wizard-messaging-database-config').addClass('hidden');
+                else
+                    me.$el.find('#wizard-messaging-database-config').removeClass('hidden');
+            }, 50);
         },
         createAdmin: function(cb){
             var me = this;
             var form = $('#wizard-admin-form');
-            var btn = form.find('.wiz-next');
+            var btn = form.closest('.step-pane').find('.wiz-next');
             utils.resetError(form);
             var obj = utils.collect(form);
             if(!this.isValid(form, obj)) return;
@@ -158,7 +163,7 @@ define(['jquery', 'backbone'], function($, Backbone){
         setupMessaging: function(cb, skipProvisioning){
             var me = this;
             var form = $('#wizard-messaging-form');
-            var btn = form.find('.wiz-next');
+            var btn = form.closest('.step-pane').find('.wiz-next');
             utils.resetError(form);
             var obj = utils.collect(form, false, false, true);
             if(!this.isValid(form, obj, ['mysqlPassword'])) return;
@@ -189,16 +194,12 @@ define(['jquery', 'backbone'], function($, Backbone){
                         content : 'The messaging server at "'+obj.host+'" has already been configured, but the credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server without provisioning.'
                     });
                 }
-                if(e === 'not-found'){
-                    return Alerts.Error.display({
-                        title   : 'Messaging Server Not Found',
-                        content : 'The messaging server at "'+obj.host+'" could not be reached. Please try again with a different hostname or port, and check your firewall configuration.'
-                    });
-                }
                 Alerts.Error.display({
                     title   : 'Connection Error',
-                    content : 'Unable to connect to the mesaging server with the settings you provided. <br />Error: '+e
+                    content : 'Unable to connect to the messaging server with the settings you provided. Please try again with a different hostname or port, and check your firewall configuration. '+(e ? '<br />Error: '+e : '')
                 });
+            }, null, {
+                timeout : 7000
             });
         },
         completeWizard: function(e){
@@ -211,7 +212,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             }, null, {
                 btn : btn,
                 cb  : function(){
-                    window.location.href = '/';
+                    window.location.href = '/admin';
                 }
             });
         }

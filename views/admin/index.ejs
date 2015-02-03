@@ -513,9 +513,7 @@
 </script>
 <script id="AdminConfigurationConsoleLogTmpl" type="text/template">
     <div class="col-sm-4">
-        <label>Enabled
-            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
-        </label>
+        <label>Enabled</label>
         <div class="btn-group btn-toggle clearfix" did="enabled">
             <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
@@ -542,9 +540,7 @@
 <script id="AdminConfigurationFileLogTmpl" type="text/template">
     <p>Logs can be written to log files.</p>
     <div class="col-sm-4">
-        <label>Enabled
-            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
-        </label>
+        <label>Enabled</label>
         <div class="btn-group btn-toggle clearfix" did="enabled">
             <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
@@ -594,11 +590,11 @@
     <p>Logs can be emailed to a recipient.</p>
     <div class="col-sm-4 clearfix">
         <label>Enabled
-            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The Email feature must first be enabled and configured correctly before email logs can be sent."></span>
         </label>
         <div class="btn-group btn-toggle" did="enabled">
-            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+            <button class="btn btn-sm <% if(allConfigs.Email.enabled !== true){ %>disabled<%} %> <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+            <button class="btn btn-sm <% if(allConfigs.Email.enabled !== true){ %>disabled<%} %> <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
         </div>
     </div>
     <div class="col-sm-4 clearfix">
@@ -626,9 +622,7 @@
 <script id="AdminConfigurationEmailTmpl" type="text/template">
     <p>Once email is set up properly, the email logging feature can be enabled and emails can be sent automatically to users during the registration process.</p>
     <div class="col-sm-4 clearfix">
-        <label>Enabled
-            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
-        </label>
+        <label>Enabled</label>
         <div class="btn-group btn-toggle" did="enabled">
             <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
@@ -666,15 +660,6 @@
     <p>Database configuration for the messaging server. By default, the messaging server will share the same database as
         the Admin Console. You can configure a different database by modifying the configuration below.</p>
     <div class="form-group clearfix">
-        <div class="col-sm-4 clearfix">
-            <label>Share Database
-                <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Choose Yes to share the same database as the Admin Console."></span>
-            </label>
-            <div class="btn-group btn-toggle" did="shareDB">
-                <button class="btn btn-sm <% if(config.shareDB === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-                <button class="btn btn-sm <% if(typeof config.shareDB == 'undefined' || config.shareDB === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
-            </div>
-        </div>
         <div class="col-sm-4">
             <label>Hostname</label>
             <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
@@ -683,13 +668,6 @@
             <label>Port</label>
             <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
         </div>
-        <div class="col-sm-4 clearfix">
-            <label>SSL Enabled</label>
-            <div class="btn-group btn-toggle" did="ssl">
-                <button class="btn btn-sm <% if(config.ssl === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-                <button class="btn btn-sm <% if(typeof config.ssl == 'undefined' || config.ssl === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
-            </div>
-        </div>
         <div class="col-sm-4">
             <label>Username</label>
             <input type="text" name="user" class="form-control" placeholder="Username" value="<%- config.user %>" />
@@ -697,31 +675,6 @@
         <div class="col-sm-4">
             <label>Password</label>
             <input type="password" name="password" class="form-control" placeholder="Password" value="" />
-        </div>
-    </div>
-    <div id="wizard-messaging-database-config" class="hidden">
-        <h5>Messaging Server Database Configuration</h5>
-        <div class="form-group clearfix">
-            <div class="col-sm-6">
-                <label>Username</label>
-                <input type="text" name="mysqlUser" class="form-control" placeholder="Username" value="<%- config['mysqlUser'] || allConfigs.Database['username'] %>" />
-            </div>
-            <div class="col-sm-6">
-                <label>Password</label>
-                <input type="password" name="mysqlPassword" class="form-control" placeholder="Password" value="" />
-            </div>
-            <div class="col-sm-4">
-                <label>Hostname</label>
-                <input type="text" name="mysqlHost" class="form-control" placeholder="Hostname" value="<%- config['mysqlHost'] || allConfigs.Database['host'] %>" />
-            </div>
-            <div class="col-sm-4">
-                <label>Port</label>
-                <input type="text" name="mysqlPort" class="form-control" placeholder="Port" value="<%- config['mysqlPort'] || allConfigs.Database['port'] %>" />
-            </div>
-            <div class="col-sm-4">
-                <label>Database Name</label>
-                <input type="text" name="mysqlDb" class="form-control" placeholder="Database Name" value="<%- config['mysqlDb'] || allConfigs.Database['dbName'] %>" />
-            </div>
         </div>
     </div>
 </script>
