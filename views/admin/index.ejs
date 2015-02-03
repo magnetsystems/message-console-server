@@ -592,20 +592,20 @@
 </script>
 <script id="AdminConfigurationEmailLogTmpl" type="text/template">
     <p>Logs can be emailed to a recipient.</p>
-    <div class="col-sm-4">
+    <div class="col-sm-4 clearfix">
         <label>Enabled
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
         </label>
-        <div class="btn-group btn-toggle clearfix" did="enabled">
+        <div class="btn-group btn-toggle" did="enabled">
             <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4 clearfix">
         <label>Handle Exceptions
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="If enabled, uncaught exceptions do not crash the server and the exception is logged."></span>
         </label>
-        <div class="btn-group btn-toggle clearfix" did="handleExceptions">
+        <div class="btn-group btn-toggle" did="handleExceptions">
             <button class="btn btn-sm <% if(config.handleExceptions === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
             <button class="btn btn-sm <% if(typeof config.handleExceptions == 'undefined' || config.handleExceptions === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
         </div>
@@ -625,18 +625,18 @@
 </script>
 <script id="AdminConfigurationEmailTmpl" type="text/template">
     <p>Once email is set up properly, the email logging feature can be enabled and emails can be sent automatically to users during the registration process.</p>
-    <div class="col-sm-4">
+    <div class="col-sm-4 clearfix">
         <label>Enabled
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
         </label>
-        <div class="btn-group btn-toggle clearfix" did="enabled">
+        <div class="btn-group btn-toggle" did="enabled">
             <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4 clearfix">
         <label>TLS</label>
-        <div class="btn-group btn-toggle clearfix" did="tls">
+        <div class="btn-group btn-toggle" did="tls">
             <button class="btn btn-sm <% if(config.tls === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
             <button class="btn btn-sm <% if(typeof config.tls == 'undefined' || config.tls === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
         </div>
@@ -666,7 +666,7 @@
     <p>Database configuration for the messaging server. By default, the messaging server will share the same database as
         the Admin Console. You can configure a different database by modifying the configuration below.</p>
     <div class="form-group clearfix">
-        <div class="col-sm-4">
+        <div class="col-sm-4 clearfix">
             <label>Share Database
                 <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Choose Yes to share the same database as the Admin Console."></span>
             </label>
@@ -683,9 +683,9 @@
             <label>Port</label>
             <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 clearfix">
             <label>SSL Enabled</label>
-            <div class="btn-group btn-toggle clearfix" did="ssl">
+            <div class="btn-group btn-toggle" did="ssl">
                 <button class="btn btn-sm <% if(config.ssl === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
                 <button class="btn btn-sm <% if(typeof config.ssl == 'undefined' || config.ssl === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
             </div>

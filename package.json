@@ -17,12 +17,12 @@
     "winston-mail": "0.2.7",
     "redis": "0.8.6",
     "connect-redis": "1.4.5",
-    "bcrypt": "0.7.7",
     "sinon": "1.7.3",
     "istanbul": "0.1.44",
     "follow-redirects": "0.0.3",
     "express-ejs-layouts": "^1.1.0",
     "forever-monitor": "^1.5.2",
-    "sequelize": "^2.0.0-rc8"
+    "sequelize": "^2.0.0-rc8",
+    "bcryptjs": "^2.1.0"
   }
 }

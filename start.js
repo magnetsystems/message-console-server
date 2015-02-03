@@ -4,7 +4,8 @@ var forever = require('forever-monitor')
 var child = new (forever.Monitor)('app.js', {
     env : {
         NODE_ENV : 'development'
-    }
+    },
+    killTree : true
 });
 
 child.on('exit', function(){
@@ -13,6 +14,14 @@ child.on('exit', function(){
 
 child.on('restart', function(){
     winston.info('System: http server restarting.');
+});
+
+process.on('SIGTERM',function(){
+    winston.info('System: http server stopping.');
+    child.stop();
+    child.on('stop', function(){
+        process.exit(0);
+    });
 });
 
 child.start();
