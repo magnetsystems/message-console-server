@@ -252,8 +252,8 @@ input.form-control, select.form-control{border-radius:0}
 #mgmt-announcements-list td .btn i{margin:4px 0 !important}
 #mgmt-announcements-list textarea{min-height:120px}
 .admin-config-item-container{margin:5px 0}
+.admin-config-item-container .col-sm-3 .button-group{margin:24px 0 0}
 
-#app-management-container .input-append label{margin-top:18px}
 #wizard-messaging-database-config{position:relative}
 
 @media (max-width:767px){.modal.fade.in{margin:0 !important}}

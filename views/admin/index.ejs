@@ -7,10 +7,61 @@
                 <li id="mgmt-users-tab" class="active"><a href="#/users">Users</a></li>
                 <li id="mgmt-events-tab"><a href="#/events">Logging</a></li>
                 <li id="mgmt-cms-tab"><a href="#/cms">CMS</a></li>
-                <li id="mgmt-actions-tab"><a href="#/actions">Administration</a></li>
+                <li id="mgmt-actions-tab"><a href="#/actions">Server Configuration</a></li>
+                <li id="mgmt-messaging-tab"><a href="#/messaging">Messaging Configuration</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane clearfix active" id="mgmt-users">
+                    <div class="admin-config-item-container">
+                        <h3>Invite a User</h3>
+                        <div class="buttons-section">
+                            <div class="form-group clearfix">
+                                <div class="col-sm-9">
+                                    <label>Email</label>
+                                    <input class="form-control" id="invited-user-email" type="text" placeholder="Email Address">
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="button-group clearfix">
+                                        <button class="btn btn-primary" id="send-invitation">Send Invitation</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="loading buttons-section" style="display:none">
+                            Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
+                        </div>
+                    </div>
+                    <div class="admin-config-item-container">
+                        <h3>Create a User</h3>
+                        <div class="buttons-section">
+                            <span class="alert-container"></span>
+                            <div class="form-group clearfix">
+                                <div class="col-sm-3">
+                                    <label>Email</label>
+                                    <input type="text" name="email" class="form-control" placeholder="Email" value="" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <label>Password</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Password" value="" />
+                                </div>
+                                <div class="col-sm-3">
+                                    <label>User Type</label>
+                                    <select class="form-control"  name="userType">
+                                        <option value="developer">developer</option>
+                                        <option value="admin">admin</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="button-group clearfix">
+                                        <button id="admin-user-create-btn" class="btn btn-primary">Create User</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="loading buttons-section" style="display:none">
+                            Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
+                        </div>
+                    </div>
                     <h3>Users</h3>
                     <div id="mgmt-users-list"></div>
                 </div>
@@ -43,54 +94,30 @@
                     </div>
                 </div>
                 <div class="tab-pane clearfix" id="mgmt-actions">
-                    <div id="app-management-container">
-                        <h3>Invite a User</h3>
-                        <div class="input-append buttons-section">
-                            <div class="same-line">
-                                <button class="same-line-button btn btn-primary" id="send-invitation">Send Invitation</button>
-                                <div class="same-line-control">
-                                    <input class="form-control" id="invited-user-email" type="text" placeholder="Email Address">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="loading buttons-section" style="display:none">
-                            Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
-                        </div>
-                    </div>
-                    <div class="admin-config-item-container">
-                        <h3>Create a User</h3>
-                        <div class="buttons-section">
-                            <span class="alert-container"></span>
-                            <div class="form-group clearfix">
-                                <div class="col-sm-4">
-                                    <label>Email</label>
-                                    <input type="text" name="email" class="form-control" placeholder="Email" value="" />
-                                </div>
-                                <div class="col-sm-4">
-                                    <label>Password</label>
-                                    <input type="password" name="password" class="form-control" placeholder="Password" value="" />
-                                </div>
-                                <div class="col-sm-4">
-                                    <label>User Type</label>
-                                    <select class="form-control"  name="userType">
-                                        <option value="developer">developer</option>
-                                        <option value="admin">admin</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="button-group clearfix">
-                                <button id="admin-user-create-btn" class="btn btn-primary">Create User</button>
-                            </div>
-                        </div>
-                        <div class="loading buttons-section" style="display:none">
-                            Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
-                        </div>
-                    </div>
-                    <h3>Configuration</h3>
+                    <h3>Server Configuration</h3>
                     <div class="alert alert-info" role="alert">
                         <strong>Note:</strong> Changes made to the configuration below will initiate a restart of the server.
                     </div>
                     <div id="admin-configuration-container"></div>
+                </div>
+                <div class="tab-pane clearfix" id="mgmt-messaging">
+                    <h3>Messaging Configuration</h3>
+                    <div class="alert alert-info" role="alert">
+                        <strong>Note:</strong> Changes made to the configuration below will initiate a restart of the server.
+                    </div>
+                    <div class="admin-config-item-container" did="MMX">
+                        <div class="buttons-section">
+                            <span class="alert-container"></span>
+                            <div id="admin-mmx-configuration-container" class="form-group clearfix"></div>
+                            <hr />
+                            <div class="button-group clearfix">
+                                <button class="admin-config-save-btn btn btn-primary">Save Changes</button>
+                            </div>
+                        </div>
+                        <div class="loading buttons-section" style="display:none">
+                            Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -451,11 +478,15 @@
 </script>
 <script id="AdminConfigurationAppTmpl" type="text/template">
     <div class="col-sm-6">
-        <label>App Url</label>
+        <label>Remote Url
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The Remote Url is the remote hostname of the Admin Console (should be accessible to Messaging users from a web browser)."></span>
+        </label>
         <input type="text" name="appUrl" class="form-control" placeholder="App Url" value="<%- config.appUrl %>" />
     </div>
     <div class="col-sm-6">
-        <label>Port</label>
+        <label>Port
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The internal port of the Admin Console server (behind load balancer if applicable)."></span>
+        </label>
         <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
     </div>
 </script>

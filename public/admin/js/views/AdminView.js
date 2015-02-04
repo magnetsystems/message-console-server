@@ -24,7 +24,12 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     Backbone.history.navigate('#/'+page+'/'+model.attributes.magnetId);
                 });
                 if(page == 'cms') me.getPageList();
-                if(page == 'actions') me.getConfig();
+                if(page == 'actions') me.getConfig(function(configs){
+                    me.renderConfig(configs);
+                });
+                if(page == 'messaging') me.getConfig(function(config){
+                    me.renderMMXConfig(config);
+                }, 'MMX');
                 me.selectedPage = {};
                 $('#cms-folder-span, #cms-filename-span').text('');
             });
@@ -232,7 +237,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         sendInvitation: function(){
             var me = this;
             var input = $('#invited-user-email');
-            var parent = $('#app-management-container');
+            var parent = input.closest('admin-config-item-container');
             me.showLoading(parent);
             me.options.mc.query('adminInviteUser', 'POST', {
                 email   : input.val()
@@ -252,10 +257,10 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 });
             });
         },
-        getConfig: function(){
+        getConfig: function(cb, config){
             var me = this;
-            me.options.mc.query('configs', 'GET', null, function(res){
-                me.renderConfig(res);
+            me.options.mc.query('configs'+(config ? '/'+config : ''), 'GET', null, function(res){
+                cb(res);
             }, null, null, function(e){
                 alert(e)
             });
@@ -363,6 +368,10 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 configs          : configs,
                 renderConfigItem : this.renderConfigItem
             })).find('.glyphicon-info-sign').tooltip();
+        },
+        renderMMXConfig: function(config){
+            var configContainer = $('#admin-mmx-configuration-container');
+            configContainer.html(this.renderConfigItem('MMX', config, {})).find('.glyphicon-info-sign').tooltip();
         },
         renderConfigItem: function(section, config, allConfigs){
             var tmpl = $('#AdminConfiguration'+section+'Tmpl');

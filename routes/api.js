@@ -570,7 +570,13 @@ module.exports = function(app){
 
     // Get single environment config
     app.get('/rest/configs/:config', UserManager.checkAuthority(['admin'], true), function(req, res){
-        res.send(ConfigManager.getConfig(req.params.config), 200);
+        ConfigManager.getConfig(req.params.config, function(e, config){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(config, 200);
+            }
+        });
     });
 
     // Get single environment config
