@@ -6,7 +6,7 @@
 .fullpos{bottom:0;height:auto;left:0;position:absolute;right:0;top:0}
 .vscroll{bottom:0;height:auto;left:0;position:absolute;right:0;top:0;overflow-y:auto}
 h4{font-weight:300;font-size:25px}
-h5{font-weight:bold;font-size:13px;line-height:14px;margin-top:20px}
+h5{font-weight:normal;font-size:17px;line-height:14px;margin-top:20px}
 pre{background-color:#efefef;border:1px solid rgba(0, 0, 0, 0.15);border-radius:0;font-size:12px;padding:7px}
 .button-group{margin:15px 0}
 .btn{border-radius:6px}

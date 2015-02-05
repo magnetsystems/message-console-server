@@ -28,7 +28,9 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     me.renderConfig(configs);
                 });
                 if(page == 'messaging') me.getConfig(function(config){
-                    me.renderMMXConfig(config);
+                    me.getMMXConfig(function(mmxconfig){
+                        me.renderMMXConfig(config, mmxconfig);
+                    });
                 }, 'MMX');
                 me.selectedPage = {};
                 $('#cms-folder-span, #cms-filename-span').text('');
@@ -260,9 +262,18 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         getConfig: function(cb, config){
             var me = this;
             me.options.mc.query('configs'+(config ? '/'+config : ''), 'GET', null, function(res){
+                if(res.MMX) delete res.MMX;
                 cb(res);
             }, null, null, function(e){
-                alert(e)
+                alert(e);
+            });
+        },
+        getMMXConfig: function(cb){
+            var me = this;
+            me.options.mc.query('apps/configs', 'GET', null, function(res){
+                cb(res.configs || res);
+            }, null, null, function(e){
+                alert(e);
             });
         },
         // update configuration
@@ -275,11 +286,20 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             var obj = utils.collect(container, false, false, true);
             var optionals = [];
             if(did == 'Database') optionals = ['password'];
-            if(did == 'MMX') optionals = ['mysql.password'];
+            if(did == 'MMX'){
+                optionals = ['password'];
+                obj.mmxconfig = utils.collect(container.find('div[did="mmx-config"]'));
+            }
             if(!this.isValid(container, obj, optionals)) return;
             me.showLoading(container);
-            AJAX('configs/'+did, 'POST', 'application/json', obj, function(){
-                // restart
+            AJAX('configs/'+did, 'POST', 'application/json', obj, function(res){
+                me.hideLoading(container);
+                if(res != 'restart-needed'){
+                    Alerts.General.display({
+                        title   : did+' Config Updated Successfully',
+                        content : 'The configuration for section <b>'+did+'</b> has been updated successfully.'
+                    });
+                }
             }, function(e){
                 me.hideLoading(container);
                 if(did == 'MMX'){
@@ -294,13 +314,13 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     if(e === 'auth-failure'){
                         return Alerts.Error.display({
                             title   : 'Messaging Server Already Configured',
-                            content : 'The messaging server at "'+obj.host+'" has already been configured, but the credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server without provisioning.'
+                            content : 'The messaging server at "'+obj.host+':'+obj.port+'" has already been configured, but the credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server without provisioning.'
                         });
                     }
-                    if(e === 'not-found'){
+                    if(e === 'not-found' || e === 'connect-error'){
                         return Alerts.Error.display({
                             title   : 'Messaging Server Not Found',
-                            content : 'The messaging server at "'+obj.host+'" could not be reached. Please try again with a different hostname or port, and check your firewall configuration.'
+                            content : 'The messaging server at "'+obj.host+':'+obj.port+'" could not be reached. Please try again with a different hostname or port, and check your firewall configuration.'
                         });
                     }
                 }else if(did == 'Database' || did == 'Redis'){
@@ -369,9 +389,12 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 renderConfigItem : this.renderConfigItem
             })).find('.glyphicon-info-sign').tooltip();
         },
-        renderMMXConfig: function(config){
+        renderMMXConfig: function(config, mmxconfig){
             var configContainer = $('#admin-mmx-configuration-container');
-            configContainer.html(this.renderConfigItem('MMX', config, {})).find('.glyphicon-info-sign').tooltip();
+            configContainer.html(this.renderConfigItem('MMX', {
+                connect : config,
+                mmx     : mmxconfig
+            }, {})).find('.glyphicon-info-sign').tooltip();
         },
         renderConfigItem: function(section, config, allConfigs){
             var tmpl = $('#AdminConfiguration'+section+'Tmpl');

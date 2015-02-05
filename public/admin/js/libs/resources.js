@@ -617,7 +617,7 @@ SessionManager.prototype.confirm = function(time){
         $('.modal').modal('hide');
         me.cookies.remove('session_timestamp');
         me.cookies.remove('magnet_auth');
-        window.location.replace('/logout');
+        window.location.href = '/admin';
     }else{
         Alerts.Confirm.display({
             title   : 'Session Timeout Soon',
@@ -632,7 +632,7 @@ SessionManager.prototype.confirm = function(time){
 SessionManager.prototype.getBeacon = function(){
     $.ajax({
         type  : 'GET',
-        url   : '/beacon.json',
+        url   : '/admin/beacon.json',
         cache : false
     });
 }

@@ -35,7 +35,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/admin/setMessaging', function(req, res){
-        ConfigManager.setMessaging(req.body, function(e){
+        ConfigManager.bootstrapMessaging(req.body, function(e){
             if(e) return res.send(e, 400);
             res.send('ok', 200);
         });

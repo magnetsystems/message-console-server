@@ -184,6 +184,16 @@ module.exports = function(app){
         });
     });
 
+    app.post('/rest/apps/configs', UserManager.checkAuthority(['admin'], true), function(req, res){
+        MMXManager.setConfigs(req.body, function(e, status){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(status, 200);
+            }
+        });
+    });
+
     app.get('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         MMXManager.getApp(req.session.user.magnetId, req.params.id, function(e, user){
             if(e){
@@ -597,13 +607,15 @@ module.exports = function(app){
         });
     });
 
-    // Get single environment config
+    var noRestartNeeded = ['MMX'];
+
+    // set single environment config
     app.post('/rest/configs/:config', UserManager.checkAuthority(['admin'], true), function(req, res){
         ConfigManager.setConfig(req.params.config, req.body, function(e){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send('restart-needed', 200);
+                res.send(noRestartNeeded.indexOf(req.params.config) != -1 ? 'ok' : 'restart-needed', 200);
             }
         });
     });

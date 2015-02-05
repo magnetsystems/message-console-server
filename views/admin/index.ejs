@@ -688,23 +688,58 @@
     </div>
 </script>
 <script id="AdminConfigurationMMXTmpl" type="text/template">
-    <p>Configuration for Magnet Messaging server. </p>
-    <div class="form-group clearfix">
+    <h5>Messaging Server Connectivity</h5>
+    <hr />
+    <div did="mmx-connect" class="form-group clearfix">
         <div class="col-sm-6">
             <label>Hostname</label>
-            <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
+            <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.connect.host %>" />
         </div>
         <div class="col-sm-6">
             <label>Port</label>
-            <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
+            <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.connect.port %>" />
         </div>
         <div class="col-sm-6">
             <label>Username</label>
-            <input type="text" name="user" class="form-control" placeholder="Username" value="<%- config.user %>" />
+            <input type="text" name="user" class="form-control" placeholder="Username" value="<%- config.connect.user %>" />
         </div>
         <div class="col-sm-6">
             <label>Password</label>
             <input type="password" name="password" class="form-control" placeholder="Password" value="" />
+        </div>
+    </div>
+    <h5>Configuration</h5>
+    <hr />
+    <div did="mmx-config" class="form-group clearfix">
+        <div class="col-sm-12">
+            <label>Callback URL
+                <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The public url to be used by mobile clients for acknowledging push notifications."></span>
+            </label>
+            <input type="text" name="push.callbackurl" class="form-control" placeholder="A public url" value="<%- config.mmx['push.callbackurl'] %>" />
+        </div>
+        <div class="col-sm-6">
+            <label>Wakeup Frequency
+                <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Frequency in seconds for sending a wakeup to a device."></span>
+            </label>
+            <input type="text" name="wakeup.frequency" class="form-control" placeholder="Frequency in seconds" value="<%- config.mmx['wakeup.frequency'] %>" />
+        </div>
+        <div class="col-sm-6">
+            <label>Retry Interval
+                <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The time interval in minutes between consecutive message retry attempts."></span>
+            </label>
+            <input type="text" name="retry.interval.minutes" class="form-control" placeholder="Time interval in minutes" value="<%- config.mmx['retry.interval.minutes'] %>" />
+        </div>
+        <div class="col-sm-6">
+            <label>Retry Count
+                <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The count for the number of times a message delivery will be attempted."></span>
+            </label>
+            <input type="text" name="retry.count" class="form-control" placeholder="message rate" value="<%- config.mmx['retry.count'] %>" />
+        </div>
+        <div class="col-sm-6">
+            <label>Timeout Period
+                <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The time period in minutes after which server will stop attempting to deliver message."></span>
+            </label>
+            <input type="text" name="timeout.period.minutes" class="form-control" placeholder="Timeout period in minutes" value="<%- config.mmx['timeout.period.minutes'] %>" />
         </div>
     </div>
 </script>
