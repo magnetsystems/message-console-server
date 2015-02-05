@@ -254,6 +254,24 @@ module.exports = function(app){
         });
     });
 
+    app.post('/rest/apps/:id/uploadAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.storeAPNSCertificate(req.session.user.id, req.params.id, req, function(e){
+            if(e){
+                res.send(e, 400);
+            }else{
+                if(e){
+                    res.send(e, 400);
+                }else{
+                    res.send(JSON.stringify({
+                        success : true
+                    }), {
+                        'Content-Type' : 'text/plain'
+                    }, 200);
+                }
+            }
+        });
+    });
+
     app.get('/rest/apps/:id/users/:uid/devices', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         MMXManager.getAppUserDevices(req.session.user.id, req.params.id, req.params.uid, function(e, user){
             if(e){
