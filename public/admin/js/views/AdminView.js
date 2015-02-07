@@ -253,9 +253,12 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 input.val('');
             }, 'json', 'application/x-www-form-urlencoded', function(xhr, status, error){
                 me.hideLoading(parent);
+                var msg = xhr.responseText;
+                if(xhr.responseText == 'email-disabled')
+                    msg = 'The <b>Email</b> service has not been enabled in the Server Configuration page, so the user cannot be invited. If you would like to create a user without going through the email confirmation process, use the <b>Create a User</b> feature.';
                 Alerts.Error.display({
                     title   : 'Invitation Not Sent',
-                    content : 'There was a problem sending the invitation: '+xhr.responseText
+                    content : 'There was a problem sending the invitation: '+msg
                 });
             });
         },
@@ -286,6 +289,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             var obj = utils.collect(container, false, false, true);
             var optionals = [];
             if(did == 'Database') optionals = ['password'];
+            if(did == 'Email' && obj.enabled === false) optionals = ['host', 'user', 'password', 'sender'];
             if(did == 'MMX'){
                 optionals = ['password'];
                 obj.mmxconfig = utils.collect(container.find('div[did="mmx-config"]'));
@@ -348,7 +352,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                         Alerts.General.display({
                             title   : did+' Config Updated Successfully',
                             content : 'The configuration for section <b>'+did+'</b> has been updated successfully and the server has been restarted.' + redirection
-                        }, (location || '/admin'), 5000, true);
+                        }, (location || '/admin')+'#/actions', 5000, true);
                     });
                 }
             });

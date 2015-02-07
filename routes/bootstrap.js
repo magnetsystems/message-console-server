@@ -8,6 +8,7 @@ module.exports = function(app){
                 title       : 'Administration',
                 activePage  : 'wizard',
                 userType    : 'wizard',
+                envConfig   : ENV_CONFIG,
                 sessionUser : req.session.user
             }
         });

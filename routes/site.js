@@ -8,6 +8,7 @@ module.exports = function(app){
                 title       : 'Administration',
                 activePage  : 'admin',
                 userType    : req.session.user ? req.session.user.userType : 'developer',
+                envConfig   : ENV_CONFIG,
                 sessionUser : req.session.user
             }
         });

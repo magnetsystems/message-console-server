@@ -535,6 +535,7 @@ module.exports = function(app){
     // This API is used for Admin to User invites
     app.post('/rest/adminInviteUser', UserManager.checkAuthority(['admin'], true), function(req, res){
         var isInvitedByAdmin = true;
+        if(!ENV_CONFIG.Email.enabled) return res.send('email-disabled', 400);
         req.body.firstName = req.body.firstName || null;
         req.body.lastName = req.body.lastName || null;
         req.body.companyName = req.body.companyName || null;
@@ -607,7 +608,7 @@ module.exports = function(app){
         });
     });
 
-    var noRestartNeeded = ['MMX'];
+    var noRestartNeeded = ['MMX','Email'];
 
     // set single environment config
     app.post('/rest/configs/:config', UserManager.checkAuthority(['admin'], true), function(req, res){

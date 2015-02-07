@@ -90,15 +90,19 @@
                 <div class="form-group">
                     <input class="form-control" type="password" name="password" placeholder="Password" />
                 </div>
+                {{ if(envConfig.Email.enabled){ }}
                 <div class="form-group">
                     <a href="/#/forgot-password">Forgot Password?</a>
                 </div>
+                {{ } }}
                 <div class="form-group">
                     <a id="login-btn" class="btn btn-primary">Sign In</a>
                 </div>
+                {{ if(envConfig.Email.enabled){ }}
                 <div class="form-group">
                     <p>or <a href="/#/register">Register</a></p>
                 </div>
+                {{ } }}
             </form>
         </div>
     </div>
