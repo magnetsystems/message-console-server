@@ -384,7 +384,7 @@ module.exports = function(app){
             if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL){
                 res.send({
                     status            : registrationStatus,
-                    skipAdminApproval : req.body.source ? true : ENV_CONFIG.App.skipAdminApproval
+                    skipAdminApproval : true
                 }, 201);
             }else{
                 res.send(registrationStatus, 400);
