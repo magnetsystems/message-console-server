@@ -517,7 +517,7 @@
 <script id="AdminConfigurationRedisTmpl" type="text/template">
     <p>Redis can be used to share user session between multiple Admin Console nodes in a cluster. For a single
         Admin Console deployment, Redis allows modfication of configuration without getting logged out.</p>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label>Enabled
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
         </label>
@@ -526,7 +526,13 @@
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
+        <label>Cache Timeout
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Time in seconds before cached configuration is refreshed."></span>
+        </label>
+        <input type="text" name="cacheTimeout" class="form-control" placeholder="time in seconds" value="<%- config.cacheTimeout %>" />
+    </div>
+    <div class="col-sm-4">
         <label>Hostname</label>
         <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
     </div>
@@ -536,7 +542,7 @@
     </div>
     <div class="col-sm-6">
         <label>Password</label>
-        <input type="pass" name="pass" class="form-control" placeholder="Password" value="" />
+        <input type="password" name="pass" class="form-control" placeholder="Password" value="" />
     </div>
 </script>
 <script id="AdminConfigurationConsoleLogTmpl" type="text/template">

@@ -594,12 +594,12 @@ module.exports = function(app){
 
     // Get environment configs
     app.get('/rest/configs', UserManager.checkAuthority(['admin'], true), function(req, res){
-        res.send(ConfigManager.getConfigs(), 200);
+        res.send(ConfigManager.getCachedConfigs(), 200);
     });
 
     // Get single environment config
     app.get('/rest/configs/:config', UserManager.checkAuthority(['admin'], true), function(req, res){
-        ConfigManager.getConfig(req.params.config, function(e, config){
+        ConfigManager.getCachedConfig(req.params.config, function(e, config){
             if(e){
                 res.send(e, 400);
             }else{
