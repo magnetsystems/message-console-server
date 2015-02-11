@@ -1,5 +1,5 @@
-var AccountManager = require('../lib/AccountManager')
-, UserManager = require('../lib/UserManager')
+var UserManager = require('../lib/UserManager')
+, AccountManager = require('../lib/AccountManager')
 , ModelManager = require('../lib/ModelManager')
 , MMXManager = require('../lib/MMXManager')
 , EmailService = require('../lib/EmailService')
@@ -7,12 +7,41 @@ var AccountManager = require('../lib/AccountManager')
 , _ = require('underscore')
 , validator = require('validator')
 , sanitize = validator.sanitize
+, ConfigManager = require('../lib/ConfigManager')
 , ContentManagement = require('../lib/ContentManagement');
 
 module.exports = function(app){
 
+    // user log in
+    app.post('/rest/login', function(req, res){
+        AccountManager.manualLogin(req.body.name, req.body.password, function(e, user, newMMXUser){
+            if(user){
+                delete user.password;
+                req.session.user = user;
+                if(newMMXUser) res.header('X-New-MMX-User', 'enabled');
+                winston.verbose('Tracking: user "' + user.email + '" logged in.');
+                res.send(req.query.requireUser ? req.session.user.magnetId : 'SUCCESS', 200);
+            }else{
+                res.send(e, 401);
+            }
+        });
+    });
+
+    // user logout
+    app.all('/rest/logout', function(req, res){
+        if(!req.session.user){
+            res.send('ok', 200);
+        }else{
+            winston.verbose('Tracking: user "' + req.session.user.email + '" logged out');
+            req.session.destroy(function(){
+                res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+                res.send('ok', 200);
+            });
+        }
+    });
+
     /* catch database models */
-    var getDBModels = ['users', 'projects', 'events', 'announcements'];
+    var getDBModels = ['users', 'events'];
     app.get('/rest/:model', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(getDBModels, req.params.model)){
             ModelManager.findAll(req, function(col){
@@ -33,7 +62,7 @@ module.exports = function(app){
         }
     });
 
-    var putDBModels = ['users', 'announcements'];
+    var putDBModels = ['users'];
     app.put('/rest/:model/:id', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(putDBModels, req.params.model)){
             ModelManager.update(req, req.body, function(e, model){
@@ -48,7 +77,7 @@ module.exports = function(app){
         }
     });
 
-    var postDBModels = ['announcements'];
+    var postDBModels = ['users'];
     app.post('/rest/:model', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(postDBModels, req.params.model)){
             ModelManager.create(req, req.body, function(e, model){
@@ -63,7 +92,7 @@ module.exports = function(app){
         }
     });
 
-    var deleteDBModels = ['announcements'];
+    var deleteDBModels = [];
     app.delete('/rest/:model/:id', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(deleteDBModels, req.params.model)){
             ModelManager.delete(req, function(e){
@@ -155,6 +184,16 @@ module.exports = function(app){
         });
     });
 
+    app.post('/rest/apps/configs', UserManager.checkAuthority(['admin'], true), function(req, res){
+        MMXManager.setConfigs(req.body, function(e, status){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(status, 200);
+            }
+        });
+    });
+
     app.get('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         MMXManager.getApp(req.session.user.magnetId, req.params.id, function(e, user){
             if(e){
@@ -221,6 +260,24 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 res.send(user, 200);
+            }
+        });
+    });
+
+    app.post('/rest/apps/:id/uploadAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.storeAPNSCertificate(req.session.user.id, req.params.id, req, function(e){
+            if(e){
+                res.send(e, 400);
+            }else{
+                if(e){
+                    res.send(e, 400);
+                }else{
+                    res.send(JSON.stringify({
+                        success : true
+                    }), {
+                        'Content-Type' : 'text/plain'
+                    }, 200);
+                }
             }
         });
     });
@@ -327,7 +384,7 @@ module.exports = function(app){
             if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL){
                 res.send({
                     status            : registrationStatus,
-                    skipAdminApproval : req.body.source ? true : ENV_CONFIG.App.skipAdminApproval
+                    skipAdminApproval : true
                 }, 201);
             }else{
                 res.send(registrationStatus, 400);
@@ -410,7 +467,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/users/:magnetId/apps', UserManager.checkAuthority(['admin'], true), function(req, res){
-        MMXManager.getApps(req.params.magnetId, function(e, user){
+        MMXManager.getApps(req.session.user.magnetId, function(e, user){
             if(e){
                 res.send(e, 400);
             }else{
@@ -478,6 +535,7 @@ module.exports = function(app){
     // This API is used for Admin to User invites
     app.post('/rest/adminInviteUser', UserManager.checkAuthority(['admin'], true), function(req, res){
         var isInvitedByAdmin = true;
+        if(!ENV_CONFIG.Email.enabled) return res.send('email-disabled', 400);
         req.body.firstName = req.body.firstName || null;
         req.body.lastName = req.body.lastName || null;
         req.body.companyName = req.body.companyName || null;
@@ -534,6 +592,35 @@ module.exports = function(app){
         });
     });
 
+    // Get environment configs
+    app.get('/rest/configs', UserManager.checkAuthority(['admin'], true), function(req, res){
+        res.send(ConfigManager.getConfigs(), 200);
+    });
+
+    // Get single environment config
+    app.get('/rest/configs/:config', UserManager.checkAuthority(['admin'], true), function(req, res){
+        ConfigManager.getConfig(req.params.config, function(e, config){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(config, 200);
+            }
+        });
+    });
+
+    var noRestartNeeded = ['MMX','Email'];
+
+    // set single environment config
+    app.post('/rest/configs/:config', UserManager.checkAuthority(['admin'], true), function(req, res){
+        ConfigManager.setConfig(req.params.config, req.body, function(e){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(noRestartNeeded.indexOf(req.params.config) != -1 ? 'ok' : 'restart-needed', 200);
+            }
+        });
+    });
+
     // return server statistics
     app.get('/rest/stats', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
         res.send({
@@ -545,8 +632,15 @@ module.exports = function(app){
         });
     });
 
+    // return server status
+    app.get('/rest/status', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
+        res.send('ok', 200);
+    });
+
     // restart the server
-    app.get('/rest/restart', UserManager.checkAuthority(['admin'], true), function(req, res, next){
+    app.post('/rest/restart', UserManager.checkAuthority(['admin'], true), function(req, res){
+        res.send('ok', 200);
+        winston.error('System: restarting server now.');
         process.exit(1);
     });
 

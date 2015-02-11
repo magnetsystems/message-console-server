@@ -8,14 +8,18 @@ define(['jquery', 'backbone'], function($, Backbone){
                 backdrop : true
             });
         },
-        display: function(vars, url, timeout){
+        display: function(vars, url, timeout, fullRedirect){
             var me = this;
             me.redirected = false;
             if(vars){
                 $(me.el).modal('show');
                 $(me.el).find('.modal-title').html(vars.title);
                 $(me.el).find('.modal-body').html(vars.content);
-                if(url){
+                if(fullRedirect){
+                    $(this.el).on('hidden.bs.modal', function(e){
+                        window.location.href = url;
+                    });
+                }else if(url){
                     $('.modal-alert button').click(function(){
                         $(this).unbind('click');
                         me.redirected = true;

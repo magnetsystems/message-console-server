@@ -1,8 +1,9 @@
 define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCollection'], function($, Backbone, UserCollection, EventCollection){
     var View = Backbone.View.extend({
         el: "#admin",
-        initialize: function(){
+        initialize: function(options){
             var me = this;
+            me.options = options;
             me.options.eventPubSub.bind('initAdminView', function(page){
                 page = page || 'users';
                 me.loadTab(page);
@@ -23,6 +24,14 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     Backbone.history.navigate('#/'+page+'/'+model.attributes.magnetId);
                 });
                 if(page == 'cms') me.getPageList();
+                if(page == 'actions') me.getConfig(function(configs){
+                    me.renderConfig(configs);
+                });
+                if(page == 'messaging') me.getConfig(function(config){
+                    me.getMMXConfig(function(mmxconfig){
+                        me.renderMMXConfig(config, mmxconfig);
+                    });
+                }, 'MMX');
                 me.selectedPage = {};
                 $('#cms-folder-span, #cms-filename-span').text('');
             });
@@ -39,64 +48,6 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     userType  : 'Type of User'
                 },
                 searchBy : 'name',
-                sortDefault : {
-                    property : 'createdAt',
-                    order    : 'desc'
-                }
-            },
-            'invites' : {
-                col      : UserCollection,
-                headers  : {
-                    createdAt : 'Created On',
-                    email     : 'Email Address',
-                    firstName : 'First Name',
-                    lastName  : 'Last Name',
-                    userType  : 'Type of User'
-                },
-                searchBy : 'name',
-                data     : {
-                    search : [{
-                        'userType' : 'approved'
-                    }]
-                },
-                sortDefault : {
-                    property : 'createdAt',
-                    order    : 'desc'
-                }
-            },
-            'requests' : {
-                col      : UserCollection,
-                headers  : {
-                    createdAt : 'Created On',
-                    email     : 'Email Address',
-                    firstName : 'First Name',
-                    lastName  : 'Last Name',
-                    userType  : 'Type of User'
-                },
-                searchBy : 'name',
-                data     : {
-                    search : [{
-                        'userType' : 'guest'
-                    }]
-                },
-                sortDefault : {
-                    property : 'createdAt',
-                    order    : 'desc'
-                }
-            },
-            'invitations' : {
-                col      : UserCollection,
-                headers  : {
-                    createdAt    : 'Created On',
-                    invitedEmail : 'Email Address',
-                    userType     : 'Type of User'
-                },
-                searchBy : 'invitedEmail',
-                data     : {
-                    search : [{
-                        'userType' : 'invited'
-                    }]
-                },
                 sortDefault : {
                     property : 'createdAt',
                     order    : 'desc'
@@ -122,7 +73,10 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             'click .attachment-link' : 'showLog',
             'click .cmspage' : 'selectPage',
             'click .cms-button' : 'startCMSEdit',
-            'click .cms-editing-button' : 'endCMSEdit'
+            'click .cms-editing-button' : 'endCMSEdit',
+            'click .admin-config-save-btn': 'saveConfig',
+            'click div[did="shareDB"] button': 'onShareDBClick',
+            'click #admin-user-create-btn': 'createUser'
         },
         // handle events for switching between tabs
         loadTab: function(id){
@@ -132,39 +86,6 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             this.$el.find('.tab-pane.active').removeClass('active');
             $('#mgmt-'+id+'-tab, #mgmt-'+id).addClass('active');
             $('#'+id).scrollTo(0);
-        },
-        // send invitation to a user 
-        sendInvitation: function(){
-            var me = this;
-            var input = $('#invited-user-email');
-            var parent = $('#app-management-container');
-            me.showLoading(parent);
-            me.options.mc.query('adminInviteUser', 'POST', {
-                email   : input.val()
-            }, function(){
-                me.hideLoading(parent);
-                me.options.eventPubSub.trigger('refreshListView');
-                Alerts.General.display({
-                    title   : 'Invitation Sent Successfully',
-                    content : 'Your invitation email to '+input.val()+' has been sent successfully.'
-                });
-                input.val('');
-            }, 'json', 'application/x-www-form-urlencoded', function(xhr, status, error){
-                me.hideLoading(parent);
-                Alerts.Error.display({
-                    title   : 'Invitation Not Sent',
-                    content : 'There was a problem sending the invitation: '+xhr.responseText
-                });
-            });
-        },
-        hideLoading: function(parent){
-            if(!parent) return false;
-            parent.find('.buttons-section').show();
-            parent.find('.buttons-section.loading').hide();
-        },
-        showLoading: function(parent){
-            parent.find('.buttons-section').hide();
-            parent.find('.buttons-section.loading').show();
         },
         // get CMS pages
         getPageList: function(){
@@ -301,28 +222,6 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     status = this.cmsPages[i].noLayout;
             return status;
         },
-        // update configuration
-        updateConfig: function(){
-            var me = this;
-            var parent = $('#app-management-container');
-            me.showLoading(parent);
-            me.options.mc.query('configs', 'PUT', {
-                skipAdminApproval : ($('#skipAdminApproval').val() === 'true'),
-                homePageVideoID   : $.trim($('#homePageVideoID').val())
-            }, function(){
-                me.hideLoading(parent);
-                Alerts.General.display({
-                    title   : 'Config Updated Successfully',
-                    content : 'App configuration has been updated successfully.'
-                });
-            }, null, null, function(xhr, status, error){
-                me.hideLoading(parent);
-                Alerts.Error.display({
-                    title   : 'Error Sending Request',
-                    content : xhr.responseText
-                });
-            });
-        },
         // show a simple popup with JSON data of the record
         showInfoPopup: function(e){
             var dom = $(e.currentTarget);
@@ -335,6 +234,210 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         showLog: function(e){
             var url = $(e.currentTarget).attr('did');
             window.open(url, '123894712893', 'width=600,height=400,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');
+        },
+        // send invitation to a user
+        sendInvitation: function(){
+            var me = this;
+            var input = $('#invited-user-email');
+            var parent = input.closest('admin-config-item-container');
+            me.showLoading(parent);
+            me.options.mc.query('adminInviteUser', 'POST', {
+                email   : input.val()
+            }, function(){
+                me.hideLoading(parent);
+                me.options.eventPubSub.trigger('refreshListView');
+                Alerts.General.display({
+                    title   : 'Invitation Sent Successfully',
+                    content : 'Your invitation email to '+input.val()+' has been sent successfully.'
+                });
+                input.val('');
+            }, 'json', 'application/x-www-form-urlencoded', function(xhr, status, error){
+                me.hideLoading(parent);
+                var msg = xhr.responseText;
+                if(xhr.responseText == 'email-disabled')
+                    msg = 'The <b>Email</b> service has not been enabled in the Server Configuration page, so the user cannot be invited. If you would like to create a user without going through the email confirmation process, use the <b>Create a User</b> feature.';
+                Alerts.Error.display({
+                    title   : 'Invitation Not Sent',
+                    content : 'There was a problem sending the invitation: '+msg
+                });
+            });
+        },
+        getConfig: function(cb, config){
+            var me = this;
+            me.options.mc.query('configs'+(config ? '/'+config : ''), 'GET', null, function(res){
+                if(res.MMX) delete res.MMX;
+                cb(res);
+            }, null, null, function(e){
+                alert(e);
+            });
+        },
+        getMMXConfig: function(cb){
+            var me = this;
+            me.options.mc.query('apps/configs', 'GET', null, function(res){
+                cb(res.configs || res);
+            }, null, null, function(e){
+                alert(e);
+            });
+        },
+        // update configuration
+        saveConfig: function(e){
+            var me = this;
+            var btn = $(e.currentTarget);
+            var container = btn.closest('.admin-config-item-container');
+            var did = container.attr('did');
+            utils.resetError(container);
+            var obj = utils.collect(container, false, false, true);
+            var optionals = [];
+            if(did == 'Database') optionals = ['password'];
+            if(did == 'Email' && obj.enabled === false) optionals = ['host', 'user', 'password', 'sender'];
+            if(did == 'MMX'){
+                optionals = ['password'];
+                obj.mmxconfig = utils.collect(container.find('div[did="mmx-config"]'));
+            }
+            if(!this.isValid(container, obj, optionals)) return;
+            me.showLoading(container);
+            AJAX('configs/'+did, 'POST', 'application/json', obj, function(res){
+                me.hideLoading(container);
+                if(res != 'restart-needed'){
+                    Alerts.General.display({
+                        title   : did+' Config Updated Successfully',
+                        content : 'The configuration for section <b>'+did+'</b> has been updated successfully.'
+                    });
+                }
+            }, function(e){
+                me.hideLoading(container);
+                if(did == 'MMX'){
+                    if(e === 'already-configured'){
+                        return Alerts.Confirm.display({
+                            title   : 'Messaging Server Already Configured',
+                            content : 'The messaging server at "'+obj.host+'" has already been configured. If you would like to connect to this messaging server without provisioning, click <b>Yes</b>. Otherwise, click <b>No</b> to try again with a different Hostname.'
+                        }, function(){
+                            me.setupMessaging(cb, true);
+                        });
+                    }
+                    if(e === 'auth-failure'){
+                        return Alerts.Error.display({
+                            title   : 'Messaging Server Already Configured',
+                            content : 'The messaging server at "'+obj.host+':'+obj.port+'" has already been configured, but the credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server without provisioning.'
+                        });
+                    }
+                    if(e === 'not-found' || e === 'connect-error'){
+                        return Alerts.Error.display({
+                            title   : 'Messaging Server Not Found',
+                            content : 'The messaging server at "'+obj.host+':'+obj.port+'" could not be reached. Please try again with a different hostname or port, and check your firewall configuration.'
+                        });
+                    }
+                }else if(did == 'Database' || did == 'Redis'){
+                    Alerts.Error.display({
+                        title   : 'Connection Error',
+                        content : 'Unable to connect to the database with the settings you provided. Please change your configuration and try again.'
+                    });
+                }else{
+                    Alerts.Error.display({
+                        title   : 'Error Updating Config '+did,
+                        content : e
+                    });
+                }
+            }, null, {
+                redirectPort : (did == 'App') ? obj.port : null,
+                cb           : function(location){
+                    me.hideLoading(container);
+                    $.ajax({
+                        url        : '/rest/status',
+                        beforeSend : function(xhr){
+                            xhr.skipStatusCheck = true;
+                        }
+                    }).done(function(result, status, xhr){
+                        var redirection = (xhr.status == 278 || xhr.status == 279) ? ' You will automatically be redirected to the login page after you close this dialog.' : '';
+                        Alerts.General.display({
+                            title   : did+' Config Updated Successfully',
+                            content : 'The configuration for section <b>'+did+'</b> has been updated successfully and the server has been restarted.' + redirection
+                        }, (location || '/admin')+'#/actions', 5000, true);
+                    });
+                }
+            });
+        },
+        isValid: function(form, obj, optionals, emailValidationKeys){
+            optionals = optionals || [];
+            emailValidationKeys = emailValidationKeys || [];
+            var valid = true;
+            for(var key in obj){
+                if(optionals.indexOf(key) === -1 && !$.trim(obj[key]).length){
+                    var name = form.find('input[name="'+key+'"]').attr('placeholder');
+                    utils.showError(form, key, 'Invalid '+name+'. '+name+' is a required field.');
+                    valid = false;
+                    break;
+                }
+                if(emailValidationKeys.indexOf(key) !== -1 && !utils.isValidEmail(obj[key])){
+                    var name = form.find('input[name="'+key+'"]').attr('placeholder');
+                    utils.showError(form, key, 'Invalid '+name+'. '+name+' must be a valid email address.');
+                    valid = false;
+                    break;
+                }
+            }
+            return valid;
+        },
+        hideLoading: function(parent){
+            if(!parent) return false;
+            parent.find('.buttons-section').show();
+            parent.find('.buttons-section.loading').hide();
+        },
+        showLoading: function(parent){
+            parent.find('.buttons-section').hide();
+            parent.find('.buttons-section.loading').show();
+        },
+        renderConfig: function(configs){
+            var configContainer = $('#admin-configuration-container');
+            configContainer.html(_.template($('#AdminConfigurationTmpl').html(), {
+                configs          : configs,
+                renderConfigItem : this.renderConfigItem
+            })).find('.glyphicon-info-sign').tooltip();
+        },
+        renderMMXConfig: function(config, mmxconfig){
+            var configContainer = $('#admin-mmx-configuration-container');
+            configContainer.html(this.renderConfigItem('MMX', {
+                connect : config,
+                mmx     : mmxconfig
+            }, {})).find('.glyphicon-info-sign').tooltip();
+        },
+        renderConfigItem: function(section, config, allConfigs){
+            var tmpl = $('#AdminConfiguration'+section+'Tmpl');
+            if(!tmpl.length) return '';
+            return _.template($('#AdminConfiguration'+section+'Tmpl').html(), {
+                section    : section,
+                levels     : ['silly', 'debug', 'verbose', 'info', 'warn', 'error'],
+                config     : config,
+                allConfigs : allConfigs
+            });
+        },
+        onShareDBClick: function(e){
+            if($(e.currentTarget).attr('did') === 'true')
+                this.$el.find('#wizard-messaging-database-config').addClass('hidden');
+            else
+                this.$el.find('#wizard-messaging-database-config').removeClass('hidden');
+        },
+        createUser: function(e){
+            var me = this;
+            var btn = $(e.currentTarget);
+            var container = btn.closest('.admin-config-item-container');
+            utils.resetError(container);
+            var obj = utils.collect(container);
+            if(!this.isValid(container, obj, null, 'email')) return;
+            me.showLoading(container);
+            AJAX('users', 'POST', 'application/json', obj, function(){
+                me.hideLoading(container);
+                container.find('input').val('');
+                Alerts.General.display({
+                    title   : 'User Created Successfully',
+                    content : 'The user <b>'+obj.email+'</b> has been created successfully.'
+                });
+            }, function(e){
+                me.hideLoading(container);
+                Alerts.Error.display({
+                    title   : 'Error Creating User',
+                    content : 'A user with the username <b>'+obj.email+'</b> already exists.'
+                });
+            });
         }
     });
     return View;

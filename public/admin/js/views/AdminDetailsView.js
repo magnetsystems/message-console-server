@@ -1,8 +1,9 @@
 define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 'models/AppModel', 'collections/AppCollection'], function($, Backbone, UserModel, UserCollection, AppModel, AppCollection){
     var View = Backbone.View.extend({
         el: "#admin-details",
-        initialize: function(){
+        initialize: function(options){
             var me = this;
+            me.options = options;
             // initialize the view
             me.options.eventPubSub.bind('initAdminDetailsView', function(params){
                 me.page = params.page;
@@ -217,16 +218,16 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
                 id       : this.entity.attributes.id,
                 magnetId : this.entity.attributes.magnetId
             });
-            for(var prop in properties.config){
-                if((properties.config[prop] == '' && me.entity.attributes[prop] == null) || properties.config[prop] == me.entity.attributes[prop]){
-                    delete properties.config[prop];
+            for(var prop in properties){
+                if((properties[prop] == '' && me.entity.attributes[prop] == null) || properties[prop] == me.entity.attributes[prop]){
+                    delete properties[prop];
                 }
             }
-            if(!$.isEmptyObject(properties.config)){
-                user.save(properties.config, {
+            if(!$.isEmptyObject(properties)){
+                user.save(properties, {
                     success: function(){
                         me.hideLoading($(e.currentTarget));
-                        me.entity.set(properties.config);
+                        me.entity.set(properties);
                         me.render('User');
                         me.fetchInvitedUsers();
                     },

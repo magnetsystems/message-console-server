@@ -1,8 +1,9 @@
 define(['jquery', 'backbone'], function($, Backbone){
     var View = Backbone.View.extend({
         el: "body",
-        initialize: function(){
+        initialize: function(options){
             var me = this;
+            me.options = options;
             me.options.eventPubSub.bind("btnLoading", function(btn){
                 btn.attr('txt', btn.html()).html('Loading..').addClass('disabled');
             });
@@ -22,25 +23,12 @@ define(['jquery', 'backbone'], function($, Backbone){
         },
         events: {
             'click .goBack': 'goBack',
-            'click .btn-logout': 'logout',
-            'click #user-panel-toggle': 'toggleUserPanel'
+            'click #user-panel-toggle': 'toggleUserPanel',
+            'click .btn-toggle button': 'toggleSwitch'
         },
         goBack: function(e){
             e.preventDefault();
             window.history.back();
-        },
-        logout: function(){
-            var me = this;
-            $('.modal_errors').hide();
-            $.ajax({
-                type        : 'POST',
-                url         : '/rest/logout',
-                dataType    : 'html',
-                contentType : 'application/x-www-form-urlencoded'
-            }).done(function(result, status, xhr){
-                me.cookies.remove('magnet_auth');
-                window.location.href = '/login/';
-            });
         },
         toggleUserPanel: function(e){
             e.preventDefault();
@@ -62,20 +50,26 @@ define(['jquery', 'backbone'], function($, Backbone){
         handleRestart: function(params){
             var me = this;
             params = params || {};
+            var location = params.redirectPort ? (window.location.host.indexOf(':') != -1 ? window.location.protocol+'//'+window.location.host.replace(':'+window.location.port, ':'+params.redirectPort) : '') : '';
             var tick = function(next, done){
-                AJAX('/admin/beacon.json', 'GET', 'text/plain', null, function(){
-                    done();
-                }, function(){
-                    next();
-                }, null, {
-                    redirectHost : (me.options.opts.restartParams && me.options.opts.restartParams.redirectPort) ? (window.location.host.indexOf(':') != -1 ? window.location.host.replace(':'+window.location.port, ':'+me.options.opts.restartParams.redirectPort) : '') : null
-                });
+                if(location !== ''){
+                    params.location = location+'/admin';
+                    pingHost(location, done, next);
+                }else{
+                    AJAX('/admin/beacon.json', 'GET', 'text/plain', null, function(){
+                        done();
+                    }, function(){
+                        next();
+                    });
+                }
             };
-            AJAX('restart', 'POST', 'application/json', null, function(res){
-                me.serverRestartModal('restart-modal', tick, params);
-            }, function(e){
-                me.serverRestartModal('restart-modal', tick, params);
-            });
+            setTimeout(function(){
+                AJAX('restart', 'POST', 'application/json', null, function(res){
+                    me.serverRestartModal('restart-modal', tick, params);
+                }, function(e){
+                    me.serverRestartModal('restart-modal', tick, params);
+                });
+            }, 100);
         },
         serverRestartModal: function(sel, tick, params){
             var me = this;
@@ -98,8 +92,9 @@ define(['jquery', 'backbone'], function($, Backbone){
             me.doPoll(tick, 1000, function(){
                 GLOBAL.polling = false;
                 modal.modal('hide');
+                if(typeof params.cb === typeof Function) params.cb(params.location);
+                if(params.redirectPort) window.location.href = params.location;
                 clearInterval(prog);
-                if(typeof params.cb === typeof Function) params.cb();
             });
         },
         doPoll: function(tick, int, cb){
@@ -110,6 +105,22 @@ define(['jquery', 'backbone'], function($, Backbone){
                     me.doPoll(tick, int, cb);
                 }, cb);
             }, int);
+        },
+        toggleSwitch: function(e){
+            var tog = $(e.currentTarget).parent();
+            if(tog.find('.btn').hasClass('disabled')){
+                return;
+            }
+            tog.find('.btn').toggleClass('active');
+            if(tog.find('.btn-primary').size()>0)
+                tog.find('.btn').toggleClass('btn-primary');
+            if(tog.find('.btn-danger').size()>0)
+                tog.find('.btn').toggleClass('btn-danger');
+            if(tog.find('.btn-success').size()>0)
+                tog.find('.btn').toggleClass('btn-success');
+            if(tog.find('.btn-info').size()>0)
+                tog.find('.btn').toggleClass('btn-info');
+            tog.find('.btn').toggleClass('btn-default');
         }
     });
     return View;

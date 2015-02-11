@@ -8,18 +8,12 @@ var AJAX = function(loc, method, contentType, data, callback, failback, headers,
     params = params || {};
     var dataStr = (!$.isEmptyObject(data) && (contentType == 'application/json')) ? JSON.stringify(data) : data;
     if(method === 'POST' && dataStr === null) dataStr = '{}';
-    if(params.redirectHost){
-        return pingHost(window.location.protocol+'//'+params.redirectHost, function(){
-            window.location = window.location.protocol+'//'+params.redirectHost;
-        }, function(xhr, status, thrownError){
-            failback(xhr, status, thrownError);
-        });
-    }
     $.support.cors = true;
     $.ajax({
         type        : method,
         url         : (loc.charAt(0) == '/' || params.redirectHost) ? loc : '/rest/'+loc,
         contentType : contentType,
+        timeout     : params.timeout || 30000,
         data        : dataStr,
         beforeSend  : function(xhr){
             if(headers){
@@ -30,7 +24,7 @@ var AJAX = function(loc, method, contentType, data, callback, failback, headers,
         }
     }).complete(function(xhr){
         if(xhr && xhr.responseText && xhr.responseText == 'restart-needed')
-            GlobalEventDispatcher.generalEventPubSub.trigger('initRestart');
+            GlobalEventDispatcher.generalEventPubSub.trigger('initRestart', params);
         if(params.btn)
             params.btn.html(params.btn.attr('txt')).removeClass('disabled');
     }).done(function(result, status, xhr){
@@ -39,7 +33,7 @@ var AJAX = function(loc, method, contentType, data, callback, failback, headers,
     }).fail(function(xhr, status, thrownError){
         if(xhr.status == 403 || xhr.status == 401){
             GLOBAL.referrer = window.location.hash;
-            Backbone.history.navigate('/');
+            window.location.href = '/admin';
             GLOBAL.polling = false;
         }else if(typeof failback === typeof Function){
             var e = xhr.responseJSON ? xhr.responseJSON.message : xhr.responseText;
@@ -204,7 +198,7 @@ ModelConnector.prototype.get = function(path, id, qs, params, callback, failback
     }
     var url = path+(id != null ? '/'+id+(qs == '' ? '' : selectAll+qs) : selectAll+qs);
     // add a unique timestamp to prevent 304 Not Modified caching of dynamic data under IE only
-    if($.browser.msie){
+    if(window.navigator.userAgent.indexOf('MSIE ') != -1){
         var timestamp = new Date().getTime();
         url += '&_magnet_body='+timestamp;
     }
@@ -371,7 +365,7 @@ HTTPRequest.prototype.call = function(loc, method, dataType, contentType, data, 
         // handle not authorized status codes to redirect to login page
         if(xhr.status == 403 || xhr.status == 401){
             me.cookies.remove('magnet_auth');
-            window.location.replace('/login/');
+            window.location.href = '/admin';
         }else if(typeof failback === typeof Function){
             failback(xhr, status, thrownError);
         }
@@ -623,7 +617,7 @@ SessionManager.prototype.confirm = function(time){
         $('.modal').modal('hide');
         me.cookies.remove('session_timestamp');
         me.cookies.remove('magnet_auth');
-        window.location.replace('/logout');
+        window.location.href = '/admin';
     }else{
         Alerts.Confirm.display({
             title   : 'Session Timeout Soon',
@@ -638,7 +632,7 @@ SessionManager.prototype.confirm = function(time){
 SessionManager.prototype.getBeacon = function(){
     $.ajax({
         type  : 'GET',
-        url   : '/beacon.json',
+        url   : '/admin/beacon.json',
         cache : false
     });
 }
@@ -745,7 +739,7 @@ utils = {
         }, 5000);
     },
     // collect project details from form fields into data object
-    collect : function(dom, looseBooleans, skipEmptyStrings){
+    collect : function(dom, looseBooleans, skipEmptyStrings, convertNumericStrings){
         var obj = {}, me = this;
         dom.find('.btn-group:not(.disabled)').each(function(){
             if($(this).hasClass('pillbox-input-wrap')) return;
@@ -772,22 +766,23 @@ utils = {
             obj[did] = obj[did] || [];
             obj[did].push($(this).text());
         });
-        if(!looseBooleans){
-            $.each(obj, function(name, val){
+        $.each(obj, function(name, val){
+            if(!looseBooleans){
                 if(val === 'true'){
                     obj[name] = true;
                 }
                 if(val === 'false'){
                     obj[name] = false;
                 }
-            });
-        }
-        if(skipEmptyStrings){
-            $.each(obj, function(name, val){
+            }
+            if(convertNumericStrings && obj[name] && $.trim(obj[name]) !== '' && me.isNumeric(obj[name])){
+                obj[name] = parseInt(obj[name]);
+            }
+            if(skipEmptyStrings){
                 if(obj[name] === '' || obj[name] === null)
                     delete obj[name];
-            });
-        }
+            }
+        });
         return obj;
     },
     pushNode : function(obj, name, val){
@@ -870,6 +865,10 @@ utils = {
     // returns whether current browser is an iOS device
     isIOS : function(){
         return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    },
+    isValidEmail: function(e){
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(e);
     }
 };
 

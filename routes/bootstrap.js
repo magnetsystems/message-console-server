@@ -7,6 +7,8 @@ module.exports = function(app){
             locals : {
                 title       : 'Administration',
                 activePage  : 'wizard',
+                userType    : 'wizard',
+                envConfig   : ENV_CONFIG,
                 sessionUser : req.session.user
             }
         });
@@ -33,11 +35,22 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/admin/finishBootstrap', function(req, res){
-        ConfigManager.finishBootstrap(function(e){
+    app.post('/rest/admin/setMessaging', function(req, res){
+        ConfigManager.bootstrapMessaging(req.body, function(e){
+            if(e) return res.send(e, 400);
+            res.send('ok', 200);
+        });
+    });
+
+    app.post('/rest/admin/completeInstall', function(req, res){
+        ConfigManager.completeInstall(function(e){
             if(e) return res.send(e, 400);
             res.send('restart-needed', 200);
         });
+    });
+
+    app.get('/rest/isInit', function(req, res){
+        res.send(false, 200);
     });
 
     app.post('/rest/restart', function(req, res){
