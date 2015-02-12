@@ -257,5 +257,10 @@ input.form-control, select.form-control{border-radius:0}
 
 #wizard-messaging-database-config{position:relative}
 
-@media (max-width:767px){.modal.fade.in{margin:0 !important}}
+@media (max-width:767px){
+    .modal.fade.in{margin:0 !important}
+    #admin .nav-tabs{width:100%;margin:0}
+    #admin .nav-tabs > li{width:100%}
+    #admin .nav-tabs > li.active > a{border:solid 1px #ddd}
+}
 

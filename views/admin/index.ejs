@@ -448,7 +448,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#admin-config-container-collapsible" href="#admin-config-item-<%- key %>">
-                        <%- key %>
+                        <%- key.replace('Log', ' Logging') %>
                     </a>
                 </h4>
             </div>
@@ -517,8 +517,8 @@
     </div>
 </script>
 <script id="AdminConfigurationRedisTmpl" type="text/template">
-    <p>Redis can be used to share user session between multiple Admin Console nodes in a cluster. For a single
-        Admin Console deployment, Redis allows modfication of configuration without getting logged out.</p>
+    <p>Redis can be used to share user session and configuration between multiple Admin Console nodes in a cluster. For a single
+        Admin Console deployment, Redis allows modification of configuration without restart of server.</p>
     <div class="col-sm-4">
         <label>Enabled
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
@@ -548,6 +548,7 @@
     </div>
 </script>
 <script id="AdminConfigurationConsoleLogTmpl" type="text/template">
+    <p>Server generated diagnostic logs can be output in terminal window.</p>
     <div class="col-sm-4">
         <label>Enabled</label>
         <div class="btn-group btn-toggle clearfix" did="enabled">
@@ -574,7 +575,7 @@
     </div>
 </script>
 <script id="AdminConfigurationFileLogTmpl" type="text/template">
-    <p>Logs can be written to log files.</p>
+    <p>Server generated diagnostic logs can be written to log files.</p>
     <div class="col-sm-4">
         <label>Enabled</label>
         <div class="btn-group btn-toggle clearfix" did="enabled">
@@ -623,7 +624,7 @@
     </div>
 </script>
 <script id="AdminConfigurationEmailLogTmpl" type="text/template">
-    <p>Logs can be emailed to a recipient.</p>
+    <p>Server generated diagnostic logs can be emailed to a recipient.</p>
     <div class="col-sm-4 clearfix">
         <label>Enabled
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The Email feature must first be enabled and configured correctly before email logs can be sent."></span>
@@ -656,7 +657,7 @@
     </div>
 </script>
 <script id="AdminConfigurationDatabaseLogTmpl" type="text/template">
-    <p>Log certain administrative and messaging events to the MySQL database.</p>
+    <p>Certain administrative and messaging events can be written to MySQL database and displayed in the <b>Logging</b> tab. </p>
     <div class="col-sm-4 clearfix">
         <label>Enabled</label>
         <div class="btn-group btn-toggle clearfix" did="enabled">
