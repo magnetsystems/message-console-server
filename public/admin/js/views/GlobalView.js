@@ -24,7 +24,8 @@ define(['jquery', 'backbone'], function($, Backbone){
         events: {
             'click .goBack': 'goBack',
             'click #user-panel-toggle': 'toggleUserPanel',
-            'click .btn-toggle button': 'toggleSwitch'
+            'click .btn-toggle button': 'toggleSwitch',
+            'click .restart-server-btn': 'restartServer'
         },
         goBack: function(e){
             e.preventDefault();
@@ -121,6 +122,14 @@ define(['jquery', 'backbone'], function($, Backbone){
             if(tog.find('.btn-info').size()>0)
                 tog.find('.btn').toggleClass('btn-info');
             tog.find('.btn').toggleClass('btn-default');
+        },
+        restartServer: function(e){
+            e.preventDefault();
+            GlobalEventDispatcher.generalEventPubSub.trigger('initRestart', {
+                cb : function(){
+                    window.location.href = '/admin';
+                }
+            });
         }
     });
     return View;

@@ -256,6 +256,8 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 var msg = xhr.responseText;
                 if(xhr.responseText == 'email-disabled')
                     msg = 'The <b>Email</b> service has not been enabled in the Server Configuration page, so the user cannot be invited. If you would like to create a user without going through the email confirmation process, use the <b>Create a User</b> feature.';
+                if(xhr.responseText == 'error-sending-email')
+                    msg = 'There was an error sending out the email, so the invitation could not be completed. Check your email configuration in the <b>Email</b> section of the Server Configuration page. If you would like to create a user without going through the email confirmation process, use the <b>Create a User</b> feature.';
                 Alerts.Error.display({
                     title   : 'Invitation Not Sent',
                     content : 'There was a problem sending the invitation: '+msg
@@ -276,7 +278,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             me.options.mc.query('apps/configs', 'GET', null, function(res){
                 cb(res.configs || res);
             }, null, null, function(e){
-                alert(e);
+                cb();
             });
         },
         // update configuration
@@ -289,6 +291,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             var obj = utils.collect(container, false, false, true);
             var optionals = [];
             if(did == 'Database') optionals = ['password'];
+            if(did == 'Redis') optionals = ['pass'];
             if(did == 'Email' && obj.enabled === false) optionals = ['host', 'user', 'password', 'sender'];
             if(did == 'MMX'){
                 optionals = ['password'];
@@ -307,18 +310,10 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             }, function(e){
                 me.hideLoading(container);
                 if(did == 'MMX'){
-                    if(e === 'already-configured'){
-                        return Alerts.Confirm.display({
-                            title   : 'Messaging Server Already Configured',
-                            content : 'The messaging server at "'+obj.host+'" has already been configured. If you would like to connect to this messaging server without provisioning, click <b>Yes</b>. Otherwise, click <b>No</b> to try again with a different Hostname.'
-                        }, function(){
-                            me.setupMessaging(cb, true);
-                        });
-                    }
                     if(e === 'auth-failure'){
                         return Alerts.Error.display({
                             title   : 'Messaging Server Already Configured',
-                            content : 'The messaging server at "'+obj.host+':'+obj.port+'" has already been configured, but the credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server without provisioning.'
+                            content : 'The credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server.'
                         });
                     }
                     if(e === 'not-found' || e === 'connect-error'){
@@ -427,6 +422,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             AJAX('users', 'POST', 'application/json', obj, function(){
                 me.hideLoading(container);
                 container.find('input').val('');
+                me.options.eventPubSub.trigger('refreshListView');
                 Alerts.General.display({
                     title   : 'User Created Successfully',
                     content : 'The user <b>'+obj.email+'</b> has been created successfully.'

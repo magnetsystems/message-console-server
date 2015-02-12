@@ -18,8 +18,8 @@ winston.add(winston.transports.Console, {
     handleExceptions : false
 });
 
-var config = require('./lib/ConfigManager');
-global.ENV_CONFIG = config.configs;
+var ConfigManager = require('./lib/ConfigManager');
+global.ENV_CONFIG = ConfigManager.configs;
 
 var startServer = function(){
 
@@ -44,11 +44,6 @@ var startServer = function(){
         app.use(express.cookieParser(ENV_CONFIG.App.sessionSecret));
         // enable PUT and DELETE request methods
         app.use(express.methodOverride());
-        // enable event logging to database. NOTE: only designed to log events which contain metadata
-        winston.add(require('./lib/winston-sequelize').WinstonSequelize, {
-            level            : 'info',
-            handleExceptions : false
-        });
         app.disable('x-powered-by');
     });
 
@@ -59,6 +54,14 @@ var startServer = function(){
             handleExceptions : ENV_CONFIG.ConsoleLog.handleExceptions
         });
         winston.info('Logging: enabled console logging at level: '+ENV_CONFIG.ConsoleLog.level);
+    }
+    if(ENV_CONFIG.DatabaseLog.enabled){
+        // enable event logging to database. NOTE: only designed to log events which contain metadata
+        winston.add(require('./lib/winston-sequelize').WinstonSequelize, {
+            level            : ENV_CONFIG.DatabaseLog.level,
+            handleExceptions : ENV_CONFIG.DatabaseLog.handleExceptions
+        });
+        winston.info('Logging: enabled database logging at level: '+ENV_CONFIG.DatabaseLog.level);
     }
     if(ENV_CONFIG.FileLog.enabled){
         if(!fs.existsSync(ENV_CONFIG.FileLog.folder)){
@@ -135,7 +138,7 @@ var startServer = function(){
 
 };
 
-config.init(function(e){
-    console.log(ENV_CONFIG);
-    if(!e) startServer();
+ConfigManager.init(function(e){
+    if(e) throw new Error('Config: unable to initialize configuration: ', e);
+    startServer();
 });

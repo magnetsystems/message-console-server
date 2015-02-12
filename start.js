@@ -5,7 +5,7 @@ var child = new (forever.Monitor)('app.js', {
     env : {
         NODE_ENV : 'development'
     },
-    minUptime : 5000,
+    minUptime : 1000,
     killTree  : true
 });
 
