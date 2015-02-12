@@ -94,6 +94,7 @@
                     </div>
                 </div>
                 <div class="tab-pane clearfix" id="mgmt-actions">
+                    <a href="#" class="restart-server-btn btn btn-primary pull-right">Restart Server</a>
                     <h3>Server Configuration</h3>
                     <div class="alert alert-info" role="alert">
                         <strong>Note:</strong> Certain changes made to the configuration below will initiate a restart of the server.
@@ -101,8 +102,8 @@
                     <div id="admin-configuration-container"></div>
                 </div>
                 <div class="tab-pane clearfix" id="mgmt-messaging">
-                    <h3>Messaging Configuration</h3>
                     <a href="/" class="btn btn-primary pull-right">Go to Messaging Console</a>
+                    <h3>Messaging Configuration</h3>
                     <div class="admin-config-item-container" did="MMX">
                         <div class="buttons-section">
                             <span class="alert-container"></span>
@@ -518,7 +519,7 @@
 <script id="AdminConfigurationRedisTmpl" type="text/template">
     <p>Redis can be used to share user session between multiple Admin Console nodes in a cluster. For a single
         Admin Console deployment, Redis allows modfication of configuration without getting logged out.</p>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label>Enabled
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
         </label>
@@ -527,7 +528,13 @@
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
+        <label>Cache Timeout
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Time in seconds before cached configuration is refreshed."></span>
+        </label>
+        <input type="text" name="cacheTimeout" class="form-control" placeholder="time in seconds" value="<%- config.cacheTimeout %>" />
+    </div>
+    <div class="col-sm-4">
         <label>Hostname</label>
         <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
     </div>
@@ -537,7 +544,7 @@
     </div>
     <div class="col-sm-6">
         <label>Password</label>
-        <input type="pass" name="pass" class="form-control" placeholder="Password" value="" />
+        <input type="password" name="pass" class="form-control" placeholder="Password" value="" />
     </div>
 </script>
 <script id="AdminConfigurationConsoleLogTmpl" type="text/template">
@@ -648,6 +655,33 @@
         <input type="text" name="recipient" class="form-control" placeholder="Folder" value="<%- config.recipient %>" />
     </div>
 </script>
+<script id="AdminConfigurationDatabaseLogTmpl" type="text/template">
+    <p>Log certain administrative and messaging events to the MySQL database.</p>
+    <div class="col-sm-4 clearfix">
+        <label>Enabled</label>
+        <div class="btn-group btn-toggle clearfix" did="enabled">
+            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+        </div>
+    </div>
+    <div class="col-sm-4 clearfix">
+        <label>Handle Exceptions
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="If enabled, uncaught exceptions do not crash the server and the exception is logged."></span>
+        </label>
+        <div class="btn-group btn-toggle clearfix" did="handleExceptions">
+            <button class="btn btn-sm <% if(config.handleExceptions === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+            <button class="btn btn-sm <% if(typeof config.handleExceptions == 'undefined' || config.handleExceptions === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+        </div>
+    </div>
+    <div class="col-sm-4 clearfix">
+        <label>Log Level</label>
+        <select class="form-control" name="level">
+            <% _.each(levels, function(val, key){ %>
+            <option value="<%- val %>" <% if(config.level === val){ %>selected="selected"<% } %>><%- val %></option>
+            <% }); %>
+        </select>
+    </div>
+</script>
 <script id="AdminConfigurationEmailTmpl" type="text/template">
     <p>Once email is set up properly, the email logging feature can be enabled and emails can be sent automatically to users during the registration process.</p>
     <div class="col-sm-4 clearfix">
@@ -708,6 +742,7 @@
     </div>
     <h5>Configuration</h5>
     <hr />
+    <% if(config.mmx){ %>
     <div did="mmx-config" class="form-group clearfix">
         <div class="col-sm-12">
             <label>Callback URL
@@ -740,5 +775,10 @@
             <input type="text" name="timeout.period.minutes" class="form-control" placeholder="Timeout period in minutes" value="<%- config.mmx['timeout.period.minutes'] %>" />
         </div>
     </div>
+    <% }else{ %>
+    <div class="alert alert-warning" role="alert">
+        <strong>Note:</strong> Unable to connect to the Messaging Server with the Messaging Server Connectivity parameters you provided. Please change the parameters and try again.
+    </div>
+    <% } %>
 </script>
 

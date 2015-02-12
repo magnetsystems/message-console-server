@@ -77,7 +77,7 @@ module.exports = function(app){
         }
     });
 
-    var postDBModels = ['users'];
+    var postDBModels = [];
     app.post('/rest/:model', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(postDBModels, req.params.model)){
             ModelManager.create(req, req.body, function(e, model){
@@ -145,31 +145,36 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.createApp(req.session.user.email, req.session.user.magnetId, req.body, function(e, user){
+        MMXManager.createApp(req.session.user.email, req.session.user.magnetId, req.body, function(e, app){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(app, 200);
+                winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') created app "'+app.appId+'"', {
+                    userId      : req.session.user.id,
+                    targetModel : 'create-app',
+                    targetId    : app.appId
+                });
             }
         });
     });
 
     app.get('/rest/apps', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getApps(req.session.user.magnetId, function(e, user){
+        MMXManager.getApps(req.session.user.magnetId, function(e, apps){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(apps, 200);
             }
         });
     });
 
     app.get('/rest/apps/stats', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getStats(req.session.user.magnetId, function(e, user){
+        MMXManager.getStats(req.session.user.magnetId, function(e, stats){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(stats, 200);
             }
         });
     });
@@ -190,6 +195,11 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 res.send(status, 200);
+                winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') modified messaging server config', {
+                    userId      : req.session.user.id,
+                    targetModel : 'modify-config',
+                    targetId    : 'server'
+                });
             }
         });
     });
@@ -205,21 +215,31 @@ module.exports = function(app){
     });
 
     app.put('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.updateApp(req.session.user.magnetId, req.session.user.userType === 'admin', req.params.id, req.body, function(e, user){
+        MMXManager.updateApp(req.session.user.magnetId, req.session.user.userType === 'admin', req.params.id, req.body, function(e, app){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(app, 200);
+                winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') updated app "'+req.params.id+'"', {
+                    userId      : req.session.user.id,
+                    targetModel : 'update-app',
+                    targetId    : req.params.id
+                });
             }
         });
     });
 
     app.delete('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.deleteApp(req.session.user.magnetId, req.session.user.userType === 'admin', req.params.id, function(e, user){
+        MMXManager.deleteApp(req.session.user.magnetId, req.session.user.userType === 'admin', req.params.id, function(e, app){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(app, 200);
+                winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') deleted app "'+req.params.id+'"', {
+                    userId      : req.session.user.id,
+                    targetModel : 'delete-app',
+                    targetId    : req.params.id
+                });
             }
         });
     });
@@ -298,6 +318,11 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 res.send(user, 200);
+                winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') sent message in app "'+req.params.id+'"', {
+                    userId      : req.session.user.id,
+                    targetModel : 'send-message',
+                    targetId    : req.params.id
+                });
             }
         });
     });
@@ -308,6 +333,11 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 res.send(user, 200);
+                winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') sent ping in app "'+req.params.id+'"', {
+                    userId      : req.session.user.id,
+                    targetModel : 'send-ping',
+                    targetId    : req.params.id
+                });
             }
         });
     });
@@ -318,6 +348,11 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 res.send(user, 200);
+                winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') sent notification in app "'+req.params.id+'"', {
+                    userId      : req.session.user.id,
+                    targetModel : 'send-notification',
+                    targetId    : req.params.id
+                });
             }
         });
     });
@@ -348,6 +383,11 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 res.send(user, 200);
+                winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') created app topic "'+req.params.id+'"', {
+                    userId      : req.session.user.id,
+                    targetModel : 'create-topic',
+                    targetId    : req.params.id
+                });
             }
         });
     });
@@ -358,6 +398,11 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 res.send(user, 200);
+                winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') delete app topic "'+req.params.id+'"', {
+                    userId      : req.session.user.id,
+                    targetModel : 'delete-topic',
+                    targetId    : req.params.id
+                });
             }
         });
     });
@@ -368,6 +413,11 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 res.send(user, 200);
+                winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') published to app topic "'+req.params.id+'"', {
+                    userId      : req.session.user.id,
+                    targetModel : 'publish-to-topic',
+                    targetId    : req.params.id
+                });
             }
         });
     });
@@ -388,6 +438,16 @@ module.exports = function(app){
                 }, 201);
             }else{
                 res.send(registrationStatus, 400);
+            }
+        });
+    });
+
+    app.post('/rest/users', UserManager.checkAuthority(['admin'], true), function(req, res){
+        UserManager.create(req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('ok', 201);
             }
         });
     });
@@ -445,7 +505,7 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 if(user){
-                    winston.info('User: user "'+req.session.user.firstName+' '+req.session.user.lastName+'"('+req.session.user.id+') deleted user "'+(user.firstName ? user.firstName+' '+user.lastName : user.email)+'"('+user.id+') successfully at: '+new Date(), {
+                    winston.info('User: user "'+req.session.user.email+'"('+req.session.user.id+') deleted user "'+(user.firstName ? user.firstName+' '+user.lastName : user.email)+'"('+user.id+') successfully at: '+new Date(), {
                         userId      : req.session.user.id,
                         targetModel : 'User',
                         targetId    : user.id
@@ -481,7 +541,7 @@ module.exports = function(app){
             if(e){
                 res.send(e, 400);
             }else{
-                winston.info('Accounts: user "'+req.session.user.firstName+' '+req.session.user.lastName+'"('+req.session.user.id+') changed activation state of user "'+(user.firstName ? user.firstName+' '+user.lastName : user.email)+'"('+user.id+') to activated:'+req.body.activated+' successfully at: '+new Date(), {
+                winston.info('Accounts: user "'+req.session.user.email+'"('+req.session.user.id+') changed activation state of user "'+(user.firstName ? user.firstName+' '+user.lastName : user.email)+'"('+user.id+') to activated:'+req.body.activated+' successfully at: '+new Date(), {
                     userId      : req.session.user.id,
                     targetModel : 'User',
                     targetId    : user.id
@@ -517,6 +577,11 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 res.send(page, 200);
+                winston.info('User: user "'+req.session.user.email+'"('+req.session.user.id+') modified email template "'+req.body.folder+'"', {
+                    userId      : req.session.user.id,
+                    targetModel : 'CMSPage',
+                    targetId    : req.body.folder
+                });
             }
         });
     });
@@ -535,32 +600,34 @@ module.exports = function(app){
     // This API is used for Admin to User invites
     app.post('/rest/adminInviteUser', UserManager.checkAuthority(['admin'], true), function(req, res){
         var isInvitedByAdmin = true;
-        if(!ENV_CONFIG.Email.enabled) return res.send('email-disabled', 400);
-        req.body.firstName = req.body.firstName || null;
-        req.body.lastName = req.body.lastName || null;
-        req.body.companyName = req.body.companyName || null;
-        UserManager.registerGuest({
-            firstName    : req.body.firstName ? stripChars(req.body.firstName) : req.body.firstName,
-            lastName     : req.body.lastName ? stripChars(req.body.lastName) : req.body.lastName,
-            email        : req.body.email,
-            companyName  : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName,
-            inviterId    : req.session.user.id,
-            invitedEmail : req.body.email
-        }, isInvitedByAdmin, function(registrationStatus, user){
-            if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL){
-                UserManager.approveUser({
-                    magnetId  : user.magnetId,
-                    invitedBy : req.session.user
-                }, isInvitedByAdmin, function(approvalStatus){
-                    if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL){
-                        res.send(approvalStatus, 201);
-                    }else{
-                        res.send(approvalStatus, 400);
-                    }
-                });
-            }else{
-                res.send(registrationStatus, 400);
-            }
+        ConfigManager.get('Email', function(){
+            if(!ENV_CONFIG.Email.enabled) return res.send('email-disabled', 400);
+            req.body.firstName = req.body.firstName || null;
+            req.body.lastName = req.body.lastName || null;
+            req.body.companyName = req.body.companyName || null;
+            UserManager.registerGuest({
+                firstName    : req.body.firstName ? stripChars(req.body.firstName) : req.body.firstName,
+                lastName     : req.body.lastName ? stripChars(req.body.lastName) : req.body.lastName,
+                email        : req.body.email,
+                companyName  : req.body.companyName ? sanitize(req.body.companyName).xss() : req.body.companyName,
+                inviterId    : req.session.user.id,
+                invitedEmail : req.body.email
+            }, isInvitedByAdmin, function(registrationStatus, user){
+                if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL){
+                    UserManager.approveUser({
+                        magnetId  : user.magnetId,
+                        invitedBy : req.session.user
+                    }, isInvitedByAdmin, function(approvalStatus){
+                        if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL){
+                            res.send(approvalStatus, 201);
+                        }else{
+                            res.send(approvalStatus, 400);
+                        }
+                    });
+                }else{
+                    res.send(registrationStatus, 400);
+                }
+            });
         });
     });
 
@@ -594,7 +661,13 @@ module.exports = function(app){
 
     // Get environment configs
     app.get('/rest/configs', UserManager.checkAuthority(['admin'], true), function(req, res){
-        res.send(ConfigManager.getConfigs(), 200);
+        ConfigManager.getConfigs(function(e, config){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(config, 200);
+            }
+        });
     });
 
     // Get single environment config
@@ -616,7 +689,14 @@ module.exports = function(app){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(noRestartNeeded.indexOf(req.params.config) != -1 ? 'ok' : 'restart-needed', 200);
+                winston.info('User: user "'+req.session.user.email+'"('+req.session.user.id+') modified configuration for feature: "'+req.params.config+'"', {
+                    userId      : req.session.user.id,
+                    targetModel : 'Config',
+                    targetId    : req.params.config
+                }, function(){
+                    res.send(noRestartNeeded.indexOf(req.params.config) != -1 ? 'ok' : 'restart-needed', 200);
+                });
+
             }
         });
     });
@@ -640,8 +720,14 @@ module.exports = function(app){
     // restart the server
     app.post('/rest/restart', UserManager.checkAuthority(['admin'], true), function(req, res){
         res.send('ok', 200);
-        winston.error('System: restarting server now.');
-        process.exit(1);
+        winston.info('User: user "'+req.session.user.email+'"('+req.session.user.id+') restarted the server.', {
+            userId      : req.session.user.id,
+            targetModel : 'Action',
+            targetId    : 'restart'
+        }, function(){
+            winston.error('System: restarting server now.');
+            process.exit(1);
+        });
     });
 
 };

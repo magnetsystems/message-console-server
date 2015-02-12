@@ -223,6 +223,7 @@ input.form-control, select.form-control{border-radius:0}
 #admin .tab-content{background:#fff;border:solid 1px #ddd;margin-bottom:25px}
 #admin h3{text-indent:5px;font-size:25px;font-weight:300}
 #admin h4{text-indent:5px;font-size:19px;font-weight:300}
+#admin .tab-pane > .btn{margin-top:15px}
 #admin .tab-content > .active{padding:0 20px 15px}
 #admin-details .table tbody td{cursor:default}
 #admin-details .buttons .pull-right{position:absolute;right:25px;top:20px}
