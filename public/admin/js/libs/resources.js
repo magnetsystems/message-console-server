@@ -818,6 +818,9 @@ utils = {
             return '';
         }
     },
+    isSequelizeDate: function(str){
+        return str.match(/^[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]/i);
+    },
     formatDT: function(str){
         return str < 10 ? '0'+str : str;
     },

@@ -236,10 +236,16 @@ define(['jquery', 'backbone'], function($, Backbone){
             if(str != ''){
                 if(typeof property !== typeof undefined){
                     var obj = {};
+                    if(property == 'createdAt'){
+                        if(!utils.isSequelizeDate(str))
+                            return Alerts.Error.display({title:'Invalid Date Format', content:"Please search by the date format mm-dd-yyyy."});
+                        var ary = str.split('-');
+                        str = ary[2]+'-'+ary[0]+'-'+ary[1];
+                    }
                     obj[property] = str;
                     me.query.search = [obj];
                 }else{
-                    Alerts.Error.display({title:'Select "Search By" Property', content:"Select a property to search for before the search."});
+
                     return false;
                 }             
             }
