@@ -2,7 +2,6 @@ var express = require('express')
 , http = require('http')
 , app = express()
 , connect = require('express/node_modules/connect')
-, fs = require('fs')
 , winston = require('winston')
 , expressLayouts = require('express-ejs-layouts');
 
@@ -44,53 +43,11 @@ var startServer = function(){
         app.use(express.cookieParser(ENV_CONFIG.App.sessionSecret));
         // enable PUT and DELETE request methods
         app.use(express.methodOverride());
+        app.enable('trust proxy');
         app.disable('x-powered-by');
     });
 
-    if(ENV_CONFIG.ConsoleLog.enabled){
-        winston.remove(winston.transports.Console);
-        winston.add(winston.transports.Console, {
-            level            : ENV_CONFIG.ConsoleLog.level,
-            handleExceptions : ENV_CONFIG.ConsoleLog.handleExceptions
-        });
-        winston.info('Logging: enabled console logging at level: '+ENV_CONFIG.ConsoleLog.level);
-    }
-    if(ENV_CONFIG.DatabaseLog.enabled){
-        // enable event logging to database. NOTE: only designed to log events which contain metadata
-        winston.add(require('./lib/winston-sequelize').WinstonSequelize, {
-            level            : ENV_CONFIG.DatabaseLog.level,
-            handleExceptions : ENV_CONFIG.DatabaseLog.handleExceptions
-        });
-        winston.info('Logging: enabled database logging at level: '+ENV_CONFIG.DatabaseLog.level);
-    }
-    if(ENV_CONFIG.FileLog.enabled){
-        if(!fs.existsSync(ENV_CONFIG.FileLog.folder)){
-            fs.mkdirSync(ENV_CONFIG.FileLog.folder);
-        }
-        winston.add(winston.transports.File, {
-            filename         : ENV_CONFIG.FileLog.folder+'/'+ENV_CONFIG.FileLog.filename,
-            maxsize          : ENV_CONFIG.FileLog.maxsize,
-            maxFiles         : ENV_CONFIG.FileLog.maxFiles,
-            handleExceptions : ENV_CONFIG.FileLog.handleExceptions,
-            level            : ENV_CONFIG.FileLog.level
-        });
-        winston.info('Logging: enabled file logging at level: '+ENV_CONFIG.FileLog.level);
-    }
-    if(ENV_CONFIG.EmailLog.enabled){
-        winston.add(require('winston-mail').Mail, {
-            to               : ENV_CONFIG.EmailLog.recipient,
-            from             : ENV_CONFIG.EmailLog.sender,
-            host             : ENV_CONFIG.EmailLog.host,
-            port             : ENV_CONFIG.EmailLog.port,
-            username         : ENV_CONFIG.EmailLog.user,
-            password         : ENV_CONFIG.EmailLog.password,
-            tls              : true,
-            level            : ENV_CONFIG.EmailLog.level,
-            handleExceptions : ENV_CONFIG.EmailLog.handleExceptions
-
-        });
-        winston.info('Logging: enabled email logging at level: '+ENV_CONFIG.EmailLog.level);
-    }
+    require('./lib/LogManager').refreshLogHandlers();
 
     app.configure('development', function(){
         app.use(express.errorHandler({

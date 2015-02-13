@@ -263,7 +263,7 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
             })[0];
             item.find('.panel-title').addClass('hidden');
             item.find('.panel-name').removeClass('hidden');
-            item.find('.panel-name input').val(model.attributes.appName);
+            item.find('.panel-name input').val(model.attributes.name);
         },
         cancelEditName: function(e){
             var item = $(e.currentTarget).closest('.panel');
@@ -276,21 +276,17 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
             var did = item.attr('did');
             var panelInput = item.find('.panel-name input');
             var panelTitle = item.find('.panel-title');
-            panelTitle.text(panelInput.val());
-            panelTitle.removeClass('hidden');
-            panelInput.addClass('hidden');
             var model = me.mmxCol.where({
-                magnetId : did
+                appId : did
             })[0];
-            model.set({
-                id      : model.attributes.magnetId,
-                appName : panelInput.val()
-            });
             model.save({
-                appName : panelInput.val()
+                name : panelInput.val()
             }, {
                 patch: true,
                 success: function(){
+                    panelTitle.text(panelInput.val());
+                    panelTitle.removeClass('hidden');
+                    panelInput.addClass('hidden');
                     me.renderMMXApps();
                 },
                 error: function(e){
@@ -308,13 +304,18 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
             })[0];
             model.set({id:model.attributes.magnetId});
             if(action === 'delete'){
-                model.destroy({
-                    success: function(){
-                        me.renderMMXApps();
-                    },
-                    error: function(e){
-                        console.log('error', e);
-                    }
+                Alerts.Confirm.display({
+                    title   : 'Confirm App Deletion',
+                    content : 'Are you sure you wish to delete this app? Please note that once this app has been deleted, it cannot be recovered.'
+                }, function(){
+                    model.destroy({
+                        success: function(){
+                            me.renderMMXApps();
+                        },
+                        error: function(e){
+                            console.log('error', e);
+                        }
+                    });
                 });
             }
         }

@@ -9,6 +9,7 @@ module.exports = function(app){
                 activePage  : 'wizard',
                 userType    : 'wizard',
                 envConfig   : ENV_CONFIG,
+                reqIP       : req.ip,
                 sessionUser : req.session.user
             }
         });

@@ -130,6 +130,7 @@ function syncOverride(mc, eventPubSub){
             }
             model.data = options.data;
         }
+        if(method === 'patch') method = 'update';
         switch(method){
             case 'read':
                 mc.get(url, magnetId, qsStr, options.data, function(data, status, xhr){

@@ -57,6 +57,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 col      : EventCollection,
                 headers  : {
                     createdAt : 'Created On',
+                    level     : 'Level',
                     message   : 'Message'
                 },
                 searchBy : 'message',
@@ -302,6 +303,12 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             AJAX('configs/'+did, 'POST', 'application/json', obj, function(res){
                 me.hideLoading(container);
                 if(res != 'restart-needed'){
+                    if(did == 'MMX')
+                        me.getConfig(function(config){
+                            me.getMMXConfig(function(mmxconfig){
+                                me.renderMMXConfig(config, mmxconfig);
+                            });
+                        }, 'MMX');
                     Alerts.General.display({
                         title   : did+' Config Updated Successfully',
                         content : 'The configuration for section <b>'+did+'</b> has been updated successfully.'

@@ -94,7 +94,6 @@
                     </div>
                 </div>
                 <div class="tab-pane clearfix" id="mgmt-actions">
-                    <a href="#" class="restart-server-btn btn btn-primary pull-right">Restart Server</a>
                     <h3>Server Configuration</h3>
                     <div class="alert alert-info" role="alert">
                         <strong>Note:</strong> Certain changes made to the configuration below will initiate a restart of the server.
@@ -269,16 +268,16 @@
     <td><h4>MMX Apps</h4></td>
     <td>
         <% _.each(col, function(model, key){ %>
-            <div did="<%- model.attributes.magnetId %>" class="panel panel-default <% if(!model.attributes.magnetId){ %>hidden<% } %>">
+            <div did="<%- model.attributes.appId %>" class="panel panel-default <% if(!model.attributes.appId){ %>hidden<% } %>">
         <div class="panel-heading">
             <h3 class="panel-title">
-                        <%- model.attributes.appName %>
+                        <%- model.attributes.name %>
                         <button class="mmx-edit btn btn-default">
                 <span class="glyphicon glyphicon-pencil pull-right"></span>
             </button>
             </h3>
             <div class="panel-name hidden">
-                <input type="text" class="form-control" name="appName" value="<%- model.attributes.appName %>">
+                <input type="text" class="form-control" name="name" value="<%- model.attributes.name %>">
                 <button class="mmx-saveedit btn btn-default">
                     <span class="glyphicon glyphicon-ok pull-right"></span>
                 </button>
@@ -291,25 +290,17 @@
             <div class="form-group">
                 <label>API Key</label>
                 <div class="controls">
-                    <input type="text" class="form-control" name="apiKey" readonly="readonly" value="<%- model.attributes.apiKey %>">
+                    <input type="text" class="form-control" name="apiKey" readonly="readonly" value="<%- model.attributes.appAPIKey %>">
                 </div>
             </div>
             <div class="form-group">
-                <label>App Key</label>
+                <label>Creation Date</label>
                 <div class="controls">
-                    <input type="text" class="form-control" name="appKey" readonly="readonly" value="<%- model.attributes.appKey %>">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Server User</label>
-                <div class="controls">
-                    <input type="text" class="form-control" name="serverUser" readonly="readonly" value="<%- model.attributes.serverUser %>">
+                    <input type="text" class="form-control" name="iso8601CreationDate" readonly="readonly" value="<%- utils.fromISO8601(model.attributes.iso8601CreationDate) %>">
                 </div>
             </div>
             <div class="form-group">
                 <div class="controls">
-                    <button did="regenerate" class="btn btn-primary">Regenerate Keys</button>
-                    <button did="revoke" class="btn btn-primary">Revoke Keys</button>
                     <button did="delete" class="btn btn-primary">Delete</button>
                 </div>
             </div>
@@ -448,7 +439,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#admin-config-container-collapsible" href="#admin-config-item-<%- key %>">
-                        <%- key.replace('Log', ' Logging') %>
+                        <%- key.replace('Log', ' Logging').replace('Alerts', ' Alerts') %>
                     </a>
                 </h4>
             </div>
@@ -462,7 +453,7 @@
                             </div>
                             <hr />
                             <div class="button-group clearfix">
-                                <button class="admin-config-save-btn btn btn-primary">Save Changes</button>
+                                <button class="admin-config-save-btn btn btn-primary">Save Changes<%- (['Database', 'App', 'Redis'].indexOf(key) != -1) ? ' and Restart' : '' %></button>
                             </div>
                         </div>
                         <div class="loading buttons-section" style="display:none">
@@ -476,17 +467,26 @@
     </div>
 </script>
 <script id="AdminConfigurationAppTmpl" type="text/template">
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label>Remote Url
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The Remote Url is the remote hostname of the Admin Console (should be accessible to Messaging users from a web browser)."></span>
         </label>
         <input type="text" name="appUrl" class="form-control" placeholder="App Url" value="<%- config.appUrl %>" />
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label>Port
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The internal port of the Admin Console server (behind load balancer if applicable)."></span>
         </label>
         <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
+    </div>
+    <div class="col-sm-4">
+        <label>Handle Exceptions
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="If enabled, uncaught exceptions will be caught and logged. This is useful for production environments."></span>
+        </label>
+        <div class="btn-group btn-toggle clearfix" did="handleExceptions">
+            <button class="btn btn-sm <% if(config.handleExceptions === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+            <button class="btn btn-sm <% if(typeof config.handleExceptions == 'undefined' || config.handleExceptions === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+        </div>
     </div>
 </script>
 <script id="AdminConfigurationDatabaseTmpl" type="text/template">
@@ -548,21 +548,12 @@
     </div>
 </script>
 <script id="AdminConfigurationConsoleLogTmpl" type="text/template">
-    <p>Server generated diagnostic logs can be output in terminal window.</p>
+    <p>System generated diagnostic logs can be output in terminal window.</p>
     <div class="col-sm-4">
         <label>Enabled</label>
         <div class="btn-group btn-toggle clearfix" did="enabled">
             <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <label>Handle Exceptions
-            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="If enabled, uncaught exceptions do not crash the server and the exception is logged."></span>
-        </label>
-        <div class="btn-group btn-toggle clearfix" did="handleExceptions">
-            <button class="btn btn-sm <% if(config.handleExceptions === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-            <button class="btn btn-sm <% if(typeof config.handleExceptions == 'undefined' || config.handleExceptions === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
         </div>
     </div>
     <div class="col-sm-4">
@@ -575,21 +566,12 @@
     </div>
 </script>
 <script id="AdminConfigurationFileLogTmpl" type="text/template">
-    <p>Server generated diagnostic logs can be written to log files.</p>
+    <p>System generated diagnostic logs can be written to log files.</p>
     <div class="col-sm-4">
         <label>Enabled</label>
         <div class="btn-group btn-toggle clearfix" did="enabled">
             <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <label>Handle Exceptions
-            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="If enabled, uncaught exceptions do not crash the server and the exception is logged."></span>
-        </label>
-        <div class="btn-group btn-toggle clearfix" did="handleExceptions">
-            <button class="btn btn-sm <% if(config.handleExceptions === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-            <button class="btn btn-sm <% if(typeof config.handleExceptions == 'undefined' || config.handleExceptions === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
         </div>
     </div>
     <div class="col-sm-4">
@@ -600,32 +582,32 @@
             <% }); %>
         </select>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label>Folder
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The folder to write log files, relative to the root directory."></span>
         </label></label>
         <input type="text" name="folder" class="form-control" placeholder="Folder" value="<%- config.folder %>" />
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label>Filename</label>
         <input type="text" name="filename" class="form-control" placeholder="Filename" value="<%- config.filename %>" />
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label>Maximum Size
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The maximum log file size before logs are written to a new file."></span>
         </label></label>
         <input type="text" name="maxsize" class="form-control" placeholder="Maximum Size" value="<%- config.maxsize %>" />
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label>Maximum Files
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The maximum number of log files before logs are overwritten."></span>
         </label></label>
         <input type="text" name="maxFiles" class="form-control" placeholder="Maximum Files" value="<%- config.maxFiles %>" />
     </div>
 </script>
-<script id="AdminConfigurationEmailLogTmpl" type="text/template">
-    <p>Server generated diagnostic logs can be emailed to a recipient.</p>
-    <div class="col-sm-4 clearfix">
+<script id="AdminConfigurationEmailAlertsTmpl" type="text/template">
+    <p>A recipient can be set up to receive alerts when a problem occurs.</p>
+    <div class="col-sm-6 clearfix">
         <label>Enabled
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The Email feature must first be enabled and configured correctly before email logs can be sent."></span>
         </label>
@@ -634,20 +616,13 @@
             <button class="btn btn-sm <% if(allConfigs.Email.enabled !== true){ %>disabled<%} %> <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
         </div>
     </div>
-    <div class="col-sm-4 clearfix">
-        <label>Handle Exceptions
-            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="If enabled, uncaught exceptions do not crash the server and the exception is logged."></span>
-        </label>
-        <div class="btn-group btn-toggle" did="handleExceptions">
-            <button class="btn btn-sm <% if(config.handleExceptions === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-            <button class="btn btn-sm <% if(typeof config.handleExceptions == 'undefined' || config.handleExceptions === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <label>Log Level</label>
+    <div class="col-sm-6">
+        <label>Alert Level</label>
         <select class="form-control" name="level">
             <% _.each(levels, function(val, key){ %>
+            <% if(['warn', 'error'].indexOf(val) != -1){ %>
             <option value="<%- val %>" <% if(config.level === val){ %>selected="selected"<% } %>><%- val %></option>
+            <% } %>
             <% }); %>
         </select>
     </div>
@@ -658,23 +633,14 @@
 </script>
 <script id="AdminConfigurationDatabaseLogTmpl" type="text/template">
     <p>Certain administrative and messaging events can be written to MySQL database and displayed in the <b>Logging</b> tab. </p>
-    <div class="col-sm-4 clearfix">
+    <div class="col-sm-6 clearfix">
         <label>Enabled</label>
         <div class="btn-group btn-toggle clearfix" did="enabled">
             <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
         </div>
     </div>
-    <div class="col-sm-4 clearfix">
-        <label>Handle Exceptions
-            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="If enabled, uncaught exceptions do not crash the server and the exception is logged."></span>
-        </label>
-        <div class="btn-group btn-toggle clearfix" did="handleExceptions">
-            <button class="btn btn-sm <% if(config.handleExceptions === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-            <button class="btn btn-sm <% if(typeof config.handleExceptions == 'undefined' || config.handleExceptions === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
-        </div>
-    </div>
-    <div class="col-sm-4 clearfix">
+    <div class="col-sm-6 clearfix">
         <label>Log Level</label>
         <select class="form-control" name="level">
             <% _.each(levels, function(val, key){ %>
@@ -777,7 +743,7 @@
         </div>
     </div>
     <% }else{ %>
-    <div class="alert alert-warning" role="alert">
+    <div class="alert alert-danger" role="alert">
         <strong>Note:</strong> Unable to connect to the Messaging Server with the Messaging Server Connectivity parameters you provided. Please change the parameters and try again.
     </div>
     <% } %>
