@@ -50,8 +50,8 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/isInit', function(req, res){
-        res.send(false, 200);
+    app.get('/rest/status', function(req, res){
+        res.send('init', 200);
     });
 
     app.post('/rest/restart', function(req, res){

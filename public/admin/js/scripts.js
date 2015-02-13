@@ -42,6 +42,8 @@ AJAXLogin.prototype.login = function(btn){
         data        : obj
     }).done(function(){
         AJAX('/rest/profile', 'GET', 'application/x-www-form-urlencoded', null, function(res, status, xhr){
+            res.firstName = res.firstName || '';
+            res.lastName = res.lastName || '';
             Cookie.create('magnet_auth', res.firstName+':'+res.lastName+':'+res.email, 1);
             window.location.href = '/admin';
         }, function(xhr, status, thrownError){

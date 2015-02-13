@@ -713,8 +713,8 @@ module.exports = function(app){
     });
 
     // return server status
-    app.get('/rest/status', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
-        res.send('ok', 200);
+    app.get('/rest/status', function(req, res){
+        res.send('standalone', 200);
     });
 
     // restart the server
