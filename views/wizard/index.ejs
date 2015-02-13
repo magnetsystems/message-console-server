@@ -198,7 +198,7 @@
                 <label>XMPP Domain
                     <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="This domain or IP address must be reachable by the mobile devices or emulators using your messaging app."></span>
                 </label>
-                <input type="text" name="xmppDomain" class="form-control" placeholder="XMPP Domain" value="{{= typeof reqIP !== 'undefined' ? reqIP : 'localhost'}}" />
+                <input type="text" name="xmppDomain" class="form-control" placeholder="XMPP Domain" value="{{= typeof serverIP !== 'undefined' ? serverIP : 'localhost'}}" />
             </div>
         </div>
         <div class="panel-group clearfix" id="wizard-messaging-advanced-config">
