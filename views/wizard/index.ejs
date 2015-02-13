@@ -270,7 +270,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <label>XMPP Domain</label>
-                                <input type="text" name="xmppDomain" class="form-control" placeholder="XMPP Domain" value="{{ typeof reqIP !== 'undefined' reqIP : 'localhost'}}" />
+                                <input type="text" name="xmppDomain" class="form-control" placeholder="XMPP Domain" value="{{= typeof reqIP !== 'undefined' ? reqIP : 'localhost'}}" />
                             </div>
                             <div class="col-sm-4">
                                 <label>XMPP Port</label>
