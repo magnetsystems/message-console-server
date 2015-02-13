@@ -190,9 +190,15 @@
     <form id="wizard-messaging-form" role="form" class="clearfix">
         <span class="alert-container"></span>
         <div class="form-group clearfix">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label>Hostname</label>
                 <input type="text" class="form-control" name="host" placeholder="Hostname" value="localhost" />
+            </div>
+            <div class="col-sm-6">
+                <label>XMPP Domain
+                    <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="This domain or IP address must be reachable by the mobile devices or emulators using your messaging app."></span>
+                </label>
+                <input type="text" name="xmppDomain" class="form-control" placeholder="XMPP Domain" value="{{= typeof reqIP !== 'undefined' ? reqIP : 'localhost'}}" />
             </div>
         </div>
         <div class="panel-group clearfix" id="wizard-messaging-advanced-config">
@@ -268,15 +274,11 @@
                                 </label>
                                 <input type="password" class="form-control" name="password" placeholder="Password" value="admin" />
                             </div>
-                            <div class="col-sm-4">
-                                <label>XMPP Domain</label>
-                                <input type="text" name="xmppDomain" class="form-control" placeholder="XMPP Domain" value="{{= typeof reqIP !== 'undefined' ? reqIP : 'localhost'}}" />
-                            </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <label>XMPP Port</label>
                                 <input type="text" name="xmppPort" class="form-control" placeholder="XMPP Port" value="5222" />
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <label>XMPP Secure Port</label>
                                 <input type="text" name="xmppSecurePort" class="form-control" placeholder="XMPP Secure Port" value="5223" />
                             </div>
