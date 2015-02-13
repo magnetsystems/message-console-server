@@ -10,10 +10,9 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             // establish event pub/sub 
             this.eventPubSub = _.extend({}, Backbone.Events);
             // init HTTP request methods
-            this.cookies = new Cookie();
             // session timeout notification is disabled
             this.opts = {};
-            this.sessionMgr = new SessionManager(this.cookies);
+            this.sessionMgr = new SessionManager();
             $(document).ajaxComplete(function(e, xhr){
                 if(xhr.skipStatusCheck) return;
                 if(xhr.status == 278){
@@ -24,7 +23,7 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
                     me.sessionMgr.reset();
                 }
             });
-            this.httpreq = new HTTPRequest('/rest/', this.cookies);
+            this.httpreq = new HTTPRequest('/rest/');
             // init model connector for REST 
             this.mc = new ModelConnector(this.httpreq);
             utils.setIndexOf();
@@ -72,7 +71,7 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
         },
         logout: function(){
             var me = this;
-            me.cookies.remove('magnet_auth');
+            Cookie.remove('magnet_auth');
             me.mc.query('logout', 'POST', null, function(data, status, xhr){
                 window.location.href = '/admin/';
             }, 'html', 'application/x-www-form-urlencoded', function(){

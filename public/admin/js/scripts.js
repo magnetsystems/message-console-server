@@ -41,7 +41,12 @@ AJAXLogin.prototype.login = function(btn){
         contentType : 'application/x-www-form-urlencoded',
         data        : obj
     }).done(function(){
-        window.location.href = '/admin';
+        AJAX('/rest/profile', 'GET', 'application/x-www-form-urlencoded', null, function(res, status, xhr){
+            Cookie.create('magnet_auth', res.firstName+':'+res.lastName+':'+res.email, 1);
+            window.location.href = '/admin';
+        }, function(xhr, status, thrownError){
+            alert(xhr.responseText);
+        });
     }).fail(function(xhr){
         btn.html('Sign In').removeClass('disabled');
         if(xhr.responseText == 'invalid-login'){

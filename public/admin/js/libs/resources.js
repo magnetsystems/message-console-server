@@ -314,7 +314,7 @@ ModelConnector.prototype.chkSession = function(data, xhr){
     if(typeof data !== 'object'){
         if(xhr.getResponseHeader('Content-Type') == 'text/html'){
             if(data.indexOf('Developer Factory : Login') != -1){
-                this.httpreq.cookies.remove('magnet_auth');
+                Cookie.remove('magnet_auth');
                 window.location.replace('/login/');
             }
         }
@@ -324,8 +324,7 @@ ModelConnector.prototype.chkSession = function(data, xhr){
 }
 
 // wrap jquery ajax function to reduce redundant code
-function HTTPRequest(baseUrl, cookies){
-    this.cookies = cookies;
+function HTTPRequest(baseUrl){
     this.baseUrl = baseUrl;
 }
 HTTPRequest.prototype.call = function(loc, method, dataType, contentType, data, callback, failback, headers){
@@ -365,7 +364,7 @@ HTTPRequest.prototype.call = function(loc, method, dataType, contentType, data, 
         };
         // handle not authorized status codes to redirect to login page
         if(xhr.status == 403 || xhr.status == 401){
-            me.cookies.remove('magnet_auth');
+            Cookie.remove('magnet_auth');
             window.location.href = '/admin';
         }else if(typeof failback === typeof Function){
             failback(xhr, status, thrownError);
@@ -396,35 +395,37 @@ function uploader(id, url, property, type){
         xhr.send(evt.target.result);
     }
 }
-// cookies
-function Cookie(){}
-Cookie.prototype.create = function(name, val, days){
-    if(days){
-        var date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        var expires = '; expires=' + date.toGMTString();
-    }else{
-        var expires = '';
-    }
-    document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(val) + expires + '; path=/';
-}
-Cookie.prototype.get = function(name){
-    var nameEQ = encodeURIComponent(name) + '=';
-    var ca = document.cookie.split(';');
-    for(var i=0;i<ca.length;i++){
-        var c = ca[i];
-        while(c.charAt(0) == ' '){
-            c = c.substring(1, c.length)
-        };
-        if(c.indexOf(nameEQ) == 0){
-            return decodeURIComponent(c.substring(nameEQ.length, c.length))
+
+var Cookie = {
+    create : function(name, val, days){
+        if(days){
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            var expires = '; expires=' + date.toGMTString();
+        }else{
+            var expires = '';
         }
+        document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(val) + expires + '; path=/';
+    },
+    get : function(name){
+        var nameEQ = encodeURIComponent(name) + '=';
+        var ca = document.cookie.split(';');
+        for(var i=0;i<ca.length;i++){
+            var c = ca[i];
+            while(c.charAt(0) == ' '){
+                c = c.substring(1, c.length)
+            };
+            if(c.indexOf(nameEQ) == 0){
+                return decodeURIComponent(c.substring(nameEQ.length, c.length))
+            }
+        }
+        return null;
+    },
+    remove : function(name){
+        this.create(name, "", -1);
     }
-    return null;
 }
-Cookie.prototype.remove = function(name){
-    this.create(name, "", -1);
-}
+
 function startLoading(id){
     $('#'+id+' .modal-footer').hide();
     $('#'+id+' .loading.modal-footer').show();
@@ -581,7 +582,7 @@ timer = {
     }
 }
 
-function SessionManager(cookies){
+function SessionManager(){
     this.sessionLength = 20;
     this.timestamp = this.getTimestamp();
     this.timers = [
@@ -589,8 +590,7 @@ function SessionManager(cookies){
         {time : 1},
         {time : 0}
     ];
-    this.cookies = cookies;
-    this.cookies.create('session_timestamp', this.timestamp, 1);
+    Cookie.create('session_timestamp', this.timestamp, 1);
     this.reset();
 }
 SessionManager.prototype.reset = function(){
@@ -607,7 +607,7 @@ SessionManager.prototype.set = function(timer){
 }
 SessionManager.prototype.confirm = function(time){
     var me = this;
-    var timestamp = me.cookies.get('session_timestamp');
+    var timestamp = Cookie.get('session_timestamp');
     if(timestamp && timestamp != me.timestamp){
         me.timestamp = timestamp;
         $('.modal').modal('hide');
@@ -616,8 +616,8 @@ SessionManager.prototype.confirm = function(time){
     }
     if(time == 0){
         $('.modal').modal('hide');
-        me.cookies.remove('session_timestamp');
-        me.cookies.remove('magnet_auth');
+        Cookie.remove('session_timestamp');
+        Cookie.remove('magnet_auth');
         window.location.href = '/admin';
     }else{
         Alerts.Confirm.display({
@@ -626,7 +626,7 @@ SessionManager.prototype.confirm = function(time){
         }, function(){
             me.getBeacon();
             me.timestamp = me.getTimestamp();
-            me.cookies.create('session_timestamp', me.timestamp, 1);
+            Cookie.create('session_timestamp', me.timestamp, 1);
         });
     }
 }
