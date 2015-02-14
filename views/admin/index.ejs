@@ -101,7 +101,7 @@
                     <div id="admin-configuration-container"></div>
                 </div>
                 <div class="tab-pane clearfix" id="mgmt-messaging">
-                    <a href="/" class="btn btn-primary pull-right">Go to Messaging Console</a>
+                    <a href="/" class="btn btn-primary pull-right hidden-xs">Go to Messaging Console</a>
                     <h3>Messaging Configuration</h3>
                     <div class="admin-config-item-container" did="MMX">
                         <div class="buttons-section">
@@ -644,7 +644,9 @@
         <label>Log Level</label>
         <select class="form-control" name="level">
             <% _.each(levels, function(val, key){ %>
+            <% if(['silly'].indexOf(val) == -1){ %>
             <option value="<%- val %>" <% if(config.level === val){ %>selected="selected"<% } %>><%- val %></option>
+            <% } %>
             <% }); %>
         </select>
     </div>

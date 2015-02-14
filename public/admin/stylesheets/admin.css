@@ -257,10 +257,17 @@ input.form-control, select.form-control{border-radius:0}
 
 #wizard-messaging-database-config{position:relative}
 
-@media (max-width:767px){
+
+@media only screen and (max-width:991px){
+    .page-view{padding:0;border-radius:0;border-left:none;border-right:none}
+}
+@media only screen and (max-width:767px){
     .modal.fade.in{margin:0 !important}
-    #admin .nav-tabs{width:100%;margin:0}
-    #admin .nav-tabs > li{width:100%}
-    #admin .nav-tabs > li.active > a{border:solid 1px #ddd}
+    #admin{top:48px}
+    #admin .nav-tabs{width:100%;margin:0;border-bottom:solid 1px #888}
+    #admin .nav-tabs > li{width:100%;margin:0;border-top:solid 1px #ddd}
+    #admin .nav-tabs > li > a{width:100%;border-radius:0}
+    #admin .nav-tabs > li.active > a{background:#ddd;border:solid 1px #aaa;border-left:none;border-right:none;border-radius:0}
+    #admin .tab-content{margin:0;border:none}
 }
 
