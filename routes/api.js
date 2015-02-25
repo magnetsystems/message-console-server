@@ -8,7 +8,8 @@ var UserManager = require('../lib/UserManager')
 , validator = require('validator')
 , sanitize = validator.sanitize
 , ConfigManager = require('../lib/ConfigManager')
-, ContentManagement = require('../lib/ContentManagement');
+, ContentManagement = require('../lib/ContentManagement')
+, Geologger = require('../lib/Geologger');
 
 module.exports = function(app){
 
@@ -681,7 +682,7 @@ module.exports = function(app){
         });
     });
 
-    var noRestartNeeded = ['MMX','Email', 'EmailAlerts', 'FileLog', 'DatabaseLog', 'EmailLog', 'ConsoleLog'];
+    var noRestartNeeded = ['MMX','Email', 'EmailAlerts', 'FileLog', 'DatabaseLog', 'EmailLog', 'ConsoleLog', 'Geologging'];
 
     // set single environment config
     app.post('/rest/configs/:config', UserManager.checkAuthority(['admin'], true), function(req, res){

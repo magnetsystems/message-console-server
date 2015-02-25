@@ -595,13 +595,13 @@
     <div class="col-sm-4">
         <label>Maximum Size
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The maximum log file size before logs are written to a new file."></span>
-        </label></label>
+        </label>
         <input type="text" name="maxsize" class="form-control" placeholder="Maximum Size" value="<%- config.maxsize %>" />
     </div>
     <div class="col-sm-4">
         <label>Maximum Files
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The maximum number of log files before logs are overwritten."></span>
-        </label></label>
+        </label>
         <input type="text" name="maxFiles" class="form-control" placeholder="Maximum Files" value="<%- config.maxFiles %>" />
     </div>
 </script>
@@ -669,7 +669,7 @@
     </div>
     <div class="col-sm-4">
         <label>Sender</label>
-        <input type="text" name="sender" class="form-control" placeholder="Folder" value="<%- config.sender %>" />
+        <input type="text" name="sender" class="form-control" placeholder="ender" value="<%- config.sender %>" />
     </div>
     <div class="col-sm-6">
         <label>Hostname</label>
@@ -686,6 +686,54 @@
     <div class="col-sm-6">
         <label>Password</label>
         <input type="password" name="password" class="form-control" placeholder="Password" value="" />
+    </div>
+</script>
+<script id="AdminConfigurationGeologgingTmpl" type="text/template">
+    <p>Enable geologging to track user and device geographic locations.</p>
+    <div class="col-sm-4 clearfix">
+        <label>Enabled</label>
+        <div class="btn-group btn-toggle" did="enabled">
+            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
+            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <label>XMPP Domain</label>
+        <input type="text" name="servername" class="form-control" placeholder="XMPP Domain" value="<%- config.servername %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>XMPP Id</label>
+        <input type="text" name="jid" class="form-control" placeholder="XMPP Id" value="<%- config.jid %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Hostname</label>
+        <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Port</label>
+        <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
+    </div>
+    <div class="col-sm-6">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Password" value="" />
+    </div>
+    <div class="col-sm-4">
+        <label>Flush Interval
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="To improve performance, set the amount of geolocation cache entries before they are stored to database."></span>
+        </label>
+        <input type="text" name="flushInterval" class="form-control" placeholder="number of entries" value="<%- config.flushInterval %>" />
+    </div>
+    <div class="col-sm-4">
+        <label>Expiration Timeout
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The time in minutes before a geolocation record is considered outdated and removed from the database."></span>
+        </label>
+        <input type="text" name="expirationTimeout" class="form-control" placeholder="time in minutes" value="<%- config.expirationTimeout %>" />
+    </div>
+    <div class="col-sm-4">
+        <label>Cleanup Interval
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The interval in minutes when the database should be inspected to check for outdated geolocation records."></span>
+        </label>
+        <input type="text" name="cleanupInterval" class="form-control" placeholder="time in minutes" value="<%- config.cleanupInterval %>" />
     </div>
 </script>
 <script id="AdminConfigurationMMXTmpl" type="text/template">

@@ -334,6 +334,11 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                         title   : 'Connection Error',
                         content : 'Unable to connect to the database with the settings you provided. Please change your configuration and try again.'
                     });
+                }else if(did == 'Geologging'){
+                    Alerts.Error.display({
+                        title   : 'Connection Error',
+                        content : 'Unable to connect to the XMPP domain with the settings you provided. Please change your configuration and try again.'
+                    });
                 }else{
                     Alerts.Error.display({
                         title   : 'Error Updating Config '+did,

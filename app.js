@@ -49,6 +49,9 @@ var startServer = function(){
 
     require('./lib/LogManager').refreshLogHandlers();
 
+    if(ENV_CONFIG.Geologging.enabled)
+        require('./lib/Geologger').init();
+
     app.configure('development', function(){
         app.use(express.errorHandler({
             dumpExceptions : true,
