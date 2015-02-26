@@ -1,4 +1,5 @@
-var ConfigManager = require('../lib/ConfigManager');
+var ConfigManager = require('../lib/ConfigManager')
+, MMXManager = require('../lib/MMXManager');
 
 module.exports = function(app){
 
@@ -43,6 +44,16 @@ module.exports = function(app){
         });
     });
 
+    app.post('/rest/admin/messagingStatus', function(req, res){
+        MMXManager.getServerStatus(req.body, function(e, data, code){
+            res.header('Content-Type', 'application/json');
+            res.send(JSON.stringify({
+                provisioned : typeof data === 'object' && data.setupComplete && data.setupComplete === true,
+                code        : code
+            }), 200);
+        });
+    });
+
     app.post('/rest/admin/completeInstall', function(req, res){
         ConfigManager.completeInstall(function(e){
             if(e) return res.send(e, 400);
@@ -57,7 +68,7 @@ module.exports = function(app){
     app.post('/rest/restart', function(req, res){
         res.send('ok', 200);
         winston.error('System: restarting server now.');
-        process.exit(1);
+        process.exit(0);
     });
 
     app.get('*', function(req, res){

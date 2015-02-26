@@ -727,7 +727,7 @@ module.exports = function(app){
             targetId    : 'restart'
         }, function(){
             winston.error('System: restarting server now.');
-            process.exit(1);
+            process.exit(0);
         });
     });
 

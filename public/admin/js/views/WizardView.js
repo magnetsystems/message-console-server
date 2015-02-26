@@ -160,7 +160,7 @@ define(['jquery', 'backbone'], function($, Backbone){
         renderMessaging: function(obj){
             $('#wizard-messaging-container').html(_.template($('#WizardMessagingTmpl').html(), obj || this.dbDefaults)).find('.glyphicon-info-sign').tooltip();
         },
-        setupMessaging: function(cb, skipProvisioning){
+        setupMessaging: function(cb){
             var me = this;
             var form = $('#wizard-messaging-form');
             var btn = form.closest('.step-pane').find('.wiz-next');
@@ -168,7 +168,43 @@ define(['jquery', 'backbone'], function($, Backbone){
             var obj = utils.collect(form, false, false, true);
             if(!this.isValid(form, obj, ['mysqlPassword'])) return;
             me.options.eventPubSub.trigger('btnLoading', btn);
-            if(skipProvisioning) obj.skipProvisioning = true;
+            AJAX('admin/messagingStatus', 'POST', 'application/json', obj, function(res){
+                me.options.eventPubSub.trigger('btnComplete', btn);
+                if(res.code === 403){
+                    return Alerts.Error.display({
+                        title   : 'Messaging Server Already Configured',
+                        content : 'The messaging server at "'+obj.host+'" has already been configured, but the credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server without provisioning.'
+                    });
+                }
+                if(res.code === 200 && res.provisioned === true){
+                    return Alerts.Confirm.display({
+                        title   : 'Messaging Server Already Configured',
+                        content : 'The messaging server at "'+obj.host+'" has already been configured. If you would like to connect to this messaging server without provisioning, click <b>Yes</b>. Otherwise, click <b>No</b> to try again with a different Hostname.'
+                    }, function(){
+                        obj.skipProvisioning = true;
+                        me.provisionMessaging(form, btn, obj, cb);
+                    });
+                }
+                if(res.code === 200 && res.provisioned === false)
+                    return me.provisionMessaging(form, btn, obj, cb);
+                Alerts.Error.display({
+                    title   : 'Connection Error',
+                    content : 'Unable to connect to the messaging server with the settings you provided. Please try again with a different hostname or port, and check your firewall configuration. '+(e ? '<br />Error: '+e : '')
+                });
+            }, function(e){
+                me.options.eventPubSub.trigger('btnComplete', btn);
+                Alerts.Error.display({
+                    title   : 'Connection Error',
+                    content : 'Unable to connect to the server. Please make sure the server is running and check logs for additional diagnostic information.'
+                });
+            }, null, {
+                timeout : 15000
+            });
+
+        },
+        provisionMessaging: function(form, btn, obj, cb){
+            var me = this;
+            me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/setMessaging', 'POST', 'application/json', obj, function(res){
                 me.options.eventPubSub.trigger('btnComplete', btn);
                 if(!$('#wizard-messaging-container > .alert').length){
@@ -180,26 +216,12 @@ define(['jquery', 'backbone'], function($, Backbone){
                 cb();
             }, function(e){
                 me.options.eventPubSub.trigger('btnComplete', btn);
-                if(e === 'already-configured'){
-                    return Alerts.Confirm.display({
-                        title   : 'Messaging Server Already Configured',
-                        content : 'The messaging server at "'+obj.host+'" has already been configured. If you would like to connect to this messaging server without provisioning, click <b>Yes</b>. Otherwise, click <b>No</b> to try again with a different Hostname.'
-                    }, function(){
-                        me.setupMessaging(cb, true);
-                    });
-                }
-                if(e === 'auth-failure'){
-                    return Alerts.Error.display({
-                        title   : 'Messaging Server Already Configured',
-                        content : 'The messaging server at "'+obj.host+'" has already been configured, but the credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server without provisioning.'
-                    });
-                }
                 Alerts.Error.display({
                     title   : 'Connection Error',
                     content : 'Unable to connect to the messaging server with the settings you provided. Please try again with a different hostname or port, and check your firewall configuration. '+(e ? '<br />Error: '+e : '')
                 });
             }, null, {
-                timeout : 15000
+                timeout : 120000
             });
         },
         completeWizard: function(e){

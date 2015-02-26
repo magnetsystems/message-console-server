@@ -13,7 +13,7 @@ var AJAX = function(loc, method, contentType, data, callback, failback, headers,
         type        : method,
         url         : (loc.charAt(0) == '/' || params.redirectHost) ? loc : '/rest/'+loc,
         contentType : contentType,
-        timeout     : params.timeout || 30000,
+        timeout     : params.timeout || 45000,
         data        : dataStr,
         beforeSend  : function(xhr){
             if(headers){
