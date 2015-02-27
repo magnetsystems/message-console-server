@@ -10,7 +10,16 @@ start() {
 		echo "Error! $PROG is already running or you have a stale pid file. If $PROG is not running delete $PID_PATH/$PROG.pid file and restart" 1>&2
 		exit 1
 	else
-		nohup node start.js > mmx-console.out 2>&1& 
+	    	if type -p nodejs -v >/dev/null; then
+                nohup nodejs start.js > mmx-console.out 2>&1&
+            else
+	                if type -p node -v >/dev/null; then
+       		                 nohup node start.js > mmx-console.out 2>&1&		
+			else
+		                echo "Error! Neither node nor nodejs is in the path. Please correct that and try again. " 1>&2
+				exit 1
+			fi
+		fi
 		touch "$PID_PATH/$PROG.pid"
 		pid=$!
 		echo $pid >> $PID_PATH/$PROG.pid
