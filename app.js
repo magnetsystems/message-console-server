@@ -23,9 +23,7 @@ global.ENV_CONFIG = ConfigManager.configs;
 var startServer = function(){
 
     // database initialization
-    require('./lib/orm').setup('./lib/models', function(e){
-        winston.info('Open web browser and navigate to '+ENV_CONFIG.App.appUrl+'/wizard to perform initial setup.');
-    });
+    require('./lib/orm').setup('./lib/models');
 
     // set port
     app.set('port', ENV_CONFIG.App.port);

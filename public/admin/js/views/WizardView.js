@@ -82,12 +82,12 @@ define(['jquery', 'backbone'], function($, Backbone){
             }
             return valid;
         },
-        setupDB: function(cb){
+        setupDB: function(cb, obj){
             var me = this;
             var form = $('#wizard-database-form');
             var btn = form.closest('.step-pane').find('.wiz-next');
             utils.resetError(form);
-            var obj = utils.collect(form);
+            obj = obj || utils.collect(form);
             if(!this.isValid(form, obj, ['password'])) return;
             obj.port = parseInt(obj.port);
             me.options.eventPubSub.trigger('btnLoading', btn);
@@ -103,9 +103,25 @@ define(['jquery', 'backbone'], function($, Backbone){
                 cb();
             }, function(e){
                 me.options.eventPubSub.trigger('btnComplete', btn);
-                Alerts.Error.display({
+                if(e == 'ER_BAD_DB_ERROR'){
+                    return Alerts.Confirm.display({
+                        title   : 'Database Does Not Exist',
+                        content : 'The database "'+obj.dbName+'" does not exist. If the database credentials you specified have authority to create a database, click <b>Yes</b> to have the server create the database automatically. Otherwise, click <b>No</b> to try again with another database name.'
+                    }, function(){
+                        obj.createDatabase = true;
+                        me.setupDB(cb, obj);
+                    });
+                }
+                if(e == 'ER_DBACCESS_DENIED_ERROR'){
+                    return Alerts.Error.display({
+                        title   : 'Access Denied',
+                        content : 'The database credentials you specified did not have authority to query the database.'
+                    });
+                }
+                if(!e) e = 'Connection timed out. Please make sure you can reach the mysql server at the hostname and port you specified.';
+                return Alerts.Error.display({
                     title   : 'Connection Error',
-                    content : 'Unable to connect to the database with the settings you provided. Have you installed MySQL and created the database "'+obj.dbName+'"?'
+                    content : 'Unable to connect to the database with the settings you provided. <br />'+e
                 });
             }, null, {
                 timeout : 15000
