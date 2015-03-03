@@ -191,11 +191,11 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/configs', UserManager.checkAuthority(['admin'], true), function(req, res){
-        MMXManager.setConfigs(req.body, function(e, status){
+        MMXManager.setConfigs(req.body, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(status, 200);
+                res.send(response, 200);
                 winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') modified messaging server config', {
                     userId      : req.session.user.id,
                     targetModel : 'modify-config',
@@ -206,21 +206,21 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getApp(req.session.user.magnetId, req.params.id, function(e, user){
+        MMXManager.getApp(req.session.user.magnetId, req.params.id, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(response, 200);
             }
         });
     });
 
     app.put('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.updateApp(req.session.user.magnetId, req.session.user.userType === 'admin', req.params.id, req.body, function(e, app){
+        MMXManager.updateApp(req.session.user.magnetId, req.session.user.userType === 'admin', req.params.id, req.body, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(app, 200);
+                res.send(response, 200);
                 winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') updated app "'+req.params.id+'"', {
                     userId      : req.session.user.id,
                     targetModel : 'update-app',
@@ -231,11 +231,11 @@ module.exports = function(app){
     });
 
     app.delete('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.deleteApp(req.session.user.magnetId, req.session.user.userType === 'admin', req.params.id, function(e, app){
+        MMXManager.deleteApp(req.session.user.magnetId, req.session.user.userType === 'admin', req.params.id, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(app, 200);
+                res.send(response, 200);
                 winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') deleted app "'+req.params.id+'"', {
                     userId      : req.session.user.id,
                     targetModel : 'delete-app',
@@ -246,41 +246,41 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/:id/messages', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getAppMessages(req.session.user.id, req.params.id, req.query, function(e, user){
+        MMXManager.getAppMessages(req.session.user.id, req.params.id, req.query, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(response, 200);
             }
         });
     });
 
     app.get('/rest/apps/:id/stats', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getAppStats(req.session.user.magnetId, req.params.id, function(e, user){
+        MMXManager.getAppStats(req.session.user.magnetId, req.params.id, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(response, 200);
             }
         });
     });
 
     app.get('/rest/apps/:id/endpoints', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getAppEndpoints(req.session.user.id, req.params.id, req.query, function(e, user){
+        MMXManager.getAppEndpoints(req.session.user.id, req.params.id, req.query, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(response, 200);
             }
         });
     });
 
     app.get('/rest/apps/:id/users', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getAppUsers(req.session.user.id, req.params.id, req.query, function(e, user){
+        MMXManager.getAppUsers(req.session.user.id, req.params.id, req.query, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(response, 200);
             }
         });
     });
@@ -304,21 +304,21 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/:id/users/:uid/devices', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getAppUserDevices(req.session.user.id, req.params.id, req.params.uid, function(e, user){
+        MMXManager.getAppUserDevices(req.session.user.id, req.params.id, req.params.uid, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(response, 200);
             }
         });
     });
 
     app.post('/rest/apps/:id/endpoints/:did/message', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.sendMessage(req.session.user.id, req.params.id, req.params.did, req.body, function(e, user){
+        MMXManager.sendMessage(req.session.user.id, req.params.id, req.params.did, req.body, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(response, 200);
                 winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') sent message in app "'+req.params.id+'"', {
                     userId      : req.session.user.id,
                     targetModel : 'send-message',
@@ -329,11 +329,11 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/endpoints/:did/ping', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.sendPing(req.session.user.id, req.params.id, req.params.did, req.body, function(e, user){
+        MMXManager.sendPing(req.session.user.id, req.params.id, req.params.did, req.body, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(response, 200);
                 winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') sent ping in app "'+req.params.id+'"', {
                     userId      : req.session.user.id,
                     targetModel : 'send-ping',
@@ -344,11 +344,11 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/endpoints/:did/notification', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.sendNotification(req.session.user.id, req.params.id, req.params.did, req.body, function(e, user){
+        MMXManager.sendNotification(req.session.user.id, req.params.id, req.params.did, req.body, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(response, 200);
                 winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') sent notification in app "'+req.params.id+'"', {
                     userId      : req.session.user.id,
                     targetModel : 'send-notification',
@@ -359,31 +359,31 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/:id/devices/:did/messages', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getDeviceMessages(req.session.user.id, req.params.id, req.params.did, function(e, user){
+        MMXManager.getDeviceMessages(req.session.user.id, req.params.id, req.params.did, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(response, 200);
             }
         });
     });
 
     app.get('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getAppTopics(req.session.user.id, req.params.id, req.query, function(e, user){
+        MMXManager.getAppTopics(req.session.user.id, req.params.id, req.query, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(response, 200);
             }
         });
     });
 
     app.post('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.createAppTopic(req.session.user.id, req.params.id, req.body, function(e, user){
+        MMXManager.createAppTopic(req.session.user.id, req.params.id, req.body, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(response, 200);
                 winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') created app topic "'+req.params.id+'"', {
                     userId      : req.session.user.id,
                     targetModel : 'create-topic',
@@ -394,11 +394,11 @@ module.exports = function(app){
     });
 
     app.delete('/rest/apps/:id/topics/:tid', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.deleteAppTopic(req.session.user.id, req.params.id, req.params.tid, function(e, user){
+        MMXManager.deleteAppTopic(req.session.user.id, req.params.id, req.params.tid, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(response, 200);
                 winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') delete app topic "'+req.params.id+'"', {
                     userId      : req.session.user.id,
                     targetModel : 'delete-topic',
@@ -409,11 +409,11 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/topics/:tid/publish', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.publishToTopic(req.session.user.id, req.params.id, req.params.tid, req.body, function(e, user){
+        MMXManager.publishToTopic(req.session.user.id, req.params.id, req.params.tid, req.body, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(user, 200);
+                res.send(response, 200);
                 winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') published to app topic "'+req.params.id+'"', {
                     userId      : req.session.user.id,
                     targetModel : 'publish-to-topic',
