@@ -112,6 +112,15 @@ define(['jquery', 'backbone'], function($, Backbone){
                         me.setupDB(cb, obj);
                     });
                 }
+                if(e == 'DB_ALREADY_EXISTS'){
+                    return Alerts.Confirm.display({
+                        title   : 'Database Already Exists',
+                        content : 'The database "'+obj.dbName+'" already exists. If you would like to use this database, click <b>Yes</b> to have the server connect to this database non-destructively and add any additional tables as necessary. Otherwise, click <b>No</b> to try again with another database name.'
+                    }, function(){
+                        obj.createDatabase = true;
+                        me.setupDB(cb, obj);
+                    });
+                }
                 if(e == 'ER_DBACCESS_DENIED_ERROR'){
                     return Alerts.Error.display({
                         title   : 'Access Denied',
