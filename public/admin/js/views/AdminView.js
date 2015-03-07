@@ -76,6 +76,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             'click .cmspage' : 'selectPage',
             'click .cms-edit' : 'startCMSEdit',
             'click .cms-canceledit' : 'endCMSEdit',
+            'click .cms-save' : 'endCMSEdit',
             'click div[did="edittype"] button': 'toggleEditingMode',
             'click .admin-config-save-btn': 'saveConfig',
             'click div[did="shareDB"] button': 'onShareDBClick',
