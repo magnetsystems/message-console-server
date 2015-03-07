@@ -1,6 +1,6 @@
 define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 'models/AppModel', 'collections/AppCollection'], function($, Backbone, UserModel, UserCollection, AppModel, AppCollection){
     var View = Backbone.View.extend({
-        el: "#admin-details",
+        el: "#mgmt-user-details",
         initialize: function(options){
             var me = this;
             me.options = options;
@@ -10,24 +10,26 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
                 me.$el.find('.page-view').html('<img src="/images/ajax-loader.gif" style="padding:8px">');
                 me.mmxCol = new AppCollection();
                 me.fetchUser(params);
+                me.$el.closest('.tab-content').find('.tab-pane.active').removeClass('active');
+                $('#mgmt-user-details').addClass('active');
             });
         },
         events: {
-            'click button[did="delete-user"]': 'deleteUser',
             'click button[did="approve-user"]': 'approveUser',
             'click button[did="deny-user"]': 'approveUser',
-            'click button[did="edit-user"]': 'editUser',
-            'click button[did="edit-user-cancel"]': 'editUserCancel',
-            'click button[did="edit-user-save"]': 'editUserSave',
+            'click #mgmt-user-delete-btn': 'deleteUser',
+            'click #mgmt-user-edit-btn': 'startEdit',
+            'click #mgmt-user-cancel-btn': 'endEdit',
+            'click #mgmt-user-save-btn': 'editUserSave',
             'click button[did="activate-user"]': 'activateUser',
             'click button[did="deactivate-user"]': 'activateUser',
             'click button[did="resend-registration=email"]': 'resendCompleteRegistrationEmail',
-            'click .panel-body button': 'performAction',
+//            'click .panel-body button': 'performAction',
+            'click #mgmt-mmxapp-delete-btn': 'deleteMMXApp',
             'click .panel .mmx-edit': 'editName',
             'click .panel .mmx-saveedit': 'saveEditName',
             'click .panel .mmx-canceledit': 'cancelEditName'
         },
-        // fetch a user entity object from server
         fetchUser: function(params){
             var me = this;
             me.entity = new UserModel({
@@ -48,7 +50,6 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
                 }
             });
         },
-        // fetch a collection of mmx apps from the server
         fetchMMXApps: function(){
             var me = this;
             var col = new UserCollection();
@@ -74,7 +75,6 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
                 col : this.mmxCol.models
             }));
         },
-        // fetch a collection of users invited by the current user from the server
         fetchInvitedUsers: function(){
             var me = this;
             me.invitedUsers = new UserCollection();
@@ -101,34 +101,32 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
                 model : this.entity.attributes, 
                 page  : this.page
             });
-            this.$el.find('.page-view').html(template);
+            this.$el.html(template);
             return this;
         },
-        // delete the current user
         deleteUser: function(){
             var me = this;
             Alerts.Confirm.display({
-                title   : 'Confirm User Deletion', 
-                content : 'Are you sure you wish to delete this user? Please note that once this user has been deleted, it cannot be recovered.'
+                title   : 'Delete Account',
+                content : 'Are you sure you wish to delete this account? Please note that once this account has been deleted, it cannot be recovered.'
             }, function(){
                 me.entity.destroy({
                     success: function(){
                         Backbone.history.navigate('#/'+me.page);
                         Alerts.General.display({
-                            title   : 'User Deleted Successfully', 
-                            content : 'The selected user has been deleted successfully. Returning to administration page.'
+                            title   : 'Account Deleted',
+                            content : 'The selected account has been deleted successfully. Returning to administration page.'
                         });
                     },
                     error: function(){
                         Alerts.Error.display({
-                            title   : 'Error Deleting User', 
-                            content : 'There was an error deleting the selected user.'
+                            title   : 'Error Deleting Account',
+                            content : 'There was an error deleting the selected account.'
                         });
                     }
                 });
             });
         },
-        // approve or deny the invitation request
         approveUser: function(e){
             var me = this;
             var state = $(e.currentTarget).attr('did') == 'approve-user' ? 'true' : 'false';
@@ -157,7 +155,6 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
                 }
             });
         },
-        // activate or deactivate the user
         activateUser: function(e){
             var me = this;
             var state = $(e.currentTarget).attr('did') == 'activate-user';
@@ -181,7 +178,6 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
                 });
             });
         },
-        // resend Complete Registration Email
         resendCompleteRegistrationEmail: function(e){
             var me = this;
             me.showLoading($(e.currentTarget));
@@ -199,49 +195,58 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
                 });
             });
         },
-        editUser: function(){
-            this.$el.find('.buttons-section, .user-edit-value').hide();
-            this.$el.find('.buttons-section-edit, .user-edit-input').show();
+        startEdit: function(e){
+            var btn = $(e.currentTarget);
+            if(btn.hasClass('disabled')) return;
+            var userPanel = this.$el.find('#user-panel');
+            userPanel.find('input, select').prop('disabled', false);
+            userPanel.find('.btn-toggle button').removeClass('disabled');
+            userPanel.find('.panel-heading div[did="readonly"] .disableable').addClass('disabled');
+            userPanel.find('.panel-heading div[did="readwrite"] .disableable').removeClass('disabled');
         },
-        editUserCancel: function(e){
-            this.$el.find('.buttons-section-edit, .user-edit-input').hide();
-            this.$el.find('.user-edit-value').show();
-            this.hideLoading($(e.currentTarget));
+        endEdit: function(e, dom){
+            var btn = dom || $(e.currentTarget);
+            if(btn.hasClass('disabled')) return;
+            var userPanel = this.$el.find('#user-panel');
+            userPanel.find('input, select').prop('disabled', true);
+            userPanel.find('.btn-toggle button').addClass('disabled');
+            this.hideLoading(btn);
+            userPanel.find('.panel-heading div[did="readonly"] .disableable').removeClass('disabled');
+            userPanel.find('.panel-heading div[did="readwrite"] .disableable').addClass('disabled');
         },
-        // save edits for a user
         editUserSave: function(e){
             var me = this;
+            var btn = $(e.currentTarget);
             me.$el.find('.buttons-section-edit').hide();
-            me.showLoading($(e.currentTarget));
-            var properties = utils.collect(me.$el.find('#user-data-container'));
+            me.showLoading(btn);
+            var properties = utils.collect(me.$el.find('#user-panel'));
             var user = new UserModel({
                 id       : this.entity.attributes.id,
                 magnetId : this.entity.attributes.magnetId
             });
             for(var prop in properties){
-                if((properties[prop] == '' && me.entity.attributes[prop] == null) || properties[prop] == me.entity.attributes[prop]){
+                if((properties[prop] === '' && me.entity.attributes[prop] === null) || properties[prop] === me.entity.attributes[prop]){
                     delete properties[prop];
                 }
             }
             if(!$.isEmptyObject(properties)){
                 user.save(properties, {
                     success: function(){
-                        me.hideLoading($(e.currentTarget));
+                        me.endEdit(null , btn);
                         me.entity.set(properties);
                         me.render('User');
                         me.fetchInvitedUsers();
                     },
                     error: function(){
+                        me.endEdit(null , btn);
                         Alerts.Error.display({
-                            title   : 'Error Updating User',
-                            content : 'There was a problem updating this user. Please try again later.'
+                            title   : 'Error Updating Account',
+                            content : 'There was a problem updating this account. Please try again later.'
                         });
                     }
                 });
             }else{
-                me.$el.find('.buttons-section-edit, .user-edit-input').hide();
-                me.$el.find('.user-edit-value').show();
-                me.hideLoading($(e.currentTarget));
+                me.endEdit(null , btn);
             }
         },
         showLoading: function(dom){
@@ -264,11 +269,15 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
             item.find('.panel-title').addClass('hidden');
             item.find('.panel-name').removeClass('hidden');
             item.find('.panel-name input').val(model.attributes.name);
+            item.find('div[did="readonly"] .disableable').addClass('disabled');
+            item.find('div[did="readwrite"] .disableable').removeClass('disabled');
         },
         cancelEditName: function(e){
             var item = $(e.currentTarget).closest('.panel');
             item.find('.panel-title').removeClass('hidden');
             item.find('.panel-name').addClass('hidden');
+            item.find('div[did="readonly"] .disableable').removeClass('disabled');
+            item.find('div[did="readwrite"] .disableable').addClass('disabled');
         },
         saveEditName: function(e){
             var me = this;
@@ -294,7 +303,7 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
                 }
             });
         },
-        performAction: function(e){
+        deleteMMXApp: function(e){
             var me = this;
             var item = $(e.currentTarget);
             var action = item.attr('did');

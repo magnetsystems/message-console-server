@@ -35,13 +35,14 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 me.selectedPage = {};
                 $('#cms-folder-span, #cms-filename-span').text('');
             });
+            $('#mgmt-users .radio-select .glyphicon-info-sign').tooltip();
         },
         // metadata for admin views
         pages: {
             'users' : {
                 col      : UserCollection,
                 headers  : {
-                    createdAt : 'Created On',
+                    createdAt : 'Created',
                     email     : 'Email Address',
                     firstName : 'First Name',
                     lastName  : 'Last Name',
@@ -73,8 +74,9 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             'click #mgmt-history-list tbody td': 'showInfoPopup',
             'click .attachment-link' : 'showLog',
             'click .cmspage' : 'selectPage',
-            'click .cms-button' : 'startCMSEdit',
-            'click .cms-editing-button' : 'endCMSEdit',
+            'click .cms-edit' : 'startCMSEdit',
+            'click .cms-canceledit' : 'endCMSEdit',
+            'click div[did="edittype"] button': 'toggleEditingMode',
             'click .admin-config-save-btn': 'saveConfig',
             'click div[did="shareDB"] button': 'onShareDBClick',
             'click #admin-user-create-btn': 'createUser'
@@ -92,7 +94,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         getPageList: function(){
             var me = this;
             var parent = $('#cms-menu');
-            $('#cms-content, #cms-actions').hide();
+            $('#cms-content').hide();
             $('#cms-editable-section').hide();
             me.resetButtons();
             me.showLoading(parent);
@@ -110,6 +112,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 filename : 'general'
             }, function(data){
                 me.CMSLayout = data;
+                me.selectPage(null, me.$el.find('#cms-menu li').eq(0).find('a'));
             });
         },
         resetButtons: function(){
@@ -130,11 +133,12 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 me.hideLoading(parent);
             });
         },
-        selectPage: function(e){
-            e.preventDefault();
-            var item = $(e.currentTarget);
-            $('#cms-preview').height($(window).height() - 40);
-            var parent = $('#cms-content');
+        selectPage: function(e, dom){
+            if(e) e.preventDefault();
+            var item = dom || $(e.currentTarget);
+            item.closest('.nav').find('li').removeClass('active');
+            item.closest('li').addClass('active');
+            var parent = $('#cms-content').closest('.panel');
             var me = this;
             var folder = item.attr('folder');
             var filename = item.attr('filename');
@@ -144,12 +148,23 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             };
             me.closeEditor();
             me.showLoading(parent);
+            me.resetCMSControls(parent);
             me.retrieveCMSPage(parent, me.selectedPage, function(data){
                 me.selectedPage.data = data;
-                $('#cms-content, #cms-actions').show();
+                $('#cms-content, #cms-preview').show();
                 $('#cms-content-title-span').text((me.selectedPage.folder ? me.selectedPage.folder+'/' : '')+me.selectedPage.filename);
                 me.setPreview();
             });
+        },
+        resetCMSControls: function(e, dom){
+            var parent = dom || $(e.currentTarget).closest('.panel');
+            parent.find('.panel-heading div[did="readonly"] .disableable').removeClass('disabled');
+            parent.find('.panel-heading div[did="readwrite"] .disableable').addClass('disabled');
+            var tog = parent.find('.btn-toggle');
+            tog.find('button[did="preview"]').removeClass('btn-primary active').addClass('btn-default disabled');
+            tog.find('button[did="code"]').addClass('btn-primary active disabled').removeClass('btn-default');
+            $('#cms-editable-section').hide();
+            $('#cms-preview').show();
         },
         setPreview: function(data){
             data = data || this.selectedPage.data;
@@ -162,24 +177,42 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         startCMSEdit: function(e){
             e.preventDefault();
             var me = this;
+            $('#cms-preview').hide();
             $('#cms-editable-section').show('fast', function(){
-                me.openEditor();
+                me.openEditor(e);
             });
         },
-        openEditor: function(){
+        openEditor: function(e){
+            var btn = $(e.currentTarget);
+            var panel = btn.closest('.panel');
             this.editor = ace.edit('cms-editable-section');
             this.editor.setTheme('ace/theme/chrome');
             this.editor.getSession().setMode('ace/mode/html');
             this.editor.setValue(this.selectedPage.data, 1);
-            $('#cms-preview, #cms-editable-section').height(($(window).height() / 2) - 40);
-            $('#cms-preview').css('border-radius', '0 0 10px 10px');
-            $('.cms-button').hide();
-            $('.cms-editing-button').show();
+            panel.find('.panel-heading div[did="readonly"] .disableable').addClass('disabled');
+            panel.find('.panel-heading div[did="readwrite"] .disableable').removeClass('disabled');
+            panel.find('.panel-heading .btn-toggle button').removeClass('disabled');
+        },
+        toggleEditingMode: function(e){
+            var me = this;
+            setTimeout(function(){
+                var btn = $(e.currentTarget);
+                me.setPreview(me.selectedPage.data);
+                if($(e.currentTarget).closest('.btn-toggle').find('.btn-primary').attr('did') == 'preview'){
+                    me.setPreview(me.editor.getValue());
+                    $('#cms-editable-section').hide();
+                    $('#cms-preview').show();
+                }else{
+                    $('#cms-editable-section').show();
+                    $('#cms-preview').hide();
+                }
+            }, 5);
         },
         endCMSEdit: function(e){
             e.preventDefault();
-            var item = $(e.currentTarget);
-            var action = item.attr('did');
+            var btn = $(e.currentTarget);
+            var panel = btn.closest('.panel');
+            var action = btn.attr('did');
             var data = this.editor.getValue();
             if(action == 'preview'){
                 this.setPreview(data);
@@ -189,8 +222,8 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     this.updateCMSPage(this.selectedPage);
                 }
                 this.setPreview(this.selectedPage.data);
-                this.closeEditor();
-                this.resetButtons();
+                this.resetCMSControls(null, panel);
+//                this.closeEditor();
             }
         },
         closeEditor: function(){
@@ -198,8 +231,6 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 this.editor.destroy();
                 this.editor = undefined;
                 $('#cms-editable-section').replaceWith('<div id="cms-editable-section" style="display:none"></div>');
-                $('#cms-preview').height($(window).height() - 40);
-                $('#cms-preview').css('border-radius', '10px');
             }
         },
         updateCMSPage: function(page){

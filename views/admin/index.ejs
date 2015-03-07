@@ -1,91 +1,121 @@
 
-<div id="admin" class="page hidden">
-    <div class="row-fluid">
-        <div class="col-md-1"></div>
-        <div class="col-md-10 page-view">
-            <ul class="nav nav-tabs">
-                <li id="mgmt-users-tab" class="active"><a href="#/users">Users</a></li>
-                <li id="mgmt-events-tab"><a href="#/events">Logging</a></li>
-                <li id="mgmt-cms-tab"><a href="#/cms">CMS</a></li>
-                <li id="mgmt-actions-tab"><a href="#/actions">Server Configuration</a></li>
-                <li id="mgmt-messaging-tab"><a href="#/messaging">Messaging Configuration</a></li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane clearfix active" id="mgmt-users">
-                    <div class="admin-config-item-container">
-                        <h3>Invite a User</h3>
-                        <div class="buttons-section">
-                            <div class="form-group clearfix">
-                                <div class="col-sm-9">
-                                    <label>Email</label>
-                                    <input class="form-control" id="invited-user-email" type="text" placeholder="Email Address">
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="button-group clearfix">
-                                        <button class="btn btn-primary" id="send-invitation">Send Invitation</button>
-                                    </div>
+<div id="admin" class="page">
+    <ul class="nav nav-tabs">
+        <li id="mgmt-users-tab" class="active"><a href="#/users">Accounts</a></li>
+        <li id="mgmt-events-tab"><a href="#/events">Logs</a></li>
+        <li id="mgmt-cms-tab"><a href="#/cms">Templates</a></li>
+        <li id="mgmt-actions-tab"><a href="#/actions">Server Configuration</a></li>
+        <li id="mgmt-messaging-tab"><a href="#/messaging">Messaging Configuration</a></li>
+    </ul>
+    <div class="tab-content fullpos">
+        <div class="tab-pane clearfix active" id="mgmt-users">
+            <div class="radio-select">
+                <div>
+                    <input type="radio" class="clearfix" name="mgmt-user-creation-radio" value="mgmt-user-creation-invite" />
+                    <span class="radio-select-title">Send a Mobile Messaging Invite <i class="glyphicon glyphicon-info-sign" title="" data-placement="right" data-toggle="tooltip" data-title="This invites a developer or admin to the Mobile Messaging Application Console."></i></span>
+                </div>
+                <div id="mgmt-user-creation-invite" class="admin-config-item-container radio-item-container">
+                    <div class="buttons-section">
+                        <div class="form-group clearfix">
+                            <div class="col-sm-5">
+                                <label>Email</label>
+                                <input class="form-control" id="invited-user-email" type="text" placeholder="Email Address">
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="button-group clearfix">
+                                    <button class="btn btn-primary" id="send-invitation">Send Invitation</button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="loading buttons-section" style="display:none">
-                            Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
                         </div>
                     </div>
-                    <div class="admin-config-item-container">
-                        <h3>Create a User</h3>
-                        <div class="buttons-section">
-                            <span class="alert-container"></span>
-                            <div class="form-group clearfix">
-                                <div class="col-sm-3">
-                                    <label>Email</label>
-                                    <input type="text" name="email" class="form-control" placeholder="Email" value="" />
-                                </div>
-                                <div class="col-sm-3">
-                                    <label>Password</label>
-                                    <input type="password" name="password" class="form-control" placeholder="Password" value="" />
-                                </div>
-                                <div class="col-sm-3">
-                                    <label>User Type</label>
-                                    <select class="form-control"  name="userType">
-                                        <option value="developer">developer</option>
-                                        <option value="admin">admin</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="button-group clearfix">
-                                        <button id="admin-user-create-btn" class="btn btn-primary">Create User</button>
-                                    </div>
+                    <div class="loading buttons-section" style="display:none">
+                        Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
+                    </div>
+                </div>
+                <div>
+                    <input type="radio" class="clearfix" name="mgmt-user-creation-radio" value="mgmt-user-creation-manual" />
+                    <span class="radio-select-title">Create an Account</span>
+                </div>
+                <div id="mgmt-user-creation-manual" class="hidden admin-config-item-container radio-item-container">
+                    <div class="buttons-section">
+                        <span class="alert-container"></span>
+                        <div class="form-group clearfix">
+                            <div class="col-sm-3">
+                                <label>Email</label>
+                                <input type="text" name="email" class="form-control" placeholder="Email" value="" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Password</label>
+                                <input type="password" name="password" class="form-control" placeholder="Password" value="" />
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Type</label>
+                                <select class="form-control"  name="userType">
+                                    <option value="developer">developer</option>
+                                    <option value="admin">admin</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="button-group clearfix">
+                                    <button id="admin-user-create-btn" class="btn btn-primary">Create</button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="loading buttons-section" style="display:none">
-                            Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
                         </div>
                     </div>
-                    <h3>Users</h3>
-                    <div id="mgmt-users-list"></div>
+                    <div class="loading buttons-section" style="display:none">
+                        Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
+                    </div>
                 </div>
-                <div class="tab-pane clearfix" id="mgmt-events">
-                    <h3>Event Logging</h3>
-                    <div id="mgmt-events-list"></div>
+            </div>
+            <hr />
+            <h3>Accounts</h3>
+            <div id="mgmt-users-list" class="listview"></div>
+        </div>
+        <div class="tab-pane clearfix" id="mgmt-user-details">
+        </div>
+        <div class="tab-pane clearfix" id="mgmt-events">
+            <h3>Event Logging</h3>
+            <div id="mgmt-events-list" class="listview"></div>
+        </div>
+        <div class="tab-pane clearfix" id="mgmt-cms">
+            <h3>Email Templates</h3>
+            <div class="row-fluid">
+                <div id="" class="col-md-3">
+                    <h5>Templates</h5>
+                    <div id="cms-menu"></div>
                 </div>
-                <div class="tab-pane clearfix" id="mgmt-cms">
-                    <h3>Content Management</h3>
-                    <div class="row-fluid">
-                        <div id="" class="col-md-3">
-                            <h5>Content List</h5>
-                            <div id="cms-menu"></div>
-                        </div>
-                        <div class="col-md-9">
-                            <div id="cms-actions">
-                                <button did="edit" class="cms-button btn btn-primary">Edit Content</button>
-                                <button did="save" class="cms-editing-button btn btn-primary" style="display:none">Save Updates</button>
-                                <button did="preview" class="cms-editing-button btn btn-primary" style="display:none">Preview</button>
-                                <button did="cancel" class="cms-editing-button btn btn-default" style="display:none">Cancel</button>
+                <div class="col-md-9">
+                    <h5>
+                        Editor  <span id="cms-content-title-span"></span>
+                    </h5>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <!--<div id="cms-actions">-->
+                                <!--<button did="edit" class="cms-button btn btn-primary">Edit Content</button>-->
+                                <!--<button did="save" class="cms-editing-button btn btn-primary" style="display:none">Save Updates</button>-->
+                                <!--<button did="preview" class="cms-editing-button btn btn-primary" style="display:none">Preview</button>-->
+                                <!--<button did="cancel" class="cms-editing-button btn btn-default" style="display:none">Cancel</button>-->
+                            <!--</div>-->
+                            <div class="buttons">
+                                <div class="buttons-section">
+                                    <div did="readonly" class="btn-group" data-toggle="buttons">
+                                        <span class="cms-edit glyphicon bluetxt glyphicon-pencil disableable"></span>
+                                    </div>
+                                    <div class="btn-group btn-toggle" did="edittype">
+                                        <button class="btn btn-sm disabled btn-primary active" did="code" type="button">Code</button>
+                                        <button class="btn btn-sm disabled btn-default" did="preview" type="button">Preview</button>
+                                    </div>
+                                    <div did="readwrite" class="btn-group" data-toggle="buttons">
+                                        <span did="save" class="glyphicon greentxt glyphicon-ok-circle disabled disableable"></span>
+                                        <span did="cancel" class="cms-canceledit glyphicon redtxt glyphicon-remove-circle disabled disableable"></span>
+                                    </div>
+                                </div>
+                                <div class="loading buttons-section" style="display:none">
+                                    Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
+                                </div>
                             </div>
-                            <h5>
-                                Content Editor  <span id="cms-content-title-span"></span>
-                            </h5>
+                        </div>
+                        <div class="panel-body">
                             <div id="cms-content">
                                 <div id="cms-editable-section" style="display:none"></div>
                                 <iframe id="cms-preview"></iframe>
@@ -93,59 +123,145 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane clearfix" id="mgmt-actions">
-                    <h3>Server Configuration</h3>
-                    <div class="alert alert-info" role="alert">
-                        <strong>Note:</strong> Certain changes made to the configuration below will initiate a restart of the server.
+            </div>
+        </div>
+        <div class="tab-pane clearfix" id="mgmt-actions">
+            <h3>Server Configuration</h3>
+            <div class="alert alert-info" role="alert">
+                <strong>Note:</strong> Certain changes made to the configuration below will initiate a restart of the server.
+            </div>
+            <div id="admin-configuration-container"></div>
+        </div>
+        <div class="tab-pane clearfix" id="mgmt-messaging">
+            <a href="/" class="btn btn-primary pull-right hidden-xs">Go to Messaging Console</a>
+            <h3>Messaging Configuration</h3>
+            <div class="admin-config-item-container" did="MMX">
+                <div class="buttons-section">
+                    <span class="alert-container"></span>
+                    <div id="admin-mmx-configuration-container" class="form-group clearfix"></div>
+                    <hr />
+                    <div class="button-group clearfix">
+                        <button class="admin-config-save-btn btn btn-primary">Save Changes</button>
                     </div>
-                    <div id="admin-configuration-container"></div>
                 </div>
-                <div class="tab-pane clearfix" id="mgmt-messaging">
-                    <a href="/" class="btn btn-primary pull-right hidden-xs">Go to Messaging Console</a>
-                    <h3>Messaging Configuration</h3>
-                    <div class="admin-config-item-container" did="MMX">
-                        <div class="buttons-section">
-                            <span class="alert-container"></span>
-                            <div id="admin-mmx-configuration-container" class="form-group clearfix"></div>
-                            <hr />
-                            <div class="button-group clearfix">
-                                <button class="admin-config-save-btn btn btn-primary">Save Changes</button>
-                            </div>
-                        </div>
-                        <div class="loading buttons-section" style="display:none">
-                            Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
-                        </div>
-                    </div>
+                <div class="loading buttons-section" style="display:none">
+                    Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
                 </div>
             </div>
         </div>
-        <div class="col-md-1"></div>
-    </div>
-</div>
-<div id="admin-details" class="page hidden">
-    <div class="row-fluid">
-        <div class="col-md-1"></div>
-        <div class="col-md-10 page-view"></div>
-        <div class="col-md-1"></div>
     </div>
 </div>
 
 <div id="loadingBar">
     <div id="loadingContent">
         Loading resources, please wait..
-        <div class="progress progress-striped active">
-            <div class="bar" style="width:50%;"></div>
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            <span class="sr-only"></span>
         </div>
     </div>
 </div>
 <div id="download-container" class="hidden"></div>
 <!-- views start -->
 <script id="AdminUserDetailsView" type="text/template">
-    <h3>User: <%- model.profileName %></h3>
-    <div class="buttons">
+    <a href="#/users" class="glyphicon glyphicon-arrow-left"></a><h3 class="inline"> | Account Information</h3>
+    <div id="user-panel" class="panel panel-default">
+        <div class="panel-heading">
+            <div class="buttons">
+                <div class="buttons-section">
+                    <div did="readonly" class="btn-group" data-toggle="buttons">
+                        <span id="mgmt-user-edit-btn" class="glyphicon bluetxt glyphicon-pencil disableable"></span>
+                        <span id="mgmt-user-delete-btn" class="glyphicon redtxt glyphicon-trash"></span>
+                    </div>
+                    <div class="divider"></div>
+                    <div did="readwrite" class="btn-group" data-toggle="buttons">
+                        <span id="mgmt-user-save-btn" class="glyphicon greentxt glyphicon-ok-circle disabled disableable"></span>
+                        <span id="mgmt-user-cancel-btn" class="glyphicon redtxt glyphicon-remove-circle disabled disableable"></span>
+                    </div>
+                </div>
+                <div class="loading buttons-section" style="display:none">
+                    Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="row-fluid">
+                    <div class="col-sm-6">
+                        <label class="control-label">First Name</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" disabled="disabled" name="firstName" value="<%-  model.firstName %>" placeholder="First Name">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="control-label">Last Name</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" disabled="disabled" name="lastName" value="<%-  model.lastName %>" placeholder="Last Name">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="control-label">Email Address</label>
+                        <div class="controls">
+                            <span class="graytxt"><%- model.email %></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="control-label">Account Status</label>
+                        <div class="btn-group btn-toggle clearfix" did="activated">
+                            <button class="btn btn-sm disabled <% if(model.activated === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Active</button>
+                            <button class="btn btn-sm disabled <% if(typeof model.activated == 'undefined' || model.activated === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Inactive</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="control-label">Company</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" disabled="disabled" name="companyName" value="<%-  model.companyName %>" placeholder="Company">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="control-label">Role Within Company</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" disabled="disabled" name="roleWithinCompany" value="<%-  model.roleWithinCompany %>" placeholder="Role Within Company">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="control-label">Type of User (Internal)</label>
+                        <% if(model.userType == 'developer' || model.userType == 'admin'){ %>
+                        <select class="form-control"  disabled="disabled" name="userType">
+                            <option value="developer" <% if(model.userType == 'developer'){ %>selected="selected"<% } %>>developer</option>
+                            <option value="admin" <% if(model.userType == 'admin'){ %>selected="selected"<% } %>>admin</option>
+                        </select>
+                        <% } %>
+                    </div>
+                    <div class="col-sm-<% if(model.invitedEmail){ %>2<% }else{ %>3<% } %>">
+                        <label class="control-label">Created On</label>
+                        <div class="controls">
+                            <span class="graytxt"><%- model.createdAt %></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-<% if(model.invitedEmail){ %>2<% }else{ %>3<% } %>">
+                        <label class="control-label">Last Updated</label>
+                        <div class="controls">
+                            <span class="graytxt"><%- model.updatedAt %></span>
+                        </div>
+                    </div>
+                    <% if(model.invitedEmail){ %>
+                    <div class="col-sm-<% if(model.invitedEmail){ %>2<% }else{ %>3<% } %>">
+                        <label class="control-label">Invited By</label>
+                        <div class="controls">
+                            <span class="graytxt"><%- model.invitedEmail %></span>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h3>Messaging Apps</h3>
+    <div id="mmxapp-list-container">
+
+    </div>
+    <div class="buttons hidden">
         <div class="buttons-section">
-            <button did="delete-user" type="button" class="btn btn-default">Delete User</button>
-            <button did="edit-user" type="button" class="btn btn-default">Edit User</button>
             <button did="deactivate-user" type="button" class="btn btn-primary <% if(model.activated !== true){ %>hidden<% } %>">Deactivate User</button>
             <button did="activate-user" type="button" class="btn btn-primary <% if(model.activated === true){ %>hidden<% } %>">Activate User</button>
             <% if(model.userType == 'guest'){ %>
@@ -155,159 +271,63 @@
             <button did="resend-registration=email" type="button" class="btn btn-primary">Resend Registration Email</button>
             <% } %>
         </div>
-        <div class="buttons-section-edit" style="display:none">
-            <button did="edit-user-cancel" type="button" class="btn btn-default">Cancel Changes</button>
-            <button did="edit-user-save" type="button" class="btn btn-primary">Save Changes</button>
-        </div>
-        <div class="loading buttons-section" style="display:none">
-            Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
-        </div>
-        <div class="pull-right">
-            <a href="#/users" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i>Back to Administration Page</a>
-        </div>
-    </div>
-    <hr />
-    <div class="row-fluid">
-        <div class="col-md-12">
-            <h4>User Information</h4>
-            <table class="table table-striped" id="user-data-container">
-                <tbody>
-                <tr>
-                    <td width="5px">First Name</td>
-                    <td width="5px">
-                        <span class="user-edit-value"><%- model.firstName %></span>
-                        <span class="user-edit-input" style="display:none"><input type="text" class="form-control" name="firstName" value="<%- model.firstName %>" /></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="5px">Last Name</td>
-                    <td width="5px">
-                        <span class="user-edit-value"><%- model.lastName %></span>
-                        <span class="user-edit-input" style="display:none"><input type="text" class="form-control" name="lastName" value="<%- model.lastName %>" /></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="5px">Email Address</td>
-                    <td width="5px"><%- model.email %></td>
-                </tr>
-                <tr>
-                    <td width="5px">Company</td>
-                    <td width="5px">
-                        <span class="user-edit-value"><%- model.companyName %></span>
-                        <span class="user-edit-input" style="display:none"><input type="text" class="form-control" name="companyName" value="<%- model.companyName %>" /></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="5px">Role Within Company</td>
-                    <td width="5px">
-                        <span class="user-edit-value"><%- model.roleWithinCompany %></span>
-                        <span class="user-edit-input" style="display:none"><input type="text" class="form-control" name="roleWithinCompany" value="<%- model.roleWithinCompany %>" /></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="5px">Date Accepted EULA</td>
-                    <td width="5px"><%- model.dateAcceptedEULA %></td>
-                </tr>
-                <tr>
-                    <td width="5px">Type of User (Internal)</td>
-                    <td width="5px">
-                        <span class="user-edit-value"><%- model.userType %></span>
-                        <span class="user-edit-input" style="display:none">
-                            <% if(model.userType == 'developer' || model.userType == 'admin'){ %>
-                            <select class="form-control"  name="userType">
-                            <!--
-                            <option value="invited" <% if(model.userType == 'invited'){ %>selected="selected"<% } %>>invited</option>
-                            <option value="approved" <% if(model.userType == 'approved'){ %>selected="selected"<% } %>>approved</option>
-                            <option value="guest" <% if(model.userType == 'guest'){ %>selected="selected"<% } %>>guest</option>
-                            -->
-                            <option value="developer" <% if(model.userType == 'developer'){ %>selected="selected"<% } %>>developer</option>
-                            <option value="admin" <% if(model.userType == 'admin'){ %>selected="selected"<% } %>>admin</option>
-                        </select>
-                            <% } %>
-                        </span>
-                    </td>
-                </tr>
-                            <% if(model.invitedEmail){ %>
-                            <tr>
-                    <td width="5px">Invited Email</td>
-                    <td width="5px"><%- model.invitedEmail %></td>
-                </tr>
-                            <% } %>
-                            <% if(model.inviterId){ %>
-                            <tr>
-                    <td width="5px">Invited By User</td>
-                    <td width="5px"><%- model.inviterId %> (UserId)</td>
-                </tr>
-                            <% } %>
-                            <tr>
-                    <td width="5px">Created On</td>
-                    <td width="5px"><%- model.createdAt %></td>
-                </tr>
-                <tr>
-                    <td width="5px">Last Updated</td>
-                    <td width="5px"><%- model.updatedAt %></td>
-                </tr>
-                <tr>
-                    <td width="5px">Magnet Id</td>
-                    <td width="5px"><%- model.magnetId %></td>
-                </tr>
-                <tr id="mmxapp-list-container"></tr>
-                <tr id="invitedusers-list-container"></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row-fluid">
-        <div class="col-md-12">
-            <a href="#/users" class="main-btn btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i>Back to Administration Page</a>
-        </div>
     </div>
 </script>
 <script id="MMXAppListView" type="text/template">
     <% if(col && col.length > 0){ %>
-    <td><h4>MMX Apps</h4></td>
-    <td>
+        <div class="row-fluid">
         <% _.each(col, function(model, key){ %>
-            <div did="<%- model.attributes.appId %>" class="panel panel-default <% if(!model.attributes.appId){ %>hidden<% } %>">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                        <%- model.attributes.name %>
-                        <button class="mmx-edit btn btn-default">
-                <span class="glyphicon glyphicon-pencil pull-right"></span>
-            </button>
-            </h3>
-            <div class="panel-name hidden">
-                <input type="text" class="form-control" name="name" value="<%- model.attributes.name %>">
-                <button class="mmx-saveedit btn btn-default">
-                    <span class="glyphicon glyphicon-ok pull-right"></span>
-                </button>
-                <button class="mmx-caneledit btn btn-default">
-                    <span class="glyphicon glyphicon-remove pull-right"></span>
-                </button>
-            </div>
-        </div>
-        <div class="panel-body">
-            <div class="form-group">
-                <label>API Key</label>
-                <div class="controls">
-                    <input type="text" class="form-control" name="apiKey" readonly="readonly" value="<%- model.attributes.appAPIKey %>">
+            <div class="col-sm-6">
+                <div did="<%- model.attributes.appId %>" class="panel panel-default <% if(!model.attributes.appId){ %>hidden<% } %>">
+                    <div class="panel-heading">
+                        <div class="row-fluid clearfix">
+                            <div class="col-sm-5">
+                                <h4 class="panel-title">
+                                <%- model.attributes.name %>
+                                </h4>
+                                <div class="panel-name hidden">
+                                    <input type="text" class="form-control" name="name" value="<%- model.attributes.name %>">
+                                </div>
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="buttons pull-right">
+                                    <div class="buttons-section">
+                                        <div did="readonly" class="btn-group" data-toggle="buttons">
+                                            <span class="mmx-edit glyphicon bluetxt glyphicon-pencil disableable"></span>
+                                            <span did="delete" id="mgmt-mmxapp-delete-btn" class="glyphicon redtxt glyphicon-trash"></span>
+                                        </div>
+                                        <div class="divider"></div>
+                                        <div did="readwrite" class="btn-group" data-toggle="buttons">
+                                            <span class="mmx-saveedit glyphicon greentxt glyphicon-ok-circle disabled disableable"></span>
+                                            <span class="mmx-canceledit glyphicon redtxt glyphicon-remove-circle disabled disableable"></span>
+                                        </div>
+                                    </div>
+                                    <div class="loading buttons-section" style="display:none">
+                                        Loading.. Please Wait.. <img src="../images/ajax-loader-sm.gif" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>API Key</label>
+                            <div class="controls">
+                                <span class="graytxt"><%- model.attributes.appAPIKey %></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Creation Date</label>
+                            <div class="controls">
+                                <span class="graytxt"><%- utils.fromISO8601(model.attributes.iso8601CreationDate) %></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label>Creation Date</label>
-                <div class="controls">
-                    <input type="text" class="form-control" name="iso8601CreationDate" readonly="readonly" value="<%- utils.fromISO8601(model.attributes.iso8601CreationDate) %>">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="controls">
-                    <button did="delete" class="btn btn-primary">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
         <% }); %>
-    </td>
+        </div>
+
     <% } %>
 </script>
 <script id="InvitedUsersListView" type="text/template">
@@ -338,9 +358,9 @@
     <% if(col && col.length > 0){ %>
             <ul class="nav nav-list panel">
             <% var cached = ''; _.each(col, function(model, i){ %>
-                <% if(cached != model.folder){ cached = model.folder; %>
-                <li class="nav-header"><%- cached %></li>
-                <% } %>
+                <!--<% if(cached != model.folder){ cached = model.folder; %>-->
+                <!--<li class="nav-header"><%- cached %></li>-->
+                <!--<% } %>-->
                 <li><a href="#" class="cmspage" folder="<%- model.folder %>" noLayout="<%- model.noLayout %>" filename="<%- model.filename %>"><%- model.filename %></a></li>
             <% }); %>
             </ul>
@@ -350,41 +370,47 @@
 </script>
 <script id="tableTmplView" type="text/template">
 <% if(!disableControls){ %>
-<% if(!hideSearch){ %>
-                                    <div class="input-append">
-        <div class="input-container">
-            <input type="text" class="form-control" maxlength="200" placeholder="Search for...">
+    <div class="row-fluid clearfix">
+        <div class="col-sm-6">
+            <ul class="breadcrumb">
+                Sort Order: <br />
+                <span></span>
+            </ul>
         </div>
-        <div class="btn-group">
-            <button class="btn btn-default btn-clear" type="button" style="display:none">Clear <i class="glyphicon glyphicon-remove"></i></button>
-            <button class="btn btn-default dropdown-toggle">
-                <span class="searchby-text">Search By<% if(searchBy){ %>: <%- headers[searchBy] %><% } %></span>
-                <span class="caret"></span>
-            </button>
-            <button class="btn btn-primary" type="button">Search</button>
-            <ul class="dropdown-menu">
-<% _.each(headers, function(header, key){ %>
-                                                <% if(key != 'profileName' && key != 'accountMagnetActive' && key != 'getConfig'){ %><li<% if(key == searchBy){ %> class="active"<% } %>><a href="#" p="<%- key %>"><%- header %><% } %></a></li>
-<% }); %>
-                                            </ul>
+        <div class="col-sm-6">
+            <% if(!hideSearch){ %>
+                <div class="input-append">
+                    <div class="input-container">
+                        <input type="text" class="form-control" maxlength="200" placeholder="Search for...">
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-clear" type="button" style="display:none">Clear <i class="glyphicon glyphicon-remove"></i></button>
+                        <button class="btn btn-default dropdown-toggle">
+                            <span class="searchby-text">Search By<% if(searchBy){ %>: <%- headers[searchBy] %><% } %></span>
+                            <span class="caret"></span>
+                        </button>
+                        <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                        <ul class="dropdown-menu">
+            <% _.each(headers, function(header, key){ %>
+                        <% if(key != 'profileName' && key != 'accountMagnetActive' && key != 'getConfig'){ %><li<% if(key == searchBy){ %> class="active"<% } %>><a href="#" p="<%- key %>"><%- header %><% } %></a></li>
+            <% }); %>
+                        </ul>
+                    </div>
+                </div>
+            <% } %>
         </div>
     </div>
 <% } %>
-                                    <p>Click the column heading to sort in ascending or descending order. Click X to remove the Sort order. </p>
-    <ul class="breadcrumb">
-        Sort Order: <span></span>
-    </ul>
-<% } %>
-                                    <table class="table table-striped table-hover table-bordered">
+    <table class="table table-striped table-hover table-bordered">
         <thead>
-        <tr>
-<% _.each(headers, function(header, key){ %>
-                                            <th <% if(key != 'profileName' && key != 'accountMagnetActive' && key != 'getConfig'){ %>p="<%- key %>"<% } %>><%- header %><span class=""></span></th>
-                                            <% }); %>
+            <tr>
+                <% _.each(headers, function(header, key){ %>
+                <th <% if(key != 'profileName' && key != 'accountMagnetActive' && key != 'getConfig'){ %>p="<%- key %>"<% } %>><%- header %><span class=""></span></th>
+                <% }); %>
 <% if(!disableInfo){ %>
-                                            <th class="listview-details">Details</th>
+                <th class="listview-details">Details</th>
 <% } %>
-                                        </tr>
+            </tr>
         </thead>
         <tbody></tbody>
     </table>
@@ -392,18 +418,18 @@
 </script>
 <script id="tableItemView" type="text/template">
 <% _.each(collection, function(model, key){ %>
-                                        <tr data-id="<%- model.attributes.magnetId %>">
+    <tr data-id="<%- model.attributes.magnetId %>">
 <% _.each(headers, function(header, key){ %>
-                                            <% if(key == 'getConfig'){ %>
-                                            <td><%= model.attributes['getConfig'] %></td>
-                                            <% }else{ %>
-                                            <td><% if(model.attributes[key]){ %><% if(model.attributes[key].length > 0){ %><%- model.attributes[key] %><% } %><% } %></td>
-                                            <% } %>
+        <% if(key == 'getConfig'){ %>
+        <td><%= model.attributes['getConfig'] %></td>
+        <% }else{ %>
+        <td><% if(model.attributes[key]){ %><% if(model.attributes[key].length > 0){ %><%- model.attributes[key] %><% } %><% } %></td>
+        <% } %>
 <% }); %>
 <% if(!disableInfo){ %>
-                                          <td><button class="btn btn-default">Details</button></td>
+         <td><a href="" class="listview-link">More Info</a></td>
 <% } %>
-                                        </tr>
+    </tr>
 <% }); %>
 </script>
 <script id="paginationDetailView" type="text/template">

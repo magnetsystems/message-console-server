@@ -20,12 +20,14 @@ define(['jquery', 'backbone'], function($, Backbone){
             GlobalEventDispatcher.generalEventPubSub.bind('initRestart', function(params){
                 me.handleRestart(params);
             });
+            $('.radio-select input[type="radio"]').eq(0).prop('checked', true)
         },
         events: {
             'click .goBack': 'goBack',
             'click #user-panel-toggle': 'toggleUserPanel',
             'click .btn-toggle button': 'toggleSwitch',
-            'click .restart-server-btn': 'restartServer'
+            'click .restart-server-btn': 'restartServer',
+            'change .radio-select  input[type="radio"]': 'selectRadio'
         },
         goBack: function(e){
             e.preventDefault();
@@ -47,6 +49,12 @@ define(['jquery', 'backbone'], function($, Backbone){
             if(page){
                 $('#'+page).removeClass('hidden');
             }
+        },
+        selectRadio: function(e){
+            var radio = $(e.currentTarget);
+            var parent = radio.closest('.radio-select');
+            parent.find('.radio-item-container').addClass('hidden');
+            parent.find('#'+radio.val()).removeClass('hidden');
         },
         handleRestart: function(params){
             var me = this;
