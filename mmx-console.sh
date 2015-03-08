@@ -1,5 +1,9 @@
 #!/bin/bash
+
+# Change the following if it has been changed to use another port
 PORT_TO_CHECK=3000
+
+check_port=true
 
 PROG="mmx-console"
 PID_PATH="./"
@@ -38,7 +42,9 @@ start() {
 		echo "Error! $PROG is already running or you have a stale pid file. If $PROG is not running delete $PID_PATH/$PROG.pid file and restart" 1>&2
 		exit 1
 	else
-            check_ports
+            if [ $check_port == true ]; then
+                check_ports
+            fi
             check_node
 	    	if type -p nodejs >/dev/null; then
                 nohup nodejs start.js > mmx-console.out 2>&1&
@@ -70,6 +76,38 @@ stop() {
 	fi
 }
 
+print_usage() {
+    echo "Usage: mmx-console.sh [-p] {start|stop|restart}" >&2
+    echo >&2
+    echo "Start, stop, or restart the Magnet Messaging console." >&2
+    echo >&2
+    echo "Options:" >&2
+    echo "    [-p]    No port check when starting." >&2
+    echo >&2
+}
+
+if [ "$#" == 0 ] || [ "$#" -gt 2 ] ; then
+    print_usage
+    exit 1
+fi
+
+while getopts "p h" opt; do
+    case $opt in
+    p)
+        check_port=false
+        ;;
+    h)
+        print_usage
+        exit 1
+        ;;
+    \?)
+        print_usage
+        exit 1
+        ;;
+        esac
+done
+
+shift $((OPTIND-1))
 
 case "$1" in
 	start)
@@ -86,7 +124,7 @@ case "$1" in
 		exit 0
 		;;
 	**)
-		echo "Usage: $0 {start|stop|restart}" 1>&2
+		print_usage
 		exit 1
 		;;
 esac
