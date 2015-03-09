@@ -130,6 +130,16 @@ define(['jquery', 'backbone'], function($, Backbone){
             if(tog.find('.btn-info').size()>0)
                 tog.find('.btn').toggleClass('btn-info');
             tog.find('.btn').toggleClass('btn-default');
+            if(tog.attr('did') === 'enabled'){
+                var parent = tog.closest('.admin-config-item-container');
+                if(tog.find('.btn-primary').attr('did') == 'false'){
+                    parent.find('input, select').prop('disabled', true);
+                    parent.find('.btn-toggle[did!="enabled"] button').addClass('disabled');
+                }else{
+                    parent.find('input, select').prop('disabled', false);
+                    parent.find('.btn-toggle[did!="enabled"] button').removeClass('disabled');
+                }
+            }
         },
         restartServer: function(e){
             e.preventDefault();
