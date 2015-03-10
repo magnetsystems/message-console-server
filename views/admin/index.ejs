@@ -739,8 +739,8 @@
         <input type="text" name="port" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Port" value="<%- config.port %>" />
     </div>
     <div class="col-sm-6">
-        <label>Password</label>
-        <input type="password" name="password" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Password" value="" />
+        <label>Secret Key</label>
+        <input type="text" name="password" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Secret Key" value="" />
     </div>
     <div class="col-sm-4">
         <label>Flush Interval
@@ -770,8 +770,8 @@
             <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
         </div>
         <div class="col-sm-6">
-            <label>Port</label>
-            <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
+            <label>Web Port</label>
+            <input type="text" name="webPort" class="form-control" placeholder="Port" value="<%- config.webPort %>" />
         </div>
         <div class="col-sm-6">
             <label>Username</label>
@@ -780,6 +780,14 @@
         <div class="col-sm-6">
             <label>Password</label>
             <input type="password" name="password" class="form-control" placeholder="Password" value="" />
+        </div>
+        <div class="col-sm-6">
+            <label>Public API Port</label>
+            <input type="text" name="publicPort" class="form-control" placeholder="Public API Port" value="<%- config.publicPort %>" />
+        </div>
+        <div class="col-sm-6">
+            <label>Admin API Port</label>
+            <input type="text" name="adminPort" class="form-control" placeholder="Admin API Port" value="<%- config.adminPort %>" />
         </div>
     </div>
     <p><a href="/">Go to Mobile Messaging Console</a></p>

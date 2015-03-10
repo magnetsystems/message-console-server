@@ -49,8 +49,11 @@ module.exports = function(app){
             res.header('Content-Type', 'application/json');
             res.send(JSON.stringify({
                 provisioned : typeof data === 'object' && data.setupComplete && data.setupComplete === true,
+                msg         : data.code,
                 code        : code
             }), 200);
+        }, {
+            port : req.body.webPort
         });
     });
 

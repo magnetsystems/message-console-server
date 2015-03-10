@@ -214,7 +214,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                     return me.provisionMessaging(form, btn, obj, cb);
                 Alerts.Error.display({
                     title   : 'Connection Error',
-                    content : 'Unable to connect to the messaging server with the settings you provided. Please try again with a different hostname or port, and check your firewall configuration. '+(e ? '<br />Error: '+e : '')
+                    content : 'Unable to connect to the messaging server with the settings you provided. Please try again with a different hostname or port, and check your firewall configuration. '+(res.msg ? '<br />Error: '+res.msg : '')
                 });
             }, function(e){
                 me.options.eventPubSub.trigger('btnComplete', btn);

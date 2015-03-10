@@ -367,7 +367,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     if(e === 'not-found' || e === 'connect-error'){
                         return Alerts.Error.display({
                             title   : 'Messaging Server Not Found',
-                            content : 'The messaging server at "'+obj.host+':'+obj.port+'" could not be reached. Please try again with a different hostname or port, and check your firewall configuration.'
+                            content : 'The messaging server at "'+obj.host+'" could not be reached. Please try again with a different hostname or port, and check your firewall configuration.'
                         });
                     }
                 }else if(did == 'Database' || did == 'Redis'){
