@@ -4,8 +4,8 @@
         <li id="mgmt-users-tab" class="active"><a href="#/users">Accounts</a></li>
         <li id="mgmt-events-tab"><a href="#/events">Logs</a></li>
         <li id="mgmt-cms-tab"><a href="#/cms">Templates</a></li>
-        <li id="mgmt-actions-tab"><a href="#/actions">Server Configuration</a></li>
-        <li id="mgmt-messaging-tab"><a href="#/messaging">Messaging Configuration</a></li>
+        <li id="mgmt-actions-tab"><a href="#/actions">Configuration</a></li>
+        <!--<li id="mgmt-messaging-tab"><a href="#/messaging">Messaging Configuration</a></li>-->
     </ul>
     <div class="tab-content fullpos">
         <div class="tab-pane clearfix active" id="mgmt-users">
@@ -74,7 +74,7 @@
         <div class="tab-pane clearfix" id="mgmt-user-details">
         </div>
         <div class="tab-pane clearfix" id="mgmt-events">
-            <h3>Event Logging</h3>
+            <div class="admin-configuration-container"></div>
             <div id="mgmt-events-list" class="listview"></div>
         </div>
         <div class="tab-pane clearfix" id="mgmt-cms">
@@ -102,8 +102,8 @@
                                         <span class="cms-edit glyphicon bluetxt glyphicon-pencil disableable"></span>
                                     </div>
                                     <div class="btn-group btn-toggle" did="edittype">
-                                        <button class="btn btn-sm disabled btn-primary active" did="code" type="button">Code</button>
-                                        <button class="btn btn-sm disabled btn-default" did="preview" type="button">Preview</button>
+                                        <button class="btn btn-sm disabled btn-primary active" did="preview" type="button">Preview</button>
+                                        <button class="btn btn-sm disabled btn-default" did="code" type="button">Code</button>
                                     </div>
                                     <div did="readwrite" class="btn-group" data-toggle="buttons">
                                         <span did="save" class="cms-save glyphicon greentxt glyphicon-ok-circle disabled disableable"></span>
@@ -126,11 +126,11 @@
             </div>
         </div>
         <div class="tab-pane clearfix" id="mgmt-actions">
-            <h3>Server Configuration</h3>
+            <h3>Configuration</h3>
             <div class="alert alert-info" role="alert">
                 <strong>Note:</strong> Certain changes made to the configuration below will initiate a restart of the server.
             </div>
-            <div id="admin-configuration-container"></div>
+            <div class="admin-configuration-container"></div>
         </div>
         <div class="tab-pane clearfix" id="mgmt-messaging">
             <a href="/" class="btn btn-primary pull-right hidden-xs">Go to Messaging Console</a>
@@ -460,12 +460,12 @@
 
 <script id="AdminConfigurationTmpl" type="text/template">
     <div class="panel-group clearfix" id="admin-config-container-collapsible">
-        <% _.each(configs, function(val, key){ %>
+        <% _.each(allowed, function(key, i){ var val = configs[key] %>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#admin-config-container-collapsible" href="#admin-config-item-<%- key %>">
-                        <%- key.replace('Log', ' Logging').replace('Alerts', ' Alerts') %>
+                        <%- key === 'Email' ? 'Email Settings' : key.replace('Log', ' Log Settings').replace('Alerts', ' Alerts').replace('App', 'System Administration Settings').replace('Geologging', 'Geo Tracking').replace('MMX', 'Mobile Messaging Settings') %>
                     </a>
                 </h4>
             </div>
@@ -475,7 +475,7 @@
                         <div class="buttons-section">
                             <span class="alert-container"></span>
                             <div class="form-group clearfix">
-                            <%= renderConfigItem(key, val, configs) %>
+                            <%= renderConfigItem(key, val, configs, featureConfigs[key]) %>
                             </div>
                             <hr />
                             <div class="button-group clearfix">
@@ -510,16 +510,15 @@
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="If enabled, uncaught exceptions will be caught and logged. This is useful for production environments."></span>
         </label>
         <div class="btn-group btn-toggle clearfix" did="handleExceptions">
-            <button class="btn btn-sm <% if(config.handleExceptions === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-            <button class="btn btn-sm <% if(typeof config.handleExceptions == 'undefined' || config.handleExceptions === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+            <button class="btn btn-sm <% if(config.handleExceptions === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">On</button>
+            <button class="btn btn-sm <% if(typeof config.handleExceptions == 'undefined' || config.handleExceptions === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Off</button>
         </div>
     </div>
 </script>
 <script id="AdminConfigurationDatabaseTmpl" type="text/template">
-    <p>Modify the Admin Console database configuration.</p>
-    <div class="alert alert-info" role="alert">
-        <strong>Note:</strong> If you change to another database, you should make sure that the other
-        database has at least one admin user. Otherwise, you will not be able to log in.
+    <p>Modify the System Administration Console database settings.</p>
+    <div class="alert alert-danger" role="alert">
+        <strong>Warning:</strong> If the database is changed, the new database must have at least one admin user in order to login.
     </div>
     <div class="col-sm-4">
         <label>Hostname</label>
@@ -550,27 +549,27 @@
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
         </label>
         <div class="btn-group btn-toggle clearfix" did="enabled">
-            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
+            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
     </div>
     <div class="col-sm-4">
         <label>Cache Timeout
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Time in seconds before cached configuration is refreshed."></span>
         </label>
-        <input type="text" name="cacheTimeout" class="form-control" placeholder="time in seconds" value="<%- config.cacheTimeout %>" />
+        <input type="text" name="cacheTimeout" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="time in seconds" value="<%- config.cacheTimeout %>" />
     </div>
     <div class="col-sm-4">
         <label>Hostname</label>
-        <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
+        <input type="text" name="host" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Hostname" value="<%- config.host %>" />
     </div>
     <div class="col-sm-6">
         <label>Port</label>
-        <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
+        <input type="text" name="port" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Port" value="<%- config.port %>" />
     </div>
     <div class="col-sm-6">
         <label>Password</label>
-        <input type="password" name="pass" class="form-control" placeholder="Password" value="" />
+        <input type="password" name="pass" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Password" value="" />
     </div>
 </script>
 <script id="AdminConfigurationConsoleLogTmpl" type="text/template">
@@ -578,13 +577,13 @@
     <div class="col-sm-4">
         <label>Enabled</label>
         <div class="btn-group btn-toggle clearfix" did="enabled">
-            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
+            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
     </div>
     <div class="col-sm-4">
         <label>Log Level</label>
-        <select class="form-control" name="level">
+        <select class="form-control" <%- config.enabled === true ? '' : 'disabled="disabled"' %> name="level">
             <% _.each(levels, function(val, key){ %>
             <option value="<%- val %>" <% if(config.level === val){ %>selected="selected"<% } %>><%- val %></option>
             <% }); %>
@@ -592,17 +591,17 @@
     </div>
 </script>
 <script id="AdminConfigurationFileLogTmpl" type="text/template">
-    <p>System generated diagnostic logs can be written to log files.</p>
+    <p>Generate system diagnostic logs saved as log files.</p>
     <div class="col-sm-4">
         <label>Enabled</label>
         <div class="btn-group btn-toggle clearfix" did="enabled">
-            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
+            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
     </div>
     <div class="col-sm-4">
         <label>Log Level</label>
-        <select class="form-control" name="level">
+        <select class="form-control" <%- config.enabled === true ? '' : 'disabled="disabled"' %> name="level">
             <% _.each(levels, function(val, key){ %>
             <option value="<%- val %>" <% if(config.level === val){ %>selected="selected"<% } %>><%- val %></option>
             <% }); %>
@@ -612,23 +611,23 @@
         <label>Folder
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The folder to write log files, relative to the root directory."></span>
         </label></label>
-        <input type="text" name="folder" class="form-control" placeholder="Folder" value="<%- config.folder %>" />
+        <input type="text" name="folder" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Folder" value="<%- config.folder %>" />
     </div>
     <div class="col-sm-4">
         <label>Filename</label>
-        <input type="text" name="filename" class="form-control" placeholder="Filename" value="<%- config.filename %>" />
+        <input type="text" name="filename" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Filename" value="<%- config.filename %>" />
     </div>
     <div class="col-sm-4">
         <label>Maximum Size
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The maximum log file size before logs are written to a new file."></span>
         </label>
-        <input type="text" name="maxsize" class="form-control" placeholder="Maximum Size" value="<%- config.maxsize %>" />
+        <input type="text" name="maxsize" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Maximum Size" value="<%- config.maxsize %>" />
     </div>
     <div class="col-sm-4">
-        <label>Maximum Files
+        <label>Max Saved Files
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The maximum number of log files before logs are overwritten."></span>
         </label>
-        <input type="text" name="maxFiles" class="form-control" placeholder="Maximum Files" value="<%- config.maxFiles %>" />
+        <input type="text" name="maxFiles" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Maximum Files" value="<%- config.maxFiles %>" />
     </div>
 </script>
 <script id="AdminConfigurationEmailAlertsTmpl" type="text/template">
@@ -638,13 +637,13 @@
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The Email feature must first be enabled and configured correctly before email logs can be sent."></span>
         </label>
         <div class="btn-group btn-toggle" did="enabled">
-            <button class="btn btn-sm <% if(allConfigs.Email.enabled !== true){ %>disabled<%} %> <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-            <button class="btn btn-sm <% if(allConfigs.Email.enabled !== true){ %>disabled<%} %> <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+            <button class="btn btn-sm <% if(allConfigs.Email.enabled !== true){ %>disabled<%} %> <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
+            <button class="btn btn-sm <% if(allConfigs.Email.enabled !== true){ %>disabled<%} %> <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
     </div>
     <div class="col-sm-6">
         <label>Alert Level</label>
-        <select class="form-control" name="level">
+        <select class="form-control" <%- config.enabled === true ? '' : 'disabled="disabled"' %> name="level">
             <% _.each(levels, function(val, key){ %>
             <% if(['warn', 'error'].indexOf(val) != -1){ %>
             <option value="<%- val %>" <% if(config.level === val){ %>selected="selected"<% } %>><%- val %></option>
@@ -654,21 +653,21 @@
     </div>
     <div class="col-sm-12">
         <label>Recipient</label>
-        <input type="text" name="recipient" class="form-control" placeholder="Folder" value="<%- config.recipient %>" />
+        <input type="text" name="recipient" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Folder" value="<%- config.recipient %>" />
     </div>
 </script>
 <script id="AdminConfigurationDatabaseLogTmpl" type="text/template">
-    <p>Certain administrative and messaging events can be written to MySQL database and displayed in the <b>Logging</b> tab. </p>
+    <p>Certain administrative and messaging events can be written to MySQL database and displayed in the Logs. </p>
     <div class="col-sm-6 clearfix">
         <label>Enabled</label>
         <div class="btn-group btn-toggle clearfix" did="enabled">
-            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
+            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
     </div>
     <div class="col-sm-6 clearfix">
         <label>Log Level</label>
-        <select class="form-control" name="level">
+        <select class="form-control" <%- config.enabled === true ? '' : 'disabled="disabled"' %> name="level">
             <% _.each(levels, function(val, key){ %>
             <% if(['silly'].indexOf(val) == -1){ %>
             <option value="<%- val %>" <% if(config.level === val){ %>selected="selected"<% } %>><%- val %></option>
@@ -682,142 +681,144 @@
     <div class="col-sm-4 clearfix">
         <label>Enabled</label>
         <div class="btn-group btn-toggle" did="enabled">
-            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
+            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
     </div>
     <div class="col-sm-4 clearfix">
         <label>TLS</label>
         <div class="btn-group btn-toggle" did="tls">
-            <button class="btn btn-sm <% if(config.tls === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-            <button class="btn btn-sm <% if(typeof config.tls == 'undefined' || config.tls === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+            <button class="btn btn-sm <% if(config.tls === true){ %>btn-primary active<% }else{ %>btn-default<% } %> <%- config.enabled === true ? '' : 'disabled' %>" did="true" type="button">On</button>
+            <button class="btn btn-sm <% if(typeof config.tls == 'undefined' || config.tls === false){ %>btn-primary active<% }else{ %>btn-default<% } %>  <%- config.enabled === true ? '' : 'disabled' %>" did="false" type="button">Off</button>
         </div>
     </div>
     <div class="col-sm-4">
         <label>Sender</label>
-        <input type="text" name="sender" class="form-control" placeholder="ender" value="<%- config.sender %>" />
+        <input type="text" name="sender" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="ender" value="<%- config.sender %>" />
     </div>
     <div class="col-sm-6">
         <label>Hostname</label>
-        <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
+        <input type="text" name="host" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Hostname" value="<%- config.host %>" />
     </div>
     <div class="col-sm-6">
         <label>Port</label>
-        <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
+        <input type="text" name="port" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Port" value="<%- config.port %>" />
     </div>
     <div class="col-sm-6">
         <label>Username</label>
-        <input type="text" name="user" class="form-control" placeholder="Username" value="<%- config.user %>" />
+        <input type="text" name="user" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Username" value="<%- config.user %>" />
     </div>
     <div class="col-sm-6">
         <label>Password</label>
-        <input type="password" name="password" class="form-control" placeholder="Password" value="" />
+        <input type="password" name="password" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Password" value="" />
     </div>
 </script>
 <script id="AdminConfigurationGeologgingTmpl" type="text/template">
-    <p>Enable geologging to track user and device geographic locations.</p>
+    <p>Enable geographical tracking to store user and device geographic locations to database.</p>
     <div class="col-sm-4 clearfix">
         <label>Enabled</label>
         <div class="btn-group btn-toggle" did="enabled">
-            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Yes</button>
-            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">No</button>
+            <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
+            <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
     </div>
     <div class="col-sm-8">
         <label>XMPP Domain</label>
-        <input type="text" name="servername" class="form-control" placeholder="XMPP Domain" value="<%- config.servername %>" />
+        <input type="text" name="servername" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="XMPP Domain" value="<%- config.servername %>" />
     </div>
     <div class="col-sm-6">
         <label>XMPP Id</label>
-        <input type="text" name="jid" class="form-control" placeholder="XMPP Id" value="<%- config.jid %>" />
+        <input type="text" name="jid" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="XMPP Id" value="<%- config.jid %>" />
     </div>
     <div class="col-sm-6">
         <label>Hostname</label>
-        <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
+        <input type="text" name="host" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Hostname" value="<%- config.host %>" />
     </div>
     <div class="col-sm-6">
         <label>Port</label>
-        <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
+        <input type="text" name="port" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Port" value="<%- config.port %>" />
     </div>
     <div class="col-sm-6">
         <label>Password</label>
-        <input type="password" name="password" class="form-control" placeholder="Password" value="" />
+        <input type="password" name="password" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Password" value="" />
     </div>
     <div class="col-sm-4">
         <label>Flush Interval
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="To improve performance, set the amount of geolocation cache entries before they are stored to database."></span>
         </label>
-        <input type="text" name="flushInterval" class="form-control" placeholder="number of entries" value="<%- config.flushInterval %>" />
+        <input type="text" name="flushInterval" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="number of entries" value="<%- config.flushInterval %>" />
     </div>
     <div class="col-sm-4">
         <label>Expiration Timeout
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The time in minutes before a geolocation record is considered outdated and removed from the database."></span>
         </label>
-        <input type="text" name="expirationTimeout" class="form-control" placeholder="time in minutes" value="<%- config.expirationTimeout %>" />
+        <input type="text" name="expirationTimeout" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="time in minutes" value="<%- config.expirationTimeout %>" />
     </div>
     <div class="col-sm-4">
         <label>Cleanup Interval
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The interval in minutes when the database should be inspected to check for outdated geolocation records."></span>
         </label>
-        <input type="text" name="cleanupInterval" class="form-control" placeholder="time in minutes" value="<%- config.cleanupInterval %>" />
+        <input type="text" name="cleanupInterval" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="time in minutes" value="<%- config.cleanupInterval %>" />
     </div>
 </script>
 <script id="AdminConfigurationMMXTmpl" type="text/template">
-    <h5>Messaging Server Connectivity</h5>
+    <h5>Connectivity</h5>
     <hr />
     <div did="mmx-connect" class="form-group clearfix">
         <div class="col-sm-6">
             <label>Hostname</label>
-            <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.connect.host %>" />
+            <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
         </div>
         <div class="col-sm-6">
             <label>Port</label>
-            <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.connect.port %>" />
+            <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
         </div>
         <div class="col-sm-6">
             <label>Username</label>
-            <input type="text" name="user" class="form-control" placeholder="Username" value="<%- config.connect.user %>" />
+            <input type="text" name="user" class="form-control" placeholder="Username" value="<%- config.user %>" />
         </div>
         <div class="col-sm-6">
             <label>Password</label>
             <input type="password" name="password" class="form-control" placeholder="Password" value="" />
         </div>
     </div>
-    <h5>Configuration</h5>
+    <p><a href="/">Go to Mobile Messaging Console</a></p>
+    <h5>Settings</h5>
     <hr />
-    <% if(config.mmx){ %>
+    <% if(featureConfig){ %>
     <div did="mmx-config" class="form-group clearfix">
         <div class="col-sm-12">
             <label>Callback URL
                 <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The public url to be used by mobile clients for acknowledging push notifications."></span>
             </label>
-            <input type="text" name="push.callbackurl" class="form-control" placeholder="A public url" value="<%- config.mmx['push.callbackurl'] %>" />
+            <input type="text" name="push.callbackurl" class="form-control" placeholder="A public url" value="<%- featureConfig['push.callbackurl'] %>" />
         </div>
         <div class="col-sm-6">
             <label>Wakeup Frequency
                 <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Frequency in seconds for sending a wakeup to a device."></span>
             </label>
-            <input type="text" name="wakeup.frequency" class="form-control" placeholder="Frequency in seconds" value="<%- config.mmx['wakeup.frequency'] %>" />
+            <input type="text" name="wakeup.frequency" class="form-control" placeholder="Frequency in seconds" value="<%- featureConfig['wakeup.frequency'] %>" />
         </div>
         <div class="col-sm-6">
             <label>Retry Interval
                 <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The time interval in minutes between consecutive message retry attempts."></span>
             </label>
-            <input type="text" name="retry.interval.minutes" class="form-control" placeholder="Time interval in minutes" value="<%- config.mmx['retry.interval.minutes'] %>" />
+            <input type="text" name="retry.interval.minutes" class="form-control" placeholder="Time interval in minutes" value="<%- featureConfig['retry.interval.minutes'] %>" />
         </div>
         <div class="col-sm-6">
             <label>Retry Count
                 <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The count for the number of times a message delivery will be attempted."></span>
             </label>
-            <input type="text" name="retry.count" class="form-control" placeholder="message rate" value="<%- config.mmx['retry.count'] %>" />
+            <input type="text" name="retry.count" class="form-control" placeholder="message rate" value="<%- featureConfig['retry.count'] %>" />
         </div>
         <div class="col-sm-6">
             <label>Timeout Period
                 <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The time period in minutes after which server will stop attempting to deliver message."></span>
             </label>
-            <input type="text" name="timeout.period.minutes" class="form-control" placeholder="Timeout period in minutes" value="<%- config.mmx['timeout.period.minutes'] %>" />
+            <input type="text" name="timeout.period.minutes" class="form-control" placeholder="Timeout period in minutes" value="<%- featureConfig['timeout.period.minutes'] %>" />
         </div>
     </div>
+    <p><a href="{{- (envConfig.MMX.ssl ? 'https://' : 'http://')+envConfig.Geologging.servername+':'+envConfig.MMX.port }}">Advanced Settings</a></p>
     <% }else{ %>
     <div class="alert alert-danger" role="alert">
         <strong>Note:</strong> Unable to connect to the Messaging Server with the Messaging Server Connectivity parameters you provided. Please change the parameters and try again.

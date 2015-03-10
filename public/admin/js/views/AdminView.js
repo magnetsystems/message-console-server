@@ -25,13 +25,20 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 });
                 if(page == 'cms') me.getPageList();
                 if(page == 'actions') me.getConfig(function(configs){
-                    me.renderConfig(configs);
-                });
-                if(page == 'messaging') me.getConfig(function(config){
                     me.getMMXConfig(function(mmxconfig){
-                        me.renderMMXConfig(config, mmxconfig);
+                        me.renderConfig(page, configs, ['App', 'MMX', 'Database', 'Redis', 'Email', 'Geologging'], {
+                            MMX : mmxconfig
+                        });
                     });
-                }, 'MMX');
+                });
+                if(page == 'events') me.getConfig(function(configs){
+                    me.renderConfig(page, configs, ['DatabaseLog', 'FileLog', 'EmailAlerts']);
+                });
+//                if(page == 'messaging') me.getConfig(function(config){
+//                    me.getMMXConfig(function(mmxconfig){
+//                        me.renderMMXConfig(config, mmxconfig);
+//                    });
+//                }, 'MMX');
                 me.selectedPage = {};
                 $('#cms-folder-span, #cms-filename-span').text('');
             });
@@ -149,7 +156,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             };
             me.closeEditor();
             me.showLoading(parent);
-            me.resetCMSControls(parent);
+            me.resetCMSControls(null, parent);
             me.retrieveCMSPage(parent, me.selectedPage, function(data){
                 me.selectedPage.data = data;
                 $('#cms-content, #cms-preview').show();
@@ -162,8 +169,8 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             parent.find('.panel-heading div[did="readonly"] .disableable').removeClass('disabled');
             parent.find('.panel-heading div[did="readwrite"] .disableable').addClass('disabled');
             var tog = parent.find('.btn-toggle');
-            tog.find('button[did="preview"]').removeClass('btn-primary active').addClass('btn-default disabled');
-            tog.find('button[did="code"]').addClass('btn-primary active disabled').removeClass('btn-default');
+            tog.find('button[did="code"]').removeClass('btn-primary active').addClass('btn-default disabled');
+            tog.find('button[did="preview"]').addClass('btn-primary active disabled').removeClass('btn-default');
             $('#cms-editable-section').hide();
             $('#cms-preview').show();
         },
@@ -193,6 +200,9 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             panel.find('.panel-heading div[did="readonly"] .disableable').addClass('disabled');
             panel.find('.panel-heading div[did="readwrite"] .disableable').removeClass('disabled');
             panel.find('.panel-heading .btn-toggle button').removeClass('disabled');
+            var tog = panel.find('.btn-toggle');
+            tog.find('button[did="preview"]').removeClass('btn-primary active').addClass('btn-default');
+            tog.find('button[did="code"]').addClass('btn-primary active').removeClass('btn-default');
         },
         toggleEditingMode: function(e){
             var me = this;
@@ -300,7 +310,6 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         getConfig: function(cb, config){
             var me = this;
             me.options.mc.query('configs'+(config ? '/'+config : ''), 'GET', null, function(res){
-                if(res.MMX) delete res.MMX;
                 cb(res);
             }, null, null, function(e){
                 alert(e);
@@ -425,28 +434,26 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             parent.find('.buttons-section').hide();
             parent.find('.buttons-section.loading').show();
         },
-        renderConfig: function(configs){
-            var configContainer = $('#admin-configuration-container');
+        renderConfig: function(page, configs, allowed, featureConfigs){
+            allowed = allowed || [];
+            featureConfigs = featureConfigs || {};
+            var configContainer = $('#mgmt-'+page).find('.admin-configuration-container');
             configContainer.html(_.template($('#AdminConfigurationTmpl').html(), {
                 configs          : configs,
+                featureConfigs   : featureConfigs,
+                allowed          : allowed,
                 renderConfigItem : this.renderConfigItem
             })).find('.glyphicon-info-sign').tooltip();
         },
-        renderMMXConfig: function(config, mmxconfig){
-            var configContainer = $('#admin-mmx-configuration-container');
-            configContainer.html(this.renderConfigItem('MMX', {
-                connect : config,
-                mmx     : mmxconfig
-            }, {})).find('.glyphicon-info-sign').tooltip();
-        },
-        renderConfigItem: function(section, config, allConfigs){
+        renderConfigItem: function(section, config, allConfigs, featureConfig){
             var tmpl = $('#AdminConfiguration'+section+'Tmpl');
             if(!tmpl.length) return '';
             return _.template($('#AdminConfiguration'+section+'Tmpl').html(), {
-                section    : section,
-                levels     : ['silly', 'debug', 'verbose', 'info', 'warn', 'error'],
-                config     : config,
-                allConfigs : allConfigs
+                section       : section,
+                levels        : ['silly', 'debug', 'verbose', 'info', 'warn', 'error'],
+                config        : config,
+                allConfigs    : allConfigs,
+                featureConfig : featureConfig
             });
         },
         onShareDBClick: function(e){

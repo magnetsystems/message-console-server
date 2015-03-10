@@ -237,6 +237,7 @@ a.glyphicon{text-decoration:none}
 .footer{text-align:center;font-size:11px;color:#555;clear:both}
 
 /* admin */
+#admin h3{margin-top:0}
 #admin .nav-tabs{padding-left:15px;margin-top:15px}
 #admin .nav{margin-bottom:-1px}
 #admin .nav-tabs > li > a{outline:none;border:none;font-weight:500}
@@ -292,7 +293,7 @@ a.glyphicon{text-decoration:none}
 
 #mmxapp-list-container .panel-title{display:inline}
 #mmxapp-list-container .col-sm-7, #mmxapp-list-container .col-sm-5{padding:0}
-#mmxapp-list-container .form-control{height:28px;padding:0 12px}
+#mmxapp-list-container .form-control{height:21px;padding:0 12px}
 
 @media only screen and (max-width:991px){
     .page-view{padding:0;border-radius:0;border-left:none;border-right:none}

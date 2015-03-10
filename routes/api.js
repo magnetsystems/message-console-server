@@ -255,6 +255,16 @@ module.exports = function(app){
         });
     });
 
+    app.get('/rest/apps/:id/notifications', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getAppNotifications(req.session.user.id, req.params.id, req.query, req, function(e, response){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(response, 200);
+            }
+        });
+    });
+
     app.get('/rest/apps/:id/stats', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         MMXManager.getAppStats(req.session.user.magnetId, req.params.id, function(e, response){
             if(e){
@@ -276,11 +286,41 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/:id/users', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getAppUsers(req.session.user.id, req.params.id, req.query, function(e, response){
+        MMXManager.getAppUsers(req.session.user.id, req.params.id, req.query, req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
                 res.send(response, 200);
+            }
+        });
+    });
+
+    app.post('/rest/apps/:id/users', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.createAppUser(req.session.user.id, req.params.id, req.body, function(e, response){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('ok', 201);
+            }
+        });
+    });
+
+    app.put('/rest/apps/:id/users/:userId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.updateAppUser(req.session.user.id, req.params.id, req.params.userId, req.body, function(e, response){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('ok', 200);
+            }
+        });
+    });
+
+    app.delete('/rest/apps/:id/users/:userId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.deleteAppUser(req.session.user.id, req.params.id, req.params.userId, function(e, response){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('ok', 200);
             }
         });
     });
