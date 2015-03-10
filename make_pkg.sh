@@ -37,6 +37,7 @@ ln -s $SCRIPT_DIR/public
 ln -s $SCRIPT_DIR/routes
 ln -s $SCRIPT_DIR/views
 ln -s $SCRIPT_DIR/node_modules
+ln -s $SCRIPT_DIR/mmx-console.bat
 ln -s $SCRIPT_DIR/mmx-console.sh
 
 #create the tar!
