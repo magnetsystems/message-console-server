@@ -408,6 +408,16 @@ module.exports = function(app){
         });
     });
 
+    app.get('/rest/apps/:id/devices/:did/tags', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.getDeviceTags(req.session.user.id, req.params.id, req.params.did, req, function(e, response){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(response, 200);
+            }
+        });
+    });
+
     app.get('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         MMXManager.getAppTopics(req.session.user.id, req.params.id, req.query, function(e, response){
             if(e){
