@@ -30,7 +30,7 @@
             </div>
             <div did="database" class="step-pane sample-pane alert" data-step="2">
                 <h4>Setup Database</h4>
-                <p>Configure a system database which will be used to store all of your data. </p>
+                <p>Configure a MySQL system database which will be used to store all of your data. To get started, download and install the MySQL Community Server which can be found at the <a href="http://dev.mysql.com/downloads/mysql/" target="_blank">MySQL website</a>.</p>
                 <hr />
                 <div id="wizard-db-container"></div>
                 <div class="button-group clearfix">
@@ -105,17 +105,15 @@
         <strong>All Ready!</strong> Your Database configuration has already been configured.
     </div>
     <% }else{ %>
-    <p>MySQL is adequate for most application use cases. More information can be found at <a href="http://www.mysql.com">MySQL website</a>.
-        Postgres is adequate for most application use cases. More information can be found at <a href="http://www.postgresql.org">PostgresSQL website</a>. </p>
     <form id="wizard-database-form" role="form" class="clearfix">
         <div class="form-group">
-            <div class="col-md-12">
-                <label>Select a database type</label>
-                <select class="form-control" name="dialect">
-                    <option value="mysql">MySQL</option>
-                    <option value="postgres">Postgres</option>
-                </select>
-            </div>
+            <!--<div class="col-md-12">-->
+                <!--<label>Select a database type</label>-->
+                <!--<select class="form-control" name="dialect">-->
+                    <!--<option value="mysql">MySQL</option>-->
+                    <!--<option value="postgres">Postgres</option>-->
+                <!--</select>-->
+            <!--</div>-->
             <form role="form" class="clearfix">
                 <span class="alert-container"></span>
                 <div class="form-group">
@@ -195,10 +193,10 @@
                 <input type="text" class="form-control" name="host" placeholder="Hostname" value="localhost" />
             </div>
             <div class="col-sm-6">
-                <label>Messaging Domain
+                <label>Service Domain
                     <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="This domain or IP address must be reachable by the mobile devices or emulators using your messaging app."></span>
                 </label>
-                <input type="text" name="xmppDomain" class="form-control" placeholder="Messaging Domain" value="{{= typeof serverIP !== 'undefined' ? serverIP : 'localhost'}}" />
+                <input type="text" name="xmppDomain" class="form-control" placeholder="Service Domain" value="{{= typeof serverIP !== 'undefined' ? serverIP : 'localhost'}}" />
             </div>
         </div>
         <div class="panel-group clearfix" id="wizard-messaging-advanced-config">

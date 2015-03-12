@@ -722,13 +722,18 @@
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
     </div>
-    <div class="col-sm-8">
-        <label>XMPP Domain</label>
-        <input type="text" name="servername" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="XMPP Domain" value="<%- config.servername %>" />
+
+    <div class="col-sm-4">
+        <label>Connection State</label>
+        <div id="geotracking-connectivity-container"></div>
+    </div>
+    <div class="col-sm-4">
+        <label>Service Domain</label>
+        <input type="text" name="servername" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Service Domain" value="<%- config.servername %>" />
     </div>
     <div class="col-sm-6">
-        <label>XMPP Id</label>
-        <input type="text" name="jid" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="XMPP Id" value="<%- config.jid %>" />
+        <label>Service Id</label>
+        <input type="text" name="jid" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Service Id" value="<%- config.jid %>" />
     </div>
     <div class="col-sm-6">
         <label>Hostname</label>
@@ -740,7 +745,7 @@
     </div>
     <div class="col-sm-6">
         <label>Secret Key</label>
-        <input type="text" name="password" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Secret Key" value="" />
+        <input type="text" name="secretkey" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Secret Key" value="<%- config.secretkey %>" />
     </div>
     <div class="col-sm-4">
         <label>Flush Interval

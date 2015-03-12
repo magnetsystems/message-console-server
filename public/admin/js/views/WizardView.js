@@ -88,6 +88,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             var btn = form.closest('.step-pane').find('.wiz-next');
             utils.resetError(form);
             obj = obj || utils.collect(form);
+            obj.dialect = 'mysql';
             if(!this.isValid(form, obj, ['password'])) return;
             obj.port = parseInt(obj.port);
             me.options.eventPubSub.trigger('btnLoading', btn);

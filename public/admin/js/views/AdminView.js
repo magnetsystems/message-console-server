@@ -29,6 +29,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                         me.renderConfig(page, configs, ['App', 'MMX', 'Database', 'Redis', 'Email', 'Geologging'], {
                             MMX : mmxconfig
                         });
+                        me.getGeotrackingState();
                     });
                 });
                 if(page == 'events') me.getConfig(function(configs){
@@ -139,6 +140,19 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 callback(data);
             }, null, null, function(){
                 me.hideLoading(parent);
+            });
+        },
+        getGeotrackingState: function(){
+            var me = this;
+            var geoConnectivity = $('#geotracking-connectivity-container');
+            me.options.mc.query('getGeotrackingState', 'GET', null, function(data){
+                if(data.enabled){
+                    geoConnectivity.html((data.connectivity === true ? '<label class="label label-success">Connected</label>' : '<label class="label label-danger">Not Connected</label>') + ((data.connectivity === false && data.lastConnected) ? ' last connected '+data.lastConnected : '' ));
+                }else{
+                    geoConnectivity.html('<label class="label label-default">Not Enabled</label>');
+                }
+            }, null, null, function(){
+                geoConnectivity.html('<label class="label label-default">Not Enabled</label>');
             });
         },
         selectPage: function(e, dom){
@@ -350,6 +364,8 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                                 me.renderMMXConfig(config, mmxconfig);
                             });
                         }, 'MMX');
+                    if(did == 'Geologging')
+                        me.getGeotrackingState();
                     Alerts.General.display({
                         title   : did+' Config Updated Successfully',
                         content : 'The configuration for section <b>'+did+'</b> has been updated successfully.'

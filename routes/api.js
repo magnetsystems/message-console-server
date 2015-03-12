@@ -753,6 +753,11 @@ module.exports = function(app){
     });
 
     // return server statistics
+    app.get('/rest/getGeotrackingState', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
+        res.send(Geologger.serviceState);
+    });
+
+    // return server statistics
     app.get('/rest/stats', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
         res.send({
             'Hostname'        : require('os').hostname(),
