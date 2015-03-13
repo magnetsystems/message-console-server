@@ -338,13 +338,13 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             });
         },
         // update configuration
-        saveConfig: function(e){
+        saveConfig: function(e, btn, obj){
             var me = this;
-            var btn = $(e.currentTarget);
+            btn = btn || $(e.currentTarget);
             var container = btn.closest('.admin-config-item-container');
             var did = container.attr('did');
             utils.resetError(container);
-            var obj = utils.collect(container, false, false, true);
+            obj = obj || utils.collect(container, false, false, true);
             var optionals = [];
             if(did == 'Database') optionals = ['password'];
             if(did == 'Redis') optionals = ['pass'];
@@ -386,6 +386,48 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                             content : 'The messaging server at "'+obj.host+'" could not be reached. Please try again with a different hostname or port, and check your firewall configuration.'
                         });
                     }
+                }else if(did == 'Database'){
+                    if(e == 'ER_BAD_DB_ERROR'){
+                        return Alerts.Confirm.display({
+                            title   : 'Database Does Not Exist',
+                            content : 'The database "'+obj.dbName+'" does not exist. If the database credentials you specified have authority to create a database, click <b>Yes</b> to have the server create the database automatically. Otherwise, click <b>No</b> to try again with another database name.'
+                        }, function(){
+                            obj.createDatabase = true;
+                            me.saveConfig(null, btn, obj);
+                        });
+                    }
+                    if(e == 'DB_ALREADY_EXISTS'){
+                        return Alerts.Confirm.display({
+                            title   : 'Database Already Exists',
+                            content : 'The database "'+obj.dbName+'" already exists. If you would like to use this database, click <b>Yes</b> to have the server connect to this database non-destructively and add any additional tables as necessary. Otherwise, click <b>No</b> to try again with another database name.'
+                        }, function(){
+                            obj.createDatabase = true;
+                            me.saveConfig(null, btn, obj);
+                        });
+                    }
+                    if(e == 'ENOTFOUND'){
+                        return Alerts.Error.display({
+                            title   : 'Not Found',
+                            content : 'There was no database server found at the hostname and port you specified.'
+                        });
+                    }
+                    if(e == 'ER_CONNREFUSED'){
+                        return Alerts.Error.display({
+                            title   : 'Connection Refused',
+                            content : 'The server at the hostname and port you specified refused the connection.'
+                        });
+                    }
+                    if(e == 'ER_DBACCESS_DENIED_ERROR' || e === 'ER_ACCESS_DENIED_ERROR'){
+                        return Alerts.Error.display({
+                            title   : 'Access Denied',
+                            content : 'The database credentials you specified did not have authority to access the database you specified.'
+                        });
+                    }
+                    if(!e) e = 'Connection timed out. Please make sure you can reach the mysql server at the hostname and port you specified.';
+                    return Alerts.Error.display({
+                        title   : 'Connection Error',
+                        content : 'Unable to connect to the database with the settings you provided. <br />'+e
+                    });
                 }else if(did == 'Database' || did == 'Redis'){
                     Alerts.Error.display({
                         title   : 'Connection Error',
@@ -404,6 +446,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 }
             }, null, {
                 redirectPort : (did == 'App') ? obj.port : null,
+                timeout      : 15000,
                 cb           : function(location){
                     me.hideLoading(container);
                     $.ajax({

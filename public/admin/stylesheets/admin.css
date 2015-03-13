@@ -195,6 +195,7 @@ a.glyphicon{text-decoration:none}
 .rounded{border:solid 1px #ddd;border-radius:4px;padding:8px;cursor:pointer}
 .rounded:hover{background-color:#F5F5F5}
 .fixed{position:fixed;top:130px;right:60px}
+.glyphicon-info-sign{font-size:15px;color:#036285}
 
 /* loading bar */
 #loadingBar{display:table;position:absolute;top:0;left:0;width:100%;height:100%;background:#000;opacity:.8;z-index:1100;float:none}
@@ -259,7 +260,6 @@ a.glyphicon{text-decoration:none}
 
 #admin #cms-menu .nav-list > li > a{padding:5px 10px;margin:0 3px}
 #admin #cms-menu .nav-list > li.active a{background:#168ccc;color:#fff}
-#mgmt-users .radio-select .glyphicon-info-sign{font-size:15px;color:#036285}
 #mgmt-cms .panel{border-radius:0}
 #mgmt-cms .panel-body{padding:0}
 #mgmt-cms .panel-heading{border-radius:0}

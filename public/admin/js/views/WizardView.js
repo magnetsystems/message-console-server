@@ -122,10 +122,22 @@ define(['jquery', 'backbone'], function($, Backbone){
                         me.setupDB(cb, obj);
                     });
                 }
-                if(e == 'ER_DBACCESS_DENIED_ERROR'){
+                if(e == 'ENOTFOUND'){
+                    return Alerts.Error.display({
+                        title   : 'Not Found',
+                        content : 'There was no database server found at the hostname and port you specified.'
+                    });
+                }
+                if(e == 'ER_CONNREFUSED'){
+                    return Alerts.Error.display({
+                        title   : 'Connection Refused',
+                        content : 'The server at the hostname and port you specified refused the connection.'
+                    });
+                }
+                if(e == 'ER_DBACCESS_DENIED_ERROR' || e === 'ER_ACCESS_DENIED_ERROR'){
                     return Alerts.Error.display({
                         title   : 'Access Denied',
-                        content : 'The database credentials you specified did not have authority to query the database.'
+                        content : 'The database credentials you specified did not have authority to access the database you specified.'
                     });
                 }
                 if(!e) e = 'Connection timed out. Please make sure you can reach the mysql server at the hostname and port you specified.';

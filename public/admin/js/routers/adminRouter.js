@@ -12,7 +12,7 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             // init HTTP request methods
             // session timeout notification is disabled
             this.opts = {};
-            this.sessionMgr = new SessionManager();
+//            this.sessionMgr = new SessionManager();
             $(document).ajaxComplete(function(e, xhr){
                 if(xhr.skipStatusCheck) return;
                 if(xhr.status == 278){
@@ -20,7 +20,7 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
                 }else if(xhr.status == 279){
                     window.location.href = '/?status=locked';
                 }else{
-                    me.sessionMgr.reset();
+//                    me.sessionMgr.reset();
                 }
             });
             this.httpreq = new HTTPRequest('/rest/');
