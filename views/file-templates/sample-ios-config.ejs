@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>default</key>
+        <dict>
+            <key>BaseURL</key>
+            <string>mmx://{{=config.host || ''}}:5223</string>
+            <key>AppId</key>
+            <string>{{=params.appId || ''}}</string>
+            <key>ApiKey</key>
+            <string>{{=params.appAPIKey || ''}}</string>
+            <key>GuestSecret</key>
+            <string>{{=params.guestSecret || ''}}</string>
+            <key>ShouldForceTLS</key>
+            <false/>
+        </dict>
+    </dict>
+</plist>

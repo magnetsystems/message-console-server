@@ -2,6 +2,7 @@ var UserManager = require('../lib/UserManager')
 , AccountManager = require('../lib/AccountManager')
 , ModelManager = require('../lib/ModelManager')
 , MMXManager = require('../lib/MMXManager')
+, MMXSampleApp = require('../lib/MMXSampleApp')
 , EmailService = require('../lib/EmailService')
 , magnetId = require('node-uuid')
 , _ = require('underscore')
@@ -469,6 +470,19 @@ module.exports = function(app){
                     targetModel : 'publish-to-topic',
                     targetId    : req.params.id
                 });
+            }
+        });
+    });
+
+    app.get('/rest/apps/:id/sample', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        var platform = (req.query && req.query.platform && (req.query.platform == 'android' || req.query.platform == 'ios')) ? req.query.platform : 'android';
+        MMXSampleApp.getSample(req.session.user.magnetId, req.params.id, platform, function(e, content){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.contentType('application/zip');
+                res.setHeader('Content-disposition', 'attachment; filename='+platform+'_messaging_sample_app.zip');
+                res.end(content, 'utf-8');
             }
         });
     });

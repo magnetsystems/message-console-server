@@ -3,6 +3,7 @@
   "version": "1.0.0-SNAPSHOT",
   "private": true,
   "dependencies": {
+    "adm-zip": "^0.4.7",
     "bcryptjs": "^2.1.0",
     "connect-redis": "1.4.5",
     "ejs": "0.7.1",

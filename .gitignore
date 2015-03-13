@@ -16,6 +16,10 @@ log
 
 public-build
 
+
+quickstart-android
+quickstart-ios
+
 npm-debug.log
 node_modules
 
