@@ -39,6 +39,12 @@ ln -s $SCRIPT_DIR/views
 ln -s $SCRIPT_DIR/node_modules
 ln -s $SCRIPT_DIR/mmx-console.bat
 ln -s $SCRIPT_DIR/mmx-console.sh
+if [ -d "$SCRIPT_DIR/quickstart-android" ]; then
+  ln -s $SCRIPT_DIR/quickstart-android
+fi
+if [ -d "$SCRIPT_DIR/quickstart-ios" ]; then
+  ln -s $SCRIPT_DIR/quickstart-ios
+fi
 
 #create the tar!
 cd ..
