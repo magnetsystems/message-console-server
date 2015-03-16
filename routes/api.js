@@ -459,6 +459,36 @@ module.exports = function(app){
         });
     });
 
+    app.post('/rest/apps/:id/topics/:tid/tags', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.addTopicTags(req.session.user.id, req.params.id, encodeURIComponent(req.params.tid), req.body, req, function(e, response){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(response, 200);
+                winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') added tags to app topic "'+req.params.id+'"', {
+                    userId      : req.session.user.id,
+                    targetModel : 'add-topic-tags',
+                    targetId    : req.params.id
+                });
+            }
+        });
+    });
+
+    app.post('/rest/apps/:id/topics/:tid/deleteTags', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.removeTopicTags(req.session.user.id, req.params.id, encodeURIComponent(req.params.tid), req.body, req, function(e, response){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(response, 200);
+                winston.verbose('Messaging: user "'+req.session.user.email+'"('+req.session.user.magnetId+') removed tags from app topic "'+req.params.id+'"', {
+                    userId      : req.session.user.id,
+                    targetModel : 'remove-topic-tags',
+                    targetId    : req.params.id
+                });
+            }
+        });
+    });
+
     app.post('/rest/apps/:id/topics/:tid/publish', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         MMXManager.publishToTopic(req.session.user.id, req.params.id, req.params.tid, req.body, function(e, response){
             if(e){
