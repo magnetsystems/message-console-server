@@ -25,6 +25,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                 dbName   : 'magnetmessaging',
                 username : 'root'
             };
+            me.messagingCompleteStatusModal = $('#messaging-provision-status-modal');
         },
         events: {
             'click .actions button': 'stepChanged',
@@ -244,14 +245,19 @@ define(['jquery', 'backbone'], function($, Backbone){
             var me = this;
             me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/setMessaging', 'POST', 'application/json', obj, function(res){
-                me.options.eventPubSub.trigger('btnComplete', btn);
                 if(!$('#wizard-messaging-container > .alert').length){
                     $('#wizard-messaging-container').prepend(_.template($('#WizardMessagingTmpl').html(), {
                         active : true
                     }));
                 }
                 form.find('input[name^="password"]').val('');
-                cb();
+                if(obj.skipProvisioning){
+                    me.options.eventPubSub.trigger('btnComplete', btn);
+                    cb();
+                }else{
+                    me.messagingCompleteStatusModal.modal('show');
+                    me.pollMessagingCompleteStatus(btn, cb);
+                }
             }, function(e){
                 me.options.eventPubSub.trigger('btnComplete', btn);
                 Alerts.Error.display({
@@ -260,6 +266,26 @@ define(['jquery', 'backbone'], function($, Backbone){
                 });
             }, null, {
                 timeout : 120000
+            });
+        },
+        pollMessagingCompleteStatus: function(btn, cb){
+            var me = this;
+            var id = '#messaging-provision-status-refresh';
+            me.polling = true;
+            timer.poll(function(loop){
+                me.checkMessagingCompleteStatus(function(){
+                    timer.stop(id);
+                    me.messagingCompleteStatusModal.modal('hide');
+                    me.options.eventPubSub.trigger('btnComplete', btn);
+                    cb();
+                }, function(xhr){
+                    loop.paused = false;
+                });
+            }, 1000 * 5 * 1, id);
+        },
+        checkMessagingCompleteStatus: function(cb, fb){
+            AJAX('admin/messagingCompleteStatus', 'GET', 'application/json', null, cb, fb, null, {
+                timeout : 15000
             });
         },
         completeWizard: function(e){

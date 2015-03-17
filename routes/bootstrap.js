@@ -57,6 +57,16 @@ module.exports = function(app){
         });
     });
 
+    app.get('/rest/admin/messagingCompleteStatus', function(req, res){
+        MMXManager.getConfigs('', function(e, configs){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(configs, 200);
+            }
+        });
+    });
+
     app.post('/rest/admin/completeInstall', function(req, res){
         ConfigManager.completeInstall(function(e){
             if(e) return res.send(e, 400);
