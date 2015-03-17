@@ -167,11 +167,19 @@
         <div class="form-group">
             <div class="col-md-6">
                 <label>Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Password" value="" />
+                <div class="toggling-password-input">
+                    <span class="glyphicon glyphicon-eye-open hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
+                    <span class="glyphicon glyphicon-eye-close" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
+                    <input type="password" class="form-control toggling-password-input" name="password" placeholder="Password" value="" />
+                </div>
             </div>
             <div class="col-md-6">
                 <label>Password (repeat)</label>
-                <input type="password" class="form-control" name="passwordVerify" placeholder="Password (repeat)" value="" />
+                <div class="toggling-password-input">
+                    <span class="glyphicon glyphicon-eye-open hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
+                    <span class="glyphicon glyphicon-eye-close" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
+                    <input type="password" class="form-control  toggling-password-input" name="passwordVerify" placeholder="Password (repeat)" value="" />
+                </div>
             </div>
         </div>
     </form>
@@ -267,10 +275,12 @@
                                 <input type="text" class="form-control" name="user" placeholder="Username" value="admin" />
                             </div>
                             <div class="col-md-6">
-                                <label>Messaging Password
-                                    <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The default password is 'admin'."></span>
-                                </label>
-                                <input type="password" class="form-control" name="password" placeholder="Password" value="admin" />
+                                <label>Messaging Password</label>
+                                <div class="toggling-password-input">
+                                    <span class="glyphicon glyphicon-eye-open hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
+                                    <span class="glyphicon glyphicon-eye-close" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
+                                    <input type="password" class="form-control toggling-password-input" name="password" placeholder="Password" value="admin" />
+                                </div>
                             </div>
                             <div class="col-sm-6">
                                 <label>Messaging Port</label>

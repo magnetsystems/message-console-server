@@ -35,6 +35,15 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 if(page == 'events') me.getConfig(function(configs){
                     me.renderConfig(page, configs, ['DatabaseLog', 'FileLog', 'EmailAlerts']);
                 });
+                if(page == 'overview') me.getConfig(function(configs){
+                    me.getMMXConfig(function(mmxconfig){
+                        me.getServerStats(function(stats){
+                            me.renderOverview(configs, mmxconfig, stats);
+                            me.getGeotrackingState();
+                            me.setMessagingState(mmxconfig);
+                        });
+                    });
+                });
 //                if(page == 'messaging') me.getConfig(function(config){
 //                    me.getMMXConfig(function(mmxconfig){
 //                        me.renderMMXConfig(config, mmxconfig);
@@ -144,16 +153,24 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         },
         getGeotrackingState: function(){
             var me = this;
-            var geoConnectivity = $('#geotracking-connectivity-container');
+            var geoConnectivity = $('.geotracking-connectivity-container');
             me.options.mc.query('getGeotrackingState', 'GET', null, function(data){
                 if(data.enabled){
-                    geoConnectivity.html((data.connectivity === true ? '<label class="label label-success">Connected</label>' : '<label class="label label-danger">Not Connected</label>') + ((data.connectivity === false && data.lastConnected) ? ' last connected '+data.lastConnected : '' ));
+                    geoConnectivity.html((data.connectivity === true ? '<label class="label label-success">Connected</label>' : '<label class="label label-danger">Not Connected</label>') + ((data.connectivity === false && data.lastConnected) ? ' <span>last connected: '+utils.ISO8601ToDT(data.lastConnected)+'</span>' : '' ));
                 }else{
                     geoConnectivity.html('<label class="label label-default">Not Enabled</label>');
                 }
             }, null, null, function(){
                 geoConnectivity.html('<label class="label label-default">Not Enabled</label>');
             });
+        },
+        setMessagingState: function(available){
+            var dom = $('.messaging-connectivity-container');
+            if(available){
+                dom.html('<label class="label label-success">Connected</label>');
+            }else{
+                dom.html('<label class="label label-danger">Not Connected</label>');
+            }
         },
         selectPage: function(e, dom){
             if(e) e.preventDefault();
@@ -337,6 +354,14 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 cb();
             });
         },
+        getServerStats: function(cb){
+            var me = this;
+            me.options.mc.query('stats', 'GET', null, function(res){
+                cb(res);
+            }, null, null, function(e){
+                cb();
+            });
+        },
         // update configuration
         saveConfig: function(e, btn, obj){
             var me = this;
@@ -493,6 +518,13 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             parent.find('.buttons-section').hide();
             parent.find('.buttons-section.loading').show();
         },
+        renderOverview: function(configs, mmxconfig, stats){
+            $('#mgmt-overview').html(_.template($('#AdminOverviewTmpl').html(), {
+                configs   : configs,
+                mmxconfig : mmxconfig,
+                stats     : stats
+            })).find('.glyphicon-info-sign').tooltip();
+        },
         renderConfig: function(page, configs, allowed, featureConfigs){
             allowed = allowed || [];
             featureConfigs = featureConfigs || {};
@@ -502,7 +534,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 featureConfigs   : featureConfigs,
                 allowed          : allowed,
                 renderConfigItem : this.renderConfigItem
-            })).find('.glyphicon-info-sign').tooltip();
+            })).find('.glyphicon-info-sign, .toggling-password-input .glyphicon').tooltip();
         },
         renderConfigItem: function(section, config, allConfigs, featureConfig){
             var tmpl = $('#AdminConfiguration'+section+'Tmpl');

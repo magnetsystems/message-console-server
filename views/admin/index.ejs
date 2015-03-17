@@ -1,6 +1,7 @@
 
 <div id="admin" class="page">
     <ul class="nav nav-tabs">
+        <li id="mgmt-overview-tab" class="active"><a href="#/overview">Overview</a></li>
         <li id="mgmt-users-tab" class="active"><a href="#/users">Accounts</a></li>
         <li id="mgmt-events-tab"><a href="#/events">Logs</a></li>
         <li id="mgmt-cms-tab"><a href="#/cms">Templates</a></li>
@@ -8,7 +9,9 @@
         <!--<li id="mgmt-messaging-tab"><a href="#/messaging">Messaging Configuration</a></li>-->
     </ul>
     <div class="tab-content fullpos">
-        <div class="tab-pane clearfix active" id="mgmt-users">
+        <div class="tab-pane clearfix active" id="mgmt-overview">
+        </div>
+        <div class="tab-pane clearfix" id="mgmt-users">
             <div class="radio-select">
                 <div>
                     <input type="radio" class="clearfix" name="mgmt-user-creation-radio" value="mgmt-user-creation-invite" />
@@ -161,7 +164,145 @@
     </div>
 </div>
 <div id="download-container" class="hidden"></div>
+
+
 <!-- views start -->
+<script id="AdminOverviewTmpl" type="text/template">
+
+    <h5>Status</h5>
+    <div class="panel panel-default form-group clearfix">
+        <div class="col-sm-3">
+            <label>Messaging Status</label>
+            <div class="messaging-connectivity-container"></div>
+        </div>
+    </div>
+
+    <h5>Environment</h5>
+    <div class="panel panel-default form-group clearfix">
+        <div class="col-sm-3">
+            <label>Domain Name</label>
+            <span><%- configs.Geologging.servername %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>Host Name</label>
+            <span><%- configs.MMX.host %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>Log Directory</label>
+            <span><%- configs.FileLog.folder %></span>
+        </div>
+    </div>
+
+    <h5>Admin Server Database</h5>
+    <div class="panel panel-default form-group clearfix">
+        <div class="col-sm-3">
+            <label>Database Name</label>
+            <span><%- configs.Database.dbName %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>Host Hame</label>
+            <span><%- configs.Database.host %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>Port</label>
+            <span><%- configs.Database.port %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>Username</label>
+            <span><%- configs.Database.username %></span>
+        </div>
+    </div>
+
+    <% if(stats.mmx && stats.mmx.dbName){ %>
+    <h5>Messaging Server Database</h5>
+    <div class="panel panel-default form-group clearfix">
+        <div class="col-sm-3">
+            <label>Database Name</label>
+            <span><%- stats.mmx.dbName %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>Host Hame</label>
+            <span><%- stats.mmx.host %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>Port</label>
+            <span><%- stats.mmx.port %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>Username</label>
+            <span><%- stats.mmx.username %></span>
+        </div>
+    </div>
+    <% } %>
+
+    <h5>Client Messaging Port</h5>
+    <div class="panel panel-default form-group clearfix">
+        <div class="col-sm-3">
+            <label>HTTP</label>
+            <span><%- configs.MMX.publicPort %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>HTTPS</label>
+            <span><%- configs.MMX.publicPort %></span>
+        </div>
+    </div>
+
+    <h5>Public REST API Port</h5>
+    <div class="panel panel-default form-group clearfix">
+        <div class="col-sm-3">
+            <label>HTTP</label>
+            <span><%- configs.MMX.publicPort %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>HTTPS</label>
+            <span><%- configs.MMX.publicPort %></span>
+        </div>
+    </div>
+
+    <h5>Admin REST API Port</h5>
+    <div class="panel panel-default form-group clearfix">
+        <div class="col-sm-3">
+            <label>HTTP</label>
+            <span><%- configs.MMX.adminPort %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>HTTPS</label>
+            <span><%- configs.MMX.adminPort %></span>
+        </div>
+    </div>
+
+    <h5>Web Port</h5>
+    <div class="panel panel-default form-group clearfix">
+        <div class="col-sm-3">
+            <label>HTTP</label>
+            <span><%- configs.MMX.webPort %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>HTTPS</label>
+            <span><%- configs.MMX.webPort %></span>
+        </div>
+    </div>
+
+    <% if(configs.Geologging.enabled){ %>
+    <h5>Geo Tracking</h5>
+    <div class="panel panel-default form-group clearfix">
+        <div class="col-sm-3">
+            <label>HTTP</label>
+            <span><%- configs.Geologging.port %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>HTTPS</label>
+            <span><%- configs.Geologging.port %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>Status</label>
+            <div class="geotracking-connectivity-container"></div>
+        </div>
+    </div>
+    <% } %>
+
+</script>
+
 <script id="AdminUserDetailsView" type="text/template">
     <a href="#/users" class="glyphicon glyphicon-arrow-left"></a><h3 class="inline"> | Account Information</h3>
     <div id="user-panel" class="panel panel-default">
@@ -437,10 +578,10 @@
     <ul class="pagination">
         <li <% if(paging.start == 0){ %>class="disabled"<% } %>><a href="#" page="<%-paging.previous%>">Prev</a></li>
 <% if(paging.start > (paging.rpp * 5) && paging.total < (paging.start+60)){ %>
-        <% for(i=Math.round((paging.total-110) / 10) * 10;i<paging.total;i+=paging.rpp){ %>
+        <% for(i=Math.round((paging.total-110) / 10) * 10;i<paging.total;i+=paging.rpp){ if(i >= 0){ %>
         <li <% if(paging.start == i){ %>class="disabled"<% } %> ><a href="#" page="<%-i%>"><%-(i/10)+1%></a></li>
         <% } %>
-<% }else if(paging.start > (paging.rpp * 5)){ %>
+<% } }else if(paging.start > (paging.rpp * 5)){ %>
         <% for(i=(paging.start-50);i<(paging.total < (paging.start+60) ? paging.total : (paging.start+60));i+=paging.rpp){ %>
         <li <% if(paging.start == i){ %>class="disabled"<% } %> ><a href="#" page="<%-i%>"><%-(i/10)+1%></a></li>
         <% } %>
@@ -725,7 +866,7 @@
 
     <div class="col-sm-4">
         <label>Connection State</label>
-        <div id="geotracking-connectivity-container"></div>
+        <div class="geotracking-connectivity-container"></div>
     </div>
     <div class="col-sm-4">
         <label>Service Domain</label>
@@ -745,7 +886,11 @@
     </div>
     <div class="col-sm-6">
         <label>Secret Key</label>
-        <input type="text" name="secretkey" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Secret Key" value="<%- config.secretkey %>" />
+        <div class="toggling-password-input">
+            <span class="glyphicon glyphicon-eye-open hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
+            <span class="glyphicon glyphicon-eye-close" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
+            <input type="password" name="secretkey" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control toggling-password-input" placeholder="Secret Key" value="<%- config.secretkey %>" />
+        </div>
     </div>
     <div class="col-sm-4">
         <label>Flush Interval

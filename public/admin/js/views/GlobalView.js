@@ -27,7 +27,8 @@ define(['jquery', 'backbone'], function($, Backbone){
             'click #user-panel-toggle': 'toggleUserPanel',
             'click .btn-toggle button': 'toggleSwitch',
             'click .restart-server-btn': 'restartServer',
-            'change .radio-select  input[type="radio"]': 'selectRadio'
+            'change .radio-select  input[type="radio"]': 'selectRadio',
+            'click .toggling-password-input .glyphicon': 'togglePasswordContainer'
         },
         goBack: function(e){
             e.preventDefault();
@@ -148,6 +149,18 @@ define(['jquery', 'backbone'], function($, Backbone){
                     window.location.href = '/admin';
                 }
             });
+        },
+        togglePasswordContainer: function(e){
+            var icon = $(e.currentTarget);
+            var parent = icon.closest('.toggling-password-input');
+            icon.addClass('hidden');
+            if(icon.hasClass('glyphicon-eye-close')){
+                parent.find('.glyphicon-eye-open').removeClass('hidden');
+                parent.find('input').attr('type', 'text');
+            }else{
+                parent.find('.glyphicon-eye-close').removeClass('hidden');
+                parent.find('input').attr('type', 'password');
+            }
         }
     });
     return View;

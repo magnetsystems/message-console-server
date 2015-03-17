@@ -135,6 +135,10 @@ input.form-control, select.form-control{border-radius:0}
 .text-layer button{margin:10px 0}
 .text-layer ul{padding:3px 0}
 
+/* password hiding */
+.toggling-password-input{position:relative}
+.toggling-password-input .glyphicon{cursor:pointer;color:#036285;display:block;font-size:20px;position:absolute;right:8px;top:8px;z-index:100}
+
 
 /* ADMIN PAGE */
 .fullpos{height:auto;position:absolute;top:0;bottom:0;left:0;right:0}
@@ -281,6 +285,7 @@ a.glyphicon{text-decoration:none}
 .admin-config-item-container{margin:5px 0}
 .admin-config-item-container .col-sm-7, .admin-config-item-container .col-sm-5, .admin-config-item-container .col-sm-3{padding-left:0}
 .admin-config-item-container .col-sm-7 .button-group, .admin-config-item-container .col-sm-3 .button-group{margin:24px 0 0}
+#geotracking-connectivity-container span{font-size:11px}
 
 #wizard-messaging-database-config{position:relative}
 
@@ -290,6 +295,11 @@ a.glyphicon{text-decoration:none}
 #mgmt-user-details .control-label{margin-top:6px}
 #mgmt-user-details .controls{text-align:left}
 #mgmt-user-details .panel-heading{padding:8px 15px 7px}
+
+#mgmt-overview h5{font-size:19px;font-weight:300;margin-top:28px}
+#mgmt-overview label{margin-bottom:0}
+#mgmt-overview .form-group span{color:#777;display:block}
+#mgmt-overview .panel{padding:10px;max-width:900px}
 
 #mmxapp-list-container .panel-title{display:inline}
 #mmxapp-list-container .col-sm-7, #mmxapp-list-container .col-sm-5{padding:0}
@@ -306,5 +316,6 @@ a.glyphicon{text-decoration:none}
     #admin .nav-tabs > li > a{width:100%;border-radius:0}
     #admin .nav-tabs > li.active > a{background:#ddd;border:solid 1px #aaa;border-left:none;border-right:none;border-radius:0}
     #admin .tab-content{margin:0;border:none}
+    #mgmt-overview .form-group span{display:inline;margin-left:5px}
 }
 

@@ -219,11 +219,6 @@ define(['jquery', 'backbone'], function($, Backbone){
             var item = $(e.currentTarget), nextPage  = '';
             if(!item.closest('li').hasClass('disabled')){
                 this.query.page = item.attr('page');
-                // if nextPageUrl is not present, check if a stored nextPageUrl is available. This is a fix for the last page of results returned by an _magnet_query
-                if(!this.options.col.paging.nextPageUrl && this.options.col.paging.totalSize > 10){
-                }else{
-                    nextPage = this.options.col.paging.nextPageUrl;
-                }
                 this.query.nextPage = nextPage;
                 this.fetch();   
             }

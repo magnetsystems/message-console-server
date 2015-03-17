@@ -70,7 +70,7 @@ module.exports = function(app){
 
     app.post('/rest/restart', function(req, res){
         res.send('ok', 200);
-        winston.error('System: restarting server now.');
+        winston.info('System: restarting server now.');
         process.exit(0);
     });
 

@@ -803,12 +803,20 @@ module.exports = function(app){
 
     // return server statistics
     app.get('/rest/stats', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
-        res.send({
-            'Hostname'        : require('os').hostname(),
-            'Node Version'    : process.version,
-            'Environment'     : app.settings.env,
-            'Factory Version' : require('../package.json').version,
-            'Memory Usage'    : process.memoryUsage()
+        ConfigManager.getMMXMySQL(function(e, data){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(_.extend({
+                    'Hostname'       : require('os').hostname(),
+                    'Node Version'   : process.version,
+                    'Environment'    : app.settings.env,
+                    'Server Version' : require('../package.json').version,
+                    'Memory Usage'   : process.memoryUsage()
+                }, {
+                    mmx : data
+                }));
+            }
         });
     });
 
@@ -825,7 +833,7 @@ module.exports = function(app){
             targetModel : 'Action',
             targetId    : 'restart'
         }, function(){
-            winston.error('System: restarting server now.');
+            winston.info('System: restarting server now.');
             process.exit(0);
         });
     });
