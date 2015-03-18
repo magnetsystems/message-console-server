@@ -312,10 +312,13 @@ a.glyphicon{text-decoration:none}
     .modal.fade.in{margin:0 !important}
     #admin{top:48px}
     #admin .nav-tabs{width:100%;margin:0;border-bottom:solid 1px #888}
+    #admin > .nav-tabs{padding-left:0}
     #admin .nav-tabs > li{width:100%;margin:0;border-top:solid 1px #ddd}
     #admin .nav-tabs > li > a{width:100%;border-radius:0}
     #admin .nav-tabs > li.active > a{background:#ddd;border:solid 1px #aaa;border-left:none;border-right:none;border-radius:0}
-    #admin .tab-content{margin:0;border:none}
+    #admin .tab-content{margin:0;border:none;position:relative;top:0}
     #mgmt-overview .form-group span{display:inline;margin-left:5px}
+}
+@media only screen and (max-width:400px){
 }
 

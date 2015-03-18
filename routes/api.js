@@ -804,19 +804,15 @@ module.exports = function(app){
     // return server statistics
     app.get('/rest/stats', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
         ConfigManager.getMMXMySQL(function(e, data){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send(_.extend({
-                    'Hostname'       : require('os').hostname(),
-                    'Node Version'   : process.version,
-                    'Environment'    : app.settings.env,
-                    'Server Version' : require('../package.json').version,
-                    'Memory Usage'   : process.memoryUsage()
-                }, {
-                    mmx : data
-                }));
-            }
+            res.send(_.extend({
+                'Hostname'       : require('os').hostname(),
+                'Node Version'   : process.version,
+                'Environment'    : app.settings.env,
+                'Server Version' : require('../package.json').version,
+                'Memory Usage'   : process.memoryUsage()
+            }, {
+                mmx : data
+            }));
         });
     });
 
