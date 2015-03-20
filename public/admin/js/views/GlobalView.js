@@ -154,11 +154,11 @@ define(['jquery', 'backbone'], function($, Backbone){
             var icon = $(e.currentTarget);
             var parent = icon.closest('.toggling-password-input');
             icon.addClass('hidden');
-            if(icon.hasClass('glyphicon-eye-close')){
-                parent.find('.glyphicon-eye-open').removeClass('hidden');
+            if(icon.hasClass('glyphicon-eye-open')){
+                parent.find('.glyphicon-eye-close').removeClass('hidden');
                 parent.find('input').attr('type', 'text');
             }else{
-                parent.find('.glyphicon-eye-close').removeClass('hidden');
+                parent.find('.glyphicon-eye-open').removeClass('hidden');
                 parent.find('input').attr('type', 'password');
             }
         }

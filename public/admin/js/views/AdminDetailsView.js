@@ -19,7 +19,7 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
             'click button[did="deny-user"]': 'approveUser',
             'click #mgmt-user-delete-btn': 'deleteUser',
             'click #mgmt-user-edit-btn': 'startEdit',
-            'click #mgmt-user-cancel-btn': 'endEdit',
+            'click #mgmt-user-cancel-btn': 'cancelEdit',
             'click #mgmt-user-save-btn': 'editUserSave',
             'click button[did="activate-user"]': 'activateUser',
             'click button[did="deactivate-user"]': 'activateUser',
@@ -28,7 +28,8 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
             'click #mgmt-mmxapp-delete-btn': 'deleteMMXApp',
             'click .panel .mmx-edit': 'editName',
             'click .panel .mmx-saveedit': 'saveEditName',
-            'click .panel .mmx-canceledit': 'cancelEditName'
+            'click .panel .mmx-canceledit': 'cancelEditName',
+            'click #user-reset-password-btn': 'resetPassword'
         },
         fetchUser: function(params){
             var me = this;
@@ -101,7 +102,7 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
                 model : this.entity.attributes, 
                 page  : this.page
             });
-            this.$el.html(template);
+            this.$el.find('#mgmt-user-user-details').html(template);
             return this;
         },
         deleteUser: function(){
@@ -203,6 +204,9 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
             userPanel.find('.btn-toggle button').removeClass('disabled');
             userPanel.find('.panel-heading div[did="readonly"] .disableable').addClass('disabled');
             userPanel.find('.panel-heading div[did="readwrite"] .disableable').removeClass('disabled');
+        },
+        cancelEdit: function(){
+            this.render('User');
         },
         endEdit: function(e, dom){
             var btn = dom || $(e.currentTarget);
@@ -327,6 +331,29 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
                     });
                 });
             }
+        },
+        resetPassword: function(e){
+            var me = this;
+            var btn = $(e.currentTarget);
+            Alerts.Confirm.display({
+                title   : 'Confirm Password Reset',
+                content : 'Are you sure you wish to reset this password? Please note that once this password has been reset, the original password cannot be recovered.'
+            }, function(){
+                me.showLoading(btn);
+                me.options.mc.query('users/'+me.entity.attributes.magnetId+'/resetPassword', 'POST', null, function(res){
+                    me.hideLoading(btn);
+                    Alerts.General.display({
+                        title   : 'Password Reset',
+                        content : 'The user password has been reset. The new password is: <pre>'+res+'</pre>'
+                    });
+                }, null, 'application/json', function(xhr, status, error){
+                    me.hideLoading(btn);
+                    Alerts.Error.display({
+                        title   : 'Error Resetting Password',
+                        content : 'There was a problem resetting the user password: '+xhr.responseText
+                    });
+                });
+            });
         }
     });
     return View;

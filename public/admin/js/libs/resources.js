@@ -786,6 +786,12 @@ utils = {
         });
         return obj;
     },
+    startEditForm : function(){
+
+    },
+    cancelEditForm: function(){
+
+    },
     pushNode : function(obj, name, val){
         if(!obj['_node']) return false;
         obj['_node'].push({

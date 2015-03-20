@@ -32,6 +32,14 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                         me.getGeotrackingState();
                     });
                 });
+                if(page == 'users') me.getConfig(function(config){
+                    var radio = $('#mgmt-user-creation-invite-radio');
+                    if(config.enabled){
+                        radio.find('input').attr('disabled', '');
+                    }else{
+                        radio.find('input').attr('disabled', 'disabled');
+                    }
+                }, 'Email');
                 if(page == 'events') me.getConfig(function(configs){
                     me.renderConfig(page, configs, ['DatabaseLog', 'FileLog', 'EmailAlerts']);
                 });
@@ -74,7 +82,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             'events' : {
                 col      : EventCollection,
                 headers  : {
-                    createdAt : 'Created On',
+                    createdAt : 'Timestamp',
                     level     : 'Level',
                     message   : 'Message'
                 },
@@ -383,12 +391,6 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             AJAX('configs/'+did, 'POST', 'application/json', obj, function(res){
                 me.hideLoading(container);
                 if(res != 'restart-needed'){
-                    if(did == 'MMX')
-                        me.getConfig(function(config){
-                            me.getMMXConfig(function(mmxconfig){
-                                me.renderMMXConfig(config, mmxconfig);
-                            });
-                        }, 'MMX');
                     if(did == 'Geologging')
                         me.getGeotrackingState();
                     Alerts.General.display({

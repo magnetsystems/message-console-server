@@ -173,7 +173,7 @@ define(['jquery', 'backbone'], function($, Backbone){
         },
         // remove a sort column item
         removeSort: function(e){
-            $(e.currentTarget).remove();
+            $(e.currentTarget).tooltip('hide').remove();
             var property = $(e.currentTarget).attr('p');
             this.$el.find('thead th[p="'+property+'"] span').removeClass();
             this.collectSorts();

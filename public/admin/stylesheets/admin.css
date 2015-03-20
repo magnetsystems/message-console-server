@@ -301,6 +301,8 @@ a.glyphicon{text-decoration:none}
 #mgmt-overview .form-group span{color:#777;display:block}
 #mgmt-overview .panel{padding:10px;max-width:900px}
 
+#user-panel .button-group{margin:15px}
+
 #mmxapp-list-container .panel-title{display:inline}
 #mmxapp-list-container .col-sm-7, #mmxapp-list-container .col-sm-5{padding:0}
 #mmxapp-list-container .form-control{height:21px;padding:0 12px}

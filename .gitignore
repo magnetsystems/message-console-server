@@ -16,6 +16,7 @@ log
 
 public-build
 
+mmx-config.json
 
 quickstart-android
 quickstart-ios

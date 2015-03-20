@@ -183,14 +183,18 @@ define(['jquery', 'backbone'], function($, Backbone){
                 cb();
             }, function(e){
                 me.options.eventPubSub.trigger('btnComplete', btn);
-                if(e == 'user-exists'){
-                    Alerts.Confirm.display({
+                if(e == 'invalid-login'){
+                    Alerts.Error.display({
                         title   : 'User Already Exists',
-                        content : 'This user already exists in the database. If you would like to continue with installation without configuring another user, click <b>Yes</b>. Otherwise, click <b>No</b> to try again with another user.'
-                    }, function(){
-                        form.find('input[name^="password"]').val('');
-                        cb();
+                        content : 'This user already exists in the database, but the password you specified was incorrect. Please type the correct password for this user, or choose another email address.'
                     });
+//                    Alerts.Confirm.display({
+//                        title   : 'User Already Exists',
+//                        content : 'This user already exists in the database. If you would like to continue with installation without configuring another user, click <b>Yes</b>. Otherwise, click <b>No</b> to try again with another user.'
+//                    }, function(){
+//                        form.find('input[name^="password"]').val('');
+//                        cb();
+//                    });
                 }else{
                     alert(e);
                 }

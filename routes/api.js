@@ -579,6 +579,16 @@ module.exports = function(app){
         });
     });
 
+    app.post('/rest/users/:magnetId/resetPassword', UserManager.checkAuthority(['admin'], true), function(req, res){
+        UserManager.adminResetPassword(req.params.magnetId, function(e, password){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(password, 200);
+            }
+        });
+    });
+
     app.get('/rest/users/:magnetId', function(req, res){
         // if there is a session, only allow retrieval if user is an admin or the user is retrieving self
         if((req.session.user && (req.session.user.magnetId == req.params.magnetId || req.session.user.userType == 'admin')) || typeof req.session.user == 'undefined'){
@@ -728,6 +738,7 @@ module.exports = function(app){
 
     // This API is used for forgot password email
     app.post('/rest/forgotPassword', function(req, res){
+        if(!ENV_CONFIG.Email.enabled) return res.send('email-recovery-disabled', 400);
         UserManager.sendForgotPasswordEmail({
             email  : req.body.email,
             source : sanitize(req.body.source).xss()

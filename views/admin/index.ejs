@@ -14,32 +14,10 @@
         <div class="tab-pane clearfix" id="mgmt-users">
             <div class="radio-select">
                 <div>
-                    <input type="radio" class="clearfix" name="mgmt-user-creation-radio" value="mgmt-user-creation-invite" />
-                    <span class="radio-select-title">Send a Mobile Messaging Invite <i class="glyphicon glyphicon-info-sign" title="" data-placement="right" data-toggle="tooltip" data-title="This invites a developer or admin to the Mobile Messaging Application Console."></i></span>
-                </div>
-                <div id="mgmt-user-creation-invite" class="admin-config-item-container radio-item-container">
-                    <div class="buttons-section">
-                        <div class="form-group clearfix">
-                            <div class="col-sm-5">
-                                <label>Email</label>
-                                <input class="form-control" id="invited-user-email" type="text" placeholder="Email Address">
-                            </div>
-                            <div class="col-sm-7">
-                                <div class="button-group clearfix">
-                                    <button class="btn btn-primary" id="send-invitation">Send Invitation</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="loading buttons-section" style="display:none">
-                        Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
-                    </div>
-                </div>
-                <div>
                     <input type="radio" class="clearfix" name="mgmt-user-creation-radio" value="mgmt-user-creation-manual" />
                     <span class="radio-select-title">Create an Account</span>
                 </div>
-                <div id="mgmt-user-creation-manual" class="hidden admin-config-item-container radio-item-container">
+                <div id="mgmt-user-creation-manual" class="admin-config-item-container radio-item-container">
                     <div class="buttons-section">
                         <span class="alert-container"></span>
                         <div class="form-group clearfix">
@@ -69,12 +47,50 @@
                         Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
                     </div>
                 </div>
+                <div id="mgmt-user-creation-invite-radio">
+                    <input type="radio" class="clearfix" name="mgmt-user-creation-radio" value="mgmt-user-creation-invite" />
+                    <span class="radio-select-title">Send a Mobile Messaging Invite <i class="glyphicon glyphicon-info-sign" title="" data-placement="right" data-toggle="tooltip" data-title="This invites a developer to the Mobile Messaging Application Console. The Email service must be enabled and configured to use this feature."></i></span>
+                </div>
+                <div id="mgmt-user-creation-invite" class="hidden admin-config-item-container radio-item-container">
+                    <div class="buttons-section">
+                        <div class="form-group clearfix">
+                            <div class="col-sm-5">
+                                <label>Email</label>
+                                <input class="form-control" id="invited-user-email" type="text" placeholder="Email Address">
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="button-group clearfix">
+                                    <button class="btn btn-primary" id="send-invitation">Send Invitation</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="loading buttons-section" style="display:none">
+                        Loading.. Please Wait.. <img src="/admin/images/ajax-loader-sm.gif" />
+                    </div>
+                </div>
             </div>
             <hr />
             <h3>Accounts</h3>
             <div id="mgmt-users-list" class="listview"></div>
         </div>
         <div class="tab-pane clearfix" id="mgmt-user-details">
+            <a href="#/users" class="glyphicon glyphicon-arrow-left"></a><h3 class="inline"> | Account Information</h3>
+            <div id="mgmt-user-user-details"></div>
+            <h3>Messaging Apps</h3>
+            <div id="mmxapp-list-container"></div>
+            <div class="buttons hidden">
+                <div class="buttons-section">
+                    <button did="deactivate-user" type="button" class="btn btn-primary <% if(model.activated !== true){ %>hidden<% } %>">Deactivate User</button>
+                    <button did="activate-user" type="button" class="btn btn-primary <% if(model.activated === true){ %>hidden<% } %>">Activate User</button>
+                    <% if(model.userType == 'guest'){ %>
+                    <button did="approve-user" type="button" class="btn btn-primary">Approve User</button>
+                    <% } %>
+                    <% if(model.userType == 'approved'){ %>
+                    <button did="resend-registration=email" type="button" class="btn btn-primary">Resend Registration Email</button>
+                    <% } %>
+                </div>
+            </div>
         </div>
         <div class="tab-pane clearfix" id="mgmt-events">
             <div class="admin-configuration-container"></div>
@@ -287,11 +303,7 @@
     <h5>Geo Tracking</h5>
     <div class="panel panel-default form-group clearfix">
         <div class="col-sm-3">
-            <label>HTTP</label>
-            <span><%- configs.Geologging.port %></span>
-        </div>
-        <div class="col-sm-3">
-            <label>HTTPS</label>
+            <label>Port</label>
             <span><%- configs.Geologging.port %></span>
         </div>
         <div class="col-sm-3">
@@ -304,7 +316,6 @@
 </script>
 
 <script id="AdminUserDetailsView" type="text/template">
-    <a href="#/users" class="glyphicon glyphicon-arrow-left"></a><h3 class="inline"> | Account Information</h3>
     <div id="user-panel" class="panel panel-default">
         <div class="panel-heading">
             <div class="buttons">
@@ -325,7 +336,7 @@
             </div>
         </div>
         <div class="panel-body">
-            <div class="form-group">
+            <div class="form-group clearfix">
                 <div class="row-fluid">
                     <div class="col-sm-6">
                         <label class="control-label">First Name</label>
@@ -395,22 +406,9 @@
                     <% } %>
                 </div>
             </div>
-        </div>
-    </div>
-    <h3>Messaging Apps</h3>
-    <div id="mmxapp-list-container">
-
-    </div>
-    <div class="buttons hidden">
-        <div class="buttons-section">
-            <button did="deactivate-user" type="button" class="btn btn-primary <% if(model.activated !== true){ %>hidden<% } %>">Deactivate User</button>
-            <button did="activate-user" type="button" class="btn btn-primary <% if(model.activated === true){ %>hidden<% } %>">Activate User</button>
-            <% if(model.userType == 'guest'){ %>
-            <button did="approve-user" type="button" class="btn btn-primary">Approve User</button>
-            <% } %>
-            <% if(model.userType == 'approved'){ %>
-            <button did="resend-registration=email" type="button" class="btn btn-primary">Resend Registration Email</button>
-            <% } %>
+            <div class="button-group">
+                <button id="user-reset-password-btn" class="btn btn-primary">Reset Password</button>
+            </div>
         </div>
     </div>
 </script>
@@ -887,8 +885,8 @@
     <div class="col-sm-6">
         <label>Secret Key</label>
         <div class="toggling-password-input">
-            <span class="glyphicon glyphicon-eye-open hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
-            <span class="glyphicon glyphicon-eye-close" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
+            <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
+            <span class="glyphicon glyphicon-eye-open" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
             <input type="password" name="secretkey" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control toggling-password-input" placeholder="Secret Key" value="<%- config.secretkey %>" />
         </div>
     </div>
@@ -932,12 +930,12 @@
             <input type="password" name="password" class="form-control" placeholder="Password" value="" />
         </div>
         <div class="col-sm-6">
-            <label>Public API Port</label>
-            <input type="text" name="publicPort" class="form-control" placeholder="Public API Port" value="<%- config.publicPort %>" />
+            <label>Public REST API Port</label>
+            <input type="text" name="publicPort" class="form-control" placeholder="Public REST API Port" value="<%- config.publicPort %>" />
         </div>
         <div class="col-sm-6">
-            <label>Admin API Port</label>
-            <input type="text" name="adminPort" class="form-control" placeholder="Admin API Port" value="<%- config.adminPort %>" />
+            <label>Admin REST API Port</label>
+            <input type="text" name="adminPort" class="form-control" placeholder="Admin REST API Port" value="<%- config.adminPort %>" />
         </div>
     </div>
     <p><a href="/">Go to Mobile Messaging Console</a></p>
@@ -976,7 +974,6 @@
             <input type="text" name="timeout.period.minutes" class="form-control" placeholder="Timeout period in minutes" value="<%- featureConfig['timeout.period.minutes'] %>" />
         </div>
     </div>
-    <p><a href="{{- (envConfig.MMX.ssl ? 'https://' : 'http://')+envConfig.Geologging.servername+':'+envConfig.MMX.port }}">Advanced Settings</a></p>
     <% }else{ %>
     <div class="alert alert-danger" role="alert">
         <strong>Note:</strong> Unable to connect to the Messaging Server with the Messaging Server Connectivity parameters you provided. Please change the parameters and try again.
