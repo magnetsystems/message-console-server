@@ -1,17 +1,23 @@
 var ConfigManager = require('../lib/ConfigManager')
 , MMXManager = require('../lib/MMXManager');
 
+var mmxStartupProperties = {};
+ConfigManager.getMMXStartupProperties(function(e, properties){
+    if(!e) mmxStartupProperties = properties;
+});
+
 module.exports = function(app){
 
     app.get('/wizard', function(req, res){
         res.render('wizard/index', {
             locals : {
-                title       : 'Administration',
-                activePage  : 'wizard',
-                userType    : 'wizard',
-                envConfig   : ENV_CONFIG,
-                serverIP    : require('ip').address(),
-                sessionUser : req.session.user
+                title         : 'Administration',
+                activePage    : 'wizard',
+                userType      : 'wizard',
+                envConfig     : ENV_CONFIG,
+                mmxProperties : mmxStartupProperties,
+                serverIP      : require('ip').address(),
+                sessionUser   : req.session.user
             }
         });
     });

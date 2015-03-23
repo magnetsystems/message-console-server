@@ -284,31 +284,35 @@
                             </div>
                             <div class="col-sm-6">
                                 <label>Messaging Port</label>
-                                <input type="text" name="xmppPort" class="form-control" placeholder="Messaging Port" value="5222" />
+                                <input type="text" name="messaging_tcp" class="form-control" placeholder="Messaging Port" value="{{-mmxProperties['messaging_tcp']}}" />
                             </div>
                             <div class="col-sm-6">
                                 <label>Messaging Secure Port</label>
-                                <input type="text" name="xmppSecurePort" class="form-control" placeholder="Messaging Secure Port" value="5223" />
+                                <input type="text" name="messaging_tls" class="form-control" placeholder="Messaging Secure Port" value="{{-mmxProperties['messaging_tls']}}" />
                             </div>
                             <div class="col-sm-6">
-                                <label>HTTP Port</label>
-                                <input type="text" name="httpPort" class="form-control" placeholder="HTTP Port" value="9090" />
+                                <label>Web HTTP Port</label>
+                                <input type="text" name="webPort" class="form-control" placeholder="HTTP Port" value="{{-mmxProperties['bootstrap_http']}}" />
                             </div>
                             <div class="col-sm-6">
-                                <label>HTTPS Port</label>
-                                <input type="text" name="httpsPort" class="form-control" placeholder="HTTPS Port" value="9091" />
+                                <label>Web HTTPS Port</label>
+                                <input type="text" name="bootstrap_https" class="form-control" placeholder="HTTPS Port" value="{{-mmxProperties['bootstrap_https']}}" />
                             </div>
-                            <div class="col-sm-4">
-                                <label>Web Port</label>
-                                <input type="text" name="webPort" class="form-control" placeholder="Web Port" value="9090" />
+                            <div class="col-sm-6">
+                                <label>Public HTTP REST API Port</label>
+                                <input type="text" name="PublicPort" class="form-control" placeholder="Public HTTP REST API Port" value="{{-mmxProperties['public_http']}}" />
                             </div>
-                            <div class="col-sm-4">
-                                <label>Public REST API Port</label>
-                                <input type="text" name="publicPort" class="form-control" placeholder="Public REST API Port" value="5220" />
+                            <div class="col-sm-6">
+                                <label>Public HTTPS REST API Port</label>
+                                <input type="text" name="public_https" class="form-control" placeholder="Public HTTPS REST API Port" value="{{-mmxProperties['public_https']}}" />
                             </div>
-                            <div class="col-sm-4">
-                                <label>Admin REST API Port</label>
-                                <input type="text" name="adminPort" class="form-control" placeholder="Admin REST API Port" value="6060" />
+                            <div class="col-sm-6">
+                                <label>Admin HTTP REST API Port</label>
+                                <input type="text" name="AdminPort" class="form-control" placeholder="Admin HTTP REST API Port" value="{{-mmxProperties['admin_http']}}" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Admin HTTPS REST API Port</label>
+                                <input type="text" name="admin_https" class="form-control" placeholder="Admin HTTPS REST API Port" value="{{-mmxProperties['admin_https']}}" />
                             </div>
                         </div>
                     </div>
