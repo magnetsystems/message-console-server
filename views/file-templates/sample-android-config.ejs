@@ -6,4 +6,4 @@ guestSecret={{=params.guestSecret || ''}}
 host={{=mmxconfig.configs['push.callbackurl'] || config.Geologging.servername || ''}}
 port=5222
 securityLevel=RELAXED
-serviceName={{=config.Geologging.servername || ''}}
+serviceName={{=config.Geologging ? config.Geologging.servername : ''}}
