@@ -45,7 +45,10 @@ AJAXLogin.prototype.login = function(btn){
             res.firstName = res.firstName || '';
             res.lastName = res.lastName || '';
             Cookie.create('magnet_auth', res.firstName+':'+res.lastName+':'+res.email, 1);
-            window.location.href = '/admin';
+            if(res.userType != 'admin')
+                window.location.href = '/';
+            else
+                window.location.href = '/admin';
         }, function(xhr, status, thrownError){
             alert(xhr.responseText);
         });

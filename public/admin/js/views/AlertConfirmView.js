@@ -9,19 +9,25 @@ define(['jquery', 'backbone'], function($, Backbone){
             });
         },
         events: {
-            "click button.submit": "doConfirm"
+            "click button.submit": "doConfirm",
+            "click .btn-default": "doCancel"
         },
-        display: function(vars, callback){
+        display: function(vars, callback, cancelback){
             if(vars && typeof callback === typeof Function){
                 $(this.el).modal('show');
                 $(this.el).find('.modal-title').html(vars.title);
                 $(this.el).find('.modal-body').html(vars.content);
                 this.callback = callback;
+                this.cancelback = cancelback;
             }
         },
         doConfirm: function(vars){
             $(this.el).modal('hide');
             this.callback();
+        },
+        doCancel: function(vars){
+            $(this.el).modal('hide');
+            (this.cancelback || function(){})();
         }
     });
     return View;

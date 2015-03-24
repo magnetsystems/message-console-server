@@ -5,7 +5,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             var me = this;
             me.options = options;
             me.options.eventPubSub.bind("btnLoading", function(btn){
-                btn.attr('txt', btn.html()).html('Loading..').addClass('disabled');
+                btn.attr('txt', btn.html()).html('<img src="/admin/images/ajax-loader-sm.gif" /> Loading..').addClass('disabled');
             });
             me.options.eventPubSub.bind("btnComplete", function(btn){
                 btn.html(btn.attr('txt')).removeClass('disabled');
@@ -88,7 +88,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             var dom = modal.find('.progress-bar');
             dom.attr('aria-valuenow', 100);
             dom.css('width', '100%');
-            modal.modal('show');
+            if(!params.silent) modal.modal('show');
             GLOBAL.polling = true;
             var prog = setInterval(function(){
                 ++progress;

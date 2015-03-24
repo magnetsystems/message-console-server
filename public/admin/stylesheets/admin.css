@@ -176,6 +176,8 @@ a.glyphicon{text-decoration:none}
 .fuelux .wizard .step-content{background:#fff;overflow-y:auto;margin-top:46px}
 .fuelux .wizard .step-content{padding-bottom:25px}
 #wizard-summary-table{margin:25px 0;max-width:700px}
+#wizard-summary-table tr.noborder > td{border-top:none}
+#wizard-summary-table .table td{padding:4px 0}
 
 
 /* general */

@@ -22,6 +22,12 @@
                 <h4>Welcome</h4>
                 <p>Congratulations on getting started with Magnet Messaging. We will walk you through the first-time configuration of your server.</p>
                 <br />
+                <div class="form-group">
+                    <div class="btn-group btn-toggle clearfix" did="installType">
+                        <button class="btn same-width-button btn-sm btn-primary active" type="button" did="standard">Standard Install</button>
+                        <button class="btn same-width-button btn-sm btn-default" type="button" did="custom">Custom Install</button>
+                    </div>
+                </div>
                 <div class="button-group clearfix">
                     <button class="wiz-next btn btn-primary" type="button">
                         Next <span class="glyphicon glyphicon-arrow-right"></span>
@@ -96,6 +102,56 @@
             </div>
         </div>
     </div>
+</script>
+
+<script id="WizardSummaryTmpl" type="text/template">
+    <tbody>
+    <tr>
+        <td width="50%"><b>Setup Database</b></td>
+        <td><span class="label label-success">Success</span></td>
+    </tr>
+    <tr class="noborder">
+        <td colspan="2">
+            <table class="table">
+                <tbody>
+                    <tr><td width="50%">Host</td><td><%- db.host %></td></tr>
+                    <tr><td>DB Name</td><td><%- db.dbName %></td></tr>
+                    <tr><td>Username</td><td><%- db.username %></td></tr>
+                    <tr><td>Password</td><td><i>None</i></td></tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td width="50%"><b>Setup Admin User</b></td>
+        <td><span class="label label-success">Success</span></td>
+    </tr>
+    <tr class="noborder">
+        <td colspan="2">
+            <table class="table">
+                <tbody>
+                <tr><td width="50%">Email</td><td><%- user.email %></td></tr>
+                <tr><td>Password</td><td><%- user.password %></td></tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td width="50%"><b>Setup Messaging</b></td>
+        <td><span class="label label-success">Success</span></td>
+    </tr>
+    <tr class="noborder">
+        <td colspan="2">
+            <table class="table">
+                <tbody>
+                <tr><td width="50%">Host</td><td><%- mmx.host %></td></tr>
+                <tr><td>Username</td><td><%- mmx.user %></td></tr>
+                <tr><td>Password</td><td><%- mmx.password %></td></tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
 </script>
 
 <script id="WizardDBTmpl" type="text/template">
@@ -198,13 +254,13 @@
         <div class="form-group clearfix">
             <div class="col-md-6">
                 <label>Hostname</label>
-                <input type="text" class="form-control" name="host" placeholder="Hostname" value="localhost" />
+                <input type="text" class="form-control" name="host" placeholder="Hostname" value="<%- host %>" />
             </div>
             <div class="col-sm-6">
                 <label>Service Domain
                     <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="This domain or IP address must be reachable by the mobile devices or emulators using your messaging app."></span>
                 </label>
-                <input type="text" name="xmppDomain" class="form-control" placeholder="Service Domain" value="{{= typeof serverIP !== 'undefined' ? serverIP : 'localhost'}}" />
+                <input type="text" name="xmppDomain" class="form-control" placeholder="Service Domain" value="{{= typeof serverIP !== 'undefined' ? serverIP : 'mmx'}}" />
             </div>
         </div>
         <div class="panel-group clearfix" id="wizard-messaging-advanced-config">
@@ -235,23 +291,23 @@
                             <div class="form-group clearfix">
                                 <div class="col-sm-6">
                                     <label>Username</label>
-                                    <input type="text" name="mysqlUser" class="form-control" placeholder="Username" value="<%- username %>" />
+                                    <input type="text" name="mysqlUser" class="form-control" placeholder="Username" value="<%- mysqlUser %>" />
                                 </div>
                                 <div class="col-sm-6">
                                     <label>Password</label>
-                                    <input type="password" name="mysqlPassword" class="form-control" placeholder="Password" value="" />
+                                    <input type="password" name="mysqlPassword" class="form-control" placeholder="Password" value="<%- mysqlPassword %>" />
                                 </div>
                                 <div class="col-sm-4">
                                     <label>Hostname</label>
-                                    <input type="text" name="mysqlHost" class="form-control" placeholder="Hostname" value="<%- host %>" />
+                                    <input type="text" name="mysqlHost" class="form-control" placeholder="Hostname" value="<%- mysqlHost %>" />
                                 </div>
                                 <div class="col-sm-4">
                                     <label>Port</label>
-                                    <input type="text" name="mysqlPort" class="form-control" placeholder="Port" value="<%- port %>" />
+                                    <input type="text" name="mysqlPort" class="form-control" placeholder="Port" value="<%- mysqlPort %>" />
                                 </div>
                                 <div class="col-sm-4">
                                     <label>Database Name</label>
-                                    <input type="text" name="mysqlDb" class="form-control" placeholder="Database Name" value="<%- dbName %>" />
+                                    <input type="text" name="mysqlDb" class="form-control" placeholder="Database Name" value="<%- mysqlDb %>" />
                                 </div>
                             </div>
                         </div>
@@ -272,14 +328,14 @@
                         <div class="form-group clearfix">
                             <div class="col-md-6">
                                 <label>Messaging Username</label>
-                                <input type="text" class="form-control" name="user" placeholder="Username" value="admin" />
+                                <input type="text" class="form-control" name="user" placeholder="Username" value="<%- user %>" />
                             </div>
                             <div class="col-md-6">
                                 <label>Messaging Password</label>
                                 <div class="toggling-password-input">
                                     <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
                                     <span class="glyphicon glyphicon-eye-open" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
-                                    <input type="password" class="form-control toggling-password-input" name="password" placeholder="Password" value="admin" />
+                                    <input type="password" class="form-control toggling-password-input" name="password" placeholder="Password" value="<%- password %>" />
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -300,7 +356,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <label>Public HTTP REST API Port</label>
-                                <input type="text" name="PublicPort" class="form-control" placeholder="Public HTTP REST API Port" value="{{-mmxProperties['public_http']}}" />
+                                <input type="text" name="publicPort" class="form-control" placeholder="Public HTTP REST API Port" value="{{-mmxProperties['public_http']}}" />
                             </div>
                             <div class="col-sm-6">
                                 <label>Public HTTPS REST API Port</label>
@@ -308,7 +364,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <label>Admin HTTP REST API Port</label>
-                                <input type="text" name="AdminPort" class="form-control" placeholder="Admin HTTP REST API Port" value="{{-mmxProperties['admin_http']}}" />
+                                <input type="text" name="adminPort" class="form-control" placeholder="Admin HTTP REST API Port" value="{{-mmxProperties['admin_http']}}" />
                             </div>
                             <div class="col-sm-6">
                                 <label>Admin HTTPS REST API Port</label>

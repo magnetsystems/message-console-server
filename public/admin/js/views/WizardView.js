@@ -21,9 +21,35 @@ define(['jquery', 'backbone'], function($, Backbone){
             });
             me.dbDefaults = {
                 host     : 'localhost',
+                password : '',
                 port     : 3306,
                 dbName   : 'magnetmessaging',
                 username : 'root'
+            };
+            me.userDefaults = {
+                email          : 'manager1@magnetapi.com',
+                password       : 'test',
+                passwordVerify : 'test'
+            };
+            me.messagingDefaults = {
+                shareDB         : true,
+                host            : 'localhost',
+                xmppDomain      : 'mmx',
+                mysqlUser       : 'root',
+                mysqlPassword   : '',
+                mysqlHost       : 'localhost',
+                mysqlPort       : 3306,
+                mysqlDb         : 'magnetmessaging',
+                user            : 'admin',
+                password        : 'admin',
+                messaging_tcp   : 5222,
+                messaging_tls   : 5223,
+                webPort         : 9090,
+                bootstrap_https : 9091,
+                publicPort      : 5220,
+                public_https    : 5221,
+                adminPort       : 6060,
+                admin_https     : 6060
             };
             me.messagingCompleteStatusModal = $('#messaging-provision-status-modal');
         },
@@ -50,8 +76,16 @@ define(['jquery', 'backbone'], function($, Backbone){
         },
         nextStep: function(e){
             var me = this;
-            var did = $(e.currentTarget).closest('.step-pane').attr('did');
-            if(did === 'database'){
+            var container = $(e.currentTarget).closest('.step-pane');
+            var did = container.attr('did');
+            if(did === 'intro'){
+                var installType = container.find('.btn-group[did="installType"] button.active').attr('did');
+                if(installType == 'standard'){
+                    me.standardInstall($(e.currentTarget));
+                }else{
+                    me.wizard.wizard('next');
+                }
+            }else if(did === 'database'){
                 me.setupDB(function(){
                     me.wizard.wizard('next');
                 });
@@ -66,6 +100,43 @@ define(['jquery', 'backbone'], function($, Backbone){
             }else{
                 me.wizard.wizard('next');
             }
+        },
+        standardInstall: function(btn){
+            var me = this;
+            me.options.eventPubSub.trigger('btnLoading', btn);
+            me.setupDB(function(){
+                me.createAdmin(function(){
+                    me.setupMessaging(function(){
+                        me.options.eventPubSub.trigger('btnComplete', btn);
+                        me.renderWizardSummary();
+                        me.wizard.wizard('selectedItem', {
+                            step : 5
+                        });
+                    }, function(){
+                        me.options.eventPubSub.trigger('btnComplete', btn);
+                        me.wizard.wizard('selectedItem', {
+                            step : 4
+                        });
+                    }, me.messagingDefaults);
+                }, function(){
+                    me.options.eventPubSub.trigger('btnComplete', btn);
+                    me.wizard.wizard('selectedItem', {
+                        step : 3
+                    });
+                }, me.userDefaults);
+            }, function(){
+                me.options.eventPubSub.trigger('btnComplete', btn);
+                me.wizard.wizard('selectedItem', {
+                    step : 2
+                });
+            }, _.extend({createDatabase:true}, me.dbDefaults), true);
+        },
+        renderWizardSummary: function(){
+            $('#wizard-summary-table').html(_.template($('#WizardSummaryTmpl').html(), {
+                db   : this.dbDefaults,
+                user : this.userDefaults,
+                mmx  : this.messagingDefaults
+            }));
         },
         renderDB: function(){
             $('#wizard-db-container').html(_.template($('#WizardDBTmpl').html(), this.dbDefaults));
@@ -83,26 +154,19 @@ define(['jquery', 'backbone'], function($, Backbone){
             }
             return valid;
         },
-        setupDB: function(cb, obj){
+        setupDB: function(cb, fb, obj, silentInstall){
             var me = this;
             var form = $('#wizard-database-form');
             var btn = form.closest('.step-pane').find('.wiz-next');
             utils.resetError(form);
             obj = obj || utils.collect(form);
             obj.dialect = 'mysql';
-            if(!this.isValid(form, obj, ['password'])) return;
+            if(!this.isValid(form, obj, ['password'])) return (fb || function(){})();
             obj.port = parseInt(obj.port);
             me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/setDB', 'POST', 'application/json', obj, function(res){
-                me.options.eventPubSub.trigger('btnComplete', btn);
-                if(!$('#wizard-db-container > .alert').length){
-                    $('#wizard-db-container').prepend(_.template($('#WizardDBTmpl').html(), {
-                        active : true
-                    }));
-                }
-                form.find('input[name^="password"]').val('');
-                me.renderMessaging(obj);
-                cb();
+                // immediately after completion
+
             }, function(e){
                 me.options.eventPubSub.trigger('btnComplete', btn);
                 if(e == 'ER_BAD_DB_ERROR'){
@@ -123,6 +187,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                         me.setupDB(cb, obj);
                     });
                 }
+                (fb || function(){})();
                 if(e == 'ENOTFOUND'){
                     return Alerts.Error.display({
                         title   : 'Not Found',
@@ -147,6 +212,23 @@ define(['jquery', 'backbone'], function($, Backbone){
                     content : 'Unable to connect to the database with the settings you provided. <br />'+e
                 });
             }, null, {
+                silent  : silentInstall,
+                cb      : function(){
+                    me.options.eventPubSub.trigger('btnComplete', btn);
+                    if(!$('#wizard-db-container > .alert').length){
+                        $('#wizard-db-container').prepend(_.template($('#WizardDBTmpl').html(), {
+                            active : true
+                        }));
+                    }
+                    form.find('input[name^="password"]').val('');
+                    me.messagingDefaults.mysqlDb = obj.dbName;
+                    me.messagingDefaults.mysqlHost = obj.host;
+                    me.messagingDefaults.mysqlPassword = obj.password;
+                    me.messagingDefaults.mysqlPort = obj.port;
+                    me.messagingDefaults.mysqlUser = obj.username;
+                    me.renderMessaging();
+                    cb();
+                },
                 timeout : 15000
             });
         },
@@ -162,15 +244,16 @@ define(['jquery', 'backbone'], function($, Backbone){
                     me.$el.find('#wizard-messaging-database-config').removeClass('hidden');
             }, 50);
         },
-        createAdmin: function(cb){
+        createAdmin: function(cb, fb, obj){
             var me = this;
             var form = $('#wizard-admin-form');
             var btn = form.closest('.step-pane').find('.wiz-next');
             utils.resetError(form);
-            var obj = utils.collect(form);
-            if(!this.isValid(form, obj)) return;
+            obj = obj || utils.collect(form);
+            if(!this.isValid(form, obj)) return (fb || function(){})();
             if(obj.password !== obj.passwordVerify){
-                return utils.showError(form, 'passwordVerify', 'Passwords do not match. Please try again.');
+                utils.showError(form, 'passwordVerify', 'Passwords do not match. Please try again.');
+                return (fb || function(){})();
             }
             me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/setAdmin', 'POST', 'application/json', obj, function(res){
@@ -182,43 +265,31 @@ define(['jquery', 'backbone'], function($, Backbone){
                 }
                 cb();
             }, function(e){
+                (fb || function(){})();
                 me.options.eventPubSub.trigger('btnComplete', btn);
                 if(e == 'invalid-login'){
                     Alerts.Error.display({
                         title   : 'User Already Exists',
                         content : 'This user already exists in the database, but the password you specified was incorrect. Please type the correct password for this user, or choose another email address.'
                     });
-//                    Alerts.Confirm.display({
-//                        title   : 'User Already Exists',
-//                        content : 'This user already exists in the database. If you would like to continue with installation without configuring another user, click <b>Yes</b>. Otherwise, click <b>No</b> to try again with another user.'
-//                    }, function(){
-//                        form.find('input[name^="password"]').val('');
-//                        cb();
-//                    });
                 }else{
                     alert(e);
                 }
             });
         },
-        renderMessaging: function(obj){
-            $('#wizard-messaging-container').html(_.template($('#WizardMessagingTmpl').html(), obj || this.dbDefaults)).find('.glyphicon-info-sign').tooltip();
+        renderMessaging: function(){
+            $('#wizard-messaging-container').html(_.template($('#WizardMessagingTmpl').html(), this.messagingDefaults)).find('.glyphicon-info-sign').tooltip();
         },
-        setupMessaging: function(cb){
+        setupMessaging: function(cb, fb, obj){
             var me = this;
             var form = $('#wizard-messaging-form');
             var btn = form.closest('.step-pane').find('.wiz-next');
             utils.resetError(form);
-            var obj = utils.collect(form, false, false, true);
-            if(!this.isValid(form, obj, ['mysqlPassword'])) return;
+            obj =  obj || utils.collect(form, false, false, true);
+            if(!this.isValid(form, obj, ['mysqlPassword'])) return (fb || function(){})();
             me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/messagingStatus', 'POST', 'application/json', obj, function(res){
                 me.options.eventPubSub.trigger('btnComplete', btn);
-                if(res.code === 403){
-                    return Alerts.Error.display({
-                        title   : 'Messaging Server Already Configured',
-                        content : 'The messaging server at "'+obj.host+'" has already been configured, but the credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server without provisioning.'
-                    });
-                }
                 if(res.code === 200 && res.provisioned === true){
                     return Alerts.Confirm.display({
                         title   : 'Messaging Server Already Configured',
@@ -226,15 +297,25 @@ define(['jquery', 'backbone'], function($, Backbone){
                     }, function(){
                         obj.skipProvisioning = true;
                         me.provisionMessaging(form, btn, obj, cb);
+                    }, function(){
+                        (fb || function(){})();
                     });
                 }
                 if(res.code === 200 && res.provisioned === false)
-                    return me.provisionMessaging(form, btn, obj, cb);
+                    return me.provisionMessaging(form, btn, obj, cb, fb);
+                (fb || function(){})();
+                if(res.code === 403){
+                    return Alerts.Error.display({
+                        title   : 'Messaging Server Already Configured',
+                        content : 'The messaging server at "'+obj.host+'" has already been configured, but the credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server without provisioning.'
+                    });
+                }
                 Alerts.Error.display({
                     title   : 'Connection Error',
                     content : 'Unable to connect to the messaging server with the settings you provided. Please try again with a different hostname or port, and check your firewall configuration. '+(res.msg ? '<br />Error: '+res.msg : '')
                 });
             }, function(e){
+                (fb || function(){})();
                 me.options.eventPubSub.trigger('btnComplete', btn);
                 Alerts.Error.display({
                     title   : 'Connection Error',
@@ -243,9 +324,8 @@ define(['jquery', 'backbone'], function($, Backbone){
             }, null, {
                 timeout : 15000
             });
-
         },
-        provisionMessaging: function(form, btn, obj, cb){
+        provisionMessaging: function(form, btn, obj, cb, fb){
             var me = this;
             me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/setMessaging', 'POST', 'application/json', obj, function(res){
@@ -263,6 +343,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                     me.pollMessagingCompleteStatus(btn, cb);
                 }
             }, function(e){
+                (fb || function(){})();
                 me.options.eventPubSub.trigger('btnComplete', btn);
                 Alerts.Error.display({
                     title   : 'Connection Error',
