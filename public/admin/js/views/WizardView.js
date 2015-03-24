@@ -175,7 +175,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                         content : 'The database "'+obj.dbName+'" does not exist. If the database credentials you specified have authority to create a database, click <b>Yes</b> to have the server create the database automatically. Otherwise, click <b>No</b> to try again with another database name.'
                     }, function(){
                         obj.createDatabase = true;
-                        me.setupDB(cb, obj);
+                        me.setupDB(cb, null, obj);
                     });
                 }
                 if(e == 'DB_ALREADY_EXISTS'){
@@ -184,7 +184,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                         content : 'The database "'+obj.dbName+'" already exists. If you would like to use this database, click <b>Yes</b> to have the server connect to this database non-destructively and add any additional tables as necessary. Otherwise, click <b>No</b> to try again with another database name.'
                     }, function(){
                         obj.createDatabase = true;
-                        me.setupDB(cb, obj);
+                        me.setupDB(cb, null, obj);
                     });
                 }
                 (fb || function(){})();
