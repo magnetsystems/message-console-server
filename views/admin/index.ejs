@@ -951,31 +951,31 @@
             <label>External Hostname
                 <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The public url to be used by mobile clients for acknowledging push notifications."></span>
             </label>
-            <input type="text" name="push.callbackurl" class="form-control" placeholder="A public url" value="<%- featureConfig['push.callbackurl'] %>" />
+            <input type="text" name="push.callbackurl" class="form-control" placeholder="A public url" value="<%- featureConfig['mmx.push.callbackurl'] %>" />
         </div>
         <div class="col-sm-6">
             <label>Wakeup Frequency
                 <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Frequency in seconds for sending a wakeup to a device."></span>
             </label>
-            <input type="text" name="wakeup.frequency" class="form-control" placeholder="Frequency in seconds" value="<%- featureConfig['wakeup.frequency'] %>" />
+            <input type="text" name="wakeup.frequency" class="form-control" placeholder="Frequency in seconds" value="<%- featureConfig['mmx.wakeup.frequency'] %>" />
         </div>
         <div class="col-sm-6">
             <label>Retry Interval
                 <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The time interval in minutes between consecutive message retry attempts."></span>
             </label>
-            <input type="text" name="retry.interval.minutes" class="form-control" placeholder="Time interval in minutes" value="<%- featureConfig['retry.interval.minutes'] %>" />
+            <input type="text" name="retry.interval.minutes" class="form-control" placeholder="Time interval in minutes" value="<%- featureConfig['mmx.retry.interval.minutes'] %>" />
         </div>
         <div class="col-sm-6">
             <label>Retry Count
                 <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The count for the number of times a message delivery will be attempted."></span>
             </label>
-            <input type="text" name="retry.count" class="form-control" placeholder="message rate" value="<%- featureConfig['retry.count'] %>" />
+            <input type="text" name="retry.count" class="form-control" placeholder="message rate" value="<%- featureConfig['mmx.retry.count'] %>" />
         </div>
         <div class="col-sm-6">
             <label>Timeout Period
                 <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The time period in minutes after which server will stop attempting to deliver message."></span>
             </label>
-            <input type="text" name="timeout.period.minutes" class="form-control" placeholder="Timeout period in minutes" value="<%- featureConfig['timeout.period.minutes'] %>" />
+            <input type="text" name="timeout.period.minutes" class="form-control" placeholder="Timeout period in minutes" value="<%- featureConfig['mmx.timeout.period.minutes'] %>" />
         </div>
     </div>
     <% }else{ %>
