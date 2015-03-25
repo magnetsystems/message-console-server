@@ -851,8 +851,9 @@ module.exports = function(app){
     app.get('/rest/status', function(req, res){
         res.contentType('application/json');
         res.send({
-            platform   : 'standalone',
-            newMMXUser : INST_CONFIG.newMMXUser
+            platform     : 'standalone',
+            emailEnabled : ENV_CONFIG.Email.enabled,
+            newMMXUser   : INST_CONFIG.newMMXUser
         }, 200);
         INST_CONFIG.newMMXUser = false;
     });

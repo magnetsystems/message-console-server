@@ -188,7 +188,7 @@
     <h5>Status</h5>
     <div class="panel panel-default form-group clearfix">
         <div class="col-sm-3">
-            <label>Magnet Message Connection Status</label>
+            <label>Messaging Server Status</label>
             <div class="messaging-connectivity-container"></div>
         </div>
     </div>
@@ -360,7 +360,7 @@
                         <label class="control-label">Account Status</label>
                         <div class="btn-group btn-toggle clearfix" did="activated">
                             <button class="btn btn-sm disabled <% if(model.activated === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Active</button>
-                            <button class="btn btn-sm disabled <% if(typeof model.activated == 'undefined' || model.activated === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Inactive</button>
+                            <button class="btn btn-sm disabled <% if(typeof model.activated == 'undefined' || model.activated === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Blocked</button>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -910,7 +910,7 @@
     </div>
 </script>
 <script id="AdminConfigurationMMXTmpl" type="text/template">
-    <h5>Connectivity</h5>
+    <h5>Connection Settings</h5>
     <hr />
     <div did="mmx-connect" class="form-group clearfix">
         <div class="col-sm-4">
@@ -923,7 +923,11 @@
         </div>
         <div class="col-sm-4">
             <label>Password</label>
-            <input type="password" name="password" class="form-control" placeholder="Password" value="" />
+            <div class="toggling-password-input">
+                <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
+                <span class="glyphicon glyphicon-eye-open" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
+                <input type="password" name="password" class="form-control toggling-password-input" placeholder="Password" value="<%- config.password %>" />
+            </div>
         </div>
         <div class="col-sm-4">
             <label>Web Port</label>
@@ -944,7 +948,7 @@
     <% if(featureConfig){ %>
     <div did="mmx-config" class="form-group clearfix">
         <div class="col-sm-12">
-            <label>Callback URL
+            <label>External Hostname
                 <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The public url to be used by mobile clients for acknowledging push notifications."></span>
             </label>
             <input type="text" name="push.callbackurl" class="form-control" placeholder="A public url" value="<%- featureConfig['push.callbackurl'] %>" />
