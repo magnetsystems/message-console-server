@@ -3,12 +3,15 @@ define(['jquery', 'backbone'], function($, Backbone){
         el: "body",
         initialize: function(options){
             var me = this;
+            var loadingModal = $('#wait-modal');
             me.options = options;
-            me.options.eventPubSub.bind("btnLoading", function(btn){
-                btn.attr('txt', btn.html()).html('<img src="/admin/images/ajax-loader-sm.gif" /> Loading..').addClass('disabled');
+            me.options.eventPubSub.bind("btnLoading", function(btn, showLoading){
+                if(showLoading) loadingModal.modal('show');
+                btn.attr('txt', btn.html()).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading..').addClass('disabled');
             });
-            me.options.eventPubSub.bind("btnComplete", function(btn){
-                btn.html(btn.attr('txt')).removeClass('disabled');
+            me.options.eventPubSub.bind("btnComplete", function(btn, showLoading){
+                if(showLoading) loadingModal.modal('hide');
+                if(btn.attr('txt')) btn.html(btn.attr('txt')).removeClass('disabled');
             });
             me.options.eventPubSub.bind('resetPages', function(page){
                 me.selectPage(page);

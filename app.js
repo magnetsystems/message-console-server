@@ -19,6 +19,7 @@ winston.add(winston.transports.Console, {
 
 var ConfigManager = require('./lib/ConfigManager');
 global.ENV_CONFIG = ConfigManager.configs;
+global.INST_CONFIG = {};
 
 var startServer = function(){
 

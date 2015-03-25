@@ -81,7 +81,10 @@ module.exports = function(app){
     });
 
     app.get('/rest/status', function(req, res){
-        res.send('init', 200);
+        res.contentType('application/json');
+        res.send({
+            platform : 'init'
+        }, 200);
     });
 
     app.post('/rest/restart', function(req, res){

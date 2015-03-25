@@ -21,7 +21,7 @@ module.exports = function(app){
                 delete user.password;
                 req.session.user = user;
                 if(newMMXUser) res.header('X-New-MMX-User', 'enabled');
-                winston.verbose('Tracking: user "' + user.email + '" logged in.');
+                winston.verbose('Auth: user "' + user.email + '" logged in.');
                 res.send(req.query.requireUser ? req.session.user.magnetId : 'SUCCESS', 200);
             }else{
                 res.send(e, 401);
@@ -34,7 +34,7 @@ module.exports = function(app){
         if(!req.session.user){
             res.send('ok', 200);
         }else{
-            winston.verbose('Tracking: user "' + req.session.user.email + '" logged out');
+            winston.verbose('Auth: user "' + req.session.user.email + '" logged out');
             req.session.destroy(function(){
                 res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
                 res.send('ok', 200);
@@ -182,7 +182,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/configs', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getConfigs(req.session.user.id, function(e, configs){
+        MMXManager.getConfigs(req.session.user.magnetId, function(e, configs){
             if(e){
                 res.send(e, 400);
             }else{
@@ -287,7 +287,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/:id/users', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getAppUsers(req.session.user.id, req.params.id, req.query, req, function(e, response){
+        MMXManager.getAppUsers(req.session.user.magnetId, req.params.id, req.query, req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -297,7 +297,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/users', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.createAppUser(req.session.user.id, req.params.id, req.body, function(e, response){
+        MMXManager.createAppUser(req.session.user.magnetId, req.params.id, req.body, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -307,7 +307,7 @@ module.exports = function(app){
     });
 
     app.put('/rest/apps/:id/users/:userId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.updateAppUser(req.session.user.id, req.params.id, req.params.userId, req.body, function(e, response){
+        MMXManager.updateAppUser(req.session.user.magnetId, req.params.id, req.params.userId, req.body, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -317,7 +317,7 @@ module.exports = function(app){
     });
 
     app.delete('/rest/apps/:id/users/:userId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.deleteAppUser(req.session.user.id, req.params.id, req.params.userId, function(e, response){
+        MMXManager.deleteAppUser(req.session.user.magnetId, req.params.id, req.params.userId, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -327,7 +327,7 @@ module.exports = function(app){
     });
 
     app.delete('/rest/apps/:id/users/:userId/activate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.activateAppUser(req.session.user.id, req.params.id, req.params.userId, function(e, response){
+        MMXManager.activateAppUser(req.session.user.magnetId, req.params.id, req.params.userId, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -337,7 +337,7 @@ module.exports = function(app){
     });
 
     app.delete('/rest/apps/:id/users/:userId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.deactivateAppUser(req.session.user.id, req.params.id, req.params.userId, function(e, response){
+        MMXManager.deactivateAppUser(req.session.user.magnetId, req.params.id, req.params.userId, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -347,7 +347,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/uploadAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.storeAPNSCertificate(req.session.user.id, req.params.id, req, function(e){
+        MMXManager.storeAPNSCertificate(req.session.user.magnetId, req.params.id, req, function(e){
             if(e){
                 res.send(e, 400);
             }else{
@@ -365,7 +365,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/:id/users/:uid/devices', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getAppUserDevices(req.session.user.id, req.params.id, req.params.uid, function(e, response){
+        MMXManager.getAppUserDevices(req.session.user.magnetId, req.params.id, req.params.uid, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -375,7 +375,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/endpoints/:did/message', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.sendMessage(req.session.user.id, req.params.id, req.params.did, req.body, function(e, response){
+        MMXManager.sendMessage(req.session.user.magnetId, req.params.id, req.params.did, req.body, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -390,7 +390,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/endpoints/:did/ping', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.sendPing(req.session.user.id, req.params.id, req.params.did, req.body, function(e, response){
+        MMXManager.sendPing(req.session.user.magnetId, req.params.id, req.params.did, req.body, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -405,7 +405,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/endpoints/:did/notification', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.sendNotification(req.session.user.id, req.params.id, req.params.did, req.body, function(e, response){
+        MMXManager.sendNotification(req.session.user.magnetId, req.params.id, req.params.did, req.body, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -420,7 +420,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/:id/devices/:did/messages', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getDeviceMessages(req.session.user.id, req.params.id, req.params.did, function(e, response){
+        MMXManager.getDeviceMessages(req.session.user.magnetId, req.params.id, req.params.did, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -430,7 +430,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/:id/devices/:did/tags', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getDeviceTags(req.session.user.id, req.params.id, req.params.did, req, function(e, response){
+        MMXManager.getDeviceTags(req.session.user.magnetId, req.params.id, req.params.did, req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -440,7 +440,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getAppTopics(req.session.user.id, req.params.id, req.query, function(e, response){
+        MMXManager.getAppTopics(req.session.user.magnetId, req.params.id, req.query, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -450,7 +450,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.createAppTopic(req.session.user.id, req.params.id, req.body, function(e, response){
+        MMXManager.createAppTopic(req.session.user.magnetId, req.params.id, req.body, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -465,7 +465,7 @@ module.exports = function(app){
     });
 
     app.delete('/rest/apps/:id/topics/:tid', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.deleteAppTopic(req.session.user.id, req.params.id, req.params.tid, function(e, response){
+        MMXManager.deleteAppTopic(req.session.user.magnetId, req.params.id, req.params.tid, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -480,7 +480,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/topics/:tid/tags', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.addTopicTags(req.session.user.id, req.params.id, encodeURIComponent(req.params.tid), req.body, req, function(e, response){
+        MMXManager.addTopicTags(req.session.user.magnetId, req.params.id, encodeURIComponent(req.params.tid), req.body, req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -495,7 +495,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/topics/:tid/deleteTags', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.removeTopicTags(req.session.user.id, req.params.id, encodeURIComponent(req.params.tid), req.body, req, function(e, response){
+        MMXManager.removeTopicTags(req.session.user.magnetId, req.params.id, encodeURIComponent(req.params.tid), req.body, req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -510,7 +510,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/topics/:tid/publish', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.publishToTopic(req.session.user.id, req.params.id, req.params.tid, req.body, function(e, response){
+        MMXManager.publishToTopic(req.session.user.magnetId, req.params.id, req.params.tid, req.body, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -849,7 +849,12 @@ module.exports = function(app){
 
     // return server status
     app.get('/rest/status', function(req, res){
-        res.send('standalone', 200);
+        res.contentType('application/json');
+        res.send({
+            platform   : 'standalone',
+            newMMXUser : INST_CONFIG.newMMXUser
+        }, 200);
+        INST_CONFIG.newMMXUser = false;
     });
 
     // restart the server

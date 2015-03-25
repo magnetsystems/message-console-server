@@ -4,7 +4,7 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js fuelux" lang="en"> <!--<![endif]-->
 <head>
-    <title>Magnet Messaging Admin : {{=title}}</title>
+    <title>Magnet Message Admin : {{=title}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="/admin/images/favicon.ico" type="image/x-icon" />
@@ -37,7 +37,7 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="#">
                 <img src="/admin/images/logo_magnet_dark.png" />
-                Mobile Messaging
+                Message <span class="hidden-xs">Administrator Console</span>
                 <span class="project-name-holder"></span>
             </a>
         </div>
@@ -152,6 +152,23 @@
     </div>
 </div>
 
+<div id="wait-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Please Wait...</h4>
+            </div>
+            <div class="modal-body">
+                <p>Your server is being configured with the standard settings. When the configuration is finished, you will be able to see a summary of the standard settings.</p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="restart-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -173,7 +190,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Messaging Server Rebooting</h4>
+                <h4 class="modal-title">Magnet Message Rebooting</h4>
             </div>
             <div class="modal-body">
                 <p>Your messaging server has been provisioned successfully. Please wait for several seconds, the messaging server is being restarted. When the messaging server is ready, you will be taken to the next step.</p>

@@ -2,7 +2,7 @@ var UserManager = require('../lib/UserManager');
 
 module.exports = function(app){
 
-    app.get('/admin', function(req, res){
+    app.get('/admin', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
         res.render('admin/index', {
             locals : {
                 title       : 'Administration',

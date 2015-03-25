@@ -23,13 +23,13 @@ define(['jquery', 'backbone'], function($, Backbone){
                 host     : 'localhost',
                 password : '',
                 port     : 3306,
-                dbName   : 'magnetmessaging',
+                dbName   : 'magnetmessagedb',
                 username : 'root'
             };
             me.userDefaults = {
-                email          : 'manager1@magnetapi.com',
-                password       : 'test',
-                passwordVerify : 'test'
+                email          : 'sysadmin@company.com',
+                password       : 'admin',
+                passwordVerify : 'admin'
             };
             me.messagingDefaults = {
                 shareDB         : true,
@@ -39,7 +39,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                 mysqlPassword   : '',
                 mysqlHost       : 'localhost',
                 mysqlPort       : 3306,
-                mysqlDb         : 'magnetmessaging',
+                mysqlDb         : 'magnetmessagedb',
                 user            : 'admin',
                 password        : 'admin',
                 messaging_tcp   : 5222,
@@ -103,29 +103,29 @@ define(['jquery', 'backbone'], function($, Backbone){
         },
         standardInstall: function(btn){
             var me = this;
-            me.options.eventPubSub.trigger('btnLoading', btn);
+            me.options.eventPubSub.trigger('btnLoading', btn, true);
             me.setupDB(function(){
                 me.createAdmin(function(){
                     me.setupMessaging(function(){
-                        me.options.eventPubSub.trigger('btnComplete', btn);
+                        me.options.eventPubSub.trigger('btnComplete', btn, true);
                         me.renderWizardSummary();
                         me.wizard.wizard('selectedItem', {
                             step : 5
                         });
                     }, function(){
-                        me.options.eventPubSub.trigger('btnComplete', btn);
+                        me.options.eventPubSub.trigger('btnComplete', btn, true);
                         me.wizard.wizard('selectedItem', {
                             step : 4
                         });
                     }, me.messagingDefaults);
                 }, function(){
-                    me.options.eventPubSub.trigger('btnComplete', btn);
+                    me.options.eventPubSub.trigger('btnComplete', btn, true);
                     me.wizard.wizard('selectedItem', {
                         step : 3
                     });
                 }, me.userDefaults);
             }, function(){
-                me.options.eventPubSub.trigger('btnComplete', btn);
+                me.options.eventPubSub.trigger('btnComplete', btn, true);
                 me.wizard.wizard('selectedItem', {
                     step : 2
                 });
@@ -290,6 +290,9 @@ define(['jquery', 'backbone'], function($, Backbone){
             me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/messagingStatus', 'POST', 'application/json', obj, function(res){
                 me.options.eventPubSub.trigger('btnComplete', btn);
+                if(res.code === 200 && res.provisioned === false)
+                    return me.provisionMessaging(form, btn, obj, cb, fb);
+                (fb || function(){})();
                 if(res.code === 200 && res.provisioned === true){
                     return Alerts.Confirm.display({
                         title   : 'Messaging Server Already Configured',
@@ -301,9 +304,6 @@ define(['jquery', 'backbone'], function($, Backbone){
                         (fb || function(){})();
                     });
                 }
-                if(res.code === 200 && res.provisioned === false)
-                    return me.provisionMessaging(form, btn, obj, cb, fb);
-                (fb || function(){})();
                 if(res.code === 403){
                     return Alerts.Error.display({
                         title   : 'Messaging Server Already Configured',
@@ -378,11 +378,11 @@ define(['jquery', 'backbone'], function($, Backbone){
             var btn = $(e.currentTarget);
             me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/completeInstall', 'POST', 'application/json', null, null, function(e){
-                me.options.eventPubSub.trigger('btnComplete', btn);
                 alert(e);
             }, null, {
-                btn : btn,
-                cb  : function(){
+                silent : true,
+                cb     : function(){
+                    me.options.eventPubSub.trigger('btnComplete', btn);
                     window.location.href = '/admin';
                 }
             });

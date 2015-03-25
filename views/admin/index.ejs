@@ -49,7 +49,7 @@
                 </div>
                 <div id="mgmt-user-creation-invite-radio">
                     <input type="radio" class="clearfix" name="mgmt-user-creation-radio" value="mgmt-user-creation-invite" />
-                    <span class="radio-select-title">Send a Mobile Messaging Invite <i class="glyphicon glyphicon-info-sign" title="" data-placement="right" data-toggle="tooltip" data-title="This invites a developer to the Mobile Messaging Application Console. The Email service must be enabled and configured to use this feature."></i></span>
+                    <span class="radio-select-title">Send a Magnet Message Invite <i class="glyphicon glyphicon-info-sign" title="" data-placement="right" data-toggle="tooltip" data-title="This invites a developer to the Magnet Message Application Console. The Email service must be enabled and configured to use this feature."></i></span>
                 </div>
                 <div id="mgmt-user-creation-invite" class="hidden admin-config-item-container radio-item-container">
                     <div class="buttons-section">
@@ -77,20 +77,20 @@
         <div class="tab-pane clearfix" id="mgmt-user-details">
             <a href="#/users" class="glyphicon glyphicon-arrow-left"></a><h3 class="inline"> | Account Information</h3>
             <div id="mgmt-user-user-details"></div>
-            <h3>Messaging Apps</h3>
-            <div id="mmxapp-list-container"></div>
-            <div class="buttons hidden">
-                <div class="buttons-section">
-                    <button did="deactivate-user" type="button" class="btn btn-primary <% if(model.activated !== true){ %>hidden<% } %>">Deactivate User</button>
-                    <button did="activate-user" type="button" class="btn btn-primary <% if(model.activated === true){ %>hidden<% } %>">Activate User</button>
-                    <% if(model.userType == 'guest'){ %>
-                    <button did="approve-user" type="button" class="btn btn-primary">Approve User</button>
-                    <% } %>
-                    <% if(model.userType == 'approved'){ %>
-                    <button did="resend-registration=email" type="button" class="btn btn-primary">Resend Registration Email</button>
-                    <% } %>
-                </div>
-            </div>
+            <!--<h3>Magnet Message Apps</h3>-->
+            <!--<div id="mmxapp-list-container"></div>-->
+            <!--<div class="buttons hidden">-->
+                <!--<div class="buttons-section">-->
+                    <!--<button did="deactivate-user" type="button" class="btn btn-primary <% if(model.activated !== true){ %>hidden<% } %>">Deactivate User</button>-->
+                    <!--<button did="activate-user" type="button" class="btn btn-primary <% if(model.activated === true){ %>hidden<% } %>">Activate User</button>-->
+                    <!--<% if(model.userType == 'guest'){ %>-->
+                    <!--<button did="approve-user" type="button" class="btn btn-primary">Approve User</button>-->
+                    <!--<% } %>-->
+                    <!--<% if(model.userType == 'approved'){ %>-->
+                    <!--<button did="resend-registration=email" type="button" class="btn btn-primary">Resend Registration Email</button>-->
+                    <!--<% } %>-->
+                <!--</div>-->
+            <!--</div>-->
         </div>
         <div class="tab-pane clearfix" id="mgmt-events">
             <div class="admin-configuration-container"></div>
@@ -152,8 +152,8 @@
             <div class="admin-configuration-container"></div>
         </div>
         <div class="tab-pane clearfix" id="mgmt-messaging">
-            <a href="/" class="btn btn-primary pull-right hidden-xs">Go to Messaging Console</a>
-            <h3>Messaging Configuration</h3>
+            <a href="/" class="btn btn-primary pull-right hidden-xs">Go to Magnet Message Application Console</a>
+            <h3>Magnet Message Configuration</h3>
             <div class="admin-config-item-container" did="MMX">
                 <div class="buttons-section">
                     <span class="alert-container"></span>
@@ -188,7 +188,7 @@
     <h5>Status</h5>
     <div class="panel panel-default form-group clearfix">
         <div class="col-sm-3">
-            <label>Messaging Status</label>
+            <label>Magnet Message Connection Status</label>
             <div class="messaging-connectivity-container"></div>
         </div>
     </div>
@@ -230,7 +230,7 @@
     </div>
 
     <% if(stats.mmx && stats.mmx.dbName){ %>
-    <h5>Messaging Server Database</h5>
+    <h5>Magnet Message Database</h5>
     <div class="panel panel-default form-group clearfix">
         <div class="col-sm-3">
             <label>Database Name</label>
@@ -604,7 +604,7 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#admin-config-container-collapsible" href="#admin-config-item-<%- key %>">
-                        <%- key === 'Email' ? 'Email Settings' : key.replace('Log', ' Log Settings').replace('Alerts', ' Alerts').replace('App', 'System Administration Settings').replace('Geologging', 'Geo Tracking').replace('MMX', 'Mobile Messaging Settings') %>
+                        <%- key === 'Email' ? 'Email Settings' : key.replace('Log', ' Log Settings').replace('Alerts', ' Alerts').replace('App', 'System Administration Settings').replace('Geologging', 'Geo Tracking').replace('MMX', 'Magnet Message Settings') %>
                     </a>
                 </h4>
             </div>
@@ -634,7 +634,7 @@
 <script id="AdminConfigurationAppTmpl" type="text/template">
     <div class="col-sm-4">
         <label>Remote Url
-            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The Remote Url is the remote hostname of the Admin Console (should be accessible to Messaging users from a web browser)."></span>
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The Remote Url is the remote hostname of the Admin Console (should be accessible to Magnet Message users from a web browser)."></span>
         </label>
         <input type="text" name="appUrl" class="form-control" placeholder="App Url" value="<%- config.appUrl %>" />
     </div>
@@ -938,7 +938,7 @@
             <input type="text" name="adminPort" class="form-control" placeholder="Admin HTTP REST API Port" value="<%- config.adminPort %>" />
         </div>
     </div>
-    <p><a href="/">Go to Mobile Messaging Console</a></p>
+    <p><a href="/">Go to Magnet Message Application Console</a></p>
     <h5>Settings</h5>
     <hr />
     <% if(featureConfig){ %>
@@ -976,7 +976,7 @@
     </div>
     <% }else{ %>
     <div class="alert alert-danger" role="alert">
-        <strong>Note:</strong> Unable to connect to the Messaging Server with the Messaging Server Connectivity parameters you provided. Please change the parameters and try again.
+        <strong>Note:</strong> Unable to connect to Magnet Message with the Magnet Message Connectivity parameters you provided. Please change the parameters and try again.
     </div>
     <% } %>
 </script>
