@@ -256,15 +256,21 @@
     <form id="wizard-messaging-form" role="form" class="clearfix">
         <span class="alert-container"></span>
         <div class="form-group clearfix">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <label>Internal Hostname</label>
                 <input type="text" class="form-control" name="host" placeholder="Internal Hostname" value="<%- host %>" />
             </div>
-            <div class="col-sm-6">
-                <label>Service Domain
-                    <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="This domain or IP address must be reachable by the mobile devices or emulators using your messaging app."></span>
-                </label>
-                <input type="text" name="xmppDomain" class="form-control" placeholder="Service Domain" value="{{= typeof serverIP !== 'undefined' ? serverIP : 'mmx'}}" />
+            <div class="col-md-4">
+                <label>Messaging Username</label>
+                <input type="text" class="form-control" name="user" placeholder="Username" value="<%- user %>" />
+            </div>
+            <div class="col-md-4">
+                <label>Messaging Password</label>
+                <div class="toggling-password-input">
+                    <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
+                    <span class="glyphicon glyphicon-eye-open" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
+                    <input type="password" class="form-control toggling-password-input" name="password" placeholder="Password" value="<%- password %>" />
+                </div>
             </div>
         </div>
         <div class="panel-group clearfix" id="wizard-messaging-advanced-config">
@@ -313,66 +319,6 @@
                                     <label>Database Name</label>
                                     <input type="text" name="mysqlDb" class="form-control" placeholder="Database Name" value="<%- mysqlDb %>" />
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#wizard-messaging-advanced-config" href="#wizard-messaging-advanced-config-item">
-                            Advanced Configuration
-                        </a>
-                    </h4>
-                </div>
-                <div id="wizard-messaging-advanced-config-item" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        <p>Additional configuration for advanced users. Please do not modify these unless you are familiar with the settings.</p>
-                        <div class="form-group clearfix">
-                            <div class="col-md-6">
-                                <label>Messaging Username</label>
-                                <input type="text" class="form-control" name="user" placeholder="Username" value="<%- user %>" />
-                            </div>
-                            <div class="col-md-6">
-                                <label>Messaging Password</label>
-                                <div class="toggling-password-input">
-                                    <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
-                                    <span class="glyphicon glyphicon-eye-open" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
-                                    <input type="password" class="form-control toggling-password-input" name="password" placeholder="Password" value="<%- password %>" />
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Messaging Port</label>
-                                <input type="text" name="messaging_tcp" class="form-control" placeholder="Messaging Port" value="{{-mmxProperties['messaging_tcp']}}" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Messaging Secure Port</label>
-                                <input type="text" name="messaging_tls" class="form-control" placeholder="Messaging Secure Port" value="{{-mmxProperties['messaging_tls']}}" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Web HTTP Port</label>
-                                <input type="text" name="webPort" class="form-control" placeholder="HTTP Port" value="{{-mmxProperties['bootstrap_http']}}" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Web HTTPS Port</label>
-                                <input type="text" name="bootstrap_https" class="form-control" placeholder="HTTPS Port" value="{{-mmxProperties['bootstrap_https']}}" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Public HTTP REST API Port</label>
-                                <input type="text" name="publicPort" class="form-control" placeholder="Public HTTP REST API Port" value="{{-mmxProperties['public_http']}}" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Public HTTPS REST API Port</label>
-                                <input type="text" name="public_https" class="form-control" placeholder="Public HTTPS REST API Port" value="{{-mmxProperties['public_https']}}" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Admin HTTP REST API Port</label>
-                                <input type="text" name="adminPort" class="form-control" placeholder="Admin HTTP REST API Port" value="{{-mmxProperties['admin_http']}}" />
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Admin HTTPS REST API Port</label>
-                                <input type="text" name="admin_https" class="form-control" placeholder="Admin HTTPS REST API Port" value="{{-mmxProperties['admin_https']}}" />
                             </div>
                         </div>
                     </div>

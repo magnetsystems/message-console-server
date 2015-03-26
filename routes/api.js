@@ -247,7 +247,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/:id/messages', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getAppMessages(req.session.user.id, req.params.id, req.query, function(e, response){
+        MMXManager.getAppMessages(req.session.user.magnetId, req.params.id, req.query, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -257,7 +257,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/:id/notifications', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getAppNotifications(req.session.user.id, req.params.id, req.query, req, function(e, response){
+        MMXManager.getAppNotifications(req.session.user.magnetId, req.params.id, req.query, req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -834,17 +834,15 @@ module.exports = function(app){
 
     // return server statistics
     app.get('/rest/stats', UserManager.checkAuthority(['admin'], true, null, true), function(req, res){
-        ConfigManager.getMMXMySQL(function(e, data){
-            res.send(_.extend({
-                'Hostname'       : require('os').hostname(),
-                'Node Version'   : process.version,
-                'Environment'    : app.settings.env,
-                'Server Version' : require('../package.json').version,
-                'Memory Usage'   : process.memoryUsage()
-            }, {
-                mmx : data
-            }));
-        });
+        res.send(_.extend({
+            'Hostname'       : require('os').hostname(),
+            'Node Version'   : process.version,
+            'Environment'    : app.settings.env,
+            'Server Version' : require('../package.json').version,
+            'Memory Usage'   : process.memoryUsage()
+        }, {
+            mmx : {}
+        }));
     });
 
     // return server status
