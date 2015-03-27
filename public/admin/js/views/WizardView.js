@@ -79,13 +79,14 @@ define(['jquery', 'backbone'], function($, Backbone){
             }else if(did === 'database'){
                 me.setupDB(function(){
                     me.wizard.wizard('next');
-                });
+                }, null, null, true);
             }else if(did === 'admin'){
                 me.createAdmin(function(){
                     me.wizard.wizard('next');
                 });
             }else if(did === 'messaging'){
                 me.setupMessaging(function(){
+                    me.renderWizardSummary();
                     me.wizard.wizard('next');
                 });
             }else{
@@ -157,7 +158,6 @@ define(['jquery', 'backbone'], function($, Backbone){
             me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/setDB', 'POST', 'application/json', obj, function(res){
                 // immediately after completion
-
             }, function(e){
                 me.options.eventPubSub.trigger('btnComplete', btn);
                 if(e == 'ER_BAD_DB_ERROR'){
@@ -166,16 +166,20 @@ define(['jquery', 'backbone'], function($, Backbone){
                         content : 'The database "'+obj.dbName+'" does not exist. If the database credentials you specified have authority to create a database, click <b>Yes</b> to have the server create the database automatically. Otherwise, click <b>No</b> to try again with another database name.'
                     }, function(){
                         obj.createDatabase = true;
-                        me.setupDB(cb, null, obj);
+                        me.setupDB(cb, null, obj, silentInstall);
                     });
                 }
                 if(e == 'DB_ALREADY_EXISTS'){
                     return Alerts.Confirm.display({
                         title   : 'Database Already Exists',
-                        content : 'The database "'+obj.dbName+'" already exists. If you would like to use this database, click <b>Yes</b> to have the server connect to this database non-destructively and add any additional tables as necessary. Otherwise, click <b>No</b> to try again with another database name.'
+                        content : 'The database "'+obj.dbName+'" already exists. Do you want to use this database and allow setup to modify it?',
+                        btns    : {
+                            yes : 'Continue',
+                            no  : 'Cancel'
+                        }
                     }, function(){
                         obj.createDatabase = true;
-                        me.setupDB(cb, null, obj);
+                        me.setupDB(cb, null, obj, silentInstall);
                     });
                 }
                 (fb || function(){})();
@@ -211,6 +215,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                             active : true
                         }));
                     }
+                    _.extend(me.dbDefaults, obj);
                     form.find('input[name^="password"]').val('');
                     me.messagingDefaults.mysqlDb = obj.dbName;
                     me.messagingDefaults.mysqlHost = obj.host;
@@ -254,14 +259,15 @@ define(['jquery', 'backbone'], function($, Backbone){
                         active : true
                     }));
                 }
+                _.extend(me.userDefaults, obj);
                 cb();
             }, function(e){
                 (fb || function(){})();
                 me.options.eventPubSub.trigger('btnComplete', btn);
                 if(e == 'invalid-login'){
                     Alerts.Error.display({
-                        title   : 'User Already Exists',
-                        content : 'This user already exists in the database, but the password you specified was incorrect. Please type the correct password for this user, or choose another email address.'
+                        title   : 'Account Already Exists',
+                        content : 'This account already exists in the database, but the password you specified was incorrect. Please type the correct password for this account, or choose another email address.'
                     });
                 }else{
                     alert(e);
@@ -281,6 +287,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/messagingStatus', 'POST', 'application/json', obj, function(res){
                 me.options.eventPubSub.trigger('btnComplete', btn);
+                _.extend(me.messagingDefaults, obj);
                 if(res.code === 200 && res.provisioned === false)
                     return me.provisionMessaging(form, btn, obj, cb, fb);
                 (fb || function(){})();
@@ -330,7 +337,6 @@ define(['jquery', 'backbone'], function($, Backbone){
                     me.options.eventPubSub.trigger('btnComplete', btn);
                     cb();
                 }else{
-//                    me.messagingCompleteStatusModal.modal('show');
                     me.pollMessagingCompleteStatus(btn, cb);
                 }
             }, function(e){
@@ -351,7 +357,6 @@ define(['jquery', 'backbone'], function($, Backbone){
             timer.poll(function(loop){
                 me.checkMessagingCompleteStatus(function(){
                     timer.stop(id);
-//                    me.messagingCompleteStatusModal.modal('hide');
                     me.options.eventPubSub.trigger('btnComplete', btn);
                     cb();
                 }, function(xhr){
@@ -373,10 +378,17 @@ define(['jquery', 'backbone'], function($, Backbone){
             }, null, {
                 silent : true,
                 cb     : function(){
+                    me.resetSummary();
                     me.options.eventPubSub.trigger('btnComplete', btn);
                     window.location.href = '/admin';
                 }
             });
+        },
+        resetSummary: function(){
+            this.dbDefaults = {};
+            this.userDefaults = {};
+            this.messagingDefaults = {};
+            this.renderWizardSummary();
         }
     });
     return View;

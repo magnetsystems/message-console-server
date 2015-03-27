@@ -9,7 +9,7 @@
         <ul class="steps">
             <li did="intro" class="active" data-step="1"><span class="badge badge-info">1</span>Welcome<span class="chevron"></span></li>
             <li did="database" data-step="2"><span class="badge">2</span>Database<span class="chevron"></span></li>
-            <li did="admin" data-step="3"><span class="badge">3</span>Admin User<span class="chevron"></span></li>
+            <li did="admin" data-step="3"><span class="badge">3</span>Admin Account<span class="chevron"></span></li>
             <li did="messaging" data-step="4"><span class="badge">4</span>Messaging<span class="chevron"></span></li>
             <li did="finish" data-step="5"><span class="badge">5</span>Finish<span class="chevron"></span></li>
         </ul>
@@ -21,6 +21,10 @@
             <div did="intro" class="step-pane active sample-pane alert" data-step="1">
                 <h4>Welcome</h4>
                 <p>Congratulations on getting started with Magnet Message. We will walk you through the first-time configuration of your server.</p>
+                <p>
+                    "Standard" setup: use default settings to configure the server automatically.<br />
+                    "Custom" setup: enter custom settings to configure the server manually.
+                </p>
                 <br />
                 <div class="form-group">
                     <div class="btn-group btn-toggle clearfix" did="installType">
@@ -50,8 +54,9 @@
                 </div>
             </div>
             <div did="admin" class="step-pane sample-pane alert" data-step="3">
-                <h4>Setup Admin User</h4>
-                <p>Configure an admin user to log in to the Admin Console. You will be able to modify this user and create other admin users later.</p>
+                <h4>Create Admin Account</h4>
+                <p>Configure an admin account to log in to the System Administration console.<br />
+                You will be able to modify and create other accounts later.</p>
                 <hr />
                 <div id="wizard-admin-container"></div>
                 <div class="button-group clearfix">
@@ -66,7 +71,7 @@
             </div>
             <div did="messaging" class="step-pane sample-pane alert" data-step="4">
                 <h4>Setup Magnet Message</h4>
-                <p>Configure your Magnet Message server.</p>
+                <p>Configure your messaging server.</p>
                 <hr />
                 <div id="wizard-messaging-container"></div>
                 <div class="button-group clearfix">
@@ -80,8 +85,8 @@
                 </div>
             </div>
             <div class="step-pane sample-pane alert" data-step="5">
-                <h4>Confirm and Finish</h4>
-                <p>Below is a summary of the settings you configured. When you are ready to start using the server, click <b>Complete Installation</b>. </p>
+                <h4>Summary</h4>
+                <p>Below is a summary of the settings you configured. When you are ready to start using the server, click <b>Complete Setup</b>. </p>
                 <table id="wizard-summary-table" class="table">
                     <tbody>
                     <tr>
@@ -89,7 +94,7 @@
                         <td><span class="label label-success">Success</span></td>
                     </tr>
                     <tr>
-                        <td>Setup Admin User</td>
+                        <td>Setup Admin Account</td>
                         <td><span class="label label-success">Success</span></td>
                     </tr>
                     <tr>
@@ -212,16 +217,12 @@
         <strong>All Ready!</strong> An admin user has been created.
     </div>
     <% }else{ %>
-    <div class="alert alert-info" role="alert">
-        <strong>Note:</strong> To protect your security, we suggest that you use a password with 10 or more alphanumerical characters with both
-        upper and lower case letters.
-    </div>
     <form id="wizard-admin-form" role="form" class="clearfix">
         <span class="alert-container"></span>
         <div class="form-group">
             <div class="col-md-12">
                 <label>Email Address</label>
-                <input type="text" class="form-control" name="email" placeholder="Email Address" value="manager1@magnetapi.com" />
+                <input type="text" class="form-control" name="email" placeholder="Enter the email you would like to use for your admin" value="" />
             </div>
         </div>
         <div class="form-group">
@@ -230,7 +231,7 @@
                 <div class="toggling-password-input">
                     <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
                     <span class="glyphicon glyphicon-eye-open" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
-                    <input type="password" class="form-control toggling-password-input" name="password" placeholder="Password" value="" />
+                    <input type="password" class="form-control toggling-password-input" name="password" placeholder="Enter your password" value="" />
                 </div>
             </div>
             <div class="col-md-6">
@@ -238,8 +239,11 @@
                 <div class="toggling-password-input">
                     <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
                     <span class="glyphicon glyphicon-eye-open" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
-                    <input type="password" class="form-control  toggling-password-input" name="passwordVerify" placeholder="Password (repeat)" value="" />
+                    <input type="password" class="form-control  toggling-password-input" name="passwordVerify" placeholder="Re-enter your password" value="" />
                 </div>
+            </div>
+            <div class="col-md-12">
+                <span class="colortext colortext-info">To protect your security, use a password with 10 or more characters, with at least one uppercase letter, lowercase letter, and number.</span>
             </div>
         </div>
     </form>
@@ -278,23 +282,24 @@
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#wizard-messaging-advanced-config" href="#wizard-messaging-db-config-item">
-                            Magnet Message Database Configuration
+                            Advanced Configuration
                         </a>
                     </h4>
                 </div>
                 <div id="wizard-messaging-db-config-item" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <p>Database configuration for the messaging server. By default, the messaging server will share the same database as
-                            the Administrator Console. You can configure a different database by modifying the configuration below.</p>
+                        <p>
+                            <b>Database configuration</b><br />
+                            By default, the messaging server will share the same database as the Administrator Console.</p>
                         <div class="form-group clearfix">
                             <div class="col-sm-4">
-                                <label>Share Database
-                                    <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Choose Yes to share the same database as the Admin Console."></span>
-                                </label>
                                 <div class="btn-group btn-toggle" did="shareDB">
-                                    <button class="btn btn-sm btn-primary active" did="true" type="button">Yes</button>
-                                    <button class="btn btn-sm btn-default" did="false" type="button">No</button>
+                                    <button class="btn btn-sm btn-primary active" did="true" type="button">ON</button>
+                                    <button class="btn btn-sm btn-default" did="false" type="button">OFF</button>
                                 </div>
+                                <label class="aligned">Share Database
+                                    <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Turn off Share Database to configure a different database."></span>
+                                </label>
                             </div>
                         </div>
                         <div id="wizard-messaging-database-config" class="hidden">
