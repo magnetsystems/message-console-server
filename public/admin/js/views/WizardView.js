@@ -330,7 +330,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                     me.options.eventPubSub.trigger('btnComplete', btn);
                     cb();
                 }else{
-                    me.messagingCompleteStatusModal.modal('show');
+//                    me.messagingCompleteStatusModal.modal('show');
                     me.pollMessagingCompleteStatus(btn, cb);
                 }
             }, function(e){
@@ -351,13 +351,13 @@ define(['jquery', 'backbone'], function($, Backbone){
             timer.poll(function(loop){
                 me.checkMessagingCompleteStatus(function(){
                     timer.stop(id);
-                    me.messagingCompleteStatusModal.modal('hide');
+//                    me.messagingCompleteStatusModal.modal('hide');
                     me.options.eventPubSub.trigger('btnComplete', btn);
                     cb();
                 }, function(xhr){
                     loop.paused = false;
                 });
-            }, 1000 * 3 * 1, id);
+            }, 1000, id);
         },
         checkMessagingCompleteStatus: function(cb, fb){
             AJAX('admin/messagingCompleteStatus', 'GET', 'application/json', null, cb, fb, null, {
