@@ -18,6 +18,7 @@ winston.add(winston.transports.Console, {
 });
 
 var ConfigManager = require('./lib/ConfigManager');
+ConfigManager.retrieveLocalStartupProperties();
 global.ENV_CONFIG = ConfigManager.configs;
 global.INST_CONFIG = {};
 

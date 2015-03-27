@@ -5,15 +5,19 @@
         <key>default</key>
         <dict>
             <key>BaseURL</key>
-            <string>mmx://{{=mmxconfig.configs['push.callbackurl'] || config.Geologging.servername || ''}}:5222</string>
+            <string>mmx://{{=mmxconfig.configs['mmx.push.callbackurl'] || ''}}:5222</string>
+            <key>DomainName</key>
+            <string>mmx</string>
             <key>AppId</key>
             <string>{{=params.appId || ''}}</string>
             <key>ApiKey</key>
             <string>{{=params.appAPIKey || ''}}</string>
-            <key>GuestSecret</key>
+            <key>AnonymousSecret</key>
             <string>{{=params.guestSecret || ''}}</string>
             <key>ShouldForceTLS</key>
-            <false/>
+            <true/>
+            <key>AllowInvalidCertificates</key>
+            <true/>
         </dict>
     </dict>
 </plist>

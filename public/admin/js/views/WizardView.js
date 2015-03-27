@@ -34,22 +34,13 @@ define(['jquery', 'backbone'], function($, Backbone){
             me.messagingDefaults = {
                 shareDB         : true,
                 host            : 'localhost',
-                xmppDomain      : 'mmx',
                 mysqlUser       : 'root',
                 mysqlPassword   : '',
                 mysqlHost       : 'localhost',
                 mysqlPort       : 3306,
                 mysqlDb         : 'magnetmessagedb',
                 user            : 'admin',
-                password        : 'admin',
-                messaging_tcp   : 5222,
-                messaging_tls   : 5223,
-                webPort         : 9090,
-                bootstrap_https : 9091,
-                publicPort      : 5220,
-                public_https    : 5221,
-                adminPort       : 6060,
-                admin_https     : 6060
+                password        : 'admin'
             };
             me.messagingCompleteStatusModal = $('#messaging-provision-status-modal');
         },
@@ -339,7 +330,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                     me.options.eventPubSub.trigger('btnComplete', btn);
                     cb();
                 }else{
-                    me.messagingCompleteStatusModal.modal('show');
+//                    me.messagingCompleteStatusModal.modal('show');
                     me.pollMessagingCompleteStatus(btn, cb);
                 }
             }, function(e){
@@ -360,13 +351,13 @@ define(['jquery', 'backbone'], function($, Backbone){
             timer.poll(function(loop){
                 me.checkMessagingCompleteStatus(function(){
                     timer.stop(id);
-                    me.messagingCompleteStatusModal.modal('hide');
+//                    me.messagingCompleteStatusModal.modal('hide');
                     me.options.eventPubSub.trigger('btnComplete', btn);
                     cb();
                 }, function(xhr){
                     loop.paused = false;
                 });
-            }, 1000 * 5 * 1, id);
+            }, 1000, id);
         },
         checkMessagingCompleteStatus: function(cb, fb){
             AJAX('admin/messagingCompleteStatus', 'GET', 'application/json', null, cb, fb, null, {
