@@ -374,7 +374,10 @@ define(['jquery', 'backbone'], function($, Backbone){
                 silent : true,
                 cb     : function(){
                     me.options.eventPubSub.trigger('btnComplete', btn);
-                    window.location.href = '/admin';
+                    console.log('asdf');
+                    setTimeout(function(){
+                        window.location.href = '/admin';
+                    }, 1000);
                 }
             });
         }
