@@ -10,7 +10,6 @@ module.exports = function(app){
                 activePage    : 'wizard',
                 userType      : 'wizard',
                 envConfig     : ENV_CONFIG,
-                serverIP      : require('ip').address(),
                 sessionUser   : req.session.user
             }
         });
@@ -62,7 +61,13 @@ module.exports = function(app){
             if(e){
                 res.send(e, 400);
             }else{
-                res.send(configs, 200);
+                MMXManager.setConfigs({
+                    configs : {
+                        'mmx.push.callbackurl' : require('ip').address()
+                    }
+                }, function(e){
+                    res.send(configs, 200);
+                });
             }
         });
     });
