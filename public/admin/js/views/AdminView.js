@@ -24,14 +24,8 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     Backbone.history.navigate('#/'+page+'/'+model.attributes.magnetId);
                 });
                 if(page == 'cms') me.getPageList();
-                if(page == 'actions') me.getConfig(function(configs){
-                    me.getMMXConfig(function(mmxconfig){
-                        me.renderConfig(page, configs, ['App', 'MMX', 'Database', 'Redis', 'Email', 'Geologging'], {
-                            MMX : mmxconfig
-                        });
-                        me.getGeotrackingState();
-                    });
-                });
+                if(page == 'actions')
+                    me.fetchAndRenderConfig();
                 if(page == 'users') me.getConfig(function(config){
                     var radio = $('#mgmt-user-creation-invite-radio');
                     if(config.enabled){
@@ -43,15 +37,17 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 if(page == 'events') me.getConfig(function(configs){
                     me.renderConfig(page, configs, ['DatabaseLog', 'FileLog', 'EmailAlerts']);
                 });
-                if(page == 'overview') me.getConfig(function(configs){
-                    me.getMMXConfig(function(mmxconfig){
-                        me.getServerStats(function(stats){
-                            me.renderOverview(configs, mmxconfig, stats);
-                            me.getGeotrackingState();
-                            me.setMessagingState(mmxconfig);
+                if(page == 'overview'){
+                    me.getConfig(function(configs){
+                        me.getMMXConfig(function(mmxconfig){
+                            me.getServerStats(function(stats){
+                                me.renderOverview(configs, mmxconfig, stats);
+                                me.getGeotrackingState();
+                                me.setMessagingState(mmxconfig);
+                            });
                         });
                     });
-                });
+                }
 //                if(page == 'messaging') me.getConfig(function(config){
 //                    me.getMMXConfig(function(mmxconfig){
 //                        me.renderMMXConfig(config, mmxconfig);
@@ -103,6 +99,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             'click .cms-canceledit' : 'endCMSEdit',
             'click .cms-save' : 'endCMSEdit',
             'click div[did="edittype"] button': 'toggleEditingMode',
+            'click #admin-config-reset-btn': 'fetchAndRenderConfig',
             'click .admin-config-save-btn': 'saveConfig',
             'click div[did="shareDB"] button': 'onShareDBClick',
             'click #admin-user-create-btn': 'createUser'
@@ -346,6 +343,16 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 });
             });
         },
+        fetchAndRenderConfig: function(){
+            var me = this;
+            me.getConfig(function(configs){
+                me.getMMXConfig(function(mmxconfig){
+                    configs.MessagingSettings = mmxconfig;
+                    me.renderConfig('actions', configs, ['MMX', 'MessagingSettings', 'App', 'Database', 'Redis', 'Email', 'Geologging']);
+                    me.getGeotrackingState();
+                });
+            });
+        },
         getConfig: function(cb, config){
             var me = this;
             me.options.mc.query('configs'+(config ? '/'+config : ''), 'GET', null, function(res){
@@ -355,11 +362,12 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             });
         },
         getMMXConfig: function(cb){
-            var me = this;
-            me.options.mc.query('apps/configs', 'GET', null, function(res){
+            AJAX('apps/configs', 'GET', 'application/json', null, function(res){
                 cb(res.configs || res);
-            }, null, null, function(e){
+            }, function(){
                 cb();
+            }, null, {
+                timeout : 10000
             });
         },
         getServerStats: function(cb){
@@ -398,7 +406,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                         content : 'The configuration for section <b>'+did+'</b> has been updated successfully.'
                     });
                 }
-            }, function(e){
+            }, function(e, status){
                 me.hideLoading(container);
                 if(did == 'MMX'){
                     if(e === 'auth-failure'){
@@ -407,10 +415,22 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                             content : 'The credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server.'
                         });
                     }
+                    if(e === 'not-provisioned'){
+                        return Alerts.Error.display({
+                            title   : 'Messaging Server Not Provisioned',
+                            content : 'The messaging server at "'+obj.host+'" could be reached, but has not yet been provisioned.'
+                        });
+                    }
                     if(e === 'not-found' || e === 'connect-error'){
                         return Alerts.Error.display({
                             title   : 'Messaging Server Not Found',
                             content : 'The messaging server at "'+obj.host+'" could not be reached. Please try again with a different hostname or port, and check your firewall configuration.'
+                        });
+                    }
+                    if(status == 'timeout'){
+                        return Alerts.Error.display({
+                            title   : 'Messaging Server Timeout',
+                            content : 'The connection attempt to the messaging server at "'+obj.host+'" timed out. This may be due to connectivity issues, or the messaging server may be experiencing issues. For debugging purposes, check logs on the messaging server.'
                         });
                     }
                 }else if(did == 'Database'){
@@ -521,6 +541,11 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             parent.find('.buttons-section.loading').show();
         },
         renderOverview: function(configs, mmxconfig, stats){
+            mmxconfig = mmxconfig || {};
+            if(mmxconfig['mmx.db.url'] && mmxconfig['mmx.db.user']){
+                _.extend(mmxconfig, utils.sqlToObject(mmxconfig['mmx.db.url']));
+                mmxconfig.username = mmxconfig['mmx.db.user'].split('@')[0];
+            }
             $('#mgmt-overview').html(_.template($('#AdminOverviewTmpl').html(), {
                 configs   : configs,
                 mmxconfig : mmxconfig,

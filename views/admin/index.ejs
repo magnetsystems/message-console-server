@@ -145,6 +145,7 @@
             </div>
         </div>
         <div class="tab-pane clearfix" id="mgmt-actions">
+            <button id="admin-config-reset-btn" class="btn btn-primary pull-right">Reset</button>
             <h3>Configuration</h3>
             <div class="alert alert-info" role="alert">
                 <strong>Note:</strong> Certain changes made to the configuration below will initiate a restart of the server.
@@ -160,7 +161,7 @@
                     <div id="admin-mmx-configuration-container" class="form-group clearfix"></div>
                     <hr />
                     <div class="button-group clearfix">
-                        <button class="admin-config-save-btn btn btn-primary">Save Changes</button>
+                        <button class="admin-config-save-btn btn btn-primary">Save</button>
                     </div>
                 </div>
                 <div class="loading buttons-section" style="display:none">
@@ -196,12 +197,16 @@
     <h5>Environment</h5>
     <div class="panel panel-default form-group clearfix">
         <div class="col-sm-3">
-            <label>Domain Name</label>
-            <span><%- configs.Geologging.servername %></span>
+            <label>External Hostname</label>
+            <span><%- mmxconfig['mmx.push.callbackurl'] %></span>
         </div>
         <div class="col-sm-3">
-            <label>Host Name</label>
+            <label>Internal Hostname</label>
             <span><%- configs.MMX.host %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>Domain</label>
+            <span><%- mmxconfig['xmpp.domain'] %></span>
         </div>
         <div class="col-sm-3">
             <label>Log Directory</label>
@@ -229,73 +234,23 @@
         </div>
     </div>
 
-    <% if(stats.mmx && stats.mmx.dbName){ %>
-    <h5>Magnet Message Database</h5>
+    <h5>Messaging Server Database</h5>
     <div class="panel panel-default form-group clearfix">
         <div class="col-sm-3">
             <label>Database Name</label>
-            <span><%- stats.mmx.dbName %></span>
+            <span><%- mmxconfig.dbName %></span>
         </div>
         <div class="col-sm-3">
             <label>Host Hame</label>
-            <span><%- stats.mmx.host %></span>
+            <span><%- mmxconfig.host %></span>
         </div>
         <div class="col-sm-3">
             <label>Port</label>
-            <span><%- stats.mmx.port %></span>
+            <span><%- mmxconfig.port %></span>
         </div>
         <div class="col-sm-3">
             <label>Username</label>
-            <span><%- stats.mmx.username %></span>
-        </div>
-    </div>
-    <% } %>
-
-    <h5>Client Messaging Port</h5>
-    <div class="panel panel-default form-group clearfix">
-        <div class="col-sm-3">
-            <label>HTTP</label>
-            <span><%- configs.MMX.publicPort %></span>
-        </div>
-        <div class="col-sm-3">
-            <label>HTTPS</label>
-            <span><%- configs.MMX.publicPort %></span>
-        </div>
-    </div>
-
-    <h5>Public REST API Port</h5>
-    <div class="panel panel-default form-group clearfix">
-        <div class="col-sm-3">
-            <label>HTTP</label>
-            <span><%- configs.MMX.publicPort %></span>
-        </div>
-        <div class="col-sm-3">
-            <label>HTTPS</label>
-            <span><%- configs.MMX.publicPort %></span>
-        </div>
-    </div>
-
-    <h5>Admin REST API Port</h5>
-    <div class="panel panel-default form-group clearfix">
-        <div class="col-sm-3">
-            <label>HTTP</label>
-            <span><%- configs.MMX.adminPort %></span>
-        </div>
-        <div class="col-sm-3">
-            <label>HTTPS</label>
-            <span><%- configs.MMX.adminPort %></span>
-        </div>
-    </div>
-
-    <h5>Web Port</h5>
-    <div class="panel panel-default form-group clearfix">
-        <div class="col-sm-3">
-            <label>HTTP</label>
-            <span><%- configs.MMX.webPort %></span>
-        </div>
-        <div class="col-sm-3">
-            <label>HTTPS</label>
-            <span><%- configs.MMX.webPort %></span>
+            <span><%- mmxconfig.username %></span>
         </div>
     </div>
 
@@ -312,6 +267,61 @@
         </div>
     </div>
     <% } %>
+
+    <h5>Ports</h5>
+    <div class="panel panel-default form-group clearfix">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Protocol</th>
+                <th>Port</th>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>HTTP</td>
+                <td><%- mmxconfig['xmpp.socket.plain.port'] %></td>
+                <td>Client Messaging</td>
+            </tr>
+            <tr>
+                <td>HTTPS</td>
+                <td><%- mmxconfig['xmpp.socket.ssl.port'] %></td>
+                <td>Client Messaging</td>
+            </tr>
+            <tr>
+                <td>HTTP</td>
+                <td><%- configs.MMX.webPort %></td>
+                <td>Web</td>
+            </tr>
+            <tr>
+                <td>HTTPS</td>
+                <td><%- mmxconfig['adminConsole.securePort'] %></td>
+                <td>Web</td>
+            </tr>
+            <tr>
+                <td>HTTP</td>
+                <td><%- mmxconfig['mmx.rest.http.port'] %></td>
+                <td>Public REST API</td>
+            </tr>
+            <tr>
+                <td>HTTPS</td>
+                <td><%- mmxconfig['mmx.rest.https.port'] %></td>
+                <td>Public REST API</td>
+            </tr>
+            <tr>
+                <td>HTTP</td>
+                <td><%- mmxconfig['mmx.admin.api.port'] %></td>
+                <td>Admin REST API</td>
+            </tr>
+            <tr>
+                <td>HTTPS</td>
+                <td><%- mmxconfig['mmx.admin.api.https.port'] %></td>
+                <td>Admin REST API</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </script>
 
@@ -604,7 +614,10 @@
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#admin-config-container-collapsible" href="#admin-config-item-<%- key %>">
-                        <%- key === 'Email' ? 'Email Settings' : key.replace('Log', ' Log Settings').replace('Alerts', ' Alerts').replace('App', 'System Administration Settings').replace('Geologging', 'Geo Tracking').replace('MMX', 'Magnet Message Settings') %>
+                        <%- key === 'Email' ? 'Email Settings' : key.replace('Log', ' Log Settings').replace('Alerts', ' Alerts')
+                        .replace('App', 'System Administration Settings').replace('Geologging', 'Geo Tracking')
+                        .replace('MMX', 'Magnet Message Connection Settings').replace('MessagingSettings', 'Messaging Settings')
+                        .replace('Database', 'Magnet Message Database Settings') %>
                     </a>
                 </h4>
             </div>
@@ -618,7 +631,7 @@
                             </div>
                             <hr />
                             <div class="button-group clearfix">
-                                <button class="admin-config-save-btn btn btn-primary">Save Changes<%- (['Database', 'App', 'Redis'].indexOf(key) != -1) ? ' and Restart' : '' %></button>
+                                <button class="admin-config-save-btn btn btn-primary"><%- (key == 'MMX' ? 'Apply' : 'Save') %><%- (['Database', 'App', 'Redis'].indexOf(key) != -1) ? ' and Restart' : '' %></button>
                             </div>
                         </div>
                         <div class="loading buttons-section" style="display:none">
@@ -632,19 +645,19 @@
     </div>
 </script>
 <script id="AdminConfigurationAppTmpl" type="text/template">
-    <div class="col-sm-4">
+    <div class="col-sm-6">
         <label>Remote Url
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The Remote Url is the remote hostname of the Admin Console (should be accessible to Magnet Message users from a web browser)."></span>
         </label>
         <input type="text" name="appUrl" class="form-control" placeholder="App Url" value="<%- config.appUrl %>" />
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <label>Port
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The internal port of the Admin Console server (behind load balancer if applicable)."></span>
         </label>
         <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <label>Handle Exceptions
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="If enabled, uncaught exceptions will be caught and logged. This is useful for production environments."></span>
         </label>
@@ -659,17 +672,17 @@
     <div class="alert alert-danger" role="alert">
         <strong>Warning:</strong> If the database is changed, the new database must have at least one admin user in order to login.
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-5">
         <label>Hostname</label>
         <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
     </div>
-    <div class="col-sm-4">
-        <label>Port</label>
-        <input type="text" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
-    </div>
-    <div class="col-sm-4">
+    <div class="col-sm-5">
         <label>Database Name</label>
         <input type="text" name="dbName" class="form-control" placeholder="Database Name" value="<%- config.dbName %>" />
+    </div>
+    <div class="col-sm-2">
+        <label>Port</label>
+        <input type="text" maxlength="10" name="port" class="form-control" placeholder="Port" value="<%- config.port %>" />
     </div>
     <div class="col-sm-6">
         <label>Username</label>
@@ -699,12 +712,12 @@
         <input type="text" name="cacheTimeout" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="time in seconds" value="<%- config.cacheTimeout %>" />
     </div>
     <div class="col-sm-4">
-        <label>Hostname</label>
-        <input type="text" name="host" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Hostname" value="<%- config.host %>" />
+        <label>Port</label>
+        <input type="text" maxlength="10" name="port" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Port" value="<%- config.port %>" />
     </div>
     <div class="col-sm-6">
-        <label>Port</label>
-        <input type="text" name="port" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Port" value="<%- config.port %>" />
+        <label>Hostname</label>
+        <input type="text" name="host" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Hostname" value="<%- config.host %>" />
     </div>
     <div class="col-sm-6">
         <label>Password</label>
@@ -835,13 +848,13 @@
         <label>Sender</label>
         <input type="text" name="sender" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="ender" value="<%- config.sender %>" />
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-9">
         <label>Hostname</label>
         <input type="text" name="host" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Hostname" value="<%- config.host %>" />
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-3">
         <label>Port</label>
-        <input type="text" name="port" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Port" value="<%- config.port %>" />
+        <input type="text" maxlength="10" name="port" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Port" value="<%- config.port %>" />
     </div>
     <div class="col-sm-6">
         <label>Username</label>
@@ -870,19 +883,15 @@
         <label>Service Domain</label>
         <input type="text" name="servername" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Service Domain" value="<%- config.servername %>" />
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label>Service Id</label>
         <input type="text" name="jid" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Service Id" value="<%- config.jid %>" />
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label>Hostname</label>
         <input type="text" name="host" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Hostname" value="<%- config.host %>" />
     </div>
-    <div class="col-sm-6">
-        <label>Port</label>
-        <input type="text" name="port" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Port" value="<%- config.port %>" />
-    </div>
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <label>Secret Key</label>
         <div class="toggling-password-input">
             <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
@@ -890,38 +899,52 @@
             <input type="password" name="secretkey" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control toggling-password-input" placeholder="Secret Key" value="<%- config.secretkey %>" />
         </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
+        <label>Port</label>
+        <input type="text" maxlength="10" name="port" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Port" value="<%- config.port %>" />
+    </div>
+    <div class="col-sm-3">
         <label>Flush Interval
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="To improve performance, set the amount of geolocation cache entries before they are stored to database."></span>
         </label>
-        <input type="text" name="flushInterval" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="number of entries" value="<%- config.flushInterval %>" />
+        <input type="text" maxlength="10" name="flushInterval" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="number of entries" value="<%- config.flushInterval %>" />
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <label>Expiration Timeout
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The time in minutes before a geolocation record is considered outdated and removed from the database."></span>
         </label>
-        <input type="text" name="expirationTimeout" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="time in minutes" value="<%- config.expirationTimeout %>" />
+        <input type="text" maxlength="10" name="expirationTimeout" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="time in minutes" value="<%- config.expirationTimeout %>" />
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <label>Cleanup Interval
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The interval in minutes when the database should be inspected to check for outdated geolocation records."></span>
         </label>
-        <input type="text" name="cleanupInterval" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="time in minutes" value="<%- config.cleanupInterval %>" />
+        <input type="text" maxlength="10" name="cleanupInterval" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="time in minutes" value="<%- config.cleanupInterval %>" />
     </div>
 </script>
 <script id="AdminConfigurationMMXTmpl" type="text/template">
-    <h5>Connection Settings</h5>
-    <hr />
     <div did="mmx-connect" class="form-group clearfix">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <label>Hostname</label>
             <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
+            <label>Web Port</label>
+            <input type="text" maxlength="10" name="webPort" class="form-control" placeholder="Port" value="<%- config.webPort %>" />
+        </div>
+        <div class="col-sm-2">
+            <label>Public HTTP REST API Port</label>
+            <input type="text" maxlength="10" name="publicPort" class="form-control" placeholder="Public HTTP REST API Port" value="<%- config.publicPort %>" />
+        </div>
+        <div class="col-sm-2">
+            <label>Admin HTTP REST API Port</label>
+            <input type="text" maxlength="10" name="adminPort" class="form-control" placeholder="Admin HTTP REST API Port" value="<%- config.adminPort %>" />
+        </div>
+        <div class="col-sm-6">
             <label>Username</label>
             <input type="text" name="user" class="form-control" placeholder="Username" value="<%- config.user %>" />
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <label>Password</label>
             <div class="toggling-password-input">
                 <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
@@ -929,58 +952,51 @@
                 <input type="password" name="password" class="form-control toggling-password-input" placeholder="Password" value="<%- config.password %>" />
             </div>
         </div>
-        <div class="col-sm-4">
-            <label>Web Port</label>
-            <input type="text" name="webPort" class="form-control" placeholder="Port" value="<%- config.webPort %>" />
-        </div>
-        <div class="col-sm-4">
-            <label>Public HTTP REST API Port</label>
-            <input type="text" name="publicPort" class="form-control" placeholder="Public HTTP REST API Port" value="<%- config.publicPort %>" />
-        </div>
-        <div class="col-sm-4">
-            <label>Admin HTTP REST API Port</label>
-            <input type="text" name="adminPort" class="form-control" placeholder="Admin HTTP REST API Port" value="<%- config.adminPort %>" />
-        </div>
     </div>
     <p><a href="/">Go to Magnet Message Application Console</a></p>
-    <h5>Settings</h5>
-    <hr />
-    <% if(featureConfig){ %>
+</script>
+
+<script id="AdminConfigurationMessagingSettingsTmpl" type="text/template">
+    <% if(config){ %>
     <div did="mmx-config" class="form-group clearfix">
-        <div class="col-sm-12">
-            <label>External Hostname
-                <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The public url to be used by mobile clients for acknowledging push notifications."></span>
-            </label>
-            <input type="text" name="mmx.push.callbackurl" class="form-control" placeholder="A public url" value="<%- featureConfig['mmx.push.callbackurl'] %>" />
+        <div class="row-fluid clearfix">
+            <div class="col-sm-8">
+                <label>External Hostname
+                    <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The public url to be used by mobile clients for acknowledging push notifications."></span>
+                </label>
+                <input type="text" name="mmx.push.callbackurl" class="form-control" placeholder="A public url" value="<%- config['mmx.push.callbackurl'] %>" />
+            </div>
         </div>
-        <div class="col-sm-6">
-            <label>Wakeup Frequency
-                <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Frequency in seconds for sending a wakeup to a device."></span>
-            </label>
-            <input type="text" name="mmx.wakeup.frequency" class="form-control" placeholder="Frequency in seconds" value="<%- featureConfig['mmx.wakeup.frequency'] %>" />
-        </div>
-        <div class="col-sm-6">
-            <label>Retry Interval
-                <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The time interval in minutes between consecutive message retry attempts."></span>
-            </label>
-            <input type="text" name="mmx.retry.interval.minutes" class="form-control" placeholder="Time interval in minutes" value="<%- featureConfig['mmx.retry.interval.minutes'] %>" />
-        </div>
-        <div class="col-sm-6">
-            <label>Retry Count
-                <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The count for the number of times a message delivery will be attempted."></span>
-            </label>
-            <input type="text" name="mmx.retry.count" class="form-control" placeholder="message rate" value="<%- featureConfig['mmx.retry.count'] %>" />
-        </div>
-        <div class="col-sm-6">
-            <label>Timeout Period
-                <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The time period in minutes after which server will stop attempting to deliver message."></span>
-            </label>
-            <input type="text" name="mmx.timeout.period.minutes" class="form-control" placeholder="Timeout period in minutes" value="<%- featureConfig['mmx.timeout.period.minutes'] %>" />
+        <div class="row-fluid">
+            <div class="col-sm-2">
+                <label>Wakeup Frequency
+                    <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Frequency in seconds for sending a wakeup to a device."></span>
+                </label>
+                <input type="text" maxlength="10" name="mmx.wakeup.frequency" class="form-control" placeholder="Frequency in seconds" value="<%- config['mmx.wakeup.frequency'] %>" />
+            </div>
+            <div class="col-sm-2">
+                <label>Retry Interval
+                    <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The time interval in minutes between consecutive message retry attempts."></span>
+                </label>
+                <input type="text" maxlength="10" name="mmx.retry.interval.minutes" class="form-control" placeholder="Time interval in minutes" value="<%- config['mmx.retry.interval.minutes'] %>" />
+            </div>
+            <div class="col-sm-2">
+                <label>Retry Count
+                    <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The count for the number of times a message delivery will be attempted."></span>
+                </label>
+                <input type="text" maxlength="10" name="mmx.retry.count" class="form-control" placeholder="message rate" value="<%- config['mmx.retry.count'] %>" />
+            </div>
+            <div class="col-sm-2">
+                <label>Timeout Period
+                    <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The time period in minutes after which server will stop attempting to deliver message."></span>
+                </label>
+                <input type="text" maxlength="10" name="mmx.timeout.period.minutes" class="form-control" placeholder="Timeout period in minutes" value="<%- config['mmx.timeout.period.minutes'] %>" />
+            </div>
         </div>
     </div>
     <% }else{ %>
     <div class="alert alert-danger" role="alert">
-        <strong>Note:</strong> Unable to connect to Magnet Message with the Magnet Message Connectivity parameters you provided. Please change the parameters and try again.
+        Unable to connect to Magnet Message with the Magnet Message Connectivity parameters you provided. Please change the parameters and try again.
     </div>
     <% } %>
 </script>

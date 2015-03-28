@@ -786,12 +786,6 @@ utils = {
         });
         return obj;
     },
-    startEditForm : function(){
-
-    },
-    cancelEditForm: function(){
-
-    },
     pushNode : function(obj, name, val){
         if(!obj['_node']) return false;
         obj['_node'].push({
@@ -879,6 +873,18 @@ utils = {
     isValidEmail: function(e){
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(e);
+    },
+    sqlToObject: function(str){
+        var a = str.match(/mysql:\/\/[^;]*\?/i), b = {};
+        if(a){
+            a = a[0].replace('mysql:\/\/', '').replace('?', '');
+            a = a.split('/');
+            b.dbName = a[1];
+            a = a[0].split(':');
+            b.host = a[0];
+            b.port = a[1];
+        }
+        return b;
     }
 };
 

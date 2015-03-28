@@ -807,7 +807,7 @@ module.exports = function(app){
         });
     });
 
-    var noRestartNeeded = ['MMX','Email', 'EmailAlerts', 'FileLog', 'DatabaseLog', 'EmailLog', 'ConsoleLog', 'Geologging'];
+    var noRestartNeeded = ['MMX', 'MessagingSettings', 'Email', 'EmailAlerts', 'FileLog', 'DatabaseLog', 'EmailLog', 'ConsoleLog', 'Geologging'];
 
     // set single environment config
     app.post('/rest/configs/:config', UserManager.checkAuthority(['admin'], true), function(req, res){
