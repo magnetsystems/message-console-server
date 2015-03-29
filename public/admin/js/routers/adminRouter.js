@@ -1,4 +1,6 @@
-define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','views/AlertErrorView','views/GlobalView','models/UserModel', 'views/AdminView', 'views/ListView', 'views/AdminDetailsView'], function($, Backbone, AlertGeneralView, AlertConfirmView, AlertErrorView, GlobalView, UserModel, AdminView, ListView, AdminDetailsView){
+define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','views/AlertErrorView','views/GlobalView',
+    'models/UserModel', 'views/AdminView', 'views/ListView', 'views/AdminDetailsView', 'views/ProfileView'], function(
+    $, Backbone, AlertGeneralView, AlertConfirmView, AlertErrorView, GlobalView, UserModel, AdminView, ListView, AdminDetailsView, ProfileView){
     // bind alerts
     Alerts.General = new AlertGeneralView();
     Alerts.Confirm = new AlertConfirmView();
@@ -32,15 +34,14 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             var lstv = new ListView({opts:this.opts, mc:this.mc, eventPubSub:this.eventPubSub});
             var av = new AdminView({opts:this.opts, mc:this.mc, eventPubSub:this.eventPubSub});
             var adv = new AdminDetailsView({opts:this.opts, mc:this.mc, eventPubSub:this.eventPubSub});
+            var pv = new ProfileView({opts:this.opts,mc:this.mc, router:this, eventPubSub:this.eventPubSub});
             // define models
             // override default backbone model sync method to be compatible with REST APIs
             syncOverride(this.mc, this.eventPubSub);
             Backbone.history.start();
-            this.initUserPopup();
         },
         routes: {
             'login'     : 'login',
-            'logout'    : 'logout',
             ''          : 'admin',
             '/:page'    : 'admin',
             ':page/:id' : 'admin',
@@ -50,7 +51,6 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             var me = this;
             me.auth(function(){
                 if(id){
-//                    me.eventPubSub.trigger('resetAdminPages', 'admin-details');
                     me.eventPubSub.trigger('initAdminDetailsView', {page:page, magnetId:id});
                 }else{
                     me.eventPubSub.trigger('resetAdminPages', 'admin');
@@ -65,28 +65,15 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
             });
         },
         auth: function(callback){
-            // stop any active polling threads
-            timer.stop();
-            callback();
-        },
-        logout: function(){
             var me = this;
-            Cookie.remove('magnet_auth');
-            me.mc.query('logout', 'POST', null, function(data, status, xhr){
-                window.location.href = '/admin/';
-            }, 'html', 'application/x-www-form-urlencoded', function(){
-                me.login();
-            });
-        },
-        initUserPopup: function(){
-            var pop = $('#user-nav-popover');
-            pop.popover({
-                placement : 'bottom',
-                template  : '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div><h3 class="popover-title"></h3></div>',
-                html      : true
-            });
-            $('#user-nav').removeClass('hidden');
-            pop.show();
+            timer.stop();
+            var popover = $('#user-nav-popover');
+            popover.popover('hide');
+            if(!me.opts.user){
+                me.eventPubSub.trigger('getUserProfile', callback);
+            }else{
+                callback();
+            }
         }
     });
     return Router;

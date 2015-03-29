@@ -60,6 +60,21 @@ body > .navbar .container-fluid{padding-right:0}
 #user-nav-menu .popover{left:-135px !important;top:48px !important}
 #user-nav-menu > li > a{float:left}
 
+/* user navigation */
+#user-navigation{position:absolute;right:0;top:7px;color:#aaa}
+#user-navigation .fa{color:#aaa;margin-top:5px}
+#user-navigation .caret{color:#aaa;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid}
+#user-navigation .action{cursor:pointer}
+#user-navigation .fa-question-circle{margin-right:8px}
+#user-navigation .separator{width:1px;height:35px;background-color:#aaa}
+#user-navigation > div{margin:0 6px;float:right}
+#user-identity .caret{margin-top:-9px}
+.user-identity-section{margin:0 10px;text-align:right}
+.user-identity-section .placeholder-role{color:#777}
+#page-select .page-selector{margin-top:7px;height:35px}
+#page-select .page-selector .caret{margin-top:0}
+.divide > div{float:right}
+
 /* SITE LAYOUT */
 html, body{background:#efefef;height:100%}
 #main-nav-menu > li > a{border-left: 1px solid #8c8c8c;font-size:15px}

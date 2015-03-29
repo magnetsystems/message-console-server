@@ -41,16 +41,31 @@
             </a>
         </div>
         {{ if(userType == 'admin'){ }}
-        <ul id="user-nav-menu" class="nav navbar-nav navbar-right">
-            <li>
-                <a id="mmx-contextual-doc-btn" href="#" target="_blank" class="hidden-xs">
-                    <span class="fa fa-question-circle fa-2x"></span>
-                </a>
-                <a id="user-nav-popover" tabindex="0" role="button" data-trigger="focus" data-title="<div class='clearfix'><a href='/#/profile' class='btn btn-sm btn-default pull-left'>Profile</a><a href='#/logout' class='btn btn-sm btn-default pull-right'>Sign Out</button></div>" data-content="<b>{{= sessionUser.email }}</b><br />{{= sessionUser.companyName || '' }}">
+        <div id="user-navigation" style="display:none">
+            <div class="action" id="mmx-contextual-doc-btn">
+                <span class="fa fa-question-circle fa-2x"></span>
+            </div>
+            <div class="separator hidden-xs"></div>
+            <div id="user-identity" tabindex="0" role="button" data-trigger="focus" class="action hidden-xs divide"
+                 data-title="<div class='clearfix'><a href='#' class='show-profile-btn btn btn-sm btn-default pull-left'>Profile</a><button id='logout-btn' class='btn btn-sm btn-default pull-right'>Sign Out</button></div>">
+                <div>
                     <span class="fa fa-cog fa-2x"></span> <span class="caret"></span>
-                </a>
-            </li>
-        </ul>
+                </div>
+                <div>
+                    <div class="user-identity-section">
+                        <span class="placeholder-username"></span><br />
+                        <span class="placeholder-role"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="separator hidden-xs"></div>
+            <div id="page-select" tabindex="0" role="button" data-content="<a href='/'>Go To Developer Console</a>" data-trigger="focus" class="action hidden-xs">
+                <div class="page-selector">
+                    Admin Console <span class="caret"></span>
+                </div>
+            </div>
+            <div class="separator hidden-xs"></div>
+        </div>
         {{ } }}
     </div>
 </nav>

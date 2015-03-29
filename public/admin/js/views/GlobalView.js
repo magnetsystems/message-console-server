@@ -19,23 +19,53 @@ define(['jquery', 'backbone'], function($, Backbone){
             me.options.eventPubSub.bind('resetAdminPages', function(page){
                 me.selectPage(page, '.page');
             });
+            me.options.eventPubSub.bind('setHeaderNavigation', function(params){
+                me.setHeaderNavigation(params);
+            });
+            options.eventPubSub.bind('getUserProfile', function(callback){
+                me.getProfile(callback);
+            });
             GlobalEventDispatcher.generalEventPubSub = _.extend({}, Backbone.Events);
             GlobalEventDispatcher.generalEventPubSub.bind('initRestart', function(params){
                 me.handleRestart(params);
             });
-            $('.radio-select input[type="radio"]').eq(0).prop('checked', true)
+            $('.radio-select input[type="radio"]').eq(0).prop('checked', true);
+            $('#user-identity').popover({
+                placement : 'bottom',
+                template  : '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div><h3 class="popover-title"></h3></div>',
+                html      : true
+            });
+            $('#page-select').popover({
+                placement : 'bottom',
+                template  : '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content"></div><h3 class="popover-title"></h3></div>',
+                html      : true
+            });
         },
         events: {
             'click .goBack': 'goBack',
+            'click #logout-btn': 'logout',
             'click #user-panel-toggle': 'toggleUserPanel',
             'click .btn-toggle button': 'toggleSwitch',
             'click .restart-server-btn': 'restartServer',
+            'click .show-profile-btn': 'showProfile',
             'change .radio-select  input[type="radio"]': 'selectRadio',
             'click .toggling-password-input .glyphicon': 'togglePasswordContainer'
         },
         goBack: function(e){
             e.preventDefault();
             window.history.back();
+        },
+        logout: function(){
+            this.options.eventPubSub.trigger('setHeaderNavigation');
+            AJAX('/rest/logout', 'POST', 'application/json', null, function(){
+                Backbone.history.navigate('#/login');
+            }, function(e){
+                Backbone.history.navigate('#/login');
+            });
+        },
+        showProfile: function(e){
+            e.preventDefault();
+            this.options.eventPubSub.trigger('initProfile');
         },
         toggleUserPanel: function(e){
             e.preventDefault();
@@ -164,6 +194,31 @@ define(['jquery', 'backbone'], function($, Backbone){
                 parent.find('.glyphicon-eye-open').removeClass('hidden');
                 parent.find('input').attr('type', 'password');
             }
+        },
+        getProfile: function(cb){
+            var me = this;
+            AJAX('/rest/profile', 'GET', 'application/x-www-form-urlencoded', null, function(res, status, xhr){
+                me.options.eventPubSub.trigger('setHeaderNavigation', res);
+                cb();
+            }, function(xhr, status, thrownError){
+                me.options.eventPubSub.trigger('setHeaderNavigation');
+                Backbone.history.navigate('#/login');
+            });
+        },
+        setHeaderNavigation: function(params){
+            var userIdentityDom = $('#user-identity');
+            if(params){
+                $('#user-navigation').show('fast');
+                $('#user-identity');
+                $('#page-select');
+            }else{
+                $('#user-navigation').hide();
+                $('#user-identity').popover('hide');
+                $('#page-select').popover('hide');
+            }
+            params = params || {};
+            userIdentityDom.find('.placeholder-username').text(params.email || '');
+            userIdentityDom.find('.placeholder-role').text(params.userType || '');
         }
     });
     return View;
