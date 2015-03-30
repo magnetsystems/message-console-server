@@ -207,12 +207,18 @@ define(['jquery', 'backbone'], function($, Backbone){
         },
         setHeaderNavigation: function(params){
             var userIdentityDom = $('#user-identity');
+            var userNav = $('#user-navigation');
             if(params){
-                $('#user-navigation').show('fast');
+                if(params.userType != 'admin'){
+                    userNav.find('.admin-only-item').hide();
+                }else{
+                    userNav.find('.admin-only-item').show();
+                }
+                userNav.show('fast');
                 $('#user-identity');
                 $('#page-select');
             }else{
-                $('#user-navigation').hide();
+                userNav.hide();
                 $('#user-identity').popover('hide');
                 $('#page-select').popover('hide');
             }

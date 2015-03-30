@@ -364,6 +364,16 @@ module.exports = function(app){
         });
     });
 
+    app.delete('/rest/apps/:id/deleteAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        MMXManager.deleteAPNSCertificate(req.session.user.magnetId, req.params.id, function(e){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send('ok', 200);
+            }
+        });
+    });
+
     app.get('/rest/apps/:id/users/:uid/devices', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         MMXManager.getAppUserDevices(req.session.user.magnetId, req.params.id, req.params.uid, function(e, response){
             if(e){
