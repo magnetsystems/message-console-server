@@ -10,7 +10,6 @@ define(['jquery', 'backbone'], function($, Backbone){
                 btn.attr('txt', btn.html()).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading..').addClass('disabled');
             });
             me.options.eventPubSub.bind("btnComplete", function(btn, showLoading){
-                loadingModal.find('.graytxt').text('');
                 if(showLoading) loadingModal.modal('hide');
                 if(btn.attr('txt')) btn.html(btn.attr('txt')).removeClass('disabled');
             });
