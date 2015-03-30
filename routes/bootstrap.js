@@ -15,6 +15,16 @@ module.exports = function(app){
         });
     });
 
+    app.get('/rest/configs', function(req, res){
+        ConfigManager.getConfigs(function(e, config){
+            if(e){
+                res.send(e, 400);
+            }else{
+                res.send(config, 200);
+            }
+        }, true);
+    });
+
     app.post('/rest/configs/:feature', function(req, res){
         ConfigManager.set(req.params.feature, req.body, function(e){
             if(e) return res.send(e, 400);

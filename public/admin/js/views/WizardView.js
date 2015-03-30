@@ -9,9 +9,11 @@ define(['jquery', 'backbone'], function($, Backbone){
                 me.setElement('#wizard-container');
                 me.render();
                 me.wizard = $('#project-wizard-container');
-                me.renderDB();
-                me.renderAdmin();
-                me.renderMessaging();
+                me.getConfigs(function(){
+                    me.renderDB();
+                    me.renderAdmin();
+                    me.renderMessaging();
+                });
             });
             options.eventPubSub.bind('initRestart', function(params){
                 me.handleRestart(params, function(){
@@ -19,29 +21,6 @@ define(['jquery', 'backbone'], function($, Backbone){
                     if(typeof params === 'object' && typeof params.cb === typeof Function) params.cb();
                 });
             });
-            me.dbDefaults = {
-                host     : 'localhost',
-                password : '',
-                port     : 3306,
-                dbName   : 'magnetmessagedb',
-                username : 'root'
-            };
-            me.userDefaults = {
-                email          : 'sysadmin@company.com',
-                password       : 'admin',
-                passwordVerify : 'admin'
-            };
-            me.messagingDefaults = {
-                shareDB         : true,
-                host            : 'localhost',
-                mysqlUser       : 'root',
-                mysqlPassword   : '',
-                mysqlHost       : 'localhost',
-                mysqlPort       : 3306,
-                mysqlDb         : 'magnetmessagedb',
-                user            : 'admin',
-                password        : 'admin'
-            };
             me.messagingCompleteStatusModal = $('#messaging-provision-status-modal');
         },
         events: {
@@ -149,6 +128,39 @@ define(['jquery', 'backbone'], function($, Backbone){
                 }
             }
             return valid;
+        },
+        getConfigs: function(cb){
+            var me = this;
+            AJAX('configs', 'GET', 'application/json', null, function(res){
+                res.Database = res.Database || {};
+                res.MMX = res.MMX || {};
+                me.dbDefaults = {
+                    host     : res.Database.host || 'localhost',
+                    password : res.Database.password || '',
+                    port     : res.Database.port || 3306,
+                    dbName   : res.Database.dbName || 'magnetmessagedb',
+                    username : res.Database.username || 'root'
+                };
+                me.userDefaults = {
+                    email          : 'sysadmin@company.com',
+                    password       : 'admin',
+                    passwordVerify : 'admin'
+                };
+                me.messagingDefaults = {
+                    shareDB         : res.MMX.shareDB || true,
+                    host            : res.MMX.host || 'localhost',
+                    mysqlUser       : res.Database.username || 'root',
+                    mysqlPassword   : res.Database.password || '',
+                    mysqlHost       : res.Database.host || 'localhost',
+                    mysqlPort       : res.Database.port || 3306,
+                    mysqlDb         : res.Database.dbName || 'magnetmessagedb',
+                    user            : res.MMX.user || 'admin',
+                    password        : res.MMX.password || 'admin'
+                };
+                cb(res);
+            }, function(e){
+                alert(e);
+            });
         },
         setupDB: function(cb, fb, obj, silentInstall){
             var me = this;
