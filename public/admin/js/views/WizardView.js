@@ -95,9 +95,13 @@ define(['jquery', 'backbone'], function($, Backbone){
         },
         standardInstall: function(btn){
             var me = this;
+            var modal = $('#wait-modal');
             me.options.eventPubSub.trigger('btnLoading', btn, true);
+            modal.find('.graytxt').text('Configuring MySQL database');
             me.setupDB(function(){
+                modal.find('.graytxt').text('Creating admin account');
                 me.createAdmin(function(){
+                    modal.find('.graytxt').text('Configuring messaging server');
                     me.setupMessaging(function(){
                         me.options.eventPubSub.trigger('btnComplete', btn, true);
                         me.renderWizardSummary();
