@@ -867,16 +867,24 @@ module.exports = function(app){
     });
 
     // restart the server
+    var state = 'ok';
     app.post('/rest/restart', UserManager.checkAuthority(['admin'], true), function(req, res){
         res.send('ok', 200);
+        state = 'restarting';
         winston.info('User: user "'+req.session.user.email+'"('+req.session.user.id+') restarted the server.', {
             userId      : req.session.user.id,
             targetModel : 'Action',
             targetId    : 'restart'
         }, function(){
-            winston.info('System: restarting server now.');
-            process.exit(0);
+            winston.info('System: restarting server in 3 seconds.');
+            setTimeout(function(){
+                process.exit(0);
+            }, 3000);
         });
+    });
+
+    app.get('/rest/beacon', function(req, res){
+        res.send(state, 200);
     });
 
 };

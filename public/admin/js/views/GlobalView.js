@@ -99,8 +99,12 @@ define(['jquery', 'backbone'], function($, Backbone){
                     params.location = location+'/admin';
                     pingHost(location, done, next);
                 }else{
-                    AJAX('/admin/beacon.json', 'GET', 'text/plain', null, function(){
-                        done();
+                    AJAX('/rest/beacon', 'GET', 'text/plain', null, function(res){
+                        if(res == 'ok'){
+                            done();
+                        }else{
+                            next();
+                        }
                     }, function(){
                         next();
                     });

@@ -96,10 +96,18 @@ module.exports = function(app){
         }, 200);
     });
 
+    var state = 'ok';
     app.post('/rest/restart', function(req, res){
         res.send('ok', 200);
-        winston.info('System: restarting server now.');
-        process.exit(0);
+        state = 'restarting';
+        winston.info('System: restarting server.');
+        setTimeout(function(){
+            process.exit(0);
+        }, 2500);
+    });
+
+    app.get('/rest/beacon', function(req, res){
+        res.send(state, 200);
     });
 
     app.get('*', function(req, res){
