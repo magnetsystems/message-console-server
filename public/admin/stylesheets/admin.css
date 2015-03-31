@@ -64,7 +64,7 @@ body > .navbar .container-fluid{padding-right:0}
 #user-navigation{position:absolute;right:0;top:7px;color:#aaa}
 #user-navigation .fa{color:#aaa;margin-top:5px}
 #user-navigation .caret{color:#aaa;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid}
-#user-navigation .action{cursor:pointer}
+#user-navigation .action{cursor:pointer;outline:none}
 #user-navigation .fa-question-circle{margin-right:8px}
 #user-navigation .separator{width:1px;height:35px;background-color:#aaa}
 #user-navigation > div{margin:0 6px;float:right}

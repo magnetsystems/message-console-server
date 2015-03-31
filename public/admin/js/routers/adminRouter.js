@@ -50,11 +50,11 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
         admin: function(page, id){
             var me = this;
             me.auth(function(){
-                if(id){
+                if(id && page != 'actions'){
                     me.eventPubSub.trigger('initAdminDetailsView', {page:page, magnetId:id});
                 }else{
                     me.eventPubSub.trigger('resetAdminPages', 'admin');
-                    me.eventPubSub.trigger('initAdminView', page);
+                    me.eventPubSub.trigger('initAdminView', page, id);
                 }
             });
         },

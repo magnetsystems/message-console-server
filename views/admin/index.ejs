@@ -214,27 +214,7 @@
         </div>
     </div>
 
-    <h5>Admin Server Database</h5>
-    <div class="panel panel-default form-group clearfix">
-        <div class="col-sm-3">
-            <label>Database Name</label>
-            <span><%- configs.Database.dbName %></span>
-        </div>
-        <div class="col-sm-3">
-            <label>Host Hame</label>
-            <span><%- configs.Database.host %></span>
-        </div>
-        <div class="col-sm-3">
-            <label>Port</label>
-            <span><%- configs.Database.port %></span>
-        </div>
-        <div class="col-sm-3">
-            <label>Username</label>
-            <span><%- configs.Database.username %></span>
-        </div>
-    </div>
-
-    <h5>Messaging Server Database</h5>
+    <h5>Messaging Database</h5>
     <div class="panel panel-default form-group clearfix">
         <div class="col-sm-3">
             <label>Database Name</label>
@@ -251,6 +231,26 @@
         <div class="col-sm-3">
             <label>Username</label>
             <span><%- mmxconfig.username %></span>
+        </div>
+    </div>
+
+    <h5>Admin Database</h5>
+    <div class="panel panel-default form-group clearfix">
+        <div class="col-sm-3">
+            <label>Database Name</label>
+            <span><%- configs.Database.dbName %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>Host Hame</label>
+            <span><%- configs.Database.host %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>Port</label>
+            <span><%- configs.Database.port %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>Username</label>
+            <span><%- configs.Database.username %></span>
         </div>
     </div>
 
@@ -273,52 +273,85 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>Protocol</th>
                 <th>Port</th>
-                <th>Name</th>
+                <th>Protocol</th>
+                <th>Target</th>
+                <th>Description</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>HTTP</td>
-                <td><%- mmxconfig['xmpp.socket.plain.port'] %></td>
-                <td>Client Messaging</td>
-            </tr>
-            <tr>
-                <td>HTTPS</td>
-                <td><%- mmxconfig['xmpp.socket.ssl.port'] %></td>
-                <td>Client Messaging</td>
-            </tr>
-            <tr>
-                <td>HTTP</td>
-                <td><%- configs.MMX.webPort %></td>
-                <td>Web</td>
-            </tr>
-            <tr>
-                <td>HTTPS</td>
-                <td><%- mmxconfig['adminConsole.securePort'] %></td>
-                <td>Web</td>
-            </tr>
-            <tr>
-                <td>HTTP</td>
-                <td><%- mmxconfig['mmx.rest.http.port'] %></td>
-                <td>Public REST API</td>
-            </tr>
-            <tr>
-                <td>HTTPS</td>
-                <td><%- mmxconfig['mmx.rest.https.port'] %></td>
-                <td>Public REST API</td>
-            </tr>
-            <tr>
-                <td>HTTP</td>
                 <td><%- mmxconfig['mmx.admin.api.port'] %></td>
-                <td>Admin REST API</td>
+                <td>HTTP</td>
+                <td>Messaging server</td>
+                <td>Send messages</td>
             </tr>
             <tr>
-                <td>HTTPS</td>
                 <td><%- mmxconfig['mmx.admin.api.https.port'] %></td>
-                <td>Admin REST API</td>
+                <td>HTTPS</td>
+                <td>Messaging server</td>
+                <td>Send messages</td>
             </tr>
+            <tr>
+                <td><%- mmxconfig['xmpp.socket.plain.port'] %></td>
+                <td>XMPP/TCP</td>
+                <td>Messaging server</td>
+                <td>Client messaging</td>
+            </tr>
+            <tr>
+                <td><%- mmxconfig['xmpp.socket.ssl.port'] %></td>
+                <td>XMPP/TCP</td>
+                <td>Messaging server</td>
+                <td>Client messaging</td>
+            </tr>
+            <tr>
+                <td><%- mmxconfig['mmx.rest.http.port'] %></td>
+                <td>HTTP</td>
+                <td>Messaging server</td>
+                <td>Internal server communication</td>
+            </tr>
+            <tr>
+                <td><%- mmxconfig['mmx.rest.https.port'] %></td>
+                <td>HTTPS</td>
+                <td>Messaging server</td>
+                <td>Internal server communication</td>
+            </tr>
+            <tr>
+                <td><%- configs.MMX.webPort %></td>
+                <td>HTTP</td>
+                <td>Messaging server</td>
+                <td><a href="#/actions/MMX">Internal server connection, advanced configuration</a></td>
+            </tr>
+            <tr>
+                <td><%- configs.App.port %></td>
+                <td>HTTP</td>
+                <td>Administration server</td>
+                <td><a href="#/actions/App">Web interface</a></td>
+            </tr>
+            <% if(configs.Geologging.enabled){ %>
+            <tr>
+                <td><%- configs.Geologging.port %></td>
+                <td>XMPP/TCP</td>
+                <td>Administration server</td>
+                <td><a href="#/actions/Geologging">Geo Tracking</a></td>
+            </tr>
+            <% } %>
+            <% if(configs.Email.enabled){ %>
+            <tr>
+                <td><%- configs.Email.port %></td>
+                <td>SMTP</td>
+                <td>Administration server</td>
+                <td><a href="#/actions/Email">Email functionality</a></td>
+            </tr>
+            <% } %>
+            <% if(configs.Redis.enabled){ %>
+            <tr>
+                <td><%- configs.Redis.port %></td>
+                <td>RESP/TCP</td>
+                <td>Administration server</td>
+                <td><a href="#/actions/Redis">Redis</a></td>
+            </tr>
+            <% } %>
             </tbody>
         </table>
     </div>
@@ -787,7 +820,7 @@
         A recipient can be set up to receive alerts when a problem occurs.
         <% if(allConfigs.Email.enabled !== true){ %>
         <br />
-        <span class="redtxt">System email is not set up. Alerts can not be set up without email.</span> <a href="#/actions">Click here to set up email</a>.
+        <span class="redtxt">System email is not set up. Alerts can not be set up without email.</span> <a href="#/actions/Email">Click here to set up email</a>.
         <% } %>
     </p>
     <div class="col-sm-12 clearfix">

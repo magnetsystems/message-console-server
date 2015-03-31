@@ -4,7 +4,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         initialize: function(options){
             var me = this;
             me.options = options;
-            me.options.eventPubSub.bind('initAdminView', function(page){
+            me.options.eventPubSub.bind('initAdminView', function(page, cid){
                 page = page || 'users';
                 me.loadTab(page);
                 if(me.pages[page]){
@@ -25,7 +25,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 });
                 if(page == 'cms') me.getPageList();
                 if(page == 'actions')
-                    me.fetchAndRenderConfig();
+                    me.fetchAndRenderConfig(cid);
                 if(page == 'users') me.getConfig(function(config){
                     var radio = $('#mgmt-user-creation-invite-radio');
                     if(config.enabled){
@@ -343,12 +343,15 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 });
             });
         },
-        fetchAndRenderConfig: function(){
+        fetchAndRenderConfig: function(cid){
             var me = this;
             me.getConfig(function(configs){
                 me.getMMXConfig(function(mmxconfig){
                     configs.MessagingSettings = mmxconfig;
                     me.renderConfig('actions', configs, ['MMX', 'MessagingSettings', 'App', 'Database', 'Redis', 'Email', 'Geologging']);
+                    if(cid){
+                        $('#admin-config-item-'+cid).addClass('in').closest('.panel').find('.panel-title a').removeClass('collapsed');
+                    }
                     me.getGeotrackingState();
                 });
             });
