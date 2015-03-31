@@ -39,6 +39,9 @@ ln -s $SCRIPT_DIR/views
 ln -s $SCRIPT_DIR/node_modules
 ln -s $SCRIPT_DIR/mmx-console.bat
 ln -s $SCRIPT_DIR/mmx-console.sh
+if [ -d "$SCRIPT_DIR/startup.properties" ]; then
+  ln -s $SCRIPT_DIR/startup.properties
+fi
 if [ -d "$SCRIPT_DIR/quickstart-android" ]; then
   ln -s $SCRIPT_DIR/quickstart-android
 fi

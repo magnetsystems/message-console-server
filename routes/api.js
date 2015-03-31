@@ -547,6 +547,23 @@ module.exports = function(app){
         });
     });
 
+    app.get('/rest/apps/:id/sampleConfig', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        var platform = (req.query && req.query.platform && (req.query.platform == 'android' || req.query.platform == 'ios')) ? req.query.platform : 'android';
+        MMXSampleApp.getSampleConfig(req.session.user.magnetId, req.params.id, platform, function(e, content){
+            if(e){
+                res.send(e, 400);
+            }else if(platform == 'android'){
+                res.contentType('text/x-java-properties');
+                res.setHeader('Content-disposition', 'attachment; filename=quickstart.properties');
+                res.end(content, 'utf-8');
+            }else{
+                res.contentType('application/x-plist');
+                res.setHeader('Content-disposition', 'attachment; filename=Configurations.plist');
+                res.end(content, 'utf-8');
+            }
+        });
+    });
+
     app.post('/rest/startRegistration', function(req, res){
         UserManager.registerGuest({
             firstName   : stripChars(req.body.firstName),
@@ -817,7 +834,7 @@ module.exports = function(app){
         });
     });
 
-    var noRestartNeeded = ['MMX', 'MessagingSettings', 'Email', 'EmailAlerts', 'FileLog', 'DatabaseLog', 'EmailLog', 'ConsoleLog', 'Geologging'];
+    var noRestartNeeded = ['MMX', 'MessagingSettings', 'Database', 'Email', 'EmailAlerts', 'FileLog', 'DatabaseLog', 'EmailLog', 'ConsoleLog', 'Geologging'];
 
     // set single environment config
     app.post('/rest/configs/:config', UserManager.checkAuthority(['admin'], true), function(req, res){

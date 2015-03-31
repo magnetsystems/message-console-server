@@ -55,7 +55,8 @@ define(['jquery', 'backbone'], function($, Backbone){
             e.preventDefault();
             window.history.back();
         },
-        logout: function(){
+        logout: function(e){
+            e.preventDefault();
             this.options.eventPubSub.trigger('setHeaderNavigation');
             AJAX('/rest/logout', 'POST', 'application/json', null, function(){
                 Backbone.history.navigate('#/login');
@@ -206,7 +207,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                 cb();
             }, function(xhr, status, thrownError){
                 me.options.eventPubSub.trigger('setHeaderNavigation');
-                Backbone.history.navigate('#/login');
+                window.location.href = '/';
             });
         },
         setHeaderNavigation: function(params){

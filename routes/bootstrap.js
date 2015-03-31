@@ -35,7 +35,7 @@ module.exports = function(app){
     app.post('/rest/admin/setDB', function(req, res){
         ConfigManager.setDB(req.body, function(e){
             if(e) return res.send(e, 400);
-            res.send('restart-needed', 200);
+            res.send('ok', 200);
         });
     });
 

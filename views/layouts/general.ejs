@@ -47,7 +47,7 @@
             </div>
             <div class="separator hidden-xs"></div>
             <div id="user-identity" tabindex="0" role="button" data-trigger="focus" class="action hidden-xs divide"
-                 data-title="<div class='clearfix'><a href='#' class='show-profile-btn btn btn-sm btn-default pull-left'>Profile</a><button id='logout-btn' class='btn btn-sm btn-default pull-right'>Sign Out</button></div>">
+                 data-content="<div class='user-navigation-menu clearfix'><a href='#' class='show-profile-btn'><i class='fa fa-2x fa-user'></i>Profile</a><hr /><a href='#' id='logout-btn'><i class='fa fa-2x fa-sign-out'></i> Sign Out</a></div>">
                 <div>
                     <span class="fa fa-cog fa-2x"></span> <span class="caret"></span>
                 </div>
@@ -59,12 +59,13 @@
                 </div>
             </div>
             <div class="separator hidden-xs"></div>
-            <div id="page-select" tabindex="0" role="button" data-content="<a href='/'>Go To Developer Console</a>" data-trigger="focus" class="action hidden-xs">
+            <div id="page-select" tabindex="0" role="button" data-trigger="focus" class="admin-only-item action hidden-xs"
+                 data-content="<div class='user-navigation-menu clearfix'><a href='/admin'><i class='fa fa-2x fa-link'></i>Developer Console</a></div>">
                 <div class="page-selector">
                     Admin Console <span class="caret"></span>
                 </div>
             </div>
-            <div class="separator hidden-xs"></div>
+            <div class="admin-only-item separator hidden-xs"></div>
         </div>
         {{ } }}
     </div>

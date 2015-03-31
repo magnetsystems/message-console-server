@@ -174,6 +174,21 @@ define(['jquery', 'backbone'], function($, Backbone){
             me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/setDB', 'POST', 'application/json', obj, function(res){
                 // immediately after completion
+                me.options.eventPubSub.trigger('btnComplete', btn);
+                if(!$('#wizard-db-container > .alert').length){
+                    $('#wizard-db-container').prepend(_.template($('#WizardDBTmpl').html(), {
+                        active : true
+                    }));
+                }
+                _.extend(me.dbDefaults, obj);
+                form.find('input[name^="password"]').val('');
+                me.messagingDefaults.mysqlDb = obj.dbName;
+                me.messagingDefaults.mysqlHost = obj.host;
+                me.messagingDefaults.mysqlPassword = obj.password;
+                me.messagingDefaults.mysqlPort = obj.port;
+                me.messagingDefaults.mysqlUser = obj.username;
+                me.renderMessaging();
+                cb();
             }, function(e){
                 me.options.eventPubSub.trigger('btnComplete', btn);
                 if(e == 'ER_BAD_DB_ERROR'){
@@ -225,21 +240,6 @@ define(['jquery', 'backbone'], function($, Backbone){
             }, null, {
                 silent  : silentInstall,
                 cb      : function(){
-                    me.options.eventPubSub.trigger('btnComplete', btn);
-                    if(!$('#wizard-db-container > .alert').length){
-                        $('#wizard-db-container').prepend(_.template($('#WizardDBTmpl').html(), {
-                            active : true
-                        }));
-                    }
-                    _.extend(me.dbDefaults, obj);
-                    form.find('input[name^="password"]').val('');
-                    me.messagingDefaults.mysqlDb = obj.dbName;
-                    me.messagingDefaults.mysqlHost = obj.host;
-                    me.messagingDefaults.mysqlPassword = obj.password;
-                    me.messagingDefaults.mysqlPort = obj.port;
-                    me.messagingDefaults.mysqlUser = obj.username;
-                    me.renderMessaging();
-                    cb();
                 },
                 timeout : 15000
             });

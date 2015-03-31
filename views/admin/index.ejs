@@ -631,7 +631,7 @@
                             </div>
                             <hr />
                             <div class="button-group clearfix">
-                                <button class="admin-config-save-btn btn btn-primary"><%- (key == 'MMX' ? 'Apply' : 'Save') %><%- (['Database', 'App', 'Redis'].indexOf(key) != -1) ? ' and Restart' : '' %></button>
+                                <button class="admin-config-save-btn btn btn-primary <%- ((key == 'EmailAlerts' && configs['Email'].enabled !== true) ? 'disabled' : '') %>"><%- (key == 'MMX' ? 'Apply' : 'Save') %><%- (['App', 'Redis'].indexOf(key) != -1) ? ' and Restart' : '' %></button>
                             </div>
                         </div>
                         <div class="loading buttons-section" style="display:none">
@@ -783,17 +783,27 @@
     </div>
 </script>
 <script id="AdminConfigurationEmailAlertsTmpl" type="text/template">
-    <p>A recipient can be set up to receive alerts when a problem occurs.</p>
-    <div class="col-sm-6 clearfix">
-        <label>Enabled
-            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The Email feature must first be enabled and configured correctly before email logs can be sent."></span>
-        </label>
+    <p>
+        A recipient can be set up to receive alerts when a problem occurs.
+        <% if(allConfigs.Email.enabled !== true){ %>
+        <br />
+        <span class="redtxt">System email is not set up. Alerts can not be set up without email.</span> <a href="#/actions">Click here to set up email</a>.
+        <% } %>
+    </p>
+    <div class="col-sm-12 clearfix">
         <div class="btn-group btn-toggle" did="enabled">
             <button class="btn btn-sm <% if(allConfigs.Email.enabled !== true){ %>disabled<%} %> <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
             <button class="btn btn-sm <% if(allConfigs.Email.enabled !== true){ %>disabled<%} %> <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
+        <label class="aligned">Email Alerts
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The Email feature must first be enabled and configured correctly before email logs can be sent."></span>
+        </label>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-8">
+        <label>Recipient</label>
+        <input type="text" name="recipient" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Folder" value="<%- config.recipient %>" />
+    </div>
+    <div class="col-sm-4">
         <label>Alert Level</label>
         <select class="form-control" <%- config.enabled === true ? '' : 'disabled="disabled"' %> name="level">
             <% _.each(levels, function(val, key){ %>
@@ -802,10 +812,6 @@
             <% } %>
             <% }); %>
         </select>
-    </div>
-    <div class="col-sm-12">
-        <label>Recipient</label>
-        <input type="text" name="recipient" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Folder" value="<%- config.recipient %>" />
     </div>
 </script>
 <script id="AdminConfigurationDatabaseLogTmpl" type="text/template">
@@ -924,21 +930,13 @@
 </script>
 <script id="AdminConfigurationMMXTmpl" type="text/template">
     <div did="mmx-connect" class="form-group clearfix">
-        <div class="col-sm-6">
+        <div class="col-sm-9">
             <label>Hostname</label>
             <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- config.host %>" />
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <label>Web Port</label>
             <input type="text" maxlength="10" name="webPort" class="form-control" placeholder="Port" value="<%- config.webPort %>" />
-        </div>
-        <div class="col-sm-2">
-            <label>Public HTTP REST API Port</label>
-            <input type="text" maxlength="10" name="publicPort" class="form-control" placeholder="Public HTTP REST API Port" value="<%- config.publicPort %>" />
-        </div>
-        <div class="col-sm-2">
-            <label>Admin HTTP REST API Port</label>
-            <input type="text" maxlength="10" name="adminPort" class="form-control" placeholder="Admin HTTP REST API Port" value="<%- config.adminPort %>" />
         </div>
         <div class="col-sm-6">
             <label>Username</label>
