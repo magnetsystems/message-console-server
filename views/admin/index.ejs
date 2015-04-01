@@ -1130,7 +1130,7 @@
                 <label>External Port
                     <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The public port to be used by mobile clients for acknowledging push notifications."></span>
                 </label>
-                <input type="text" maxlength="10" name="mmx.push.callback.host" class="form-control" placeholder="A public port" value="<%- config['mmx.push.callback.host'] %>" />
+                <input type="text" maxlength="10" name="mmx.push.callback.port" class="form-control" placeholder="A public port" value="<%- config['mmx.push.callback.port'] %>" />
             </div>
             <div class="col-sm-3">
                 <label>External Protocol
@@ -1172,8 +1172,8 @@
                     <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Choose whether to enable TLS."></span>
                 </label>
                 <div class="btn-group btn-toggle" did="xmpp.client.tls.policy">
-                    <button class="btn btn-sm <% if(config['xmpp.client.tls.policy'] === 'optional'){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="optional" type="button">Enabled</button>
-                    <button class="btn btn-sm <% if(typeof config['xmpp.client.tls.policy'] == 'undefined' || config['xmpp.client.tls.policy'] === 'required'){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="required" type="button">Disabled</button>
+                    <button class="btn btn-sm <% if(config['xmpp.client.tls.policy'] === 'required'){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="required" type="button">Enabled</button>
+                    <button class="btn btn-sm <% if(typeof config['xmpp.client.tls.policy'] == 'undefined' || config['xmpp.client.tls.policy'] === 'optional'){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="optional" type="button">Disabled</button>
                 </div>
             </div>
         </div>
