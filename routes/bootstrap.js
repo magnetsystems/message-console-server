@@ -73,7 +73,9 @@ module.exports = function(app){
             }else{
                 MMXManager.setConfigs({
                     configs : {
-                        'mmx.push.callbackurl' : require('ip').address()
+                        'mmx.push.callback.host'     : require('ip').address(),
+                        'mmx.push.callback.protocol' : 'http',
+                        'xmpp.client.tls.policy'     : 'optional'
                     }
                 }, function(e){
                     res.send(configs, 200);

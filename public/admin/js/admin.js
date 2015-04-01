@@ -9,6 +9,8 @@ require.config({
       "scrollto"       : "libs/scrollto",
       "bootstrap"      : "libs/bootstrap.min",
       "resources"      : "libs/resources",
+      "fuelux"         : "libs/fuelux.min",
+      "moment"         : "libs/moment",
       "placeholder"    : "libs/placeholder",
       "iframe"         : "libs/iframe",
       "ace"            : "libs/ace"
@@ -24,6 +26,9 @@ require.config({
           "deps"    : ["underscore", "jquery", "scrollto", "bootstrap"],
           "exports" : "Backbone"
       },
+      "fuelux"  : {
+          "deps"    : ["bootstrap", "jquery", "moment"]
+      },
       "scrollto"  : {
           "deps"    : ["jquery"]
       },
@@ -32,7 +37,7 @@ require.config({
       }
   } 
 });
-require(['modernizr', 'jquery', 'backbone', 'routers/adminRouter', 'resources', 'scrollto', 'bootstrap', 'placeholder', 'iframe', 'ace'], function(Modernizr, $, Backbone, Admin){
+require(['modernizr', 'jquery', 'backbone', 'routers/adminRouter', 'resources', 'scrollto', 'bootstrap', 'placeholder', 'fuelux', 'iframe', 'ace'], function(Modernizr, $, Backbone, Admin){
     $('#loadingBar').hide();
     this.router = new Admin();
 });

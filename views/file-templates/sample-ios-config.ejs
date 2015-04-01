@@ -5,7 +5,7 @@
         <key>default</key>
         <dict>
             <key>BaseURL</key>
-            <string>mmx://{{=mmxconfig.configs['mmx.push.callbackurl'] || ''}}:5222</string>
+            <string>mmx://{{=mmxconfig.configs['mmx.push.callback.host'] || ''}}:5222</string>
             <key>DomainName</key>
             <string>{{=config.Geologging ? config.Geologging.servername : 'mmx'}}</string>
             <key>AppId</key>

@@ -1,11 +1,13 @@
-define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCollection'], function($, Backbone, UserCollection, EventCollection){
+define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCollection', 'views/AccountsView'], function($, Backbone, UserCollection, EventCollection, AccountsView){
     var View = Backbone.View.extend({
         el: "#admin",
         initialize: function(options){
             var me = this;
             me.options = options;
+            initDatagrid();
+            var av = new AccountsView(options);
             me.options.eventPubSub.bind('initAdminView', function(page, cid){
-                page = page || 'users';
+                page = page || 'overview';
                 me.loadTab(page);
                 if(me.pages[page]){
                     me.col = new me.pages[page].col();
@@ -26,14 +28,13 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 if(page == 'cms') me.getPageList();
                 if(page == 'actions')
                     me.fetchAndRenderConfig(cid);
-                if(page == 'users') me.getConfig(function(config){
-                    var radio = $('#mgmt-user-creation-invite-radio');
-                    if(config.enabled){
-                        radio.find('input').attr('disabled', '');
-                    }else{
-                        radio.find('input').attr('disabled', 'disabled');
-                    }
-                }, 'Email');
+                if(page == 'users'){
+                    me.getConfig(function(config){
+                        me.options.eventPubSub.trigger('initAccountsView', {
+                            hasEmail : config.enabled
+                        });
+                    }, 'Email');
+                }
                 if(page == 'events') me.getConfig(function(configs){
                     me.renderConfig(page, configs, ['DatabaseLog', 'FileLog', 'EmailAlerts']);
                 });
@@ -48,11 +49,6 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                         });
                     });
                 }
-//                if(page == 'messaging') me.getConfig(function(config){
-//                    me.getMMXConfig(function(mmxconfig){
-//                        me.renderMMXConfig(config, mmxconfig);
-//                    });
-//                }, 'MMX');
                 me.selectedPage = {};
                 $('#cms-folder-span, #cms-filename-span').text('');
             });
@@ -60,21 +56,6 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         },
         // metadata for admin views
         pages: {
-            'users' : {
-                col      : UserCollection,
-                headers  : {
-                    createdAt : 'Created',
-                    email     : 'Email Address',
-                    firstName : 'First Name',
-                    lastName  : 'Last Name',
-                    userType  : 'Type of User'
-                },
-                searchBy : 'name',
-                sortDefault : {
-                    property : 'createdAt',
-                    order    : 'desc'
-                }
-            },
             'events' : {
                 col      : EventCollection,
                 headers  : {
@@ -101,8 +82,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             'click div[did="edittype"] button': 'toggleEditingMode',
             'click #admin-config-reset-btn': 'fetchAndRenderConfig',
             'click .admin-config-save-btn': 'saveConfig',
-            'click div[did="shareDB"] button': 'onShareDBClick',
-            'click #admin-user-create-btn': 'createUser'
+            'click div[did="shareDB"] button': 'onShareDBClick'
         },
         // handle events for switching between tabs
         loadTab: function(id){
@@ -313,35 +293,6 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         showLog: function(e){
             var url = $(e.currentTarget).attr('did');
             window.open(url, '123894712893', 'width=600,height=400,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');
-        },
-        // send invitation to a user
-        sendInvitation: function(){
-            var me = this;
-            var input = $('#invited-user-email');
-            var parent = input.closest('admin-config-item-container');
-            me.showLoading(parent);
-            me.options.mc.query('adminInviteUser', 'POST', {
-                email   : input.val()
-            }, function(){
-                me.hideLoading(parent);
-                me.options.eventPubSub.trigger('refreshListView');
-                Alerts.General.display({
-                    title   : 'Invitation Sent Successfully',
-                    content : 'Your invitation email to '+input.val()+' has been sent successfully.'
-                });
-                input.val('');
-            }, 'json', 'application/x-www-form-urlencoded', function(xhr, status, error){
-                me.hideLoading(parent);
-                var msg = xhr.responseText;
-                if(xhr.responseText == 'email-disabled')
-                    msg = 'The <b>Email</b> service has not been enabled in the Server Configuration page, so the user cannot be invited. If you would like to create a user without going through the email confirmation process, use the <b>Create a User</b> feature.';
-                if(xhr.responseText == 'error-sending-email')
-                    msg = 'There was an error sending out the email, so the invitation could not be completed. Check your email configuration in the <b>Email</b> section of the Server Configuration page. If you would like to create a user without going through the email confirmation process, use the <b>Create a User</b> feature.';
-                Alerts.Error.display({
-                    title   : 'Invitation Not Sent',
-                    content : 'There was a problem sending the invitation: '+msg
-                });
-            });
         },
         fetchAndRenderConfig: function(cid){
             var me = this;
@@ -582,30 +533,6 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 this.$el.find('#wizard-messaging-database-config').addClass('hidden');
             else
                 this.$el.find('#wizard-messaging-database-config').removeClass('hidden');
-        },
-        createUser: function(e){
-            var me = this;
-            var btn = $(e.currentTarget);
-            var container = btn.closest('.admin-config-item-container');
-            utils.resetError(container);
-            var obj = utils.collect(container);
-            if(!this.isValid(container, obj, null, 'email')) return;
-            me.showLoading(container);
-            AJAX('users', 'POST', 'application/json', obj, function(){
-                me.hideLoading(container);
-                container.find('input').val('');
-                me.options.eventPubSub.trigger('refreshListView');
-                Alerts.General.display({
-                    title   : 'User Created Successfully',
-                    content : 'The user <b>'+obj.email+'</b> has been created successfully.'
-                });
-            }, function(e){
-                me.hideLoading(container);
-                Alerts.Error.display({
-                    title   : 'Error Creating User',
-                    content : 'A user with the username <b>'+obj.email+'</b> already exists.'
-                });
-            });
         }
     });
     return View;
