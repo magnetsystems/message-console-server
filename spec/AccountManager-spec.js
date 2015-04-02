@@ -1,120 +1,114 @@
 var AccountManager = require("../lib/AccountManager")
  , Helper = require('./Helper')
- , UserManager = require('../lib/UserManager')
- , EmailService = require('../lib/EmailService')
  , orm = require('../lib/orm')
-, magnetId = require('node-uuid')
- , bcrypt = require('bcrypt');
+, magnetId = require('node-uuid');
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;
 
-describe('AccountManager database setup', function(){
-    beforeAll(function(done){
+describe('AccountManager', function(){
+
+    var id = magnetId.v1(), id2 = magnetId.v1(), id3 = magnetId.v1();
+    var password = '$2a$10$.zrAuu55WS8ntazOHo6KKuY0xDkarNOmxLoGRPGrc3hl1iNprp7si'; // 'admin'
+    var user1 = {
+        magnetId  : id,
+        firstName : 'user',
+        lastName  : 'one',
+        email     : id+'@magnet.com',
+        userType  : 'developer',
+        activated : true,
+        password  : password
+    };
+    var user2 = {
+        magnetId  : id2,
+        firstName : 'user',
+        lastName  : 'two',
+        email     : id2+'@magnet.com',
+        userType  : 'developer',
+        activated : false,
+        password  : password
+    };
+    var user3 = {
+        magnetId  : id3,
+        firstName : 'user',
+        lastName  : 'three',
+        email     : id3+'@magnet.com',
+        userType  : 'developer',
+        activated : true,
+        password  : password
+    };
+
+    it('should set up test users', function(done){
         orm.setup('./lib/models', function(){
-            done();
-        });
-    });
-});
-
-describe("AccountManager manualLogin", function() {
-    var user;
-    var password = 'test';
-
-    beforeEach(function(done) {
-        user = {
-            firstName: "John",
-            lastName: "Appleseed",
-            email: "john.appleseed@magnetapi.com",
-            companyName: "Apple Inc.",
-            password: password,
-            roleWithinCompany: 'Software Engineer',
-            country: 'No Country For Old Men'
-        };
-        done();
-    });
-
-    describe("should fail login", function() {
-
-        it("if the email didn't exist", function(done) {
-            AccountManager.manualLogin(user.email, user.password, function(e, user){
-                expect(e).toEqual('invalid-login');
-                done();
-            });
-        });
-
-        it("if the user is not approved", function(done) {
-            UserManager.registerGuest(user, false, function(registrationStatus, guestUser) {
-                AccountManager.manualLogin(user.email, user.password, function(e, u){
-                    expect(e).toEqual('invalid-login');
-                    guestUser.destroy().success(function() {
+            orm.model('User').create(user1).then(function(res1){
+                expect(res1.lastName).toEqual(user1.lastName);
+                orm.model('User').create(user2).then(function(res2){
+                    expect(res2.lastName).toEqual(user2.lastName);
+                    orm.model('User').create(user3).then(function(res3){
+                        expect(res3.lastName).toEqual(user3.lastName);
+                        done();
+                    }).catch(function(e){
+                        expect(e).toEqual('failed-test');
                         done();
                     });
+                }).catch(function(e){
+                    expect(e).toEqual('failed-test');
+                    done();
                 });
-            });
-        });
-
-        it("if the password didn't match", function(done) {
-            UserManager.registerGuest(user, false, function(registrationStatus, u) {
-                UserManager.approveUser({magnetId: u.magnetId}, false, function(approvalStatus, approvedUser) {
-                    AccountManager.manualLogin(user.email, user.password + 'foo', function(e, u){
-                        expect(e).toEqual('invalid-login');
-                        approvedUser.destroy().success(function() {
-                            done();
-                        });
-                    });
-                });
-            });
-        });
-
-    });
-
-    it('should return locked status if user account is locked', function(done){
-        var _user = {
-            firstName : 'Pyramid',
-            lastName  : 'Hefeweizen',
-            email     : magnetId.v1()+'@magnet.com',
-            userType  : 'developer',
-            activated : false,
-            password  : 'wheatale'
-        };
-        UserManager.create(_user, function(e, user){
-            expect(e).toBeNull();
-            AccountManager.manualLogin(_user.email, _user.password, function(e, u){
-                expect(e).toEqual('account-locked');
+            }).catch(function(e){
+                expect(e).toEqual('failed-test');
                 done();
             });
         });
     });
 
-    it("should succeed if the credentials are valid", function(done) {
-        UserManager.registerGuest(user, false, function(registrationStatus, u) {
-            UserManager.approveUser({magnetId: u.magnetId}, false, function(approvalStatus, approvedUser) {
-                UserManager.becomeDeveloper(user, function(status, u) {
-                    AccountManager.manualLogin(user.email, password, function(e, u){
-                        expect(e).toBeNull();
-                        expect(u).not.toBeNull();
-                        approvedUser.reload().success(function() {
-                            // Clean up
-                            approvedUser.getCloudAccounts().success(function(cloudAccounts) {
-                                expect(cloudAccounts.length).toEqual(1);
-                                var cloudAccount = cloudAccounts[0];
-                                expect(cloudAccount).not.toBeNull();
-                                expect(cloudAccount.magnetId).not.toBeNull();
-                                expect(cloudAccount.bucketName).not.toBeNull();
-                                expect(cloudAccount.accessKeyId).not.toBeNull();
-                                expect(cloudAccount.secretAccessKey).not.toBeNull();
-                                approvedUser.destroy().success(function() {
-                                    done();
-                                });
-                            });
-                        });
+    describe('login', function(){
 
-                    });
+        describe('should fail', function(){
+
+            it("if input is invalid", function(done) {
+                AccountManager.manualLogin(3233, 'test', function(e, user){
+                    expect(e).toEqual('invalid-login');
+                    done();
                 });
             });
+
+            it("if the email didn't exist", function(done) {
+                AccountManager.manualLogin('non-exist@magnet.com', 'test', function(e, user){
+                    expect(e).toEqual('invalid-login');
+                    done();
+                });
+            });
+
+            it("if the user is not approved", function(done) {
+                AccountManager.manualLogin(user2.email, 'admin', function(e, u){
+                    expect(e).toEqual('account-locked');
+                    done();
+                });
+            });
+
+            it("if the password didn't match", function(done) {
+                AccountManager.manualLogin(user3, 'invalid-pass', function(e, u){
+                    expect(e).toEqual('invalid-login');
+                    done();
+                });
+            });
+
+        });
+
+        describe('should succeed', function(){
+
+            it("if the credentials are valid", function(done) {
+                AccountManager.manualLogin(user1.email, 'admin', function(e, user){
+                    expect(e).toBeNull();
+                    expect(user.email).toEqual(user1.email);
+                    done();
+                });
+            });
+
         });
 
     });
 
 });
+
 

@@ -1,6 +1,6 @@
 var UserManager = require('../lib/UserManager')
 , orm = require('../lib/orm')
-, bcrypt = require('bcrypt')
+, bcrypt = require('bcryptjs')
 , Helper = require('./Helper')
 , magnetId = require('node-uuid')
 , express = require('express')
@@ -30,25 +30,6 @@ describe("UserManager registerGuest", function() {
 
     describe("should fail registration", function() {
 
-        it("if the firstName is missing", function(done) {
-//            delete user.firstName;
-            user.firstName = '';
-            UserManager.orm =
-            UserManager.registerGuest(user, false, function(registrationStatus) {
-                expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
-                done();
-            });
-        });
-
-        it("if the lastName is missing", function(done) {
-//            delete user.lastName;
-            user.lastName = '';
-            UserManager.registerGuest(user, false, function(registrationStatus) {
-                expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
-                done();
-            });
-        });
-
         it("if the email is missing", function(done) {
 //            delete user.email;
             user.email = '';
@@ -66,21 +47,13 @@ describe("UserManager registerGuest", function() {
             });
         });
 
-        it("if the companyName is missing", function(done) {
-//            delete user.companyName;
-            user.companyName = '';
-            UserManager.registerGuest(user, false, function(registrationStatus) {
-                expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_FAILED);
-                done();
-            });
-        });
     });
 
     it("should succeed if firstName is null", function(done) {
         delete user.firstName;
         UserManager.registerGuest(user, false, function(registrationStatus, user) {
             expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL);
-            expect(user.userType).toEqual('guest');
+            expect(user.userType).toEqual('approved');
             user.destroy().success(function() {
                 done();
             });
@@ -91,7 +64,7 @@ describe("UserManager registerGuest", function() {
         delete user.lastName;
         UserManager.registerGuest(user, false, function(registrationStatus, user) {
             expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL);
-            expect(user.userType).toEqual('guest');
+            expect(user.userType).toEqual('approved');
             user.destroy().success(function() {
                 done();
             });
@@ -102,7 +75,7 @@ describe("UserManager registerGuest", function() {
         delete user.companyName;
         UserManager.registerGuest(user, false, function(registrationStatus, user) {
             expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL);
-            expect(user.userType).toEqual('guest');
+            expect(user.userType).toEqual('approved');
             user.destroy().success(function() {
                 done();
             });
@@ -112,7 +85,7 @@ describe("UserManager registerGuest", function() {
     it("should succeed if the input is valid", function(done) {
         UserManager.registerGuest(user, false, function(registrationStatus, user) {
             expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL);
-            expect(user.userType).toEqual('guest');
+            expect(user.userType).toEqual('approved');
             user.destroy().success(function() {
                 done();
             });
@@ -166,7 +139,7 @@ describe("UserManager registerGuest", function() {
                         magnetId : invitedUser.magnetId
                 }, invitedUserObj), false, function(registrationStatus, registeredUser){
                     expect(registrationStatus).toEqual(UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL);
-                    expect(registeredUser.userType).toEqual('guest');
+                    expect(registeredUser.userType).toEqual('approved');
                     done();
                 });
             });
@@ -184,7 +157,7 @@ describe("UserManager approveUser", function() {
             lastName    : 'Appleseed',
             email       : magnetId.v1()+'26@magnet.com',
             companyName : 'Apple Inc.',
-            userType    : 'guest'
+            userType    : 'approved'
         };
     });
 
@@ -198,19 +171,6 @@ describe("UserManager approveUser", function() {
         });
     });
 
-    xit("should succeed if the input is valid", function(done) {
-
-        UserManager.create(_.extend({}, _user), function(e, user){
-            UserManager.approveUser({magnetId: user.magnetId}, false, function(approvalStatus, user) {
-                expect(user).not.toBeNull();
-                expect(approvalStatus).toEqual(UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL);
-                expect(user.userType).toEqual('approved');
-                user.destroy().success(function() {
-                    done();
-                });
-            });
-        });
-    });
 });
 
 describe("UserManager becomeDeveloper", function() {
@@ -234,55 +194,6 @@ describe("UserManager becomeDeveloper", function() {
         });
     });
 
-    beforeEach(function() {
-        user = {
-            firstName: firstName,
-            lastName: "Appleseed",
-            email: magnetId.v1()+'27@magnet.com',
-            companyName: "Apple Inc.",
-            password: password,
-            roleWithinCompany: 'Software Engineer',
-            country: 'No Country For Old Men'
-        };
-    });
-
-    xit("should succeed if the input is valid", function(done) {
-        UserManager.registerGuest(user, false, function(registrationStatus, registeredUser) {
-            UserManager.approveUser({magnetId: registeredUser.magnetId}, false, function(approvalStatus, approvedUser) {
-//                user.firstName = "Jane"; // should not be allowed
-                user.magnetId = registeredUser.magnetId;
-                UserManager.becomeDeveloper(user, function(status, u) {
-                    expect(status).toEqual(UserManager.BecomeDeveloperStatusEnum.SUCCESSFUL);
-                    expect(u).not.toBeNull();
-                    expect(u.userType).toEqual('developer');
-                    expect(u.country).toEqual(user.country);
-                    expect(u.roleWithinCompany).toEqual(user.roleWithinCompany);
-                    expect(bcrypt.compareSync(password, u.password)).toBeTruthy();
-                    u.reload().success(function() {
-                        expect(u.firstName).toEqual(firstName);
-                        expect(u.signedLicenseKey).not.toBeNull();
-                        // Clean up
-                        u.getCloudAccounts().success(function(cloudAccounts) {
-                            expect(cloudAccounts.length).toEqual(1);
-                            var cloudAccount = cloudAccounts[0];
-                            expect(cloudAccount).not.toBeNull();
-                            expect(cloudAccount.magnetId).not.toBeNull();
-                            expect(cloudAccount.bucketName).not.toBeNull();
-                            expect(cloudAccount.accessKeyId).not.toBeNull();
-                            expect(cloudAccount.secretAccessKey).not.toBeNull();
-
-                            Helper.removeUser(cloudAccount.magnetId, function(){});
-                            cloudAccount.destroy().success(function() {
-                                u.destroy().success(function() {
-                                    done();
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        });
-    });
 });
 
 xdescribe("UserManager sendForgotPasswordEmail", function() {
@@ -362,29 +273,20 @@ describe("UserManager resetPassword", function() {
     });
 
     it("should succeed if the input is valid", function(done) {
+        console.log('STARTING');
         UserManager.registerGuest(user, false, function(registrationStatus, registeredUser) {
-            UserManager.approveUser({magnetId: registeredUser.magnetId}, false, function(approvalStatus, approvedUser) {
-//                user.firstName = "Jane"; // should not be allowed
-                user.magnetId = registeredUser.magnetId;
-                UserManager.becomeDeveloper(user, function(status, u) {
-                    UserManager.sendForgotPasswordEmail({email: u.email}, function(sendForgotPassword) {
-                        u.reload().success(function() {
-
-                            UserManager.resetPassword({password: 'newPassword', passwordResetToken: u.passwordResetToken}, function(status, user) {
-
-                                u.reload().success(function() {
-                                    expect(bcrypt.compareSync('newPassword', u.password)).toBeTruthy();
-                                    expect(u.passwordResetToken).toBeNull();
-                                    // Clean up
-                                    u.getCloudAccounts().success(function(cloudAccounts) {
-                                        var cloudAccount = cloudAccounts[0];
-                                        Helper.removeUser(cloudAccount.magnetId, function(){});
-                                        cloudAccount.destroy().success(function(e) {
-                                            u.destroy().success(function(e) {
-                                                done();
-                                            });
-                                        });
-                                    });
+            user.magnetId = registeredUser.magnetId;
+            UserManager.becomeDeveloper(user, function(status, u) {
+                UserManager.sendForgotPasswordEmail({email: u.email}, function(sendForgotPassword) {
+                    u.reload().success(function() {
+                        UserManager.resetPassword({password: 'newPassword', passwordResetToken: u.passwordResetToken}, function(status, user) {
+                            u.reload().success(function() {
+                                console.log('aaaaaaa',  u.password);
+                                expect(bcrypt.compareSync('newPassword', u.password)).toBeTruthy();
+                                expect(u.passwordResetToken).toBeNull();
+                                // Clean up
+                                u.destroy().success(function(e) {
+                                    done();
                                 });
                             });
                         });
@@ -423,7 +325,7 @@ describe('UserManager checkAuthority', function(){
     it('should redirect users and store an entry point for unauthenticated page requests', function(done){
         req.url = '/get-started/';
         UserManager.checkAuthority(['admin', 'developer'], false)(req, res);
-        expect(redirect).toEqual('/login');
+        expect(redirect).toEqual('/');
         expect(req.session.entryPoint).toEqual(req.url);
         done();
     });
@@ -441,7 +343,7 @@ describe('UserManager checkAuthority', function(){
         };
         req.url = '/get-started/';
         UserManager.checkAuthority(['admin', 'developer'], false)(req, res);
-        expect(redirect).toEqual('/login?status=locked');
+        expect(redirect).toEqual('/?status=locked');
         expect(req.session.entryPoint).toEqual(req.url);
         done();
     });
@@ -458,7 +360,7 @@ describe('UserManager checkAuthority', function(){
 
     it('should block activated users of the wrong type', function(done){
         req.session.user = {
-            userType  : 'guest',
+            userType  : 'approved',
             activated : true
         };
         UserManager.checkAuthority(['admin', 'developer'], true)(req, res);
@@ -533,44 +435,6 @@ describe('UserManager create', function(){
         UserManager.create(_user, function(){
             UserManager.create(_user, function(e, user){
                 expect(e).toEqual('user-exists');
-                done();
-            });
-        });
-    });
-
-});
-
-describe('UserManager createCloudAccount', function(){
-    var _user;
-
-    beforeEach(function(){
-        _user = {
-            firstName   : 'Pyramid',
-            lastName    : 'Hefeweizen',
-            email       : 'demouser@magnet.com',
-            userType    : 'developer',
-            password    : 'wheatale',
-            companyName : 'beer'
-        };
-    });
-
-    it('should fail given an invalid id and secret key', function(done){
-        _user.email = magnetId.v1()+'2@magnet.com';
-        UserManager.create(_user, function(e, user){
-            UserManager.createCloudAccount(user, null, null, function(e, cloudAccount){
-                expect(e).toEqual('create-cloud-account-failed');
-                done();
-            });
-        });
-    });
-
-    it('should create a cloud account for the given user', function(done){
-        _user.email = magnetId.v1()+'3@magnet.com';
-        UserManager.create(_user, function(e, user){
-            UserManager.createCloudAccount(user, 'testAccessID', 'testAccessKey', function(e, cloudAccount){
-                expect(e).toBeNull();
-                expect(cloudAccount.accessKeyId).toEqual('testAccessID');
-                expect(cloudAccount.secretAccessKey).toEqual('testAccessKey');
                 done();
             });
         });
@@ -812,144 +676,6 @@ describe('UserManager delete', function(){
             UserManager.delete(user.magnetId, function(e){
                 UserManager.read(user.magnetId, true, function(e, out){
                     expect(out).toBeUndefined();
-                    done();
-                });
-            });
-        });
-    });
-
-});
-
-describe('UserManager validateAndSendCompleteRegistrationEmail', function(){
-    var _user;
-
-    beforeEach(function(){
-        _user = {
-            firstName   : 'Pyramid',
-            lastName    : 'Hefeweizen',
-            email       : 'demouser@magnet.com',
-            userType    : 'developer',
-            password    : 'wheatale',
-            companyName : 'beer'
-        };
-    });
-
-    xit('should return an error if the user does not exist', function(done){
-        UserManager.validateAndSendCompleteRegistrationEmail(null, function(e){
-            expect(e).toEqual('user-not-exist');
-            done();
-        });
-    });
-
-    xit('should not send an email for a user that is not of type "approved"', function(done){
-        _user.email = magnetId.v1()+'14@magnet.com';
-        UserManager.create(_user, function(e, user){
-            UserManager.validateAndSendCompleteRegistrationEmail(user.magnetId, function(e){
-                expect(e).toEqual('not-approved-user');
-                done();
-            });
-        });
-    });
-
-    xit('should send a complete registration email', function(done){
-        _user.email = magnetId.v1()+'15@magnet.com';
-        _user.userType = 'approved';
-        UserManager.create(_user, function(e, user){
-            UserManager.validateAndSendCompleteRegistrationEmail(user.magnetId, function(e){
-                expect(e).toBeUndefined();
-                done();
-            });
-        });
-    });
-
-    xit('should send a complete registration email which went through the admin invite registration process', function(done){
-        var adminUserObj = _user;
-        adminUserObj.email = magnetId.v1()+'16@magnet.com';
-        adminUserObj.userType = 'admin';
-        UserManager.create(_.extend({}, adminUserObj), function(e, adminUser){
-            _user.email = magnetId.v1()+'17@magnet.com';
-            _user.userType = 'approved';
-            _user.inviterId = adminUser.id;
-            UserManager.create(_user, function(e, user){
-                UserManager.validateAndSendCompleteRegistrationEmail(user.magnetId, function(e){
-                    expect(e).toBeUndefined();
-                    done();
-                });
-            });
-        });
-    });
-
-});
-
-describe('UserManager getCloudAccounts', function(){
-    var _user;
-
-    beforeEach(function(){
-        _user = {
-            firstName   : 'Pyramid',
-            lastName    : 'Hefeweizen',
-            email       : 'demouser@magnet.com',
-            userType    : 'developer',
-            password    : 'wheatale',
-            companyName : 'beer'
-        };
-    });
-
-    it('should return an error if the user does not exist', function(done){
-        UserManager.getCloudAccounts(null, function(e){
-            expect(e).toEqual('user-not-exist');
-            done();
-        });
-    });
-
-    it('should return a list of cloud accounts', function(done){
-        _user.email = magnetId.v1()+'18@magnet.com';
-        UserManager.create(_user, function(e, user){
-            UserManager.createCloudAccount(user, 'testAccessID', 'testAccessKey', function(e, userCloudAccount){
-                UserManager.getCloudAccounts(user.magnetId, function(e, cloudAccounts){
-                    expect(e).toBeNull();
-                    expect(cloudAccounts[0].accessKeyId).toEqual(userCloudAccount.accessKeyId);
-                    expect(cloudAccounts[0].secretAccessKey).toEqual(userCloudAccount.secretAccessKey);
-                    done();
-                });
-            });
-        });
-    });
-
-});
-
-describe('UserManager getInvitedUsers', function(){
-    var _user;
-
-    beforeEach(function(){
-        _user = {
-            firstName   : 'Pyramid',
-            lastName    : 'Hefeweizen',
-            email       : 'demouser@magnet.com',
-            userType    : 'developer',
-            password    : 'wheatale',
-            companyName : 'beer'
-        };
-    });
-
-    it('should return an error if the user does not exist', function(done){
-        UserManager.getInvitedUsers(null, function(e){
-            expect(e).toEqual('user-not-exist');
-            done();
-        });
-    });
-
-    it('should return a list of invited users', function(done){
-        _user.email = magnetId.v1()+'19@magnet.com';
-        var invitedUserEmail = magnetId.v1()+'20@magnet.com';
-        UserManager.create(_user, function(e, user){
-            UserManager.inviteUser({
-                email       : invitedUserEmail,
-                inviterId   : user.id
-            }, 'testFirstName', 'testLastName', 'testInviteMessage', function(status){
-                UserManager.getInvitedUsers(user.magnetId, function(e, invitedUsers){
-                    expect(e).toBeNull();
-                    expect(invitedUsers[0].invitedEmail).toEqual(invitedUserEmail);
                     done();
                 });
             });

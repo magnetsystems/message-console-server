@@ -6,112 +6,151 @@ var UserManager = require('../lib/UserManager')
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;
 
-var _user = {
-    firstName   : 'Pyramid',
-    lastName    : 'Hefeweizen',
-    email       : magnetId.v1()+'@magnet.com',
-    userType    : 'developer',
-    password    : 'wheatale',
-    companyName : 'beer'
+var id = magnetId.v1();
+var password = '$2a$10$.zrAuu55WS8ntazOHo6KKuY0xDkarNOmxLoGRPGrc3hl1iNprp7si'; // 'admin'
+var user1 = {
+    magnetId  : id,
+    firstName : 'user',
+    lastName  : 'four',
+    email     : id+'@magnet.com',
+    userType  : 'developer',
+    activated : true,
+    password  : password
 };
 
-describe('winston-sequelize database setup', function(){
+describe('winston-sequelize', function(){
+
     beforeAll(function(done){
-        winston.add(winston.transports.WinstonSequelize, {
-            level            : 'info',
-            handleExceptions : false
-        });
         orm.setup('./lib/models', function(){
-            UserManager.create(_user, function(e, user){
-                _user = user;
-                expect(e).toBeNull();
+            orm.model('User').create(user1).then(function(res1){
+                expect(res1.lastName).toEqual(user1.lastName);
+                user1.id = res1.id;
+                console.log('asdf');
                 done();
-            });
-        });
-    });
-});
-
-describe('winston-sequelize log', function(){
-
-    it('should not log to db if acting user id is not present', function(done){
-        var message = 'Testing0: test of log out at '+new Date();
-        winston.info(message, {}, function(){
-            orm.model('Event').find({
-                where : {
-                    message : message
-                }
-            }).success(function(event){
-                expect(event).toBeNull();
+            }).catch(function(e){
+                expect(e).toEqual('failed-test');
+                    console.log('asdf2');
                 done();
             });
         });
     });
 
-    it('should not log an event if winston-sequelize is configured to be silent', function(done){
-        var logger = new (winston.Logger)({
-            transports : [
-                new (winston.transports.WinstonSequelize)({
-                    level            : 'info',
-                    handleExceptions : false,
-                    silent           : true
-                })
-            ]
+    describe('transport', function(){
+
+        it('should add to winston', function(done){
+            winston.add(winston.transports.WinstonSequelize);
+            done();
         });
-        var message = 'Testing2: test of log out at '+new Date();
-        logger.info(message, {
-            userId : _user.id
-        }, function(){
-            orm.model('Event').find({
-                where : {
-                    message : message
-                }
-            }).success(function(event){
-                expect(event).toBeNull();
-                done();
+
+        it('should remove and re-add transport', function(done){
+            var logger = new (winston.Logger)({
+                transports : [
+                    new (winston.transports.WinstonSequelize)({
+                        level            : 'info',
+                        handleExceptions : false,
+                        silent           : true
+                    })
+                ]
             });
+            done();
         });
+
     });
 
-    it('should log an event if userId is present', function(done){
-        var message = 'Testing3: test of log out at '+new Date();
-        winston.info(message, {
-            userId : _user.id
-        }, function(){
-            orm.model('Event').find({
-                where : {
-                    message : message
-                }
-            }).success(function(event){
-                expect(event).not.toBeNull();
-                expect(event.message).toEqual(message);
-                expect(event.UserId).toEqual(_user.id);
-                done();
-            });
-        });
-    });
 
-    it('should log an info event with additional event target metadata', function(done){
-        var message = 'Testing4: test of log out at '+new Date();
-        var metadata = {
-            userId      : _user.id,
-            targetId    : 1,
-            targetModel : 'User'
-        };
-        winston.info(message, metadata, function(){
-            orm.model('Event').find({
-                where : {
-                    message : message
-                }
-            }).success(function(event){
-                expect(event).not.toBeNull();
-                expect(event.message).toEqual(message);
-                expect(event.targetId).toEqual(metadata.targetId);
-                expect(event.targetModel).toEqual(metadata.targetModel);
-                expect(event.UserId).toEqual(_user.id);
-                expect(event.level).toEqual('info');
-                done();
+    describe('log', function(){
+
+        it('should not log an event if winston-sequelize is configured to be silent', function(done){
+            var logger = new (winston.Logger)({
+                transports : [
+                    new (winston.transports.WinstonSequelize)({
+                        level            : 'info',
+                        handleExceptions : false,
+                        silent           : true
+                    })
+                ]
+            });
+            var message = 'Testing2: test of log out at '+new Date();
+            logger.info(message, {
+                userId : user1.id
+            }, function(){
+                orm.model('Event').find({
+                    where : {
+                        message : message
+                    }
+                }).success(function(event){
+                    expect(event).toBeNull();
+                    done();
+                });
             });
         });
+
+        it('should log to db', function(done){
+            var message = 'Testing0: test of logging at '+new Date();
+            winston.info(message, {}, function(){
+                orm.model('Event').find({
+                    where : {
+                        message : message
+                    }
+                }).success(function(event){
+                    console.log(event.message);
+                    expect(event.message).toEqual(message);
+                    done();
+                }).error(function(e){
+                    expect(e).toEqual('failed-test');
+                    done();
+                });
+            });
+        });
+
+        it('should log an event if userId is present', function(done){
+            var message = 'Testing3: test of log out at '+new Date();
+            winston.info(message, {
+                userId : user1.id
+            }, function(){
+                orm.model('Event').find({
+                    where : {
+                        message : message
+                    }
+                }).success(function(event){
+                    expect(event).not.toBeNull();
+                    expect(event.message).toEqual(message);
+                    expect(parseInt(event.UserId)).toEqual(user1.id);
+                    done();
+                }).error(function(e){
+                    expect(e).toEqual('failed-test');
+                    done();
+                });
+            });
+        });
+
+        it('should log an info event with additional event target metadata', function(done){
+            var message = 'Testing4: test of log out at '+new Date();
+            var metadata = {
+                userId      : user1.id,
+                targetId    : 1,
+                targetModel : 'User'
+            };
+            winston.info(message, metadata, function(){
+                orm.model('Event').find({
+                    where : {
+                        message : message
+                    }
+                }).success(function(event){
+                    expect(event).not.toBeNull();
+                    expect(event.message).toEqual(message);
+                    expect(parseInt(event.targetId)).toEqual(metadata.targetId);
+                    expect(event.targetModel).toEqual(metadata.targetModel);
+                    expect(parseInt(event.UserId)).toEqual(user1.id);
+                    expect(event.level).toEqual('info');
+                    done();
+                }).error(function(e){
+                    expect(e).toEqual('failed-test');
+                    done();
+                });
+            });
+        });
+
     });
 
 });

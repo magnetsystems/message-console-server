@@ -14,6 +14,7 @@ results
 tmp
 log
 
+coverage
 public-build
 
 mmx-config.json
