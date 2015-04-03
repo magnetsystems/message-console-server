@@ -12,6 +12,10 @@ pre{background-color:#efefef;border:1px solid rgba(0, 0, 0, 0.15);border-radius:
 .btn{border-radius:6px}
 .btn.btn-primary{border:solid 1px #0a394f;background-color:#036285}
 .btn-toggle .btn-default{color:#666}
+.btn-switch .btn-default{color:#fff}
+.btn-switch .btn-default:hover{background:#fff;border-color:#ccc}
+
+
 .general-padding{padding:15px}
 .padding-sm{padding:7px 0}
 .fixed-160{width:160px}
@@ -21,7 +25,7 @@ pre{background-color:#efefef;border:1px solid rgba(0, 0, 0, 0.15);border-radius:
 .individual-panel button{margin-bottom:15px}
 .second{padding-right:0;padding-left:0}
 .notice{margin:20px 0;color:#888}
-.light{color:#999;font-size:12px}
+.light{color:#333;font-weight:300}
 .light.pad{padding:13px 0 0}
 .table-layout{display:table;width:100%;height:100%;padding-top:50px}
 .table-layout .table-cell{display:table-cell;position:relative}
@@ -111,6 +115,21 @@ label{font-weight:500}
 .btn-primary.input-group-addon, .btn-primary.input-group-addon:hover{color:#fff}
 .max150{max-width:150px}
 label.aligned{padding:4px 5px 5px 14px}
+
+.form-control::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #bbbcbf;
+}
+.form-control:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #bbbcbf;
+    opacity:  1;
+}
+.form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #bbbcbf;
+    opacity:  1;
+}
+.form-control:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #bbbcbf;
+}
 
 /* buttons */
 .btn-group .glyphicon.disabled{color:#bbb;cursor:text}
@@ -230,6 +249,7 @@ a.glyphicon{text-decoration:none}
 .step-pane .alert.alert-success{margin-top:20px}
 #wizard-main-tab{margin-top:72px;padding:0 20px;margin-bottom:30px}
 #wizard-admin-container.disabled{opacity:.6}
+#project-wizard-container .step-pane .glyphicon-arrow-left{color:#59595b}
 #project-wizard-container .step-pane .btn-group{margin-top:10px}
 #project-wizard-container{background:none;height:100%;overflow-y:auto}
 #project-wizard-container form{margin:20px 0}
