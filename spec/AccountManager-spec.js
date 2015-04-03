@@ -1,11 +1,30 @@
 var AccountManager = require("../lib/AccountManager")
  , Helper = require('./Helper')
+ , mysql = require('mysql')
  , orm = require('../lib/orm')
-, magnetId = require('node-uuid');
+ , magnetId = require('node-uuid');
 
 jasmine.getEnv().defaultTimeoutInterval = 30000;
 
 describe('AccountManager', function(){
+
+    beforeAll(function(done){
+        ENV_CONFIG.DatabaseLog.enabled = false;
+        var connection =  mysql.createConnection({
+            host     : ENV_CONFIG.Database.host,
+            port     : ENV_CONFIG.Database.port,
+            user     : ENV_CONFIG.Database.username,
+            password : ENV_CONFIG.Database.password
+        });
+        connection.query('CREATE DATABASE IF NOT EXISTS '+ENV_CONFIG.Database.dbName+';', function(e){
+            if(e){
+                expect(e).toEqual('failed-test');
+            }
+            orm.setup('./lib/models', function(){
+                done();
+            });
+        });
+    });
 
     var id = magnetId.v1(), id2 = magnetId.v1(), id3 = magnetId.v1();
     var password = '$2a$10$.zrAuu55WS8ntazOHo6KKuY0xDkarNOmxLoGRPGrc3hl1iNprp7si'; // 'admin'
