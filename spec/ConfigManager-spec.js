@@ -112,38 +112,34 @@ describe('ConfigManager', function(){
             });
         });
 
-        describe('redis', function(){
-
-            it("should fail to connect if redis not available", function(done) {
-                ConfigManager.configs.App.configured = true;
-                ConfigManager.configs.Redis.enabled = true;
-                ConfigManager.init(function(e){
-                    expect(e).toEqual('connect-error');
-                    done();
-                });
+        it("should fail to connect if redis not available", function(done) {
+            ConfigManager.configs.App.configured = true;
+            ConfigManager.configs.Redis.enabled = true;
+            ConfigManager.init(function(e){
+                expect(e).toEqual('connect-error');
+                done();
             });
+        });
 
-            it("should connect if redis available", function(done) {
-                ConfigManager.configs.App.configured = true;
-                ConfigManager.configs.Redis.enabled = true;
-                ConfigManager.define(fsStub, null, redisStub, null, mmxManagerStub);
-                ConfigManager.init(function(e){
-                    expect(e).toBeUndefined();
-                    done();
-                });
+        it("should connect if redis available", function(done) {
+            ConfigManager.configs.App.configured = true;
+            ConfigManager.configs.Redis.enabled = true;
+            ConfigManager.define(fsStub, null, redisStub, null, mmxManagerStub);
+            ConfigManager.init(function(e){
+                expect(e).toBeUndefined();
+                done();
             });
+        });
 
-            it("should connect and storeConfig", function(done) {
-                ConfigManager.configs.App.configured = true;
-                ConfigManager.configs.Redis.enabled = true;
-                ConfigManager.configs.Redis.storeConfig = true;
-                ConfigManager.define(fsStub, null, redisStub, null, mmxManagerStub);
-                ConfigManager.init(function(e){
-                    expect(e).toBeUndefined();
-                    done();
-                });
+        it("should connect and storeConfig", function(done) {
+            ConfigManager.configs.App.configured = true;
+            ConfigManager.configs.Redis.enabled = true;
+            ConfigManager.configs.Redis.storeConfig = true;
+            ConfigManager.define(fsStub, null, redisStub, null, mmxManagerStub);
+            ConfigManager.init(function(e){
+                expect(e).toBeUndefined();
+                done();
             });
-
         });
 
         afterAll(function(done){
