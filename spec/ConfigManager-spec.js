@@ -316,7 +316,7 @@ describe('ConfigManager', function(){
                 port     : 3306
             };
             ConfigManager.setDB(obj, function(e){
-                expect(e).toEqual('ER_DBACCESS_DENIED_ERROR');
+                expect(e).toContain('ACCESS_DENIED_ERROR');
                 done();
             });
         });
