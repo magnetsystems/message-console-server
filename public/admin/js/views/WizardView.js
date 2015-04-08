@@ -121,7 +121,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             var valid = true;
             for(var key in obj){
                 if(optionals.indexOf(key) === -1 && !$.trim(obj[key]).length){
-                    var name = form.find('input[name="'+key+'"]').attr('placeholder');
+                    var name = form.find('input[name="'+key+'"]').closest('div[class^="col"]').find('> label').text();
                     utils.showError(form, key, 'Invalid '+name+'. '+name+' is a required field.');
                     valid = false;
                     break;
@@ -262,11 +262,14 @@ define(['jquery', 'backbone'], function($, Backbone){
             var btn = form.closest('.step-pane').find('.wiz-next');
             utils.resetError(form);
             obj = obj || utils.collect(form);
-            if(!this.isValid(form, obj)) return (fb || function(){})();
             if(obj.password !== obj.passwordVerify){
                 utils.showError(form, 'passwordVerify', 'Passwords do not match. Please try again.');
                 return (fb || function(){})();
+            }else if(!utils.isValidEmail(obj.email)){
+                utils.showError(form, 'email', 'Invalid Email. The Email Address field must contain a valid email address.');
+                return false;
             }
+            if(!this.isValid(form, obj)) return (fb || function(){})();
             me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/setAdmin', 'POST', 'application/json', obj, function(res){
                 me.options.eventPubSub.trigger('btnComplete', btn);
