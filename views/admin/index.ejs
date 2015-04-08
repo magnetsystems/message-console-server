@@ -133,6 +133,14 @@
             <label>Messaging Server Status</label>
             <div class="messaging-connectivity-container"></div>
         </div>
+        <div class="col-sm-3">
+            <label>Messaging Server Version</label>
+            <span><%- mmxconfig['mmx.version'] %></span>
+        </div>
+        <div class="col-sm-3">
+            <label>Admin Server Version</label>
+            <span><%- stats['Server Version'] %></span>
+        </div>
     </div>
 
     <h5>Environment</h5>
@@ -530,7 +538,7 @@
                     </div>
                     <div class="col-sm-6">
                         <label class="control-label">Account Status</label>
-                        <div class="btn-group btn-toggle clearfix" did="activated">
+                        <div class="btn-group btn-toggle btn-switch clearfix" did="activated">
                             <button class="btn btn-sm disabled <% if(model.activated === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Active</button>
                             <button class="btn btn-sm disabled <% if(typeof model.activated == 'undefined' || model.activated === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Blocked</button>
                         </div>
@@ -823,9 +831,9 @@
         <label>Handle Exceptions
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="If enabled, uncaught exceptions will be caught and logged. This is useful for production environments."></span>
         </label>
-        <div class="btn-group btn-toggle clearfix" did="handleExceptions">
-            <button class="btn btn-sm <% if(config.handleExceptions === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">On</button>
-            <button class="btn btn-sm <% if(typeof config.handleExceptions == 'undefined' || config.handleExceptions === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Off</button>
+        <div class="btn-group btn-toggle btn-switch clearfix" did="handleExceptions">
+            <button class="btn btn-sm <% if(config.handleExceptions === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">ON</button>
+            <button class="btn btn-sm <% if(typeof config.handleExceptions == 'undefined' || config.handleExceptions === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">OFF</button>
         </div>
     </div>
 </script>
@@ -862,7 +870,7 @@
         <label>Enabled
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="A redis database can be used to store user sessions. This is required only if you wish to deploy the Admin Console server as a cluster."></span>
         </label>
-        <div class="btn-group btn-toggle clearfix" did="enabled">
+        <div class="btn-group btn-toggle btn-switch clearfix" did="enabled">
             <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
@@ -881,7 +889,7 @@
         <label>Store Config
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Enable to store configuration in Redis. Configuration changes made from the Administration page will apply to all nodes in the cluster. Disable this feature if you plan to deploy configuration using Puppet, Chef, or CodeDeploy."></span>
         </label>
-        <div class="btn-group btn-toggle clearfix" did="storeConfig">
+        <div class="btn-group btn-toggle btn-switch clearfix" did="storeConfig">
             <button class="btn btn-sm <% if(config.storeConfig === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
             <button class="btn btn-sm <% if(typeof config.storeConfig == 'undefined' || config.storeConfig === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
@@ -899,7 +907,7 @@
     <p>System generated diagnostic logs can be output in terminal window.</p>
     <div class="col-sm-4">
         <label>Enabled</label>
-        <div class="btn-group btn-toggle clearfix" did="enabled">
+        <div class="btn-group btn-toggle btn-switch clearfix" did="enabled">
             <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
@@ -917,7 +925,7 @@
     <p>Generate system diagnostic logs saved as log files.</p>
     <div class="col-sm-4">
         <label>Enabled</label>
-        <div class="btn-group btn-toggle clearfix" did="enabled">
+        <div class="btn-group btn-toggle btn-switch clearfix" did="enabled">
             <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
@@ -962,7 +970,7 @@
         <% } %>
     </p>
     <div class="col-sm-12 clearfix">
-        <div class="btn-group btn-toggle" did="enabled">
+        <div class="btn-group btn-toggle btn-switch" did="enabled">
             <button class="btn btn-sm <% if(allConfigs.Email.enabled !== true){ %>disabled<%} %> <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
             <button class="btn btn-sm <% if(allConfigs.Email.enabled !== true){ %>disabled<%} %> <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
@@ -989,7 +997,7 @@
     <p>Certain administrative and messaging events can be written to MySQL database and displayed in the Logs. </p>
     <div class="col-sm-6 clearfix">
         <label>Enabled</label>
-        <div class="btn-group btn-toggle clearfix" did="enabled">
+        <div class="btn-group btn-toggle btn-switch clearfix" did="enabled">
             <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
@@ -1009,16 +1017,16 @@
     <p>Once email is set up properly, the email logging feature can be enabled and emails can be sent automatically to users during the registration process.</p>
     <div class="col-sm-4 clearfix">
         <label>Enabled</label>
-        <div class="btn-group btn-toggle" did="enabled">
+        <div class="btn-group btn-toggle btn-switch" did="enabled">
             <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
     </div>
     <div class="col-sm-4 clearfix">
         <label>TLS</label>
-        <div class="btn-group btn-toggle" did="tls">
-            <button class="btn btn-sm <% if(config.tls === true){ %>btn-primary active<% }else{ %>btn-default<% } %> <%- config.enabled === true ? '' : 'disabled' %>" did="true" type="button">On</button>
-            <button class="btn btn-sm <% if(typeof config.tls == 'undefined' || config.tls === false){ %>btn-primary active<% }else{ %>btn-default<% } %>  <%- config.enabled === true ? '' : 'disabled' %>" did="false" type="button">Off</button>
+        <div class="btn-group btn-toggle btn-switch" did="tls">
+            <button class="btn btn-sm <% if(config.tls === true){ %>btn-primary active<% }else{ %>btn-default<% } %> <%- config.enabled === true ? '' : 'disabled' %>" did="true" type="button">ON</button>
+            <button class="btn btn-sm <% if(typeof config.tls == 'undefined' || config.tls === false){ %>btn-primary active<% }else{ %>btn-default<% } %>  <%- config.enabled === true ? '' : 'disabled' %>" did="false" type="button">OFF</button>
         </div>
     </div>
     <div class="col-sm-4">
@@ -1046,7 +1054,7 @@
     <p>Enable geographical tracking to store user and device geographic locations to database.</p>
     <div class="col-sm-4 clearfix">
         <label>Enabled</label>
-        <div class="btn-group btn-toggle" did="enabled">
+        <div class="btn-group btn-toggle btn-switch" did="enabled">
             <button class="btn btn-sm <% if(config.enabled === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>

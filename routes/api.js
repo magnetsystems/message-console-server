@@ -326,26 +326,6 @@ module.exports = function(app){
         });
     });
 
-    app.delete('/rest/apps/:id/users/:userId/activate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.activateAppUser(req.session.user.magnetId, req.params.id, req.params.userId, function(e, response){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send('ok', 200);
-            }
-        });
-    });
-
-    app.delete('/rest/apps/:id/users/:userId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.deactivateAppUser(req.session.user.magnetId, req.params.id, req.params.userId, function(e, response){
-            if(e){
-                res.send(e, 400);
-            }else{
-                res.send('ok', 200);
-            }
-        });
-    });
-
     app.post('/rest/apps/:id/uploadAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         MMXManager.storeAPNSCertificate(req.session.user.magnetId, req.params.id, req, function(e){
             if(e){
@@ -490,6 +470,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/topics/:tid/tags', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        if(!req.body || !req.body.tags || !req.body.tags.length) return res.send('ok', 200);
         MMXManager.addTopicTags(req.session.user.magnetId, req.params.id, encodeURIComponent(req.params.tid), req.body, req, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -505,6 +486,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/topics/:tid/deleteTags', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+        if(!req.body || !req.body.tags || !req.body.tags.length) return res.send('ok', 200);
         MMXManager.removeTopicTags(req.session.user.magnetId, req.params.id, encodeURIComponent(req.params.tid), req.body, req, function(e, response){
             if(e){
                 res.send(e, 400);

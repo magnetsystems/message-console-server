@@ -160,7 +160,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                         }
                         var sorts = me.$el.find('.breadcrumb > span');
                         if(!sorts.find('button[p="'+property+'"]').length){
-                            sorts.append('<button class="btn btn-default" type="button" p="'+property+'" data-toggle="tooltip" data-placement="top" title="Click the column heading to sort in ascending or descending order. Click X to remove the Sort order.">'+th.html()+'<span class="glyphicon glyphicon-trash"></span></button>');
+                            sorts.append('<button class="btn btn-default" type="button" p="'+property+'" data-toggle="tooltip" data-placement="top" title="Click the column heading to sort in ascending or descending order. Click the trash icon to remove the Sort order.">'+th.html()+'<span class="glyphicon glyphicon-trash"></span></button>');
                             sorts.find('button[p="'+property+'"]').tooltip();
                         }else{
                             sorts.find('button[p="'+property+'"]').html(th.html()+'<span class="glyphicon glyphicon-trash"></span>');

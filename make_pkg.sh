@@ -17,6 +17,16 @@ APP_VERSION=$2
 ### BUILD ###
 npm install
 
+### TEST ###
+mysql -u root -e 'DROP DATABASE IF EXISTS magnetmessagedb;'
+
+#start app and run tests
+nohup node app.js &
+export NODEJS_PID=$!
+./node_modules/.bin/istanbul cover --report cobertura --dir target/report/ -- ./node_modules/.bin/jasmine-node --forceexit --captureExceptions --verbose --junitreport --output target/test/ spec/
+kill $NODEJS_PID
+
+
 ### PACKAGE ###
 # collect temp files in target dir  (maven standard)
 mkdir -p target/

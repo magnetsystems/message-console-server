@@ -21,15 +21,19 @@ var user1 = {
 describe('winston-sequelize', function(){
 
     beforeAll(function(done){
+        ENV_CONFIG.DatabaseLog.enabled = false;
+        try{
+            winston.remove({
+                name : 'winston-sequelize'
+            });
+        }catch(e){}
         orm.setup('./lib/models', function(){
             orm.model('User').create(user1).then(function(res1){
                 expect(res1.lastName).toEqual(user1.lastName);
                 user1.id = res1.id;
-                console.log('asdf');
                 done();
             }).catch(function(e){
                 expect(e).toEqual('failed-test');
-                    console.log('asdf2');
                 done();
             });
         });
@@ -56,7 +60,6 @@ describe('winston-sequelize', function(){
         });
 
     });
-
 
     describe('log', function(){
 
@@ -93,7 +96,6 @@ describe('winston-sequelize', function(){
                         message : message
                     }
                 }).success(function(event){
-                    console.log(event.message);
                     expect(event.message).toEqual(message);
                     done();
                 }).error(function(e){

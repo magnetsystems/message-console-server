@@ -40,11 +40,13 @@
             </div>
             <div did="database" class="step-pane sample-pane alert" data-step="2">
                 <h4>Setup Database</h4>
-                <p>Configure a MySQL system database which will be used to store all of your data. To get started, download and install the MySQL Community Server which can be found at the <a href="http://dev.mysql.com/downloads/mysql/" target="_blank">MySQL website</a>.</p>
+                <p>Configure a MySQL system database which will be used to store all of your data.<br />
+                    <span class="light"> If you do not have a local or remote install please download and install the
+                        MySQL Community Server now from the <a href="http://dev.mysql.com/downloads/mysql/" target="_blank">MySQL website</a>.</span></p>
                 <hr />
                 <div id="wizard-db-container"></div>
                 <div class="button-group clearfix">
-                    <button class="wiz-prev btn btn-primary" type="button">
+                    <button class="wiz-prev btn btn-default" type="button">
                         <span class="glyphicon glyphicon-arrow-left"></span>
                         Previous
                     </button>
@@ -55,12 +57,12 @@
             </div>
             <div did="admin" class="step-pane sample-pane alert" data-step="3">
                 <h4>Create Admin Account</h4>
-                <p>Configure an admin account to log in to the System Administration console.<br />
+                <p>This account will be able to configure administration settings.<br />
                 You will be able to modify and create other accounts later.</p>
                 <hr />
                 <div id="wizard-admin-container"></div>
                 <div class="button-group clearfix">
-                    <button class="wiz-prev btn btn-primary" type="button">
+                    <button class="wiz-prev btn btn-default" type="button">
                         <span class="glyphicon glyphicon-arrow-left"></span>
                         Previous
                     </button>
@@ -75,7 +77,7 @@
                 <hr />
                 <div id="wizard-messaging-container"></div>
                 <div class="button-group clearfix">
-                    <button class="wiz-prev btn btn-primary" type="button">
+                    <button class="wiz-prev btn btn-default" type="button">
                         <span class="glyphicon glyphicon-arrow-left"></span>
                         Previous
                     </button>
@@ -188,17 +190,17 @@
                     </div>
                     <div class="col-sm-6">
                         <label>Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Password" value="" />
+                        <input type="password" name="password" class="form-control" placeholder="Enter a password" value="" />
                     </div>
                     <div class="col-sm-4">
                         <label>Hostname</label>
                         <input type="text" name="host" class="form-control" placeholder="Hostname" value="<%- host %>" />
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <label>Port</label>
                         <input type="text" name="port" class="form-control" placeholder="Port" value="<%- port %>" />
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <label>Database Name</label>
                         <input type="text" name="dbName" class="form-control" placeholder="Database Name" value="<%- dbName %>" />
                     </div>
@@ -231,7 +233,7 @@
                 <div class="toggling-password-input">
                     <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
                     <span class="glyphicon glyphicon-eye-open" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
-                    <input type="password" class="form-control toggling-password-input" name="password" placeholder="Enter your password" value="" />
+                    <input type="password" class="form-control toggling-password-input" name="password" placeholder="Enter a password" value="" />
                 </div>
             </div>
             <div class="col-md-6">
@@ -293,7 +295,7 @@
                             By default, the messaging server will share the same database as the Administrator Console.</p>
                         <div class="form-group clearfix">
                             <div class="col-sm-4">
-                                <div class="btn-group btn-toggle" did="shareDB">
+                                <div class="btn-group btn-toggle btn-switch" did="shareDB">
                                     <button class="btn btn-sm btn-primary active" did="true" type="button">ON</button>
                                     <button class="btn btn-sm btn-default" did="false" type="button">OFF</button>
                                 </div>
@@ -310,17 +312,17 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label>Password</label>
-                                    <input type="password" name="mysqlPassword" class="form-control" placeholder="Password" value="<%- mysqlPassword %>" />
+                                    <input type="password" name="mysqlPassword" class="form-control" placeholder="Enter a password" value="<%- mysqlPassword %>" />
                                 </div>
                                 <div class="col-sm-4">
                                     <label>Hostname</label>
                                     <input type="text" name="mysqlHost" class="form-control" placeholder="Hostname" value="<%- mysqlHost %>" />
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-2">
                                     <label>Port</label>
                                     <input type="text" name="mysqlPort" class="form-control" placeholder="Port" value="<%- mysqlPort %>" />
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <label>Database Name</label>
                                     <input type="text" name="mysqlDb" class="form-control" placeholder="Database Name" value="<%- mysqlDb %>" />
                                 </div>

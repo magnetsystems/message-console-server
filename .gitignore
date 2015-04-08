@@ -15,6 +15,7 @@ tmp
 log
 
 coverage
+target
 public-build
 
 mmx-config.json
