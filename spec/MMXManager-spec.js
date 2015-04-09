@@ -10,7 +10,7 @@ var MMXManager = require("../lib/MMXManager")
 
 jasmine.getEnv().defaultTimeoutInterval = 5000;
 
-describe('MMXManager', function(){
+xdescribe('MMXManager', function(){
 
     beforeAll(function(done){
         ENV_CONFIG.DatabaseLog.enabled = false;
