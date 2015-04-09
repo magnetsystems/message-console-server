@@ -536,11 +536,17 @@
                             <span class="graytxt"><%- model.email %></span>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <label class="control-label">Account Status</label>
                         <div class="btn-group btn-toggle btn-switch clearfix" did="activated">
                             <button class="btn btn-sm disabled <% if(model.activated === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Active</button>
                             <button class="btn btn-sm disabled <% if(typeof model.activated == 'undefined' || model.activated === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Blocked</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="control-label">Reset Password</label>
+                        <div class="controls">
+                            <button id="user-reset-password-btn" class="btn btn-primary">Reset Password</button>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -585,9 +591,6 @@
                     </div>
                     <% } %>
                 </div>
-            </div>
-            <div class="button-group">
-                <button id="user-reset-password-btn" class="btn btn-primary">Reset Password</button>
             </div>
         </div>
     </div>
@@ -787,7 +790,7 @@
                         <%- key === 'Email' ? 'Email Settings' : key.replace('Log', ' Log Settings').replace('Alerts', ' Alerts')
                         .replace('App', 'System Administration Settings').replace('Geologging', 'Geo Tracking')
                         .replace('MMX', 'Magnet Message Connection Settings').replace('MessagingSettings', 'Messaging Settings')
-                        .replace('Database', 'Magnet Message Database Settings') %>
+                        .replace('Database', 'Magnet Message Database Settings').replace('Database Settings Log', 'Database Log') %>
                     </a>
                 </h4>
             </div>

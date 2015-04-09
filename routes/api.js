@@ -64,7 +64,7 @@ module.exports = function(app){
         }
     });
 
-    var putDBModels = ['users'];
+    var putDBModels = [];
     app.put('/rest/:model/:id', function(req, res, next){
         if(req.session.user && req.session.user.userType == 'admin' && _.contains(putDBModels, req.params.model)){
             ModelManager.update(req, req.body, function(e, model){
@@ -640,6 +640,23 @@ module.exports = function(app){
             }else{
                 if(user){
                     winston.info('User: user "'+req.session.user.email+'"('+req.session.user.id+') deleted user "'+(user.firstName ? user.firstName+' '+user.lastName : user.email)+'"('+user.id+') successfully at: '+new Date(), {
+                        userId      : req.session.user.id,
+                        targetModel : 'User',
+                        targetId    : user.id
+                    });
+                }
+                res.send('ok', 200);
+            }
+        });
+    });
+
+    app.put('/rest/users/:magnetId', UserManager.checkAuthority(['admin'], true), function(req, res){
+        UserManager.update(req.params.magnetId, req.body, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                if(user){
+                    winston.info('User: user "'+req.session.user.email+'"('+req.session.user.id+') updated user "'+(user.firstName ? user.firstName+' '+user.lastName : user.email)+'"('+user.id+') successfully at: '+new Date(), {
                         userId      : req.session.user.id,
                         targetModel : 'User',
                         targetId    : user.id

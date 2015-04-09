@@ -796,7 +796,7 @@ describe('UserManager', function(){
         it('should send a complete registration email which went through the admin invite registration process', function(done){
             var adminUserObj = _user;
             adminUserObj.email = magnetId.v1()+'16@magnet.com';
-            adminUserObj.userType = 'admin';
+            adminUserObj.userType = 'developer';
             UserManager.create(_.extend({}, adminUserObj), function(e, adminUser){
                 _user.email = magnetId.v1()+'17@magnet.com';
                 _user.userType = 'approved';
@@ -845,6 +845,114 @@ describe('UserManager', function(){
             });
         });
     
+    });
+
+    describe('checkRemainingAdmins', function(){
+
+        beforeEach(function(done){
+            orm.model('User').destroy({
+                truncate : true
+            }).then(function(){
+                done();
+            });
+        });
+
+        it('should pass validation with a developer user', function(done){
+            var user = {
+                email       : magnetId.v1()+'13@magnet.com',
+                userType    : 'developer'
+            };
+            UserManager.checkRemainingAdmins(user, {}, function(e){
+                expect(e).toBeUndefined();
+                done();
+            });
+        });
+
+        it('should pass validation if userType is still admin and activated', function(done){
+            var email = magnetId.v1()+'15@magnet.com';
+            var user = {
+                email       : email,
+                userType    : 'admin',
+                activated   : true
+            };
+            var editedUser = {
+                email       : email,
+                userType    : 'admin',
+                activated   : true
+            };
+            UserManager.checkRemainingAdmins(user, editedUser, function(e){
+                expect(e).toBeUndefined();
+                done();
+            });
+        });
+
+        it('should pass validation if there is more than one admin', function(done){
+            var user = {
+                email       : magnetId.v1()+'16@magnet.com',
+                password    : 'test',
+                userType    : 'admin',
+                activated   : true
+            };
+            var user2 = {
+                email       : magnetId.v1()+'17@magnet.com',
+                password    : 'test',
+                userType    : 'admin',
+                activated   : true
+            };
+            UserManager.create(user, function(e, createdUser){
+                UserManager.create(user2, function(e2, createdUser2){
+                    UserManager.checkRemainingAdmins(user, null, function(e3){
+                        expect(e3).toBeUndefined();
+                        done();
+                    });
+                });
+            });
+        });
+
+        it('should fail validation if userType is changed to developer and there is only one admin', function(done){
+            var email = magnetId.v1()+'18@magnet.com';
+            var user = {
+                email       : email,
+                password    : 'test',
+                userType    : 'admin',
+                activated   : true
+            };
+            var userEdited = {
+                email       : email,
+                password    : 'test',
+                userType    : 'developer',
+                activated   : true
+            };
+            UserManager.create(user, function(e, createdUser){
+                UserManager.checkRemainingAdmins(user, userEdited, function(e){
+                    expect(e).toEqual('validation-error');
+                    done();
+                });
+            });
+        });
+
+        it('should fail validation if activated is changed to false and there is only one admin', function(done){
+            var email = magnetId.v1()+'18@magnet.com';
+            var user = {
+                email       : email,
+                password    : 'test',
+                userType    : 'admin',
+                activated   : true
+            };
+            var userEdited = {
+                email       : email,
+                password    : 'test',
+                userType    : 'admin',
+                activated   : false
+            };
+            UserManager.create(user, function(e, createdUser){
+                UserManager.checkRemainingAdmins(user, userEdited, function(e){
+                    expect(e).toEqual('validation-error');
+                    done();
+                });
+            });
+        });
+
     });
     
     describe('getInvitedUsers', function(){

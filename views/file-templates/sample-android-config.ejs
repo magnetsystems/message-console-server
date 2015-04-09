@@ -2,8 +2,8 @@ appId={{=params.appId || ''}}
 apiKey={{=params.appAPIKey || ''}}
 gcmSenderId={{=params.googleProjectId || ''}}
 serverUser={{=params.serverUserId || ''}}
-guestSecret={{=params.guestSecret || ''}}
+anonymousSecret={{=params.guestSecret || ''}}
 host={{=mmxconfig.configs['mmx.push.callback.host'] || ''}}
 port=5222
 securityLevel=RELAXED
-serviceName={{=config.Geologging ? config.Geologging.servername : 'mmx'}}
+domainName={{=config.Geologging ? config.Geologging.servername : 'mmx'}}

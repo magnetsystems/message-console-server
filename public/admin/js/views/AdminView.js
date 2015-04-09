@@ -412,10 +412,10 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                             content : 'There was no database server found at the hostname and port you specified.'
                         });
                     }
-                    if(e == 'ER_CONNREFUSED'){
+                    if(e == 'ER_CONNREFUSED' || e == 'ECONNREFUSED'){
                         return Alerts.Error.display({
                             title   : 'Connection Refused',
-                            content : 'The server at the hostname and port you specified refused the connection.'
+                            content : 'The server at the hostname and port you specified refused the connection. Please check if MySQL server is installed and running.'
                         });
                     }
                     if(e == 'ER_DBACCESS_DENIED_ERROR' || e === 'ER_ACCESS_DENIED_ERROR'){
