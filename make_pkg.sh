@@ -17,7 +17,7 @@ APP_VERSION=$2
 ### BUILD ###
 npm install
 npm install forever-monitor --no-bin-link
-rm -rf node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test
+rm -rf node_modules/winston/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/
 
 ### TEST ###
 mysql -u root -e 'DROP DATABASE IF EXISTS magnetmessagedb;'
