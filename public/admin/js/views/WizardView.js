@@ -112,9 +112,6 @@ define(['jquery', 'backbone'], function($, Backbone){
                 user : this.userDefaults,
                 mmx  : this.messagingDefaults
             }));
-            setTimeout(function(){
-                $('#project-wizard-container li.complete').removeClass('complete');
-            }, 1000);
         },
         renderDB: function(){
             $('#wizard-db-container').html(_.template($('#WizardDBTmpl').html(), this.dbDefaults));
@@ -408,6 +405,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             var me = this;
             var btn = $(e.currentTarget);
             me.options.eventPubSub.trigger('btnLoading', btn);
+            $('#project-wizard-container li.complete').removeClass('complete');
             AJAX('admin/completeInstall', 'POST', 'application/json', null, null, function(e){
                 alert(e);
             }, null, {
