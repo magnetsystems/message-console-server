@@ -51,6 +51,7 @@ ln -s $SCRIPT_DIR/app.js
 ln -s $SCRIPT_DIR/start.js
 ln -s $SCRIPT_DIR/jp.py
 ln -s $SCRIPT_DIR/lib
+ln -s $SCRIPT_DIR/startup.properties
 ln -s $SCRIPT_DIR/make_pkg.sh
 ln -s $SCRIPT_DIR/package.json
 ln -s $SCRIPT_DIR/public
@@ -59,9 +60,6 @@ ln -s $SCRIPT_DIR/views
 ln -s $SCRIPT_DIR/node_modules
 ln -s $SCRIPT_DIR/mmx-console.bat
 ln -s $SCRIPT_DIR/mmx-console.sh
-if [ -d "$SCRIPT_DIR/startup.properties" ]; then
-  ln -s $SCRIPT_DIR/startup.properties
-fi
 if [ -d "$SCRIPT_DIR/quickstart-android" ]; then
   ln -s $SCRIPT_DIR/quickstart-android
 fi

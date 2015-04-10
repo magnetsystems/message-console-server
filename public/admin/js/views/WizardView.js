@@ -112,6 +112,9 @@ define(['jquery', 'backbone'], function($, Backbone){
                 user : this.userDefaults,
                 mmx  : this.messagingDefaults
             }));
+            setTimeout(function(){
+                $('#project-wizard-container li.complete').removeClass('complete');
+            }, 1000);
         },
         renderDB: function(){
             $('#wizard-db-container').html(_.template($('#WizardDBTmpl').html(), this.dbDefaults));
@@ -382,7 +385,7 @@ define(['jquery', 'backbone'], function($, Backbone){
                     cb();
                 }, function(xhr){
                     me.pollAttempts += 1;
-                    if(me.pollAttempts > 20){
+                    if(me.pollAttempts > 60){
                         timer.stop(id);
                         me.options.eventPubSub.trigger('btnComplete', btn);
                         Alerts.Error.display({
