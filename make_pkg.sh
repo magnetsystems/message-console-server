@@ -20,6 +20,9 @@ npm install forever-monitor --no-bin-link
 npm install node-xmpp-component --no-bin-link
 rm -rf node_modules/winston/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/
 
+npm dedupe
+npm shrinkwrap
+
 ### TEST ###
 mysql -u root -e 'DROP DATABASE IF EXISTS magnetmessagedb;'
 
