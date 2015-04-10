@@ -346,17 +346,18 @@ define(['jquery', 'backbone'], function($, Backbone){
             var me = this;
             me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/setMessaging', 'POST', 'application/json', obj, function(res){
-                if(!$('#wizard-messaging-container > .alert').length){
-                    $('#wizard-messaging-container').prepend(_.template($('#WizardMessagingTmpl').html(), {
-                        active : true
-                    }));
-                }
-                form.find('input[name^="password"]').val('');
                 if(obj.skipProvisioning){
                     me.options.eventPubSub.trigger('btnComplete', btn);
                     cb();
                 }else{
-                    me.pollMessagingCompleteStatus(btn, cb);
+                    me.pollMessagingCompleteStatus(btn, function(){
+                        if(!$('#wizard-messaging-container > .alert').length){
+                            $('#wizard-messaging-container').prepend(_.template($('#WizardMessagingTmpl').html(), {
+                                active : true
+                            }));
+                        }
+                        cb();
+                    }, fb);
                 }
             }, function(e){
                 (fb || function(){})();
@@ -369,9 +370,10 @@ define(['jquery', 'backbone'], function($, Backbone){
                 timeout : 120000
             });
         },
-        pollMessagingCompleteStatus: function(btn, cb){
+        pollMessagingCompleteStatus: function(btn, cb, fb){
             var me = this;
             var id = '#messaging-provision-status-refresh';
+            me.pollAttempts = 0;
             me.polling = true;
             timer.poll(function(loop){
                 me.checkMessagingCompleteStatus(function(){
@@ -379,6 +381,17 @@ define(['jquery', 'backbone'], function($, Backbone){
                     me.options.eventPubSub.trigger('btnComplete', btn);
                     cb();
                 }, function(xhr){
+                    me.pollAttempts += 1;
+                    if(me.pollAttempts > 20){
+                        timer.stop(id);
+                        me.options.eventPubSub.trigger('btnComplete', btn);
+                        Alerts.Error.display({
+                            title   : 'Unrecoverable Error',
+                            content : 'The installation experienced an unrecoverable error attempting to install the message server. ' +
+                                'Please make sure you have MySQL installed properly, and try reinstalling again.'
+                        });
+                        return (fb || function(){})();
+                    }
                     loop.paused = false;
                 });
             }, 1000, id);
