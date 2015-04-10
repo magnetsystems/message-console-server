@@ -67,7 +67,6 @@ module.exports = function(app){
     });
 
     app.get('/rest/admin/messagingCompleteStatus', function(req, res){
-        return res.send('asdfasdf', 400);
         MMXManager.getConfigs('', function(e, configs){
             if(e){
                 res.send(e, 400);
