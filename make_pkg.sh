@@ -1,11 +1,11 @@
 #/usr/bin/bash
 
 ### INIT ###
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
+
 cd $SCRIPT_DIR
 
-if (( "$#" != 2 )) 
-then
+if [ -z ${1+x} ] || [ -z ${2+x} ]; then
 	echo "Usage: $0 app_name app_version, e.g. $0 devcenter 1.0.0"
 	exit 1
 fi
