@@ -11,7 +11,7 @@ var MMXManager = require("../lib/MMXManager")
 
 jasmine.getEnv().defaultTimeoutInterval = 15000;
 
-describe('MMXManager', function(){
+xdescribe('MMXManager', function(){
 
     var _user = {
         firstName: "John",
