@@ -25,9 +25,9 @@ npm dedupe
 ### TEST ###
 mysql -u root -e 'DROP DATABASE IF EXISTS magnetmessagedb;'
 
-# wget http://build.magnet.com:8082/job/mmx-develop-all-maven/lastSuccessfulBuild/artifact/tools/mmx-standalone-dist/target/mmx-standalone-dist.zip
-# unzip mmx-standalone-dist.zip
-# ./mmx-standalone-dist/messaging/bin/mmx-server.sh start
+wget http://build.magnet.com:8082/job/mmx-develop-all-maven/lastSuccessfulBuild/artifact/tools/mmx-standalone-dist/target/mmx-standalone-dist.zip
+unzip mmx-standalone-dist.zip
+./mmx-standalone-dist/messaging/bin/mmx-server.sh start
 
 #start app and run tests
 nohup node app.js &

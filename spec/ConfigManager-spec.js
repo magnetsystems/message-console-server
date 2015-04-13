@@ -531,12 +531,12 @@ describe('ConfigManager', function(){
             };
             var mmxManagerStubInst = {
                 provisionServer: function(connect, config, cb){
-                    cb(null, 'test-status', 500);
+                    cb(null, 'install-error', 500);
                 }
             };
             ConfigManager.define(fsStub, null, null, null, mmxManagerStubInst);
             ConfigManager.bootstrapMessaging(obj, function(e){
-                expect(e).toEqual('test-status');
+                expect(e).toEqual('install-error');
                 done();
             });
         });
@@ -614,7 +614,7 @@ describe('ConfigManager', function(){
                 port     : 3306
             };
             ConfigManager.bootstrapMessagingComplete(obj, true, function(e){
-                expect(e).toEqual('test-error');
+                expect(e).toEqual('provision-failure');
                 done();
             });
         });
