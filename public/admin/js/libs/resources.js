@@ -874,6 +874,11 @@ utils = {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(e);
     },
+    isValidHost: function(str){
+        str = str.replace('http://', '').replace('https://', '');
+        str = str.substr(0, (str.indexOf(':') === -1 ? str.length : str.indexOf(':')));
+        return /^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/.test(str);
+    },
     sqlToObject: function(str){
         var a = str.match(/mysql:\/\/[^;]*\?/i), b = {};
         if(a){

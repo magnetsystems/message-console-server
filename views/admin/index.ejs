@@ -12,6 +12,7 @@
         <div class="tab-pane clearfix active" id="mgmt-overview">
         </div>
         <div class="tab-pane clearfix" id="mgmt-users">
+            <button class="admin-config-reset-btn btn btn-primary pull-right">Reset</button>
             <h3>Accounts</h3>
             <div class="view-container"></div>
         </div>
@@ -86,7 +87,7 @@
             </div>
         </div>
         <div class="tab-pane clearfix" id="mgmt-actions">
-            <button id="admin-config-reset-btn" class="btn btn-primary pull-right">Reset</button>
+            <button class="admin-config-reset-btn btn btn-primary pull-right">Reset</button>
             <h3>Configuration</h3>
             <div class="alert alert-info" role="alert">
                 <strong>Note:</strong> Certain changes made to the configuration below will initiate a restart of the server.
@@ -953,7 +954,7 @@
     </div>
     <div class="col-sm-4">
         <label>Folder
-            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The folder to write log files, relative to the root directory."></span>
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The folder to write log files, relative to the directory containing the administration console application."></span>
         </label></label>
         <input type="text" name="folder" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Folder" value="<%- config.folder %>" />
     </div>
@@ -963,7 +964,7 @@
     </div>
     <div class="col-sm-4">
         <label>Maximum Size
-            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The maximum log file size before logs are written to a new file."></span>
+            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The maximum log file size (in bytes) before logs are written to a new file."></span>
         </label>
         <input type="text" name="maxsize" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Maximum Size" value="<%- config.maxsize %>" />
     </div>
@@ -993,7 +994,7 @@
     </div>
     <div class="col-sm-8">
         <label>Recipient</label>
-        <input type="text" name="recipient" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Folder" value="<%- config.recipient %>" />
+        <input type="text" name="recipient" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="email address" value="<%- config.recipient %>" />
     </div>
     <div class="col-sm-4">
         <label>Alert Level</label>
