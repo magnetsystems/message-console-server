@@ -321,10 +321,16 @@ define(['jquery', 'backbone'], function($, Backbone){
                         (fb || function(){})();
                     });
                 }
-                if(res.code === 403){
+                if(res.code === 401 || res.code === 403){
                     return Alerts.Error.display({
                         title   : 'Messaging Server Already Configured',
                         content : 'The messaging server at "'+obj.host+'" has already been configured, but the credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server without provisioning.'
+                    });
+                }
+                if(res.code === 400 || res.code === 500){
+                    return Alerts.Error.display({
+                        title   : 'Installation Error',
+                        content : 'The messaging server at "'+obj.host+'" failed with an error during installation. Please check the messaging server logs for more information.'
                     });
                 }
                 Alerts.Error.display({

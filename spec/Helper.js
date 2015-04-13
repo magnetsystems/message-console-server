@@ -1,5 +1,6 @@
 ENV_CONFIG = require('../lib/config/config.json');
 
+var MMXManager = require("../lib/MMXManager");
 winston = require('winston');
 
 winston.remove(winston.transports.Console);
@@ -53,5 +54,26 @@ Helper.prototype.getByAttr = function(obj, key, val){
     }
     return ary;
 };
+
+Helper.prototype.checkMessagingStatus = function(tries, cb){
+    var me = this;
+    tries = tries || 0;
+    MMXManager.getConfigs('', function(e){
+        if(e && tries > 10){
+            console.log('checkMessagingStatus: failed');
+            cb(e);
+        }else if(e){
+            tries += 1;
+            console.log('checkMessagingStatus: trying again '+tries, e);
+            setTimeout(function(){
+                me.checkMessagingStatus(tries, cb);
+            }, 1000);
+        }else{
+            console.log('checkMessagingStatus: done!');
+            cb();
+        }
+    });
+};
+
 
 module.exports = new Helper();
