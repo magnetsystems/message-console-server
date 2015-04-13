@@ -16,18 +16,20 @@ APP_VERSION=$2
 
 ### BUILD ###
 npm install
-npm install forever-monitor --no-bin-link
-npm install node-xmpp-component --no-bin-link
-rm -rf node_modules/winston/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/
+# npm install forever-monitor --no-bin-link
+# npm install node-xmpp-component --no-bin-link
+# rm -rf node_modules/winston/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/
 
-npm dedupe
+# npm dedupe
 
 ### TEST ###
 mysql -u root -e 'DROP DATABASE IF EXISTS magnetmessagedb;'
 
 wget http://build.magnet.com:8082/job/mmx-develop-all-maven/lastSuccessfulBuild/artifact/tools/mmx-standalone-dist/target/mmx-standalone-dist.zip
 unzip mmx-standalone-dist.zip
-./mmx-standalone-dist/messaging/bin/mmx-server.sh start
+cd mmx-standalone-dist/messaging/bin
+./mmx-server.sh start
+cd ../../..
 
 #start app and run tests
 nohup node app.js &
@@ -35,7 +37,9 @@ export NODEJS_PID=$!
 ./node_modules/.bin/istanbul cover --report cobertura --dir target/report/ -- ./node_modules/.bin/jasmine-node --forceexit --captureExceptions --verbose --junitreport --config TEST_ENV jenkins --output target/test/ spec/
 kill $NODEJS_PID
 
-# ./mmx-standalone-dist/messaging/bin/mmx-server.sh stop
+cd mmx-standalone-dist/messaging/bin
+./mmx-server.sh stop
+cd ../../..
 
 ### PACKAGE ###
 # collect temp files in target dir  (maven standard)
