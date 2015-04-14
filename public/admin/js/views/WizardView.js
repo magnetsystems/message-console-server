@@ -9,6 +9,13 @@ define(['jquery', 'backbone'], function($, Backbone){
                 me.setElement('#wizard-container');
                 me.render();
                 me.wizard = $('#project-wizard-container');
+                $.fn.wizard.defaults = {
+                    disablePreviousStep : true,
+                    selectedItem: { step: -1 }
+                };
+                me.wizard.wizard({
+                    disablePreviousStep : true
+                });
                 me.getConfigs(function(){
                     me.renderDB();
                     me.renderAdmin();

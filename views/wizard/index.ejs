@@ -46,10 +46,10 @@
                 <hr />
                 <div id="wizard-db-container"></div>
                 <div class="button-group clearfix">
-                    <button class="wiz-prev btn btn-default" type="button">
-                        <span class="glyphicon glyphicon-arrow-left"></span>
-                        Previous
-                    </button>
+                    <!--<button class="wiz-prev btn btn-default" type="button">-->
+                        <!--<span class="glyphicon glyphicon-arrow-left"></span>-->
+                        <!--Previous-->
+                    <!--</button>-->
                     <button class="wiz-next btn btn-primary" type="button">
                         Next <span class="glyphicon glyphicon-arrow-right"></span>
                     </button>
@@ -62,10 +62,10 @@
                 <hr />
                 <div id="wizard-admin-container"></div>
                 <div class="button-group clearfix">
-                    <button class="wiz-prev btn btn-default" type="button">
-                        <span class="glyphicon glyphicon-arrow-left"></span>
-                        Previous
-                    </button>
+                    <!--<button class="wiz-prev btn btn-default" type="button">-->
+                        <!--<span class="glyphicon glyphicon-arrow-left"></span>-->
+                        <!--Previous-->
+                    <!--</button>-->
                     <button class="wiz-next btn btn-primary" type="button">
                         Next <span class="glyphicon glyphicon-arrow-right"></span>
                     </button>
@@ -77,10 +77,10 @@
                 <hr />
                 <div id="wizard-messaging-container"></div>
                 <div class="button-group clearfix">
-                    <button class="wiz-prev btn btn-default" type="button">
-                        <span class="glyphicon glyphicon-arrow-left"></span>
-                        Previous
-                    </button>
+                    <!--<button class="wiz-prev btn btn-default" type="button">-->
+                        <!--<span class="glyphicon glyphicon-arrow-left"></span>-->
+                        <!--Previous-->
+                    <!--</button>-->
                     <button class="wiz-next btn btn-primary" type="button">
                         Next <span class="glyphicon glyphicon-arrow-right"></span>
                     </button>
@@ -128,13 +128,21 @@
                     <tr><td width="50%">Host</td><td><%- db.host %></td></tr>
                     <tr><td>DB Name</td><td><%- db.dbName %></td></tr>
                     <tr><td>Username</td><td><%- db.username %></td></tr>
-                    <tr><td>Password</td><td></td></tr>
+                    <tr><td>Password</td><td>
+                        <% if(db.password){ %>
+                        <div class="toggling-password-input">
+                            <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
+                            <span class="glyphicon glyphicon-eye-open" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
+                            <input type="password" class="form-control transparent toggling-password-input" disabled="disabled" value="<%- db.password %>" />
+                        </div>
+                        <% } %>
+                    </td></tr>
                 </tbody>
             </table>
         </td>
     </tr>
     <tr>
-        <td width="50%"><b>Setup Admin User</b></td>
+        <td width="50%"><b>Setup Admin Account</b></td>
         <td><span class="label label-success">Success</span></td>
     </tr>
     <tr class="noborder">
@@ -142,7 +150,13 @@
             <table class="table">
                 <tbody>
                 <tr><td width="50%">Email</td><td><%- user.email %></td></tr>
-                <tr><td>Password</td><td><%- user.password %></td></tr>
+                <tr><td>Password</td><td>
+                    <div class="toggling-password-input">
+                        <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
+                        <span class="glyphicon glyphicon-eye-open" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
+                        <input type="password" class="form-control transparent toggling-password-input" disabled="disabled" value="<%- user.password %>" />
+                    </div>
+                </td></tr>
                 </tbody>
             </table>
         </td>
@@ -157,7 +171,13 @@
                 <tbody>
                 <tr><td width="50%">Host</td><td><%- mmx.host %></td></tr>
                 <tr><td>Username</td><td><%- mmx.user %></td></tr>
-                <tr><td>Password</td><td><%- mmx.password %></td></tr>
+                <tr><td>Password</td><td>
+                    <div class="toggling-password-input">
+                        <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
+                        <span class="glyphicon glyphicon-eye-open" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
+                        <input type="password" class="form-control transparent toggling-password-input" disabled="disabled" value="<%- mmx.password %>" />
+                    </div>
+                </td></tr>
                 </tbody>
             </table>
         </td>

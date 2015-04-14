@@ -27,7 +27,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 });
                 if(page == 'cms') me.getPageList();
                 if(page == 'actions')
-                    me.fetchAndRenderConfig(cid);
+                    me.fetchAndRenderConfig(null, cid);
                 if(page == 'users'){
                     me.getConfig(function(config){
                         me.options.eventPubSub.trigger('initAccountsView', {
@@ -295,18 +295,24 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             var url = $(e.currentTarget).attr('did');
             window.open(url, '123894712893', 'width=600,height=400,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');
         },
-        fetchAndRenderConfig: function(cid){
+        fetchAndRenderConfig: function(e, cid){
             var me = this;
-            me.getConfig(function(configs){
-                me.getMMXConfig(function(mmxconfig){
-                    configs.MessagingSettings = mmxconfig;
-                    me.renderConfig('actions', configs, ['MMX', 'MessagingSettings', 'App', 'Database', 'Redis', 'Email', 'Geologging']);
-                    if(cid && typeof cid == 'string'){
-                        $('#admin-config-item-'+cid).addClass('in').closest('.panel').find('.panel-title a').removeClass('collapsed');
-                    }
-                    me.getGeotrackingState();
+            if(e && $(e.currentTarget).closest('.tab-pane').attr('id') == 'mgmt-events'){
+                me.getConfig(function(configs){
+                    me.renderConfig('events', configs, ['DatabaseLog', 'FileLog', 'EmailAlerts']);
                 });
-            });
+            }else{
+                me.getConfig(function(configs){
+                    me.getMMXConfig(function(mmxconfig){
+                        configs.MessagingSettings = mmxconfig;
+                        me.renderConfig('actions', configs, ['MMX', 'MessagingSettings', 'App', 'Database', 'Redis', 'Email', 'Geologging']);
+                        if(cid && typeof cid == 'string'){
+                            $('#admin-config-item-'+cid).addClass('in').closest('.panel').find('.panel-title a').removeClass('collapsed');
+                        }
+                        me.getGeotrackingState();
+                    });
+                });
+            }
         },
         getConfig: function(cb, config){
             var me = this;

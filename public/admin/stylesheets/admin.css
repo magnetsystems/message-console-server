@@ -158,6 +158,8 @@ label.aligned{padding:4px 5px 5px 14px}
 
 /* accordions */
 .panel-default > .panel-heading{background:#EBEBEB}
+.panel > .panel-heading{padding:0}
+.panel > .panel-heading .panel-title > a{padding:10px 15px;display:block}
 
 /* - tables */
 .controls.hoverable{visibility:hidden}
@@ -192,6 +194,7 @@ label.aligned{padding:4px 5px 5px 14px}
 
 /* password hiding */
 .toggling-password-input{position:relative}
+.toggling-password-input.transparent{padding:0;color:#333;height:auto;background:transparent;border:none;outline:none;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;cursor:text}
 .toggling-password-input .glyphicon{cursor:pointer;color:#036285;display:block;font-size:20px;position:absolute;right:8px;top:8px;z-index:100}
 
 /* repeater */

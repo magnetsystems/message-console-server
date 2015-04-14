@@ -1199,8 +1199,8 @@
                 <input type="text" maxlength="10" name="mmx.timeout.period.minutes" class="form-control" placeholder="Timeout period in minutes" value="<%- config['mmx.timeout.period.minutes'] %>" />
             </div>
             <div class="col-sm-2">
-                <label>TLS
-                    <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Choose whether to enable TLS."></span>
+                <label>Mobile Client TLS
+                    <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Enables security for mobile clients."></span>
                 </label>
                 <div class="btn-group btn-toggle" did="xmpp.client.tls.policy">
                     <button class="btn btn-sm <% if(config['xmpp.client.tls.policy'] === 'required'){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="required" type="button">Enabled</button>
