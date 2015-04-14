@@ -190,8 +190,9 @@ define(['jquery', 'backbone'], function($, Backbone){
             }
             return true;
         },
-        showSendInvite: function(){
+        showSendInvite: function(e){
             var me = this;
+            if($(e.currentTarget).hasClass('disabled')) return;
             var template = _.template($('#SendInviteView').html());
             me.sendInviteModal.find('.modal-body').html(template);
             var userNameDom = me.sendInviteModal.find('input[name="email"]');
