@@ -372,7 +372,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 if(did == 'MMX'){
                     if(e === 'auth-failure'){
                         return Alerts.Error.display({
-                            title   : 'Messaging Server Already Configured',
+                            title   : 'Invalid Credentials',
                             content : 'The credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server.'
                         });
                     }
@@ -382,16 +382,16 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                             content : 'The messaging server at "'+obj.host+'" could be reached, but has not yet been provisioned.'
                         });
                     }
-                    if(e === 'not-found' || e === 'connect-error'){
-                        return Alerts.Error.display({
-                            title   : 'Messaging Server Not Found',
-                            content : 'The messaging server at "'+obj.host+'" could not be reached. Please try again with a different hostname or port, and check your firewall configuration.'
-                        });
-                    }
                     if(status == 'timeout'){
                         return Alerts.Error.display({
                             title   : 'Messaging Server Timeout',
                             content : 'The connection attempt to the messaging server at "'+obj.host+'" timed out. This may be due to connectivity issues, or the messaging server may be experiencing issues. For debugging purposes, check logs on the messaging server.'
+                        });
+                    }
+                    if(e === 'not-found' || e === 'connect-error'){
+                        return Alerts.Error.display({
+                            title   : 'Messaging Server Not Found',
+                            content : 'The messaging server at "'+obj.host+'" could not be reached. Please try again with a different hostname or port, and check your firewall configuration.'
                         });
                     }
                 }else if(did == 'Database'){

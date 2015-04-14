@@ -87,7 +87,7 @@
             </div>
         </div>
         <div class="tab-pane clearfix" id="mgmt-actions">
-            <button class="admin-config-reset-btn btn btn-primary pull-right">Reset</button>
+            <!--<button class="admin-config-reset-btn btn btn-primary pull-right">Reset</button>-->
             <h3>Configuration</h3>
             <div class="alert alert-info" role="alert">
                 <strong>Note:</strong> Certain changes made to the configuration below will initiate a restart of the server.
@@ -816,6 +816,7 @@
                             <hr />
                             <div class="button-group clearfix">
                                 <button class="admin-config-save-btn btn btn-primary <%- ((key == 'EmailAlerts' && configs['Email'].enabled !== true) ? 'disabled' : '') %>"><%- (key == 'MMX' ? 'Apply' : 'Save') %><%- (['App', 'Redis'].indexOf(key) != -1) ? ' and Restart' : '' %></button>
+                                <button class="admin-config-reset-btn btn btn-primary">Reset</button>
                             </div>
                         </div>
                         <div class="loading buttons-section" style="display:none">
@@ -1190,7 +1191,7 @@
                 <label>Retry Count
                     <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The count for the number of times a message delivery will be attempted."></span>
                 </label>
-                <input type="text" maxlength="10" name="mmx.retry.count" class="form-control" placeholder="message rate" value="<%- config['mmx.retry.count'] %>" />
+                <input type="text" maxlength="10" name="mmx.retry.count" class="form-control" placeholder="message retry count" value="<%- config['mmx.retry.count'] %>" />
             </div>
             <div class="col-sm-2">
                 <label>Timeout Period
