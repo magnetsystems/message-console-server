@@ -53,7 +53,8 @@ goto :end
 	echo. 
 	echo Options:
 	echo    -p    No port check when starting.
-	echo. 
+	echo.
+	pause
 exit /b
 
 
