@@ -223,21 +223,29 @@ define(['jquery', 'backbone'], function($, Backbone){
                     content : 'Your invitation email to '+obj.email+' has been sent successfully.'
                 });
             }, function(e){
-                var msg = e;
-                if(msg == 'email-disabled')
+                var msg = 'There was a problem sending the invitation: '+e;
+                if(e == 'email-disabled')
                     msg = 'The <b>Email</b> feature has not been enabled in the Configuration page, so the user cannot be invited. If you would like to create an account without going through the email confirmation process, use the <b>Add Account</b> feature.';
-                if(msg == 'error-sending-email')
+                if(e == 'error-sending-email')
                     msg = 'There was an error sending out the email, so the invitation could not be completed. Check your email configuration in the <b>Email</b> section of the Configuration page. If you would like to create an account without going through the email confirmation process, use the <b>Add Account</b> feature.';
+                if(e == 'USER_ALREADY_EXISTS')
+                    msg = 'The email address you specified has already been sent an email invite.';
                 Alerts.Error.display({
                     title   : 'Invitation Not Sent',
-                    content : 'There was a problem sending the invitation: '+msg
+                    content : msg
                 });
             }, null, {
                 btn : me.sendInviteBtn
             });
         },
         validateUserModal: function(dom, obj, isEdit){
-            if($.trim(obj.email).length < 1 && !isEdit){
+            if(obj.firstName && !/^[a-zA-Z]+$/i.test(obj.firstName) && !isEdit){
+                utils.showError(dom, 'firstName', 'Invalid First Name. The First Name field must only contain letters.');
+                return false;
+            }else if(obj.lastName && !/^[a-zA-Z]+$/i.test(obj.lastName) && !isEdit){
+                utils.showError(dom, 'lastName', 'Invalid Last Name. The Last Name field must only contain letters.');
+                return false;
+            }else if($.trim(obj.email).length < 1 && !isEdit){
                 utils.showError(dom, 'email', 'Invalid Email. Email is a required field.');
                 return false;
             }else if(!utils.isValidEmail(obj.email) && !isEdit){
@@ -255,7 +263,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             me.createUserModal.find('.modal-body').html(template);
             var userNameDom = me.createUserModal.find('input[name="email"]');
             me.createUserModal.find('input').keyup(function(){
-                utils.resetError(userNameDom.closest('.form-group'));
+                utils.resetError(me.createUserModal.find('.modal-body'));
                 if(me.validateUserModal(me.createUserModal, utils.collect(me.createUserModal))){
                     me.createUserBtn.removeClass('disabled');
                     utils.resetError(me.createUserModal);

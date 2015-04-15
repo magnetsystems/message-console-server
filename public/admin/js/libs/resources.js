@@ -36,7 +36,9 @@ var AJAX = function(loc, method, contentType, data, callback, failback, headers,
             window.location.href = '/admin';
             GLOBAL.polling = false;
         }else if(typeof failback === typeof Function){
-            var e = xhr.responseJSON ? xhr.responseJSON.message : xhr.responseText;
+            var e = xhr.responseJSON || xhr.responseText;
+            if(typeof e == 'object' && e.message)
+                e = e.message;
             failback(e, status, thrownError, xhr);
         }
     });
