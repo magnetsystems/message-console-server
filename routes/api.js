@@ -380,7 +380,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/endpoints/:did/ping', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.sendPing(req.session.user.magnetId, req.params.id, req.params.did, req.body, function(e, response){
+        MMXManager.sendPing(req.session.user.magnetId, req.params.id, req.params.did, req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -395,7 +395,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/endpoints/:did/notification', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.sendNotification(req.session.user.magnetId, req.params.id, req.params.did, req.body, function(e, response){
+        MMXManager.sendNotification(req.session.user.magnetId, req.params.id, req.params.did, req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
