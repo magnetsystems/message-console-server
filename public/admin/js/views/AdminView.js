@@ -27,7 +27,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 });
                 if(page == 'cms') me.getPageList();
                 if(page == 'actions')
-                    me.fetchAndRenderConfig(cid);
+                    me.fetchAndRenderConfig(null, cid);
                 if(page == 'users'){
                     me.getConfig(function(config){
                         me.options.eventPubSub.trigger('initAccountsView', {
@@ -80,7 +80,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             'click .cms-canceledit' : 'endCMSEdit',
             'click .cms-save' : 'endCMSEdit',
             'click div[did="edittype"] button': 'toggleEditingMode',
-            'click #admin-config-reset-btn': 'fetchAndRenderConfig',
+            'click .admin-config-reset-btn': 'fetchAndRenderConfig',
             'click .admin-config-save-btn': 'saveConfig',
             'click div[did="shareDB"] button': 'onShareDBClick'
         },
@@ -238,6 +238,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
         endCMSEdit: function(e){
             e.preventDefault();
             var btn = $(e.currentTarget);
+            if(btn.hasClass('disabled')) return;
             var panel = btn.closest('.panel');
             var action = btn.attr('did');
             var data = this.editor.getValue();
@@ -294,18 +295,24 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             var url = $(e.currentTarget).attr('did');
             window.open(url, '123894712893', 'width=600,height=400,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');
         },
-        fetchAndRenderConfig: function(cid){
+        fetchAndRenderConfig: function(e, cid){
             var me = this;
-            me.getConfig(function(configs){
-                me.getMMXConfig(function(mmxconfig){
-                    configs.MessagingSettings = mmxconfig;
-                    me.renderConfig('actions', configs, ['MMX', 'MessagingSettings', 'App', 'Database', 'Redis', 'Email', 'Geologging']);
-                    if(cid){
-                        $('#admin-config-item-'+cid).addClass('in').closest('.panel').find('.panel-title a').removeClass('collapsed');
-                    }
-                    me.getGeotrackingState();
+            if(e && $(e.currentTarget).closest('.tab-pane').attr('id') == 'mgmt-events'){
+                me.getConfig(function(configs){
+                    me.renderConfig('events', configs, ['DatabaseLog', 'FileLog', 'EmailAlerts']);
                 });
-            });
+            }else{
+                me.getConfig(function(configs){
+                    me.getMMXConfig(function(mmxconfig){
+                        configs.MessagingSettings = mmxconfig;
+                        me.renderConfig('actions', configs, ['MMX', 'MessagingSettings', 'App', 'Database', 'Redis', 'Email', 'Geologging']);
+                        if(cid && typeof cid == 'string'){
+                            $('#admin-config-item-'+cid).addClass('in').closest('.panel').find('.panel-title a').removeClass('collapsed');
+                        }
+                        me.getGeotrackingState();
+                    });
+                });
+            }
         },
         getConfig: function(cb, config){
             var me = this;
@@ -365,7 +372,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 if(did == 'MMX'){
                     if(e === 'auth-failure'){
                         return Alerts.Error.display({
-                            title   : 'Messaging Server Already Configured',
+                            title   : 'Invalid Credentials',
                             content : 'The credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server.'
                         });
                     }
@@ -375,16 +382,16 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                             content : 'The messaging server at "'+obj.host+'" could be reached, but has not yet been provisioned.'
                         });
                     }
-                    if(e === 'not-found' || e === 'connect-error'){
-                        return Alerts.Error.display({
-                            title   : 'Messaging Server Not Found',
-                            content : 'The messaging server at "'+obj.host+'" could not be reached. Please try again with a different hostname or port, and check your firewall configuration.'
-                        });
-                    }
                     if(status == 'timeout'){
                         return Alerts.Error.display({
                             title   : 'Messaging Server Timeout',
                             content : 'The connection attempt to the messaging server at "'+obj.host+'" timed out. This may be due to connectivity issues, or the messaging server may be experiencing issues. For debugging purposes, check logs on the messaging server.'
+                        });
+                    }
+                    if(e === 'not-found' || e === 'connect-error'){
+                        return Alerts.Error.display({
+                            title   : 'Messaging Server Not Found',
+                            content : 'The messaging server at "'+obj.host+'" could not be reached. Please try again with a different hostname or port, and check your firewall configuration.'
                         });
                     }
                 }else if(did == 'Database'){
@@ -412,10 +419,10 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                             content : 'There was no database server found at the hostname and port you specified.'
                         });
                     }
-                    if(e == 'ER_CONNREFUSED'){
+                    if(e == 'ER_CONNREFUSED' || e == 'ECONNREFUSED'){
                         return Alerts.Error.display({
                             title   : 'Connection Refused',
-                            content : 'The server at the hostname and port you specified refused the connection.'
+                            content : 'The server at the hostname and port you specified refused the connection. Please check if MySQL server is installed and running.'
                         });
                     }
                     if(e == 'ER_DBACCESS_DENIED_ERROR' || e === 'ER_ACCESS_DENIED_ERROR'){
@@ -469,16 +476,46 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             optionals = optionals || [];
             emailValidationKeys = emailValidationKeys || [];
             var valid = true;
+            var val;
             for(var key in obj){
+                var name = form.find('input[name="'+key+'"]').closest('div[class^="col"]').find('> label').text();
                 if(optionals.indexOf(key) === -1 && !$.trim(obj[key]).length){
-                    var name = form.find('input[name="'+key+'"]').attr('placeholder');
                     utils.showError(form, key, 'Invalid '+name+'. '+name+' is a required field.');
                     valid = false;
                     break;
                 }
                 if(emailValidationKeys.indexOf(key) !== -1 && !utils.isValidEmail(obj[key])){
-                    var name = form.find('input[name="'+key+'"]').attr('placeholder');
                     utils.showError(form, key, 'Invalid '+name+'. '+name+' must be a valid email address.');
+                    valid = false;
+                    break;
+                }
+                if([
+                    // messaging
+                    'mmx.wakeup.frequency', 'mmx.retry.interval.minutes', 'mmx.retry.count', 'mmx.timeout.period.minutes', 'mmx.push.callback.port',
+                    // file log
+                    'maxFiles', 'maxsize',
+                    // app
+                    'port'
+                ].indexOf(key) != -1){
+                    val = parseInt(obj[key]);
+                    if(!utils.isNumeric(val) || val <= 0){
+                        utils.showError(form, key, 'Invalid '+name+'. '+name+' must be a valid number greater than 0.');
+                        valid = false;
+                        break;
+                    }
+                }
+                if(key == 'recipient' && !utils.isValidEmail(obj[key])){
+                    utils.showError(form, key, 'Invalid '+name+'. '+name+' must be a valid email address.');
+                    valid = false;
+                    break;
+                }
+                if(['mmx.push.callback.host', 'appUrl'].indexOf(key) != -1  && !utils.isValidHost(obj[key])){
+                    utils.showError(form, key, 'Invalid '+name+'. '+name+' must be a valid hostname or IP address.');
+                    valid = false;
+                    break;
+                }
+                if(key == 'appUrl' && (obj[key].indexOf('http://') == -1 && obj[key].indexOf('https://') == -1)){
+                    utils.showError(form, key, 'Invalid '+name+'. '+name+' value must be prefixed with http:// or https://.');
                     valid = false;
                     break;
                 }

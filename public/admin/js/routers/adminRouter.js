@@ -25,6 +25,7 @@ define(['jquery', 'backbone','views/AlertGeneralView','views/AlertConfirmView','
 //                    me.sessionMgr.reset();
                 }
             });
+            if(utils.detectIE()) $.ajaxSetup({cache:false});
             this.httpreq = new HTTPRequest('/rest/');
             // init model connector for REST 
             this.mc = new ModelConnector(this.httpreq);

@@ -10,6 +10,7 @@ define([
             var me = this;
             // establish event pub/sub
             this.eventPubSub = _.extend({}, Backbone.Events);
+            if(utils.detectIE()) $.ajaxSetup({cache:false});
             this.opts = {};
             utils.setIndexOf();
             // init site views

@@ -119,10 +119,13 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
                             content : 'The selected account has been deleted successfully. Returning to administration page.'
                         });
                     },
-                    error: function(){
+                    error: function(e, xhr){
+                        var msg = 'There was an error deleting the selected account.';
+                        if(xhr.responseText == 'validation-error') msg = 'The account you are attempting to delete is' +
+                            ' the only active admin. If you delete this account, you will not be able to log in.';
                         Alerts.Error.display({
                             title   : 'Error Deleting Account',
-                            content : 'There was an error deleting the selected account.'
+                            content : msg
                         });
                     }
                 });
@@ -241,11 +244,14 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
                         me.render('User');
                         me.fetchInvitedUsers();
                     },
-                    error: function(){
-                        me.endEdit(null , btn);
+                    error: function(e, xhr){
+                        me.hideLoading(btn);
+                        var msg = 'There was an error updating the selected account.';
+                        if(xhr.responseText == 'validation-error') msg = 'The account you are attempting to update is' +
+                            ' the only active admin. If you block this account or change the user type to "developer", you will not be able to log in.';
                         Alerts.Error.display({
                             title   : 'Error Updating Account',
-                            content : 'There was a problem updating this account. Please try again later.'
+                            content : msg
                         });
                     }
                 });

@@ -874,6 +874,11 @@ utils = {
         var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(e);
     },
+    isValidHost: function(str){
+        str = str.replace('http://', '').replace('https://', '');
+        str = str.substr(0, (str.indexOf(':') === -1 ? str.length : str.indexOf(':')));
+        return /^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/.test(str);
+    },
     sqlToObject: function(str){
         var a = str.match(/mysql:\/\/[^;]*\?/i), b = {};
         if(a){
@@ -964,6 +969,17 @@ utils = {
             });
         });
         return ary;
+    },
+    detectIE: function(){
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        if (msie > 0) return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+        var trident = ua.indexOf('Trident/');
+        var rv = ua.indexOf('rv:');
+        if(trident > 0) return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+        var edge = ua.indexOf('Edge/');
+        if(edge > 0) return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+        return false;
     }
 };
 

@@ -9,6 +9,13 @@ define(['jquery', 'backbone'], function($, Backbone){
                 me.setElement('#wizard-container');
                 me.render();
                 me.wizard = $('#project-wizard-container');
+                $.fn.wizard.defaults = {
+                    disablePreviousStep : true,
+                    selectedItem: { step: -1 }
+                };
+                me.wizard.wizard({
+                    disablePreviousStep : true
+                });
                 me.getConfigs(function(){
                     me.renderDB();
                     me.renderAdmin();
@@ -220,10 +227,10 @@ define(['jquery', 'backbone'], function($, Backbone){
                         content : 'There was no database server found at the hostname and port you specified.'
                     });
                 }
-                if(e == 'ER_CONNREFUSED'){
+                if(e == 'ER_CONNREFUSED' || e == 'ECONNREFUSED'){
                     return Alerts.Error.display({
                         title   : 'Connection Refused',
-                        content : 'The server at the hostname and port you specified refused the connection.'
+                        content : 'The server at the hostname and port you specified refused the connection. Please check if MySQL server is installed and running.'
                     });
                 }
                 if(e == 'ER_DBACCESS_DENIED_ERROR' || e === 'ER_ACCESS_DENIED_ERROR'){
@@ -321,10 +328,16 @@ define(['jquery', 'backbone'], function($, Backbone){
                         (fb || function(){})();
                     });
                 }
-                if(res.code === 403){
+                if(res.code === 401 || res.code === 403){
                     return Alerts.Error.display({
                         title   : 'Messaging Server Already Configured',
                         content : 'The messaging server at "'+obj.host+'" has already been configured, but the credentials you specified were invalid. Please try again with different credentials if you would like to connect to this messaging server without provisioning.'
+                    });
+                }
+                if(res.code === 400 || res.code === 500){
+                    return Alerts.Error.display({
+                        title   : 'Installation Error',
+                        content : 'The messaging server at "'+obj.host+'" failed with an error during installation. Please check the messaging server logs for more information.'
                     });
                 }
                 Alerts.Error.display({
@@ -346,17 +359,18 @@ define(['jquery', 'backbone'], function($, Backbone){
             var me = this;
             me.options.eventPubSub.trigger('btnLoading', btn);
             AJAX('admin/setMessaging', 'POST', 'application/json', obj, function(res){
-                if(!$('#wizard-messaging-container > .alert').length){
-                    $('#wizard-messaging-container').prepend(_.template($('#WizardMessagingTmpl').html(), {
-                        active : true
-                    }));
-                }
-                form.find('input[name^="password"]').val('');
                 if(obj.skipProvisioning){
                     me.options.eventPubSub.trigger('btnComplete', btn);
                     cb();
                 }else{
-                    me.pollMessagingCompleteStatus(btn, cb);
+                    me.pollMessagingCompleteStatus(btn, function(){
+                        if(!$('#wizard-messaging-container > .alert').length){
+                            $('#wizard-messaging-container').prepend(_.template($('#WizardMessagingTmpl').html(), {
+                                active : true
+                            }));
+                        }
+                        cb();
+                    }, fb);
                 }
             }, function(e){
                 (fb || function(){})();
@@ -369,9 +383,10 @@ define(['jquery', 'backbone'], function($, Backbone){
                 timeout : 120000
             });
         },
-        pollMessagingCompleteStatus: function(btn, cb){
+        pollMessagingCompleteStatus: function(btn, cb, fb){
             var me = this;
             var id = '#messaging-provision-status-refresh';
+            me.pollAttempts = 0;
             me.polling = true;
             timer.poll(function(loop){
                 me.checkMessagingCompleteStatus(function(){
@@ -379,6 +394,17 @@ define(['jquery', 'backbone'], function($, Backbone){
                     me.options.eventPubSub.trigger('btnComplete', btn);
                     cb();
                 }, function(xhr){
+                    me.pollAttempts += 1;
+                    if(me.pollAttempts > 60){
+                        timer.stop(id);
+                        me.options.eventPubSub.trigger('btnComplete', btn);
+                        Alerts.Error.display({
+                            title   : 'Unrecoverable Error',
+                            content : 'The installation experienced an unrecoverable error attempting to install the message server. ' +
+                                'Please make sure you have MySQL installed properly, and try reinstalling again.'
+                        });
+                        return (fb || function(){})();
+                    }
                     loop.paused = false;
                 });
             }, 1000, id);
@@ -392,6 +418,7 @@ define(['jquery', 'backbone'], function($, Backbone){
             var me = this;
             var btn = $(e.currentTarget);
             me.options.eventPubSub.trigger('btnLoading', btn);
+            $('#project-wizard-container li.complete').removeClass('complete');
             AJAX('admin/completeInstall', 'POST', 'application/json', null, null, function(e){
                 alert(e);
             }, null, {

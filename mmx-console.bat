@@ -155,7 +155,7 @@ goto :eof
 	if 0 neq %nodebundle% (
 		if 0 neq %nodeinpath% (
 			echo node.js is not installed
-			echo MMX console needs node.js version 0.10.0 OR higher
+			echo MMX console requires node.js version 0.10.36
 			echo Please check https://nodejs.org/download/
 			exit 1
 		) else (
