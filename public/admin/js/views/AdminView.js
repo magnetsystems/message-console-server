@@ -446,6 +446,16 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                         title   : 'Connection Error',
                         content : 'Unable to connect to the XMPP domain with the settings you provided. Please change your configuration and try again.'
                     });
+                }else if(did == 'FileLog' && e == 'folder-permission-error'){
+                    Alerts.Error.display({
+                        title   : 'No Write Permission',
+                        content : 'The server did not have write permissions to the folder: "'+obj.folder+'".'
+                    });
+                }else if(did == 'FileLog' && e == 'file-permission-error'){
+                    Alerts.Error.display({
+                        title   : 'No Write Permission',
+                        content : 'The server did not have write permissions to the file: "'+obj.filename+'".'
+                    });
                 }else{
                     Alerts.Error.display({
                         title   : 'Error Updating Config '+did,

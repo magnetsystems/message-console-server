@@ -725,7 +725,7 @@
                         <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search"></span></button>
                         <ul class="dropdown-menu">
             <% _.each(headers, function(header, key){ %>
-                        <% if(key != 'profileName' && key != 'accountMagnetActive' && key != 'getConfig'){ %><li<% if(key == searchBy){ %> class="active"<% } %>><a href="#" p="<%- key %>"><%- header %><% } %></a></li>
+                        <% if(key != 'profileName' && key != 'accountMagnetActive' && key != 'getConfig'){ %><li<% if(key == searchBy){ %> class="active"<% } %>><a href="#" p="<%- key %>"><%- (header == 'Timestamp' ? 'Date' : header) %><% } %></a></li>
             <% }); %>
                         </ul>
                     </div>

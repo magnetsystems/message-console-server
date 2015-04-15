@@ -105,8 +105,10 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
             this.$el.find('#mgmt-user-user-details').html(template);
             return this;
         },
-        deleteUser: function(){
+        deleteUser: function(e){
             var me = this;
+            var btn = $(e.currentTarget);
+            if(btn.hasClass('disabled')) return;
             Alerts.Confirm.display({
                 title   : 'Delete Account',
                 content : 'Are you sure you wish to delete this account? Please note that once this account has been deleted, it cannot be recovered.'
@@ -224,6 +226,7 @@ define(['jquery', 'backbone', 'models/UserModel', 'collections/UserCollection', 
         editUserSave: function(e){
             var me = this;
             var btn = $(e.currentTarget);
+            if(btn.hasClass('disabled')) return;
             me.$el.find('.buttons-section-edit').hide();
             me.showLoading(btn);
             var properties = utils.collect(me.$el.find('#user-panel'));

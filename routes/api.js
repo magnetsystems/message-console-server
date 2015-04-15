@@ -365,7 +365,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/endpoints/:did/message', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.sendMessage(req.session.user.magnetId, req.params.id, req.params.did, req.body, function(e, response){
+        MMXManager.sendMessage(req.session.user.magnetId, req.params.id, req.params.did, req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
