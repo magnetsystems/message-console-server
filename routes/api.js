@@ -430,7 +430,7 @@ module.exports = function(app){
     });
 
     app.get('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.getAppTopics(req.session.user.magnetId, req.params.id, req.query, function(e, response){
+        MMXManager.getAppTopics(req.session.user.magnetId, req.params.id, req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -440,7 +440,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.createAppTopic(req.session.user.magnetId, req.params.id, req.body, function(e, response){
+        MMXManager.createAppTopic(req.session.user.magnetId, req.params.id, req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -455,7 +455,7 @@ module.exports = function(app){
     });
 
     app.delete('/rest/apps/:id/topics/:tid', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.deleteAppTopic(req.session.user.magnetId, req.params.id, req.params.tid, function(e, response){
+        MMXManager.deleteAppTopic(req.session.user.magnetId, req.params.id, encodeURIComponent(req.params.tid), req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -471,7 +471,7 @@ module.exports = function(app){
 
     app.post('/rest/apps/:id/topics/:tid/tags', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         if(!req.body || !req.body.tags || !req.body.tags.length) return res.send('ok', 200);
-        MMXManager.addTopicTags(req.session.user.magnetId, req.params.id, encodeURIComponent(req.params.tid), req.body, req, function(e, response){
+        MMXManager.addTopicTags(req.session.user.magnetId, req.params.id, encodeURIComponent(req.params.tid), req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -487,7 +487,7 @@ module.exports = function(app){
 
     app.post('/rest/apps/:id/topics/:tid/deleteTags', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
         if(!req.body || !req.body.tags || !req.body.tags.length) return res.send('ok', 200);
-        MMXManager.removeTopicTags(req.session.user.magnetId, req.params.id, encodeURIComponent(req.params.tid), req.body, req, function(e, response){
+        MMXManager.removeTopicTags(req.session.user.magnetId, req.params.id, encodeURIComponent(req.params.tid), req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{
@@ -502,7 +502,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/topics/:tid/publish', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.publishToTopic(req.session.user.magnetId, req.params.id, req.params.tid, req.body, function(e, response){
+        MMXManager.publishToTopic(req.session.user.magnetId, req.params.id, encodeURIComponent(req.params.tid), req, function(e, response){
             if(e){
                 res.send(e, 400);
             }else{

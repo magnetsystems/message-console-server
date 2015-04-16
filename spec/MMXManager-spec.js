@@ -526,17 +526,22 @@ xdescribe('MMXManager', function(){
     describe('createAppTopic', function(){
 
         it("should create an app topic", function(done) {
-            var topic = {
-                name        : 'testtopic',
-                description : 'testdesc'
-            }
-            MMXManager.createAppTopic(_user.magnetId, _app.appId, topic, function(e, response){
+            var req = {
+                body : {
+                    topic       : 'testtopic',
+                    displayName : 'testtopicdisplay',
+                    description : 'testdesc'
+                },
+                headers : {
+                    appapikey : _app.appAPIKey
+                }
+            };
+            MMXManager.createAppTopic(_user.magnetId, _app.appId, req, function(e, response, code){
                 if(e){
                     expect(e).toEqual('failed-test');
                     done();
                 }else{
-                    expect(response.name).toEqual(topic.name);
-                    expect(response.description).toEqual(topic.description);
+                    expect(code).toEqual(201);
                     done();
                 }
             });
@@ -547,7 +552,13 @@ xdescribe('MMXManager', function(){
     describe('getAppTopics', function(){
 
         it("should return a list of topics", function(done) {
-            MMXManager.getAppTopics(_user.magnetId, _app.appId, {}, function(e, response){
+            var req = {
+                query : {},
+                headers : {
+                    appapikey : _app.appAPIKey
+                }
+            };
+            MMXManager.getAppTopics(_user.magnetId, _app.appId, req, function(e, response){
                 if(e){
                     expect(e).toEqual('failed-test');
                     done();
@@ -566,18 +577,28 @@ xdescribe('MMXManager', function(){
     describe('deleteAppTopic', function(){
 
         it("should delete an app topic", function(done) {
-            var topic = {
-                name        : 'testtopic2',
-                description : 'testdesc2'
-            }
-            MMXManager.createAppTopic(_user.magnetId, _app.appId, topic, function(e, response){
+            var req = {
+                body : {
+                    topic       : 'testtopic2',
+                    displayName : 'testtopic2display',
+                    description : 'testtopic2desc'
+                },
+                headers : {
+                    appapikey : _app.appAPIKey
+                }
+            };
+            MMXManager.createAppTopic(_user.magnetId, _app.appId, req, function(e, response, code){
                 if(e){
                     expect(e).toEqual('failed-test');
                     done();
                 }else{
-                    expect(response.name).toEqual(topic.name);
-                    expect(response.description).toEqual(topic.description);
-                    MMXManager.deleteAppTopic(_user.magnetId, _app.appId, response.id, function(e, response, code){
+                    expect(code).toEqual(201);
+                    var req2 = {
+                        headers : {
+                            appapikey : _app.appAPIKey
+                        }
+                    };
+                    MMXManager.deleteAppTopic(_user.magnetId, _app.appId, req.body.topic, req2, function(e, response, code){
                         if(e){
                             expect(e).toEqual('failed-test');
                             done();
@@ -595,7 +616,15 @@ xdescribe('MMXManager', function(){
     describe('addTopicTags', function(){
 
         it("should fail given missing api key", function(done) {
-            MMXManager.addTopicTags(_user.magnetId, _app.appId, null, null, {headers:{appapikey:''}}, function(e, response){
+            var req = {
+                body : {
+                    tags : []
+                },
+                headers : {
+                    appapikey : ''
+                }
+            };
+            MMXManager.addTopicTags(_user.magnetId, _app.appId, null, req, function(e, response){
                 if(e){
                     expect(e).toEqual('missing-apikey');
                     done();
@@ -607,27 +636,45 @@ xdescribe('MMXManager', function(){
         });
 
         it("should add tags to a topic", function(done) {
-            var topic = {
-                name        : 'testtopic3',
-                description : 'testdesc3'
-            }
-            MMXManager.createAppTopic(_user.magnetId, _app.appId, topic, function(e, response){
+            var req = {
+                body : {
+                    topic       : 'testtopic3',
+                    displayName : 'testtopic3display',
+                    description : 'testtopic3desc'
+                },
+                headers : {
+                    appapikey : _app.appAPIKey
+                }
+            };
+            MMXManager.createAppTopic(_user.magnetId, _app.appId, req, function(e, response, code){
                 if(e){
                     expect(e).toEqual('failed-test');
                     done();
                 }else{
-                    expect(response.name).toEqual(topic.name);
-                    expect(response.description).toEqual(topic.description);
+                    expect(code).toEqual(201);
                     var tag1 = 'tag1';
                     var tag2 = 'tag2';
-                    var topicTagBody = {"topicId":response.id,"tags":[tag1, tag2]};
-                    MMXManager.addTopicTags(_user.magnetId, _app.appId, response.id, topicTagBody, {headers:{appapikey:_app.appAPIKey}}, function(e, topicTagResponse, code){
+                    var req2 = {
+                        body : {
+                            tags : [tag1, tag2]
+                        },
+                        headers : {
+                            appapikey : _app.appAPIKey
+                        }
+                    };
+                    MMXManager.addTopicTags(_user.magnetId, _app.appId, req.body.topic, req2, function(e, topicTagResponse, code){
                         if(e){
                             expect(e).toEqual('failed-test');
                             done();
                         }else{
                             expect(code).toEqual(201);
-                            MMXManager.getAppTopics(_user.magnetId, _app.appId, {}, function(e, topicList){
+                            var req3 = {
+                                query : {},
+                                headers : {
+                                    appapikey : _app.appAPIKey
+                                }
+                            };
+                            MMXManager.getAppTopics(_user.magnetId, _app.appId, req3, function(e, topicList){
                                 if(e){
                                     expect(e).toEqual('failed-test');
                                     done();
@@ -636,7 +683,7 @@ xdescribe('MMXManager', function(){
                                     expect(topicList.size).toEqual(100);
                                     expect(topicList.offset).toEqual(0);
                                     expect(topicList.results.length).toBeGreaterThan(0);
-                                    var topics = Helper.getByAttr(topicList.results, 'id', response.id);
+                                    var topics = Helper.getByAttr(topicList.results, 'topic', response.topic);
                                     expect(topics.length).toEqual(1);
                                     expect(topics[0].tags.length).toEqual(2);
                                     expect(topics[0].tags[0]).toEqual(tag1);
@@ -655,7 +702,12 @@ xdescribe('MMXManager', function(){
     describe('removeTopicTags', function(){
 
         it("should fail given missing api key", function(done) {
-            MMXManager.removeTopicTags(_user.magnetId, _app.appId, null, null, {headers:{appapikey:''}}, function(e, response){
+            var req = {
+                headers : {
+                    appapikey : ''
+                }
+            };
+            MMXManager.removeTopicTags(_user.magnetId, _app.appId, null, req, function(e, response){
                 if(e){
                     expect(e).toEqual('missing-apikey');
                     done();
@@ -667,37 +719,59 @@ xdescribe('MMXManager', function(){
         });
 
         it("should remove tags from a topic", function(done) {
-            var topic = {
-                name        : 'testtopic4',
-                description : 'testdesc4'
-            }
-            MMXManager.createAppTopic(_user.magnetId, _app.appId, topic, function(e, response){
+            var req = {
+                body : {
+                    topic       : 'testtopic4',
+                    displayName : 'testtopic4display',
+                    description : 'testtopic4desc'
+                },
+                headers : {
+                    appapikey : _app.appAPIKey
+                }
+            };
+            MMXManager.createAppTopic(_user.magnetId, _app.appId, req, function(e, response, code){
                 if(e){
                     expect(e).toEqual('failed-test');
                     done();
                 }else{
-                    expect(response.name).toEqual(topic.name);
-                    expect(response.description).toEqual(topic.description);
+                    expect(code).toEqual(201);
                     var tag1 = 'tag1';
                     var tag2 = 'tag2';
                     var tag3 = 'tag3';
                     var tag4 = 'tag4';
                     var tag5 = 'tag5';
-                    var topicTagBody = {"topicId":response.id,"tags":[tag1, tag2, tag3, tag4, tag5]};
-                    MMXManager.addTopicTags(_user.magnetId, _app.appId, response.id, topicTagBody, {headers:{appapikey:_app.appAPIKey}}, function(e, topicTagResponse, code){
+                    var req2 = {
+                        body : {
+                            tags : [tag1, tag2, tag3, tag4, tag5]
+                        },
+                        headers : {
+                            appapikey : _app.appAPIKey
+                        }
+                    };
+                    MMXManager.addTopicTags(_user.magnetId, _app.appId, req.body.topic, req2, function(e, topicTagResponse, code){
                         if(e){
                             expect(e).toEqual('failed-test');
                             done();
                         }else{
                             expect(code).toEqual(201);
-                            var removeTopicTagBody = {"topicId":response.id,"tags":[tag2, tag4]};
-                            MMXManager.removeTopicTags(_user.magnetId, _app.appId, response.id, removeTopicTagBody, {headers:{appapikey:_app.appAPIKey}}, function(e, topicTagResponse, code){
+                            var req3 = {
+                                headers : {
+                                    appapikey : _app.appAPIKey
+                                }
+                            };
+                            MMXManager.removeTopicTags(_user.magnetId, _app.appId, req.body.topic, req3, function(e, topicTagResponse, code){
                                 if(e){
                                     expect(e).toEqual('failed-test');
                                     done();
                                 }else{
                                     expect(code).toEqual(200);
-                                    MMXManager.getAppTopics(_user.magnetId, _app.appId, {}, function(e, topicList){
+                                    var req4 = {
+                                        query : {},
+                                        headers : {
+                                            appapikey : _app.appAPIKey
+                                        }
+                                    };
+                                    MMXManager.getAppTopics(_user.magnetId, _app.appId, req4, function(e, topicList){
                                         if(e){
                                             expect(e).toEqual('failed-test');
                                             done();
@@ -706,7 +780,7 @@ xdescribe('MMXManager', function(){
                                             expect(topicList.size).toEqual(100);
                                             expect(topicList.offset).toEqual(0);
                                             expect(topicList.results.length).toBeGreaterThan(0);
-                                            var topics = Helper.getByAttr(topicList.results, 'id', response.id);
+                                            var topics = Helper.getByAttr(topicList.results, 'topic', req.body.topic);
                                             expect(topics.length).toEqual(1);
                                             expect(topics[0].tags.length).toEqual(3);
                                             expect(topics[0].tags[0]).toEqual(tag1);
@@ -728,21 +802,33 @@ xdescribe('MMXManager', function(){
     describe('publishToTopic', function(){
 
         it("should publish to a topic", function(done) {
-            var topic = {
-                name        : 'testtopic5',
-                description : 'testdesc5'
-            }
-            MMXManager.createAppTopic(_user.magnetId, _app.appId, topic, function(e, response){
+            var req = {
+                body : {
+                    topic       : 'testtopic5',
+                    displayName : 'testtopic5display',
+                    description : 'testtopic5desc'
+                },
+                headers : {
+                    appapikey : _app.appAPIKey
+                }
+            };
+            MMXManager.createAppTopic(_user.magnetId, _app.appId, req, function(e, response, code){
                 if(e){
                     expect(e).toEqual('failed-test');
                     done();
                 }else{
-                    expect(response.name).toEqual(topic.name);
-                    expect(response.description).toEqual(topic.description);
-                    var payload = {
-                        payload : 'a test message'
-                    };
-                    MMXManager.publishToTopic(_user.magnetId, _app.appId, response.id, payload, function(e, publishResponse, code){
+                    expect(code).toEqual(201);
+                    var req2 = {
+                        body : {
+                            content     : 'a test message',
+                            messageType : 'normal',
+                            contentType : 'text'
+                        },
+                        headers : {
+                            appapikey : _app.appAPIKey
+                        }
+                    }
+                    MMXManager.publishToTopic(_user.magnetId, _app.appId, req.body.topic, req2, function(e, publishResponse, code){
                         if(e){
                             expect(e).toEqual('failed-test');
                             done();
