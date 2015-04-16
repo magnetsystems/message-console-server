@@ -889,17 +889,19 @@
             <button class="btn btn-sm <% if(typeof config.enabled == 'undefined' || config.enabled === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
     </div>
-    <div class="col-sm-3">
-        <label>Cache Timeout
-            <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Time in seconds before cached configuration is refreshed."></span>
-        </label>
-        <input type="text" name="cacheTimeout" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="time in seconds" value="<%- config.cacheTimeout %>" />
+    <div class="col-sm-7">
+        <label>Hostname</label>
+        <input type="text" name="host" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Hostname" value="<%- config.host %>" />
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <label>Port</label>
         <input type="text" maxlength="10" name="port" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Port" value="<%- config.port %>" />
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-6">
+        <label>Password</label>
+        <input type="password" name="pass" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Password" value="" />
+    </div>
+    <div class="col-sm-6">
         <label>Store Config
             <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="Enable to store configuration in Redis. Configuration changes made from the Administration page will apply to all nodes in the cluster. Disable this feature if you plan to deploy configuration using Puppet, Chef, or CodeDeploy."></span>
         </label>
@@ -907,14 +909,6 @@
             <button class="btn btn-sm <% if(config.storeConfig === true){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="true" type="button">Enabled</button>
             <button class="btn btn-sm <% if(typeof config.storeConfig == 'undefined' || config.storeConfig === false){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="false" type="button">Disabled</button>
         </div>
-    </div>
-    <div class="col-sm-6">
-        <label>Hostname</label>
-        <input type="text" name="host" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Hostname" value="<%- config.host %>" />
-    </div>
-    <div class="col-sm-6">
-        <label>Password</label>
-        <input type="password" name="pass" <%- config.enabled === true ? '' : 'disabled="disabled"' %> class="form-control" placeholder="Password" value="" />
     </div>
 </script>
 <script id="AdminConfigurationConsoleLogTmpl" type="text/template">

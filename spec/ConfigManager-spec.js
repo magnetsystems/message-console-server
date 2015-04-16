@@ -614,7 +614,7 @@ describe('ConfigManager', function(){
                 port     : 3306
             };
             ConfigManager.bootstrapMessagingComplete(obj, true, function(e){
-                expect(e).toEqual('test-error');
+                expect(e).toEqual('provision-failure');
                 done();
             });
         });
