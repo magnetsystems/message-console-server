@@ -52,7 +52,7 @@ describe('EmailService', function(){
                 }
             };
             var out = EmailService.renderTemplate(params);
-            expect(out).toContain('<title>Magnet Message: Test Without Sub</title>');
+            expect(out).toContain('<title>Test Without Sub</title>');
             expect(out).not.toContain('To activate your account, please click the following button:');
             done();
         });
@@ -68,7 +68,7 @@ describe('EmailService', function(){
                 }
             };
             var out = EmailService.renderTemplate(params);
-            expect(out).toContain('<title>Magnet Message: Test With Sub</title>');
+            expect(out).toContain('<title>Test With Sub</title>');
             expect(out).toContain('To activate your account, please click the following button:');
             done();
         });
