@@ -176,6 +176,7 @@ goto :eof
 		del .\%PROG%.pid
 	) else (
 		echo %PROGNAME% is not running
+		echo.
 	)
 	endlocal
 goto :end
