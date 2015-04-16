@@ -765,16 +765,7 @@ module.exports = function(app){
                 invitedEmail : req.body.email
             }, isInvitedByAdmin, function(registrationStatus, user){
                 if(registrationStatus == UserManager.RegisterGuestStatusEnum.REGISTRATION_SUCCESSFUL){
-                    UserManager.approveUser({
-                        magnetId  : user.magnetId,
-                        invitedBy : req.session.user
-                    }, isInvitedByAdmin, function(approvalStatus){
-                        if(approvalStatus == UserManager.ApproveUserStatusEnum.APPROVAL_SUCCESSFUL){
-                            res.send(approvalStatus, 201);
-                        }else{
-                            res.send(approvalStatus, 400);
-                        }
-                    });
+                    res.send(registrationStatus, 201);
                 }else{
                     res.send(registrationStatus, 400);
                 }
