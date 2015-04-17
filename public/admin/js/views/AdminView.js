@@ -356,6 +356,9 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                 obj.mmxconfig = utils.collect(container.find('div[did="mmx-config"]'));
             }
             if(!this.isValid(container, obj, optionals)) return;
+            if(typeof obj.enabled !== 'undefined' && obj.enabled === false) obj = {
+                enabled : false
+            };
             me.showLoading(container);
             AJAX('configs/'+did, 'POST', 'application/json', obj, function(res){
                 me.hideLoading(container);
@@ -487,6 +490,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             emailValidationKeys = emailValidationKeys || [];
             var valid = true;
             var val;
+            if(typeof obj.enabled !== 'undefined' && !obj.enabled) return true;
             for(var key in obj){
                 var name = form.find('input[name="'+key+'"]').closest('div[class^="col"]').find('> label').text();
                 if(optionals.indexOf(key) === -1 && !$.trim(obj[key]).length){
@@ -504,6 +508,8 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     'mmx.wakeup.frequency', 'mmx.retry.interval.minutes', 'mmx.retry.count', 'mmx.timeout.period.minutes', 'mmx.push.callback.port',
                     // file log
                     'maxFiles', 'maxsize',
+                    // geologging
+                    'flushInterval', 'expirationTimeout', 'cleanupInterval',
                     // app
                     'port'
                 ].indexOf(key) != -1){
@@ -519,7 +525,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     valid = false;
                     break;
                 }
-                if(['mmx.push.callback.host', 'appUrl'].indexOf(key) != -1  && !utils.isValidHost(obj[key])){
+                if(['mmx.push.callback.host', 'appUrl', 'host'].indexOf(key) != -1  && !utils.isValidHost(obj[key])){
                     utils.showError(form, key, 'Invalid '+name+'. '+name+' must be a valid hostname or IP address.');
                     valid = false;
                     break;

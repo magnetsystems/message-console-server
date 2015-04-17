@@ -36,6 +36,7 @@ div.disabled{opacity:.6}
 .divider{display:inline-block;margin:0 3px -7px;width:1px;height:24px;background:#aaa}
 .colortext-info{color:#30708F}
 .colortext-danger{color:#a94442}
+.colortext-success{color:#449D44}
 
 /* overlay */
 .invalid-overlay{position:absolute;top:0;left:0;width:100%;height:100%;z-index:50}

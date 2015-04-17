@@ -877,6 +877,7 @@ utils = {
         return re.test(e);
     },
     isValidHost: function(str){
+        if(typeof str == 'number') str = str.toString();
         str = str.replace('http://', '').replace('https://', '');
         str = str.substr(0, (str.indexOf(':') === -1 ? str.length : str.indexOf(':')));
         return /^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/.test(str);
