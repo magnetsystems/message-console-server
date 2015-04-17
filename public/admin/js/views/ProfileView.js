@@ -47,8 +47,14 @@ define(['jquery', 'backbone'], function($, Backbone){
                     title   : 'Profile Updated',
                     content : 'Your user profile has been updated successfully.'
                 });
-            }, function(xhr, status, thrownError){
-                alert(xhr.responseText);
+            }, function(e, status, thrownError){
+                var msg;
+                switch(e){
+                    case 'validation-error': msg = 'The account you are attempting to update is' +
+                        ' the only active admin. If you block this account or change the user type to "developer", you will not be able to log in.'; break;
+                    default: msg = 'An error has occurred during profile update. Please contact an administrator for assistance.'; break;
+                }
+                alert(msg);
             });
         },
         hasPassword: function(data){
