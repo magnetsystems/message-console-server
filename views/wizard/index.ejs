@@ -282,21 +282,9 @@
     <form id="wizard-messaging-form" role="form" class="clearfix">
         <span class="alert-container"></span>
         <div class="form-group clearfix">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <label>Internal Hostname</label>
                 <input type="text" class="form-control" name="host" placeholder="Internal Hostname" value="<%- host %>" />
-            </div>
-            <div class="col-md-4">
-                <label>Messaging Username</label>
-                <input type="text" class="form-control" name="user" placeholder="Username" value="<%- user %>" />
-            </div>
-            <div class="col-md-4">
-                <label>Messaging Password</label>
-                <div class="toggling-password-input">
-                    <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
-                    <span class="glyphicon glyphicon-eye-open" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
-                    <input type="password" class="form-control toggling-password-input" name="password" placeholder="Password" value="<%- password %>" />
-                </div>
             </div>
         </div>
         <div class="panel-group clearfix" id="wizard-messaging-advanced-config">
@@ -345,6 +333,25 @@
                                 <div class="col-sm-6">
                                     <label>Database Name</label>
                                     <input type="text" name="mysqlDb" class="form-control" placeholder="Database Name" value="<%- mysqlDb %>" />
+                                </div>
+                            </div>
+                        </div>
+                        <p>
+                            <b>Messaging Server Connectivity Settings</b><br />
+                            Under normal circumstances, you will not need to change the connectivity settings below. If you are connecting to a messaging server
+                            which has already been installed, <b>and</b> the messaging admin credentials are different from the values below, then enter the
+                            correct credentials to continue with installation.</p>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label>Messaging Admin Username</label>
+                                <input type="text" class="form-control" name="user" placeholder="Username" value="<%- user %>" />
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Messaging Admin Password</label>
+                                <div class="toggling-password-input">
+                                    <span class="glyphicon glyphicon-eye-close hidden" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to hide the password value."></span>
+                                    <span class="glyphicon glyphicon-eye-open" title="" data-placement="top" data-toggle="tooltip" data-title="Click the eye to display the password value."></span>
+                                    <input type="password" class="form-control toggling-password-input" name="password" placeholder="Password" value="<%- password %>" />
                                 </div>
                             </div>
                         </div>
