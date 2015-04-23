@@ -1145,7 +1145,7 @@
     <% if(config){ %>
     <div did="mmx-config" class="form-group clearfix">
         <div class="row-fluid clearfix">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <label>External Hostname
                     <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The public hostname to be used by mobile clients for acknowledging push notifications."></span>
                 </label>
@@ -1156,6 +1156,15 @@
                     <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="The public port to be used by mobile clients for acknowledging push notifications."></span>
                 </label>
                 <input type="text" maxlength="10" name="mmx.push.callback.port" class="form-control" placeholder="A public port" value="<%- config['mmx.push.callback.port'] %>" />
+            </div>
+            <div class="col-sm-2">
+                <label>Access Control
+                    <span class="glyphicon glyphicon-info-sign" title="" data-placement="top" data-toggle="tooltip" data-title="In Relaxed mode, messaging apps are accessible by all developers. In Strict mode, apps are only accessible by the developer who created the app."></span>
+                </label>
+                <div class="btn-group btn-toggle" did="mmx.admin.api.access.control.mode">
+                    <button class="btn btn-sm <% if(config['mmx.admin.api.access.control.mode'] === 'relaxed'){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="relaxed" type="button">Relaxed</button>
+                    <button class="btn btn-sm <% if(typeof config['mmx.admin.api.access.control.mode'] == 'undefined' || config['mmx.admin.api.access.control.mode'] === 'strict'){ %>btn-primary active<% }else{ %>btn-default<% } %>" did="strict" type="button">Strict</button>
+                </div>
             </div>
             <div class="col-sm-3">
                 <label>External Protocol
