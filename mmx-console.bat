@@ -69,7 +69,7 @@ exit /b
 
 	if exist %PROG%.pid (
 		echo.
-		echo Error! %PROGNAME% is already running or you have a stale pid file. If %PROGNAME% is not running, then please delete mmx-standalone-dist-win\console\mmx-console.pid file and try again.
+		echo Error! %PROGNAME% is already running or you have a stale pid file. If %PROGNAME% is not running, then please delete %PROG%.pid in the console directory and try again.
 		exit 1
 	)	
 
