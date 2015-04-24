@@ -21,7 +21,6 @@ module.exports = function(app){
                 delete user.password;
                 req.session.user = user;
                 if(newMMXUser) res.header('X-New-MMX-User', 'enabled');
-                console.log(user);
                 winston.verbose('Auth: user "' + user.email + '" logged in.');
                 res.send(req.query.requireUser ? req.session.user.magnetId : 'SUCCESS', 200);
             }else{
