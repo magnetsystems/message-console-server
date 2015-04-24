@@ -123,7 +123,7 @@ goto :eof
 
 
 :check_port
-        netstat -aon | findstr "%1" 1>NUL
+        netstat -aon | findstr ":%1 " 1>NUL
         if %ERRORLEVEL% equ 0 (
                 echo.
                 echo Error! TCP port "%1" is already in use; thus, cannot start %PROGNAME%. Please refer to readme.htm on how to change the ports.
