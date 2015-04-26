@@ -54,6 +54,8 @@ goto :end
 	echo Options:
 	echo    -p    No port check when starting.
 	echo.
+	echo Usage: execute the command in a Command Prompt.
+	echo.
 	pause
 exit /b
 
