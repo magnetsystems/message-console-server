@@ -327,7 +327,7 @@ module.exports = function(app){
     });
 
     app.post('/rest/apps/:id/uploadAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        MMXManager.storeAPNSCertificate(req.session.user.magnetId, req.params.id, req, function(e){
+        MMXManager.storeAPNSCertificateAndPass(req.session.user.magnetId, req.params.id, req, function(e){
             if(e){
                 res.send(e, 400);
             }else{

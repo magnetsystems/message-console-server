@@ -12,6 +12,7 @@ fi
 
 APP_NAME=$1
 APP_VERSION=$2
+BUILD_NUMBER=$3
 
 
 ### BUILD ###
@@ -73,7 +74,7 @@ fi
 
 #create the tar!
 cd ..
-#tar czfh $APP_NAME-$APP_VERSION.tar.gz $APP_NAME/*
-zip -r $APP_NAME-$APP_VERSION.zip $APP_NAME/*
+#tar czfh $APP_NAME-$APP_VERSION-$BUILD_NUMBER.tar.gz $APP_NAME/*
+zip -r $APP_NAME-$APP_VERSION-$BUILD_NUMBER.zip $APP_NAME/*
 
 
