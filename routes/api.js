@@ -836,10 +836,8 @@ module.exports = function(app){
                     userId      : req.session.user.id,
                     targetModel : 'Config',
                     targetId    : req.params.config
-                }, function(){
-                    res.send(noRestartNeeded.indexOf(req.params.config) != -1 ? 'ok' : 'restart-needed', 200);
                 });
-
+                res.send(noRestartNeeded.indexOf(req.params.config) != -1 ? 'ok' : 'restart-needed', 200);
             }
         });
     });
