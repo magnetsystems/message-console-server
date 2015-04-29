@@ -765,6 +765,7 @@ describe('ConfigManager', function(){
 
         it("should fail to setup redis if missing fields", function(done) {
             var obj = {
+                enabled: true,
 //                host: 'localhost',
                 port: 6379
             };
