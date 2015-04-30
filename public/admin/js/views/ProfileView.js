@@ -49,12 +49,16 @@ define(['jquery', 'backbone'], function($, Backbone){
                 });
             }, function(e, status, thrownError){
                 var msg;
-                switch(e){
+                switch(xhr.responseText){
                     case 'validation-error': msg = 'The account you are attempting to update is' +
                         ' the only active admin. If you block this account or change the user type to "developer", you will not be able to log in.'; break;
+                    case 'old-pass-not-match': msg = 'The Current Password you specified did not match our records.'; break;
                     default: msg = 'An error has occurred during profile update. Please contact an administrator for assistance.'; break;
                 }
-                alert(msg);
+                Alerts.Error.display({
+                    title   : 'Profile Update Error',
+                    content : msg
+                });
             });
         },
         hasPassword: function(data){

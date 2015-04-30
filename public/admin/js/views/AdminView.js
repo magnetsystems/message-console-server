@@ -468,6 +468,9 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
             }, null, {
                 redirectPort : (did == 'App') ? obj.port : null,
                 timeout      : 15000,
+                always       : function(){
+                    me.hideLoading(container);
+                },
                 cb           : function(location){
                     me.hideLoading(container);
                     $.ajax({

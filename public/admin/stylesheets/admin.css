@@ -421,7 +421,7 @@ a.glyphicon{text-decoration:none}
 }
 @media only screen and (max-width:767px){
     .modal.fade.in{margin:0 !important}
-    #admin{top:48px}
+    #admin{top:92px}
     #admin .nav-tabs{width:100%;margin:0;border-bottom:solid 1px #888}
     #admin > .nav-tabs{padding-left:0}
     #admin .nav-tabs > li{width:100%;margin:0;border-top:solid 1px #ddd}
@@ -429,6 +429,12 @@ a.glyphicon{text-decoration:none}
     #admin .nav-tabs > li.active > a{background:#ddd;border:solid 1px #aaa;border-left:none;border-right:none;border-radius:0}
     #admin .tab-content{margin:0;border:none;position:relative;top:0}
     #mgmt-overview .form-group span{display:inline;margin-left:5px}
+    #user-navigation{position:relative;top:0;left:0;clear:both}
+    #user-navigation > div{float:left}
+    #mmx-contextual-doc-btn{display:none}
+    #user-navigation .separator, #user-navigation .separator{display:none !important}
+    .user-identity-section{margin:0}
+    #user-identity .fa-cog{display:none}
 }
 @media only screen and (max-width:400px){
 }

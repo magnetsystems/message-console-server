@@ -27,6 +27,8 @@ var AJAX = function(loc, method, contentType, data, callback, failback, headers,
             GlobalEventDispatcher.generalEventPubSub.trigger('initRestart', params);
         if(params.btn)
             params.btn.html(params.btn.attr('txt')).removeClass('disabled');
+        if(params.always)
+            params.always();
     }).done(function(result, status, xhr){
         if(typeof callback === typeof Function)
             callback(result, status, xhr);
@@ -35,6 +37,11 @@ var AJAX = function(loc, method, contentType, data, callback, failback, headers,
             GLOBAL.referrer = window.location.hash;
             window.location.href = '/admin';
             GLOBAL.polling = false;
+        }else if(status == 'error'){
+            Alerts.Error.display({
+                title   : 'Server Not Responding',
+                content : 'The server is not responding right now. Please try again later.'
+            });
         }else if(typeof failback === typeof Function){
             var e = xhr.responseJSON || xhr.responseText;
             if(typeof e == 'object' && e.message)
