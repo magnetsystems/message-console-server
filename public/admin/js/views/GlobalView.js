@@ -121,6 +121,7 @@ define(['jquery', 'backbone'], function($, Backbone){
         },
         serverRestartModal: function(sel, tick, params){
             var me = this;
+            if(GLOBAL.polling) return;
             var progress = 0;
             var modal = $('#'+sel);
             var dom = modal.find('.progress-bar');
@@ -130,13 +131,13 @@ define(['jquery', 'backbone'], function($, Backbone){
             GLOBAL.polling = true;
             var prog = setInterval(function(){
                 ++progress;
-                if(progress > 99){
+                if(progress > 30){
                     GLOBAL.polling = false;
                     modal.modal('hide');
                     clearInterval(prog);
                     $('#restart-failed-modal').modal('show');
                 }
-            }, 100);
+            }, 1000);
             me.doPoll(tick, 1000, function(){
                 GLOBAL.polling = false;
                 modal.modal('hide');
