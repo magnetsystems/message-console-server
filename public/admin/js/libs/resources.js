@@ -37,11 +37,6 @@ var AJAX = function(loc, method, contentType, data, callback, failback, headers,
             GLOBAL.referrer = window.location.hash;
             window.location.href = '/admin';
             GLOBAL.polling = false;
-        }else if(status == 'error' && !thrownError){
-            Alerts.Error.display({
-                title   : 'Server Not Responding',
-                content : 'The server is not responding right now. Please try again later.'
-            });
         }else if(typeof failback === typeof Function){
             var e = xhr.responseJSON || xhr.responseText;
             if(typeof e == 'object' && e.message)
