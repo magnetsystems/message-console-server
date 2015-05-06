@@ -69,7 +69,7 @@ describe('EmailService', function(){
             };
             var out = EmailService.renderTemplate(params);
             expect(out).toContain('<title>Test With Sub</title>');
-            expect(out).toContain('To activate your account, please click the following button:');
+            expect(out).toContain('To activate your Magnet Message account, please click the following button:');
             done();
         });
 

@@ -126,7 +126,7 @@ describe('ContentManagement', function(){
                 }
             };
             ContentManagement.viewPageContent(reqMock, function(e, tmpl){
-                expect(tmpl).toContain('To activate your account, please click the following button:');
+                expect(tmpl).toContain('To activate your Magnet Message account, please click the following button:');
                 done();
             });
         });
