@@ -7,7 +7,7 @@
             <key>BaseURL</key>
             <string>mmx://{{=mmxconfig.configs['mmx.push.callback.host'] || ''}}:5222</string>
             <key>DomainName</key>
-            <string>{{=config.Geologging ? config.Geologging.servername : 'mmx'}}</string>
+            <string>{{=mmxconfig.configs['xmpp.domain'] || 'mmx'}}</string>
             <key>AppId</key>
             <string>{{=params.appId || ''}}</string>
             <key>ApiKey</key>

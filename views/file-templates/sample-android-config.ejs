@@ -6,4 +6,4 @@ anonymousSecret={{=params.guestSecret || ''}}
 host={{=mmxconfig.configs['mmx.push.callback.host'] || ''}}
 port=5222
 securityLevel=RELAXED
-domainName={{=config.Geologging ? config.Geologging.servername : 'mmx'}}
+domainName={{=mmxconfig.configs['xmpp.domain'] || 'mmx'}}
