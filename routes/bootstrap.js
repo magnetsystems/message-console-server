@@ -81,9 +81,7 @@ module.exports = function(app){
                     res.send(configs, 200);
                 });
             }
-        }, {
-            statusCheck : true
-        });
+        }, null, true);
     });
 
     app.post('/rest/admin/completeInstall', function(req, res){
