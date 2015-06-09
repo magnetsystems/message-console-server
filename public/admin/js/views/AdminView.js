@@ -517,7 +517,7 @@ define(['jquery', 'backbone', 'collections/UserCollection', 'collections/EventCo
                     'port'
                 ].indexOf(key) != -1){
                     val = parseInt(obj[key]);
-                    if(!utils.isNumeric(val) || val <= 0){
+                    if(!utils.isNumeric(val) || (key != 'mmx.retry.count' && val <= 0)){
                         utils.showError(form, key, 'Invalid '+name+'. '+name+' must be a valid number greater than 0.');
                         valid = false;
                         break;
