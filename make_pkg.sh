@@ -75,6 +75,6 @@ fi
 #create the tar!
 cd ..
 #tar czfh $APP_NAME-$APP_VERSION-$BUILD_NUMBER.tar.gz $APP_NAME/*
-zip -r $APP_NAME-$APP_VERSION-$BUILD_NUMBER.zip $APP_NAME/*
+zip -r $APP_NAME-$APP_VERSION.zip $APP_NAME/*
 
 
