@@ -81,7 +81,7 @@ module.exports = function(app){
                     res.send(configs, 200);
                 });
             }
-        });
+        }, null, true);
     });
 
     app.post('/rest/admin/completeInstall', function(req, res){
