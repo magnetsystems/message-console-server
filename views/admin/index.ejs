@@ -13,7 +13,13 @@
         </div>
         <div class="tab-pane clearfix" id="mgmt-users">
             <h3>Accounts</h3>
+            {{ if(typeof envConfig != 'undefined' && typeof envConfig.WPOAuth != 'undefined' && envConfig.WPOAuth.enabled === true){ }}
+            <div class="alert alert-info fade in clearfix">
+                <p>You enabled Wordpress OAuth, so accounts should be managed from Wordpress.</p>
+            </div>
+            {{ }else{ }}
             <div class="view-container"></div>
+            {{ } }}
         </div>
         <div class="tab-pane clearfix" id="mgmt-user-details">
             <a href="#/users" class="glyphicon glyphicon-arrow-left"></a><h3 class="inline"> | Account Information</h3>

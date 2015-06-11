@@ -10,6 +10,7 @@ var UserManager = require('../lib/UserManager')
 , sanitize = validator.sanitize
 , ConfigManager = require('../lib/ConfigManager')
 , ContentManagement = require('../lib/ContentManagement')
+, WPOAuthClient = require('../lib/WPOAuthClient')
 , Geologger = require('../lib/Geologger');
 
 module.exports = function(app){
@@ -112,20 +113,37 @@ module.exports = function(app){
     /* USER */
 
     app.get('/rest/profile', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        UserManager.read(req.session.user.magnetId, false, function(e, user){
-            if(e){
-                res.send(e, 400);
-            }else{
-                if(req.session.user.newMMXUser === true){
-                    req.session.user.newMMXUser = false;
-                    res.send(_.extend(user, {
-                        newMMXUser : true
-                    }), 200);
+        if(ENV_CONFIG.WPOAuth && ENV_CONFIG.WPOAuth.enabled){
+            WPOAuthClient.getUserInfo(req.session.user, req.session.user.access_token, function(e, data){
+                if(e){
+                    res.send(e, 400);
                 }else{
-                    res.send(user, 200);
+                    if(req.session.user.newMMXUser === true){
+                        req.session.user.newMMXUser = false;
+                        res.send(_.extend(UserManager.getSafeUser(req.session.user), {
+                            newMMXUser : true
+                        }), 200);
+                    }else{
+                        res.send(UserManager.getSafeUser(req.session.user), 200);
+                    }
                 }
-            }
-        });
+            })
+        }else{
+            UserManager.read(req.session.user.magnetId, false, function(e, user){
+                if(e){
+                    res.send(e, 400);
+                }else{
+                    if(req.session.user.newMMXUser === true){
+                        req.session.user.newMMXUser = false;
+                        res.send(_.extend(user, {
+                            newMMXUser : true
+                        }), 200);
+                    }else{
+                        res.send(user, 200);
+                    }
+                }
+            });
+        }
     });
 
     app.put('/rest/profile', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
@@ -865,6 +883,8 @@ module.exports = function(app){
         res.contentType('application/json');
         res.send({
             platform     : 'standalone',
+            serverType   : (ENV_CONFIG.WPOAuth && ENV_CONFIG.WPOAuth.enabled) ? 'hosted' : 'default',
+            authUrl      : (ENV_CONFIG.WPOAuth && ENV_CONFIG.WPOAuth.enabled)  ? WPOAuthClient.getAuthCodeUrl() : '',
             emailEnabled : ENV_CONFIG.Email.enabled,
             newMMXUser   : INST_CONFIG.newMMXUser
         }, 200);
