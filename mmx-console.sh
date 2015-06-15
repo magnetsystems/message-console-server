@@ -5,6 +5,7 @@
 source startup.properties
 
 check_port=true
+foreground=false
 
 PROG="mmx-console"
 PID_PATH="./"
@@ -54,10 +55,18 @@ start() {
 		fi
 		check_node
 		if type -p nodejs >/dev/null; then
-			nohup nodejs start.js > mmx-console.out 2>&1&
+	        if [ true == $foreground ] ; then
+			    exec nohup nodejs start.js > mmx-console.out 2>&1
+	        else
+			    nohup nodejs start.js > mmx-console.out 2>&1&
+			fi
 		else
 			if type -p node >/dev/null; then
-				nohup node start.js > mmx-console.out 2>&1&		
+				if [ true == $foreground ] ; then
+					exec nohup node start.js > mmx-console.out 2>&1
+				else
+					nohup node start.js > mmx-console.out 2>&1&
+				fi		
 			else
 				echo "Error! Neither node nor nodejs is in the path. Please correct that and try again. " 1>&2
 				exit 1
@@ -84,21 +93,22 @@ stop() {
 }
 
 print_usage() {
-	echo "Usage: mmx-console.sh [-p] {start|stop|restart}" >&2
+	echo "Usage: mmx-console.sh [-p] [-f] {start|stop|restart}" >&2
 	echo >&2
 	echo "Start, stop, or restart the Magnet Messaging console." >&2
 	echo >&2
 	echo "Options:" >&2
 	echo "    [-p]    No port check when starting." >&2
+	echo "    [-f]    Run in foreground mode for Docker" >&2
 	echo >&2
 }
 
-if [ "$#" == 0 ] || [ "$#" -gt 2 ] ; then
+if [ "$#" == 0 ] || [ "$#" -gt 3 ] ; then
 	print_usage
 	exit 1
 fi
 
-while getopts "p h" opt; do
+while getopts "p h f" opt; do
 	case $opt in
 		p)
 			check_port=false
@@ -106,6 +116,9 @@ while getopts "p h" opt; do
 		h)
 			print_usage
 			exit 1
+			;;
+		f)
+			foreground=true
 			;;
 		\?)
 			print_usage
