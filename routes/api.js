@@ -16,7 +16,8 @@ var UserManager = require('../lib/UserManager')
 module.exports = function(app){
 
     // user log in
-    app.post('/rest/login', function(req, res){
+    app.post('/rest/login', function(req, res, next){
+        if(ENV_CONFIG.WPOAuth && ENV_CONFIG.WPOAuth.enabled) return next();
         AccountManager.manualLogin(req.body.name, req.body.password, function(e, user, newMMXUser){
             if(user){
                 delete user.password;
@@ -112,38 +113,21 @@ module.exports = function(app){
 
     /* USER */
 
-    app.get('/rest/profile', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
-        if(ENV_CONFIG.WPOAuth && ENV_CONFIG.WPOAuth.enabled){
-            WPOAuthClient.getUserInfo(req.session.user, req.session.user.access_token, function(e, data){
-                if(e){
-                    res.send(e, 400);
+    app.get('/rest/profile', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
+        UserManager.read(req.session.user.magnetId, false, function(e, user){
+            if(e){
+                res.send(e, 400);
+            }else{
+                if(req.session.user.newMMXUser === true){
+                    req.session.user.newMMXUser = false;
+                    res.send(_.extend(user, {
+                        newMMXUser : true
+                    }), 200);
                 }else{
-                    if(req.session.user.newMMXUser === true){
-                        req.session.user.newMMXUser = false;
-                        res.send(_.extend(UserManager.getSafeUser(req.session.user), {
-                            newMMXUser : true
-                        }), 200);
-                    }else{
-                        res.send(UserManager.getSafeUser(req.session.user), 200);
-                    }
+                    res.send(user, 200);
                 }
-            })
-        }else{
-            UserManager.read(req.session.user.magnetId, false, function(e, user){
-                if(e){
-                    res.send(e, 400);
-                }else{
-                    if(req.session.user.newMMXUser === true){
-                        req.session.user.newMMXUser = false;
-                        res.send(_.extend(user, {
-                            newMMXUser : true
-                        }), 200);
-                    }else{
-                        res.send(user, 200);
-                    }
-                }
-            });
-        }
+            }
+        });
     });
 
     app.put('/rest/profile', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
@@ -179,7 +163,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.getApps(req.session.user.magnetId, function(e, apps){
             if(e){
                 res.send(e, 400);
@@ -189,7 +173,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/stats', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps/stats', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.getStats(req.session.user.magnetId, function(e, stats){
             if(e){
                 res.send(e, 400);
@@ -199,7 +183,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/configs', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps/configs', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.getConfigs(req.session.user.magnetId, function(e, configs){
             if(e){
                 res.send(e, 400);
@@ -224,7 +208,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.getApp(req.session.user.magnetId, req.params.id, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -234,7 +218,7 @@ module.exports = function(app){
         });
     });
 
-    app.put('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.put('/rest/apps/:id', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.updateApp(req.session.user.magnetId, req.session.user.userType === 'admin', req.params.id, req.body, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -264,7 +248,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/:id/messages', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps/:id/messages', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.getAppMessages(req.session.user.magnetId, req.params.id, req.query, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -274,7 +258,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/:id/notifications', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps/:id/notifications', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.getAppNotifications(req.session.user.magnetId, req.params.id, req.query, req, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -284,7 +268,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/:id/stats', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps/:id/stats', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.getAppStats(req.session.user.magnetId, req.params.id, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -294,7 +278,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/:id/endpoints', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps/:id/endpoints', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.getAppEndpoints(req.session.user.id, req.params.id, req.query, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -304,7 +288,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/:id/users', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps/:id/users', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.getAppUsers(req.session.user.magnetId, req.params.id, req.query, req, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -314,7 +298,7 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/apps/:id/users', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.post('/rest/apps/:id/users', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.createAppUser(req.session.user.magnetId, req.params.id, req.body, req, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -324,7 +308,7 @@ module.exports = function(app){
         });
     });
 
-    app.put('/rest/apps/:id/users/:userId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.put('/rest/apps/:id/users/:userId', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.updateAppUser(req.session.user.magnetId, req.params.id, req.params.userId, req.body, req, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -334,7 +318,7 @@ module.exports = function(app){
         });
     });
 
-    app.delete('/rest/apps/:id/users/:userId', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.delete('/rest/apps/:id/users/:userId', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.deleteAppUser(req.session.user.magnetId, req.params.id, req.params.userId, req, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -344,7 +328,7 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/apps/:id/uploadAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.post('/rest/apps/:id/uploadAPNSCertificate', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.storeAPNSCertificateAndPass(req.session.user.magnetId, req.params.id, req, function(e){
             if(e){
                 res.send(e, 400);
@@ -362,7 +346,7 @@ module.exports = function(app){
         });
     });
 
-    app.delete('/rest/apps/:id/deleteAPNSCertificate', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.delete('/rest/apps/:id/deleteAPNSCertificate', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.deleteAPNSCertificate(req.session.user.magnetId, req.params.id, function(e){
             if(e){
                 res.send(e, 400);
@@ -372,7 +356,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/:id/users/:uid/devices', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps/:id/users/:uid/devices', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.getAppUserDevices(req.session.user.magnetId, req.params.id, req.params.uid, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -382,7 +366,7 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/apps/:id/endpoints/:did/message', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.post('/rest/apps/:id/endpoints/:did/message', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.sendMessage(req.session.user.magnetId, req.params.id, req.params.did, req, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -397,7 +381,7 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/apps/:id/endpoints/:did/ping', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.post('/rest/apps/:id/endpoints/:did/ping', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.sendPing(req.session.user.magnetId, req.params.id, req.params.did, req, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -412,7 +396,7 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/apps/:id/endpoints/:did/notification', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.post('/rest/apps/:id/endpoints/:did/notification', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.sendNotification(req.session.user.magnetId, req.params.id, req.params.did, req, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -427,7 +411,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/:id/devices/:did/messages', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps/:id/devices/:did/messages', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.getDeviceMessages(req.session.user.magnetId, req.params.id, req.params.did, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -437,7 +421,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/:id/devices/:did/tags', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps/:id/devices/:did/tags', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.getDeviceTags(req.session.user.magnetId, req.params.id, req.params.did, req, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -447,7 +431,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.getAppTopics(req.session.user.magnetId, req.params.id, req, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -457,7 +441,7 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.post('/rest/apps/:id/topics', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.createAppTopic(req.session.user.magnetId, req.params.id, req, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -472,7 +456,7 @@ module.exports = function(app){
         });
     });
 
-    app.delete('/rest/apps/:id/topics/:tid', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.delete('/rest/apps/:id/topics/:tid', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.deleteAppTopic(req.session.user.magnetId, req.params.id, encodeURIComponent(req.params.tid), req, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -487,7 +471,7 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/apps/:id/topics/:tid/tags', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.post('/rest/apps/:id/topics/:tid/tags', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         if(!req.body || !req.body.tags || !req.body.tags.length) return res.send('ok', 200);
         MMXManager.addTopicTags(req.session.user.magnetId, req.params.id, encodeURIComponent(req.params.tid), req, function(e, response){
             if(e){
@@ -503,7 +487,7 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/apps/:id/topics/:tid/deleteTags', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.post('/rest/apps/:id/topics/:tid/deleteTags', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         if(!req.body || !req.body.tags || !req.body.tags.length) return res.send('ok', 200);
         MMXManager.removeTopicTags(req.session.user.magnetId, req.params.id, encodeURIComponent(req.params.tid), req, function(e, response){
             if(e){
@@ -519,7 +503,7 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/apps/:id/topics/:tid/publish', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.post('/rest/apps/:id/topics/:tid/publish', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         MMXManager.publishToTopic(req.session.user.magnetId, req.params.id, encodeURIComponent(req.params.tid), req, function(e, response){
             if(e){
                 res.send(e, 400);
@@ -534,7 +518,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/:id/sample', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps/:id/sample', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         var platform = (req.query && req.query.platform && (req.query.platform == 'android' || req.query.platform == 'ios')) ? req.query.platform : 'android';
         MMXSampleApp.getSample(req.session.user.magnetId, req.params.id, platform, function(e, content){
             if(e){
@@ -547,7 +531,7 @@ module.exports = function(app){
         });
     });
 
-    app.get('/rest/apps/:id/sampleConfig', UserManager.checkAuthority(['admin', 'developer'], true), function(req, res){
+    app.get('/rest/apps/:id/sampleConfig', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         var platform = (req.query && req.query.platform && (req.query.platform == 'android' || req.query.platform == 'ios')) ? req.query.platform : 'android';
         MMXSampleApp.getSampleConfig(req.session.user.magnetId, req.params.id, platform, function(e, content){
             if(e){
@@ -564,7 +548,8 @@ module.exports = function(app){
         });
     });
 
-    app.post('/rest/startRegistration', function(req, res){
+    app.post('/rest/startRegistration', function(req, res, next){
+        if(ENV_CONFIG.WPOAuth && ENV_CONFIG.WPOAuth.enabled) return next();
         UserManager.registerGuest({
             firstName   : stripChars(req.body.firstName),
             lastName    : stripChars(req.body.lastName),
@@ -886,8 +871,10 @@ module.exports = function(app){
             serverType   : (ENV_CONFIG.WPOAuth && ENV_CONFIG.WPOAuth.enabled) ? 'hosted' : 'default',
             authUrl      : (ENV_CONFIG.WPOAuth && ENV_CONFIG.WPOAuth.enabled)  ? WPOAuthClient.getAuthCodeUrl() : '',
             emailEnabled : ENV_CONFIG.Email.enabled,
-            newMMXUser   : INST_CONFIG.newMMXUser
+            newMMXUser   : (req.session.user && req.session.user.newMMXUser) || INST_CONFIG.newMMXUser
         }, 200);
+        if(req.session.user)
+            req.session.user.newMMXUser = false;
         INST_CONFIG.newMMXUser = false;
     });
 
