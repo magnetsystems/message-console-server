@@ -71,6 +71,18 @@ fi
 if [ -d "$SCRIPT_DIR/quickstart-ios" ]; then
   ln -s $SCRIPT_DIR/quickstart-ios
 fi
+if [ -d "$SCRIPT_DIR/rpsls-android" ]; then
+  ln -s $SCRIPT_DIR/rpsls-android
+fi
+if [ -d "$SCRIPT_DIR/rpsls-ios" ]; then
+  ln -s $SCRIPT_DIR/rpsls-ios
+fi
+if [ -d "$SCRIPT_DIR/soapbox-android" ]; then
+  ln -s $SCRIPT_DIR/soapbox-android
+fi
+if [ -d "$SCRIPT_DIR/soapbox-ios" ]; then
+  ln -s $SCRIPT_DIR/soapbox-ios
+fi
 
 #create the tar!
 cd ..

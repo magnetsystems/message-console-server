@@ -520,7 +520,10 @@ module.exports = function(app){
 
     app.get('/rest/apps/:id/sample', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         var platform = (req.query && req.query.platform && (req.query.platform == 'android' || req.query.platform == 'ios')) ? req.query.platform : 'android';
-        MMXSampleApp.getSample(req.session.user.magnetId, req.params.id, platform, function(e, content){
+        var sampleId = 'quickstart';
+        if(['quickstart', 'rpsls', 'soapbox'].indexOf(req.query.sampleId) != -1)
+            sampleId = req.query.sampleId;
+        MMXSampleApp.getSample(req.session.user.magnetId, req.params.id, platform, sampleId, function(e, content){
             if(e){
                 res.send(e, 400);
             }else{
@@ -533,12 +536,15 @@ module.exports = function(app){
 
     app.get('/rest/apps/:id/sampleConfig', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         var platform = (req.query && req.query.platform && (req.query.platform == 'android' || req.query.platform == 'ios')) ? req.query.platform : 'android';
+        var sampleId = 'quickstart';
+        if(['quickstart', 'rpsls', 'soapbox'].indexOf(req.query.sampleId) != -1)
+            sampleId = req.query.sampleId;
         MMXSampleApp.getSampleConfig(req.session.user.magnetId, req.params.id, platform, function(e, content){
             if(e){
                 res.send(e, 400);
             }else if(platform == 'android'){
                 res.contentType('text/x-java-properties');
-                res.setHeader('Content-disposition', 'attachment; filename=quickstart.properties');
+                res.setHeader('Content-disposition', 'attachment; filename='+sampleId+'.properties');
                 res.end(content, 'utf-8');
             }else{
                 res.contentType('application/x-plist');
