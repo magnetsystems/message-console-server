@@ -528,7 +528,7 @@ module.exports = function(app){
                 res.send(e, 400);
             }else{
                 res.contentType('application/zip');
-                res.setHeader('Content-disposition', 'attachment; filename='+platform+'_messaging_sample_app.zip');
+                res.setHeader('Content-disposition', 'attachment; filename='+platform+'_messaging_'+sampleId+'_app.zip');
                 res.end(content, 'utf-8');
             }
         });
