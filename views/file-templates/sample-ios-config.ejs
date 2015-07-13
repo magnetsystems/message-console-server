@@ -16,6 +16,8 @@
             <string>{{=params.guestSecret || ''}}</string>
             <key>ShouldForceTLS</key>
             <true/>
+            <key>PublicAPIPort</key>
+            <integer>{{=mmxconfig.configs['mmx.rest.http.port'] || 5220}}</integer>
             <key>AllowInvalidCertificates</key>
             <true/>
         </dict>
