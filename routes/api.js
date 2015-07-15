@@ -536,9 +536,7 @@ module.exports = function(app){
 
     app.get('/rest/apps/:id/sampleConfig', UserManager.checkAuthority(['admin', 'developer', 'preview'], true), function(req, res){
         var platform = (req.query && req.query.platform && (req.query.platform == 'android' || req.query.platform == 'ios')) ? req.query.platform : 'android';
-        var sampleId = 'quickstart';
-        if(['quickstart', 'rpsls', 'soapbox'].indexOf(req.query.sampleId) != -1)
-            sampleId = req.query.sampleId;
+        var sampleId = sanitize(req.query.sampleId).xss();
         MMXSampleApp.getSampleConfig(req.session.user.magnetId, req.params.id, platform, function(e, content){
             if(e){
                 res.send(e, 400);
