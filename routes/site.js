@@ -19,7 +19,7 @@ module.exports = function(app){
                         }else{
                             if(isNewUser)
                                 req.session.user.newMMXUser = true;
-                            res.redirect('/');
+                            res.redirect('/message/');
                         }
                     });
                 }
