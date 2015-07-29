@@ -1,6 +1,6 @@
 {
   "name": "messaging-console-server",
-  "version": "1.0.2-SNAPSHOT",
+  "version": "1.2.1",
   "private": true,
   "dependencies": {
     "adm-zip": "0.4.4",
