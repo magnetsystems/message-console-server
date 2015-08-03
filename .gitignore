@@ -22,6 +22,10 @@ mmx-config.json
 
 quickstart-android
 quickstart-ios
+rpsls-android
+rpsls-ios
+soapbox-android
+soapbox-ios
 
 npm-debug.log
 node_modules
