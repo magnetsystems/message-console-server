@@ -19,7 +19,7 @@
     "istanbul": "0.1.44",
     "jasmine-node": "1.14.5",
     "mysql": "2.0.0-alpha9",
-    "node-uuid": "1.4.5",
+    "node-uuid": "1.4.1",
     "node-xmpp-component": "0.3.0",
     "redis": "0.8.6",
     "sequelize": "2.0.5",
