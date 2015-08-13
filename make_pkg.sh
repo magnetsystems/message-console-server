@@ -21,6 +21,11 @@ npm install
 # npm install node-xmpp-component --no-bin-link
 # rm -rf node_modules/winston/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/
 
+if [ ! -d node_modules ] ; then
+	echo "node.js modules not installed correctly! exiting."
+	exit 1
+fi
+
 # npm dedupe
 
 ### TEST ###
