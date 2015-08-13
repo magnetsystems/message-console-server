@@ -1,11 +1,11 @@
 {
   "name": "messaging-console-server",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "private": true,
   "dependencies": {
     "adm-zip": "0.4.4",
     "bcryptjs": "2.1.0",
-    "connect-redis": "1.4.5",
+    "connect-redis": "1.4.6",
     "ejs": "0.7.1",
     "ejs-locals": "1.0.2",
     "emailjs": "0.3.13",
