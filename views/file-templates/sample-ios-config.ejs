@@ -17,7 +17,7 @@
             <key>ShouldForceTLS</key>
             <true/>
             <key>PublicAPIPort</key>
-            <integer>{{=mmxconfig.configs['mmx.rest.http.port'] || 5220}}</integer>
+            <integer>{{=(mmxconfig.configs['mmx.rest.enable.https'] === 'true' ? mmxconfig.configs['mmx.rest.https.port'] : mmxconfig.configs['mmx.rest.http.port']) || 5220}}</integer>
             <key>AllowInvalidCertificates</key>
             <true/>
         </dict>
