@@ -13,7 +13,7 @@
     "express": "3.4.0",
     "express-ejs-layouts": "1.1.0",
     "follow-redirects": "0.0.3",
-    "forever-monitor": "1.5.3",
+    "forever-monitor": "1.5.2",
     "form-data": "0.2.0",
     "ip": "0.3.2",
     "istanbul": "0.1.44",
@@ -24,8 +24,8 @@
     "redis": "0.8.6",
     "sequelize": "2.0.5",
     "sinon": "1.14.1",
-    "underscore": "1.5.3",
-    "validator": "1.5.3",
+    "underscore": "1.5.2",
+    "validator": "1.5.1",
     "winston": "0.7.2",
     "winston-mail": "0.2.7"
   }
