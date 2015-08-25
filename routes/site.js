@@ -7,20 +7,27 @@ module.exports = function(app){
         if(!req.query.code){
             res.send('invalid-code', 400);
         }else{
-            WPOAuthClient.getAccessToken(req.query.code, function(e, data){
+            req.session.user = {};
+            WPOAuthClient.getAccessToken(req.session.user, req.query.code, function(e, user){
                 if(e){
                     res.send(e, 400);
                 }else{
-                    req.session.user = data;
-                    req.session.user.userType = 'developer';
-                    req.session.user.activated = true;
-                    res.redirect('/');
+                    req.session.user = user;
+                    UserManager.bootstrapUser(req.session.user, function(e, user, isNewUser){
+                        if(e){
+                            res.send(e, 400);
+                        }else{
+                            if(isNewUser)
+                                req.session.user.newMMXUser = true;
+                            res.redirect('/message/');
+                        }
+                    });
                 }
             });
         }
     });
 
-    app.get('/admin', UserManager.checkAuthority(['admin', 'developer']), function(req, res){
+    app.get('/admin', UserManager.checkAuthority(['admin']), function(req, res){
         res.render('admin/index', {
             locals : {
                 title       : 'Administration',

@@ -13,13 +13,7 @@
         </div>
         <div class="tab-pane clearfix" id="mgmt-users">
             <h3>Accounts</h3>
-            {{ if(typeof envConfig != 'undefined' && typeof envConfig.WPOAuth != 'undefined' && envConfig.WPOAuth.enabled === true){ }}
-            <div class="alert alert-info fade in clearfix">
-                <p>You enabled Wordpress OAuth, so accounts should be managed from Wordpress.</p>
-            </div>
-            {{ }else{ }}
             <div class="view-container"></div>
-            {{ } }}
         </div>
         <div class="tab-pane clearfix" id="mgmt-user-details">
             <a href="#/users" class="glyphicon glyphicon-arrow-left"></a><h3 class="inline"> | Account Information</h3>
@@ -578,8 +572,9 @@
                     </div>
                     <div class="col-sm-6">
                         <label class="control-label">Type of User (Internal)</label>
-                        <% if(model.userType == 'developer' || model.userType == 'admin'){ %>
+                        <% if(model.userType == 'preview' || model.userType == 'developer' || model.userType == 'admin'){ %>
                         <select class="form-control"  disabled="disabled" name="userType">
+                            <option value="preview" <% if(model.userType == 'preview'){ %>selected="selected"<% } %>>preview</option>
                             <option value="developer" <% if(model.userType == 'developer'){ %>selected="selected"<% } %>>developer</option>
                             <option value="admin" <% if(model.userType == 'admin'){ %>selected="selected"<% } %>>admin</option>
                         </select>

@@ -21,6 +21,11 @@ npm install
 # npm install node-xmpp-component --no-bin-link
 # rm -rf node_modules/winston/node_modules/request/node_modules/form-data/node_modules/combined-stream/node_modules/delayed-stream/test/
 
+if [ ! -d node_modules ] ; then
+	echo "node.js modules not installed correctly! exiting."
+	exit 1
+fi
+
 # npm dedupe
 
 ### TEST ###
@@ -70,6 +75,18 @@ if [ -d "$SCRIPT_DIR/quickstart-android" ]; then
 fi
 if [ -d "$SCRIPT_DIR/quickstart-ios" ]; then
   ln -s $SCRIPT_DIR/quickstart-ios
+fi
+if [ -d "$SCRIPT_DIR/rpsls-android" ]; then
+  ln -s $SCRIPT_DIR/rpsls-android
+fi
+if [ -d "$SCRIPT_DIR/rpsls-ios" ]; then
+  ln -s $SCRIPT_DIR/rpsls-ios
+fi
+if [ -d "$SCRIPT_DIR/soapbox-android" ]; then
+  ln -s $SCRIPT_DIR/soapbox-android
+fi
+if [ -d "$SCRIPT_DIR/soapbox-ios" ]; then
+  ln -s $SCRIPT_DIR/soapbox-ios
 fi
 
 #create the tar!

@@ -10,7 +10,7 @@ h5{font-weight:normal;font-size:17px;line-height:14px;margin-top:20px}
 pre{background-color:#efefef;border:1px solid rgba(0, 0, 0, 0.15);border-radius:0;font-size:12px;padding:7px}
 .button-group{margin:15px 0}
 .btn{border-radius:6px}
-.btn.btn-primary{border:solid 1px #0a394f;background-color:#036285}
+.btn.btn-primary{border:solid 1px #5e9959;background-color:#6cba66}
 .btn-toggle .btn-default{color:#666}
 .btn-switch .btn-default{color:#fff}
 .btn-switch .btn-default:hover{background:#fff;border-color:#ccc}
@@ -50,7 +50,9 @@ div.disabled{opacity:.6}
 /* MAIN MENU */
 body > .navbar .container-fluid{padding-right:0}
 .navbar{border-radius:0}
-.navbar.navbar-default{background:#1a1a1a;z-index:80;border:none}
+
+
+.navbar.navbar-default{background:#36bbe3;z-index:80;border:none}
 .navbar.navbar-default .navbar-brand{padding:13px 0 0 17px;color:#8c8c8c;font-size:17px}
 .navbar.navbar-default .navbar-brand img{margin-right:-6px;margin-top:-11px;max-width:160px}
 .navbar.navbar-default .alert{margin:6px 0 6px;padding:7px 35px 7px 15px}
@@ -67,11 +69,11 @@ body > .navbar .container-fluid{padding-right:0}
 
 /* user navigation */
 #user-navigation{position:absolute;right:0;top:7px;color:#aaa}
-#user-navigation .fa{color:#aaa;margin-top:5px}
-#user-navigation .caret{color:#aaa;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid}
+#user-navigation .fa{color:#fff;opacity:.7;margin-top:5px}
+#user-navigation .caret{color:#fff;opacity:.7;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid}
 #user-navigation .action{cursor:pointer;outline:none}
 #user-navigation .fa-question-circle{margin-right:8px}
-#user-navigation .separator{width:1px;height:35px;background-color:#aaa}
+#user-navigation .separator{width:1px;height:35px;background-color:#fff;opacity:.7}
 #user-navigation > div{margin:0 6px;float:right}
 #user-navigation .popover-content{padding:0}
 .user-navigation-menu hr{margin:3px 0}
@@ -81,9 +83,10 @@ body > .navbar .container-fluid{padding-right:0}
 .user-navigation-menu a:hover, .user-navigation-menu a:active{outline:none;background-color:#008bcc;color:#fff}
 .user-navigation-menu a:hover i, .user-navigation-menu a:active i{color:#fff !important}
 .user-navigation-menu a.fulldim{height:40px;padding:5px 8px 8px;line-height:28px;text-align:center;width:120px;;border:none;border-radius:4px}
-#user-identity .caret{margin-top:-9px}
-.user-identity-section{margin:0 10px;text-align:right}
-.user-identity-section .placeholder-role{color:#777}
+#user-identity .caret, #page-select .caret{margin-top:-9px;color:#fff;opacity:.7}
+.page-selector{color:#fff;opacity:.7}
+.user-identity-section{margin:0 10px;text-align:right;color:#fff;opacity:.7}
+.user-identity-section .placeholder-role{color:#fff;opacity:.7}
 #page-select .page-selector{margin-top:7px;height:35px}
 #page-select .page-selector .caret{margin-top:0}
 .divide > div{float:right}
@@ -197,7 +200,7 @@ label.aligned{padding:4px 5px 5px 14px}
 /* password hiding */
 .toggling-password-input{position:relative}
 .toggling-password-input.transparent{padding:0;color:#333;height:auto;background:transparent;border:none;outline:none;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;cursor:text}
-.toggling-password-input .glyphicon{cursor:pointer;color:#036285;display:block;font-size:20px;position:absolute;right:8px;top:8px;z-index:100}
+.toggling-password-input .glyphicon{cursor:pointer;color:#6cba66;display:block;font-size:20px;position:absolute;right:8px;top:8px;z-index:100}
 
 /* repeater */
 .repeater-list-items tr.head td{font-weight:700;border-bottom:1px solid #ddd;padding:8px;background:#F9F9F9}
@@ -289,7 +292,7 @@ a.glyphicon{text-decoration:none}
 .rounded{border:solid 1px #ddd;border-radius:4px;padding:8px;cursor:pointer}
 .rounded:hover{background-color:#F5F5F5}
 .fixed{position:fixed;top:130px;right:60px}
-.glyphicon-info-sign{font-size:15px;color:#036285}
+.glyphicon-info-sign{font-size:15px;color:#6cba66}
 
 /* loading bar */
 #loadingBar{display:table;position:absolute;top:0;left:0;width:100%;height:100%;background:#000;opacity:.8;z-index:1100;float:none}
