@@ -70,24 +70,31 @@ cp -R $SCRIPT_DIR/views .
 cp -R $SCRIPT_DIR/node_modules .
 cp _R $SCRIPT_DIR/mmx-console.bat .
 cp -R $SCRIPT_DIR/mmx-console.sh .
-if [ -d "$SCRIPT_DIR/quickstart-android" ]; then
-  cp -a $SCRIPT_DIR/quickstart-android .
-fi
-if [ -d "$SCRIPT_DIR/quickstart-ios" ]; then
-  cp -a $SCRIPT_DIR/quickstart-ios .
-fi
-if [ -d "$SCRIPT_DIR/rpsls-android" ]; then
-  cp -a $SCRIPT_DIR/rpsls-android .
-fi
-if [ -d "$SCRIPT_DIR/rpsls-ios" ]; then
-  cp -a $SCRIPT_DIR/rpsls-ios .
-fi
-if [ -d "$SCRIPT_DIR/soapbox-android" ]; then
-  cp -a $SCRIPT_DIR/soapbox-android .
-fi
-if [ -d "$SCRIPT_DIR/soapbox-ios" ]; then
-  cp -a $SCRIPT_DIR/soapbox-ios .
-fi
+cp -R $SCRIPT_DIR/quickstart-android.zip .
+cp -R $SCRIPT_DIR/rpsls-android.zip .
+cp -R $SCRIPT_DIR/soapbox-android.zip .
+cp -R $SCRIPT_DIR/quickstart-ios.zip .
+cp -R $SCRIPT_DIR/rpsls-ios.zip .
+cp -R $SCRIPT_DIR/soapbox-ios.zip .
+
+#if [ -d "$SCRIPT_DIR/quickstart-android" ]; then
+#  cp -a $SCRIPT_DIR/quickstart-android .
+#fi
+#if [ -d "$SCRIPT_DIR/quickstart-ios" ]; then
+#  cp -a $SCRIPT_DIR/quickstart-ios .
+#fi
+#if [ -d "$SCRIPT_DIR/rpsls-android" ]; then
+#  cp -a $SCRIPT_DIR/rpsls-android .
+#fi
+#if [ -d "$SCRIPT_DIR/rpsls-ios" ]; then
+#  cp -a $SCRIPT_DIR/rpsls-ios .
+#fi
+#if [ -d "$SCRIPT_DIR/soapbox-android" ]; then
+#  cp -a $SCRIPT_DIR/soapbox-android .
+#fi
+#if [ -d "$SCRIPT_DIR/soapbox-ios" ]; then
+#  cp -a $SCRIPT_DIR/soapbox-ios .
+#fi
 
 #create the tar!
 cd ..
