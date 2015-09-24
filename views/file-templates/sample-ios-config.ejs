@@ -15,7 +15,7 @@
             <key>AnonymousSecret</key>
             <string>{{=params.guestSecret || ''}}</string>
             <key>ShouldForceTLS</key>
-            <true/>
+            {{-mmxconfig.configs['xmpp.client.tls.policy'] === 'required' ? '<true/>' : '<false/>'}}
             <key>PublicAPIPort</key>
             <integer>{{=(mmxconfig.configs['mmx.rest.enable.https'] === 'true' ? mmxconfig.configs['mmx.rest.https.port'] : mmxconfig.configs['mmx.rest.http.port']) || 5220}}</integer>
             <key>AllowInvalidCertificates</key>
