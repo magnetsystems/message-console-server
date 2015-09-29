@@ -6,5 +6,5 @@ anonymousSecret={{=params.guestSecret || ''}}
 host={{=mmxconfig.configs['mmx.push.callback.host'] || ''}}
 port=5222
 RESTPort={{=(mmxconfig.configs['mmx.rest.enable.https'] === 'true' ? mmxconfig.configs['mmx.rest.https.port'] : mmxconfig.configs['mmx.rest.http.port']) || 5221}}
-securityLevel=RELAXED
+securityLevel={{=(config.WPOAuth && config.WPOAuth.enabled) ? 'STRICT' : 'RELAXED'}}
 domainName={{=mmxconfig.configs['xmpp.domain'] || 'mmx'}}
