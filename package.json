@@ -1,6 +1,6 @@
 {
   "name": "messaging-console-server",
-  "version": "1.9.1",
+  "version": "1.10.3",
   "private": true,
   "dependencies": {
     "bcryptjs": "2.1.0",
